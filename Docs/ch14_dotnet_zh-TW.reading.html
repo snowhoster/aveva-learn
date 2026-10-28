@@ -1,0 +1,1300 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 14 章　.NET 開發：PML.NET 與 CAF Add-in | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#14-net-pmlnet-caf-add-in">第 14 章 .NET 開發：PML.NET 與 CAF Add-in</a><ul>
+<li><a href="#141">14.1 學習目標</a></li>
+<li><a href="#142-c">14.2 什麼時候用 C</a></li>
+<li><a href="#143-caf">14.3 CAF 架構</a><ul>
+<li><a href="#1431-caf">14.3.1 對照表：CAF 元件與熟悉的設計模式</a></li>
+<li><a href="#1432-addinsxml">14.3.2 模組、執行檔與 Addins.xml</a></li>
+<li><a href="#1433-caf_addins_path-caf_uic_path">14.3.3 CAF_ADDINS_PATH 與 CAF_UIC_PATH</a></li>
+<li><a href="#1434-uic">14.3.4 UIC 檔：宣告式介面</a></li>
+</ul>
+</li>
+<li><a href="#144-api">14.4 資料庫 API</a></li>
+<li><a href="#145-starter-kit-mybrowser">14.5 逐行解說 starter-kit-mybrowser</a><ul>
+<li><a href="#1451-mybrowseraddincs">14.5.1 MyBrowserAddin.cs</a></li>
+<li><a href="#1452-showbrowsercommandcs">14.5.2 ShowBrowserCommand.cs</a></li>
+<li><a href="#1453-attributelistcontrolcs">14.5.3 AttributeListControl.cs</a></li>
+<li><a href="#1454-mybrowseruic">14.5.4 MyBrowser.uic</a></li>
+<li><a href="#1455">14.5.5 範例可以改進的地方</a></li>
+</ul>
+</li>
+<li><a href="#146-pmlnet-pml-c">14.6 PML.NET：讓 PML 呼叫 C</a><ul>
+<li><a href="#1461-c">14.6.1 C# 端：可呼叫類別的規則</a></li>
+<li><a href="#1462-pml-import-using-namespace">14.6.2 PML 端：import 與 using namespace</a></li>
+<li><a href="#1463">14.6.3 型別對應</a></li>
+<li><a href="#1464">14.6.4 事件、例外與生命週期</a></li>
+<li><a href="#1465-pml-net">14.6.5 在 PML 表單中嵌入 .NET 控制項</a></li>
+</ul>
+</li>
+<li><a href="#147">14.7 建置設定</a></li>
+<li><a href="#148">14.8 部署</a><ul>
+<li><a href="#1481-caf-add-in">14.8.1 CAF Add-in 的部署步驟</a></li>
+<li><a href="#1482-pmlnet">14.8.2 PML.NET 組件的部署</a></li>
+<li><a href="#1483">14.8.3 部署檢查清單</a></li>
+</ul>
+</li>
+<li><a href="#149">14.9 除錯</a></li>
+<li><a href="#1410">14.10 開發人員須知</a></li>
+<li><a href="#1411">14.11 練習（只能在訓練專案）</a></li>
+<li><a href="#1412">14.12 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 15 / 21</span><h1 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h1>
+<blockquote>
+<p>本章說明什麼時候該從 PML 換成 C#，以及兩條 .NET 路線的寫法與部署：<strong>CAF Add-in</strong>（在模組內掛一個外掛，擁有自己的視窗、命令與工具列）與 <strong>PML.NET</strong>（把 C# 類別包成 PML 可以 <code>object</code> 出來的物件）。核心範例是 <code>examples/starter-kit-mybrowser/</code>，本章逐行解說。</p>
+<p><strong>資料可信度：</strong> PML.NET 的規則、型別對應、<code>CAF_ADDINS_PATH</code> 與 <code>CAF_UIC_PATH</code> 的行為，取自 AVEVA 官方 <em>.NET Customisation User Guide</em>（help.aveva.com 上的 <strong>AVEVA E3D 2.1</strong> 版本）。AVEVA Marine 12.1 與 E3D 2.1 同屬 PDMS 技術系譜，架構相同，但命名空間與組件版本不同（例如 E3D 2.1 文件寫 <code>Aveva.Core.*</code>，Marine 12.1 的官方範例寫 <code>Aveva.Pdms.*</code>、<code>Aveva.PDMS.PMLNet</code>）。MyBrowser 範例來自 MIT 授權的開源專案 aveva-marine-dev-skill，針對 Marine 12.1 SP4 撰寫，<strong>本課程未在實機上執行</strong>。版本相依的細節標為〔待核對〕，請以公司安裝目錄下的 <code>Samples\</code> 與說明檔核對。</p>
+</blockquote>
+<h2 id="141">14.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>依需求判斷該用 PML、PML.NET、CAF Add-in 或獨立程式。</li>
+<li>說明 CAF 的組成：<code>IAddin</code>、<code>ServiceManager</code>、<code>WindowManager</code>、<code>CommandManager</code>、<code>CommandBarManager</code>，以及它們對應的軟體設計模式。</li>
+<li>讀懂並修改 MyBrowser 範例的每一行，知道 UIC 檔的 <code>CommandId</code> 為什麼必須與 <code>Command.Key</code> 一致。</li>
+<li>用 <code>DbElement</code>、<code>DbAttribute</code>、<code>DbAttributeInstance</code>、<code>CurrentElement</code> 讀取資料庫。</li>
+<li>寫出一個 <code>[PMLNetCallable]</code> 類別，並在 PML 中用 <code>import</code>、<code>using namespace</code>、<code>object</code> 呼叫它。</li>
+<li>設定正確的建置參數（.NET Framework 3.5、x86、<code>Copy Local = false</code>），並用 <code>&lt;模組&gt;Addins.xml</code> 與 <code>CAF_ADDINS_PATH</code> 部署。</li>
+<li>排除「外掛沒有載入」「按鈕沒有反應」「中斷點不會停」等常見問題。</li>
+</ol>
+<h2 id="142-c">14.2 什麼時候用 C</h2>
+<p>PML 能完成大多數查詢、表單與批次工作（第 11 至 13 章）。下表整理四條路線的差別：</p>
+<table>
+<thead>
+<tr>
+<th>路線</th>
+<th>程式在哪裡執行</th>
+<th>適合</th>
+<th>不適合</th>
+<th>部署難度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML</td>
+<td>模組內的 PML 直譯器</td>
+<td>查詢、表單、選單、批次修改</td>
+<td>複雜演算法、網路通訊、資料庫連線</td>
+<td>低：複製到 <code>PMLLIB</code></td>
+</tr>
+<tr>
+<td>PML.NET</td>
+<td>PML 呼叫 C# 類別，在同一個處理程序</td>
+<td>補足 PML 做不到的功能（例如 HTTP、複雜計算、讀寫 Excel）</td>
+<td>大型 UI</td>
+<td>中：DLL 放到安裝目錄</td>
+</tr>
+<tr>
+<td>CAF Add-in</td>
+<td>模組啟動時載入的 C# 外掛</td>
+<td>停靠視窗、事件監聽、工具列、與 ERP／PDM 整合</td>
+<td>只需要一張簡單表單的工具</td>
+<td>中高：DLL、UIC、<code>Addins.xml</code></td>
+</tr>
+<tr>
+<td>獨立程式</td>
+<td>不開圖形介面，自己啟動 AVEVA 核心</td>
+<td>夜間批次、資料轉檔</td>
+<td>需要使用者互動的工具</td>
+<td>高：需要授權與環境設定〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判斷原則：</strong></p>
+<ul>
+<li>能用 PML 完成且不超過幾百行，就用 PML。部署與維護成本最低，公司裡會 PML 的人也比較多。</li>
+<li>只缺「一個 PML 做不到的函式」，用 PML.NET 包一個小類別，介面仍留在 PML。</li>
+<li>需要常駐的視窗、要監聽目前元素變化，或要與外部系統做雙向整合，用 CAF Add-in。</li>
+<li>船體模型資料的讀取，優先考慮 Vitesse 或 marAPI（第 15 章），不要用 .NET 直接猜船體元素的屬性。</li>
+</ul>
+<blockquote>
+<p><strong>開發人員須知：</strong> .NET 外掛和模組跑在<strong>同一個處理程序</strong>裡。外掛當掉、卡住或吃光記憶體，整個 AVEVA 模組會一起出問題，使用者未存檔的工作可能遺失。這和一般 Web 服務「掛了重啟就好」的經驗完全不同，所以例外處理與效能要比平常更保守。</p>
+</blockquote>
+<h2 id="143-caf">14.3 CAF 架構</h2>
+<p>CAF（Common Application Framework）是 AVEVA 模組的應用程式框架。Outfitting、Design、Hull 等模組都是 CAF 的「宿主程式」，啟動時依清單載入外掛，再把框架提供的服務交給外掛使用。</p>
+<p><img alt="CAF 外掛架構：宿主程序讀取 Addins.xml、載入 DLL、呼叫 Start，外掛透過 ServiceManager 取得各種服務，UIC 檔的 CommandId 與 Command.Key 對應" src="images/diagrams/ch14_caf_addin_architecture.svg" /></p>
+<p><em>圖 14-1　CAF 外掛架構與服務。左側是載入順序，中間是透過 <code>ServiceManager</code> 取得的服務，右側是不經 <code>ServiceManager</code> 的靜態入口，下方是 UIC 與命令的綁定關係。（本課程自繪）</em></p>
+<h3 id="1431-caf">14.3.1 對照表：CAF 元件與熟悉的設計模式</h3>
+<table>
+<thead>
+<tr>
+<th>CAF 元件</th>
+<th>作用</th>
+<th>開發人員熟悉的對應</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;模組&gt;Addins.xml</code></td>
+<td>列出要載入的外掛組件名稱</td>
+<td>外掛清單、<code>plugins.json</code></td>
+</tr>
+<tr>
+<td><code>IAddin</code></td>
+<td>外掛主類別必須實作的介面：<code>Name</code>、<code>Description</code>、<code>Start(ServiceManager)</code>、<code>Stop()</code></td>
+<td>外掛進入點介面、生命週期掛勾</td>
+</tr>
+<tr>
+<td><code>ServiceManager</code></td>
+<td>以 <code>GetService(typeof(...))</code> 取得框架服務</td>
+<td>服務定位器（Service Locator）、簡化版的依賴注入容器</td>
+</tr>
+<tr>
+<td><code>WindowManager</code></td>
+<td>建立停靠視窗、MDI 視窗，管理版面</td>
+<td>視窗管理器</td>
+</tr>
+<tr>
+<td><code>CommandManager</code></td>
+<td>註冊命令物件</td>
+<td>命令模式（Command Pattern）的命令登錄處</td>
+</tr>
+<tr>
+<td><code>CommandBarManager</code></td>
+<td>工具列、選單、載入 UIC 檔</td>
+<td>UI 組態載入器</td>
+</tr>
+<tr>
+<td><code>ResourceManager</code></td>
+<td>載入圖示等資源檔</td>
+<td>資源管理</td>
+</tr>
+<tr>
+<td><code>Command</code></td>
+<td>一個可被按鈕、選單觸發的動作，以 <code>Key</code> 識別</td>
+<td>命令物件</td>
+</tr>
+<tr>
+<td>UIC 檔（<code>.uic</code>）</td>
+<td>用 XML 宣告工具列、按鈕與命令的對應</td>
+<td>宣告式 UI 組態、Ribbon XML</td>
+</tr>
+<tr>
+<td><code>CurrentElement.CurrentElementChanged</code></td>
+<td>目前元素改變時觸發的事件</td>
+<td>觀察者模式、事件訂閱</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1432-addinsxml">14.3.2 模組、執行檔與 Addins.xml</h3>
+<p>外掛要掛在哪個模組，就寫進那個模組的清單。以下對應整理自開源知識庫對 Marine 12.1 SP4 <code>marine.bat</code> 的調查，公司版本請自行確認〔待核對〕：</p>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>執行檔</th>
+<th>Add-in 清單</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outfitting</td>
+<td><code>marodes.exe</code></td>
+<td><code>OutfittingAddins.xml</code></td>
+</tr>
+<tr>
+<td>Design</td>
+<td><code>des.exe</code></td>
+<td><code>DesignAddins.xml</code></td>
+</tr>
+<tr>
+<td>Hull Design</td>
+<td><code>marhdes.exe</code></td>
+<td><code>HullDesignAddins.xml</code></td>
+</tr>
+<tr>
+<td>Marine Drafting</td>
+<td><code>mardra.exe</code></td>
+<td><code>marinedraftingaddins.xml</code>（檔名全小寫）</td>
+</tr>
+<tr>
+<td>Outfitting Draft</td>
+<td><code>marodra.exe</code></td>
+<td><code>OutfittingDraftAddins.xml</code></td>
+</tr>
+<tr>
+<td>Admin</td>
+<td><code>adm.exe</code></td>
+<td><code>AdminAddins.xml</code></td>
+</tr>
+</tbody>
+</table>
+<p>清單的格式是 <code>ArrayOfString</code>，每個 <code>&lt;string&gt;</code> 是一個<strong>組件名稱，不含 <code>.dll</code></strong>：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ArrayOfString xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+               xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+  &lt;string&gt;ExplorerAddin&lt;/string&gt;
+  &lt;!-- 官方外掛略 --&gt;
+  &lt;string&gt;MyBrowserAddin&lt;/string&gt;
+&lt;/ArrayOfString&gt;
+</code></pre>
+<h3 id="1433-caf_addins_path-caf_uic_path">14.3.3 CAF_ADDINS_PATH 與 CAF_UIC_PATH</h3>
+<p>官方 <em>.NET Customisation User Guide</em>（E3D 2.1）對兩個環境變數的說明如下：</p>
+<table>
+<thead>
+<tr>
+<th>環境變數</th>
+<th>用途</th>
+<th>未設定時</th>
+<th>多個路徑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CAF_ADDINS_PATH</code></td>
+<td>尋找 <code>&lt;模組名稱&gt;Addins.xml</code></td>
+<td>使用產品安裝目錄</td>
+<td>以分號分隔，依序搜尋</td>
+</tr>
+<tr>
+<td><code>CAF_UIC_PATH</code></td>
+<td>尋找 <code>&lt;模組名稱&gt;Customization.xml</code>、UIC 檔與資源檔</td>
+<td>使用產品安裝目錄；安裝目錄一定會隱含附加在最後</td>
+<td>以分號分隔</td>
+</tr>
+</tbody>
+</table>
+<p>搜尋規則重點：</p>
+<ul>
+<li>框架會在列出的目錄中尋找同名的 Addins.xml，<strong>所有找到的檔案內容都會讀入，重複的項目只算一次</strong>。</li>
+<li>官方建議把安裝目錄也列進 <code>CAF_ADDINS_PATH</code>，否則標準外掛不會載入。</li>
+<li><code>Customization.xml</code> 中可用 <code>$1</code> 代表專案代碼（例如 <code>$1.uic</code> 會換成 <code>APS.uic</code>），可加 <code>Optional="true"</code> 讓檔案不存在時不報錯。UIC 檔依序處理，容器（工具列、選單）必須先定義，才能把按鈕加進去。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 這兩個變數在 Marine 12.1 的行為應與 E3D 2.1 相同（開源知識庫的 Marine 案例文章也提到 <code>CAF_ADDINS_PATH</code>），但請在公司版本實測一次〔待核對〕。實測方式：把一個只含自家外掛的 <code>OutfittingAddins.xml</code> 放在公司目錄，設定 <code>CAF_ADDINS_PATH=公司目錄;安裝目錄</code>，確認自家外掛與官方外掛都有載入。</p>
+</blockquote>
+<h3 id="1434-uic">14.3.4 UIC 檔：宣告式介面</h3>
+<p>UIC 是 XML，描述工具、工具列、選單與右鍵選單。重點節點：</p>
+<table>
+<thead>
+<tr>
+<th>節點</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;Tools&gt;</code></td>
+<td>工具定義池：<code>ButtonTool</code>、<code>StateButtonTool</code>、<code>MenuTool</code>、<code>ComboBoxTool</code> 等</td>
+</tr>
+<tr>
+<td><code>&lt;Command&gt;</code></td>
+<td>工具按下時執行的命令。<code>&lt;Type&gt;Instance&lt;/Type&gt;</code> 加 <code>&lt;CommandId&gt;</code> 指向已註冊的 .NET 命令；<code>&lt;Type&gt;Macro&lt;/Type&gt;</code> 加 <code>&lt;Macro&gt;</code> 可直接執行 PML，例如 <code>show !!myForm</code></td>
+</tr>
+<tr>
+<td><code>&lt;CommandBars&gt;</code></td>
+<td>工具列，列出要放哪些工具</td>
+</tr>
+<tr>
+<td><code>&lt;InstanceTools&gt;</code></td>
+<td>把已定義的工具插入既有選單，可用 <code>Parent</code>、<code>AfterSibling</code> 定位〔待核對〕</td>
+</tr>
+<tr>
+<td><code>&lt;Namespace&gt;</code></td>
+<td>資源命名空間，影響圖示資源的查找</td>
+</tr>
+</tbody>
+</table>
+<p>載入 UIC 有兩種方式：</p>
+<ol>
+<li>在模組的 <code>Customization.xml</code> 登記（會動到官方清單，或需要另外設定 <code>CAF_UIC_PATH</code>）。</li>
+<li><strong>外掛在 <code>Start()</code> 內呼叫 <code>CommandBarManager.AddUICustomizationFile("檔名.uic", "名稱")</code></strong>。MyBrowser 採用這種方式，不需要修改任何官方清單，建議自家外掛一律這樣做。</li>
+</ol>
+<h2 id="144-api">14.4 資料庫 API</h2>
+<p>CAF 外掛讀寫模型資料，主要用 <code>Aveva.Pdms.Database</code> 與 <code>Aveva.Pdms.Shared</code> 兩個命名空間。它們和第 12 章的 PML 操作是同一個資料庫的兩種介面。</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>用途</th>
+<th>對應的 PML 概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DbElement</code></td>
+<td>一個資料庫元素。<code>DbElement.GetElement("/名稱")</code> 依名稱取得，找不到時回傳 null 元素，要用 <code>IsNull</code> 判斷</td>
+<td><code>DBREF</code>、<code>!!ce</code></td>
+</tr>
+<tr>
+<td><code>DbAttribute</code></td>
+<td>一個屬性的定義（包含 UDA），可用 <code>DbAttribute.GetDbAttribute("名稱")</code> 取得</td>
+<td>屬性名稱</td>
+</tr>
+<tr>
+<td><code>DbAttributeInstance</code></td>
+<td>系統屬性的靜態常數，例如 <code>NAME</code>、<code>DESC</code>、<code>FLNM</code>、<code>FLNN</code></td>
+<td>寫在程式裡的屬性名稱</td>
+</tr>
+<tr>
+<td><code>DbElementTypeInstance</code></td>
+<td>元素型別常數，例如 <code>SITE</code>、<code>EQUIPMENT</code>、<code>NOZZLE</code></td>
+<td><code>'EQUI'</code>、<code>'NOZZ'</code></td>
+</tr>
+<tr>
+<td><code>CurrentElement</code></td>
+<td>靜態類別：<code>Element</code> 屬性是目前元素，<code>CurrentElementChanged</code> 事件</td>
+<td><code>!!ce</code> 與 CE 切換</td>
+</tr>
+<tr>
+<td><code>DBElementCollection</code>、<code>TypeFilter</code></td>
+<td>依範圍與條件收集元素</td>
+<td><code>COLLECTION</code> 物件</td>
+</tr>
+<tr>
+<td><code>UndoTransaction</code></td>
+<td>把多筆修改包成一個可復原的步驟</td>
+<td><code>MARKDB</code>／<code>UNDOABLE</code></td>
+</tr>
+</tbody>
+</table>
+<p>讀取屬性的常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>屬性型別</th>
+<th>讀取</th>
+<th>寫入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字串</td>
+<td><code>GetString(att)</code></td>
+<td><code>SetAttribute(att, "文字")</code></td>
+</tr>
+<tr>
+<td>實數</td>
+<td><code>GetDouble(att)</code></td>
+<td><code>SetAttribute(att, 60.0)</code></td>
+</tr>
+<tr>
+<td>整數、布林</td>
+<td><code>GetInteger(att)</code>、<code>GetBool(att)</code></td>
+<td><code>SetAttribute(att, 3)</code>、<code>SetAttribute(att, true)</code></td>
+</tr>
+<tr>
+<td>參照</td>
+<td><code>GetElement(att)</code></td>
+<td><code>SetAttribute(att, 另一個 DbElement)</code></td>
+</tr>
+<tr>
+<td>位置、方向</td>
+<td><code>GetPosition(att)</code>、<code>GetDirection(att)</code></td>
+<td><code>SetAttribute(att, position)</code></td>
+</tr>
+<tr>
+<td>任何型別轉成文字</td>
+<td><code>GetAsString(att)</code></td>
+<td>不適用</td>
+</tr>
+</tbody>
+</table>
+<p>以下是唯讀查詢的寫法：依名稱取得一個 ZONE，列出底下所有設備的名稱與描述。</p>
+<pre><code class="language-csharp">// 示意：依官方 Samples 的 API 寫法改寫，未在實機執行
+using Aveva.Pdms.Database;
+using Aveva.PDMS.Database.Filters;   // 命名空間大小寫依版本而定〔待核對〕
+
+public static string ListEquipment(string zoneName)
+{
+    DbElement zone = DbElement.GetElement(zoneName);
+    if (zone.IsNull)
+        return &quot;找不到 &quot; + zoneName;
+
+    TypeFilter filter = new TypeFilter(DbElementTypeInstance.EQUIPMENT);
+    DBElementCollection coll = new DBElementCollection(zone, filter);
+
+    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+    foreach (DbElement e in coll)
+    {
+        sb.Append(e.GetAsString(DbAttributeInstance.FLNN));
+        sb.Append('\t');
+        sb.AppendLine(e.GetAsString(DbAttributeInstance.DESC));
+    }
+    return sb.ToString();
+}
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 寫入資料庫前，請先讀第 2 章的 Team、Claim 與 Savework。<code>DbElement</code> 有 <code>Claim()</code>、<code>Release()</code>，<code>MDB.CurrentMDB.SaveWork(...)</code> 可提交工作。批次修改要用 <code>UndoTransaction</code> 包起來，讓使用者能一次復原。<strong>本課程的外掛範例全部是唯讀的</strong>，寫入型外掛必須經過第 17 章的審查流程。</p>
+<p><strong>開發人員須知：</strong> 不要在 <code>CurrentElementChanged</code> 或資料庫事件的處理函式裡修改資料庫。修改會再觸發事件，很容易形成遞迴或拖慢整個模組。事件處理函式應該只「讀取並更新畫面」。</p>
+</blockquote>
+<h2 id="145-starter-kit-mybrowser">14.5 逐行解說 starter-kit-mybrowser</h2>
+<p>MyBrowser 是一個停靠在右側的視窗，目前元素一改變，就列出它的所有屬性。原始碼在 <a href="examples/starter-kit-mybrowser/"><code>examples/starter-kit-mybrowser/</code></a>。</p>
+<table>
+<thead>
+<tr>
+<th>檔案</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="examples/starter-kit-mybrowser/src/MyBrowserAddin.cs"><code>src/MyBrowserAddin.cs</code></a></td>
+<td><code>IAddin</code> 主類別：建視窗、註冊命令、訂閱事件、載入資源與 UIC</td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mybrowser/src/ShowBrowserCommand.cs"><code>src/ShowBrowserCommand.cs</code></a></td>
+<td>狀態按鈕命令，與視窗的顯示狀態雙向同步</td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mybrowser/src/AttributeListControl.cs"><code>src/AttributeListControl.cs</code></a></td>
+<td>WinForms 使用者控制項（兩欄 <code>ListView</code>）</td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mybrowser/MyBrowser.uic"><code>MyBrowser.uic</code></a></td>
+<td>工具列與狀態按鈕的宣告</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="MyBrowser 版面示意：工具列上的 My Browser 狀態按鈕，右側停靠視窗顯示目前元素的屬性清單" src="images/cases/mybrowser_mockup.svg" /></p>
+<p><em>圖 14-2　依原始碼繪製的 MyBrowser 版面示意，非實機截圖。</em></p>
+<h3 id="1451-mybrowseraddincs">14.5.1 MyBrowserAddin.cs</h3>
+<pre><code class="language-csharp">using System;
+using Aveva.ApplicationFramework;
+using Aveva.ApplicationFramework.Presentation;
+using Aveva.Pdms.Shared;
+using Aveva.Pdms.Database;
+
+namespace MyCompany.MyBrowser
+{
+    public class MyBrowserAddin : IAddin
+    {
+        private DockedWindow _window;
+        private AttributeListControl _control;
+
+        public string Name { get { return &quot;MyBrowserAddin&quot;; } }
+        public string Description { get { return &quot;CE attribute docked browser&quot;; } }
+
+        public void Start(ServiceManager serviceManager)
+        {
+            try
+            {
+                // 1. Docked window (content = plain WinForms control)
+                WindowManager wm = (WindowManager)serviceManager.GetService(typeof(WindowManager));
+                _control = new AttributeListControl();
+                _window = wm.CreateDockedWindow(&quot;MyCompany.MyBrowser.List&quot;,
+                                                &quot;My Attributes&quot;, _control, DockedPosition.Right);
+                _window.Width = 260;
+                _window.SaveLayout = true;
+
+                // 2. Command (state button)
+                CommandManager cm = (CommandManager)serviceManager.GetService(typeof(CommandManager));
+                cm.Commands.Add(new ShowBrowserCommand(_window));
+
+                // 3. CE change -&gt; refresh
+                CurrentElement.CurrentElementChanged += OnCurrentElementChanged;
+
+                // 4. Icon resources (MyBrowserAddin.resources alongside dll)
+                ResourceManager rm = (ResourceManager)serviceManager.GetService(typeof(ResourceManager));
+                rm.LoadResourceFile(&quot;MyBrowserAddin&quot;);
+
+                // 5. uic mount
+                CommandBarManager cbm = (CommandBarManager)serviceManager.GetService(typeof(CommandBarManager));
+                cbm.AddUICustomizationFile(&quot;MyBrowser.uic&quot;, &quot;MyBrowser&quot;);
+            }
+            catch (Exception ex)
+            {
+                // Start() exceptions are silently swallowed by the framework - self-log
+                System.IO.File.WriteAllText(@&quot;C:\mydev\mybrowser_start_err.txt&quot;, ex.ToString());
+            }
+        }
+
+        public void Stop() { }
+
+        private void OnCurrentElementChanged(object sender, CurrentElementChangedEventArgs e)
+        {
+            if (_window == null) return;
+            _window.Title = &quot;Attr: &quot; + CurrentElement.Element.GetAsString(DbAttributeInstance.FLNM);
+            _control.Clear();
+            foreach (DbAttribute att in CurrentElement.Element.GetAttributes())
+                _control.AddAttribute(att.Name, CurrentElement.Element.GetAsString(att));
+        }
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>程式</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 到 5</td>
+<td><code>using ...</code></td>
+<td>四個命名空間各對應一個 AVEVA 組件：框架核心、表現層（視窗與命令）、共用服務（<code>CurrentElement</code>）、資料庫</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>namespace MyCompany.MyBrowser</code></td>
+<td>建議用「公司.工具」命名，避免與官方或他人外掛衝突</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>class MyBrowserAddin : IAddin</code></td>
+<td>外掛主類別。框架依 <code>Addins.xml</code> 找到組件後，會在其中找實作 <code>IAddin</code> 的類別並建立實例</td>
+</tr>
+<tr>
+<td>11、12</td>
+<td>欄位</td>
+<td>視窗與控制項要存成欄位，事件處理函式才拿得到</td>
+</tr>
+<tr>
+<td>14、15</td>
+<td><code>Name</code>、<code>Description</code></td>
+<td><code>IAddin</code> 要求的兩個唯讀屬性，框架用來識別與顯示外掛</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>Start(ServiceManager)</code></td>
+<td>模組啟動時呼叫一次，所有初始化都在這裡</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>try</code></td>
+<td><strong>整個 <code>Start()</code> 包在 try 內</strong>。原因見第 44 至 48 行</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>GetService(typeof(WindowManager))</code></td>
+<td>向服務定位器要求視窗服務。官方範例一律以 <code>typeof</code> 取得再強制轉型</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>new AttributeListControl()</code></td>
+<td>停靠視窗的內容就是一般的 WinForms <code>UserControl</code>，不需要任何 AVEVA 基底類別</td>
+</tr>
+<tr>
+<td>24、25</td>
+<td><code>CreateDockedWindow(key, title, control, position)</code></td>
+<td>第一個參數是視窗的唯一識別碼，框架用它記住版面；第二個是標題；最後一個是預設停靠位置</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>Width = 260</code></td>
+<td>預設寬度（像素）</td>
+</tr>
+<tr>
+<td>27</td>
+<td><code>SaveLayout = true</code></td>
+<td>記住使用者調整過的位置與大小，下次啟動沿用。副作用：使用者上次關掉視窗，下次也會是關閉狀態</td>
+</tr>
+<tr>
+<td>30、31</td>
+<td><code>cm.Commands.Add(new ShowBrowserCommand(_window))</code></td>
+<td>把命令註冊到命令管理器。命令的 <code>Key</code> 之後會被 UIC 引用</td>
+</tr>
+<tr>
+<td>34</td>
+<td><code>CurrentElementChanged += ...</code></td>
+<td>訂閱目前元素改變的事件。這是靜態事件，不經過 <code>ServiceManager</code></td>
+</tr>
+<tr>
+<td>37、38</td>
+<td><code>LoadResourceFile("MyBrowserAddin")</code></td>
+<td>載入與 DLL 放在一起的 <code>MyBrowserAddin.resources</code>（圖示）。範例沒有附這個檔案；沒有圖示時按鈕會只顯示文字〔待核對：缺少資源檔時是否會丟例外〕</td>
+</tr>
+<tr>
+<td>41、42</td>
+<td><code>AddUICustomizationFile("MyBrowser.uic", "MyBrowser")</code></td>
+<td>由外掛自己載入 UIC，不必修改官方 <code>Customization.xml</code></td>
+</tr>
+<tr>
+<td>44 至 48</td>
+<td><code>catch</code> 寫檔</td>
+<td><strong><code>Start()</code> 丟出的例外會被框架靜默吞掉</strong>，外掛就悄悄失效。所以自行把例外寫到檔案。範例寫死 <code>C:\mydev\</code>，該資料夾不存在時寫檔本身也會失敗，正式版要改（見 14.5.5）</td>
+</tr>
+<tr>
+<td>51</td>
+<td><code>Stop()</code></td>
+<td>模組關閉時呼叫。範例是空的，正式版應解除事件訂閱</td>
+</tr>
+<tr>
+<td>53</td>
+<td><code>OnCurrentElementChanged</code></td>
+<td>事件處理函式，簽章由 <code>CurrentElementChangedEventHandler</code> 決定</td>
+</tr>
+<tr>
+<td>55</td>
+<td><code>if (_window == null) return;</code></td>
+<td>若初始化失敗，避免後續 <code>NullReferenceException</code></td>
+</tr>
+<tr>
+<td>56</td>
+<td><code>GetAsString(DbAttributeInstance.FLNM)</code></td>
+<td>取得元素的完整名稱（Full Name）放在視窗標題</td>
+</tr>
+<tr>
+<td>57</td>
+<td><code>_control.Clear()</code></td>
+<td>清掉上一個元素的屬性</td>
+</tr>
+<tr>
+<td>58、59</td>
+<td><code>GetAttributes()</code> 迴圈</td>
+<td>列舉元素所有屬性，逐一用 <code>GetAsString</code> 轉成文字。這等於 PML 的 <code>Q ATT</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1452-showbrowsercommandcs">14.5.2 ShowBrowserCommand.cs</h3>
+<pre><code class="language-csharp">using System;
+using Aveva.ApplicationFramework.Presentation;
+
+namespace MyCompany.MyBrowser
+{
+    public class ShowBrowserCommand : Command
+    {
+        private readonly DockedWindow _window;
+        public ShowBrowserCommand(DockedWindow window)
+        {
+            Key = &quot;MyCompany.MyBrowser.Show&quot;;   // must match uic CommandId exactly
+            _window = window;
+            _window.Closed += delegate { Checked = false; };
+            WindowManager.Instance.WindowLayoutLoaded += delegate { Checked = _window.Visible; };
+        }
+        public override void Execute()
+        {
+            if (Checked) _window.Show(); else _window.Hide();
+        }
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>繼承 <code>Command</code> 基底類別。命令可以有 <code>Checked</code>、<code>Enabled</code>、<code>Visible</code> 等狀態，框架會依狀態更新按鈕外觀</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>Key</code> 是命令的唯一識別碼，<strong>必須與 UIC 檔的 <code>&lt;CommandId&gt;</code> 逐字相同</strong>。不一致時按鈕照樣出現，但按了沒有任何反應，也不會報錯</td>
+</tr>
+<tr>
+<td>13</td>
+<td>使用者按視窗右上角關閉時，把按鈕的勾選狀態改成未勾選，維持雙向一致</td>
+</tr>
+<tr>
+<td>14</td>
+<td>版面載入完成後（<code>SaveLayout</code> 可能還原成隱藏），依視窗實際狀態設定勾選。這裡用 <code>WindowManager.Instance</code> 單例寫法，與主類別的 <code>GetService</code> 寫法並存；新程式建議統一用 <code>GetService</code></td>
+</tr>
+<tr>
+<td>16 至 19</td>
+<td><code>Execute()</code>：狀態按鈕被按下時，框架先切換 <code>Checked</code>，再呼叫 <code>Execute()</code>；這裡依勾選狀態顯示或隱藏視窗</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1453-attributelistcontrolcs">14.5.3 AttributeListControl.cs</h3>
+<p>這是普通的 WinForms 程式：建立一個 <code>ListView</code>、設成詳細清單模式、加兩欄，提供 <code>AddAttribute</code> 與 <code>Clear</code> 兩個方法。它完全不依賴 AVEVA 組件，可以單獨在測試程式中開發與測試。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 把 UI 控制項寫成「不依賴 AVEVA 的純 WinForms」是很好的分層方式。邏輯可以在一般的 WinForms 測試程式中先跑通，只有最外層的 Add-in 類別需要進 AVEVA 測試，大幅縮短除錯循環。</p>
+</blockquote>
+<h3 id="1454-mybrowseruic">14.5.4 MyBrowser.uic</h3>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;UserInterfaceCustomization xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+                            xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;www.aveva.com&quot;&gt;
+  &lt;Version&gt;1.0&lt;/Version&gt;
+  &lt;Tools&gt;
+    &lt;StateButtonTool Name=&quot;MyCompany.MyBrowser.Show&quot;&gt;
+      &lt;Command&gt;&lt;Type&gt;Instance&lt;/Type&gt;&lt;CommandId&gt;MyCompany.MyBrowser.Show&lt;/CommandId&gt;&lt;Arguments /&gt;&lt;/Command&gt;
+      &lt;Caption&gt;My Browser&lt;/Caption&gt;
+    &lt;/StateButtonTool&gt;
+  &lt;/Tools&gt;
+  &lt;InstanceTools /&gt;
+  &lt;CommandBars&gt;
+    &lt;CommandBar Name=&quot;MyBrowser&quot;&gt;
+      &lt;Tools&gt;&lt;Tool Name=&quot;MyCompany.MyBrowser.Show&quot; /&gt;&lt;/Tools&gt;
+      &lt;DockedColumn&gt;1&lt;/DockedColumn&gt;&lt;DockedRow&gt;1&lt;/DockedRow&gt;
+      &lt;DockedPosition&gt;Top&lt;/DockedPosition&gt;
+      &lt;AllowFloating&gt;true&lt;/AllowFloating&gt;&lt;AllowHiding&gt;true&lt;/AllowHiding&gt;
+      &lt;FillEntireRow&gt;false&lt;/FillEntireRow&gt;&lt;ShowInToolbarList&gt;true&lt;/ShowInToolbarList&gt;
+      &lt;Caption&gt;My Browser&lt;/Caption&gt;
+    &lt;/CommandBar&gt;
+  &lt;/CommandBars&gt;
+  &lt;TaskPanes /&gt;&lt;ContextMenus /&gt;
+  &lt;Namespace&gt;MyBrowserAddin&lt;/Namespace&gt;
+&lt;/UserInterfaceCustomization&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td><code>StateButtonTool</code>：有勾選狀態的按鈕，勾選狀態與命令的 <code>Checked</code> 雙向綁定。<code>Name</code> 是工具識別碼</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>&lt;Type&gt;Instance&lt;/Type&gt;</code> 表示執行一個已註冊的命令實例；<code>&lt;CommandId&gt;</code> 就是 <code>ShowBrowserCommand.Key</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>按鈕上的文字</td>
+</tr>
+<tr>
+<td>13、14</td>
+<td>定義一條名為 <code>MyBrowser</code> 的工具列，裡面放第 6 行定義的工具</td>
+</tr>
+<tr>
+<td>15 至 18</td>
+<td>工具列預設停靠位置與行為：停在上方、可浮動、可隱藏、出現在工具列清單中</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>Namespace</code>：資源命名空間，與 <code>LoadResourceFile</code> 的名稱配合，用於圖示查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1455">14.5.5 範例可以改進的地方</h3>
+<p>MyBrowser 是教學骨架，放到正式環境前建議做以下修改：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>風險</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>錯誤記錄路徑寫死 <code>C:\mydev\</code></td>
+<td>資料夾不存在時連錯誤都記錄不了</td>
+<td>改寫到 <code>%TEMP%</code> 或公司統一的記錄目錄，路徑由設定檔決定</td>
+</tr>
+<tr>
+<td><code>Stop()</code> 沒有解除事件訂閱</td>
+<td>模組關閉時事件仍指向已釋放的物件</td>
+<td>在 <code>Stop()</code> 中 <code>CurrentElementChanged -= ...</code></td>
+</tr>
+<tr>
+<td>目前元素可能是 null 或已刪除</td>
+<td>事件處理丟例外，可能影響模組</td>
+<td>先檢查 <code>IsNull</code>，整個處理函式包 try</td>
+</tr>
+<tr>
+<td>每次切換元素都重建清單</td>
+<td>屬性多時畫面閃爍</td>
+<td>使用 <code>ListView.BeginUpdate()</code>／<code>EndUpdate()</code></td>
+</tr>
+<tr>
+<td>視窗隱藏時仍在刷新</td>
+<td>浪費效能</td>
+<td>視窗不可見時直接返回</td>
+</tr>
+</tbody>
+</table>
+<p>改進後的事件處理函式如下：</p>
+<pre><code class="language-csharp">// 示意：在 MyBrowserAddin 類別內替換原本的 Stop() 與事件處理函式
+public void Stop()
+{
+    CurrentElement.CurrentElementChanged -= OnCurrentElementChanged;
+}
+
+private void OnCurrentElementChanged(object sender, CurrentElementChangedEventArgs e)
+{
+    try
+    {
+        if (_window == null || !_window.Visible) return;
+        DbElement ce = CurrentElement.Element;
+        if (ce == null || ce.IsNull) return;
+
+        _window.Title = &quot;Attr: &quot; + ce.GetAsString(DbAttributeInstance.FLNM);
+        _control.Clear();
+        foreach (DbAttribute att in ce.GetAttributes())
+            _control.AddAttribute(att.Name, ce.GetAsString(att));
+    }
+    catch (Exception ex)
+    {
+        Log.Write(ex);   // 公司自訂的記錄類別，寫到設定檔指定的目錄
+    }
+}
+</code></pre>
+<p><code>AttributeListControl</code> 的 <code>Clear</code> 與 <code>AddAttribute</code> 若要支援 <code>BeginUpdate</code>，可以再加一個 <code>SetAttributes(IList)</code> 方法一次填入。</p>
+<h2 id="146-pmlnet-pml-c">14.6 PML.NET：讓 PML 呼叫 C</h2>
+<p>PML.NET 讓你寫一個 C# 類別，PML 端就能像使用內建物件一樣 <code>object</code> 出來、呼叫方法。官方說明的機制是：PML.NET Engine 以反射載入組件，為每個可呼叫類別在<strong>執行時期產生 PML 代理類別</strong>（Proxy），PML 與 .NET 之間不需要額外的介接程式。</p>
+<p><img alt="PML.NET 呼叫流程：PML 端 import、using namespace、object、呼叫方法與註冊事件；Engine 反射載入並轉換型別；.NET 端的 PMLNetCallable 類別" src="images/diagrams/ch14_pmlnet_call_flow.svg" /></p>
+<p><em>圖 14-3　PML.NET 呼叫流程。中間的 Engine 負責載入、建立代理類別、轉換型別與例外；事件是 .NET 回呼 PML 的唯一途徑。（本課程自繪，依官方 .NET Customisation User Guide 整理）</em></p>
+<h3 id="1461-c">14.6.1 C# 端：可呼叫類別的規則</h3>
+<p>依官方指南，PML 可呼叫的類別必須符合：</p>
+<table>
+<thead>
+<tr>
+<th>規則</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>組件、類別、成員都要標記 <code>PMLNetCallable</code></td>
+<td>Engine 只載入標記過的組件，也只看標記過的類別與方法</td>
+</tr>
+<tr>
+<td>只能公開 <code>public class</code></td>
+<td>struct、interface、enum 不能直接給 PML 使用</td>
+</tr>
+<tr>
+<td>必須有公開、標記過的<strong>預設建構子</strong></td>
+<td>沒有參數的建構子</td>
+</tr>
+<tr>
+<td>必須有 <code>Assign()</code> 方法</td>
+<td>PML 的 <code>!b = !a</code> 是「值的複製」語意，由 <code>Assign</code> 實作</td>
+</tr>
+<tr>
+<td>方法不可使用預設參數</td>
+<td>需要不同參數時改用多載</td>
+</tr>
+<tr>
+<td>名稱不分大小寫後必須唯一</td>
+<td>PML 不分大小寫，<code>Foo()</code> 與 <code>foo()</code> 會衝突</td>
+</tr>
+<tr>
+<td>型別限制</td>
+<td>見 14.6.3 的型別對應表</td>
+</tr>
+<tr>
+<td>組件位置</td>
+<td>安裝目錄（<code>%AVEVA_DESIGN_EXE%</code>，Marine 為 exe 目錄）、其子目錄或 UNC 路徑</td>
+</tr>
+</tbody>
+</table>
+<p>以下是一個最小可呼叫類別：</p>
+<pre><code class="language-csharp">// 示意：依 E3D 2.1 官方指南與 Marine 12.1 PMLNetExample 範例結構撰寫，未在實機執行
+// AssemblyInfo.cs
+using Aveva.PDMS.PMLNet;            // Marine 12.1 範例的命名空間；E3D 2.1 為 Aveva.Core.PMLNet〔待核對〕
+[assembly: PMLNetCallable()]
+
+// PipeHelper.cs
+using System;
+using System.Collections;
+using Aveva.PDMS.PMLNet;
+
+namespace MyCo.Tools
+{
+    [PMLNetCallable()]
+    public class PipeHelper
+    {
+        private string _prefix = &quot;&quot;;
+
+        [PMLNetCallable()]
+        public PipeHelper() { }
+
+        // PML 賦值語意需要；把 that 的狀態複製到自己
+        [PMLNetCallable()]
+        public void Assign(PipeHelper that)
+        {
+            _prefix = that._prefix;
+        }
+
+        [PMLNetCallable()]
+        public void SetPrefix(string prefix) { _prefix = prefix; }
+
+        // PML 的 REAL 一律對應 double，不要用 int 參數
+        [PMLNetCallable()]
+        public string Describe(string name, double level)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new PMLNetException(1000, 1, &quot;name is empty&quot;);
+            return _prefix + name + &quot; (L&quot; + level.ToString(&quot;0&quot;) + &quot;)&quot;;
+        }
+
+        // PML ARRAY 對應 Hashtable，鍵為數字
+        [PMLNetCallable()]
+        public double Sum(Hashtable values)
+        {
+            double total = 0;
+            foreach (object v in values.Values) total += (double)v;
+            return total;
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>Assign</code> 即使類別沒有狀態也必須寫。開源知識庫對 Marine 12.1 安裝目錄的反射普查顯示，幾乎所有官方 PML.NET 類別都有 <code>Assign</code>。<code>PMLNetException</code> 的建構子與命名空間請以公司版本的 <code>PMLNetExample</code> 範例核對〔待核對〕。</p>
+</blockquote>
+<h3 id="1462-pml-import-using-namespace">14.6.2 PML 端：import 與 using namespace</h3>
+<pre><code class="language-pml">-- 示意：在命令列或巨集中使用 PipeHelper
+import 'MyCoPmlNet'
+handle (1000,0)
+  -- 組件已匯入過，忽略
+endhandle
+
+using namespace 'MyCo.Tools'
+
+!h = object PIPEHELPER()
+!h.SetPrefix('LINE-')
+!text = !h.Describe('P1001', 2)
+$P $!text
+
+q meth !h
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>敘述</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>import '組件名'</code></td>
+<td>載入組件，名稱不含 <code>.dll</code>、不分大小寫。同一個工作階段重複匯入會丟出錯誤，所以慣例上緊接 <code>handle (1000,0)</code> 忽略</td>
+</tr>
+<tr>
+<td><code>using namespace '完整命名空間'</code></td>
+<td>讓後面的 <code>object</code> 找得到類別。範圍到巨集結束為止；<strong>不能寫部分命名空間再拼接</strong></td>
+</tr>
+<tr>
+<td><code>object PIPEHELPER()</code></td>
+<td>建立 .NET 實例與 PML 代理。類別名不分大小寫；找不到時報 <code>(46,87)</code></td>
+</tr>
+<tr>
+<td><code>!h.Describe('P1001', 2)</code></td>
+<td>呼叫方法，引數依參照傳遞</td>
+</tr>
+<tr>
+<td><code>q meth !h</code></td>
+<td>列出物件所有方法與建構子的簽章，是查 API 最可靠的方式</td>
+</tr>
+<tr>
+<td><code>q var !h</code></td>
+<td>顯示物件的命名空間與類別名</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例也示範了以完整路徑匯入開發中的組件，方便在不覆蓋安裝目錄的情況下測試：</p>
+<pre><code class="language-pml">import |C:\dev\PMLNetExample\bin\Debug\pmlnetexample|
+</code></pre>
+<p>〔待核對〕Marine 12.1 是否同樣支援以完整路徑匯入，請在訓練環境實測。</p>
+<h3 id="1463">14.6.3 型別對應</h3>
+<table>
+<thead>
+<tr>
+<th>PML 型別</th>
+<th>.NET 型別</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REAL</code></td>
+<td><code>double</code></td>
+<td>PML 沒有整數型別，C# 參數請用 <code>double</code></td>
+</tr>
+<tr>
+<td><code>STRING</code></td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>BOOLEAN</code></td>
+<td><code>bool</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ARRAY</code></td>
+<td><code>Hashtable</code></td>
+<td>鍵必須是數字；允許稀疏與多維陣列</td>
+</tr>
+<tr>
+<td>PML.NET 物件</td>
+<td>對應的 <code>PMLNetCallable</code> 類別</td>
+<td></td>
+</tr>
+<tr>
+<td><code>DIRECTION</code>、<code>ORIENTATION</code> 等</td>
+<td>不能直接傳遞</td>
+<td>改傳字串或數字陣列</td>
+</tr>
+<tr>
+<td><code>DBREF</code></td>
+<td>不能直接傳遞</td>
+<td>官方說明可用陣列或字串傳遞，例如傳 <code>!e.string()</code> 或參照字串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1464">14.6.4 事件、例外與生命週期</h3>
+<p><strong>事件</strong>：.NET 不能直接呼叫 PML，只能透過事件回呼。C# 端宣告 <code>[PMLNetCallable()] public event PMLNetDelegate.PMLNetEventHandler Done;</code>，以 <code>ArrayList</code> 傳參數；PML 端：</p>
+<pre><code class="language-pml">-- 示意：!this 是表單或物件，onDone 是它的方法
+!handle = !h.addeventhandler('Done', !this, 'onDone')
+-- 不再需要時
+!h.removeeventhandler('Done', !handle)
+
+define method .onDone(!args is ARRAY)
+  $P Done: $!args[1]
+endmethod
+</code></pre>
+<p><strong>例外</strong>：C# 端 <code>throw new PMLNetException(1000, 1, "訊息")</code>，PML 端用 <code>handle (1000,1)</code> 攔截。一般 .NET 例外（例如 <code>ArgumentException</code>）會以 <code>(1000,n)</code> 形式出現；其他例外會交給 AVEVA 的全域例外處理器，可能直接跳出錯誤對話框。所以 C# 端應自行攔截並轉成 <code>PMLNetException</code>。</p>
+<p><strong>生命週期</strong>：.NET 實例與 PML 代理同生共死。區域變數在巨集或函式結束時釋放；全域變數（<code>!!x</code>）存活到工作階段結束；切換模組時不會保留。</p>
+<h3 id="1465-pml-net">14.6.5 在 PML 表單中嵌入 .NET 控制項</h3>
+<p>第 13 章的 MyCollect 範例已經用到這個技巧：表單中放 <code>container ... pmlNetControl</code>，再把 .NET 控制項的 <code>handle()</code> 指給容器。</p>
+<pre><code class="language-pml">-- 示意：節錄自第 13 章 MyCollect 的寫法
+container .netFrame 'Grid' nobox pmlNetControl width 60 height 16 anchor all
+...
+!this.grid = object NETGRIDCONTROL()
+!this.netFrame.control = !this.grid.handle()
+</code></pre>
+<p>自己寫的 WinForms 控制項只要也標記成 <code>PMLNetCallable</code>，就能用相同方式嵌入 PML 表單。官方 <code>Samples</code> 中的 <code>PMLGridExample</code> 是完整範例。</p>
+<h2 id="147">14.7 建置設定</h2>
+<p>Marine 12.1 的 .NET 環境是 Visual Studio 2008 世代。用新版 Visual Studio 開發時，最常見的錯誤是專案被自動升級到 .NET 4.x 或 AnyCPU。</p>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專案類型</td>
+<td>類別庫（Class Library）</td>
+<td>外掛與 PML.NET 都是 DLL</td>
+</tr>
+<tr>
+<td>目標 Framework</td>
+<td><strong>.NET Framework 3.5</strong>（2.0 至 3.5 皆可）</td>
+<td>宿主程式執行在 CLR 2.0；4.x 組件無法載入</td>
+</tr>
+<tr>
+<td>平台目標</td>
+<td><strong>x86</strong></td>
+<td>宿主程式是 32 位元；用 x64 編譯會出現 <code>BadImageFormatException</code></td>
+</tr>
+<tr>
+<td>AVEVA 組件參考</td>
+<td>HintPath 指向安裝目錄，<strong>Copy Local = false</strong></td>
+<td>執行時使用安裝目錄的版本；複製一份到輸出目錄會造成版本衝突</td>
+</tr>
+<tr>
+<td>Specific Version</td>
+<td>對準公司安裝的版本</td>
+<td>升級 Service Pack 後要重新建置</td>
+</tr>
+<tr>
+<td>第三方 UI 函式庫</td>
+<td>使用安裝目錄附帶的版本（例如 Infragistics）</td>
+<td>不要自帶更高版本的同名 DLL</td>
+</tr>
+</tbody>
+</table>
+<p>常用參考：</p>
+<table>
+<thead>
+<tr>
+<th>組件</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Aveva.ApplicationFramework</code></td>
+<td><code>IAddin</code>、<code>ServiceManager</code></td>
+</tr>
+<tr>
+<td><code>Aveva.ApplicationFramework.Presentation</code></td>
+<td><code>WindowManager</code>、<code>CommandManager</code>、<code>CommandBarManager</code>、<code>Command</code>、<code>DockedWindow</code></td>
+</tr>
+<tr>
+<td><code>Aveva.Pdms.Shared</code></td>
+<td><code>CurrentElement</code>、<code>Selection</code></td>
+</tr>
+<tr>
+<td><code>Aveva.Pdms.Database</code></td>
+<td><code>DbElement</code>、<code>DbAttribute</code>、<code>MDB</code>、<code>Project</code></td>
+</tr>
+<tr>
+<td><code>Aveva.Pdms.Geometry</code></td>
+<td><code>Position</code>、<code>Direction</code>、<code>Orientation</code></td>
+</tr>
+<tr>
+<td><code>PMLNet</code>〔待核對：組件名〕</td>
+<td><code>PMLNetCallable</code>、<code>PMLNetException</code>、<code>PMLNetDelegate</code></td>
+</tr>
+</tbody>
+</table>
+<p>專案檔中參考的寫法：</p>
+<pre><code class="language-xml">&lt;!-- 示意：csproj 節錄，路徑請改成公司安裝目錄 --&gt;
+&lt;PropertyGroup&gt;
+  &lt;TargetFrameworkVersion&gt;v3.5&lt;/TargetFrameworkVersion&gt;
+  &lt;PlatformTarget&gt;x86&lt;/PlatformTarget&gt;
+&lt;/PropertyGroup&gt;
+&lt;ItemGroup&gt;
+  &lt;Reference Include=&quot;Aveva.ApplicationFramework&quot;&gt;
+    &lt;HintPath&gt;C:\AVEVA\Marine\OH12.1.SP4\Aveva.ApplicationFramework.dll&lt;/HintPath&gt;
+    &lt;Private&gt;False&lt;/Private&gt;
+  &lt;/Reference&gt;
+  &lt;Reference Include=&quot;Aveva.Pdms.Database&quot;&gt;
+    &lt;HintPath&gt;C:\AVEVA\Marine\OH12.1.SP4\Aveva.Pdms.Database.dll&lt;/HintPath&gt;
+    &lt;Private&gt;False&lt;/Private&gt;
+  &lt;/Reference&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p><code>&lt;Private&gt;False&lt;/Private&gt;</code> 就是 Visual Studio 屬性視窗中的 <code>Copy Local = false</code>。</p>
+<h2 id="148">14.8 部署</h2>
+<h3 id="1481-caf-add-in">14.8.1 CAF Add-in 的部署步驟</h3>
+<ol>
+<li>把 <code>MyBrowserAddin.dll</code> 與 <code>MyBrowser.uic</code>（以及 <code>.resources</code>，若有）放到安裝目錄，或公司自訂的外掛目錄。</li>
+<li>在模組的 Addins.xml 加入 <code>&lt;string&gt;MyBrowserAddin&lt;/string&gt;</code>。</li>
+<li>重新啟動模組。DLL 在模組執行期間會被鎖定，<strong>更新前必須先關閉模組</strong>。</li>
+<li>冒煙測試：工具列出現 <code>My Browser</code> 按鈕；按下後右側出現視窗；在 Explorer 點選不同元素，屬性清單會跟著變。</li>
+</ol>
+<p><strong>不修改官方檔案的做法</strong>：把公司版的 <code>OutfittingAddins.xml</code>（只列自家外掛）放在公司目錄，啟動批次檔設定 <code>CAF_ADDINS_PATH=公司目錄;安裝目錄</code>。官方檔案保持原樣，SP 升級時不會被覆蓋。</p>
+<pre><code class="language-bat">@echo off
+rem 示意：公司啟動批次檔的片段，在呼叫 AVEVA 原本的啟動批次檔之前設定
+set COMPANY_TOOLS=\\toolsrv\aveva_tools\current
+set CAF_ADDINS_PATH=%COMPANY_TOOLS%\caf;C:\AVEVA\Marine\OH12.1.SP4
+set CAF_UIC_PATH=%COMPANY_TOOLS%\caf
+rem 之後呼叫原本的 marine.bat 與模組參數
+</code></pre>
+<p>〔待核對〕外掛 DLL 本身是否能放在安裝目錄以外，取決於框架的組件解析方式。若放在其他目錄載入失敗，Addins.xml 中可試著寫相對於安裝目錄的路徑（官方 Diagrams 清單有 <code>AddinsData\...</code> 的寫法），或回到「DLL 放安裝目錄、清單放公司目錄」的折衷方案。</p>
+<h3 id="1482-pmlnet">14.8.2 PML.NET 組件的部署</h3>
+<p>PML.NET 組件不需要登記在 Addins.xml，只要放在 <code>import</code> 找得到的位置（安裝目錄或其子目錄）。若同一個 DLL 同時是 Add-in 又提供 PML.NET 類別，兩種機制各自運作：Addins.xml 讓它在啟動時執行 <code>Start()</code>，<code>import</code> 讓 PML 使用它的類別。</p>
+<h3 id="1483">14.8.3 部署檢查清單</h3>
+<ul>
+<li>[ ] 平台 x86、目標 .NET Framework 3.5、AVEVA 參考 <code>Copy Local = false</code>。</li>
+<li>[ ] DLL、UIC、資源檔都已複製；Addins.xml 已登記，舊名稱已移除。</li>
+<li>[ ] 每個 UIC 的 <code>CommandId</code> 與程式中的 <code>Key</code> 逐一比對過；每個按鈕都點過一次。</li>
+<li>[ ] <code>Start()</code> 的例外有寫入記錄檔，記錄檔路徑可寫。</li>
+<li>[ ] 部署與移除步驟已寫在工具說明中（第 17 章）。</li>
+</ul>
+<h2 id="149">14.9 除錯</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>做法</th>
+<th>適用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F5 直接啟動</td>
+<td>專案屬性 → 偵錯 → 啟動外部程式設為模組執行檔（例如 <code>marodes.exe</code>），工作目錄設為安裝目錄</td>
+<td>要在 <code>Start()</code> 設中斷點時</td>
+</tr>
+<tr>
+<td>附加到處理程序</td>
+<td>模組已開啟時，Visual Studio「偵錯 → 附加至處理序」選 <code>marodes.exe</code></td>
+<td>除錯事件處理、按鈕命令</td>
+</tr>
+<tr>
+<td>自行記錄</td>
+<td>寫記錄檔或 <code>System.Diagnostics.Trace</code></td>
+<td>使用者端的問題重現</td>
+</tr>
+<tr>
+<td>PML 端查詢</td>
+<td><code>q meth !obj</code>、<code>q var !obj</code></td>
+<td>PML.NET 方法名稱或簽章不符</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 模組通常透過啟動批次檔（設定大量環境變數）啟動。從 Visual Studio 直接啟動執行檔時，環境變數可能不完整，導致專案或 PMLLIB 找不到。比較穩定的做法是：先用公司正式的方式啟動模組，再從 Visual Studio「附加至處理序」。</p>
+</blockquote>
+<p>常見錯誤：</p>
+<table>
+<thead>
+<tr>
+<th>症狀</th>
+<th>可能原因</th>
+<th>處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>外掛完全沒有載入、中斷點不會停</td>
+<td>Addins.xml 名稱寫錯（含 <code>.dll</code>、大小寫）、DLL 不在目錄、位元數錯</td>
+<td>逐項核對；看 Windows 事件或自己的記錄</td>
+</tr>
+<tr>
+<td><code>BadImageFormatException</code></td>
+<td>編譯成 x64 或 AnyCPU 在 64 位元行為</td>
+<td>改成 x86</td>
+</tr>
+<tr>
+<td><code>FileLoadException</code>、版本不符</td>
+<td>參考版本與安裝版本不同</td>
+<td>參考指向公司安裝目錄，SP 升級後重建</td>
+</tr>
+<tr>
+<td>外掛載入了但功能沒出現</td>
+<td><code>Start()</code> 中途丟例外被吞掉</td>
+<td>看 <code>catch</code> 寫出的記錄檔</td>
+</tr>
+<tr>
+<td>按鈕出現但按了沒反應</td>
+<td>UIC 的 <code>CommandId</code> 與 <code>Key</code> 不一致</td>
+<td>逐字比對；複製貼上而不要手打</td>
+</tr>
+<tr>
+<td>停靠視窗沒出現</td>
+<td><code>SaveLayout</code> 記住了上次的隱藏狀態</td>
+<td>按工具列按鈕顯示，或重設版面</td>
+</tr>
+<tr>
+<td>PML 報 <code>(46,87)</code></td>
+<td><code>using namespace</code> 未寫或拼錯、類別沒有標記</td>
+<td><code>q namespaces</code> 檢查目前範圍</td>
+</tr>
+<tr>
+<td>換了 DLL 沒效果</td>
+<td>模組仍在執行，舊 DLL 被鎖定</td>
+<td>關閉模組再覆蓋</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1410">14.10 開發人員須知</h2>
+<ul>
+<li><strong>先唯讀，再寫入。</strong> 第一個外掛應該像 MyBrowser 一樣只讀資料。會寫入資料庫的外掛要有預覽、確認、<code>UndoTransaction</code> 與第 17 章的審查。</li>
+<li><strong>UI 執行緒。</strong> 資料庫 API 與 WinForms 控制項都應在主執行緒使用。需要長時間執行的工作（例如呼叫 Web API），不要卡住主執行緒；若使用背景執行緒，結果要用 <code>Control.Invoke</code> 回到主執行緒再更新畫面，且背景執行緒中不要呼叫資料庫 API〔待核對：官方對執行緒安全的完整說明〕。</li>
+<li><strong>不要改官方檔案。</strong> 用 <code>AddUICustomizationFile</code> 載入自己的 UIC、用 <code>CAF_ADDINS_PATH</code> 放自己的清單。</li>
+<li><strong>反編譯風險。</strong> .NET DLL 可以被反編譯，密碼與連線字串不可寫在程式中；需要時放在受權限保護的設定檔或使用 Windows 驗證。</li>
+<li><strong>版本綁定。</strong> 外掛綁定安裝版本的 AVEVA 組件，Service Pack 升級後要重建並回歸測試（第 17 章）。</li>
+<li><strong>查證 API。</strong> 官方 <code>Samples</code> 與安裝目錄附帶的 XML 文件說明（例如 <code>ApplicationFramework.xml</code>）是最可靠的依據；網路文章與 AI 生成的程式碼常混用 E3D 與 PDMS 的命名空間。</li>
+</ul>
+<h2 id="1411">14.11 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>建置 MyBrowser。</strong> 依 14.7 建立專案，加入三個 <code>.cs</code> 檔，建置出 x86、.NET 3.5 的 <code>MyBrowserAddin.dll</code>。用 <code>corflags</code> 或屬性視窗確認位元數。</li>
+<li><strong>部署與冒煙測試。</strong> 在訓練環境部署 MyBrowser，記錄你修改了哪些檔案、怎麼移除。</li>
+<li><strong>故意做錯。</strong> 把 UIC 的 <code>CommandId</code> 改掉一個字母，觀察按鈕的行為；再改成 x64 編譯，觀察錯誤。把觀察寫成你們團隊的排錯筆記。</li>
+<li><strong>改進範例。</strong> 套用 14.5.5 的改進，並在視窗上方加一個文字框，只列出名稱包含該文字的屬性。</li>
+<li><strong>PML.NET 小類別。</strong> 寫一個 <code>PMLNetCallable</code> 類別，提供 <code>ToUpperTrim(string)</code> 與 <code>Sum(Hashtable)</code> 兩個方法，在 PML 命令列 <code>import</code>、<code>q meth</code>、呼叫並用 <code>handle (1000,1)</code> 攔截你故意丟出的例外。</li>
+</ol>
+<h2 id="1412">14.12 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 PML、PML.NET、CAF Add-in、獨立程式各適合什麼情況。</li>
+<li>[ ] 我能畫出 CAF 的載入順序：Addins.xml → DLL → <code>IAddin.Start(ServiceManager)</code> → 取得服務。</li>
+<li>[ ] 我知道 <code>Start()</code> 的例外會被吞掉，並且會自行記錄。</li>
+<li>[ ] 我能解釋 UIC 的 <code>CommandId</code> 與 <code>Command.Key</code> 的關係。</li>
+<li>[ ] 我能用 <code>DbElement</code>、<code>DbAttribute</code>、<code>DbAttributeInstance</code>、<code>CurrentElement</code> 讀取屬性。</li>
+<li>[ ] 我能寫出符合規則的 <code>PMLNetCallable</code> 類別（預設建構子、<code>Assign</code>、無預設參數）。</li>
+<li>[ ] 我知道 PML <code>REAL</code> 對應 <code>double</code>、<code>ARRAY</code> 對應 <code>Hashtable</code>。</li>
+<li>[ ] 我能設定 .NET 3.5、x86、<code>Copy Local = false</code>，並說明 <code>CAF_ADDINS_PATH</code> 的搜尋規則。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 <em>.NET Customisation User Guide</em>（官方，版本與 Marine 12.1 不同，觀念相同）：</li>
+<li><a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG3.04.3.html">Environment variables: CAF_ADDINS_PATH、CAF_UIC_PATH</a></li>
+<li><a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG5.07.1.html">PML.NET 概述</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG5.07.2.html">PML.NET 組件載入與 PMLNetCallable</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG5.07.3.html">Using PML.NET：import、using namespace、Assign、型別對應、事件、例外、限制</a></li>
+<li><a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG5.07.4.html">在 PML 表單中使用 .NET 控制項</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG5.07.5.html">PMLNetExample 與 PMLGridExample 範例</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG1.02.17.html">PMLGridExample</a></li>
+<li>範例原始碼：<a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT，Copyright © 2026 erbi112211-boop），本地副本 <a href="examples/starter-kit-mybrowser/"><code>examples/starter-kit-mybrowser/</code></a>，授權見 <a href="examples/LICENSE-aveva-marine-dev-skill.txt"><code>examples/LICENSE-aveva-marine-dev-skill.txt</code></a>。</li>
+<li>同一開源專案的參考卷冊（自評可信度等級，標示 TODO-UNVERIFIED 者本章已標〔待核對〕）：《AVEVA-Marine-NET開發技能》《AVEVA-Marine-NET-API用法Cookbook》《AVEVA-Marine-uic定制與部署調試手冊》，以及 <code>references/dotnet-api/</code> 下的 PDMS 12.1 .NET API 文件（併入自 PDMS-12.1-Net-skill，MIT）。</li>
+<li>eryar，<a href="https://developer.aliyun.com/article/235787">AVEVA .NET Quick Start Guide</a>（2012，入門架構說明）。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch13_pml_forms_addins_zh-TW.reading.html"><small>← 上一篇</small>第 13 章　PML2 表單、選單與 Add-in</a><a class="next" href="ch15_hull_vitesse_zh-TW.reading.html"><small>下一篇 →</small>第 15 章　船體開發：Vitesse Python 與資料抽取</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

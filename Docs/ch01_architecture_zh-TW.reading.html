@@ -1,0 +1,713 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 1 章　產品架構、模組與啟動環境 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#1">第 1 章 產品架構、模組與啟動環境</a><ul>
+<li><a href="#11">1.1 學習目標</a></li>
+<li><a href="#12">1.2 產品的來源：兩條血統合成一套系統</a></li>
+<li><a href="#13">1.3 整體架構</a></li>
+<li><a href="#14">1.4 應用模組</a><ul>
+<li><a href="#141">1.4.1 船體模組</a></li>
+<li><a href="#142">1.4.2 舾裝模組</a></li>
+<li><a href="#143">1.4.3 管理模組</a></li>
+</ul>
+</li>
+<li><a href="#15">1.5 兩種資料儲存方式</a><ul>
+<li><a href="#151-dabacon">1.5.1 Dabacon：舾裝與管理資料</a></li>
+<li><a href="#152-databank-tribon">1.5.2 Databank：船體的 Tribon 傳統</a></li>
+</ul>
+</li>
+<li><a href="#16">1.6 啟動流程</a><ul>
+<li><a href="#161">1.6.1 步驟說明</a></li>
+<li><a href="#162">1.6.2 為什麼開發人員要在意啟動流程</a></li>
+</ul>
+</li>
+<li><a href="#17">1.7 環境變數</a><ul>
+<li><a href="#171">1.7.1 主要變數一覽</a></li>
+<li><a href="#172">1.7.2 搜尋路徑的運作方式</a></li>
+<li><a href="#173">1.7.3 在系統內查詢環境變數</a></li>
+<li><a href="#174">1.7.4 客製化環境變數的原則</a></li>
+</ul>
+</li>
+<li><a href="#18">1.8 命令列：所有介面操作背後都是命令</a><ul>
+<li><a href="#181">1.8.1 開啟命令列</a></li>
+<li><a href="#182">1.8.2 第一次下命令</a></li>
+<li><a href="#183-pml1pml2">1.8.3 命令、PML1、PML2 的關係</a></li>
+<li><a href="#184">1.8.4 確認版本</a></li>
+<li><a href="#185">1.8.5 文件導覽：去哪裡查官方說明</a></li>
+</ul>
+</li>
+<li><a href="#19">1.9 開發人員須知</a></li>
+<li><a href="#110">1.10 練習</a><ul>
+<li><a href="#1_1">練習 1：建立「公司環境卡」</a></li>
+<li><a href="#2">練習 2：比較兩台電腦的環境</a></li>
+<li><a href="#3">練習 3：模組與資料對照</a></li>
+<li><a href="#4">練習 4：第一次使用命令列</a></li>
+</ul>
+</li>
+<li><a href="#111">1.11 自我檢核</a></li>
+<li><a href="#112">1.12 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第一部分　系統與資料模型 · 2 / 21</span><h1 id="1">第 1 章　產品架構、模組與啟動環境</h1>
+<blockquote>
+<p>本章是第一部分「系統與資料模型」的起點，回答三個問題：AVEVA Marine 由哪些程式組成、它們怎麼被啟動、啟動時哪些設定決定了「程式從哪裡載入」與「資料從哪裡讀寫」。</p>
+<p>內容依據 AVEVA 官方線上文件（Hull and Outfitting 12.1、AVEVA E3D 2.1 參考手冊）、AVEVA 官方產品型錄，以及 PDMS／Marine 通用的系統觀念自主撰寫，不是官方手冊的翻譯。AVEVA Marine 的舾裝部分承襲 PDMS，E3D 文件中的觀念大多相通，但介面與細節可能不同。標示 <strong>〔待核對〕</strong> 的項目，請以公司安裝的版本與管理員設定為準。</p>
+</blockquote>
+<h2 id="11">1.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 AVEVA Marine 為什麼同時有「船體」與「舾裝」兩套風格不同的工具，以及它們的歷史來源。</li>
+<li>列出主要應用模組與管理模組，並說出每個模組負責的資料。</li>
+<li>描述從桌面捷徑到出現工作畫面的啟動流程，指出每一步由什麼設定控制。</li>
+<li>解釋 <code>PMLLIB</code>、<code>PDMSUI</code>、<code>PDMSEXE</code>、<code>CAF_ADDINS_PATH</code> 與專案路徑變數（<code>ABC000</code> 形式）的用途，並會在命令列查詢它們。</li>
+<li>分辨船體 Databank 與舾裝 Dabacon 資料庫在存放方式與開發介面上的差異。</li>
+<li>理解「所有介面操作背後都是命令」，並能用命令列做最基本的查詢。</li>
+</ol>
+<h2 id="12">1.2 產品的來源：兩條血統合成一套系統</h2>
+<p>AVEVA Marine 不是從零開始設計的單一產品，而是兩套成熟系統的整合：</p>
+<table>
+<thead>
+<tr>
+<th>來源</th>
+<th>原本的用途</th>
+<th>在 Marine 中變成</th>
+<th>典型特徵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tribon M3</strong>（原 Kockums Computer Systems 發展，後由 AVEVA 併購〔年份待核對〕）</td>
+<td>造船專用的船體設計與生產系統</td>
+<td>Hull 系列模組、Marine Drafting、船體生產資訊</td>
+<td>以船舶座標（肋位、縱向位置）思考；資料存在 Databank；客製化用 Vitesse（Python）</td>
+</tr>
+<tr>
+<td><strong>PDMS</strong>（Plant Design Management System）</td>
+<td>工廠（石化、電廠）三維設計系統</td>
+<td>Outfitting 舾裝設計、Outfitting Draft、Isodraft、管理模組</td>
+<td>以階層樹與屬性思考；資料存在 Dabacon 資料庫；客製化用 PML 與 .NET</td>
+</tr>
+</tbody>
+</table>
+<p>官方文件指出，Hull 與 Marine Drafting 的單位設定在 12.0、12.1 與 Tribon M3 之間保持一致，這說明了船體部分與 Tribon 的延續關係。舾裝部分則幾乎完全沿用 PDMS 的資料模型，所以 PDMS 與後來 AVEVA E3D 的文件，對理解舾裝資料非常有幫助。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 這段歷史不是背景知識而已，它直接決定你要學哪一種開發技術。想讀寫管路、設備、鐵舾裝，走 PML 或 .NET；想讀船體板架的板厚、零件資料，通常要走 Vitesse 或船體專用介面。同一個需求如果同時牽涉船體與舾裝，就要預先規劃兩種技術如何交換資料（第 10、15 章）。</p>
+</blockquote>
+<p>把兩條血統合在一起看，可以用一個開發人員熟悉的比喻：Marine 像是一家公司併購了另一家公司之後的整合系統。前台（選單、登入、專案）已經統一，但後端仍有兩套資料庫引擎、兩套腳本語言，彼此透過同步與參照交換資料。</p>
+<h2 id="13">1.3 整體架構</h2>
+<p><img alt="AVEVA Marine 產品架構：傳承、應用模組、管理模組、資料層與客製化層" src="images/diagrams/ch01_product_architecture.svg" /></p>
+<p><em>圖 1-1　AVEVA Marine 的分層架構。上方是兩條產品血統，中間是設計者使用的應用模組與管理員使用的管理模組，下方是兩種資料儲存方式與對應的客製化技術。（本課程自繪）</em></p>
+<p>由上往下看，可以分成四層：</p>
+<table>
+<thead>
+<tr>
+<th>層</th>
+<th>內容</th>
+<th>開發人員的對應概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>應用模組</td>
+<td>Hull Structural Design、Hull Detailed Design、Outfitting、Drafting 等</td>
+<td>前端應用程式（Client Application）</td>
+</tr>
+<tr>
+<td>管理模組</td>
+<td>Monitor、Admin、Lexicon、Paragon、Propcon、Specon</td>
+<td>資料庫管理工具、主檔維護工具</td>
+</tr>
+<tr>
+<td>資料層</td>
+<td>Dabacon 資料庫、船體 Databank</td>
+<td>資料庫引擎與資料檔</td>
+</tr>
+<tr>
+<td>客製化層</td>
+<td>PML、PML.NET、.NET CAF Add-in、Vitesse</td>
+<td>外掛 API、內嵌腳本語言</td>
+</tr>
+</tbody>
+</table>
+<h2 id="14">1.4 應用模組</h2>
+<h3 id="141">1.4.1 船體模組</h3>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>做什麼</th>
+<th>主要使用者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hull Structural Design</strong></td>
+<td>基本設計階段，以結構概念快速建立主要構件，供強度評估、重量估算</td>
+<td>基本設計、結構工程師</td>
+</tr>
+<tr>
+<td><strong>Hull Detailed Design</strong></td>
+<td>詳細設計，涵蓋平面船體（Planar Hull）、曲面船體（Curved Hull）與生產資訊（Production Information）</td>
+<td>船體詳細設計、生產設計</td>
+</tr>
+<tr>
+<td><strong>Marine Drafting</strong></td>
+<td>承襲 Tribon 的船體圖面工具，產生板架圖、分段圖、零件圖</td>
+<td>船體設計、出圖人員</td>
+</tr>
+<tr>
+<td><strong>Assembly Planning</strong></td>
+<td>建立分段與組立樹，規劃裝配順序</td>
+<td>生產設計、生管</td>
+</tr>
+<tr>
+<td><strong>Weld Planning</strong></td>
+<td>焊接資訊與焊接規劃</td>
+<td>生產設計、焊接工程</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Structural Design 介面：左側模型樹，右側全船艙區 3D 視圖</div></p>
+<p><em>圖 1-2　Hull Structural Design 的工作畫面。左側是模型樹，右側是全船艙區與選取中的分段。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Detailed Design 介面：船艏區域的板架、肋板與外板縱骨</div></p>
+<p><em>圖 1-3　Hull Detailed Design 的工作畫面，顯示船艏內部結構。結構設計與詳細設計共用同一個模型，只是細節程度不同。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="142">1.4.2 舾裝模組</h3>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>做什麼</th>
+<th>承襲自</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outfitting</strong>（在 PDMS 稱為 Design）</td>
+<td>設備、管路、鐵舾裝結構、通風（HVAC）、電纜托架、支架的三維建模</td>
+<td>PDMS Design</td>
+</tr>
+<tr>
+<td><strong>Outfitting Draft</strong></td>
+<td>從舾裝模型產生佈置圖、剖面圖並標註</td>
+<td>PDMS Draft</td>
+</tr>
+<tr>
+<td><strong>Isodraft</strong></td>
+<td>依管線或管段自動產生等角管段圖（ISO）</td>
+<td>PDMS Isodraft</td>
+</tr>
+<tr>
+<td>Spooler、管件預製等</td>
+<td>管段切分與預製資料〔模組名稱與授權待核對〕</td>
+<td>PDMS</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Outfitting 設計畫面：左側模型樹，中間泵與管路，右側關聯設定面板</div></p>
+<p><em>圖 1-4　Outfitting 的典型畫面。左側的模型樹（Design Explorer）就是第 3 章要介紹的元素樹，中間是 3D 視圖，右側是屬性與關聯面板。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 「在某個模組看得到船體」不代表「可以在該模組修改船體」。舾裝設計者在 Outfitting 中常會看到船體結構作為參考背景，但寫入權限由專案的團隊與資料庫設定決定（第 2 章）。</p>
+</blockquote>
+<h3 id="143">1.4.3 管理模組</h3>
+<p>管理模組來自 PDMS 系統，船體與舾裝共用：</p>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>用途</th>
+<th>操作的資料庫</th>
+<th>誰會用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monitor</strong></td>
+<td>進入專案後的起點，可切換模組、修改密碼等〔介面依版本而異〕</td>
+<td>SYST（讀取）</td>
+<td>所有人</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>建立使用者、團隊（Team）、資料庫、MDB，設定權限、合併 Session、管理 Extract</td>
+<td>SYST</td>
+<td>系統管理員</td>
+</tr>
+<tr>
+<td><strong>Lexicon</strong></td>
+<td>定義使用者自訂屬性（UDA）與使用者自訂元素型別（UDET）</td>
+<td>DICT</td>
+<td>管理員、資料模型負責人</td>
+</tr>
+<tr>
+<td><strong>Paragon</strong></td>
+<td>建立與維護目錄元件（參數化幾何、點集）</td>
+<td>CATA</td>
+<td>目錄管理員</td>
+</tr>
+<tr>
+<td><strong>Propcon</strong></td>
+<td>材料性質資料</td>
+<td>PROP</td>
+<td>目錄或材料管理員</td>
+</tr>
+<tr>
+<td><strong>Specon</strong></td>
+<td>以命令方式建立或修改等級（Specification）</td>
+<td>CATA</td>
+<td>目錄管理員</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 你的工具若需要新增欄位（例如在設備上記錄「採購單號」），正確做法是請管理員在 Lexicon 定義 UDA，而不是把資料塞進 <code>DESC</code> 之類的現有欄位。這相當於「請 DBA 加一個欄位」，而不是在備註欄裡用逗號分隔存資料。</p>
+</blockquote>
+<h2 id="15">1.5 兩種資料儲存方式</h2>
+<h3 id="151-dabacon">1.5.1 Dabacon：舾裝與管理資料</h3>
+<p>Dabacon 是 PDMS 系產品的資料庫引擎。它的特徵：</p>
+<ul>
+<li><strong>樹狀結構</strong>：所有資料都是元素（Element），每個元素有一個擁有者（Owner），最上層是 WORLD。官方 E3D 文件描述：除了 WORLD 以外，所有資料庫元素都被其他元素擁有。</li>
+<li><strong>型別決定欄位</strong>：元素型別（SITE、ZONE、EQUI、PIPE…）決定它有哪些屬性，也決定它底下可以放哪些型別的成員。</li>
+<li><strong>多種資料庫類型</strong>：設計模型（DESI）、目錄（CATA）、圖面（PADD）等，都用同樣的元素與屬性結構，只是元素型別不同。</li>
+<li><strong>交易與版本</strong>：變更以 Session 為單位寫入，可以查詢歷史，也可以合併（第 2 章）。</li>
+</ul>
+<p>對開發人員來說，Dabacon 可以想成「一個以樹為主要組織方式的物件資料庫」，PML 與 .NET API 都直接操作它的元素與屬性。</p>
+<h3 id="152-databank-tribon">1.5.2 Databank：船體的 Tribon 傳統</h3>
+<p>船體資料承襲 Tribon，以 Databank 形式存放型線、板零件、型材零件、套料、生產資料等。它的存取介面主要是船體模組本身與 Vitesse 的 Python 函式庫（例如 <code>kcs_dex</code> 資料抽取）。</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th>Dabacon（舾裝為主）</th>
+<th>船體 Databank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資料形狀</td>
+<td>元素樹 + 屬性</td>
+<td>依物件類型（板架、零件、套料）分門別類存放</td>
+</tr>
+<tr>
+<td>常用開發介面</td>
+<td>PML、PML.NET、.NET API</td>
+<td>Vitesse（Python 2.6）、資料抽取語言</td>
+</tr>
+<tr>
+<td>權限控制</td>
+<td>Team 擁有 DB、Claim 機制</td>
+<td>依船體專案設定〔待核對〕</td>
+</tr>
+<tr>
+<td>適合的工具</td>
+<td>查詢、報表、批次修改屬性、表單</td>
+<td>板厚報表、零件清單、船體圖面自動化</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>版本差異〔待核對〕：</strong> Marine 12 系列中，部分船體模型元素（例如板架 <code>HPANEL</code>、板 <code>HPLATE</code>、加強材 <code>HSTIFF</code>）也出現在 Dabacon 的資料模型中，可以用 PML 查詢；而零件、套料等生產資料仍以 Databank 為主。哪些船體資料可以從 Dabacon 讀到、與 Databank 如何同步，依版本與專案設定而異。動手寫船體工具前，先在訓練專案中實際查詢確認（第 3、15 章）。</p>
+</blockquote>
+<h2 id="16">1.6 啟動流程</h2>
+<p><img alt="啟動流程：批次檔、環境變數、登入、選模組、初始化、工作畫面" src="images/diagrams/ch01_startup_flow.svg" /></p>
+<p><em>圖 1-5　從桌面捷徑到工作畫面的六個步驟。右側標出每一步由哪些設定控制，以及開發人員常用的檢查點。（本課程自繪）</em></p>
+<h3 id="161">1.6.1 步驟說明</h3>
+<ol>
+<li><strong>執行啟動批次檔。</strong> 開始選單或桌面捷徑通常指向安裝目錄中的批次檔（<code>.bat</code>），例如本課程開源範例中提到的 <code>marine.bat</code>。批次檔會呼叫一系列設定環境變數的檔案（PDMS 系常稱為 evars 檔）〔實際檔名依版本待核對〕。</li>
+<li><strong>設定環境變數。</strong> 安裝路徑、專案路徑、PML 搜尋路徑、介面檔路徑都在這一步決定。</li>
+<li><strong>登入。</strong> 出現登入表單，選擇專案（Project）、輸入使用者名稱（Username）與密碼（Password），並選擇 MDB。</li>
+<li><strong>選擇模組。</strong> 選擇要進入 Outfitting、Hull 相關模組、Drafting 或管理模組〔畫面與選項依版本而異〕。</li>
+<li><strong>模組初始化。</strong> 模組依 <code>PDMSUI</code> 載入介面定義，依 <code>PMLLIB</code> 找到 PML 表單與函式，依 Add-in 設定載入 PML Add-in 與 .NET 外掛。</li>
+<li><strong>出現工作畫面。</strong> 此時可以開啟命令列（Command Window）下命令。</li>
+</ol>
+<h3 id="162">1.6.2 為什麼開發人員要在意啟動流程</h3>
+<p>你寫的工具能不能「出現」，完全取決於步驟 2 與步驟 5：</p>
+<table>
+<thead>
+<tr>
+<th>症狀</th>
+<th>最可能的原因</th>
+<th>對應步驟</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新寫的 PML 函式「找不到」</td>
+<td>檔案不在 <code>PMLLIB</code> 的任何一個目錄，或索引沒更新</td>
+<td>2、5</td>
+</tr>
+<tr>
+<td>自訂選單沒出現</td>
+<td>Add-in 定義檔不在 <code>PDMSUI</code> 對應的子目錄</td>
+<td>2、5</td>
+</tr>
+<tr>
+<td>.NET 外掛沒有載入</td>
+<td><code>&lt;模組&gt;Addins.xml</code> 沒有登錄，或 <code>CAF_ADDINS_PATH</code> 指錯</td>
+<td>2、5</td>
+</tr>
+<tr>
+<td>同事電腦正常、你的電腦不正常</td>
+<td>兩人的捷徑呼叫了不同的批次檔，環境變數不同</td>
+<td>1、2</td>
+</tr>
+<tr>
+<td>改了批次檔沒生效</td>
+<td>環境變數在程式啟動時讀取，必須重新啟動</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="17">1.7 環境變數</h2>
+<h3 id="171">1.7.1 主要變數一覽</h3>
+<table>
+<thead>
+<tr>
+<th>變數</th>
+<th>用途</th>
+<th>開發人員會碰到的情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PDMSEXE</code></td>
+<td>執行檔與系統資料所在的安裝目錄</td>
+<td>找官方 PML 範例、訊息檔</td>
+</tr>
+<tr>
+<td><code>PMLLIB</code></td>
+<td>PML 函式、表單、物件、巨集的搜尋路徑，可以有多個目錄，依序搜尋</td>
+<td>部署公司 PML 工具庫（第 10 章）</td>
+</tr>
+<tr>
+<td><code>PDMSUI</code></td>
+<td>介面檔與 Add-in 定義的搜尋路徑，例如舾裝的 <code>DES\DFLTS\ADDINS</code> 子目錄</td>
+<td>部署 PML Add-in 選單（第 13 章）</td>
+</tr>
+<tr>
+<td><code>CAF_ADDINS_PATH</code></td>
+<td>.NET Add-in 設定檔的位置，讓設定檔可以放在安裝目錄以外</td>
+<td>部署 C# 外掛（第 14 章）</td>
+</tr>
+<tr>
+<td><code>ABC000</code></td>
+<td>專案 <code>ABC</code> 的資料庫檔案目錄（<code>000</code> 是固定後綴）</td>
+<td>確認自己連到哪一份專案資料</td>
+</tr>
+<tr>
+<td><code>ABCISO</code>、<code>ABCMAC</code>、<code>ABCPIC</code> 等</td>
+<td>專案的 ISO 設定、巨集、圖檔等目錄〔後綴清單待核對〕</td>
+<td>出圖、批次巨集</td>
+</tr>
+<tr>
+<td><code>PDMSUSER</code>、<code>PDMSWK</code></td>
+<td>使用者工作目錄與暫存目錄〔待核對〕</td>
+<td>工具輸出暫存檔的位置</td>
+</tr>
+<tr>
+<td>船體專用變數</td>
+<td>Tribon 系船體專案的 Databank 與設定檔路徑，常以 <code>SB_</code> 開頭〔待核對〕</td>
+<td>Vitesse 腳本找資料</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 專案代碼通常是三個英數字，例如專案 <code>ABC</code> 對應 <code>ABC000</code>。這是 PDMS 系產品的慣例：系統用「專案代碼 + 000」這個環境變數找到該專案的資料庫檔案。如果你的電腦能看到別人的專案，代表你的環境中定義了那個專案的 <code>XXX000</code> 變數。</p>
+</blockquote>
+<h3 id="172">1.7.2 搜尋路徑的運作方式</h3>
+<p><code>PMLLIB</code> 與 <code>PDMSUI</code> 都是「路徑清單」，系統依序搜尋，<strong>先找到的先用</strong>。這和作業系統的 <code>PATH</code>、Python 的 <code>sys.path</code> 一樣：</p>
+<pre><code>PMLLIB = D:\Company\pmllib  C:\AVEVA\Marine\OH12.1.SP4\pmllib
+         ^ 公司工具庫（先搜尋）  ^ 官方檔案（後搜尋）
+</code></pre>
+<p>因此，公司工具庫的正確擴充方式是<strong>在官方路徑前面加上自己的目錄</strong>，而不是修改官方檔案。這也表示：如果公司目錄中有一個與官方同名的檔案，它會「覆蓋」官方版本。這是一把雙面刃，第 10 章會詳細說明規範。</p>
+<p>PML 搜尋還有一層索引：每個 <code>PMLLIB</code> 目錄可以有 <code>pml.index</code> 檔案。新增或改名檔案後，要在命令列執行 <code>pml rehash all</code> 讓系統重建記憶中的索引，否則找不到新檔案。</p>
+<h3 id="173">1.7.3 在系統內查詢環境變數</h3>
+<p>在命令列中，可以用 <code>q evar</code> 查詢環境變數（本課程開源範例的安裝腳本即使用這個寫法）：</p>
+<pre><code>q evar PMLLIB
+q evar PDMSUI
+q evar CAF_ADDINS_PATH
+</code></pre>
+<p>在 PML 程式中，可以用字串的環境變數展開讀取，例如在路徑字串中寫 <code>'%PMLLIB%'</code>〔PML 中展開環境變數的方式依情境而異，第 11 章再詳細說明〕。</p>
+<p>在 Windows 命令提示字元（已執行過啟動批次檔的視窗）中，也可以直接看：</p>
+<pre><code class="language-bat">rem 示意：在已設定 Marine 環境的命令提示字元中檢查
+echo %PMLLIB%
+echo %PDMSUI%
+set | findstr /i &quot;000=&quot;
+</code></pre>
+<p>最後一行列出所有以 <code>000=</code> 結尾的變數，可以快速看出這個環境看得到哪些專案。</p>
+<h3 id="174">1.7.4 客製化環境變數的原則</h3>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不修改官方批次檔</td>
+<td>升級或安裝 Service Pack 時會被覆蓋；應使用官方提供的客製化掛勾或公司自己的包裝批次檔〔PDMS 系常見 <code>custom_evars.bat</code>，Marine 是否提供待核對〕</td>
+</tr>
+<tr>
+<td>公司路徑放在前面</td>
+<td><code>set PMLLIB=D:\Company\pmllib %PMLLIB%</code></td>
+</tr>
+<tr>
+<td>路徑集中管理</td>
+<td>所有人使用同一份公司批次檔，避免「只有我的電腦可以」</td>
+</tr>
+<tr>
+<td>記錄版本</td>
+<td>批次檔納入版本管理（第 17 章）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="18">1.8 命令列：所有介面操作背後都是命令</h2>
+<p>PDMS 系產品有一個重要的設計：<strong>圖形介面上的大多數操作，最後都會轉成命令字串交給命令直譯器執行</strong>。表單上按下一個按鈕，可能就是執行了一段 PML，而那段 PML 送出的是 <code>NEW EQUI</code>、<code>POS E 1000 N 0 U 0</code> 這樣的命令。</p>
+<p>這帶來三個好處：</p>
+<ol>
+<li><strong>可以直接下命令</strong>：在命令列（Command Window）輸入命令，結果與點選介面相同。</li>
+<li><strong>可以錄製與追蹤</strong>：開啟 PML 追蹤後，可以看到介面實際執行了哪些命令（第 17 章）。</li>
+<li><strong>可以寫成程式</strong>：把命令寫進巨集或 PML 函式，就是自動化的起點（第 11、12 章）。</li>
+</ol>
+<h3 id="181">1.8.1 開啟命令列</h3>
+<p>在 Outfitting 中，命令列通常從 <code>Display &gt; Command Line</code> 開啟〔選單位置依版本待核對〕。它包含一個輸出區與一個輸入欄，輸入的命令會顯示在輸出區，查詢結果也會印在那裡。</p>
+<h3 id="182">1.8.2 第一次下命令</h3>
+<p>以下是「唯讀」的查詢，可以在任何專案安全執行：</p>
+<pre><code>q evar PMLLIB
+q name
+q type
+q owner
+q att
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q evar PMLLIB</code></td>
+<td>印出 <code>PMLLIB</code> 的內容</td>
+</tr>
+<tr>
+<td><code>q name</code></td>
+<td>目前元素（CE）的名稱</td>
+</tr>
+<tr>
+<td><code>q type</code></td>
+<td>目前元素的型別，例如 <code>EQUI</code></td>
+</tr>
+<tr>
+<td><code>q owner</code></td>
+<td>目前元素的擁有者</td>
+</tr>
+<tr>
+<td><code>q att</code></td>
+<td>列出目前元素的所有一般屬性與值</td>
+</tr>
+</tbody>
+</table>
+<p>命令不分大小寫，<code>Q NAME</code> 與 <code>q name</code> 相同。第 3 章會系統性地介紹查詢與導覽命令。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 命令列可以執行修改資料的命令（例如 <code>delete</code>、<code>new</code>）。在正式專案中練習時，只使用 <code>q</code> 開頭的查詢命令；所有會修改資料的練習都應在訓練專案中進行。</p>
+</blockquote>
+<h3 id="183-pml1pml2">1.8.3 命令、PML1、PML2 的關係</h3>
+<table>
+<thead>
+<tr>
+<th>層次</th>
+<th>範例</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令（Command）</td>
+<td><code>q name</code>、<code>new EQUI</code></td>
+<td>命令直譯器的基本語言</td>
+</tr>
+<tr>
+<td>PML1</td>
+<td><code>var !x (name)</code>、<code>$!x</code></td>
+<td>早期的巨集語言，以變數與字串替換為主</td>
+</tr>
+<tr>
+<td>PML2</td>
+<td><code>!x = !!ce.name</code>、<code>define function</code></td>
+<td>物件導向的 PML，表單與物件都用它</td>
+</tr>
+<tr>
+<td>.NET</td>
+<td><code>CurrentElement.Element</code></td>
+<td>透過 API 操作同一個資料庫</td>
+</tr>
+</tbody>
+</table>
+<p>四者最後都作用在同一個 Dabacon 資料庫上，只是抽象層級不同。</p>
+<h3 id="184">1.8.4 確認版本</h3>
+<p>同一個命令在不同版本的行為可能不同，所以回報問題、查文件之前，先確認版本與 Service Pack。常見的確認方式：</p>
+<ul>
+<li>登入畫面或說明選單中的「關於」視窗〔位置依版本待核對〕。</li>
+<li>安裝目錄名稱，例如開源範例預設的 <code>OH12.1.SP4</code> 這類命名。</li>
+<li>命令列查詢版本資訊，PDMS 系常見 <code>q banner</code>〔Marine 中是否可用待核對〕。</li>
+</ul>
+<h3 id="185">1.8.5 文件導覽：去哪裡查官方說明</h3>
+<p>AVEVA Marine 12.1 的線上文件需要瀏覽器（JavaScript）才能閱讀；E3D 2.1 的部分參考手冊則有可直接開啟的靜態頁面。舾裝與管理的觀念相通，可以互相參照，但要注意版本差異：</p>
+<table>
+<thead>
+<tr>
+<th>想查的主題</th>
+<th>Marine 12.1 文件（docs.aveva.com）</th>
+<th>E3D 2.1 對應手冊（help.aveva.com）</th>
+<th>本課程章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>產品與模組總覽</td>
+<td>Navigating the AVEVA Marine Documentation</td>
+<td>Getting Started</td>
+<td>1</td>
+</tr>
+<tr>
+<td>資料庫、Team、MDB、Session</td>
+<td>Administration 相關主題</td>
+<td>Database Management Reference Manual（DBRM）</td>
+<td>2</td>
+</tr>
+<tr>
+<td>元素型別與屬性</td>
+<td>Data Model 相關主題</td>
+<td>Data Model Reference Manual（DMRM）</td>
+<td>3</td>
+</tr>
+<tr>
+<td>位置表示式、WRT、PML 物件</td>
+<td>Customization 相關主題</td>
+<td>Software Customisation Reference Manual（SCRM）</td>
+<td>4、11</td>
+</tr>
+<tr>
+<td>PML 語言與表單</td>
+<td>Marine Customization</td>
+<td>PML Customisation User Guide（PMLPUG）</td>
+<td>11–13</td>
+</tr>
+<tr>
+<td>.NET 開發</td>
+<td>Marine Customization</td>
+<td>.NET Customisation User Guide</td>
+<td>14</td>
+</tr>
+<tr>
+<td>船體 Vitesse</td>
+<td>Hull 客製化相關主題</td>
+<td>無（E3D 不含 Vitesse）</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 引用 E3D 文件時，在筆記或程式註解中寫明「依 E3D 2.1 文件，Marine 版本待驗證」。E3D 2.x 有不少 Marine 12.1 沒有的新功能，直接照抄可能在公司版本中無法執行。</p>
+</blockquote>
+<h2 id="19">1.9 開發人員須知</h2>
+<ul>
+<li><strong>先畫出你的環境地圖。</strong> 動手寫工具之前，先記錄公司的版本、Service Pack、安裝路徑、批次檔、專案代碼、<code>PMLLIB</code> 與 <code>PDMSUI</code> 內容。很多「程式錯誤」其實是環境錯誤。</li>
+<li><strong>確認你的工具屬於哪條血統。</strong> 需求涉及板架、零件、套料，多半要用船體介面；涉及設備、管路、屬性報表，多半用 PML 或 .NET。</li>
+<li><strong>不要修改安裝目錄內的官方檔案。</strong> 用搜尋路徑的優先順序擴充。官方檔案在升級時會被覆蓋，修改後也難以追蹤。</li>
+<li><strong>環境變數是啟動時決定的。</strong> 修改批次檔、新增目錄後，要重新啟動模組；只新增 PML 檔案時，<code>pml rehash all</code> 即可。</li>
+<li><strong>命令列是你的除錯器。</strong> 任何屬性或位置的疑問，先在命令列用 <code>q</code> 查清楚，再寫程式。</li>
+</ul>
+<h2 id="110">1.10 練習</h2>
+<p>以下練習只做查詢，不修改資料。若需要建立資料，請在訓練專案中進行。</p>
+<h3 id="1_1">練習 1：建立「公司環境卡」</h3>
+<p>在訓練電腦上，記錄下表：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>你的記錄</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVEVA Marine 版本與 Service Pack</td>
+<td></td>
+</tr>
+<tr>
+<td>安裝目錄</td>
+<td></td>
+</tr>
+<tr>
+<td>桌面捷徑指向的批次檔</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PDMSEXE</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>PMLLIB</code>（依搜尋順序列出每個目錄）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PDMSUI</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CAF_ADDINS_PATH</code>（若有）</td>
+<td></td>
+</tr>
+<tr>
+<td>可見的專案代碼（<code>XXX000</code> 變數）</td>
+<td></td>
+</tr>
+<tr>
+<td>訓練專案代碼、帳號、MDB</td>
+<td></td>
+</tr>
+<tr>
+<td>已授權的模組</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">練習 2：比較兩台電腦的環境</h3>
+<p>請同事在他的電腦上做同樣的記錄，比較 <code>PMLLIB</code> 的差異。如果不同，找出原因（不同的捷徑、個人批次檔或使用者層級的環境變數）。</p>
+<h3 id="3">練習 3：模組與資料對照</h3>
+<p>針對本章列出的每個應用模組，寫下：它主要讀寫哪一種資料（Dabacon 的哪類 DB，或船體 Databank），以及公司裡由哪個部門使用。</p>
+<h3 id="4">練習 4：第一次使用命令列</h3>
+<ol>
+<li>登入訓練專案的 Outfitting。</li>
+<li>開啟命令列。</li>
+<li>在模型樹中點選一台設備，然後依序執行 <code>q name</code>、<code>q type</code>、<code>q owner</code>、<code>q att</code>。</li>
+<li>再點選它的擁有者（ZONE），重複一次，比較兩者的屬性清單有什麼不同。</li>
+</ol>
+<h2 id="111">1.11 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 AVEVA Marine 的船體部分與舾裝部分各自承襲哪個產品。</li>
+<li>[ ] 我能列出 Hull Structural Design、Hull Detailed Design、Outfitting、Marine Drafting、Outfitting Draft、Isodraft、Assembly Planning、Weld Planning 的用途。</li>
+<li>[ ] 我能說出 Monitor、Admin、Lexicon、Paragon、Propcon、Specon 各自管理哪類資料。</li>
+<li>[ ] 我能描述啟動流程的六個步驟。</li>
+<li>[ ] 我知道 <code>PMLLIB</code>、<code>PDMSUI</code>、<code>PDMSEXE</code>、<code>CAF_ADDINS_PATH</code> 與 <code>ABC000</code> 的用途，也會用 <code>q evar</code> 查詢。</li>
+<li>[ ] 我能解釋為什麼公司工具庫要放在 <code>PMLLIB</code> 的前面，而不是修改官方檔案。</li>
+<li>[ ] 我能說明 Dabacon 資料庫與船體 Databank 的差別，以及各自的開發介面。</li>
+<li>[ ] 我理解「介面操作背後都是命令」，並已在訓練專案中用命令列查詢過一個元素。</li>
+</ul>
+<p><strong>延伸閱讀：</strong> 回到<a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章　課程總覽與知識地圖</a>；下一章<a href="ch02_project_database_zh-TW.reading.html">第 2 章　專案、資料庫、MDB 與權限</a>說明資料存在哪裡、誰能改；開發環境與部署細節見<a href="ch10_dev_environment_zh-TW.reading.html">第 10 章</a>；術語與指令見<a href="appx_b_glossary_zh-TW.reading.html">附錄 B</a>。</p>
+<h2 id="112">1.12 資料來源</h2>
+<ul>
+<li>AVEVA Hull and Outfitting 12.1 線上文件入口：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html</a></li>
+<li>Navigating the AVEVA Marine Documentation（文件組織，含 Hull、Design、Draft、Marine Customization 等主題）：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html">https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html</a></li>
+<li>AVEVA E3D 2.1 Getting Started：How AVEVA E3D Data is Stored（資料庫階層、擁有者與成員）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.1.html">https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.1.html</a></li>
+<li>AVEVA E3D 2.1 Database Management Reference Manual（資料庫概念，給系統管理員）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM1.02.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM1.02.01.html</a></li>
+<li>AVEVA Hull and Outfitting Datasheet（本章截圖來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf</a></li>
+<li>AVEVA Outfitting Brochure：<a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf">https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf</a></li>
+<li>開源範例 aveva-marine-dev-skill（MIT 授權，<code>marine.bat</code>、<code>q evar</code>、<code>PDMSUI</code> 部署方式）：<a href="https://github.com/912141548/aveva-marine-dev-skill">https://github.com/912141548/aveva-marine-dev-skill</a></li>
+<li>eryar，〈AVEVA .NET Quick Start Guide〉（<code>CAF_ADDINS_PATH</code> 與 <code>&lt;模組&gt;Addins.xml</code>）：<a href="https://developer.aliyun.com/article/235787">https://developer.aliyun.com/article/235787</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch00_knowledge_map_zh-TW.reading.html"><small>← 上一篇</small>第 0 章　課程總覽與知識地圖</a><a class="next" href="ch02_project_database_zh-TW.reading.html"><small>下一篇 →</small>第 2 章　專案、資料庫、MDB 與權限</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">PMLLIB 搜尋順序與 pml.index</text>
+
+  <!-- PMLLIB variable -->
+  <rect x="30" y="50" width="840" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="46" y="78" font-size="14" fill="#1f2937">PMLLIB = <tspan font-family="Consolas, monospace">D:\Company\pmllib  D:\Project\ABC\pmllib  C:\AVEVA\Marine\OH12.1.SP4\pmllib</tspan></text>
+
+  <!-- three directories -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="30" y="120" width="260" height="170" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="44" y="144" font-weight="bold" font-size="14">① 公司工具庫（最前面）</text>
+    <text x="44" y="168" font-family="Consolas, monospace">pml.index</text>
+    <text x="44" y="190" font-family="Consolas, monospace">myco\forms\mycollect.pmlfrm</text>
+    <text x="44" y="212" font-family="Consolas, monospace">myco\objects\appmycollect.pmlobj</text>
+    <text x="44" y="234" font-family="Consolas, monospace">myco\functions\mycofmt.pmlfnc</text>
+    <text x="44" y="264" fill="#1d4ed8">先被搜尋：同名時它勝出</text>
+
+    <rect x="320" y="120" width="260" height="170" rx="6" fill="#f0fdf4" stroke="#15803d"/>
+    <text x="334" y="144" font-weight="bold" font-size="14">② 專案層工具（中間）</text>
+    <text x="334" y="168" font-family="Consolas, monospace">pml.index</text>
+    <text x="334" y="190" font-family="Consolas, monospace">abc\forms\abcreport.pmlfrm</text>
+    <text x="334" y="212" font-family="Consolas, monospace">abc\functions\abcrule.pmlfnc</text>
+    <text x="334" y="264" fill="#15803d">只對這個專案有效的工具</text>
+
+    <rect x="610" y="120" width="260" height="170" rx="6" fill="#fef2f2" stroke="#b91c1c"/>
+    <text x="624" y="144" font-weight="bold" font-size="14">③ AVEVA 官方（最後面）</text>
+    <text x="624" y="168" font-family="Consolas, monospace">pml.index</text>
+    <text x="624" y="190" font-family="Consolas, monospace">（數千個官方 PML 檔）</text>
+    <text x="624" y="242" fill="#b91c1c">唯讀看待：不修改、不新增</text>
+    <text x="624" y="264" fill="#b91c1c">升級時會被整批覆蓋</text>
+  </g>
+
+  <!-- arrows directory -> memory -->
+  <line x1="160" y1="290" x2="330" y2="350" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="450" y1="290" x2="450" y2="346" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="740" y1="290" x2="570" y2="350" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- in-memory index -->
+  <rect x="250" y="352" width="400" height="74" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="450" y="378" font-size="15" font-weight="bold" text-anchor="middle" fill="#1f2937">模組記憶體中的合併索引</text>
+  <text x="450" y="402" font-size="13" text-anchor="middle" fill="#1f2937">「定義名稱 → 檔案完整路徑」對照表</text>
+  <text x="450" y="419" font-size="12" text-anchor="middle" fill="#6b7280">依 PMLLIB 順序合併，先出現者優先</text>
+
+  <!-- lookup -->
+  <rect x="30" y="460" width="300" height="110" rx="6" fill="#f9fafb" stroke="#6b7280"/>
+  <text x="44" y="484" font-size="14" font-weight="bold" fill="#1f2937">使用時查表</text>
+  <text x="44" y="508" font-size="13" font-family="Consolas, monospace" fill="#1f2937">show !!mycollect</text>
+  <text x="44" y="530" font-size="13" fill="#1f2937">→ 找 mycollect.pmlfrm</text>
+  <text x="44" y="552" font-size="13" fill="#1f2937">→ 第一次使用時才載入、編譯</text>
+  <line x1="330" y1="500" x2="380" y2="420" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- commands -->
+  <rect x="370" y="460" width="500" height="110" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+  <text x="384" y="484" font-size="14" font-weight="bold" fill="#1f2937">更新索引的指令</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="384" y="508"><tspan font-family="Consolas, monospace">pml rehash</tspan>　重掃第一個 PMLLIB 目錄並重寫 pml.index</text>
+    <text x="384" y="530"><tspan font-family="Consolas, monospace">pml rehash all</tspan>　重掃所有目錄（耗時，勿多人同時執行）</text>
+    <text x="384" y="552"><tspan font-family="Consolas, monospace">pml index</tspan>　只重讀既有 pml.index（取得同事新增的檔）</text>
+  </g>
+</svg>

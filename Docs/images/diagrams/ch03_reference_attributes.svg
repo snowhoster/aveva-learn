@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">參照屬性 = 外鍵：設計元素如何連到其他元素</text>
+
+  <!-- DB frames -->
+  <rect x="16" y="50" width="420" height="390" rx="8" fill="#f0f9ff" stroke="#1d4ed8" stroke-dasharray="6,4"/>
+  <text x="30" y="74" font-size="15" font-weight="bold" fill="#1e3a8a">設計 DB（DESI）</text>
+  <rect x="470" y="50" width="414" height="390" rx="8" fill="#fffbeb" stroke="#a16207" stroke-dasharray="6,4"/>
+  <text x="484" y="74" font-size="15" font-weight="bold" fill="#713f12">目錄 DB（CATA）</text>
+
+  <!-- design boxes -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="36" y="92" width="176" height="80" rx="6" fill="#ffffff" stroke="#1d4ed8"/>
+    <text x="48" y="114" font-weight="bold">NOZZ /P-101/N1</text>
+    <text x="48" y="136">TYPE = NOZZ</text>
+    <text x="48" y="156">CREF = /100-SW-001/B1</text>
+
+    <rect x="236" y="92" width="186" height="100" rx="6" fill="#ffffff" stroke="#1d4ed8"/>
+    <text x="248" y="114" font-weight="bold">BRAN /100-SW-001/B1</text>
+    <text x="248" y="136">HREF = /P-101/N1</text>
+    <text x="248" y="156">TREF = …</text>
+    <text x="248" y="176">PSPE = /SW-10K</text>
+
+    <rect x="236" y="232" width="186" height="100" rx="6" fill="#ffffff" stroke="#1d4ed8"/>
+    <text x="248" y="254" font-weight="bold">VALV（BRAN 的成員）</text>
+    <text x="248" y="276">OWNER = /100-SW-001/B1</text>
+    <text x="248" y="296">SPRE = /SW-10K/…/VALV-100</text>
+    <text x="248" y="316">POS、ORI…</text>
+
+    <rect x="36" y="360" width="386" height="66" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="48" y="384">HREF／CREF：管嘴與分支互相指向（雙向連接）</text>
+    <text x="48" y="406">OWNER：每個元素都有，指向樹中的父節點</text>
+  </g>
+
+  <!-- catalogue boxes -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="490" y="92" width="180" height="60" rx="6" fill="#ffffff" stroke="#a16207"/>
+    <text x="502" y="114" font-weight="bold">SPEC /SW-10K</text>
+    <text x="502" y="136">等級（允許清單）</text>
+
+    <rect x="490" y="172" width="180" height="40" rx="6" fill="#ffffff" stroke="#a16207"/>
+    <text x="502" y="197">SELE（選擇條件）</text>
+
+    <rect x="490" y="232" width="200" height="80" rx="6" fill="#ffffff" stroke="#a16207"/>
+    <text x="502" y="254" font-weight="bold">SPCO …/VALV-100</text>
+    <text x="502" y="276">等級元件</text>
+    <text x="502" y="296">CATR = /AAVA100</text>
+
+    <rect x="490" y="340" width="200" height="80" rx="6" fill="#ffffff" stroke="#a16207"/>
+    <text x="502" y="362" font-weight="bold">SCOM /AAVA100</text>
+    <text x="502" y="384">目錄元件</text>
+    <text x="502" y="404">幾何集、點集參照</text>
+
+    <rect x="714" y="340" width="156" height="80" rx="6" fill="#ffffff" stroke="#a16207"/>
+    <text x="726" y="362" font-weight="bold">GMSE、PTSE</text>
+    <text x="726" y="384">參數化幾何</text>
+    <text x="726" y="404">連接點定義</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M212 116 H 232"/>
+    <path d="M236 164 H 216"/>
+    <path d="M422 176 C 455 176, 455 122, 486 122"/>
+    <path d="M422 296 C 455 296, 455 272, 486 272"/>
+    <path d="M590 312 V 336"/>
+    <path d="M690 380 H 710"/>
+  </g>
+  <g stroke="#a16207" stroke-width="1.2" fill="none">
+    <path d="M580 152 V 172"/>
+    <path d="M580 212 V 232"/>
+  </g>
+  <g font-size="12" fill="#b45309">
+    <text x="452" y="140" text-anchor="middle">PSPE</text>
+    <text x="452" y="270" text-anchor="middle">SPRE</text>
+    <text x="598" y="330">CATR</text>
+  </g>
+  <text x="700" y="160" font-size="12" fill="#6b7280">SPEC → SELE → SPCO</text>
+  <text x="700" y="178" font-size="12" fill="#6b7280">是擁有關係（樹）</text>
+
+  <!-- bottom -->
+  <rect x="16" y="456" width="868" height="52" rx="8" fill="#fff7ed" stroke="#c2410c"/>
+  <text x="30" y="478" font-size="13" fill="#1f2937">參照屬性存的是對方的 DBREF（例如 =12345/678），可以跨 DB。被參照的 DB 不在 MDB 中時，參照無法解析。</text>
+  <text x="30" y="498" font-size="13" fill="#1f2937">寫工具時：讀 SPRE 就能沿著外鍵追到等級與目錄，取得口徑、材質等資訊（第 8 章詳述）。</text>
+</svg>

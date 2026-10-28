@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="w7" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" fill="#ffffff"/>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2937">管路設計流程與跨專業介面</text>
+
+  <!-- lane backgrounds -->
+  <rect x="10" y="48" width="880" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="24" y="70" font-size="13" font-weight="bold" fill="#475569">舾裝（管路）</text>
+  <rect x="10" y="352" width="880" height="120" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="24" y="374" font-size="13" font-weight="bold" fill="#166534">船體</text>
+
+  <!-- row 1 -->
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <rect x="30" y="86" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="105" y="110" font-weight="bold">1 系統圖 P&amp;ID</text>
+    <text x="105" y="129" font-size="12">系統與元件清單</text>
+
+    <rect x="205" y="86" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="280" y="110" font-weight="bold">2 管線清單</text>
+    <text x="280" y="129" font-size="12">口徑、等級、介質</text>
+
+    <rect x="380" y="86" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="455" y="110" font-weight="bold">3 3D 佈管</text>
+    <text x="455" y="129" font-size="12">PIPE／BRAN／元件</text>
+
+    <rect x="555" y="86" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="630" y="110" font-weight="bold">4 干涉檢查</text>
+    <text x="630" y="129" font-size="12">硬碰撞、軟碰撞</text>
+
+    <rect x="730" y="86" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="805" y="110" font-weight="bold">5 支架設計</text>
+    <text x="805" y="129" font-size="12">荷重、焊到船體</text>
+  </g>
+  <g stroke="#4b5563" stroke-width="1.6" marker-end="url(#w7)">
+    <line x1="180" y1="114" x2="203" y2="114"/>
+    <line x1="355" y1="114" x2="378" y2="114"/>
+    <line x1="530" y1="114" x2="553" y2="114"/>
+    <line x1="705" y1="114" x2="728" y2="114"/>
+  </g>
+  <!-- feedback loop clash -> routing -->
+  <path d="M630,86 C630,72 455,72 455,84" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#w7)"/>
+  <text x="542" y="64" text-anchor="middle" font-size="12" fill="#b91c1c">有碰撞就回頭改</text>
+
+  <!-- row 2 (right to left) -->
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <rect x="730" y="230" width="150" height="56" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+    <text x="805" y="254" font-weight="bold">6 貫穿孔申請</text>
+    <text x="805" y="273" font-size="12">位置、尺寸、型式</text>
+
+    <rect x="555" y="230" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="630" y="254" font-weight="bold">7 管段切分</text>
+    <text x="630" y="273" font-size="12">Spool</text>
+
+    <rect x="380" y="230" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="455" y="254" font-weight="bold">8 ISO 管段圖</text>
+    <text x="455" y="273" font-size="12">Isodraft</text>
+
+    <rect x="205" y="230" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="280" y="254" font-weight="bold">9 材料表與預製</text>
+    <text x="280" y="273" font-size="12">MTO、切管長度</text>
+
+    <rect x="30" y="230" width="150" height="56" rx="6" fill="#ffffff" stroke="#6366f1"/>
+    <text x="105" y="254" font-weight="bold">10 安裝與試壓</text>
+    <text x="105" y="273" font-size="12">現場</text>
+  </g>
+  <g stroke="#4b5563" stroke-width="1.6" marker-end="url(#w7)">
+    <line x1="805" y1="142" x2="805" y2="228"/>
+    <line x1="730" y1="258" x2="707" y2="258"/>
+    <line x1="555" y1="258" x2="532" y2="258"/>
+    <line x1="380" y1="258" x2="357" y2="258"/>
+    <line x1="205" y1="258" x2="182" y2="258"/>
+  </g>
+
+  <!-- hull lane -->
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <rect x="555" y="388" width="150" height="60" rx="6" fill="#ffffff" stroke="#059669"/>
+    <text x="630" y="412" font-weight="bold">船體確認開孔</text>
+    <text x="630" y="431" font-size="12">補強、位置是否可行</text>
+
+    <rect x="730" y="388" width="150" height="60" rx="6" fill="#ffffff" stroke="#059669"/>
+    <text x="805" y="412" font-weight="bold">建立實際開孔</text>
+    <text x="805" y="431" font-size="12">進入零件與 NC</text>
+  </g>
+  <g stroke="#4b5563" stroke-width="1.6" fill="none" marker-end="url(#w7)">
+    <polyline points="760,286 760,320 630,320 630,386"/>
+    <line x1="705" y1="418" x2="728" y2="418"/>
+  </g>
+  <path d="M690,388 C700,340 840,340 840,290" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#w7)"/>
+  <text x="230" y="422" font-size="12" fill="#b91c1c">紅色虛線：船體認為不可行時，退回舾裝修改申請</text>
+
+  <text x="20" y="500" font-size="12" fill="#374151">橘框是最常出錯的跨專業介面：資訊若只在圖面上轉手，容易遺漏或寫錯座標。開發工具的價值常在把它「資料化」。</text>
+</svg>

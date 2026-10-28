@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">啟動流程：從桌面捷徑到可以下命令</text>
+
+  <!-- left steps -->
+  <g font-size="14" fill="#1f2937">
+    <rect x="30" y="52" width="340" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="46" y="76" font-weight="bold">1. 執行啟動批次檔</text>
+    <text x="46" y="98" font-size="13">捷徑 → 安裝目錄的 .bat（evars 系列）</text>
+
+    <rect x="30" y="134" width="340" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="46" y="158" font-weight="bold">2. 設定環境變數</text>
+    <text x="46" y="180" font-size="13">安裝路徑、專案路徑、PMLLIB、PDMSUI…</text>
+
+    <rect x="30" y="216" width="340" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="46" y="240" font-weight="bold">3. 登入表單</text>
+    <text x="46" y="262" font-size="13">Project、Username、Password、MDB</text>
+
+    <rect x="30" y="298" width="340" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="46" y="322" font-weight="bold">4. 選擇模組</text>
+    <text x="46" y="344" font-size="13">Outfitting、Hull Design、Drafting…</text>
+
+    <rect x="30" y="380" width="340" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="46" y="404" font-weight="bold">5. 模組初始化</text>
+    <text x="46" y="426" font-size="13">載入 PML 介面、Add-in、.NET 外掛</text>
+
+    <rect x="30" y="462" width="340" height="56" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="46" y="486" font-weight="bold">6. 工作畫面與命令列</text>
+    <text x="46" y="508" font-size="13">所有介面操作最後都轉成命令執行</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="200" y1="108" x2="200" y2="130"/>
+    <line x1="200" y1="190" x2="200" y2="212"/>
+    <line x1="200" y1="272" x2="200" y2="294"/>
+    <line x1="200" y1="354" x2="200" y2="376"/>
+    <line x1="200" y1="436" x2="200" y2="458"/>
+  </g>
+
+  <!-- right notes -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="430" y="52" width="440" height="138" rx="6" fill="#fefce8" stroke="#a16207"/>
+    <text x="446" y="76" font-size="14" font-weight="bold" fill="#713f12">這一步決定「程式從哪裡載入」</text>
+    <text x="446" y="100">PDMSEXE：執行檔與系統資料所在目錄</text>
+    <text x="446" y="122">PMLLIB：PML 函式、表單、物件的搜尋路徑</text>
+    <text x="446" y="144">PDMSUI：介面檔、Add-in 定義的搜尋路徑</text>
+    <text x="446" y="166">CAF_ADDINS_PATH：.NET Add-in 設定檔位置</text>
+    <line x1="370" y1="162" x2="428" y2="120" stroke="#a16207" stroke-dasharray="4,3"/>
+
+    <rect x="430" y="210" width="440" height="116" rx="6" fill="#fefce8" stroke="#a16207"/>
+    <text x="446" y="234" font-size="14" font-weight="bold" fill="#713f12">這一步決定「資料從哪裡讀寫」</text>
+    <text x="446" y="258">專案代碼 ABC → 環境變數 ABC000 指向 DB 檔目錄</text>
+    <text x="446" y="280">使用者 → 所屬 Team → 可寫的 DB</text>
+    <text x="446" y="302">MDB → 這次連線掛載哪些 DB、搜尋順序</text>
+    <line x1="370" y1="244" x2="428" y2="260" stroke="#a16207" stroke-dasharray="4,3"/>
+
+    <rect x="430" y="346" width="440" height="172" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+    <text x="446" y="370" font-size="14" font-weight="bold" fill="#4c1d95">開發人員的檢查點</text>
+    <text x="446" y="394">工具沒出現：先 q evar PMLLIB，再 pml rehash all</text>
+    <text x="446" y="416">.NET 外掛沒載入：檢查 Addins.xml 與 CAF_ADDINS_PATH</text>
+    <text x="446" y="438">讀得到但寫不進：檢查 Team、MDB、Claim（第 2 章）</text>
+    <text x="446" y="460">同一台電腦切換專案：環境變數是啟動當下決定的，</text>
+    <text x="446" y="480">修改 .bat 後必須重新啟動程式才生效</text>
+    <line x1="370" y1="420" x2="428" y2="420" stroke="#6d28d9" stroke-dasharray="4,3"/>
+  </g>
+</svg>

@@ -1,0 +1,45 @@
+------------------------------------------------------------------------
+--
+-- File:            appmycollect.pmlobj
+--   Type:          Object Definition
+--   Module:        myco
+--   Author:        myco
+--   Created:       2026-09-26
+-- Description:     Add-in object: inject My EQUI Collector into Design/Outfitting menus
+--                  (paradigm: PMLLIB\avevamarine\objects\appdesavevamarine.pmlobj)
+------------------------------------------------------------------------
+-- Methods defined:
+--  Method call                      Return              Description
+--  ===========                      ======              ===========
+--  .appmycollect()                  -                   constructor
+--  .modifyMenus()                   -                   standard add-in hook (module start)
+------------------------------------------------------------------------
+
+define object APPMYCOLLECT
+endobject
+
+------------------------------------------------------------------------
+--
+-- Method:      .appmycollect()
+-- Description: Constructor (empty - menu work is done in .modifyMenus)
+-- Method Type: Procedure
+--
+------------------------------------------------------------------------
+define method .appmycollect()
+endmethod
+
+------------------------------------------------------------------------
+--
+-- Method:      .modifyMenus()
+-- Description: Standard add-in hook, runs at module start.
+--              Adds the collector to the Utilities menu of ALL applications.
+--
+------------------------------------------------------------------------
+define method .modifyMenus()
+  !menu = object APPMENU('SYSUTIL')
+  !menu.add('SEPARATOR', 'myCollectSep')
+  !menu.add('CALLBACK', 'My EQUI Collector...', 'show !!mycollect', 'myCollect')
+  !!appMenuCntrl.addMenu(!menu, 'ALL')
+endmethod
+
+-- End of object definition for APPMYCOLLECT

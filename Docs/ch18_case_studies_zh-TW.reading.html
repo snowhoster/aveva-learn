@@ -1,0 +1,963 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 18 章　實戰案例與完整範例 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#18">第 18 章 實戰案例與完整範例</a><ul>
+<li><a href="#181">18.1 學習目標</a></li>
+<li><a href="#182">18.2 怎麼讀案例</a></li>
+<li><a href="#183">18.3 案例一：外板開孔自動產生系統（學術論文）</a><ul>
+<li><a href="#1831">18.3.1 業務問題</a></li>
+<li><a href="#1832">18.3.2 系統架構</a></li>
+<li><a href="#1833">18.3.3 實際執行畫面</a></li>
+<li><a href="#1834">18.3.4 關鍵技術：在曲面上求開孔方向</a></li>
+<li><a href="#1835-pml">18.3.5 讀懂論文中的 PML 程式</a></li>
+<li><a href="#1836">18.3.6 成效與限制</a></li>
+<li><a href="#1837">18.3.7 對我們的啟發</a></li>
+</ul>
+</li>
+<li><a href="#184-pml">18.4 案例二：PML 管支架自動建立</a><ul>
+<li><a href="#1841">18.4.1 業務問題</a></li>
+<li><a href="#1842">18.4.2 設計重點</a></li>
+<li><a href="#1843">18.4.3 物件骨架</a></li>
+<li><a href="#1844">18.4.4 對我們的啟發</a></li>
+</ul>
+</li>
+<li><a href="#185">18.5 其他公開資料</a></li>
+<li><a href="#186">18.6 三個完整範例：導覽與部署</a><ul>
+<li><a href="#1861-mycollectpml">18.6.1 範例一：MyCollect（PML）</a></li>
+<li><a href="#1862-mybrowserc">18.6.2 範例二：MyBrowser（C#）</a></li>
+<li><a href="#1863-vitesse">18.6.3 範例三：Vitesse 船體板厚報表</a></li>
+<li><a href="#1864">18.6.4 部署前檢查表</a></li>
+</ul>
+</li>
+<li><a href="#187">18.7 公司工具立案與優先順序</a><ul>
+<li><a href="#1871">18.7.1 五個優先等級</a></li>
+<li><a href="#1872">18.7.2 立案單</a></li>
+<li><a href="#1873">18.7.3 評估方式</a></li>
+<li><a href="#1874">18.7.4 角色</a></li>
+<li><a href="#1875">18.7.5 生命週期</a></li>
+</ul>
+</li>
+<li><a href="#188">18.8 開發人員須知</a></li>
+<li><a href="#189">18.9 練習（只能在訓練專案）</a></li>
+<li><a href="#1810">18.10 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 19 / 21</span><h1 id="18">第 18 章　實戰案例與完整範例</h1>
+<blockquote>
+<p>本章把前面各章串起來：先精讀一個有<strong>實機畫面與實際 PML 程式</strong>的學術案例（外板開孔自動化），再看一個物件化 PML 工具的設計（管支架），接著導覽本課程的三個可部署範例（PML、C#、Vitesse），最後說明公司工具如何立案與排定優先順序。</p>
+<p><strong>資料可信度：</strong> 案例一的圖片全部取自開放取用論文 Kim, Park &amp; Yang (2020)（CC BY-NC 3.0），是作者在 AVEVA Marine 上實際執行的畫面；文字為本課程自行撰寫的導讀，論文中的函式庫方法是否存在於公司版本〔待核對〕。案例二取自資深開發者的部落格文章，屬於較早期的 Marine 版本。三個範例來自 MIT 授權的開源專案 aveva-marine-dev-skill，針對 Marine 12.1 SP4 撰寫，<strong>本課程未在實機上執行</strong>，示意圖依原始碼繪製。工具立案與優先順序是本課程的建議做法。</p>
+</blockquote>
+<h2 id="181">18.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>用「業務問題、系統架構、關鍵技術、成效與限制、啟發」五個面向分析一個開發案例。</li>
+<li>讀懂論文中三段真實 PML 程式：以包圍盒找外板、求曲面與平面的交線、以兩點求方向。</li>
+<li>說明物件化 PML 工具與「資料與程式分離」的設計方式。</li>
+<li>依步驟部署 MyCollect、MyBrowser 與 Vitesse 船體報表三個範例，完成冒煙測試與延伸練習。</li>
+<li>為公司工具撰寫立案單，並依效益與風險排定優先順序。</li>
+</ol>
+<h2 id="182">18.2 怎麼讀案例</h2>
+<p>每個案例都用同一個架構分析：</p>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>要回答的問題</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>業務問題</td>
+<td>現場遇到什麼困難？代價是什麼？</td>
+<td>第 5 至 9 章</td>
+</tr>
+<tr>
+<td>系統架構</td>
+<td>資料從哪裡來、存在哪裡、誰使用？</td>
+<td>第 2、3 章</td>
+</tr>
+<tr>
+<td>關鍵技術</td>
+<td>用了哪些 PML 物件、.NET 介面或船體 API？</td>
+<td>第 11 至 15 章</td>
+</tr>
+<tr>
+<td>成效與限制</td>
+<td>解決了什麼？還有什麼問題？</td>
+<td>第 17 章</td>
+</tr>
+<tr>
+<td>啟發</td>
+<td>公司可以借鏡什麼？</td>
+<td>18.7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="183">18.3 案例一：外板開孔自動產生系統（學術論文）</h2>
+<p><strong>出處：</strong> Chang-Su Kim、Dong-Woo Park、Young-Jun Yang，〈Development of an automatic shell plate hole generation system using AVEVA Marine〉，<em>Journal of Advanced Marine Engineering and Technology</em>, 44(3), 196–202, 2020。<a href="https://doi.org/10.5916/jamet.2020.44.3.196">DOI: 10.5916/jamet.2020.44.3.196</a>，CC BY-NC 3.0。</p>
+<h3 id="1831">18.3.1 業務問題</h3>
+<p>船殼外板上有許多功能性開孔：海水箱孔（Sea Chest，讓海水進入冷卻系統）、排水孔、通氣孔。傳統做法是：</p>
+<ol>
+<li>舾裝設計把開孔需求交給船體設計。</li>
+<li>船體在圖面上標示開孔位置。</li>
+<li>現場依圖面量測、劃線，以氧乙炔手工切割。</li>
+</ol>
+<p>論文指出三個問題：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資訊轉手出錯</td>
+<td>開孔座標在部門之間傳遞時出錯，是船廠設計錯誤的主要來源之一</td>
+</tr>
+<tr>
+<td>外板沒有自動化</td>
+<td>既有的開孔管理只用在內部平板；曲面外板仍在現場施工</td>
+</tr>
+<tr>
+<td>安全風險</td>
+<td>外板開孔常在高處作業，有墜落與工具掉落的危險</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="導入前後流程比較：左為舊流程（圖面、3D CAD、現場手工切割），右為新流程（舾裝申請、建立虛擬孔、船體確認、產生實際孔、NC 製造）" src="images/cases/jamet_fig1_process.png" /></p>
+<p><em>圖 18-1　舊流程（左）與新流程（右）。新流程中，舾裝負責申請、建立虛擬孔與修改；船體負責確認、退回、驗證與產生實際孔，最後交給 NC 切割。（Kim et al., 2020, Figure 1）</em></p>
+<h3 id="1832">18.3.2 系統架構</h3>
+<p>系統分成舾裝端與船體端兩個模組，以一個<strong>開孔資訊資料庫</strong>串接：</p>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>使用者</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outfitting Hole Manager</td>
+<td>舾裝設計</td>
+<td>輸入開孔型式、參考軸、座標；產生虛擬孔</td>
+</tr>
+<tr>
+<td>開孔資訊資料庫</td>
+<td>兩個部門共用</td>
+<td>記錄每個開孔的型式、位置與狀態</td>
+</tr>
+<tr>
+<td>Hull Hole Manager</td>
+<td>船體設計</td>
+<td>依資料確認、退回，或產生實際孔，交給 NC</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="系統架構：使用者介面、Outfitting Hole Manager、AVEVA Marine、Hull Hole Manager 與開孔資訊資料庫" src="images/cases/jamet_fig2_architecture.png" /></p>
+<p><em>圖 18-2　系統架構。（Kim et al., 2020, Figure 2）</em></p>
+<p>開孔有兩種狀態：<strong>Marked</strong>（虛擬孔，只標示位置，等待確認）與 <strong>Burnt</strong>（實際孔，NC 階段要切出）。用開發人員的語言說，這就是一個有職責分離的工作流程狀態機：</p>
+<p><img alt="開孔申請的狀態機：舾裝提出申請、建立 Marked 虛擬孔，船體確認後核准成 Burnt 實際孔並交給 NC 切割，或退回給舾裝修改；下方對照論文做法與開發概念" src="images/diagrams/ch18_hole_request_states.svg" /></p>
+<p><em>圖 18-3　開孔申請的狀態機與開發概念對照。（本課程依論文自繪）</em></p>
+<h3 id="1833">18.3.3 實際執行畫面</h3>
+<p><img alt="AVEVA Marine「Handle holes in curved panel」對話框" src="images/cases/jamet_fig3_handle_holes_dialog.png" /></p>
+<p><em>圖 18-4　輸入開孔資訊的對話框。<code>Designation</code> 選開孔型式；<code>Approx. Coord.</code> 選參考軸；<code>Marked</code>／<code>Burnt</code> 選虛擬孔或實際孔；<code>Point 1</code> 輸入孔中心座標。（Kim et al., 2020, Figure 3）</em></p>
+<p><img alt="在外板上產生的虛擬孔，標註 Virtual Hole、HR Type、645x520、R120 與中心座標" src="images/cases/jamet_fig4_virtual_hole.jpg" /></p>
+<p><em>圖 18-5　產生的虛擬孔。圖面上自動標註孔型、尺寸、圓角與中心座標（X=-1500、Y=12163、Z=8496），供船體人員確認。（Kim et al., 2020, Figure 4）</em></p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 注意虛擬孔上「自動標註」的設計。確認者不需要另外查資料，看圖就知道孔的型式、尺寸與位置。審查型工具的價值，常常來自「把審查者需要的資訊放在他眼前」。</p>
+</blockquote>
+<h3 id="1834">18.3.4 關鍵技術：在曲面上求開孔方向</h3>
+<p>平板上的開孔只要座標就夠了；曲面外板則要知道該點的<strong>表面方向</strong>，孔才會垂直於外板。論文的演算法可以歸納為五步：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>做法</th>
+<th>相關章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 找外板</td>
+<td>依序載入分段與外板，判斷孔中心落在哪一塊外板上</td>
+<td>第 3、12 章</td>
+</tr>
+<tr>
+<td>2. 建虛擬平面</td>
+<td>在孔中心建立一個與外板相交、大小有限的平面</td>
+<td>第 4 章</td>
+</tr>
+<tr>
+<td>3. 求交點</td>
+<td>取得外板與虛擬平面的交線點，挑出包夾孔中心的兩點</td>
+<td>第 4 章</td>
+</tr>
+<tr>
+<td>4. 算方向</td>
+<td>把兩點視為直線，以投影求出方向</td>
+<td>第 4 章</td>
+</tr>
+<tr>
+<td>5. 產生開孔</td>
+<td>以中心、方向、型式產生實際孔</td>
+<td>第 5 章</td>
+</tr>
+</tbody>
+</table>
+<p>排水孔與通氣孔尺寸小、形狀不影響結構，論文直接以座標產生，省略方向計算。這是「依風險決定處理深度」的務實做法。</p>
+<p><img alt="整體流程：目標船、分段、分段外板，再依序求交點、算斜率、產生實際孔" src="images/cases/jamet_fig5_procedure.png" /></p>
+<p><em>圖 18-6　整體流程。（Kim et al., 2020, Figure 5）</em></p>
+<p><img alt="外板與虛擬平面相交，紅色虛線圈標示交點，藍點為開孔中心" src="images/cases/jamet_fig10_intersection.png" /></p>
+<p><em>圖 18-7　外板（藍綠色）與虛擬平面（灰色）相交。紅色虛線圈內是交點，深藍點是開孔中心。（Kim et al., 2020, Figure 10）</em></p>
+<h3 id="1835-pml">18.3.5 讀懂論文中的 PML 程式</h3>
+<p>論文附了三段實際執行的 PML 截圖，是「PML 如何操作船體幾何」難得的真實教材。</p>
+<p><strong>步驟 1：用包圍盒找出孔中心落在哪一塊外板</strong></p>
+<p><img alt="PML：以 WVOL 包圍盒判斷中心點落在哪塊外板" src="images/cases/jamet_fig6_pml_find_plate.png" /></p>
+<p><em>圖 18-8　（Kim et al., 2020, Figure 6）</em></p>
+<table>
+<thead>
+<tr>
+<th>程式片段</th>
+<th>意義</th>
+<th>開發人員對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Do !csurf Values !csurfList</code></td>
+<td>逐一走訪分段中的外板清單</td>
+<td><code>foreach</code></td>
+</tr>
+<tr>
+<td><code>!boxList = WVOL of $!csurf</code></td>
+<td>取得外板的世界座標包圍盒，6 個值依序是最小 E、N、U 與最大 E、N、U</td>
+<td>軸對齊包圍盒（AABB）</td>
+</tr>
+<tr>
+<td><code>!basePos.East</code>、<code>.North</code>、<code>.Up</code></td>
+<td>取出孔中心的三個座標分量</td>
+<td>點的 x、y、z</td>
+</tr>
+<tr>
+<td><code>Geq</code>、<code>Leq</code> 比較</td>
+<td>判斷中心是否在包圍盒內</td>
+<td>範圍判斷</td>
+</tr>
+<tr>
+<td><code>Namn of $!csurf</code></td>
+<td>取得外板名稱</td>
+<td>讀屬性</td>
+</tr>
+<tr>
+<td><code>Handle ... EndHandle</code></td>
+<td>某塊外板取不到屬性時不讓程式中斷</td>
+<td>try／catch</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>照抄前請注意：</strong> 論文截圖中有幾處不符官方標準語法，例如 <code>Handle</code> 沒有指定錯誤碼、<code>If</code> 條件沒有加括號、陣列索引出現 <code>[0]</code>（PML 陣列從 1 開始）。這些寫法可能依賴該版本或作者環境；學習時以理解演算法為主，實作請改用第 11、12 章的標準語法。</p>
+</blockquote>
+<p>包圍盒判斷快但不精確：曲面外板的包圍盒可能互相重疊，論文保留第一個符合的外板作為預設。實務上可以再加一層精確判斷，例如計算點到曲面的距離。</p>
+<p><strong>步驟 2：建立虛擬平面並求交線</strong></p>
+<p><img alt="PML：用 !!Dex.CreateRestrictedPlane 建立有限平面，再用 SolveIntersectionSpaceCurvePML 求交線" src="images/cases/jamet_fig8_pml_intersection.png" /></p>
+<p><em>圖 18-9　（Kim et al., 2020, Figure 8）</em></p>
+<table>
+<thead>
+<tr>
+<th>程式片段</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!!Dex.CreateRestrictedPlane(!pos, !normalVec, !minPos, !maxPos)</code></td>
+<td>以位置、法向量與上下限建立有限大小的平面</td>
+</tr>
+<tr>
+<td><code>!!Dex.SolveIntersectionSpaceCurvePML(!surfaceName, !bPlane)</code></td>
+<td>求外板曲面與平面的空間交線</td>
+</tr>
+<tr>
+<td><code>!cont.ContourPML()</code></td>
+<td>把交線轉成點列</td>
+</tr>
+<tr>
+<td><code>object Position()</code> 與 <code>.east</code>、<code>.north</code>、<code>.up</code></td>
+<td>把點列轉成 PML 的 POSITION 物件</td>
+</tr>
+<tr>
+<td><code>!tempList.Append(!p)</code></td>
+<td>收集所有交點</td>
+</tr>
+</tbody>
+</table>
+<p>注意方法名稱的 <code>PML</code> 字尾：第 15 章提過，marAPI 的方法常成對出現，PML 只能呼叫 <code>PML</code> 結尾的版本。〔待核對〕<code>!!Dex</code> 物件與其方法屬於論文所用版本的函式庫，公司版本是否相同，請用 <code>q meth</code> 確認。</p>
+<p><strong>步驟 3：用兩個交點求方向</strong></p>
+<p><img alt="PML：排序交點，用 Line 與 OnProjected 找出包夾中心點的線段，並用 AID 圖形顯示" src="images/cases/jamet_fig11_pml_slope.png" /></p>
+<p><em>圖 18-10　（Kim et al., 2020, Figure 11）</em></p>
+<table>
+<thead>
+<tr>
+<th>程式片段</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!tempList.SortUnique()</code></td>
+<td>排序並去除重複交點</td>
+</tr>
+<tr>
+<td><code>aid sphere $!templist[$!i] dia 200</code></td>
+<td>在 3D 視圖畫出輔助球，<strong>用來目視除錯</strong>（第 17 章）</td>
+</tr>
+<tr>
+<td><code>!line = !pos1.Line(!pos2)</code></td>
+<td>以相鄰兩點建立直線</td>
+</tr>
+<tr>
+<td><code>!line.OnProjected(!basepos)</code></td>
+<td>判斷中心點的投影是否落在這段線上</td>
+</tr>
+<tr>
+<td><code>!line.Near(!basePos)</code></td>
+<td>求線上最接近中心點的位置</td>
+</tr>
+<tr>
+<td><code>AID LINE</code>、<code>AID SPHERE</code></td>
+<td>把找到的線段與點畫出來，供人工確認</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1836">18.3.6 成效與限制</h3>
+<p>論文報告，系統於 2018 年應用在一艘散貨船上：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>導入前</th>
+<th>導入後</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切割方式</td>
+<td>氧乙炔手工切割</td>
+<td>NC 自動切割</td>
+</tr>
+<tr>
+<td>每孔工時</td>
+<td>約 3 人時</td>
+<td>約 0.1 人時以下</td>
+</tr>
+<tr>
+<td>切割品質</td>
+<td>依工人技術而定</td>
+<td>穩定</td>
+</tr>
+<tr>
+<td>額外作業</td>
+<td>高處作業、事先劃線、修磨</td>
+<td>不需要額外修整</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="外板上產生的海水箱孔、排水孔與通氣孔" src="images/cases/jamet_fig14_holes.png" /></p>
+<p><em>圖 18-11　外板上產生的海水箱孔（黑圈）、排水孔（綠圈）與通氣孔（紅圈）。（Kim et al., 2020, Figure 14）</em></p>
+<p><img alt="導入前後切割品質比較：左欄為手工切割，右欄為 NC 切割" src="images/cases/jamet_table1_before_after.png" /></p>
+<p><em>圖 18-12　切割成果比較。左欄為導入前的手工切割，右欄為導入後的 NC 切割。（Kim et al., 2020, Table 1 照片拼接）</em></p>
+<p>作者也指出限制：</p>
+<ul>
+<li>交點間距難以調整，方向計算的精度還有改進空間。</li>
+<li>尺寸大或靠近構件邊緣的孔，在外板成形時可能變形。可採用船廠常用的 Bridge 做法（保留連接筋，成形後再切除），並將做法標準化。</li>
+</ul>
+<h3 id="1837">18.3.7 對我們的啟發</h3>
+<table>
+<thead>
+<tr>
+<th>啟發</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先把跨部門介面資料化</td>
+<td>開孔資訊從「圖面標示」變成「資料庫記錄」，自動化才有可能</td>
+</tr>
+<tr>
+<td>狀態管理</td>
+<td>申請、確認、執行的狀態機可以套用在任何跨部門申請</td>
+</tr>
+<tr>
+<td>自動化停在確認點之前</td>
+<td>系統產生虛擬孔，由船體人員確認後才變成實際孔，符合第 15 章「輔助而非代替」的安全界線</td>
+</tr>
+<tr>
+<td>依風險決定深度</td>
+<td>形狀要求高的海水箱孔走完整流程；小孔走簡化流程</td>
+</tr>
+<tr>
+<td>用 AID 除錯幾何</td>
+<td>幾何演算法先畫出來看，再寫入資料庫</td>
+</tr>
+</tbody>
+</table>
+<h2 id="184-pml">18.4 案例二：PML 管支架自動建立</h2>
+<p><strong>出處：</strong> eryar，〈AVEVA MARINE 中用 PML 寫管支架程序（二）〉，<a href="https://blog.csdn.net/eryar/article/details/4457072">CSDN 部落格</a>。原文日期未明確標示，屬較早期的 Marine 版本。</p>
+<h3 id="1841">18.4.1 業務問題</h3>
+<p>原本以 MDS 模組建立管支架，作者指出：</p>
+<ul>
+<li>支架數量多時，建模、量尺寸、製表都要人工處理，費時又容易出錯。</li>
+<li>MDS 每次都會重新載入管夾設定檔，速度慢。</li>
+<li>管夾以附件（ATTA）形式跟著管線，可能破壞管段資訊。</li>
+</ul>
+<h3 id="1842">18.4.2 設計重點</h3>
+<table>
+<thead>
+<tr>
+<th>設計決策</th>
+<th>做法</th>
+<th>好處</th>
+<th>相關章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管夾的資料型態</td>
+<td>以 EQUI 建立，不掛在管線上</td>
+<td>不影響管段與材料表</td>
+<td>第 7 章</td>
+</tr>
+<tr>
+<td>尺寸資料外部化</td>
+<td>每種管夾一個資料檔；螺帽尺寸依設計手冊另存</td>
+<td>改尺寸不必改程式</td>
+<td>第 16 章</td>
+</tr>
+<tr>
+<td>物件導向</td>
+<td>以一個 <code>.pmlobj</code> 封裝建立與修改邏輯</td>
+<td>邏輯集中、易於擴充</td>
+<td>第 11 章</td>
+</tr>
+<tr>
+<td>命名所有圖形元素</td>
+<td>每個基本體都有名稱</td>
+<td>之後可對齊、修改、查詢</td>
+<td>第 3 章</td>
+</tr>
+</tbody>
+</table>
+<p>物件提供的方法包括：依型式建立、旋轉、變更型式，以及檢查是否對齊基準管夾。系列文章也提到角鋼支撐以起點、終點與規格參照（SPREF）定義。</p>
+<h3 id="1843">18.4.3 物件骨架</h3>
+<pre><code class="language-pml">-- 示意：mycoclamp.pmlobj，說明物件化工具的結構，不是原文程式
+define object MYCOCLAMP
+  member .pipe     is DBREF
+  member .type     is STRING
+  member .dataFile is STRING
+  member .dims     is ARRAY
+endobject
+
+define method .mycoclamp(!pipe is DBREF, !type is STRING)
+  !this.pipe = !pipe
+  !this.type = !type
+  -- 資料檔目錄由公司設定提供，不寫死
+  !this.dataFile = !!mycoConfig('clampDataDir') &amp; '\clamp_' &amp; !type &amp; '.csv'
+endmethod
+
+define method .load() is BOOLEAN
+  -- 讀取並驗證尺寸（第 16 章的 !!mycoLoadClampStd 寫法）
+  !errors = ARRAY()
+  !this.dims = !!mycoLoadClampStd(!this.dataFile, !errors)
+  return (!errors.size() eq 0)
+endmethod
+
+define method .preview()
+  -- 以 AID 圖形畫出預定位置，不寫入資料庫
+endmethod
+
+define method .create()
+  -- 1. 確認 .load() 成功、使用者已確認預覽
+  -- 2. MARKDB 標記；在指定 ZONE 下建立 EQUI 與命名的基本體
+  -- 3. 依管線外徑定位；記錄建立的元素名稱
+endmethod
+</code></pre>
+<p><code>!!mycoConfig</code> 是假設的公司設定讀取函式，需自行實作。</p>
+<h3 id="1844">18.4.4 對我們的啟發</h3>
+<ul>
+<li><strong>資料與程式分離</strong>：標準件尺寸放資料檔或 UDA，不寫死在程式。</li>
+<li><strong>不破壞既有資料結構</strong>：工具產生的物件不能干擾管段、材料表等下游功能。</li>
+<li><strong>可追溯命名</strong>：工具產生的物件要有一致的命名，日後才能查詢與批次修改。</li>
+<li><strong>先預覽再建立</strong>：骨架中加入 <code>.preview()</code>，是本課程依第 12 章安全模式建議的改進。</li>
+</ul>
+<h2 id="185">18.5 其他公開資料</h2>
+<table>
+<thead>
+<tr>
+<th>題目方向</th>
+<th>出處</th>
+<th>可學到什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.NET Add-in 入門</td>
+<td>eryar，<a href="https://developer.aliyun.com/article/235787">AVEVA .NET Quick Start Guide</a>（2012）</td>
+<td>CAF 外掛架構（第 14 章已整理）</td>
+</tr>
+<tr>
+<td>AVEVA Marine 在船體生產設計中的應用</td>
+<td>賀幫永、張乖平，《廣東造船》，2024</td>
+<td>船廠導入船體生產設計的實務</td>
+</tr>
+<tr>
+<td>以 C# 二次開發加快船舶元件庫建立</td>
+<td>王星宇等，2024</td>
+<td>.NET 批次建立目錄元件</td>
+</tr>
+<tr>
+<td>PDMS 二次開發在海上石油平台的應用</td>
+<td>《海洋工程裝備與技術》5(1), 2018</td>
+<td>PML 自動化在海工專案的做法</td>
+</tr>
+<tr>
+<td>以 AVEVA Marine 自動套用鋼料餘量的建模系統</td>
+<td>大韓造船學會特別論文集，2013</td>
+<td>套料前階段的餘量自動化</td>
+</tr>
+</tbody>
+</table>
+<p>連結見本章資料來源與附錄 A。</p>
+<h2 id="186">18.6 三個完整範例：導覽與部署</h2>
+<p>三個範例分別代表三條開發路線，原始碼都在 <a href="examples/"><code>examples/</code></a>，授權見 <a href="examples/LICENSE-aveva-marine-dev-skill.txt"><code>examples/LICENSE-aveva-marine-dev-skill.txt</code></a>。</p>
+<table>
+<thead>
+<tr>
+<th>範例</th>
+<th>路線</th>
+<th>做什麼</th>
+<th>資料存取</th>
+<th>詳細解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MyCollect</td>
+<td>PML2 表單＋PML Add-in</td>
+<td>收集範圍內的設備，顯示在表格，可匯出 Excel</td>
+<td>唯讀</td>
+<td><a href="ch13_pml_forms_addins_zh-TW.reading.html">第 13 章</a></td>
+</tr>
+<tr>
+<td>MyBrowser</td>
+<td>C# CAF Add-in</td>
+<td>右側停靠視窗即時顯示目前元素的所有屬性</td>
+<td>唯讀</td>
+<td><a href="ch14_dotnet_zh-TW.reading.html">第 14 章</a></td>
+</tr>
+<tr>
+<td>船體板厚報表</td>
+<td>Vitesse Python 2.6</td>
+<td>抽取板架的板厚與材質，產生報表或右鍵選單</td>
+<td>唯讀</td>
+<td><a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 三個範例都針對 Marine 12.1 SP4 撰寫，且未經本課程實機驗證。請先在訓練環境部署，並依公司資安規範審查原始碼；部署腳本在執行前也要逐行看過。</p>
+</blockquote>
+<h3 id="1861-mycollectpml">18.6.1 範例一：MyCollect（PML）</h3>
+<p><strong>檔案：</strong></p>
+<table>
+<thead>
+<tr>
+<th>檔案</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="examples/starter-kit-mycollect/pmllib/myco/forms/mycollect.pmlfrm"><code>pmllib/myco/forms/mycollect.pmlfrm</code></a></td>
+<td>表單：範圍輸入、Collect／Export／Close 按鈕、.NET 表格</td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mycollect/pmllib/myco/objects/appmycollect.pmlobj"><code>pmllib/myco/objects/appmycollect.pmlobj</code></a></td>
+<td>Add-in 物件：在 Utilities 選單加入入口</td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mycollect/addins-des/MYCOLLECT"><code>addins-des/MYCOLLECT</code></a></td>
+<td>Add-in 定義檔：<code>Name: MYCOLLECT</code>、<code>Object: APPMYCOLLECT</code></td>
+</tr>
+<tr>
+<td><a href="examples/starter-kit-mycollect/install.cmd"><code>install.cmd</code></a></td>
+<td>部署腳本</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="MyCollect 表單版面示意：Scope 輸入欄、Collect／Export／Close 按鈕與三欄表格" src="images/cases/mycollect_form_mockup.svg" /></p>
+<p><em>圖 18-13　MyCollect 表單示意（依原始碼繪製，非實機截圖）。</em></p>
+<blockquote>
+<p><strong>部署前先看：</strong> 第 13 章 13.9.5 節列出這個範例與官方寫法的差異，包括表單內可能需要加上 <code>using namespace 'Aveva.Pdms.Presentation'</code>、每次顯示都重建表格，以及 <code>!!exportToExcel</code> 不一定存在。另外 <code>install.cmd</code> 用 <code>%PMLLIB%myco</code> 組合路徑，PMLLIB 含多個目錄時會出錯；第 10 章附有改良的部署腳本骨架。</p>
+</blockquote>
+<p><strong>部署步驟：</strong></p>
+<ol>
+<li>開啟已執行 AVEVA 啟動批次檔的命令環境（<code>PMLLIB</code>、<code>PDMSUI</code> 已定義）。</li>
+<li>閱讀並執行 <code>install.cmd</code>。它做兩件事：把 <code>pmllib\myco</code> 複製到 <code>%PMLLIB%myco</code>（新增目錄，不修改官方檔案），把 <code>MYCOLLECT</code> 複製到 <code>%PDMSUI%DES\DFLTS\ADDINS\</code>。</li>
+<li>重新啟動 Outfitting 或 Design。</li>
+<li>在命令列確認：</li>
+</ol>
+<pre><code class="language-pml">q evar pmllib
+pml rehash all
+show !!mycollect
+</code></pre>
+<ol start="5">
+<li>從 <strong>Utilities → My EQUI Collector...</strong> 開啟。</li>
+</ol>
+<p><code>install.cmd</code> 的關鍵片段：</p>
+<pre><code class="language-bat">if &quot;%PMLLIB%&quot;==&quot;&quot; (
+  echo [ERR] 请先在 Marine 启动环境里运行本脚本 ^(marine.bat 环境^)
+  goto :eof
+)
+set KIT=%~dp0
+xcopy /s /y /i &quot;%KIT%pmllib\myco&quot; &quot;%PMLLIB%myco&quot;
+copy /y &quot;%KIT%addins-des\MYCOLLECT&quot; &quot;%PDMSUI%DES\DFLTS\ADDINS\MYCOLLECT&quot;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>重點</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先檢查環境變數</td>
+<td>沒有在 AVEVA 環境中執行就停止</td>
+</tr>
+<tr>
+<td><code>%PMLLIB%myco</code></td>
+<td>依賴 <code>PMLLIB</code> 以反斜線結尾（AVEVA 的 evars 會統一加上）；若公司的 <code>PMLLIB</code> 含多個路徑，這行會出錯，需改成明確的目標目錄</td>
+</tr>
+<tr>
+<td>直接寫入安裝目錄</td>
+<td>適合單機練習；正式環境請改用第 17 章的版本目錄與前置搜尋路徑</td>
+</tr>
+</tbody>
+</table>
+<p><strong>冒煙測試：</strong> 選一個 ZONE 為目前元素 → 開啟表單 → Collect → 確認設備清單 → Export 存成 Excel → Close。</p>
+<p><strong>移除：</strong> 刪除 <code>%PMLLIB%myco</code> 與 <code>%PDMSUI%DES\DFLTS\ADDINS\MYCOLLECT</code>，重新啟動模組。</p>
+<p><strong>延伸練習：</strong></p>
+<ul>
+<li>增加一欄 <code>POS</code> 或公司的 UDA。</li>
+<li>把型別改成 <code>PIPE</code>，列出管線與其等級（<code>PSPE</code>）。</li>
+<li>加一個篩選欄位，只列出名稱符合條件的元素。</li>
+<li>改用第 16 章的 CSV 輸出，並處理逗號與中文。</li>
+</ul>
+<h3 id="1862-mybrowserc">18.6.2 範例二：MyBrowser（C#）</h3>
+<p><strong>檔案：</strong> <code>src/MyBrowserAddin.cs</code>、<code>src/ShowBrowserCommand.cs</code>、<code>src/AttributeListControl.cs</code>、<code>MyBrowser.uic</code>（逐行解說見第 14 章）。</p>
+<p><strong>建置：</strong></p>
+<ol>
+<li>在 Visual Studio 新增 C# 類別庫專案：<strong>.NET Framework 3.5、x86</strong>。</li>
+<li>加入 <code>src/</code> 下三個檔案，命名空間 <code>MyCompany.MyBrowser</code>。</li>
+<li>加入參考（HintPath 指向公司安裝目錄，<code>Copy Local = false</code>）：<code>Aveva.ApplicationFramework</code>、<code>Aveva.ApplicationFramework.Presentation</code>、<code>Aveva.Pdms.Shared</code>、<code>Aveva.Pdms.Database</code>。</li>
+<li>建置出 <code>MyBrowserAddin.dll</code>。</li>
+</ol>
+<p><strong>部署：</strong></p>
+<ol>
+<li>關閉 Outfitting。</li>
+<li>把 <code>MyBrowserAddin.dll</code> 與 <code>MyBrowser.uic</code> 複製到安裝目錄（或依第 14 章以 <code>CAF_ADDINS_PATH</code> 放在公司目錄）。</li>
+<li>在 <code>OutfittingAddins.xml</code> 加入 <code>&lt;string&gt;MyBrowserAddin&lt;/string&gt;</code>。</li>
+<li>重新啟動 Outfitting（<code>marodes.exe</code>）。</li>
+</ol>
+<p><strong>冒煙測試：</strong> 工具列出現「My Browser」狀態按鈕 → 按下後右側出現停靠視窗 → 在 Explorer 點選不同元素，屬性清單跟著更新 → 關閉視窗，按鈕勾選狀態同步取消。</p>
+<p><strong>移除：</strong> 從 Addins.xml 刪除該行，關閉模組後刪除 DLL 與 UIC。</p>
+<p><strong>延伸練習：</strong></p>
+<ul>
+<li>套用第 14 章 14.5.5 的改進（解除事件、null 檢查、<code>BeginUpdate</code>）。</li>
+<li>加一個篩選文字框。</li>
+<li>雙擊參照屬性（例如 <code>OWNER</code>）時，把目前元素切換過去。</li>
+</ul>
+<h3 id="1863-vitesse">18.6.3 範例三：Vitesse 船體板厚報表</h3>
+<p><strong>檔案：</strong> 說明文件 <a href="examples/vitesse-hull-report/AVEVA-Marine端到端示例-Vitesse船体脚本.md"><code>examples/vitesse-hull-report/</code></a> 中包含三段程式：</p>
+<table>
+<thead>
+<tr>
+<th>檔案（部署位置）</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Vitesse\Lib\myhelpers.py</code></td>
+<td>共用抽取函式 <code>get_real</code>、<code>get_string</code> 等</td>
+</tr>
+<tr>
+<td><code>Vitesse\Context_Menu\ctx_my_report.py</code></td>
+<td>右鍵選單項目，入口 <code>run(*args)</code></td>
+</tr>
+<tr>
+<td><code>Vitesse\Lib\my_batch_report.py</code></td>
+<td>批次報表</td>
+</tr>
+</tbody>
+</table>
+<p><strong>部署步驟：</strong></p>
+<ol>
+<li>從說明文件複製三段程式，存成 UTF-8 檔案。</li>
+<li>在 <code>ctx_my_report.py</code> 開頭補上 <code>from myhelpers import get_real, get_string</code>（原文缺少，見第 15 章）。</li>
+<li>把檔案放到對應目錄；<strong>不修改官方檔案</strong>。</li>
+<li>若要出現在右鍵選單，需在官方 <code>trig_draft_popup_menu.py</code> 加入 <code>menu_item_usr_add</code> 的註冊；修改前備份並登記（第 15 章 15.6.2）。</li>
+<li>批次版：把板架名稱改成訓練專案中實際存在的板架，輸出目錄改成可寫的位置。</li>
+</ol>
+<p><strong>冒煙測試：</strong> 在 Marine Drafting 的模型視圖中對一個板架按右鍵 → 選報表項目 → 訊息框顯示板架名稱、板厚與材質；批次版產生的文字檔每行一個板架。</p>
+<p><strong>延伸練習：</strong></p>
+<ul>
+<li>改用第 15 章 15.6.3 的 CSV 版本，加入所有板的板厚。</li>
+<li>從文字檔讀取板架清單。</li>
+<li>加入檢查：板厚小於公司規範下限時標記。</li>
+</ul>
+<h3 id="1864">18.6.4 部署前檢查表</h3>
+<ul>
+<li>[ ] 已在<strong>訓練環境</strong>完成部署與冒煙測試。</li>
+<li>[ ] 確認公司版本與範例的目標版本（12.1 SP4）相容。</li>
+<li>[ ] 程式碼經過審查：不寫死路徑、不修改官方檔案（或已登記例外）、錯誤處理完整。</li>
+<li>[ ] 唯讀工具與會修改資料的工具分開部署，後者需要額外審核。</li>
+<li>[ ] 記錄部署位置與移除方式。</li>
+<li>[ ] 實機執行後，用實際截圖取代本章的示意圖。</li>
+</ul>
+<h2 id="187">18.7 公司工具立案與優先順序</h2>
+<h3 id="1871">18.7.1 五個優先等級</h3>
+<table>
+<thead>
+<tr>
+<th>優先</th>
+<th>工具類型</th>
+<th>資料風險</th>
+<th>例子</th>
+<th>技術建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>唯讀查詢與報表</td>
+<td>低</td>
+<td>某分段未定義材質的板、未有開孔申請的貫穿管線</td>
+<td>PML、Vitesse</td>
+</tr>
+<tr>
+<td>2</td>
+<td>檢查工具</td>
+<td>低</td>
+<td>命名規則、屬性完整性、設計審查表自動化</td>
+<td>PML</td>
+</tr>
+<tr>
+<td>3</td>
+<td>輔助建立</td>
+<td>中</td>
+<td>依標準資料檔建立支架、標準開孔（先虛擬、後確認）</td>
+<td>PML、物件化</td>
+</tr>
+<tr>
+<td>4</td>
+<td>批次修改</td>
+<td>高</td>
+<td>批次更新屬性、重新命名</td>
+<td>PML，含預覽與復原</td>
+</tr>
+<tr>
+<td>5</td>
+<td>系統整合</td>
+<td>高</td>
+<td>與 ERP／PDM 交換資料</td>
+<td>.NET（第 16 章）</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="公司工具的優先順序矩陣：橫軸為資料風險、縱軸為效益，標出唯讀查詢、檢查工具、輔助建立、批次修改、系統整合、個人巨集與自動修改船體拓撲的位置，右側為立案流程" src="images/diagrams/ch18_tool_priority_matrix.svg" /></p>
+<p><em>圖 18-14　依效益與資料風險排定優先順序，右側是立案流程。（本課程自繪）</em></p>
+<h3 id="1872">18.7.2 立案單</h3>
+<p>每個工具在開發前都填一份立案單，放進工具庫的 <code>docs/</code>：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工具名稱與編號</td>
+<td>例如 <code>MYCO-012 未定義材質板清單</code></td>
+</tr>
+<tr>
+<td>需求者與部門</td>
+<td>誰提出、誰會使用</td>
+</tr>
+<tr>
+<td>現況與痛點</td>
+<td>現在怎麼做？每週花多少時間？出過哪些錯？</td>
+</tr>
+<tr>
+<td>預期效益</td>
+<td>節省工時、減少錯誤的估計，以及衡量方式</td>
+</tr>
+<tr>
+<td>資料存取</td>
+<td>唯讀、寫入（範圍）、船體紅區（第 15 章）</td>
+</tr>
+<tr>
+<td>輸入與輸出</td>
+<td>讀哪些元素與屬性、輸出什麼檔案或畫面</td>
+</tr>
+<tr>
+<td>技術路線</td>
+<td>PML、PML.NET、CAF Add-in、Vitesse，及理由（第 14 章 14.2）</td>
+</tr>
+<tr>
+<td>領域審查者</td>
+<td>負責確認資料理解正確的設計人員</td>
+</tr>
+<tr>
+<td>驗收條件</td>
+<td>回歸測試清單的初版</td>
+</tr>
+<tr>
+<td>風險與回復方式</td>
+<td>出錯時怎麼發現、怎麼復原</td>
+</tr>
+<tr>
+<td>維護負責人</td>
+<td>上線後誰負責</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1873">18.7.3 評估方式</h3>
+<p>可以用簡單的分數排序待辦工具：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>1 分</th>
+<th>3 分</th>
+<th>5 分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>效益（每週節省或避免的錯誤）</td>
+<td>少於 1 小時</td>
+<td>1 到 5 小時</td>
+<td>超過 5 小時或避免重大錯誤</td>
+</tr>
+<tr>
+<td>使用人數</td>
+<td>1 人</td>
+<td>一個小組</td>
+<td>跨部門</td>
+</tr>
+<tr>
+<td>資料風險（反向計分）</td>
+<td>改船體模型或生產資料</td>
+<td>寫入舾裝模型</td>
+<td>唯讀</td>
+</tr>
+<tr>
+<td>開發成本（反向計分）</td>
+<td>超過 1 個月</td>
+<td>1 到 4 週</td>
+<td>少於 1 週</td>
+</tr>
+<tr>
+<td>依賴（反向計分）</td>
+<td>依賴外部系統或未核對的 API</td>
+<td>依賴官方表單或 marAPI</td>
+<td>只用通用 PML</td>
+</tr>
+</tbody>
+</table>
+<p>總分高者優先。分數只是討論的起點，最終由工具負責人與領域主管決定。</p>
+<h3 id="1874">18.7.4 角色</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>職責</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求者</td>
+<td>說明痛點、提供測試情境、參與試用</td>
+</tr>
+<tr>
+<td>領域審查者</td>
+<td>確認資料理解與業務規則正確；寫入型工具必須簽核</td>
+</tr>
+<tr>
+<td>開發者</td>
+<td>實作、單元測試、撰寫說明與回歸清單</td>
+</tr>
+<tr>
+<td>工具負責人</td>
+<td>審查程式、部署、版本與升級回歸（第 17 章）</td>
+</tr>
+<tr>
+<td>系統管理員</td>
+<td>環境變數、權限、授權、共用目錄</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1875">18.7.5 生命週期</h3>
+<pre><code>立案 → 評估排序 → 唯讀原型 → 領域審查 → 加入寫入功能（若需要）→ 程式審查與測試
+    → 試用 → 正式發佈 → 維護與 SP 回歸 → 退役（無人使用或被官方功能取代時）
+</code></pre>
+<blockquote>
+<p><strong>開發人員須知：</strong> 第一批工具建議選「唯讀、使用者多、痛點明確」的需求，例如設計審查前的檢查報表。它們風險低、見效快，也能累積團隊對資料模型的理解，以及使用者對工具的信任。等這兩樣都有了，再處理輔助建立與批次修改。</p>
+</blockquote>
+<h2 id="188">18.8 開發人員須知</h2>
+<ul>
+<li><strong>案例的價值在設計，不在程式碼。</strong> 論文最值得學的是資料化、狀態機與「停在確認點」，而不是特定的函式名稱。</li>
+<li><strong>函式庫名稱要核對。</strong> 論文與文章中的 API 屬於特定版本；寫進公司工具前，用 <code>q meth</code> 與官方文件確認。</li>
+<li><strong>範例是起點。</strong> 三個範例都需要依公司規範修改（路徑、命名、記錄、部署方式）才能上線。</li>
+<li><strong>唯讀先行。</strong> 本章三個範例都是唯讀的；這不是巧合，而是建議的起步方式。</li>
+<li><strong>把成果寫回知識庫。</strong> 每完成一個工具，把踩過的坑、核對過的 API、實機截圖補回團隊文件。</li>
+</ul>
+<h2 id="189">18.9 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>案例分析。</strong> 用 18.2 的五個面向，分析你們公司目前一個跨部門的資料交接流程（例如開孔申請、材料表交付），畫出它的狀態機。</li>
+<li><strong>讀程式。</strong> 不看本章的表格，自己解讀圖 18-8 至圖 18-10 的 PML 截圖，寫下每一行的意義，再與本章比對。</li>
+<li><strong>部署三個範例。</strong> 依 18.6 在訓練環境部署 MyCollect、MyBrowser、Vitesse 報表，各完成冒煙測試，記錄遇到的問題與解法。</li>
+<li><strong>延伸一個範例。</strong> 從 18.6 的延伸練習中選一項完成，提交程式審查。</li>
+<li><strong>立案。</strong> 為你們部門最想要的一個工具填寫 18.7.2 的立案單，並用 18.7.3 評分。</li>
+</ol>
+<h2 id="1810">18.10 自我檢核</h2>
+<ul>
+<li>[ ] 我能用五個面向分析一個開發案例。</li>
+<li>[ ] 我能說明論文中 Marked 與 Burnt 兩種狀態的意義，以及它對應的開發概念。</li>
+<li>[ ] 我能解讀論文中包圍盒判斷、求交線、以兩點求方向三段 PML 程式。</li>
+<li>[ ] 我能說明管支架案例「資料與程式分離」「不破壞既有結構」的設計理由。</li>
+<li>[ ] 我能部署並移除 MyCollect、MyBrowser、Vitesse 報表三個範例。</li>
+<li>[ ] 我能說明五個優先等級，並為一個工具填寫立案單與評分。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>Kim, C.-S., Park, D.-W., &amp; Yang, Y.-J. (2020). Development of an automatic shell plate hole generation system using AVEVA Marine. <em>Journal of Advanced Marine Engineering and Technology</em>, 44(3), 196–202. <a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a>（CC BY-NC 3.0；本章圖 18-1、18-2、18-4 至 18-12 取自該論文）</li>
+<li>eryar，<a href="https://blog.csdn.net/eryar/article/details/4457072">AVEVA MARINE 中用 PML 寫管支架程序（二）</a></li>
+<li>eryar，<a href="https://developer.aliyun.com/article/235787">AVEVA .NET Quick Start Guide</a></li>
+<li>範例原始碼：<a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT，Copyright © 2026 erbi112211-boop），本地副本 <a href="examples/"><code>examples/</code></a>。</li>
+<li>賀幫永、張乖平（2024），《廣東造船》：<a href="https://search.napstic.cn/literature/periodical/010gdzc202401018">NAPSTIC 索引</a></li>
+<li>王星宇等（2024）：<a href="https://search.napstic.cn/literature/periodical/010zcjs202401018">NAPSTIC 索引</a></li>
+<li>《海洋工程裝備與技術》2018, 5(1): 74–76：<a href="https://www.qk.sjtu.edu.cn/oeet/CN/Y2018/V5/I1/74">上海交大期刊網</a></li>
+<li>大韓造船學會特別論文集（2013）：<a href="https://koreascience.kr/article/CFKO201323436147171.pub">KoreaScience</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch17_debug_deploy_zh-TW.reading.html"><small>← 上一篇</small>第 17 章　除錯、測試、部署與版本管理</a><a class="next" href="appx_a_resources_zh-TW.reading.html"><small>下一篇 →</small>附錄 A　專業資源與官方訓練地圖</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

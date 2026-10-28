@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrR" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">工具庫的版本管理與發佈流程</text>
+
+  <!-- git lane -->
+  <text x="20" y="62" font-size="15" font-weight="bold" fill="#1f2937">① Git 儲存庫（原始碼）</text>
+  <line x1="60" y1="96" x2="860" y2="96" stroke="#1d4ed8" stroke-width="4"/>
+  <text x="20" y="101" font-size="13" fill="#1d4ed8" font-weight="bold">main</text>
+  <path d="M150,96 C180,96 180,140 210,140 L420,140 C450,140 450,96 480,96" fill="none" stroke="#b45309" stroke-width="3"/>
+  <text x="250" y="160" font-size="12" fill="#b45309">feature/ce-report（開發分支）</text>
+  <g fill="#ffffff" stroke="#1d4ed8" stroke-width="2">
+    <circle cx="110" cy="96" r="7"/>
+    <circle cx="300" cy="140" r="6" stroke="#b45309"/>
+    <circle cx="380" cy="140" r="6" stroke="#b45309"/>
+    <circle cx="480" cy="96" r="7"/>
+    <circle cx="700" cy="96" r="7"/>
+  </g>
+  <g font-size="12" fill="#1f2937">
+    <rect x="70" y="66" width="80" height="20" rx="4" fill="#dbeafe"/>
+    <text x="110" y="81" text-anchor="middle">tag v1.1.0</text>
+    <rect x="440" y="66" width="80" height="20" rx="4" fill="#dbeafe"/>
+    <text x="480" y="81" text-anchor="middle">tag v1.2.0</text>
+    <text x="496" y="128">合併前：程式審查＋檢查表</text>
+    <rect x="655" y="66" width="90" height="20" rx="4" fill="#fee2e2"/>
+    <text x="700" y="81" text-anchor="middle">hotfix v1.2.1</text>
+  </g>
+
+  <!-- stages -->
+  <text x="20" y="206" font-size="15" font-weight="bold" fill="#1f2937">② 三段式環境（部署腳本只從 tag 匯出，不從工作目錄複製）</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="222" width="260" height="104" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="244" font-weight="bold">測試環境（TEST）</text>
+    <text x="32" y="266" font-size="12">訓練專案＋開發帳號</text>
+    <text x="32" y="286" font-size="12">跑回歸測試清單</text>
+    <text x="32" y="306" font-size="12">開發人員自行驗證</text>
+
+    <rect x="320" y="222" width="260" height="104" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="332" y="244" font-weight="bold">試用環境（PILOT）</text>
+    <text x="332" y="266" font-size="12">2 到 3 位關鍵使用者</text>
+    <text x="332" y="286" font-size="12">真實專案、唯讀工具優先</text>
+    <text x="332" y="306" font-size="12">試用期 1 到 2 週，收集回饋</text>
+
+    <rect x="620" y="222" width="260" height="104" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="632" y="244" font-weight="bold">正式環境（PROD）</text>
+    <text x="632" y="266" font-size="12">共用伺服器的 releases\ 目錄</text>
+    <text x="632" y="286" font-size="12">發佈公告＋版本說明</text>
+    <text x="632" y="306" font-size="12">保留前一版供回復</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="280" y1="274" x2="316" y2="274"/>
+    <line x1="580" y1="274" x2="616" y2="274"/>
+  </g>
+
+  <!-- folder layout -->
+  <text x="20" y="364" font-size="15" font-weight="bold" fill="#1f2937">③ 正式環境目錄（以「切換指標」部署與回復）</text>
+  <g font-family="Consolas, Segoe UI, Microsoft JhengHei, monospace" font-size="13" fill="#1f2937">
+    <rect x="20" y="378" width="420" height="152" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+    <text x="34" y="400">\\toolsrv\aveva_tools\</text>
+    <text x="50" y="422">releases\</text>
+    <text x="70" y="444">v1.1.0\pmllib\  （上一版）</text>
+    <text x="70" y="466">v1.2.0\pmllib\  （目前版）</text>
+    <text x="50" y="488">current.txt     內容：v1.2.0</text>
+    <text x="50" y="510">deploy.log      每次部署的記錄</text>
+  </g>
+  <g font-size="13" fill="#1f2937">
+    <rect x="470" y="378" width="410" height="68" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="482" y="400" font-weight="bold">部署：新增版本目錄 → 冒煙測試 → 更新指標</text>
+    <text x="482" y="422" font-size="12">啟動批次檔讀 current.txt，把對應目錄前置到 PMLLIB</text>
+    <text x="482" y="438" font-size="12">使用者重新啟動模組後生效</text>
+
+    <rect x="470" y="462" width="410" height="68" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="482" y="484" font-weight="bold">回復：把指標改回上一版</text>
+    <text x="482" y="506" font-size="12">不刪除任何版本目錄；回復也寫入 deploy.log</text>
+    <text x="482" y="522" font-size="12">通知使用者重新啟動模組</text>
+  </g>
+  <path d="M470,496 C440,496 440,444 444,444" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#arrR)"/>
+
+  <text x="20" y="560" font-size="13" fill="#1f2937">開發人員對照：這就是常見的「藍綠部署／符號連結切換」做法；差別在 PML 載入後會快取，</text>
+  <text x="20" y="582" font-size="13" fill="#1f2937">所以版本切換一定要搭配「使用者重新啟動模組」或 pml rehash all，並在公告中寫清楚。</text>
+</svg>

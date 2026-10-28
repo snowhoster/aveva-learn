@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrR" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">PML.NET 呼叫流程：PML 程式如何使用 C# 類別</text>
+
+  <!-- lane headers -->
+  <rect x="20" y="48" width="300" height="34" rx="6" fill="#1d4ed8"/>
+  <text x="170" y="71" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">PML 端（巨集／函式／表單）</text>
+  <rect x="340" y="48" width="220" height="34" rx="6" fill="#b45309"/>
+  <text x="450" y="71" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">PML.NET Engine</text>
+  <rect x="580" y="48" width="300" height="34" rx="6" fill="#047857"/>
+  <text x="730" y="71" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">.NET 端（C# 類別庫 DLL）</text>
+
+  <!-- PML steps -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="96" width="300" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="117" font-weight="bold">① import 'MyCoPmlNet'</text>
+    <text x="32" y="138" font-size="12">重複匯入會丟出 (1000,0)，用 handle 忽略</text>
+
+    <rect x="20" y="166" width="300" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="187" font-weight="bold">② using namespace 'MyCo.Tools'</text>
+    <text x="32" y="208" font-size="12">必須寫完整命名空間，不可部分拼接</text>
+
+    <rect x="20" y="236" width="300" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="257" font-weight="bold">③ !h = object PIPEHELPER()</text>
+    <text x="32" y="278" font-size="12">類別名不分大小寫；找不到時 (46,87)</text>
+
+    <rect x="20" y="306" width="300" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="327" font-weight="bold">④ !r = !h.Describe(!name, 2)</text>
+    <text x="32" y="348" font-size="12">引數依參照傳遞；查方法用 q meth !h</text>
+
+    <rect x="20" y="376" width="300" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="397" font-weight="bold">⑤ !h.addeventhandler(...)</text>
+    <text x="32" y="418" font-size="12">事件回呼 PML 方法，參數為 ARRAY</text>
+  </g>
+
+  <!-- engine boxes -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="340" y="96" width="220" height="80" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="352" y="117" font-weight="bold">以反射載入組件</text>
+    <text x="352" y="137" font-size="12">只認標有 PMLNetCallable</text>
+    <text x="352" y="154" font-size="12">的組件、類別與成員</text>
+    <text x="352" y="170" font-size="12">DLL 需在安裝（exe）目錄</text>
+
+    <rect x="340" y="190" width="220" height="62" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="352" y="211" font-weight="bold">產生 PML 代理類別</text>
+    <text x="352" y="231" font-size="12">Proxy 與 .NET 類別同名</text>
+    <text x="352" y="247" font-size="12">PML 物件生命週期 ＝ .NET 實例</text>
+
+    <rect x="340" y="266" width="220" height="122" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="352" y="287" font-weight="bold">型別轉換</text>
+    <text x="352" y="309" font-size="12">REAL ↔ double</text>
+    <text x="352" y="327" font-size="12">STRING ↔ string</text>
+    <text x="352" y="345" font-size="12">BOOLEAN ↔ bool</text>
+    <text x="352" y="363" font-size="12">ARRAY ↔ Hashtable（數字鍵）</text>
+    <text x="352" y="381" font-size="12">PML.NET 物件 ↔ 該類別</text>
+
+    <rect x="340" y="402" width="220" height="56" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="352" y="423" font-weight="bold">例外轉換</text>
+    <text x="352" y="443" font-size="12">PMLNetException → (1000,n)</text>
+  </g>
+
+  <!-- .NET side -->
+  <g font-size="12" fill="#1f2937">
+    <rect x="580" y="96" width="300" height="362" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="592" y="118" font-size="13" font-weight="bold">PipeHelper.cs（示意）</text>
+    <text x="592" y="142">[assembly: PMLNetCallable()]</text>
+    <text x="592" y="162">namespace MyCo.Tools {</text>
+    <text x="604" y="182">[PMLNetCallable()]</text>
+    <text x="604" y="200">public class PipeHelper {</text>
+    <text x="616" y="222">[PMLNetCallable()]</text>
+    <text x="616" y="240">public PipeHelper() { }</text>
+    <text x="616" y="262">[PMLNetCallable()]</text>
+    <text x="616" y="280">public void Assign(PipeHelper that)</text>
+    <text x="616" y="302">[PMLNetCallable()]</text>
+    <text x="616" y="320">public string Describe(string n,</text>
+    <text x="700" y="338">double level)</text>
+    <text x="616" y="360">[PMLNetCallable()]</text>
+    <text x="616" y="378">public event PMLNetEventHandler</text>
+    <text x="700" y="396">Done;</text>
+    <text x="604" y="418">}</text>
+    <text x="592" y="438">}</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="320" y1="124" x2="336" y2="124"/>
+    <line x1="320" y1="264" x2="336" y2="230"/>
+    <line x1="320" y1="334" x2="336" y2="334"/>
+    <line x1="560" y1="134" x2="576" y2="134"/>
+    <line x1="560" y1="320" x2="576" y2="320"/>
+  </g>
+  <polyline points="580,440 570,468 300,468 300,438" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#arrR)"/>
+  <text x="440" y="487" font-size="12" text-anchor="middle" fill="#dc2626">事件是 .NET 回到 PML 的唯一途徑</text>
+
+  <!-- rules -->
+  <rect x="20" y="496" width="860" height="96" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="34" y="518" font-size="14" font-weight="bold" fill="#1f2937">可被 PML 呼叫的類別規則（官方 .NET Customisation User Guide）</text>
+  <text x="34" y="542" font-size="13" fill="#1f2937">• 只能公開 public class；struct、interface、enum 不行　• 必須有 PMLNetCallable 的公開預設建構子與 Assign()</text>
+  <text x="34" y="564" font-size="13" fill="#1f2937">• 方法不可有預設參數；名稱不分大小寫後必須唯一　• DIRECTION、ORIENTATION 等型別不能直接傳遞</text>
+  <text x="34" y="584" font-size="12" fill="#475569">命名空間依版本不同：E3D 2.1 文件為 Aveva.Core.PMLNet，Marine 12.1 範例為 Aveva.PDMS.PMLNet〔待核對〕</text>
+</svg>

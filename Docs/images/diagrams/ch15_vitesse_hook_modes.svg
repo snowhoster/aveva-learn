@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">Vitesse 腳本的三種掛載方式</text>
+
+  <!-- column 1: trigger -->
+  <rect x="20" y="50" width="275" height="40" rx="6" fill="#1d4ed8"/>
+  <text x="157" y="76" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">A. Trigger（事件鉤子）</text>
+  <g font-size="12" fill="#1f2937">
+    <rect x="20" y="100" width="275" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="122" font-size="13" font-weight="bold">系統事件發生</text>
+    <text x="32" y="142">例如開圖初始化、右鍵選單即將顯示</text>
+
+    <rect x="20" y="180" width="275" height="74" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="202" font-size="13" font-weight="bold">Vitesse\Trigger\</text>
+    <text x="32" y="222">trig_&lt;模組&gt;_&lt;事件&gt;.py</text>
+    <text x="32" y="242">依檔名約定被載入</text>
+
+    <rect x="20" y="274" width="275" height="94" rx="6" fill="#ffffff" stroke="#1d4ed8"/>
+    <text x="32" y="296" font-size="13" font-weight="bold">約定入口</text>
+    <text x="32" y="316">def pre(*args)：事件前</text>
+    <text x="32" y="334">def post(*args)：事件後</text>
+    <text x="32" y="354">回傳 kcs_util.trigger_ok()</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="157" y1="160" x2="157" y2="176"/>
+    <line x1="157" y1="254" x2="157" y2="270"/>
+  </g>
+
+  <!-- column 2: context menu -->
+  <rect x="312" y="50" width="275" height="40" rx="6" fill="#b45309"/>
+  <text x="449" y="76" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">B. 右鍵選單（Context Menu）</text>
+  <g font-size="12" fill="#1f2937">
+    <rect x="312" y="100" width="275" height="60" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="324" y="122" font-size="13" font-weight="bold">使用者在圖面上按右鍵</text>
+    <text x="324" y="142">觸發 trig_draft_popup_menu.py</text>
+
+    <rect x="312" y="180" width="275" height="74" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="324" y="202" font-size="13" font-weight="bold">pre() 注入上下文</text>
+    <text x="324" y="222">kcs_draft.ContextElement／</text>
+    <text x="324" y="242">ContextModel／ContextPoint</text>
+
+    <rect x="312" y="274" width="275" height="94" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="324" y="296" font-size="13" font-weight="bold">註冊並執行選單項目</text>
+    <text x="324" y="316">kcs_gui.menu_item_usr_add(</text>
+    <text x="336" y="334">menu, i, '&amp;My Report', 'ctx_my_report')</text>
+    <text x="324" y="354">→ Context_Menu\ctx_my_report.py 的 run()</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="449" y1="160" x2="449" y2="176"/>
+    <line x1="449" y1="254" x2="449" y2="270"/>
+  </g>
+
+  <!-- column 3: batch -->
+  <rect x="604" y="50" width="276" height="40" rx="6" fill="#047857"/>
+  <text x="742" y="76" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">C. 批次與選單呼叫</text>
+  <g font-size="12" fill="#1f2937">
+    <rect x="604" y="100" width="276" height="60" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="616" y="122" font-size="13" font-weight="bold">使用者或程式主動執行</text>
+    <text x="616" y="142">不依附任何畫面事件</text>
+
+    <rect x="604" y="180" width="276" height="74" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="616" y="202" font-size="13" font-weight="bold">呼叫來源（擇一）</text>
+    <text x="616" y="222">Basic Design 選單：add(*args)</text>
+    <text x="616" y="242">PML／.NET：MarPythonEngine〔待核對〕</text>
+
+    <rect x="604" y="274" width="276" height="94" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="616" y="296" font-size="13" font-weight="bold">批次腳本</text>
+    <text x="616" y="316">迴圈讀取板架清單</text>
+    <text x="616" y="334">逐項 kcs_dex 抽取</text>
+    <text x="616" y="354">寫出 panel_report.txt</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="742" y1="160" x2="742" y2="176"/>
+    <line x1="742" y1="254" x2="742" y2="270"/>
+  </g>
+
+  <!-- shared lib -->
+  <g stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr)">
+    <line x1="157" y1="368" x2="380" y2="410"/>
+    <line x1="449" y1="368" x2="449" y2="406"/>
+    <line x1="742" y1="368" x2="520" y2="410"/>
+  </g>
+  <rect x="250" y="410" width="400" height="64" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+  <text x="450" y="434" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2937">Vitesse\Lib\myhelpers.py（共用函式庫）</text>
+  <text x="450" y="456" font-size="12" text-anchor="middle" fill="#1f2937">get_real()／get_string()：封裝 kcs_dex 抽取與型別檢查</text>
+
+  <!-- notes -->
+  <rect x="20" y="492" width="860" height="94" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="34" y="514" font-size="14" font-weight="bold" fill="#1f2937">共同條件</text>
+  <text x="34" y="536" font-size="13" fill="#1f2937">• 直譯器是內嵌的 Python 2.6：print 敘述、except Exception, e 寫法，不能用 f-string 或 Python 3 語法</text>
+  <text x="34" y="557" font-size="13" fill="#1f2937">• 搜尋路徑由 evars.bat 的 PYTHONPATH 設定（Vitesse、Basic_Design、Lib、python 四個目錄）</text>
+  <text x="34" y="578" font-size="13" fill="#1f2937">• 只新增自己的檔案，不修改官方 trig_*.py；若必須改官方 Trigger，先備份並記錄在部署清單</text>
+</svg>

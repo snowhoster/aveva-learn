@@ -1,0 +1,954 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 15 章　船體開發：Vitesse Python 與資料抽取 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#15-vitesse-python">第 15 章 船體開發：Vitesse Python 與資料抽取</a><ul>
+<li><a href="#151">15.1 學習目標</a></li>
+<li><a href="#152-vitesse">15.2 Vitesse 的定位</a></li>
+<li><a href="#153">15.3 執行環境</a><ul>
+<li><a href="#1531">15.3.1 目錄結構</a></li>
+<li><a href="#1532-python-26">15.3.2 Python 2.6 語法限制</a></li>
+</ul>
+</li>
+<li><a href="#154">15.4 主要模組</a></li>
+<li><a href="#155">15.5 資料抽取語言</a><ul>
+<li><a href="#1551">15.5.1 語句結構</a></li>
+<li><a href="#1552">15.5.2 取值三步驟</a></li>
+<li><a href="#1553">15.5.3 範例：共用抽取函式</a></li>
+</ul>
+</li>
+<li><a href="#156">15.6 三種掛載方式</a><ul>
+<li><a href="#1561-atrigger">15.6.1 A：Trigger</a></li>
+<li><a href="#1562-b">15.6.2 B：右鍵選單</a></li>
+<li><a href="#1563-c">15.6.3 C：批次腳本</a></li>
+</ul>
+</li>
+<li><a href="#157-pml-net">15.7 從 PML 或 .NET 讀取船體資料</a></li>
+<li><a href="#158">15.8 船體資料自動化的安全界線</a><ul>
+<li><a href="#1581">15.8.1 三區分級</a></li>
+<li><a href="#1582">15.8.2 為什麼紅區不應自動化</a></li>
+<li><a href="#1583">15.8.3 落地規則</a></li>
+</ul>
+</li>
+<li><a href="#159">15.9 部署</a></li>
+<li><a href="#1510">15.10 除錯</a></li>
+<li><a href="#1511">15.11 開發人員須知</a></li>
+<li><a href="#1512">15.12 練習（只能在訓練專案）</a></li>
+<li><a href="#1513">15.13 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 16 / 21</span><h1 id="15-vitesse-python">第 15 章　船體開發：Vitesse Python 與資料抽取</h1>
+<blockquote>
+<p>船體模組承襲自 Tribon，它的客製化語言不是 PML，而是內嵌在模組中的 <strong>Vitesse</strong>（Python 2.6）。本章說明 Vitesse 的執行環境、主要模組、資料抽取語句，以及 Trigger、右鍵選單、批次腳本三種掛載方式，最後<strong>明確界定船體資料自動化的安全界線</strong>。核心範例是 <code>examples/vitesse-hull-report/</code>。</p>
+<p><strong>資料可信度：</strong> Vitesse 的官方文件（<code>Vitesse.chm</code>、<code>Python.chm</code>、<code>Data_Extraction.chm</code>、<code>vitesse_access.xls</code>）隨產品安裝在 <code>Documentation\</code> 目錄，網路上沒有公開的靜態版本。本章的 API 名稱與用法，主要依據 MIT 授權的開源知識庫 aveva-marine-dev-skill 對 <strong>Marine 12.1 SP4 安裝目錄</strong>中官方範例與函式庫的調查整理，屬於「從官方原始碼反推」的二手資料，<strong>本課程未在實機上執行</strong>。凡是知識庫自評未驗證、或只有單一出處的內容，都標為〔待核對〕。請務必用公司安裝目錄的 <code>Vitesse\Examples\</code> 與說明檔核對後再使用。</p>
+</blockquote>
+<h2 id="151">15.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Vitesse 在 AVEVA Marine 中的定位，以及它和 PML、.NET 的分工。</li>
+<li>寫出符合 Python 2.6 語法的腳本，並知道哪些 Python 3 習慣不能用。</li>
+<li>認識 <code>kcs_ui</code>、<code>kcs_draft</code>、<code>kcs_dex</code>、<code>kcs_util</code> 等主要模組的用途與風險等級。</li>
+<li>讀懂並寫出 <code>HULL.PANEL('名稱').PLA(1).THICKNESS</code> 這類資料抽取語句，正確處理結果型別。</li>
+<li>以 Trigger、右鍵選單、批次腳本三種方式掛載腳本。</li>
+<li>說明從 PML 或 .NET 讀取船體資料的途徑與版本限制。</li>
+<li>判斷一個船體自動化需求落在安全界線的哪一側，並提出對應的控管方式。</li>
+</ol>
+<h2 id="152-vitesse">15.2 Vitesse 的定位</h2>
+<p>AVEVA Marine 由 Tribon M3（船體）與 PDMS（舾裝）整合而成（第 1 章）。兩邊的客製化技術也一起帶了進來：</p>
+<table>
+<thead>
+<tr>
+<th>路線</th>
+<th>來源</th>
+<th>主要用途</th>
+<th>本課程章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML</td>
+<td>PDMS</td>
+<td>舾裝資料、表單、選單、通用資料庫操作</td>
+<td>第 11 至 13 章</td>
+</tr>
+<tr>
+<td>.NET（CAF、PML.NET、marAPI）</td>
+<td>PDMS／AVEVA 新架構</td>
+<td>停靠視窗、外部整合；marAPI 也包裝了船體與圖面功能</td>
+<td>第 14 章</td>
+</tr>
+<tr>
+<td><strong>Vitesse（Python 2.6）</strong></td>
+<td>Tribon</td>
+<td>船體建模、船體圖面、資料抽取、船體 Trigger</td>
+<td>本章</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：AVEVA Hull Detailed Design 的作業畫面</div></p>
+<p><em>圖 15-1　Hull Detailed Design 作業畫面。Vitesse 腳本主要服務這一類船體模組與 Marine Drafting。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><strong>為什麼船體要另外一套？</strong> 第 5 章說過，船體板架不是一堆獨立的幾何，而是由「型面、邊界參考、接縫、加強材」組成的<strong>相依圖</strong>。板架的定義以船體語句（Scheme）表達，由船體引擎重建出幾何。Vitesse 與資料抽取語言直接面對這套引擎與資料，比從通用資料庫屬性去拼湊船體資訊更可靠。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 可以把船體引擎想成一個「以文字描述、經過編譯才產生結果」的系統。板架的語句像原始碼，幾何像編譯產物，資料抽取則像對編譯產物的唯讀查詢 API。讀取產物很安全；修改原始碼（板架語句）並重新編譯，就會牽動所有相依的構件。這個比喻是後面安全界線的基礎。</p>
+</blockquote>
+<h2 id="153">15.3 執行環境</h2>
+<h3 id="1531">15.3.1 目錄結構</h3>
+<p>依開源知識庫對 12.1 SP4 安裝目錄的調查（〔待核對〕公司版本）：</p>
+<table>
+<thead>
+<tr>
+<th>目錄</th>
+<th>內容</th>
+<th>我們可以做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Vitesse\Lib\</code></td>
+<td>官方函式庫（<code>Kcs*.py</code> 資料類別、共用工具）</td>
+<td>新增自己的共用模組，<strong>不改官方檔案</strong></td>
+</tr>
+<tr>
+<td><code>Vitesse\Trigger\</code></td>
+<td><code>trig_&lt;模組&gt;_&lt;事件&gt;.py</code> 事件鉤子</td>
+<td>新增 Trigger；改官方 Trigger 前要備份並登記</td>
+</tr>
+<tr>
+<td><code>Vitesse\Context_Menu\</code></td>
+<td>右鍵選單腳本 <code>ctx_*.py</code> 與對話框</td>
+<td>新增自己的選單腳本</td>
+</tr>
+<tr>
+<td><code>Vitesse\Basic_Design\</code></td>
+<td>Basic Design 應用的選單與快速建模腳本</td>
+<td>參考用</td>
+</tr>
+<tr>
+<td><code>Vitesse\Examples\</code></td>
+<td>官方範例 <code>kcs_ex_*.py</code>（Drafting、Hull、Model、Util、Weld 等）</td>
+<td><strong>學 API 先看這裡</strong></td>
+</tr>
+<tr>
+<td><code>python\</code></td>
+<td>Python 2.6 標準函式庫</td>
+<td>不要修改</td>
+</tr>
+</tbody>
+</table>
+<p>搜尋路徑由啟動時的 <code>evars.bat</code> 設定：</p>
+<pre><code class="language-bat">rem 依開源知識庫引用的 evars.bat 內容，公司版本請自行確認〔待核對〕
+set pythonpath=%pdmsexe%Vitesse;%pdmsexe%Vitesse\Basic_Design;%pdmsexe%Vitesse\Lib;%pdmsexe%python
+</code></pre>
+<h3 id="1532-python-26">15.3.2 Python 2.6 語法限制</h3>
+<p>內嵌的直譯器是 <strong>Python 2.6</strong>。習慣 Python 3 的開發人員最容易踩到下列差異：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Python 2.6 寫法</th>
+<th>Python 3 寫法（不可用）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>輸出</td>
+<td><code>print 'text'</code>、<code>print x</code></td>
+<td><code>print('text')</code> 在 2.6 會印出 tuple 或不同結果</td>
+</tr>
+<tr>
+<td>例外</td>
+<td><code>except Exception, e:</code></td>
+<td><code>except Exception as e:</code>（2.6 其實也支援 <code>as</code>，但官方腳本一律用逗號寫法，建議跟隨）</td>
+</tr>
+<tr>
+<td>字串格式</td>
+<td><code>'%s t=%s' % (p, t)</code>、<code>'{0}'.format(x)</code></td>
+<td>f-string <code>f'{x}'</code></td>
+</tr>
+<tr>
+<td>字串型別</td>
+<td><code>str</code> 是位元組、<code>unicode</code> 是文字；中文要特別處理</td>
+<td><code>str</code> 即 Unicode</td>
+</tr>
+<tr>
+<td>整數除法</td>
+<td><code>7 / 2</code> 等於 <code>3</code></td>
+<td><code>7 / 2</code> 等於 <code>3.5</code></td>
+</tr>
+<tr>
+<td>字典迭代</td>
+<td><code>d.iteritems()</code>、<code>d.keys()</code> 回傳 list</td>
+<td><code>d.items()</code> 回傳 view</td>
+</tr>
+<tr>
+<td>檔案</td>
+<td><code>open(path, 'w')</code>，沒有 <code>encoding</code> 參數</td>
+<td><code>open(path, 'w', encoding='utf-8')</code></td>
+</tr>
+<tr>
+<td>第三方套件</td>
+<td>只能用隨附的函式庫；GUI 用 wxPython</td>
+<td><code>pip install</code> 任何套件</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 腳本的中文字串與註解，檔案開頭加上 <code># -*- coding: utf-8 -*-</code>，存成 UTF-8。寫檔輸出中文時，用 <code>codecs.open(path, 'w', 'utf-8')</code> 或先 <code>.encode('utf-8')</code>。輸出到船體介面的訊息建議先用英文，避免編碼問題〔待核對：Marine 介面對 Vitesse 中文訊息的顯示行為〕。</p>
+</blockquote>
+<h2 id="154">15.4 主要模組</h2>
+<p><code>kcs_*</code> 模組是編譯在 Marine 主程式中的 C 擴充模組，<strong>沒有 <code>.py</code> 原始碼</strong>，也沒有可直接閱讀的簽章檔。官方說明在 <code>Vitesse.chm</code> 與 <code>Python.chm</code>；開源知識庫則從官方範例的實際呼叫反推出下列清單（〔待核對〕完整簽章）：</p>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>用途</th>
+<th>代表函式</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kcs_util</code></td>
+<td>回傳碼、環境變數、座標換算</td>
+<td><code>success()</code>、<code>ok()</code>、<code>trigger_ok()</code>、<code>TB_environment_get(name)</code>、<code>coord_to_pos()</code></td>
+<td>低</td>
+</tr>
+<tr>
+<td><code>kcs_ui</code></td>
+<td>使用者互動：訊息、輸入、選擇、點取</td>
+<td><code>message_confirm(msg)</code>、<code>string_req(prompt)</code>、<code>real_req()</code>、<code>choice_select()</code>、<code>point2D_req()</code></td>
+<td>低</td>
+</tr>
+<tr>
+<td><code>kcs_dex</code></td>
+<td><strong>資料抽取</strong>（唯讀）</td>
+<td><code>extract(est)</code>、<code>next_result()</code>、<code>get_int()</code>、<code>get_real()</code>、<code>get_string()</code>、<code>get_indexedreal(i)</code></td>
+<td>低</td>
+</tr>
+<tr>
+<td><code>kcs_draft</code></td>
+<td>船體圖面：開圖、建立圖元、識別、尺寸、匯出</td>
+<td><code>dwg_open()</code>、<code>dwg_new()</code>、<code>text_new()</code>、<code>model_identify()</code>、<code>dwg_dxf_export()</code></td>
+<td>中：會改圖面</td>
+</tr>
+<tr>
+<td><code>kcs_gui</code></td>
+<td>選單</td>
+<td><code>menu_get()</code>、<code>menu_add()</code>、<code>menu_item_usr_add()</code></td>
+<td>低</td>
+</tr>
+<tr>
+<td><code>kcs_db</code></td>
+<td>物件清單查詢</td>
+<td><code>object_list_get(criteria, dbname, list)</code></td>
+<td>低</td>
+</tr>
+<tr>
+<td><code>kcs_model</code></td>
+<td>模型關係、干涉</td>
+<td><code>model_hull_contact(model)</code>、<code>model_interference_check()</code></td>
+<td>低至中</td>
+</tr>
+<tr>
+<td><code>kcs_hullpan</code></td>
+<td>平面板架管理</td>
+<td><code>pan_activate()</code>、<code>pan_store()</code>、<code>pan_recreate()</code>、<code>pan_split()</code>、<code>pan_topology()</code></td>
+<td><strong>高：會改船體模型</strong></td>
+</tr>
+<tr>
+<td><code>kcs_chm</code></td>
+<td>曲面船體</td>
+<td><code>curve_planar_create()</code>、<code>stiffener_split()</code>、<code>cpan_hole_create()</code>、<code>store()</code></td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td><code>kcs_hull</code></td>
+<td>板架語句執行</td>
+<td><code>pan_init()</code>、<code>pan_exec_stmt()</code>、<code>pan_store()</code></td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td><code>kcs_weld</code>、<code>kcs_assembly</code></td>
+<td>焊接計算、組立</td>
+<td><code>weld_calculation()</code>、<code>assembly_activate()</code></td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p>另外，<code>Vitesse\Lib\</code> 中的 <code>Kcs*.py</code> 是純 Python 的資料類別，例如 <code>KcsPoint3D.Point3D</code>、<code>KcsModel.Model</code>、<code>KcsContour2D.Contour2D</code>，用來在呼叫 <code>kcs_*</code> 函式時傳遞幾何與模型資訊。</p>
+<p><strong>錯誤處理慣例：</strong> <code>kcs_*</code> 函式失敗時會丟出例外，模組上的 <code>error</code> 屬性存放錯誤碼字串（例如 <code>kcs_draft.error</code>）。官方範例的寫法是：</p>
+<pre><code class="language-python"># 依開源知識庫整理的官方範例寫法（Vitesse\Lib\CommonSample.py 的模式）〔待核對〕
+try:
+    kcs_draft.dwg_new(name, form, dwgtype)
+except:
+    print 'kcs_draft error: ' + str(kcs_draft.error)
+</code></pre>
+<h2 id="155">15.5 資料抽取語言</h2>
+<p>資料抽取（Data Extraction）是 Tribon 時代就有的唯讀查詢語言，用一條「路徑」指出要取的船體資料。</p>
+<p><img alt="資料抽取語句的結構：HULL、PANEL('DECK01')、PLA(1)、THICKNESS 四段，以及 extract、next_result、依型別取值的流程與型別碼對照" src="images/diagrams/ch15_dex_statement_anatomy.svg" /></p>
+<p><em>圖 15-2　抽取語句的結構與取值流程。（本課程自繪）</em></p>
+<h3 id="1551">15.5.1 語句結構</h3>
+<table>
+<thead>
+<tr>
+<th>片段</th>
+<th>範例</th>
+<th>意義</th>
+<th>開發人員對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資料領域</td>
+<td><code>HULL</code></td>
+<td>船體資料（另有 <code>STRUCT</code> 等）</td>
+<td>資料庫或 schema</td>
+</tr>
+<tr>
+<td>物件型別＋名稱</td>
+<td><code>PANEL('DECK01')</code></td>
+<td>名為 DECK01 的平面板架</td>
+<td><code>WHERE name = 'DECK01'</code></td>
+</tr>
+<tr>
+<td>子元件＋索引</td>
+<td><code>PLA(1)</code></td>
+<td>第 1 塊板</td>
+<td>子集合索引（從 1 開始）</td>
+</tr>
+<tr>
+<td>屬性</td>
+<td><code>THICKNESS</code></td>
+<td>板厚</td>
+<td>欄位</td>
+</tr>
+<tr>
+<td>屬性的子項</td>
+<td><code>QUALITY.STRING</code></td>
+<td>材質等級的字串表示</td>
+<td>欄位的格式化</td>
+</tr>
+</tbody>
+</table>
+<p>常見語句（來源為開源知識庫對官方 PML 與 Python 檔案的整理，〔待核對〕）：</p>
+<table>
+<thead>
+<tr>
+<th>語句</th>
+<th>取得</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HULL.PANEL('N').PLA(1).THICKNESS</code></td>
+<td>第 1 塊板的板厚</td>
+</tr>
+<tr>
+<td><code>HULL.PANEL('N').PLA(1).QUALITY.STRING</code></td>
+<td>第 1 塊板的材質</td>
+</tr>
+<tr>
+<td><code>HULL.PANEL('N').SYMMETRY</code></td>
+<td>板架的對稱代碼</td>
+</tr>
+<tr>
+<td><code>HULL.PANEL('N').NBOUNDARY</code></td>
+<td>邊界數量</td>
+</tr>
+<tr>
+<td><code>HULL.PANEL('N').STIFFENER(n).PROFILE.TYPE_CODE</code></td>
+<td>第 n 根加強材的型材類型碼</td>
+</tr>
+<tr>
+<td><code>HULL.PANEL('N').NSUBPANEL</code></td>
+<td>子板架數量</td>
+</tr>
+<tr>
+<td><code>HULL.CPANEL('N').STIF(id).NAME</code></td>
+<td>曲面板架加強材名稱</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 開源知識庫提到官方的 <code>DatExt_*.xls</code> 表格收錄了上千條關鍵字鏈與回傳型別。完整清單請查公司安裝目錄的 <code>Data_Extraction.chm</code> 與相關表格，不要從網路片段猜語句。關鍵字有縮寫規則（例如 <code>STIF</code> 與 <code>STIFFENER</code>），請以官方表格為準。</p>
+</blockquote>
+<h3 id="1552">15.5.2 取值三步驟</h3>
+<ol>
+<li><code>kcs_dex.extract(語句)</code>：執行抽取，回傳值與 <code>kcs_util.success()</code> 比較。</li>
+<li><code>kcs_dex.next_result()</code>：取得下一個結果的<strong>型別碼</strong>。</li>
+<li>依型別碼呼叫對應的取值函式。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>型別碼</th>
+<th>意義</th>
+<th>取值函式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>整數</td>
+<td><code>get_int()</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>實數</td>
+<td><code>get_real()</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>字串</td>
+<td><code>get_string()</code></td>
+</tr>
+<tr>
+<td>大於 10</td>
+<td>實數列表，個數為「型別碼減 10」</td>
+<td><code>get_indexedreal(i)</code></td>
+</tr>
+<tr>
+<td>4、5、6、25 以上</td>
+<td>3D 向量、包圍盒、2D 向量、變換矩陣〔待核對〕</td>
+<td><code>get_reavec3d()</code>、<code>get_box()</code> 等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1553">15.5.3 範例：共用抽取函式</h3>
+<p>以下是 <code>examples/vitesse-hull-report/</code> 中的 <code>Vitesse\Lib\myhelpers.py</code>（原文為簡體註解，此處只節錄程式）。它與官方 <code>TBhook_ConfigNote</code> 說明中的 <code>getIntegerValue</code>、<code>getRealValue</code> 等函式結構相同。</p>
+<pre><code class="language-python">## -*- coding: utf-8 -*-
+import kcs_dex, kcs_util
+
+ok = kcs_util.success()
+
+def get_integer(est):
+    res = kcs_dex.extract(est)
+    if res == ok:
+        typ = kcs_dex.next_result()
+        if typ == 1:
+            return kcs_dex.get_int()
+    return None
+
+def get_real(est):
+    res = kcs_dex.extract(est)
+    if res == ok:
+        typ = kcs_dex.next_result()
+        if typ == 2:
+            return kcs_dex.get_real()
+    return None
+
+def get_string(est):
+    res = kcs_dex.extract(est)
+    if res == ok:
+        typ = kcs_dex.next_result()
+        if typ == 3:
+            return kcs_dex.get_string()
+    return None
+
+def get_rea_list(est):
+    res = kcs_dex.extract(est)
+    if res == ok:
+        typ = kcs_dex.next_result()
+        if typ &gt; 10:
+            n = typ - 10
+            return [kcs_dex.get_indexedreal(i) for i in range(n)]
+    return []
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>重點</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ok = kcs_util.success()</code></td>
+<td>成功碼由函式取得，不要寫死數字</td>
+</tr>
+<tr>
+<td>每個函式都先檢查 <code>extract</code> 成功</td>
+<td>板架名稱打錯、板不存在時，<code>extract</code> 會失敗</td>
+</tr>
+<tr>
+<td>再檢查型別碼</td>
+<td>型別不符時回傳 <code>None</code>，<strong>不猜測、不轉型</strong></td>
+</tr>
+<tr>
+<td>回傳 <code>None</code> 或空 list</td>
+<td>讓呼叫端決定如何記錄缺值，報表中要呈現「無資料」而不是 0</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> <code>kcs_dex</code> 是<strong>有狀態的游標</strong>：<code>extract</code> 之後用 <code>next_result</code> 逐一取結果。不要在兩次 <code>next_result</code> 之間插入另一個 <code>extract</code>，否則前一個結果集會被覆蓋。把每次抽取封裝成「一進一出」的函式，就像上面的寫法，可以避免這個問題。</p>
+</blockquote>
+<h2 id="156">15.6 三種掛載方式</h2>
+<p><img alt="Vitesse 的三種掛載方式：Trigger 事件鉤子、右鍵選單、批次與選單呼叫，三者共用 Lib 中的函式庫" src="images/diagrams/ch15_vitesse_hook_modes.svg" /></p>
+<p><em>圖 15-3　Vitesse 腳本的三種掛載方式。（本課程自繪，依開源知識庫對官方 Trigger 與 Context_Menu 檔案的整理）</em></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>何時執行</th>
+<th>入口函式</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Trigger</td>
+<td>系統事件發生時自動呼叫</td>
+<td><code>pre(*args)</code>、<code>post(*args)</code></td>
+<td>存檔前檢查、命名規則、事件記錄</td>
+</tr>
+<tr>
+<td>B. 右鍵選單</td>
+<td>使用者在圖面上按右鍵選擇項目</td>
+<td><code>run(*args)</code></td>
+<td>針對「點到的那個東西」做查詢</td>
+</tr>
+<tr>
+<td>C. 批次與選單</td>
+<td>使用者或程式主動執行</td>
+<td>一般函式或 <code>add(*args)</code></td>
+<td>報表、批次抽取</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1561-atrigger">15.6.1 A：Trigger</h3>
+<p>Trigger 檔案放在 <code>Vitesse\Trigger\</code>，命名為 <code>trig_&lt;模組&gt;_&lt;事件&gt;.py</code>，系統依檔名約定載入。官方空白範本的結構：</p>
+<pre><code class="language-python"># 依開源知識庫引用的官方 trig_draft_init.py 結構〔待核對〕
+import kcs_util
+
+def pre(*args):
+    return kcs_util.trigger_ok()
+
+def post(*args):
+    return kcs_util.trigger_ok()
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>回傳值</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kcs_util.trigger_ok()</code></td>
+<td>正常，讓系統繼續原本的動作</td>
+</tr>
+<tr>
+<td><code>kcs_util.trigger_abort()</code></td>
+<td>中止原本的動作（pre 中使用）</td>
+</tr>
+<tr>
+<td><code>kcs_util.trigger_override()</code></td>
+<td>pre 中使用，表示由腳本接手、略過原本的函式</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕Trigger 與事件的完整對應清單、Trigger 是否需要另外登記（知識庫提到部分 Trigger 經由資料庫巨集間接綁定），請查 <code>Vitesse.chm</code>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Trigger 在<strong>每一次</strong>事件都會執行，而且使用者通常不知道它存在。Trigger 內只做快速、唯讀的檢查；任何例外都要攔截並回傳 <code>trigger_ok()</code>，避免一個腳本錯誤讓所有人無法開圖。<code>trigger_abort()</code> 會阻擋使用者的操作，必須經過領域主管同意才能使用。</p>
+</blockquote>
+<h3 id="1562-b">15.6.2 B：右鍵選單</h3>
+<p>右鍵選單由兩部分組成：</p>
+<ol>
+<li><strong><code>trig_draft_popup_menu.py</code></strong>（官方 Trigger）：使用者按右鍵時，把「點到什麼」放進 <code>kcs_draft</code> 模組的四個變數：<code>ContextPoint</code>、<code>ContextElement</code>、<code>ContextModel</code>、<code>ContextSubpictures</code>，並以 <code>kcs_gui.menu_item_usr_add(選單, 位置, '標籤', '腳本名')</code> 註冊選單項目。</li>
+<li><strong><code>Context_Menu\ctx_*.py</code></strong>：選單項目對應的腳本，入口為 <code>run(*args)</code>。</li>
+</ol>
+<p>範例中的 <code>ctx_my_report.py</code>：</p>
+<pre><code class="language-python">import kcs_draft
+import kcs_ui
+
+def run(*args):
+    if not hasattr(kcs_draft, 'ContextElement') or kcs_draft.ContextElement is None:
+        kcs_ui.message_confirm('No element under cursor!')
+        return
+    model = getattr(kcs_draft, 'ContextModel', None)
+    if model is None:
+        kcs_ui.message_confirm('Not a model element.')
+        return
+    panel = model.get_name()
+    lines = []
+    lines.append('PANEL  %s' % panel)
+    thi = get_real(&quot;HULL.PANEL('%s').PLA(1).THICKNESS&quot; % panel)
+    if thi is not None:
+        lines.append('PLATE   t=%s mm' % thi)
+    qual = get_string(&quot;HULL.PANEL('%s').PLA(1).QUALITY.STRING&quot; % panel)
+    if qual:
+        lines.append('QUALITY %s' % qual)
+    kcs_ui.message_confirm('\n'.join(lines))
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hasattr(kcs_draft, 'ContextElement')</code></td>
+<td>上下文變數由 Trigger 注入，腳本被單獨呼叫時可能不存在，所以先檢查</td>
+</tr>
+<tr>
+<td><code>getattr(..., 'ContextModel', None)</code></td>
+<td>點到的不一定是模型（可能是文字或尺寸），取不到就提示並結束</td>
+</tr>
+<tr>
+<td><code>model.get_name()</code></td>
+<td>範例原文用這個方法取得板架名稱〔待核對：官方 <code>KcsModel.Model</code> 類別的方法名，開源知識庫列的是 <code>Name</code> 屬性與 Set／Get 方法，請以 <code>Vitesse\Lib\KcsModel.py</code> 為準〕</td>
+</tr>
+<tr>
+<td><code>get_real</code>、<code>get_string</code></td>
+<td>來自 15.5.3 的共用函式。範例原文<strong>少了</strong> <code>from myhelpers import get_real, get_string</code>，直接執行會出現 <code>NameError</code>，部署時要補上</td>
+</tr>
+<tr>
+<td><code>kcs_ui.message_confirm</code></td>
+<td>以訊息框顯示結果；複雜介面可用 wxPython</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 要讓自己的選單項目出現，必須在 <code>trig_draft_popup_menu.py</code> 中加一行 <code>menu_item_usr_add</code>，也就是<strong>修改官方 Trigger</strong>。這是 Vitesse 少數難以避免改官方檔案的情況。做法：先備份原檔、只加入最少的程式碼、用註解標記公司修改區段，並在部署清單登記；Service Pack 升級後要重新合併。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：模型在圖面中呈現的例子</div></p>
+<p><em>圖 15-4　Marine Drafting 中的模型視圖。右鍵選單腳本的 <code>ContextModel</code> 就是使用者在這類視圖上點到的模型。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="1563-c">15.6.3 C：批次腳本</h3>
+<p>範例的批次版本讀取固定的板架清單，寫出文字報表：</p>
+<pre><code class="language-python">import kcs_ui, kcs_dex
+from myhelpers import get_real, get_string
+
+panels = ('DECK01', 'DECK02', 'SIDE01')
+out = []
+for p in panels:
+    t = get_real(&quot;HULL.PANEL('%s').PLA(1).THICKNESS&quot; % p)
+    q = get_string(&quot;HULL.PANEL('%s').PLA(1).QUALITY.STRING&quot; % p)
+    out.append('%s  t=%s  Q=%s' % (p, t, q))
+f = open('C:/mydev/panel_report.txt', 'w')
+f.write('\n'.join(out))
+f.close()
+</code></pre>
+<p>執行結果是每行一個板架，例如 <code>DECK01  t=12.0  Q=AH32</code>（數值為示意）。把它改成適合交給 Excel 或其他系統的 CSV，並加上錯誤記錄：</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+# 示意：panel_thickness_csv.py，放在 Vitesse\Lib\ 下，Python 2.6 語法
+import os, time
+from myhelpers import get_real, get_string, get_integer
+
+def plate_rows(panel):
+    &quot;&quot;&quot;回傳 [(panel, plate_no, thickness, quality), ...]；板數不明時只取第 1 塊&quot;&quot;&quot;
+    rows = []
+    n = get_integer(&quot;HULL.PANEL('%s').NPLA&quot; % panel)   # NPLA 關鍵字為假設〔待核對〕
+    if n is None:
+        n = 1
+    for i in range(1, n + 1):
+        t = get_real(&quot;HULL.PANEL('%s').PLA(%d).THICKNESS&quot; % (panel, i))
+        q = get_string(&quot;HULL.PANEL('%s').PLA(%d).QUALITY.STRING&quot; % (panel, i))
+        rows.append((panel, i, t, q))
+    return rows
+
+def export(panels, out_dir):
+    stamp = time.strftime('%Y%m%d_%H%M%S')
+    path = os.path.join(out_dir, 'panel_thickness_%s.csv' % stamp)
+    f = open(path, 'w')
+    try:
+        f.write('\xef\xbb\xbf')                      # UTF-8 BOM，讓 Excel 正確開啟
+        f.write('panel,plate,thickness,quality\n')
+        for p in panels:
+            try:
+                for r in plate_rows(p):
+                    t = '' if r[2] is None else '%.1f' % r[2]
+                    q = r[3] or ''
+                    f.write('%s,%d,%s,%s\n' % (r[0], r[1], t, q))
+            except Exception, e:
+                f.write('%s,,,ERROR %s\n' % (p, str(e).replace(',', ';')))
+    finally:
+        f.close()
+    return path
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>檔名加時間戳記</td>
+<td>不覆蓋舊報表，方便比對</td>
+</tr>
+<tr>
+<td>寫入 BOM</td>
+<td>第 16 章：Excel 開啟 UTF-8 CSV 需要 BOM</td>
+</tr>
+<tr>
+<td>缺值輸出空字串</td>
+<td>不把「沒有資料」誤寫成 0</td>
+</tr>
+<tr>
+<td>單一板架失敗不中斷</td>
+<td>錯誤寫進報表，整批仍完成</td>
+</tr>
+<tr>
+<td><code>try/finally</code> 關檔</td>
+<td>例外時仍釋放檔案</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕批次腳本的啟動方式：知識庫列出命令窗口執行 <code>PYTHON 腳本名</code>、Basic Design 選單的 <code>menu_item_usr_add</code>，以及從 .NET／PML 經 marAPI 的 <code>MarPythonEngine.RunPythonScript(路徑)</code> 等方式，請依公司版本確認哪一種可用。</p>
+<h2 id="157-pml-net">15.7 從 PML 或 .NET 讀取船體資料</h2>
+<p>除了 Vitesse，Marine 12.1 還提供 <strong>marAPI</strong>（<code>marAPI.dll</code>，命名空間 <code>Aveva.Marine.*</code>），它把同一套船體與圖面功能包成 .NET 類別，PML 可以透過 PML.NET 機制使用（第 14 章）。</p>
+<table>
+<thead>
+<tr>
+<th>途徑</th>
+<th>寫法</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML 讀船體元素的一般屬性</td>
+<td><code>!!ce</code>、<code>COLLECTION</code> 收集 <code>HPANEL</code>、<code>HPLATE</code> 等元素（第 3、12 章）</td>
+<td>通用 PML，但船體幾何與語句細節不一定能以屬性取得</td>
+</tr>
+<tr>
+<td>PML 經 marAPI 做資料抽取</td>
+<td><code>import 'marapi'</code> → <code>using namespace 'Aveva.Marine.DataExtraction'</code> → <code>object MARDEX()</code> → <code>extractPML()</code></td>
+<td>開源知識庫指出官方 <code>PMLLIB\hulldesign</code> 中有此用法〔待核對〕</td>
+</tr>
+<tr>
+<td>PML 經 marAPI 執行船體語句</td>
+<td><code>object MARHULLPAN()</code> 的 <code>stmtExec()</code>、<code>panStore()</code></td>
+<td><strong>會改船體模型</strong>，屬於 15.8 的紅區</td>
+</tr>
+<tr>
+<td>.NET 直接引用 marAPI</td>
+<td>加入 <code>marAPI.dll</code> 參考</td>
+<td>參考 <code>Documentation\NETmarAPI.chm</code>〔待核對〕</td>
+</tr>
+<tr>
+<td>PML 或 .NET 執行 Vitesse 腳本</td>
+<td><code>MarPythonEngine.RunPythonScript(路徑)</code></td>
+<td>知識庫自反射結果發現，官方 PML 未使用〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<p>PML 端的資料抽取寫法：</p>
+<pre><code class="language-pml">-- 示意：依開源知識庫整理的官方 phullnotch.pmlobj 用法改寫，未在實機執行〔待核對〕
+import 'marapi'
+handle (1000,0)
+  -- 已匯入，忽略
+endhandle
+using namespace 'Aveva.Marine.DataExtraction'
+
+-- 回傳板厚；取不到時回傳 -1，由呼叫端判斷
+define function !!mycoPanelThickness(!panel is STRING) is REAL
+  !dex = object MARDEX()
+  !est = 'HULL.PANEL(' &amp; '''' &amp; !panel &amp; '''' &amp; ').PLA(1).THICKNESS'
+  !rc = !dex.extractPML(!est)
+  handle (1000,0)
+    return -1
+  endhandle
+  if (!rc eq 0) then
+    !dex.nextResultPML()
+    return !dex.getReal()
+  endif
+  return -1
+endfunction
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 第 18 章的外板開孔論文使用了 <code>!!Dex.CreateRestrictedPlane</code>、<code>!!Dex.SolveIntersectionSpaceCurvePML</code> 等方法，和這裡的 <code>MARDEX</code> 很可能是同一家族，但論文版本與公司版本不一定相同。marAPI 的方法常成對出現（例如 <code>Extract</code> 與 <code>ExtractPML</code>），PML 只能呼叫 <code>PML</code> 結尾的版本或純量參數的多載；寫之前先用 <code>q meth !dex</code> 列出實際的方法。</p>
+</blockquote>
+<p><strong>版本差異：</strong> marAPI 是 Marine 專屬元件，E3D 沒有。各 Service Pack 的 marAPI 也可能增減方法，所以 15.7 的程式碼都應視為需要在公司版本驗證的起點。</p>
+<h2 id="158">15.8 船體資料自動化的安全界線</h2>
+<p>這是本章最重要的一節。船體資料有「相依鏈」與「生產快照」兩個特性（第 5、6 章），讓錯誤的自動化代價遠高於舾裝。</p>
+<h3 id="1581">15.8.1 三區分級</h3>
+<table>
+<thead>
+<tr>
+<th>區域</th>
+<th>動作</th>
+<th>例子</th>
+<th>控管</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>綠區：唯讀</strong></td>
+<td>資料抽取、查詢、報表、檢查</td>
+<td>板厚與材質清單、未定義材質的板、命名檢查、重量統計</td>
+<td>一般程式審查即可</td>
+</tr>
+<tr>
+<td><strong>黃區：只改自己產出的東西</strong></td>
+<td>在工具自己建立的圖面或圖層上加註記、匯出檔案</td>
+<td>在報告用圖面上標註板厚、匯出 DXF</td>
+<td>限定作用範圍；不碰他人的圖面；可重新產生</td>
+</tr>
+<tr>
+<td><strong>紅區：改船體模型或生產資料</strong></td>
+<td>執行板架語句、重建、分割、移動、儲存板架；修改邊界參考；重新抽出零件；套料</td>
+<td><code>kcs_hullpan.pan_store()</code>、<code>kcs_hull.pan_exec_stmt()</code>、<code>MARHULLPAN.stmtExec()</code>、<code>kcs_chm.store()</code></td>
+<td>需要立案、領域主管核准、訓練專案驗證、逐項預覽與人工確認；<strong>預設不做</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1582">15.8.2 為什麼紅區不應自動化</h3>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相依鏈</td>
+<td>修改一個板架的邊界或接縫，所有以它為參考的板架、加強材、肘板、開孔都可能需要重建，影響範圍不容易預先算清楚</td>
+</tr>
+<tr>
+<td>生產狀態</td>
+<td>板架可能已經抽出零件、套料，甚至已經下料。程式不知道現場狀態，修改後生產端拿到的是過時資料</td>
+</tr>
+<tr>
+<td>他人的工作</td>
+<td>板架由不同設計者負責；批次腳本可能在對方不知情的情況下改動</td>
+</tr>
+<tr>
+<td>難以復原</td>
+<td>船體重建是引擎運算的結果，錯誤的批次修改不一定能用簡單的 Undo 還原</td>
+</tr>
+<tr>
+<td>錯誤不明顯</td>
+<td>幾何上「看起來對」的修改，可能讓拓撲參考指向錯誤的構件，要到出圖或下料才被發現</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1583">15.8.3 落地規則</h3>
+<ol>
+<li><strong>工具預設唯讀。</strong> 任何會呼叫 <code>pan_store</code>、<code>store</code>、<code>stmtExec</code>、<code>pan_recreate</code> 等函式的腳本，必須在程式開頭的註解標示「紅區」，並在工具清單中登記。</li>
+<li><strong>輔助，而非代替。</strong> 例如「建議開孔位置並畫出輔助圖形，由設計者確認後再建立」，而不是「自動建立所有開孔」。第 18 章的論文案例也採用申請、確認、執行三段狀態。</li>
+<li><strong>一次一個板架、人工確認。</strong> 若確實需要寫入，以單一板架為單位，顯示將要執行的語句，使用者確認後才執行。</li>
+<li><strong>只在訓練專案開發與測試。</strong> 紅區工具的測試資料必須是訓練專案的複本，不可在生產專案上「試一下」。</li>
+<li><strong>寫入後要能追蹤。</strong> 記錄執行者、時間、板架名稱、執行前後的語句或關鍵屬性。</li>
+<li><strong>生產資料由人工流程觸發。</strong> 零件抽出、套料、NC 產出由負責的工程師依公司流程執行，程式只做檢查與報表。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 判斷不了一個動作屬於哪一區時，就當作紅區。請和船體設計主管一起，用第 5 章的影響評估清單檢查一次再決定。</p>
+</blockquote>
+<h2 id="159">15.9 部署</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>共用函式</td>
+<td>放 <code>Vitesse\Lib\</code>，檔名加公司前綴，例如 <code>myco_dex.py</code>，避免與官方或未來版本衝突</td>
+</tr>
+<tr>
+<td>右鍵選單</td>
+<td>腳本放 <code>Vitesse\Context_Menu\</code>，選單註冊見 15.6.2</td>
+</tr>
+<tr>
+<td>Trigger</td>
+<td>新增檔案；若修改官方 Trigger，備份原檔並以註解標出公司區段</td>
+</tr>
+<tr>
+<td>版本管理</td>
+<td>與 PMLLIB 一樣用 Git 管理（第 17 章），部署時從 tag 匯出</td>
+</tr>
+<tr>
+<td>移除</td>
+<td>刪除自家檔案；還原被修改的官方 Trigger</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>記錄每個腳本的入口、風險區域、負責人</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕若 Vitesse 腳本所在的安裝目錄位於伺服器上、使用者沒有寫入權限，可考慮在啟動批次檔把公司目錄加到 <code>pythonpath</code> 前面，讓公司腳本不必放進安裝目錄。這需要在公司環境實測。</p>
+<h2 id="1510">15.10 除錯</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>print</code></td>
+<td>Python 2.6 的 <code>print x</code>，輸出會出現在主控台與命令窗口</td>
+</tr>
+<tr>
+<td><code>kcs_ui.message_debug(msg)</code></td>
+<td>除錯訊息（知識庫列出的函式〔待核對〕）</td>
+</tr>
+<tr>
+<td>模組錯誤碼</td>
+<td>例外時印出 <code>kcs_xxx.error</code></td>
+</tr>
+<tr>
+<td>縮小問題</td>
+<td>先在命令窗口用最短的抽取語句確認名稱與型別，再寫進腳本</td>
+</tr>
+<tr>
+<td>語法檢查</td>
+<td>在開發機用 Python 2 版本的直譯器執行 <code>python -m py_compile 檔名.py</code> 只做語法檢查（不能執行，因為沒有 <code>kcs_*</code> 模組）</td>
+</tr>
+<tr>
+<td>拆出純邏輯</td>
+<td>把報表格式化、CSV 寫出等純 Python 邏輯寫成不 import <code>kcs_*</code> 的函式，可在開發機單元測試</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1511">15.11 開發人員須知</h2>
+<ul>
+<li><strong>先查官方範例。</strong> 每寫一個 <code>kcs_*</code> 呼叫，先在 <code>Vitesse\Examples\</code> 找到官方怎麼呼叫。<code>kcs_*</code> 沒有原始碼，猜參數順序很容易出錯。</li>
+<li><strong>名稱與索引。</strong> 抽取語句中的名稱要加單引號，索引從 1 開始。用 <code>%</code> 格式化組語句時，注意名稱本身若含單引號會破壞語句。</li>
+<li><strong>不要把 <code>None</code> 當 0。</strong> 抽取失敗或型別不符時，報表要明確顯示缺值。</li>
+<li><strong>Python 2.6 的字串陷阱。</strong> 混用 <code>str</code> 與 <code>unicode</code> 會出現 <code>UnicodeDecodeError</code>；在函式邊界統一轉換。</li>
+<li><strong>路徑不寫死。</strong> 範例中的 <code>C:/mydev/</code> 只是教學用；正式版從設定檔或環境變數取得輸出目錄（<code>kcs_util.TB_environment_get</code> 可讀取 Tribon 環境變數〔待核對〕）。</li>
+<li><strong>紅區先問人。</strong> 船體自動化的技術難度常低於業務風險，請把 15.8 當成需求審查的一部分。</li>
+</ul>
+<h2 id="1512">15.12 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>找官方範例。</strong> 在公司安裝目錄找出 <code>Vitesse\Examples\</code> 中與資料抽取、右鍵選單、Trigger 相關的範例各一個，記下檔名與入口函式。</li>
+<li><strong>抽取語句。</strong> 選一個訓練專案中的平面板架，寫出取得第 1 塊板板厚、材質、對稱代碼的三條語句，確認每條的型別碼。</li>
+<li><strong>部署範例。</strong> 把 <code>myhelpers.py</code> 與 <code>ctx_my_report.py</code>（補上 import）部署到訓練環境，在圖面上對一個板架按右鍵執行。記錄你修改了哪些官方檔案。</li>
+<li><strong>批次 CSV。</strong> 把 15.6.3 的 <code>export</code> 改成從文字檔讀取板架清單，輸出 CSV，並用 Excel 開啟確認中文與數值格式。</li>
+<li><strong>安全界線判斷。</strong> 列出你們部門想要的三個船體自動化需求，用 15.8.1 的三區分級各自分類，寫出理由與控管方式。</li>
+</ol>
+<h2 id="1513">15.13 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 Vitesse、PML、.NET 三條路線在船體開發上的分工。</li>
+<li>[ ] 我知道 Python 2.6 的 <code>print</code>、例外、除法、字串與 Python 3 的差異。</li>
+<li>[ ] 我能列出 <code>kcs_ui</code>、<code>kcs_draft</code>、<code>kcs_dex</code>、<code>kcs_util</code> 的用途，並指出哪些模組會改船體模型。</li>
+<li>[ ] 我能拆解 <code>HULL.PANEL('DECK01').PLA(1).THICKNESS</code> 的每一段，並按「extract、next_result、依型別取值」的順序取值。</li>
+<li>[ ] 我能說明 Trigger、右鍵選單、批次腳本的入口函式與適用情境。</li>
+<li>[ ] 我知道右鍵選單需要修改官方 <code>trig_draft_popup_menu.py</code>，以及如何控管這個修改。</li>
+<li>[ ] 我能說明從 PML 經 marAPI 讀取船體資料的寫法與待核對之處。</li>
+<li>[ ] 我能把一個船體自動化需求分到綠區、黃區或紅區，並說明理由。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>範例原始碼：<a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT，Copyright © 2026 erbi112211-boop），本地副本 <a href="examples/vitesse-hull-report/AVEVA-Marine端到端示例-Vitesse船体脚本.md"><code>examples/vitesse-hull-report/</code></a>。</li>
+<li>同一開源專案的參考卷冊（依 Marine 12.1 SP4 安裝目錄整理，自評可信度等級；TODO-UNVERIFIED 者已標〔待核對〕）：《Marine-Vitesse-Python軌道速查》《Marine-Vitesse-Python-API全編》《Marine-Hull船體建模語句大全》《AVEVA-Marine-marAPI調用姿勢表》《AVEVA-Marine-NET開發技能》。</li>
+<li>AVEVA 產品內附文件（需由公司安裝目錄取得，網路無公開版本）：<code>Documentation\Vitesse.chm</code>、<code>Python.chm</code>、<code>Data_Extraction.chm</code>、<code>NETmarAPI.chm</code>、<code>vitesse_access.xls</code>。</li>
+<li>AVEVA Hull and Outfitting 12.1 線上文件入口（需瀏覽器開啟）：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">docs.aveva.com Hull and Outfitting</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html">Navigating the AVEVA Marine Documentation</a>。</li>
+<li>截圖：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>（© AVEVA，內部教學用）。</li>
+<li>Python 2.6 語法：<a href="https://docs.python.org/2.6/">Python 2.6 官方文件</a>。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch14_dotnet_zh-TW.reading.html"><small>← 上一篇</small>第 14 章　.NET 開發：PML.NET 與 CAF Add-in</a><a class="next" href="ch16_reports_integration_zh-TW.reading.html"><small>下一篇 →</small>第 16 章　報表、檔案與外部系統整合</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

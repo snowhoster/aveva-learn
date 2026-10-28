@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">資料抽取語句的結構與取值流程</text>
+
+  <!-- statement segments -->
+  <g font-family="Consolas, Segoe UI, Microsoft JhengHei, monospace" font-size="18" font-weight="bold">
+    <rect x="60" y="56" width="70" height="40" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+    <text x="95" y="83" text-anchor="middle" fill="#1e3a8a">HULL</text>
+    <text x="137" y="83" fill="#1f2937">.</text>
+    <rect x="148" y="56" width="200" height="40" rx="4" fill="#fef3c7" stroke="#b45309"/>
+    <text x="248" y="83" text-anchor="middle" fill="#78350f">PANEL('DECK01')</text>
+    <text x="355" y="83" fill="#1f2937">.</text>
+    <rect x="366" y="56" width="90" height="40" rx="4" fill="#dcfce7" stroke="#047857"/>
+    <text x="411" y="83" text-anchor="middle" fill="#064e3b">PLA(1)</text>
+    <text x="463" y="83" fill="#1f2937">.</text>
+    <rect x="474" y="56" width="130" height="40" rx="4" fill="#f3e8ff" stroke="#6d28d9"/>
+    <text x="539" y="83" text-anchor="middle" fill="#4c1d95">THICKNESS</text>
+  </g>
+  <g font-size="13" fill="#1f2937">
+    <line x1="95" y1="96" x2="95" y2="114" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="95" y="130" text-anchor="middle">資料領域</text>
+    <text x="95" y="148" text-anchor="middle" font-size="12">（船體）</text>
+    <line x1="248" y1="96" x2="248" y2="114" stroke="#b45309" stroke-width="1.5"/>
+    <text x="248" y="130" text-anchor="middle">物件型別＋名稱</text>
+    <text x="248" y="148" text-anchor="middle" font-size="12">（像 WHERE name = ...）</text>
+    <line x1="411" y1="96" x2="411" y2="114" stroke="#047857" stroke-width="1.5"/>
+    <text x="411" y="130" text-anchor="middle">子元件＋索引</text>
+    <text x="411" y="148" text-anchor="middle" font-size="12">（第 1 塊板）</text>
+    <line x1="539" y1="96" x2="539" y2="114" stroke="#6d28d9" stroke-width="1.5"/>
+    <text x="539" y="130" text-anchor="middle">要取的屬性</text>
+    <text x="539" y="148" text-anchor="middle" font-size="12">（板厚，實數）</text>
+  </g>
+
+  <!-- more examples -->
+  <rect x="630" y="52" width="250" height="104" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="642" y="74" font-size="13" font-weight="bold" fill="#1f2937">同一棵關鍵字樹的其他寫法</text>
+  <g font-family="Consolas, Segoe UI, monospace" font-size="12" fill="#1f2937">
+    <text x="642" y="96">...PLA(1).QUALITY.STRING</text>
+    <text x="642" y="116">HULL.PANEL('N').SYMMETRY</text>
+    <text x="642" y="136">HULL.PANEL('N').NSUBPANEL</text>
+  </g>
+
+  <!-- flow -->
+  <text x="20" y="196" font-size="16" font-weight="bold" fill="#1f2937">取值流程（Vitesse：kcs_dex　／　PML：MARDEX 物件）</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="212" width="200" height="74" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="234" font-weight="bold">1. 執行抽取</text>
+    <text x="32" y="254" font-size="12">kcs_dex.extract(est)</text>
+    <text x="32" y="273" font-size="12">比對 kcs_util.success()</text>
+
+    <rect x="248" y="212" width="200" height="74" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="260" y="234" font-weight="bold">2. 取得結果型別碼</text>
+    <text x="260" y="254" font-size="12">typ = kcs_dex.next_result()</text>
+    <text x="260" y="273" font-size="12">先看型別，再決定怎麼取</text>
+
+    <rect x="476" y="212" width="200" height="74" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="488" y="234" font-weight="bold">3. 依型別取值</text>
+    <text x="488" y="254" font-size="12">get_int()／get_real()</text>
+    <text x="488" y="273" font-size="12">get_string() 等</text>
+
+    <rect x="704" y="212" width="176" height="74" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="716" y="234" font-weight="bold">4. 型別不符</text>
+    <text x="716" y="254" font-size="12">回傳 None</text>
+    <text x="716" y="273" font-size="12">由呼叫端記錄缺值</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="220" y1="249" x2="244" y2="249"/>
+    <line x1="448" y1="249" x2="472" y2="249"/>
+    <line x1="676" y1="249" x2="700" y2="249"/>
+  </g>
+
+  <!-- type code table -->
+  <text x="20" y="322" font-size="16" font-weight="bold" fill="#1f2937">next_result() 型別碼對照</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="334" width="520" height="30" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="34" y="354" font-weight="bold">型別碼</text>
+    <text x="160" y="354" font-weight="bold">意義</text>
+    <text x="330" y="354" font-weight="bold">取值函式</text>
+    <rect x="20" y="364" width="520" height="28" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="34" y="383">1</text><text x="160" y="383">整數</text><text x="330" y="383">get_int()</text>
+    <rect x="20" y="392" width="520" height="28" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="34" y="411">2</text><text x="160" y="411">實數</text><text x="330" y="411">get_real()</text>
+    <rect x="20" y="420" width="520" height="28" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="34" y="439">3</text><text x="160" y="439">字串</text><text x="330" y="439">get_string()</text>
+    <rect x="20" y="448" width="520" height="28" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="34" y="467">4／5／6</text><text x="160" y="467">3D 向量／包圍盒／2D 向量</text><text x="330" y="467">get_reavec3d() 等</text>
+    <rect x="20" y="476" width="520" height="28" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="34" y="495">大於 10</text><text x="160" y="495">實數列表，個數 ＝ 碼 − 10</text><text x="330" y="495">get_indexedreal(i)</text>
+  </g>
+  <text x="20" y="524" font-size="12" fill="#475569">型別碼 4、5、6 與 25 以上（變換矩陣）來自開源知識庫對官方 Lib 的整理〔待核對〕</text>
+
+  <!-- PML equivalence -->
+  <rect x="566" y="334" width="314" height="190" rx="6" fill="#fef3c7" stroke="#b45309"/>
+  <text x="578" y="356" font-size="14" font-weight="bold" fill="#1f2937">PML 端的等價寫法〔待核對〕</text>
+  <g font-family="Consolas, Segoe UI, monospace" font-size="12" fill="#1f2937">
+    <text x="578" y="380">import 'marapi'</text>
+    <text x="578" y="398">using namespace</text>
+    <text x="590" y="416">'Aveva.Marine.DataExtraction'</text>
+    <text x="578" y="434">!dex = object MARDEX()</text>
+    <text x="578" y="452">!rc = !dex.extractPML(!est)</text>
+    <text x="578" y="470">-- !rc eq 0 表示成功</text>
+    <text x="578" y="488">!dex.nextResultPML()</text>
+    <text x="578" y="506">!v = !dex.getIntPML()</text>
+  </g>
+
+  <text x="20" y="560" font-size="13" fill="#1f2937">開發人員對照：抽取語句像一條「唯讀的路徑查詢」（類似 XPath），結果經過一個型別游標逐一取出，</text>
+  <text x="20" y="582" font-size="13" fill="#1f2937">所以永遠先檢查 extract 是否成功、再檢查型別碼，最後才取值。</text>
+</svg>

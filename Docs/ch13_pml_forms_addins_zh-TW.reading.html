@@ -1,0 +1,1415 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 13 章　PML2 表單、選單與 Add-in | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#13-pml2-add-in">第 13 章 PML2 表單、選單與 Add-in</a><ul>
+<li><a href="#131">13.1 學習目標</a></li>
+<li><a href="#132">13.2 表單是什麼</a></li>
+<li><a href="#133">13.3 表單定義語法</a><ul>
+<li><a href="#1331">13.3.1 基本骨架</a></li>
+<li><a href="#1332">13.3.2 表單型別</a></li>
+</ul>
+</li>
+<li><a href="#134">13.4 版面</a><ul>
+<li><a href="#1341-pathhdistvdist">13.4.1 自動排列：path、hdist、vdist</a></li>
+<li><a href="#1342-at">13.4.2 指定位置：at</a></li>
+<li><a href="#1343-frame">13.4.3 分組：frame</a></li>
+<li><a href="#1344-anchor-dock">13.4.4 調整大小：anchor 與 dock</a></li>
+</ul>
+</li>
+<li><a href="#135-gadget">13.5 控制項（Gadget）</a><ul>
+<li><a href="#1351">13.5.1 一覽</a></li>
+<li><a href="#1352-gadget">13.5.2 讀寫 gadget 的值</a></li>
+</ul>
+</li>
+<li><a href="#136-callback">13.6 回呼（Callback）</a><ul>
+<li><a href="#1361">13.6.1 三種回呼</a></li>
+<li><a href="#1362">13.6.2 表單層級的回呼</a></li>
+<li><a href="#1363">13.6.3 官方範例：建構子只執行一次</a></li>
+<li><a href="#1364">13.6.4 回呼方法可以帶參數</a></li>
+</ul>
+</li>
+<li><a href="#137">13.7 表單成員與方法：把狀態放在表單上</a></li>
+<li><a href="#138">13.8 從零開始：一個簡單的搜尋表單</a><ul>
+<li><a href="#1381">13.8.1 完整程式</a></li>
+<li><a href="#1382">13.8.2 逐段解說</a></li>
+<li><a href="#1383">13.8.3 測試步驟</a></li>
+</ul>
+</li>
+<li><a href="#139-mycollect">13.9 完整解說：MyCollect 範例</a><ul>
+<li><a href="#1391">13.9.1 表單原始碼</a></li>
+<li><a href="#1392">13.9.2 逐行解說</a></li>
+<li><a href="#1393">13.9.3 回呼時機對照</a></li>
+<li><a href="#1394">13.9.4 值得學的設計</a></li>
+<li><a href="#1395">13.9.5 需要在公司版本核對的地方</a></li>
+<li><a href="#1396-add-in-appmycollectpmlobj">13.9.6 Add-in 物件：appmycollect.pmlobj</a></li>
+</ul>
+</li>
+<li><a href="#1310-pml-net">13.10 在 PML 表單中嵌入 .NET 控制項</a></li>
+<li><a href="#1311-appmenu-appmenucntrl">13.11 選單：APPMENU 與 !!appMenuCntrl</a><ul>
+<li><a href="#13111">13.11.1 在既有選單中加入項目</a></li>
+<li><a href="#13112">13.11.2 新增一整個選單</a></li>
+<li><a href="#13113">13.11.3 工具列</a></li>
+</ul>
+</li>
+<li><a href="#1312-add-in">13.12 Add-in 的載入流程</a></li>
+<li><a href="#1313">13.13 表單設計原則</a></li>
+<li><a href="#1314">13.14 開發人員須知</a></li>
+<li><a href="#1315">13.15 練習</a><ul>
+<li><a href="#1">練習 1：完成搜尋表單</a></li>
+<li><a href="#2">練習 2：掛進選單</a></li>
+<li><a href="#3-mycollect">練習 3：部署 MyCollect</a></li>
+<li><a href="#4">練習 4：寫入工具表單（訓練專案）</a></li>
+</ul>
+</li>
+<li><a href="#1316">13.16 自我檢核</a></li>
+<li><a href="#1317">13.17 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 14 / 21</span><h1 id="13-pml2-add-in">第 13 章　PML2 表單、選單與 Add-in</h1>
+<blockquote>
+<p>本章教你把第 12 章的查詢與修改程式，做成設計人員可以使用的介面：PML2 表單的定義與版面、各種控制項（gadget）、回呼與表單生命週期、在表單中嵌入 .NET 表格，以及透過 Add-in 把工具掛進系統選單。我們會先從零做一個簡單的搜尋表單，再逐行解說開源範例 MyCollect 的表單與 Add-in 物件。</p>
+<p>語法依據 AVEVA E3D 2.1 PML Customisation User Guide、Software Customisation Reference Manual、E3D 1.1／2.1 Software Customisation Guide（help.aveva.com 公開頁面），以及 AVEVA Marine 12.1 SP4 開源範例 aveva-marine-dev-skill（MIT 授權，Copyright © 2026 erbi112211-boop）。E3D 2.x 文件中的表單以 <code>layout form</code> 開頭，AVEVA Marine 12.1／PDMS 使用 <code>setup form</code>，兩者概念相同。標示「-- 示意」的程式為本課程自行撰寫、未在實機驗證，請先在訓練專案中測試。</p>
+</blockquote>
+<h2 id="131">13.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>寫出 <code>setup form ... exit</code> 表單定義，選擇合適的表單型別。</li>
+<li>用 <code>path</code>、<code>hdist</code>／<code>vdist</code>、<code>at</code>、<code>frame</code>、<code>anchor</code>／<code>dock</code> 安排版面。</li>
+<li>使用 button、text、toggle、option、list、textpane、paragraph、frame、container 等控制項，並讀寫它們的值。</li>
+<li>區分字串回呼、方法回呼與開放式回呼，並說出建構子、<code>initcall</code>、<code>okcall</code>、<code>cancelcall</code> 的執行時機。</li>
+<li>把表單狀態放在表單成員上，用方法組織表單行為。</li>
+<li>在 PML 表單中嵌入 .NET 表格控制項。</li>
+<li>用 <code>APPMENU</code> 與 <code>!!appMenuCntrl</code> 修改選單，並寫出 Add-in 定義檔與 Add-in 物件。</li>
+<li>依「唯讀預設、確認、回饋」原則設計工具表單。</li>
+</ol>
+<h2 id="132">13.2 表單是什麼</h2>
+<p>用開發人員的語言說：<strong>PML2 表單是一個全域單例物件，它的成員包含控制項（gadget）與你自訂的資料，它的方法就是事件處理器。</strong></p>
+<table>
+<thead>
+<tr>
+<th>表單概念</th>
+<th>對照 WinForms／WPF</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup form !!mycofinder</code></td>
+<td><code>class MycoFinderForm : Form</code></td>
+<td>定義表單；名稱是全域的 <code>!!mycofinder</code></td>
+</tr>
+<tr>
+<td>gadget（<code>.btnFind</code>）</td>
+<td>控制項欄位</td>
+<td>以點號存取：<code>!this.btnFind</code>、<code>!!mycofinder.btnFind</code></td>
+</tr>
+<tr>
+<td><code>member .found is ARRAY</code></td>
+<td>私有欄位</td>
+<td>表單自己的狀態</td>
+</tr>
+<tr>
+<td><code>define method .find()</code></td>
+<td>方法</td>
+<td>事件處理器或一般方法</td>
+</tr>
+<tr>
+<td>與表單同名的方法 <code>.mycofinder()</code></td>
+<td>建構子</td>
+<td>表單第一次載入時執行</td>
+</tr>
+<tr>
+<td><code>show !!mycofinder</code></td>
+<td><code>form.Show()</code></td>
+<td>第一次會自動載入定義</td>
+</tr>
+<tr>
+<td><code>hide !!mycofinder</code></td>
+<td><code>form.Hide()</code></td>
+<td>隱藏但不銷毀</td>
+</tr>
+<tr>
+<td><code>callback '!this.find()'</code></td>
+<td><code>button.Click += Find</code></td>
+<td>以字串指定事件處理器</td>
+</tr>
+</tbody>
+</table>
+<p>表單檔的規則與第 10 章相同：檔名 <code>mycofinder.pmlfrm</code>（全小寫，等於表單名稱），放在 <code>PMLLIB</code>，新增後 <code>pml rehash</code>，修改後 <code>pml reload form !!mycofinder</code>。</p>
+<h2 id="133">13.3 表單定義語法</h2>
+<h3 id="1331">13.3.1 基本骨架</h3>
+<pre><code class="language-pml">setup form !!mycofinder dialog resizeable
+  title 'MyCo 元素搜尋'
+  member .found is ARRAY
+  -- 這裡放 gadget 與版面指令
+exit
+
+define method .mycofinder()
+  -- 建構子
+endmethod
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup form !!名稱</code></td>
+<td>開始定義；E3D 2.x 文件寫作 <code>layout form</code></td>
+</tr>
+<tr>
+<td>表單型別</td>
+<td>例如 <code>dialog</code>；省略時依預設</td>
+</tr>
+<tr>
+<td>表單選項</td>
+<td>例如可調整大小。開源範例寫 <code>resizeable</code>，官方 PML.NET 範例寫 <code>resize</code>〔兩種拼法在公司版本是否皆可用，待核對〕</td>
+</tr>
+<tr>
+<td><code>title '...'</code></td>
+<td>標題列文字</td>
+</tr>
+<tr>
+<td><code>member .x is 型別</code></td>
+<td>表單成員</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>結束定義區塊；<strong>方法寫在 <code>exit</code> 之後</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1332">13.3.2 表單型別</h3>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>行為</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dialog</code></td>
+<td>一般對話框，不阻擋主視窗</td>
+<td>大多數工具</td>
+</tr>
+<tr>
+<td><code>blockingdialog</code></td>
+<td>阻擋式（modal）對話框，關閉前不能操作其他視窗</td>
+<td>必須先回答才能繼續的輸入〔關鍵字依版本核對〕</td>
+</tr>
+<tr>
+<td><code>document</code></td>
+<td>文件型視窗，可停靠在主視窗內〔依版本核對〕</td>
+<td>長時間開著的檢視器</td>
+</tr>
+<tr>
+<td><code>main</code></td>
+<td>應用程式主視窗</td>
+<td>系統應用程式本身，一般工具不使用</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 工具表單優先用非阻擋的 <code>dialog</code>。設計人員常常需要一邊開著工具、一邊在 3D 畫面選取元素；阻擋式對話框會讓他們無法選取，只適合「必須回答的問題」。</p>
+</blockquote>
+<h2 id="134">13.4 版面</h2>
+<p>PML 表單用「字元格」當單位：<code>width 20</code> 大約是 20 個字元寬，<code>height 10</code> 大約是 10 行高。</p>
+<h3 id="1341-pathhdistvdist">13.4.1 自動排列：path、hdist、vdist</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path down</code></td>
+<td>之後的 gadget 依序往下排</td>
+</tr>
+<tr>
+<td><code>path right</code></td>
+<td>之後的 gadget 依序往右排</td>
+</tr>
+<tr>
+<td><code>hdist n</code>、<code>vdist n</code></td>
+<td>自動排列時的水平、垂直間距</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-pml">path down
+text .txtA 'A' width 10 is STRING
+text .txtB 'B' width 10 is STRING      -- 排在 .txtA 下方
+path right
+button .btnOk 'OK' OK                  -- 排在 .txtB 右方
+button .btnCancel 'Cancel' CANCEL      -- 排在 .btnOk 右方
+</code></pre>
+<h3 id="1342-at">13.4.2 指定位置：at</h3>
+<p>官方文件列出的幾種 <code>at</code> 寫法：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>at 5 7.5</code></td>
+<td>放在表單格點 (5, 7.5)</td>
+</tr>
+<tr>
+<td><code>at x 5.5</code></td>
+<td>X 固定為 5.5，Y 依上一個 gadget 的下緣與 <code>vdist</code> 自動計算</td>
+</tr>
+<tr>
+<td><code>at xmin ymax+1</code></td>
+<td>與上一個 gadget 左緣對齊、在其下緣再往下 1</td>
+</tr>
+<tr>
+<td><code>at xmin.gadget1-2 ymax.gadget1+1</code></td>
+<td>以指定的 gadget 為基準，往左 2、往下 1</td>
+</tr>
+<tr>
+<td><code>at xmax form-size ymax form-size</code></td>
+<td>以表單目前（定義到此為止）的右下角為基準</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-pml">toggle .tglA 'Option A' at xmin ymax+1
+button .btnGo 'Go' at xmin.tglA ymax.tglA+0.5 callback '!this.go()'
+</code></pre>
+<h3 id="1343-frame">13.4.3 分組：frame</h3>
+<pre><code class="language-pml">frame .fmeBtns 'Actions'
+  path right
+  button .btnGo  'Collect' callback '!this.collect()'
+  button .btnXls 'Export...' callback '!this.export()'
+exit
+</code></pre>
+<p><code>frame</code> 與 <code>exit</code> 之間的 gadget 屬於這個框架，框架內有自己的排列方向。</p>
+<h3 id="1344-anchor-dock">13.4.4 調整大小：anchor 與 dock</h3>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+<th>對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>anchor all</code></td>
+<td>表單縮放時，gadget 四邊跟著表單邊緣伸縮</td>
+<td>WinForms <code>Anchor = Top, Bottom, Left, Right</code></td>
+</tr>
+<tr>
+<td><code>dock fill</code></td>
+<td>填滿剩下的空間</td>
+<td>WinForms <code>Dock = Fill</code></td>
+</tr>
+</tbody>
+</table>
+<p>開源範例 MyCollect 對表格容器用 <code>anchor all</code>；官方 PML.NET 範例對容器用 <code>dock fill</code>。只有表單允許縮放（<code>resizeable</code>／<code>resize</code>）時才有意義。</p>
+<h2 id="135-gadget">13.5 控制項（Gadget）</h2>
+<h3 id="1351">13.5.1 一覽</h3>
+<table>
+<thead>
+<tr>
+<th>Gadget</th>
+<th>定義範例</th>
+<th>主要成員／方法</th>
+<th>對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>button</td>
+<td><code>button .btnFind '搜尋' callback '!this.find()'</code></td>
+<td><code>.callback</code>；<code>OK</code>、<code>CANCEL</code> 關鍵字讓按鈕觸發表單的 OK／CANCEL</td>
+<td>Button</td>
+</tr>
+<tr>
+<td>text</td>
+<td><code>text .txtName '名稱' width 20 is STRING</code></td>
+<td><code>.val</code>（依 <code>is</code> 宣告的型別）、<code>.callback</code>（按 Enter 時）</td>
+<td>TextBox</td>
+</tr>
+<tr>
+<td>toggle</td>
+<td><code>toggle .tglWide '搜尋整個 MDB'</code></td>
+<td><code>.val</code>（BOOLEAN）</td>
+<td>CheckBox</td>
+</tr>
+<tr>
+<td>option</td>
+<td><code>option .optType '型別' width 12</code></td>
+<td><code>.dtext</code>、<code>.rtext</code>、<code>.val</code>（選取序號，0 為未選）、<code>.selection()</code>、<code>.select('Rtext', 值)</code>、<code>.add(...)</code>、<code>.clear()</code></td>
+<td>ComboBox（下拉）</td>
+</tr>
+<tr>
+<td>list</td>
+<td><code>list .lstResult '結果' width 40 height 10</code></td>
+<td><code>.dtext</code>、<code>.rtext</code>、<code>.val</code>、<code>.selection()</code>；可設 <code>multi</code> 多選</td>
+<td>ListBox</td>
+</tr>
+<tr>
+<td>textpane</td>
+<td><code>textpane .tpNote '備註' width 40 height 5</code></td>
+<td><code>.val</code>（多行文字〔型別待核對〕）</td>
+<td>多行 TextBox</td>
+</tr>
+<tr>
+<td>paragraph</td>
+<td><code>paragraph .parStatus width 40 height 1</code></td>
+<td><code>.val</code>（顯示文字）</td>
+<td>Label</td>
+</tr>
+<tr>
+<td>frame</td>
+<td><code>frame .fme '標題'</code> … <code>exit</code></td>
+<td>群組容器</td>
+<td>GroupBox</td>
+</tr>
+<tr>
+<td>container</td>
+<td><code>container .netFrame 'Grid' pmlNetControl width 60 height 16</code></td>
+<td><code>.control</code>（指定 .NET 控制項的 handle）</td>
+<td>承載 .NET 控制項的 Panel</td>
+</tr>
+</tbody>
+</table>
+<p><code>dtext</code> 與 <code>rtext</code> 是 option 與 list 的重要觀念：</p>
+<table>
+<thead>
+<tr>
+<th>成員</th>
+<th>意義</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dtext</code></td>
+<td>顯示給使用者看的文字（display text）</td>
+<td><code>'離心泵 P-101A'</code></td>
+</tr>
+<tr>
+<td><code>rtext</code></td>
+<td>程式取用的值（replacement text）</td>
+<td><code>'/P-101A'</code></td>
+</tr>
+</tbody>
+</table>
+<p>這和 HTML <code>&lt;option value="/P-101A"&gt;離心泵 P-101A&lt;/option&gt;</code> 的 value 與顯示文字是同一個概念。官方說明 <code>rtext</code> 省略時預設等於 <code>dtext</code>，<code>.selection()</code> 回傳目前選取項目的 rtext。</p>
+<h3 id="1352-gadget">13.5.2 讀寫 gadget 的值</h3>
+<pre><code class="language-pml">!name = !this.txtName.val          -- 讀文字欄位
+!this.parStatus.val = '完成'       -- 設定說明文字
+if (!this.tglWide.val) then        -- toggle 是 BOOLEAN
+  ...
+endif
+!type = !this.optType.selection()  -- option 選取項目的 rtext
+</code></pre>
+<p>所有 gadget 也有一些共通方法，例如 <code>.name()</code>、<code>.fullname()</code>（例如 <code>!!mycofinder.optType</code>）、<code>.owner()</code>、<code>.setfocus()</code>、<code>.refresh()</code>（見官方 COMBOBOX 等 gadget 參考）。</p>
+<h2 id="136-callback">13.6 回呼（Callback）</h2>
+<h3 id="1361">13.6.1 三種回呼</h3>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>寫法</th>
+<th>收到的資訊</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字串回呼</td>
+<td><code>callback '!this.message.val = !this.capture.val'</code></td>
+<td>無</td>
+<td>一行就能完成的動作</td>
+</tr>
+<tr>
+<td>方法回呼</td>
+<td><code>callback '!this.find()'</code></td>
+<td>無</td>
+<td>大多數情況</td>
+</tr>
+<tr>
+<td>開放式回呼</td>
+<td><code>callback '!this.onList('</code>（字串以左括號結尾）</td>
+<td>系統自動補上 <code>(gadget, action)</code> 兩個引數</td>
+<td>需要知道「發生了什麼事件」，例如清單的 SELECT 與 UNSELECT</td>
+</tr>
+</tbody>
+</table>
+<p>開放式回呼的方法簽章：</p>
+<pre><code class="language-pml">define method .onList(!gadget is GADGET, !action is STRING)
+  if (!action eq 'SELECT') then
+    -- 使用者選取了某一項
+  endif
+endmethod
+</code></pre>
+<p>官方說明：一般回呼無法區分 SELECT 與 UNSELECT；<strong>只有指定開放式回呼時，UNSELECT 事件才會通知 PML</strong>。多選清單在一次操作中可能先送出一連串 UNSELECT 再送出一連串 SELECT，新版本另外加了 START、STOP 動作包住這一串事件；官方建議不要在 UNSELECT 事件中以程式改變清單內容或選取。開放式回呼也可以指向一個全域函式（例如 <code>'!!control('</code>），此時函式必須獨立成檔、而且不能使用 <code>!this</code>。</p>
+<h3 id="1362">13.6.2 表單層級的回呼</h3>
+<table>
+<thead>
+<tr>
+<th>成員</th>
+<th>什麼時候執行</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建構子 <code>.表單名()</code></td>
+<td>表單<strong>第一次載入</strong>時，只執行一次</td>
+<td>設定 gadget 預設值、指定其他回呼</td>
+</tr>
+<tr>
+<td><code>initcall</code></td>
+<td><strong>每一次</strong>顯示表單時</td>
+<td>依目前 CE 刷新內容；必要時拒絕顯示</td>
+</tr>
+<tr>
+<td><code>okcall</code></td>
+<td>按下 OK 型按鈕（或祖先表單的 OK）</td>
+<td>收集輸入並執行主要工作，然後表單被移除</td>
+</tr>
+<tr>
+<td><code>cancelcall</code></td>
+<td>按下 CANCEL 型按鈕、祖先表單的 CANCEL，或視窗的關閉按鈕</td>
+<td>撤銷已做的動作；gadget 會回到顯示時（或最後一次 APPLY 時）的值</td>
+</tr>
+<tr>
+<td><code>quitcall</code></td>
+<td>按下標題列的 X〔與 cancelcall 的先後關係依版本核對〕</td>
+<td>清理</td>
+</tr>
+</tbody>
+</table>
+<p>設定方式（官方）：</p>
+<pre><code class="language-pml">!this.initcall = '!this.onShow()'
+!this.Okcall = '!this.success()'
+!this.Cancelcall = '!this.undoAll()'
+</code></pre>
+<p>官方對 <code>initcall</code> 的限制：<strong>不能顯示另一個表單、不能要求使用者輸入</strong>，但可以跳出提示；若發現嚴重問題不該顯示表單，可以 <code>return error 1 '訊息'</code> 中止，訊息會以錯誤框顯示：</p>
+<pre><code class="language-pml">define method .onShow()
+  if (badref(!!ce)) then
+    return error 1 '請先選取一個元素'
+  endif
+  ...
+endmethod
+</code></pre>
+<p><img alt="PML2 表單生命週期：第一次 show 時載入定義並執行建構子，每次 show 執行 initcall，顯示期間處理 gadget callback，OK 執行 okcall、Cancel 執行 cancelcall 後隱藏" src="images/diagrams/ch13_form_lifecycle.svg" /></p>
+<p><em>圖 13-1　表單生命週期與回呼時機。建構子只執行一次，initcall 每次顯示都執行；隱藏後表單物件與成員值仍在記憶體中。（本課程自繪）</em></p>
+<h3 id="1363">13.6.3 官方範例：建構子只執行一次</h3>
+<p>官方 <code>!!hello</code> 範例清楚示範了建構子與 <code>initcall</code> 的差別：</p>
+<pre><code class="language-pml">layout form !!hello AutoAlign
+  title 'Display Your Message'
+  paragraph .Message width 15 height 1
+  text .capture 'Enter message' width 15 is STRING
+  button .bye 'Goodbye' OK
+exit
+
+define method .hello()
+  -- default constructor - set gadget load-time default values
+  !this.message.val = 'Hello world'
+  !this.capture.callback = '!this.message.val = !this.capture.val'
+  !this.Okcall = '!this.success()'
+endmethod
+
+define method .success()
+  -- action when OK button is pressed
+  !this.message.val = 'Hello again'
+  !this.capture.val = ''
+endmethod
+</code></pre>
+<p>按下 Goodbye 後表單隱藏；再次 <code>show !!hello</code> 時，段落顯示的是「Hello again」而不是「Hello world」，因為<strong>已載入的表單不會再執行建構子</strong>。想每次顯示都重設，就要使用 <code>initcall</code>。（在 AVEVA Marine 12.1 中，第一行改寫為 <code>setup form !!hello</code>。）</p>
+<h3 id="1364">13.6.4 回呼方法可以帶參數</h3>
+<p>官方也示範了把回呼方法參數化，讓多個按鈕共用：</p>
+<pre><code class="language-pml">define method .success( !output is GADGET, !message is STRING, !input is GADGET )
+  !output.val = !message
+  !input.val = ''
+endmethod
+</code></pre>
+<pre><code class="language-pml">!this.Okcall = |!this.success( !this.message, 'Hello again', !this.capture )|
+button .restore 'Restart' callback |!this.success( !this.message, 'Hello world', !this.capture )|
+</code></pre>
+<p>回呼字串裡又有字串時，外層用 <code>|...|</code>，內層用 <code>'...'</code>，就不會互相衝突（第 11 章）。</p>
+<h2 id="137">13.7 表單成員與方法：把狀態放在表單上</h2>
+<pre><code class="language-pml">setup form !!mycofinder dialog
+  member .found is ARRAY        -- 搜尋結果的 DBREF 陣列
+  ...
+exit
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>放在哪裡</th>
+<th>好處</th>
+<th>壞處</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表單成員 <code>!this.found</code></td>
+<td>只屬於這個表單；其他工具碰不到</td>
+<td>無</td>
+</tr>
+<tr>
+<td>全域變數 <code>!!mycoFound</code></td>
+<td>任何地方都能讀</td>
+<td>汙染全域命名空間，可能被其他工具覆蓋</td>
+</tr>
+<tr>
+<td>gadget 的顯示文字</td>
+<td>不用另外存</td>
+<td>顯示文字不是資料；排序、格式化後就對不回元素</td>
+</tr>
+</tbody>
+</table>
+<p>最常見的模式是<strong>清單顯示名稱（dtext），成員陣列保存對應的 DBREF</strong>，以選取序號對應兩者（13.8 節範例）。</p>
+<h2 id="138">13.8 從零開始：一個簡單的搜尋表單</h2>
+<p>需求：設計人員輸入名稱關鍵字、選擇型別，在目前元素底下搜尋，結果列在清單中，選取後可以把 CE 移到該元素。這個工具是<strong>唯讀</strong>的。</p>
+<h3 id="1381">13.8.1 完整程式</h3>
+<p>檔案：<code>myco\forms\mycofinder.pmlfrm</code></p>
+<pre><code class="language-pml">-- 示意：mycofinder.pmlfrm　元素搜尋表單（唯讀）
+setup form !!mycofinder dialog resizeable
+  title 'MyCo 元素搜尋'
+  member .found is ARRAY
+
+  path down
+  paragraph .parHelp width 40 height 1
+  text .txtFilter '名稱包含' width 20 is STRING
+  option .optType '型別' width 12
+  toggle .tglWide '搜尋整個 MDB（較慢）'
+  button .btnFind '搜尋' callback '!this.find()'
+  list .lstResult '結果' width 40 height 10
+  paragraph .parStatus width 40 height 1
+  button .btnGoto '移到選取元素' at xmin.parStatus ymax.parStatus+0.5 callback '!this.gotoSelected()'
+  path right
+  button .btnClose '關閉' CANCEL
+exit
+
+-- 建構子：只在第一次載入時執行
+define method .mycofinder()
+  !this.found = ARRAY()
+  !types = ARRAY()
+  !types.append('EQUI')
+  !types.append('PIPE')
+  !types.append('STRU')
+  !this.optType.dtext = !types
+  !this.optType.rtext = !types
+  !this.tglWide.val = FALSE
+  !this.parHelp.val = '輸入名稱關鍵字，選擇型別後按「搜尋」'
+  !this.txtFilter.callback = '!this.find()'
+  !this.lstResult.callback = '!this.onList('
+  !this.initcall = '!this.onShow()'
+endmethod
+
+-- 每次顯示：提示目前範圍
+define method .onShow()
+  !this.parStatus.val = '範圍：' &amp; !!ce.flnn
+endmethod
+
+-- 搜尋（唯讀）
+define method .find()
+  !coll = object COLLECTION()
+  !coll.type(!this.optType.selection())
+  if (not !this.tglWide.val) then
+    !coll.scope(!!ce)
+  endif
+  !key = !this.txtFilter.val.trim().upcase()
+  !all = !coll.results()
+  !this.found = ARRAY()
+  !labels = ARRAY()
+  do !e values !all
+    !n = !e.flnn
+    if (!key.empty()) then
+      !hit = TRUE
+    else
+      !hit = !n.upcase().match(!key) gt 0
+    endif
+    if (!hit) then
+      !this.found.append(!e)
+      !labels.append(!n)
+    endif
+  enddo
+  !this.lstResult.dtext = !labels
+  !this.parStatus.val = '找到 ' &amp; !labels.size() &amp; ' 筆'
+endmethod
+
+-- 開放式回呼：選取時顯示型別
+define method .onList(!gadget is GADGET, !action is STRING)
+  if (!action eq 'SELECT') then
+    !e = !this.found[!gadget.val]
+    !this.parStatus.val = '選取：' &amp; !e.flnn &amp; '（' &amp; !e.type.string() &amp; '）'
+  endif
+endmethod
+
+-- 把 CE 移到選取的元素
+define method .gotoSelected()
+  !idx = !this.lstResult.val
+  if (unset(!idx)) then
+    !idx = 0
+  endif
+  if (!idx eq 0) then
+    !!alert.message('請先在清單中選取一個元素')
+    return
+  endif
+  !!ce = !this.found[!idx]
+endmethod
+</code></pre>
+<h3 id="1382">13.8.2 逐段解說</h3>
+<table>
+<thead>
+<tr>
+<th>區段</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>member .found is ARRAY</code></td>
+<td>保存搜尋結果的 DBREF，與清單的顯示文字一一對應</td>
+</tr>
+<tr>
+<td><code>paragraph .parHelp</code></td>
+<td>說明文字；內容在建構子設定（與官方 <code>!!hello</code> 範例相同做法）</td>
+</tr>
+<tr>
+<td><code>text ... is STRING</code></td>
+<td>文字欄位宣告值的型別；<code>.val</code> 取得字串</td>
+</tr>
+<tr>
+<td><code>option .optType</code></td>
+<td>下拉選單；建構子中設定 <code>dtext</code>／<code>rtext</code></td>
+</tr>
+<tr>
+<td><code>toggle .tglWide</code></td>
+<td>預設 FALSE，避免不小心搜尋整個 MDB</td>
+</tr>
+<tr>
+<td><code>at xmin.parStatus ymax.parStatus+0.5</code></td>
+<td>讓「移到選取元素」按鈕對齊狀態列左緣、放在它下方</td>
+</tr>
+<tr>
+<td><code>path right</code> 之後的「關閉」</td>
+<td>排在「移到選取元素」右邊；<code>CANCEL</code> 讓它成為取消按鈕</td>
+</tr>
+<tr>
+<td>建構子</td>
+<td>只執行一次：填選項、設預設值、指定回呼</td>
+</tr>
+<tr>
+<td><code>!this.txtFilter.callback</code></td>
+<td>在文字欄位按 Enter 也會搜尋</td>
+</tr>
+<tr>
+<td><code>'!this.onList('</code></td>
+<td>以左括號結尾，代表開放式回呼，系統會傳入 gadget 與 action</td>
+</tr>
+<tr>
+<td><code>.onShow()</code></td>
+<td>每次顯示時更新範圍提示</td>
+</tr>
+<tr>
+<td><code>.find()</code></td>
+<td>第 12 章的 COLLECTION，再加上 PML 端的名稱比對</td>
+</tr>
+<tr>
+<td><code>!gadget.val</code></td>
+<td>單選清單的選取序號，用它到 <code>!this.found</code> 取出 DBREF</td>
+</tr>
+<tr>
+<td><code>.gotoSelected()</code></td>
+<td>未選取時提示；清單 <code>.val</code> 未選取時的值（0 或未設定）依版本可能不同，所以兩種都處理〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1383">13.8.3 測試步驟</h3>
+<ol>
+<li>把檔案放到個人 <code>PMLLIB</code> 的 <code>myco\forms\</code>，執行 <code>pml rehash</code>。</li>
+<li>在訓練專案選取一個 ZONE，命令列輸入 <code>show !!mycofinder</code>。</li>
+<li>不輸入關鍵字，選 EQUI，按「搜尋」，確認清單列出 ZONE 下所有設備。</li>
+<li>輸入部分名稱再搜尋；在清單中點選一項，確認狀態列顯示型別。</li>
+<li>按「移到選取元素」，確認模型樹與 3D 畫面跟著移動。</li>
+<li>修改表單後執行 <code>pml reload form !!mycofinder</code>，再 <code>show</code>。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 這個範例在 PML 端以迴圈比對名稱，資料量大時會慢。正式工具可以把名稱條件改成 COLLECTION 的 EXPRESSION 篩選（第 12 章），並限制最多顯示的筆數。</p>
+</blockquote>
+<h2 id="139-mycollect">13.9 完整解說：MyCollect 範例</h2>
+<p>MyCollect 是開源專案 aveva-marine-dev-skill 提供的可部署範例（MIT 授權，Copyright © 2026 erbi112211-boop；本地副本在 <a href="examples/starter-kit-mycollect/README.txt"><code>examples/starter-kit-mycollect/</code></a>）。它收集範圍內的所有設備，顯示在 .NET 表格中，並可匯出 Excel。原作者註明目標版本為 AVEVA Marine 12.1 SP4，部分內容仍待實機驗證。</p>
+<pre><code class="language-text">starter-kit-mycollect/
+├── pmllib/myco/forms/mycollect.pmlfrm       表單
+├── pmllib/myco/objects/appmycollect.pmlobj  Add-in 物件
+├── addins-des/MYCOLLECT                     Add-in 定義檔
+└── install.cmd                              部署腳本（第 10 章）
+</code></pre>
+<p><img alt="MyCollect 表單版面示意：Scope 輸入欄、Collect／Export／Close 按鈕與三欄表格" src="images/cases/mycollect_form_mockup.svg" /></p>
+<p><em>圖 13-2　依原始碼繪製的 MyCollect 版面示意，非實機截圖；實際外觀依版本的表單樣式而異。</em></p>
+<h3 id="1391">13.9.1 表單原始碼</h3>
+<p>以下為 <code>mycollect.pmlfrm</code> 原文（MIT 授權），左側加上行號方便對照：</p>
+<pre><code class="language-pml"> 1  --========================================================================
+ 2  -- File:      mycollect.pmlfrm   Type: Form Definition   Module: myco
+ 3  -- Description: Collect EQUIs under CE, show in grid, export to Excel
+ 4  --========================================================================
+ 5  import 'GridControl'
+ 6    handle (1000,0)
+ 7      -- already imported - ignore
+ 8    endhandle
+ 9
+10  setup form !!mycollect dialog resizeable VarChars NoAlign
+11    title 'My EQUI Collector'
+12    !this.formRevision = '1.0'
+13
+14    member .grid     is NETGRIDCONTROL
+15    member .rows     is ARRAY
+16
+17    path down
+18    text .scope 'Scope(空=当前CE)' width 22 is STRING
+19    frame .fmeBtns 'Actions'
+20      path right
+21      button .btnGo    'Collect'   callback '!this.collect()'   tooltip 'Collect EQUIs'
+22      button .btnXls   'Export...' callback '!this.export()'    tooltip 'Save grid to Excel'
+23      button .btnClose 'Close'     CANCEL
+24    exit
+25    container .netFrame 'Grid' nobox pmlNetControl width 60 height 16 anchor all
+26  exit
+27
+28  define method .mycollect()
+29    !this.initcall = '!this.onShow()'
+30  endmethod
+31
+32  define method .onShow()
+33    !this.grid = object NETGRIDCONTROL()
+34    !this.netFrame.control = !this.grid.handle()
+35    !this.collect()
+36  endmethod
+37
+38  define method .collect()
+39    !this.rows = ARRAY()
+40    !heads = ARRAY()
+41    !heads[1] = 'Name'
+42    !heads[2] = 'Description'
+43    !heads[3] = 'Type'
+44    !coll = object COLLECTION()
+45    !coll.type(|EQUI|)
+46    !scope = !this.scope.val
+47    if (!scope.empty()) then
+48      !coll.scope(!!ce)
+49    else
+50      !target = object DBREF(!scope)
+51      handle (2,109)
+52        !!alert.error('Scope element not found: ' &amp; !scope)
+53        return
+54      elsehandle NONE
+55      endhandle
+56      !coll.scope(!target)
+57    endif
+58    !results = !coll.results()
+59    if (!results.size() gt 0) then
+60      do !e index !results
+61        !row = ARRAY()
+62        !row[1] = !results[!e].flnn
+63        !row[2] = !results[!e].desc
+64        !row[3] = !results[!e].type.string()
+65        !this.rows.append(!row)
+66      enddo
+67    else
+68      !!alert.warning('No EQUI found under the scope.')
+69    endif
+70    !ds = object NETDATASOURCE('MyCollect', !heads, !this.rows)
+71    handle (1000,0)
+72      !!alert.error(!!error.text)
+73      return
+74    endhandle
+75    !this.grid.bindToDataSource(!ds)
+76    !this.grid.setNameColumnImage()
+77  endmethod
+78
+79  define method .export()
+80    !!exportToExcel(!this.grid, ||, |Save EQUI List|)
+81  endmethod
+82  -- End of form definition for !!mycollect
+</code></pre>
+<h3 id="1392">13.9.2 逐行解說</h3>
+<table>
+<thead>
+<tr>
+<th>行</th>
+<th>程式</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–4</td>
+<td>檔案標頭</td>
+<td>檔名、類型、模組前綴與用途（第 10 章的標頭慣例）</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>import 'GridControl'</code></td>
+<td>匯入 AVEVA 提供的 .NET 表格控制項組件，之後 PML 才認得 <code>NETGRIDCONTROL</code> 型別</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td><code>handle (1000,0)</code></td>
+<td>同一工作階段已匯入過時會產生錯誤 (1000,0)，用特定錯誤碼接住並忽略；官方範例則寫 <code>handle any</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>setup form !!mycollect dialog resizeable VarChars NoAlign</code></td>
+<td>定義非阻擋式、可縮放的對話框；<code>VarChars</code>、<code>NoAlign</code> 是版面選項（可變寬字元、不自動對齊）〔確切效果依版本核對〕</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>title</code></td>
+<td>標題列文字</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>!this.formRevision = '1.0'</code></td>
+<td>在定義區塊中設定表單成員，作為版本標記〔此成員是否為系統預定義成員待核對〕</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>member .grid is NETGRIDCONTROL</code></td>
+<td>保存 .NET 表格物件的成員</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>member .rows is ARRAY</code></td>
+<td>保存資料列（陣列的陣列）</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>path down</code></td>
+<td>之後的 gadget 由上往下排</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>text .scope ... is STRING</code></td>
+<td>範圍輸入欄；空白代表使用目前 CE（原文標籤為簡體中文）</td>
+</tr>
+<tr>
+<td>19–24</td>
+<td><code>frame .fmeBtns</code> … <code>exit</code></td>
+<td>按鈕群組，框內 <code>path right</code> 讓三個按鈕橫排</td>
+</tr>
+<tr>
+<td>21–22</td>
+<td><code>callback '!this.collect()'</code>、<code>tooltip</code></td>
+<td>方法回呼與滑鼠提示</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>CANCEL</code></td>
+<td>關閉按鈕；按下時觸發 cancelcall 並隱藏表單</td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>container .netFrame ... pmlNetControl ... anchor all</code></td>
+<td>承載 .NET 控制項的容器，<code>nobox</code> 不畫框線，<code>anchor all</code> 隨表單縮放</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>exit</code></td>
+<td>結束表單定義</td>
+</tr>
+<tr>
+<td>28–30</td>
+<td>建構子</td>
+<td>只做一件事：指定 <code>initcall</code>，把實際工作延後到顯示時</td>
+</tr>
+<tr>
+<td>32–36</td>
+<td><code>.onShow()</code></td>
+<td>每次顯示都建立新的 <code>NETGRIDCONTROL</code>，把它的 <code>handle()</code> 指定給容器的 <code>.control</code>，然後自動收集一次</td>
+</tr>
+<tr>
+<td>39–43</td>
+<td>建立欄位標題</td>
+<td>陣列從 1 開始</td>
+</tr>
+<tr>
+<td>44–45</td>
+<td><code>object COLLECTION()</code>、<code>.type(|EQUI|)</code></td>
+<td>第 12 章的收集物件</td>
+</tr>
+<tr>
+<td>46–48</td>
+<td>範圍空白</td>
+<td>以目前 CE 為範圍</td>
+</tr>
+<tr>
+<td>50</td>
+<td><code>object DBREF(!scope)</code></td>
+<td>由使用者輸入的名稱建立參照</td>
+</tr>
+<tr>
+<td>51–55</td>
+<td><code>handle (2,109)</code> … <code>elsehandle NONE</code></td>
+<td>名稱無效時顯示錯誤並結束方法；<code>elsehandle NONE</code> 區塊是空的，表示沒有錯誤就繼續</td>
+</tr>
+<tr>
+<td>58</td>
+<td><code>.results()</code></td>
+<td>取得 DBREF 陣列</td>
+</tr>
+<tr>
+<td>60</td>
+<td><code>do !e index !results</code></td>
+<td>走訪索引（官方關鍵字為 <code>indices</code>，見第 11 章）</td>
+</tr>
+<tr>
+<td>61–65</td>
+<td>組成資料列</td>
+<td><code>.flnn</code> 完整名稱、<code>.desc</code> 描述、<code>.type.string()</code> 型別字串</td>
+</tr>
+<tr>
+<td>68</td>
+<td><code>!!alert.warning</code></td>
+<td>沒有結果時提示</td>
+</tr>
+<tr>
+<td>70</td>
+<td><code>object NETDATASOURCE('MyCollect', !heads, !this.rows)</code></td>
+<td>把標題與資料列包成資料來源</td>
+</tr>
+<tr>
+<td>71–74</td>
+<td><code>handle (1000,0)</code></td>
+<td>建立資料來源失敗時顯示 <code>!!error.text</code></td>
+</tr>
+<tr>
+<td>75–76</td>
+<td><code>.bindToDataSource()</code>、<code>.setNameColumnImage()</code></td>
+<td>綁定資料，並在名稱欄顯示元素圖示</td>
+</tr>
+<tr>
+<td>79–81</td>
+<td><code>!!exportToExcel(...)</code></td>
+<td>呼叫匯出函式，把表格存成 Excel；第二個引數空字串、第三個是對話框標題〔此函式是否為公司版本內建，待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1393">13.9.3 回呼時機對照</h3>
+<table>
+<thead>
+<tr>
+<th>使用者動作</th>
+<th>執行的程式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一次從選單點 My EQUI Collector...</td>
+<td>載入檔案 → 執行定義區塊 → 建構子 <code>.mycollect()</code> → <code>initcall</code> 即 <code>.onShow()</code> → 建立表格並收集</td>
+</tr>
+<tr>
+<td>按 Collect</td>
+<td><code>.collect()</code></td>
+</tr>
+<tr>
+<td>按 Export...</td>
+<td><code>.export()</code></td>
+</tr>
+<tr>
+<td>按 Close</td>
+<td>cancelcall（本範例未設定）→ 隱藏表單</td>
+</tr>
+<tr>
+<td>再次從選單開啟</td>
+<td>不執行建構子，直接 <code>.onShow()</code>：建立新表格並重新收集</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1394">13.9.4 值得學的設計</h3>
+<ul>
+<li><strong>唯讀</strong>：只讀屬性、不修改模型，是公司第一個 PML 工具的好範本。</li>
+<li><strong>建構子保持輕量</strong>：重的工作放在 <code>initcall</code>，表單載入失敗的機會比較小。</li>
+<li><strong>只忽略預期中的錯誤</strong>：<code>import</code> 的重複匯入錯誤以特定錯誤碼處理。</li>
+<li><strong>以 CE 為預設範圍</strong>：符合設計人員「先選再操作」的習慣。</li>
+</ul>
+<h3 id="1395">13.9.5 需要在公司版本核對的地方</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>觀察</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>using namespace</code></td>
+<td>官方 PML.NET 表單範例在 <code>setup form</code> 內寫了 <code>using namespace 'Aveva.Pdms.Presentation'</code> 再宣告 <code>member .grid is NetGridControl</code>；MyCollect 沒有這一行</td>
+<td>若出現「找不到型別」錯誤，先加上這一行〔待核對〕</td>
+</tr>
+<tr>
+<td>縮放關鍵字</td>
+<td>MyCollect 用 <code>resizeable</code>，官方範例用 <code>resize</code></td>
+<td>以公司版本可接受的寫法為準</td>
+</tr>
+<tr>
+<td><code>object DBREF(!scope)</code></td>
+<td>名稱無效時，錯誤是在建立參照時發生，還是之後使用時才發生，依版本可能不同</td>
+<td>可改為 <code>!target = !scope.dbref()</code> 再用 <code>badref(!target)</code> 判斷</td>
+</tr>
+<tr>
+<td><code>do !e index</code></td>
+<td>官方寫法為 <code>indices</code></td>
+<td>新程式統一寫 <code>indices</code>，或用 <code>do !e values</code> 直接取元素</td>
+</tr>
+<tr>
+<td>每次顯示都建立新表格</td>
+<td><code>.onShow()</code> 中 <code>object NETGRIDCONTROL()</code> 每次都執行</td>
+<td>若出現資源或閃爍問題，可只在第一次建立</td>
+</tr>
+<tr>
+<td><code>!!exportToExcel</code></td>
+<td>不是 PML 語言本身的函式</td>
+<td>確認公司 <code>PMLLIB</code> 中有此函式；沒有時改用第 16 章的 CSV 匯出</td>
+</tr>
+<tr>
+<td>介面文字</td>
+<td>範圍欄位標籤為簡體中文</td>
+<td>公司版本改成繁體中文或英文，並測試中文顯示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1396-add-in-appmycollectpmlobj">13.9.6 Add-in 物件：appmycollect.pmlobj</h3>
+<pre><code class="language-pml">define object APPMYCOLLECT
+endobject
+
+define method .appmycollect()
+endmethod
+
+define method .modifyMenus()
+  !menu = object APPMENU('SYSUTIL')
+  !menu.add('SEPARATOR', 'myCollectSep')
+  !menu.add('CALLBACK', 'My EQUI Collector...', 'show !!mycollect', 'myCollect')
+  !!appMenuCntrl.addMenu(!menu, 'ALL')
+endmethod
+</code></pre>
+<p>（原檔另有完整的標頭註解與方法說明區塊，此處省略。）</p>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>解說</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>define object APPMYCOLLECT</code> … <code>endobject</code></td>
+<td>沒有成員的物件；Add-in 物件只是「掛勾方法的容器」</td>
+</tr>
+<tr>
+<td><code>.appmycollect()</code></td>
+<td>空的建構子。官方提醒控制物件的建構子中<strong>不要做耗時的工作</strong></td>
+</tr>
+<tr>
+<td><code>.modifyMenus()</code></td>
+<td>標準掛勾，系統建立選單時呼叫</td>
+</tr>
+<tr>
+<td><code>object APPMENU('SYSUTIL')</code></td>
+<td>取得名為 <code>SYSUTIL</code> 的選單（Utilities 選單）的操作物件</td>
+</tr>
+<tr>
+<td><code>.add('SEPARATOR', 'myCollectSep')</code></td>
+<td>先加一條分隔線，並命名，避免重複加入</td>
+</tr>
+<tr>
+<td><code>.add('CALLBACK', 顯示文字, 回呼, 欄位名稱)</code></td>
+<td>加入選單項目；點選時執行 <code>show !!mycollect</code></td>
+</tr>
+<tr>
+<td><code>!!appMenuCntrl.addMenu(!menu, 'ALL')</code></td>
+<td>向選單控制器登記，<code>'ALL'</code> 表示所有應用程式都顯示</td>
+</tr>
+</tbody>
+</table>
+<p>Add-in 定義檔 <code>MYCOLLECT</code>：</p>
+<pre><code class="language-text">Name: MYCOLLECT
+Object: APPMYCOLLECT
+</code></pre>
+<h2 id="1310-pml-net">13.10 在 PML 表單中嵌入 .NET 控制項</h2>
+<p>PML 原生 gadget 沒有功能完整的表格。AVEVA 提供可以放進 PML 表單的 .NET 表格控制項，做法分三步：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>官方 PML.NET 範例</th>
+<th>MyCollect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 匯入組件</td>
+<td><code>import 'GridControl'</code> 後接 <code>handle any</code></td>
+<td><code>import 'GridControl'</code> 後接 <code>handle (1000,0)</code></td>
+</tr>
+<tr>
+<td>2. 宣告型別與容器</td>
+<td>表單內 <code>using namespace 'Aveva.Pdms.Presentation'</code>、<code>member .grid is NetGridControl</code>、<code>container .gridFrame PmlNetControl 'grid' dock fill width 30 height 20</code></td>
+<td><code>member .grid is NETGRIDCONTROL</code>、<code>container .netFrame 'Grid' nobox pmlNetControl ... anchor all</code></td>
+</tr>
+<tr>
+<td>3. 建立並掛上</td>
+<td>建立控制項物件，把它的 <code>handle()</code> 指定給容器的 <code>.control</code></td>
+<td><code>!this.netFrame.control = !this.grid.handle()</code></td>
+</tr>
+</tbody>
+</table>
+<p>官方的 PML.NET 表單範例（E3D 2.1 Software Customisation Guide）：</p>
+<pre><code class="language-pml">import 'GridControl'
+handle any
+endhandle
+
+setup form !!MyForm resize
+  using namespace 'Aveva.Pdms.Presentation'
+  member .grid is NetGridControl
+  path down
+  container .gridFrame PmlNetControl 'grid' dock fill width 30 height 20
+exit
+</code></pre>
+<p>AVEVA 安裝目錄的 <code>Samples.zip</code> 中有完整的 PMLGridExample。自己用 C# 寫的控制項也能用同樣方式放進 PML 表單，詳見第 14 章 PML.NET。</p>
+<h2 id="1311-appmenu-appmenucntrl">13.11 選單：APPMENU 與 !!appMenuCntrl</h2>
+<h3 id="13111">13.11.1 在既有選單中加入項目</h3>
+<p>官方 Software Customisation Guide 說明的 APPMENU 方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>object APPMENU('選單名稱')</code></td>
+<td>取得某個選單的操作物件</td>
+</tr>
+<tr>
+<td><code>.add('欄位型別', 顯示文字, 回呼文字, 欄位名稱)</code></td>
+<td>加到選單最後；欄位名稱省略時以顯示文字為名稱</td>
+</tr>
+<tr>
+<td><code>.add('SEPARATOR', 欄位名稱)</code></td>
+<td>加入分隔線</td>
+</tr>
+<tr>
+<td><code>.insertBefore(目標欄位, ...)</code>、<code>.insertAfter(目標欄位, ...)</code></td>
+<td>插在某個既有欄位之前或之後</td>
+</tr>
+</tbody>
+</table>
+<p>官方附註：</p>
+<ul>
+<li><strong>同名欄位不會重複加入</strong>，所以兩個 Add-in 定義同一個欄位也不會出現兩次。這也是為什麼要替每個欄位取有前綴的名稱。</li>
+<li>欄位名稱與既有欄位衝突時，下一個欄位會接在既有欄位之後，以保持預期順序。</li>
+<li>用應用程式名稱 <code>'ALL'</code> 可以讓選單項目出現在所有應用程式。</li>
+</ul>
+<p>官方範例（在 Pipework 應用程式的 Query 選單加入「Query Owner」）：</p>
+<pre><code class="language-pml">!menu = object APPMENU('sysQry')
+!menu.add('CALLBACK', 'Query Owner', 'q owner', 'QueryOwner')
+!!appMenuCntrl.addMenu(!menu, 'PIPE')
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 官方文件的語法說明處把 <code>addMenu</code> 的引數寫成 <code>('APP', !menu)</code>，但同一份文件的完整範例與 MyCollect 都寫成 <code>addMenu(!menu, '應用程式')</code>。請以範例順序為準，並在公司版本測試〔待核對〕。選單名稱（<code>SYSUTIL</code>、<code>sysQry</code> 等）可以從官方 Add-in 物件或選單定義中查到。</p>
+</blockquote>
+<h3 id="13112">13.11.2 新增一整個選單</h3>
+<p>要在主視窗選單列加入新的選單，使用 <code>APPBARMENU</code>：</p>
+<pre><code class="language-pml">!bmenu = object APPBARMENU()
+!bmenu.add('MyCo Tools', 'mycoMenu')
+!!appMenuCntrl.addBarMenu(!bmenu, 'ALL')     -- 引數順序同上，請實測〔待核對〕
+</code></pre>
+<p><code>add</code> 會把新選單放在選單列最後（Window 與 Help 之前）；也有 <code>insertBefore</code>、<code>insertAfter</code>、<code>remove</code>。新選單裡的項目再用 <code>APPMENU('mycoMenu')</code> 加入。</p>
+<h3 id="13113">13.11.3 工具列</h3>
+<p>官方說明 Add-in 物件的 <code>.modifyForm()</code> 會在<strong>定義主表單時</strong>被呼叫，Add-in 可以在這裡為主視窗建立自己的工具列。工具列語法依版本差異較大，本課程不展開〔待核對〕；需要圖示按鈕與停靠工具列時，也可以考慮第 14 章的 .NET UIC 自訂檔。</p>
+<h2 id="1312-add-in">13.12 Add-in 的載入流程</h2>
+<p><img alt="PML Add-in 載入流程：模組啟動、讀取 Add-in 定義檔、從 PMLLIB 建立 Add-in 物件、modifyForm、modifyMenus 向 !!appMenuCntrl 登記，使用者點選選單後顯示表單" src="images/diagrams/ch13_addin_loading.svg" /></p>
+<p><em>圖 13-3　PML Add-in 的載入流程，以 MYCOLLECT 為例。（本課程自繪）</em></p>
+<p>依官方 Software Customisation Guide（E3D 1.1）的 PML Add-ins 章節：</p>
+<table>
+<thead>
+<tr>
+<th>時機</th>
+<th>系統做什麼</th>
+<th>Add-in 物件的對應方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模組啟動</td>
+<td>從檔案讀入所有 Add-in 定義；全域應用程式控制物件 <code>!!appCntrl</code> 管理所有應用程式回呼</td>
+<td>定義檔的 <code>ModuleStartup</code> 鍵</td>
+</tr>
+<tr>
+<td>定義主表單</td>
+<td>呼叫每個 Add-in 物件的 <code>.modifyForm()</code></td>
+<td>建立工具列</td>
+</tr>
+<tr>
+<td>第一次啟動時建立選單</td>
+<td>呼叫每個 Add-in 物件的 <code>.modifyMenus()</code></td>
+<td>加入選單項目</td>
+</tr>
+<tr>
+<td>切換到某個應用程式</td>
+<td>呼叫 <code>.initialiseForm()</code>；定義檔的 <code>SwitchCall</code>、<code>SwitchModify</code></td>
+<td>切換時的初始化</td>
+</tr>
+</tbody>
+</table>
+<p>官方也說明：<strong>這些方法都是選用的</strong>，沒有定義就略過；只需要定義檔的其他屬性時，甚至可以不要 Add-in 物件。程式中可以用 <code>!!appCntrl.currentApp()</code> 查詢目前的應用程式。</p>
+<p>部署 Add-in 的檢查清單：</p>
+<ul>
+<li>[ ] Add-in 物件（<code>.pmlobj</code>）在 <code>PMLLIB</code> 中，且<strong>已在索引中</strong>（官方提醒：控制物件要先加入 PML 索引，否則模組啟動時會出問題）。</li>
+<li>[ ] Add-in 定義檔放在正確的 Add-in 目錄（第 10 章，<code>%PDMSUI%\DES\DFLTS\ADDINS\</code> 或公司版本的對應位置）。</li>
+<li>[ ] 定義檔的 <code>Object:</code> 與物件型別名稱一致。</li>
+<li>[ ] 選單欄位名稱有公司前綴，不與官方或其他 Add-in 衝突。</li>
+<li>[ ] 重新啟動模組後，在預期的選單中看到項目。</li>
+</ul>
+<h2 id="1313">13.13 表單設計原則</h2>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>唯讀預設</strong></td>
+<td>查詢與報表工具完全不寫入；會寫入的工具預設進入「預覽」狀態，必須明確按下「套用」</td>
+</tr>
+<tr>
+<td><strong>確認對話框</strong></td>
+<td>寫入前顯示影響筆數並要求確認（例如 <code>!!alert.confirm('將修改 25 筆，是否繼續？')</code>，回傳值依版本核對〔待核對〕）</td>
+</tr>
+<tr>
+<td><strong>進度回饋</strong></td>
+<td>長時間處理時更新狀態列文字或在命令列 <code>$P</code> 進度；完成時顯示成功與失敗筆數</td>
+</tr>
+<tr>
+<td><strong>錯誤要說人話</strong></td>
+<td>不要把 <code>(2,109)</code> 直接丟給使用者；說明「找不到名稱為 X 的元素」與下一步怎麼做</td>
+</tr>
+<tr>
+<td><strong>不打亂使用者</strong></td>
+<td>不任意移動 CE；必須移動時，結束後還原</td>
+</tr>
+<tr>
+<td><strong>非阻擋</strong></td>
+<td>優先用 <code>dialog</code>，讓使用者可以同時在 3D 畫面操作</td>
+</tr>
+<tr>
+<td><strong>一個表單一個任務</strong></td>
+<td>功能多時拆成多個表單，不要做出一個塞滿按鈕的「萬用工具」</td>
+</tr>
+<tr>
+<td><strong>輸入驗證</strong></td>
+<td>在 callback 開頭檢查輸入，錯誤時提示並 <code>return</code>，不讓錯誤值進到資料庫命令</td>
+</tr>
+<tr>
+<td><strong>可追溯</strong></td>
+<td>寫入工具保留記錄檔（第 12 章），並在表單上顯示記錄檔位置</td>
+</tr>
+<tr>
+<td><strong>一致的命名</strong></td>
+<td>gadget 用型別前綴：<code>btn</code>、<code>txt</code>、<code>opt</code>、<code>lst</code>、<code>tgl</code>、<code>par</code>、<code>fme</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1314">13.14 開發人員須知</h2>
+<ul>
+<li><strong>建構子只跑一次，initcall 每次都跑。</strong> 依目前 CE 決定的內容放在 <code>initcall</code>；只需設定一次的東西放在建構子。</li>
+<li><strong>修改表單後要 reload。</strong> <code>pml reload form !!xxx</code>；表單開著時先關閉。動到建構子時更要 reload，否則看到的仍是舊行為。</li>
+<li><strong>回呼字串是程式碼。</strong> 引號要成對；內外層分別用 <code>|...|</code> 與 <code>'...'</code>。</li>
+<li><strong>gadget 的顯示文字不是資料。</strong> 用表單成員保存 DBREF，用序號對應。</li>
+<li><strong>不要在 UNSELECT 事件中修改清單。</strong> 官方明確建議避免。</li>
+<li><strong>Add-in 只在模組啟動時載入。</strong> 改了定義檔或 <code>.modifyMenus()</code>，要重新啟動模組才看得到。</li>
+<li><strong>選單欄位名稱是全域的。</strong> 加前綴，並利用「同名不重複加入」的特性避免重複項目。</li>
+<li><strong>嵌入 .NET 控制項要先 import。</strong> 並注意 <code>using namespace</code> 與組件版本，這些是 PML 與 .NET 的介面，升級時最容易出問題。</li>
+</ul>
+<h2 id="1315">13.15 練習</h2>
+<blockquote>
+<p>練習 1–3 是唯讀工具，可在訓練專案中自由測試；練習 4 會修改資料，<strong>只能在訓練專案中進行</strong>。</p>
+</blockquote>
+<h3 id="1">練習 1：完成搜尋表單</h3>
+<ol>
+<li>依 13.8 節建立 <code>!!mycofinder</code>，部署到個人 <code>PMLLIB</code> 並測試。</li>
+<li>在 option 中加入 <code>HVAC</code> 與 <code>FRMW</code> 兩種型別。</li>
+<li>加一個 textpane，選取元素時顯示它的 DESC 與 POSITION。</li>
+<li>把名稱比對改為 COLLECTION 的 EXPRESSION 篩選，比較速度。</li>
+</ol>
+<h3 id="2">練習 2：掛進選單</h3>
+<ol>
+<li>仿照 <code>appmycollect.pmlobj</code> 寫一個 <code>appmycofinder.pmlobj</code>，把「MyCo 元素搜尋...」加到 Utilities 選單，欄位名稱用 <code>mycoFinder</code>。</li>
+<li>撰寫 Add-in 定義檔 <code>MYCOFINDER</code>，放到個人測試用的 Add-in 目錄（依公司環境，請先與管理員確認）。</li>
+<li>重新啟動模組，確認選單項目出現，點選後開啟表單。</li>
+</ol>
+<h3 id="3-mycollect">練習 3：部署 MyCollect</h3>
+<ol>
+<li>在訓練環境依第 10 章與 <code>README.txt</code> 部署 MyCollect。</li>
+<li>執行冒煙測試：選一個 ZONE → 開啟表單 → Collect → Export... → Close。</li>
+<li>依 13.9.5 節的表格，記錄公司版本中每一項的實測結果。</li>
+</ol>
+<h3 id="4">練習 4：寫入工具表單（訓練專案）</h3>
+<p>把第 12 章的 <code>!!mycoBatchDesc</code> 做成表單：</p>
+<ul>
+<li>欄位：範圍（預設目前 CE）、要尋找的文字、取代成的文字、記錄檔路徑。</li>
+<li>按鈕：「預覽」（只列出清單）、「套用」（預覽後才可按，按下前要求確認）、「關閉」。</li>
+<li>狀態列：顯示預計筆數、成功與失敗筆數、記錄檔位置。</li>
+<li>套用後提醒使用者自行 Save Work。</li>
+</ul>
+<h2 id="1316">13.16 自我檢核</h2>
+<ul>
+<li>[ ] 我能寫出 <code>setup form ... exit</code> 的表單定義，並說明 <code>dialog</code>、<code>blockingdialog</code>、<code>document</code>、<code>main</code> 的差別。</li>
+<li>[ ] 我會用 <code>path</code>、<code>hdist</code>／<code>vdist</code>、<code>at</code>、<code>frame</code>、<code>anchor</code>／<code>dock</code> 安排版面。</li>
+<li>[ ] 我會使用 button、text、toggle、option、list、textpane、paragraph、frame、container，並讀寫 <code>.val</code>、<code>.dtext</code>、<code>.rtext</code>、<code>.selection()</code>。</li>
+<li>[ ] 我能區分字串回呼、方法回呼與開放式回呼，知道開放式回呼的簽章。</li>
+<li>[ ] 我能說出建構子、<code>initcall</code>、<code>okcall</code>、<code>cancelcall</code> 的執行時機，並畫出表單生命週期。</li>
+<li>[ ] 我會把表單狀態放在成員上，用序號對應清單與 DBREF。</li>
+<li>[ ] 我能說明如何在 PML 表單中嵌入 .NET 表格控制項（import、容器、handle）。</li>
+<li>[ ] 我會用 <code>APPMENU</code>、<code>!!appMenuCntrl.addMenu</code> 加入選單項目，知道 <code>'ALL'</code> 與欄位名稱的作用。</li>
+<li>[ ] 我能寫出 Add-in 定義檔與含 <code>.modifyMenus()</code> 的 Add-in 物件，並說明載入流程。</li>
+<li>[ ] 我能逐行解說 MyCollect 的表單與 Add-in 物件，並列出需要在公司版本核對的項目。</li>
+<li>[ ] 我能依「唯讀預設、確認、回饋」原則設計工具表單。</li>
+</ul>
+<h2 id="1317">13.17 資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 PML Customisation User Guide：Revisiting the Simple Form（<code>!!hello</code> 範例、建構子、okcall）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG14.14.8.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG14.14.8.html</a></li>
+<li>同上：Callbacks: Form Methods / PML Functions（參數化回呼）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG15.15.03.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG15.15.03.html</a></li>
+<li>同上：Using a PML Function in an Open Callback：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG15.15.06.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG15.15.06.html</a></li>
+<li>同上：Form Initialisation Callback（initcall）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG16.16.14.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG16.16.14.html</a></li>
+<li>同上：Form OK and CANCEL Callbacks：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG16.16.15.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG16.16.15.html</a></li>
+<li>同上：Gadget 定位（<code>at xmin ymax+1</code>、<code>at xmin.gadget1-2 ymax.gadget1+1</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG18.18.10.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG18.18.10.html</a></li>
+<li>同上：開放式回呼與清單事件（SELECT、UNSELECT、START、STOP）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG21.22.34.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG21.22.34.html</a></li>
+<li>同上：Defining a PML Add-in：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG24.27.03.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG24.27.03.html</a></li>
+<li>AVEVA E3D 2.1 Software Customisation Reference Manual：COMBOBOX／OPTION gadget 成員與方法（<code>Val</code>、<code>DText</code>、<code>RText</code>、<code>Selection</code>、<code>Select</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.27.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.27.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.56.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.56.html</a></li>
+<li>同上：Gadget 語法（<code>AT</code> 格點座標）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.08.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.08.html</a></li>
+<li>AVEVA E3D 2.1 Software Customisation Guide：PML.NET（<code>import 'GridControl'</code>、<code>using namespace</code>、<code>PmlNetControl</code> 容器範例）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SOFTCG/SOFTCG8.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SOFTCG/SOFTCG8.html</a></li>
+<li>AVEVA E3D 2.1 .NET Customisation User Guide：PMLGridExample（位於 <code>Samples.zip</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG1.02.17.html">https://help.aveva.com/AVEVA_Everything3D/2.1/NCUG/NCUG1.02.17.html</a></li>
+<li>AVEVA E3D 1.1 Software Customisation Guide：Add-in Object（<code>.modifyForm()</code>、<code>.modifyMenus()</code>、<code>.initialiseForm()</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.05.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.05.html</a></li>
+<li>同上：Initialisation（<code>!!appCntrl</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.06.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.06.html</a></li>
+<li>同上：Addition of Menu Items（APPMENU）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.09.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.09.html</a></li>
+<li>同上：Modifying the Bar Menu（APPBARMENU）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.11.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.11.html</a></li>
+<li>同上：Add-in 定義檔鍵、Application Control Object 範例：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.03.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.03.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.04.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.04.html</a></li>
+<li>同上：Example Add-in（Query Owner 選單範例、<code>DES\DFLTS\ADDINS</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.20.html">https://help.aveva.com/AVEVA_Everything3D/1.1/SOFTCG/SOFTCG24.27.20.html</a></li>
+<li>開源範例 aveva-marine-dev-skill（MIT 授權，Copyright © 2026 erbi112211-boop；MyCollect 表單、Add-in 物件、定義檔）：<a href="https://github.com/912141548/aveva-marine-dev-skill">https://github.com/912141548/aveva-marine-dev-skill</a>；本地副本：<a href="examples/starter-kit-mycollect/pmllib/myco/forms/mycollect.pmlfrm"><code>examples/starter-kit-mycollect/pmllib/myco/forms/mycollect.pmlfrm</code></a>、<a href="examples/starter-kit-mycollect/pmllib/myco/objects/appmycollect.pmlobj"><code>examples/starter-kit-mycollect/pmllib/myco/objects/appmycollect.pmlobj</code></a>、授權條款 <a href="examples/LICENSE-aveva-marine-dev-skill.txt"><code>examples/LICENSE-aveva-marine-dev-skill.txt</code></a></li>
+<li>相關章節：<a href="ch10_dev_environment_zh-TW.reading.html">第 10 章　開發環境</a>、<a href="ch11_pml_language_zh-TW.reading.html">第 11 章　PML 語言核心</a>、<a href="ch12_pml_database_zh-TW.reading.html">第 12 章　PML 資料庫操作</a>、<a href="ch14_dotnet_zh-TW.reading.html">第 14 章　.NET 開發</a>、<a href="ch16_reports_integration_zh-TW.reading.html">第 16 章　報表、檔案與外部系統整合</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch12_pml_database_zh-TW.reading.html"><small>← 上一篇</small>第 12 章　PML 資料庫操作</a><a class="next" href="ch14_dotnet_zh-TW.reading.html"><small>下一篇 →</small>第 14 章　.NET 開發：PML.NET 與 CAF Add-in</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

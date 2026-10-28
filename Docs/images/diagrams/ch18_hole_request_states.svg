@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrR" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">開孔申請的狀態機（依 Kim et al., 2020 整理）</text>
+
+  <!-- swimlanes -->
+  <rect x="20" y="48" width="860" height="120" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="34" y="70" font-size="14" font-weight="bold" fill="#1d4ed8">舾裝部門</text>
+  <rect x="20" y="168" width="860" height="120" fill="#fefce8" stroke="#fde68a"/>
+  <text x="34" y="190" font-size="14" font-weight="bold" fill="#b45309">船體部門</text>
+  <rect x="20" y="288" width="860" height="80" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="34" y="310" font-size="14" font-weight="bold" fill="#047857">生產</text>
+
+  <g font-size="13" fill="#1f2937">
+    <rect x="120" y="86" width="150" height="56" rx="28" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="195" y="110" text-anchor="middle" font-weight="bold">提出申請</text>
+    <text x="195" y="129" text-anchor="middle" font-size="12">型式、參考軸、座標</text>
+
+    <rect x="330" y="86" width="170" height="56" rx="28" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="415" y="110" text-anchor="middle" font-weight="bold">Marked 虛擬孔</text>
+    <text x="415" y="129" text-anchor="middle" font-size="12">只標示位置與尺寸</text>
+
+    <rect x="560" y="86" width="150" height="56" rx="28" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+    <text x="635" y="110" text-anchor="middle" font-weight="bold">修改申請</text>
+    <text x="635" y="129" text-anchor="middle" font-size="12">依退回原因調整</text>
+
+    <rect x="330" y="206" width="170" height="56" rx="28" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+    <text x="415" y="230" text-anchor="middle" font-weight="bold">船體確認</text>
+    <text x="415" y="249" text-anchor="middle" font-size="12">位置、結構、邊距</text>
+
+    <rect x="620" y="206" width="170" height="56" rx="28" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+    <text x="705" y="230" text-anchor="middle" font-weight="bold">Burnt 實際孔</text>
+    <text x="705" y="249" text-anchor="middle" font-size="12">產生真正的開孔</text>
+
+    <rect x="620" y="306" width="170" height="52" rx="26" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+    <text x="705" y="337" text-anchor="middle" font-weight="bold">NC 切割</text>
+  </g>
+
+  <g stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <line x1="270" y1="114" x2="326" y2="114"/>
+    <line x1="415" y1="142" x2="415" y2="202"/>
+    <line x1="500" y1="234" x2="616" y2="234"/>
+    <line x1="705" y1="262" x2="705" y2="302"/>
+    <path d="M560,114 L504,114"/>
+  </g>
+  <path d="M480,206 C520,180 600,170 620,146" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#arrR)"/>
+  <text x="596" y="196" font-size="12" fill="#dc2626">退回</text>
+  <text x="528" y="226" font-size="12" fill="#1f2937">核准</text>
+
+  <!-- mapping table -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="386" width="860" height="30" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="34" y="406" font-weight="bold">論文中的做法</text>
+    <text x="330" y="406" font-weight="bold">開發人員熟悉的對應</text>
+    <text x="620" y="406" font-weight="bold">套用到公司工具</text>
+    <rect x="20" y="416" width="860" height="30" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="34" y="436">開孔資訊資料庫</text>
+    <text x="330" y="436">共享的申請資料表（單一事實來源）</text>
+    <text x="620" y="436">任何跨部門申請都先資料化</text>
+    <rect x="20" y="446" width="860" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="34" y="466">Marked／Burnt 兩段狀態</text>
+    <text x="330" y="466">工作流程狀態機、草稿與正式版</text>
+    <text x="620" y="466">狀態轉換要記錄誰、何時、為何</text>
+    <rect x="20" y="476" width="860" height="30" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="34" y="496">舾裝申請、船體核准</text>
+    <text x="330" y="496">職責分離（申請者不能自己核准）</text>
+    <text x="620" y="496">工具依角色開放按鈕與寫入範圍</text>
+  </g>
+</svg>

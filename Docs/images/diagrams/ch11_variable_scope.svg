@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <rect x="0" y="0" width="900" height="540" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">PML 變數的作用域：!!全域、!區域、!this 成員</text>
+
+  <!-- session -->
+  <rect x="20" y="50" width="860" height="470" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="36" y="76" font-size="15" font-weight="bold" fill="#1f2937">模組工作階段（Session）：全域命名空間</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="36" y="100"><tspan font-family="Consolas, monospace" fill="#b45309">!!ce</tspan>　目前元素　　<tspan font-family="Consolas, monospace" fill="#b45309">!!error</tspan>　最後錯誤　　<tspan font-family="Consolas, monospace" fill="#b45309">!!mycollect</tspan>　表單也是全域物件</text>
+    <text x="36" y="122"><tspan font-family="Consolas, monospace" fill="#b45309">!!myco_debug</tspan>　自訂全域變數：整個工作階段都看得到，離開模組才消失</text>
+  </g>
+
+  <!-- macro / command line -->
+  <rect x="40" y="140" width="250" height="160" rx="8" fill="#f9fafb" stroke="#6b7280"/>
+  <text x="54" y="164" font-size="14" font-weight="bold" fill="#1f2937">命令列／巨集（$M）</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="54" y="190" font-family="Consolas, monospace">!zone = /ZONE-A</text>
+    <text x="54" y="212" font-family="Consolas, monospace">!!count = 0</text>
+    <text x="54" y="240">命令列輸入的 ! 變數</text>
+    <text x="54" y="260">會留在命令列這一層</text>
+    <text x="54" y="284" fill="#6b7280">巨集內的範圍〔待核對〕</text>
+  </g>
+
+  <!-- function -->
+  <rect x="320" y="140" width="260" height="160" rx="8" fill="#eff6ff" stroke="#1d4ed8"/>
+  <text x="334" y="164" font-size="14" font-weight="bold" fill="#1f2937">函式 !!mycoArea(...)</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="334" y="190" font-family="Consolas, monospace">!len、!wid　引數</text>
+    <text x="334" y="212" font-family="Consolas, monospace">!area　　　區域變數</text>
+    <text x="334" y="240">每次呼叫都是新的區域</text>
+    <text x="334" y="260">return 後區域變數消失</text>
+    <text x="334" y="284" fill="#1d4ed8">引數以參照傳遞</text>
+  </g>
+
+  <!-- object -->
+  <rect x="610" y="140" width="250" height="160" rx="8" fill="#f0fdf4" stroke="#15803d"/>
+  <text x="624" y="164" font-size="14" font-weight="bold" fill="#1f2937">物件實例 !row</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="624" y="190" font-family="Consolas, monospace">member .name</text>
+    <text x="624" y="212" font-family="Consolas, monospace">member .weight</text>
+    <text x="624" y="240">成員跟著物件存在</text>
+    <text x="624" y="260">方法內用 !this.name 存取</text>
+    <text x="624" y="284" fill="#15803d">方法內的 ! 仍是區域變數</text>
+  </g>
+
+  <!-- comparison table -->
+  <rect x="40" y="320" width="820" height="180" rx="8" fill="#ffffff" stroke="#9ca3af"/>
+  <text x="56" y="346" font-size="14" font-weight="bold" fill="#1f2937">與其他語言對照</text>
+  <line x1="40" y1="356" x2="860" y2="356" stroke="#e5e7eb"/>
+  <g font-size="13" fill="#1f2937">
+    <text x="56" y="380" font-weight="bold">PML</text>
+    <text x="300" y="380" font-weight="bold">C#／Java</text>
+    <text x="560" y="380" font-weight="bold">Python</text>
+    <text x="56" y="406" font-family="Consolas, monospace">!!x（全域）</text>
+    <text x="300" y="406">static 欄位（整個程式共用）</text>
+    <text x="560" y="406">模組層級變數 + global</text>
+    <text x="56" y="430" font-family="Consolas, monospace">!x（區域）</text>
+    <text x="300" y="430">方法內的區域變數</text>
+    <text x="560" y="430">函式內的區域變數</text>
+    <text x="56" y="454" font-family="Consolas, monospace">!this.x（成員）</text>
+    <text x="300" y="454">this.x</text>
+    <text x="560" y="454">self.x</text>
+    <text x="56" y="478" font-family="Consolas, monospace">!!formname</text>
+    <text x="300" y="478">單例（Singleton）視窗</text>
+    <text x="560" y="478">模組層級的單一物件</text>
+  </g>
+</svg>

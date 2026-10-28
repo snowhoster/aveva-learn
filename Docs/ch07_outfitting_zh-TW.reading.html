@@ -1,0 +1,664 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 7 章　舾裝設計：設備、管路、結構、通風與電纜 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#7">第 7 章 舾裝設計：設備、管路、結構、通風與電纜</a><ul>
+<li><a href="#71">7.1 學習目標</a></li>
+<li><a href="#72">7.2 舾裝資料階層</a></li>
+<li><a href="#73-equipment">7.3 設備（Equipment）</a><ul>
+<li><a href="#731">7.3.1 設備的組成</a></li>
+<li><a href="#732">7.3.2 建模深度：剛好足夠</a></li>
+<li><a href="#733">7.3.3 樣板與維修空間</a></li>
+<li><a href="#734">7.3.4 建模順序</a></li>
+</ul>
+</li>
+<li><a href="#74-pipebran">7.4 管路：PIPE、BRAN 與元件</a><ul>
+<li><a href="#741">7.4.1 結構總覽</a></li>
+<li><a href="#742-head-tail">7.4.2 Head 與 Tail</a></li>
+<li><a href="#743">7.4.3 元件：順序、方向與連接</a></li>
+<li><a href="#744">7.4.4 實際畫面：佈管與調整元件</a></li>
+<li><a href="#745-bran">7.4.5 程式範例：列出一個 BRAN 的元件序列</a></li>
+</ul>
+</li>
+<li><a href="#75">7.5 管路設計流程</a><ul>
+<li><a href="#751">7.5.1 從系統圖到管段圖</a></li>
+<li><a href="#752">7.5.2 佈管原則</a></li>
+<li><a href="#753">7.5.3 支架</a></li>
+<li><a href="#754">7.5.4 管段切分與預製</a></li>
+</ul>
+</li>
+<li><a href="#76-structures">7.6 鐵舾裝結構（Structures）</a></li>
+<li><a href="#77-hvac">7.7 通風（HVAC）與電纜</a><ul>
+<li><a href="#771">7.7.1 通風</a></li>
+<li><a href="#772">7.7.2 電纜托架與電纜</a></li>
+</ul>
+</li>
+<li><a href="#78">7.8 干涉檢查與跨專業協調</a><ul>
+<li><a href="#781">7.8.1 碰撞的層級</a></li>
+<li><a href="#782">7.8.2 協調流程</a></li>
+</ul>
+</li>
+<li><a href="#79">7.9 船體與舾裝的介面：貫穿孔</a><ul>
+<li><a href="#791">7.9.1 為什麼這個介面容易出錯</a></li>
+<li><a href="#792">7.9.2 以狀態管理介面</a></li>
+</ul>
+</li>
+<li><a href="#710">7.10 開發人員須知</a></li>
+<li><a href="#711">7.11 練習（只能在訓練專案）</a><ul>
+<li><a href="#7-1">練習 7-1：拆解一台設備</a></li>
+<li><a href="#7-2">練習 7-2：讀懂一條管線</a></li>
+<li><a href="#7-3">練習 7-3：貫穿孔流程演練</a></li>
+<li><a href="#7-4">練習 7-4：碰撞清單</a></li>
+</ul>
+</li>
+<li><a href="#712">7.12 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船舶設計業務領域 · 8 / 21</span><h1 id="7">第 7 章　舾裝設計：設備、管路、結構、通風與電纜</h1>
+<blockquote>
+<p>船體設計處理的是「船本身」，舾裝（Outfitting）處理的是「船上所有的東西」：設備、管路、通風、電纜托架、鐵舾件與支架。本章說明這些物件在資料庫中怎麼建模，管路從系統圖到管段圖的設計流程，以及舾裝與船體之間最容易出錯的介面：貫穿孔。</p>
+<p>舾裝功能承襲自 PDMS，資料階層與 PDMS／AVEVA E3D 高度相似。本章依據 AVEVA 官方線上文件（Hull and Outfitting 12.1）、AVEVA E3D Data Model Reference（E3D 版本，觀念與 Marine 舾裝相通）、AVEVA 官方產品型錄、開放取用的學術論文，以及 PDMS 系的通用知識自主撰寫，不是官方手冊的翻譯。公司的目錄、等級、命名與權限都是客製的；標示 <strong>〔待核對〕</strong> 的項目請以公司專案設定為準。所有會修改資料的練習只能在訓練專案進行。</p>
+</blockquote>
+<h2 id="71">7.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>畫出舾裝設計資料的階層：<code>WORLD → SITE → ZONE → 物件 → 子元件</code>。</li>
+<li>說明設備的組成：基本體、管嘴、樣板、維修空間。</li>
+<li>說明管路的 <code>PIPE／BRAN</code> 結構、Head 與 Tail、元件順序、連接與流向，並能讀懂 <code>HREF</code>、<code>TREF</code>、<code>ARRI</code>、<code>LEAV</code>、<code>SPRE</code>、<code>LSTU</code> 等屬性。</li>
+<li>描述管路設計流程：P&amp;ID → 佈管 → 干涉檢查 → 支架 → 貫穿孔 → 管段 → ISO。</li>
+<li>說明鐵舾裝結構 <code>STRU／FRMW／SCTN／PANE</code> 與節點的關係。</li>
+<li>說明通風（HVAC）與電纜托架的建模重點。</li>
+<li>說明干涉檢查的層級與跨專業協調流程。</li>
+<li>說明船體與舾裝之間的貫穿孔介面，以及它為什麼是自動化的好題目。</li>
+</ol>
+<h2 id="72">7.2 舾裝資料階層</h2>
+<p>舾裝模型使用設計資料庫（DESI），階層如下：</p>
+<pre><code>WORLD
+└── SITE              專案或區域層級的分區
+    └── ZONE          依分段、區域或系統劃分
+        ├── EQUI      設備
+        │   └── 基本體（BOX、CYLI、CONE…）、NOZZ 管嘴
+        ├── PIPE      管線
+        │   └── BRAN  分支
+        │       └── 元件（FLAN、GASK、ELBO、TEE、VALV…）
+        ├── HVAC      通風
+        │   └── BRAN → 風管元件
+        ├── STRU      鐵舾裝／結構
+        │   └── FRMW  框架
+        │       ├── SCTN  型鋼構件
+        │       └── PANE  板
+        └── 支架、電纜托架等
+</code></pre>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：舾裝模型與船體結構同時顯示：綠色船體結構中的管路與設備</div></p>
+<p><em>圖 7-1　舾裝與船體在同一個 3D 環境中。設計者佈置管路與設備時，可以同時看到船體結構。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>開發類比</th>
+<th>決定了什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SITE</code></td>
+<td>最上層的命名空間</td>
+<td>專案或主要區域的切分</td>
+</tr>
+<tr>
+<td><code>ZONE</code></td>
+<td>子命名空間、權限邊界</td>
+<td>誰能改（DB 與 Team）、圖面與報表的範圍</td>
+</tr>
+<tr>
+<td>物件（<code>EQUI</code>、<code>PIPE</code>、<code>STRU</code>…）</td>
+<td>業務物件</td>
+<td>一台設備、一條管線、一組鐵舾件</td>
+</tr>
+<tr>
+<td>子元件</td>
+<td>物件的組成部分</td>
+<td>外形、管件、型鋼</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕<code>SITE</code> 與 <code>ZONE</code> 的切分原則由專案決定。常見做法是 <code>SITE</code> 對應船號或主要區域，<code>ZONE</code> 對應分段或系統。切分方式會影響權限、圖面範圍與報表統計，請先向管理員取得專案的階層規劃。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 舾裝物件真正的價值在<strong>屬性</strong>，不在幾何：規格參照（<code>SPRE</code>）、管線等級、保溫、試壓、系統代號、區域與分段歸屬。這些屬性驅動材料表、管段圖、重量重心計算與採購。寫報表工具時，幾乎所有欄位都來自屬性與參照鏈（<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a>），而不是幾何。</p>
+</blockquote>
+<h2 id="73-equipment">7.3 設備（Equipment）</h2>
+<h3 id="731">7.3.1 設備的組成</h3>
+<table>
+<thead>
+<tr>
+<th>組成</th>
+<th>元素</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設備本體</td>
+<td><code>EQUI</code></td>
+<td>名稱、位置、方向、重量、廠商等屬性</td>
+</tr>
+<tr>
+<td>子設備</td>
+<td><code>SUBE</code>〔待核對〕</td>
+<td>把複雜設備分成幾組</td>
+</tr>
+<tr>
+<td>基本體</td>
+<td><code>BOX</code>、<code>CYLI</code>、<code>CONE</code>、<code>SNOU</code>、<code>DISH</code>、<code>PYRA</code>、<code>CTOR</code>、<code>RTOR</code>、<code>EXTR</code> 等</td>
+<td>組成外形</td>
+</tr>
+<tr>
+<td>管嘴</td>
+<td><code>NOZZ</code></td>
+<td>管路接續點，帶口徑、方向與管嘴規格</td>
+</tr>
+</tbody>
+</table>
+<p>基本體是「用簡單形狀拼出外形」的做法，就像用方塊與圓柱拼樂高。管嘴則是設備與管路之間的介面：管路的 Head 或 Tail 以 <code>HREF</code>／<code>TREF</code> 指向管嘴（7.4 節）。</p>
+<h3 id="732">7.3.2 建模深度：剛好足夠</h3>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>需要的細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空間佈置、干涉檢查</td>
+<td>外形包絡、維修與拆卸空間</td>
+</tr>
+<tr>
+<td>管路接續</td>
+<td>管嘴位置、方向、口徑、法蘭規格</td>
+</tr>
+<tr>
+<td>基座設計</td>
+<td>底座尺寸、螺栓孔、重量、重心</td>
+</tr>
+<tr>
+<td>圖面</td>
+<td>可辨識的外形與名稱標示</td>
+</tr>
+</tbody>
+</table>
+<p>過度細緻的模型會拖慢系統，也會在圖面上產生雜訊。</p>
+<h3 id="733">7.3.3 樣板與維修空間</h3>
+<p>官方型錄說明，設備可以用<strong>參數化樣板</strong>建立：選擇樣板、輸入參數即可產生複雜設備；同一設備也可以有多種圖形表現，例如把維修空間顯示出來並納入干涉檢查。</p>
+<p><strong>維修空間</strong>是「設備運轉或維修時需要淨空的體積」，例如抽出泵軸、打開熱交換器端蓋所需的空間。它通常以基本體建立，但設定為不參與材料統計，並在干涉檢查中視為軟碰撞（7.8 節）。〔待核對〕PDMS 系以基本體的 <code>OBST</code>（障礙等級）與表現等級控制此行為，實際設定值請依公司規範。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設備定位：3D 視圖中的操控手把顯示方向 X 35 -Y</div></p>
+<p><em>圖 7-2　以 3D 操控手把定位設備，畫面即時顯示方向（例如 <code>X 35 -Y</code>，方向寫法見<a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章</a>）。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Design Explorer 與設備模型：左側模型樹，中間兩台泵與管路，右側為關聯設定面板</div></p>
+<p><em>圖 7-3　左側為設計模型樹，中間為泵與管路，右側面板用於設定物件之間的關聯與尺寸。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="734">7.3.4 建模順序</h3>
+<ol>
+<li>取得廠商圖，確認版本與尺寸單位。</li>
+<li>決定設備原點與方向，通常以底座中心或主軸為準。</li>
+<li>建立外形基本體與維修空間。</li>
+<li>建立管嘴，指定正確的管嘴規格（<code>SPRE</code>）。</li>
+<li>填入重量、重心、廠商、型號等屬性（常用 UDA，見<a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章</a>）。</li>
+<li>執行干涉檢查，並請相關專業確認。</li>
+</ol>
+<h2 id="74-pipebran">7.4 管路：PIPE、BRAN 與元件</h2>
+<h3 id="741">7.4.1 結構總覽</h3>
+<p>管路是舾裝資料模型中最精緻的部分，也是二次開發最常處理的對象。</p>
+<p><img alt="PIPE、BRAN 與元件的資料樹，以及 Head、Tail、HREF、TREF、隱含直管的實體對應" src="images/diagrams/ch07_pipe_branch_structure.svg" /></p>
+<p><em>圖 7-4　上半部是資料樹：<code>PIPE</code> 擁有 <code>BRAN</code>，<code>BRAN</code> 依流向順序擁有元件。下半部是實體路徑：Head 以 <code>HREF</code> 連到泵的管嘴，Tail 以 <code>TREF</code> 連到槽的管嘴，元件之間的直管由系統自動補上。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>角色</th>
+<th>開發類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PIPE</code></td>
+<td>一條管線，對應管線清單上的一個管線號</td>
+<td>訂單主檔</td>
+</tr>
+<tr>
+<td><code>BRAN</code></td>
+<td>管線中的一段連續路徑，有明確的起點（Head）與終點（Tail）</td>
+<td>有序串列</td>
+</tr>
+<tr>
+<td>元件（<code>FLAN</code>、<code>ELBO</code>、<code>TEE</code>、<code>VALV</code>、<code>REDU</code>、<code>GASK</code>…）</td>
+<td>路徑上的管件與閥件</td>
+<td>串列中的節點</td>
+</tr>
+<tr>
+<td>直管（Tube）</td>
+<td>元件之間的直管段</td>
+<td>不是元素，由系統依前後元件推算</td>
+</tr>
+</tbody>
+</table>
+<p>一條 <code>PIPE</code> 可以有多個 <code>BRAN</code>。例如主管是一個 <code>BRAN</code>，從 <code>TEE</code> 接出的支管是另一個 <code>BRAN</code>。</p>
+<h3 id="742-head-tail">7.4.2 Head 與 Tail</h3>
+<p><code>BRAN</code> 本身記錄路徑兩端的資訊。依 AVEVA E3D Data Model Reference 中 Branch 元素的屬性清單，常用的有：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HPOS</code>／<code>TPOS</code></td>
+<td>Head／Tail 位置</td>
+<td>起點與終點座標</td>
+</tr>
+<tr>
+<td><code>HDIR</code>／<code>TDIR</code></td>
+<td>Head／Tail 方向</td>
+<td>管子在端點的方向</td>
+</tr>
+<tr>
+<td><code>HBOR</code>／<code>TBOR</code></td>
+<td>Head／Tail 口徑</td>
+<td>端點口徑</td>
+</tr>
+<tr>
+<td><code>HCON</code>／<code>TCON</code></td>
+<td>Head／Tail 連接型式</td>
+<td>例如法蘭、焊接、螺紋的代碼</td>
+</tr>
+<tr>
+<td><code>HREF</code>／<code>TREF</code></td>
+<td>Head／Tail 連接對象</td>
+<td><strong>外鍵</strong>：指向管嘴、<code>TEE</code> 或另一 <code>BRAN</code>；未連接時為空參照</td>
+</tr>
+<tr>
+<td><code>HSTU</code></td>
+<td>Head 直管等級</td>
+<td>第一個元件之前那段直管的規格</td>
+</tr>
+<tr>
+<td><code>PSPE</code></td>
+<td>管路等級</td>
+<td>這條管線選用元件時使用的等級</td>
+</tr>
+<tr>
+<td><code>ISPE</code>／<code>TSPE</code></td>
+<td>保溫／伴熱等級</td>
+<td>依系統需求設定</td>
+</tr>
+</tbody>
+</table>
+<p>屬性的完整名稱在官方文件中寫成 <code>Hposition</code>、<code>Href</code>、<code>Hbore</code>、<code>Pspec</code> 等，PML 中通常可用前四個字母的縮寫存取。</p>
+<h3 id="743">7.4.3 元件：順序、方向與連接</h3>
+<p><code>BRAN</code> 的成員<strong>依序</strong>排列，順序就是從 Head 到 Tail 的流向順序。每個元件有幾個關鍵屬性：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SPRE</code></td>
+<td>規格參照，指向等級中的一個 SPCO（第 8 章），決定元件的型式、口徑、外形</td>
+</tr>
+<tr>
+<td><code>ARRI</code>／<code>LEAV</code></td>
+<td>入口與出口的 p-point 編號。例如 <code>TEE</code> 有三個 p-point，<code>ARRI 1 LEAV 2</code> 代表走主管、<code>ARRI 1 LEAV 3</code> 代表轉進支管</td>
+</tr>
+<tr>
+<td><code>POS</code>／<code>ORI</code></td>
+<td>元件的位置與方向（第 4 章）</td>
+</tr>
+<tr>
+<td><code>LSTU</code></td>
+<td>該元件之後那段直管的等級</td>
+</tr>
+</tbody>
+</table>
+<p><strong>直管不是元素</strong>。系統以前一個元件的出口點（<code>LEAV</code>）到下一個元件的入口點（<code>ARRI</code>）之間的距離，自動產生直管，並以 <code>LSTU</code> 決定直管規格。所以「移動一個彎頭」時，前後直管長度會自動改變，不需要另外修改直管。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 元件之間的連接型式必須相容，例如法蘭面對法蘭面、焊接端對焊接端。PDMS 系提供資料一致性檢查（Data Consistency Check）可找出口徑不符、連接型式不符、未連接端點等問題〔待核對：Marine 版本中的功能名稱與入口〕。</p>
+</blockquote>
+<h3 id="744">7.4.4 實際畫面：佈管與調整元件</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：管路佈置過程三連圖：拉出管線、插入閥門、完成</div></p>
+<p><em>圖 7-5　互動式佈管的連續畫面：從管線端點拉出路徑（左）、在管線上放置閥門（中）、完成後的結果（右）。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：閥門方向調整：圓形操控手把顯示 E 45 U</div></p>
+<p><em>圖 7-6　以圓形操控手把旋轉閥門手輪方向，畫面即時顯示角度（例如 <code>E 45 U</code>）。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：機艙管路模型：多條黃色與橘色管線連接藍色設備</div></p>
+<p><em>圖 7-7　完成的管路模型。官方說明，管路模型依元件目錄與工程等級建立，並可產生佈置圖、ISO 圖與數量表。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="745-bran">7.4.5 程式範例：列出一個 BRAN 的元件序列</h3>
+<pre><code class="language-pml">-- 示意：未在實機驗證。列出某 BRAN 的 Head、Tail 與依序排列的元件
+-- 只讀取，不修改模型
+!bran = /P-100/B1
+
+!msg = 'Head: ' &amp; !bran.hpos.string() &amp; '  bore=' &amp; !bran.hbor.string() &amp; '  href=' &amp; !bran.href.string()
+$p $!msg
+do !c values !bran.members
+   !spre = !c.spre
+   !msg = !c.type &amp; '  ' &amp; !c.name &amp; '  arri=' &amp; !c.arri.string() &amp; '  leav=' &amp; !c.leav.string() &amp; '  spre=' &amp; !spre.string()
+   $p $!msg
+enddo
+!msg = 'Tail: ' &amp; !bran.tpos.string() &amp; '  bore=' &amp; !bran.tbor.string() &amp; '  tref=' &amp; !bran.tref.string()
+$p $!msg
+</code></pre>
+<p>這段程式展示了三件事：<code>BRAN</code> 的成員是有序的，可以直接依序走訪；<code>HREF</code>／<code>TREF</code>／<code>SPRE</code> 都是參照（DBREF），可以再往下取值；未命名的元件 <code>.name</code> 會顯示系統產生的識別。〔待核對〕元素沒有名稱時 <code>.name</code> 的回傳內容，以及 <code>$p</code> 輸出 DBREF 的格式，請在公司版本測試。導覽與屬性讀取的細節見<a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>。</p>
+<h2 id="75">7.5 管路設計流程</h2>
+<h3 id="751">7.5.1 從系統圖到管段圖</h3>
+<p><img alt="管路設計流程：P&amp;ID、管線清單、佈管、干涉檢查、支架、貫穿孔申請、管段切分、ISO、材料表；船體確認與建立開孔" src="images/diagrams/ch07_piping_workflow.svg" /></p>
+<p><em>圖 7-8　管路設計流程與跨專業介面。橘框的貫穿孔申請是舾裝與船體之間最常出錯的介面。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>工作</th>
+<th>產生或使用的資料</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 系統圖（P&amp;ID）</td>
+<td>定義系統、設備、閥件與管線的邏輯關係</td>
+<td>系統代號、管線號、元件清單</td>
+</tr>
+<tr>
+<td>2 管線清單</td>
+<td>每條管線的口徑、等級、介質、設計壓力與溫度</td>
+<td><code>PIPE</code> 的屬性、<code>PSPE</code></td>
+</tr>
+<tr>
+<td>3 3D 佈管</td>
+<td>在空間中決定管線路徑</td>
+<td><code>BRAN</code>、元件、<code>HREF</code>／<code>TREF</code></td>
+</tr>
+<tr>
+<td>4 干涉檢查</td>
+<td>找出與結構、設備、其他管線的碰撞</td>
+<td>碰撞清單</td>
+</tr>
+<tr>
+<td>5 支架設計</td>
+<td>依荷重與船體結構設計管支架</td>
+<td>支架模型</td>
+</tr>
+<tr>
+<td>6 貫穿孔申請</td>
+<td>管線穿過船體結構處，申請開孔</td>
+<td>開孔位置、尺寸、型式</td>
+</tr>
+<tr>
+<td>7 管段切分</td>
+<td>決定工廠預製的單位（Spool）</td>
+<td>管段範圍、焊口</td>
+</tr>
+<tr>
+<td>8 ISO 管段圖</td>
+<td>以 Isodraft 產生等角圖（<a href="ch09_drawings_zh-TW.reading.html">第 9 章</a>）</td>
+<td>尺寸、元件清單、切管長度</td>
+</tr>
+<tr>
+<td>9 材料表與預製</td>
+<td>統計材料、預製管段</td>
+<td>MTO、切管表</td>
+</tr>
+</tbody>
+</table>
+<h3 id="752">7.5.2 佈管原則</h3>
+<ul>
+<li><strong>先主後支、先大後小</strong>：先佈主管與大口徑管，再佈分支與小管。</li>
+<li><strong>預留空間</strong>：保溫層厚度、法蘭拆裝、閥門操作、維修通道。</li>
+<li><strong>坡度與排放</strong>：需要排放的系統要考慮坡度與低點排放。</li>
+<li><strong>貫穿結構</strong>：穿過船體結構時要申請開孔，並遵守開孔位置、尺寸與補強規範。</li>
+<li><strong>分段接頭</strong>：管路跨越分段時，要規劃合攏管（Closing Pipe）或調整管。</li>
+</ul>
+<h3 id="753">7.5.3 支架</h3>
+<p>管支架常用 MDS（Multi-Discipline Supports）或公司自建的支架庫；AVEVA 另有 Pipe Supports – Marine 產品處理支架細節。支架設計要同時考慮管路荷重、船體結構的位置，以及焊接到船體的方式。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：支架設計介面：管路模型與支架設定對話框</div></p>
+<p><em>圖 7-9　支架設計畫面。官方說明，Outfitting 與 Outfitting Supports 整合，可詳細設計管路、風管與電纜托架的支架。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 公開的 PML 管支架案例（<a href="ch18_case_studies_zh-TW.reading.html">第 18 章</a>）選擇把管夾建成 <code>EQUI</code>，而不是掛在管線上的附件，理由是避免破壞管段資訊。這說明了資料型別的選擇會影響下游：同一個實體，放在不同的樹中，會出現在不同的材料表與圖面上。</p>
+</blockquote>
+<h3 id="754">7.5.4 管段切分與預製</h3>
+<p>管段（Spool）是工廠預製的單位。切分時要考慮：</p>
+<ul>
+<li>運輸與吊裝尺寸限制。</li>
+<li>鍍鋅或表面處理槽的尺寸。</li>
+<li>現場焊口數量與位置。</li>
+<li>分段接頭與合攏管。</li>
+</ul>
+<p>官方型錄提到<strong>管件預製</strong>功能：彎管機設定可以在設計階段納入檢查，讓管路設計一開始就符合工廠的彎管能力。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：管件預製管理介面：左側模型樹、中間彎管機參數表、右側彎管限制示意</div></p>
+<p><em>圖 7-10　管件預製（Pipe Fabrication）介面。中間為彎管機參數表，右側說明最小直管段、彎管半徑等限制。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h2 id="76-structures">7.6 鐵舾裝結構（Structures）</h2>
+<p>鐵舾裝包括平台、梯子、扶手、設備基座、管支架的型鋼部分等。PDMS 系的結構資料階層如下：</p>
+<pre><code>STRU            結構（一組鐵舾件）
+└── FRMW        框架
+    ├── SCTN    型鋼構件（梁、柱、斜撐）
+    ├── PANE    板（平台板、基座面板）
+    └── 節點    構件之間的連接點
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>主要屬性</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCTN</code></td>
+<td><code>POSS</code>／<code>POSE</code>（起點、終點）、<code>SPRE</code>（型鋼規格）、<code>BANG</code>（繞軸旋轉角）、<code>JUSL</code>（定位線）</td>
+<td>一支型鋼由兩端點與斷面規格定義</td>
+</tr>
+<tr>
+<td><code>PANE</code></td>
+<td>輪廓（<code>PLOO</code> 迴圈與 <code>PAVE</code> 頂點）、厚度</td>
+<td>以多邊形輪廓擠出厚度的板</td>
+</tr>
+<tr>
+<td>節點</td>
+<td>主節點與次節點〔元素代碼依版本，待核對〕</td>
+<td>記錄構件在哪裡相接，讓構件移動時連接關係得以維持</td>
+</tr>
+</tbody>
+</table>
+<p><code>SCTN</code> 的 <code>SPRE</code> 指向型鋼等級，再連到目錄中的型鋼斷面（第 8 章）。這和管路元件的參照鏈是同一套機制。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 船上的鐵舾件常焊接在船體結構上，例如設備基座焊在甲板上。鐵舾件與船體的焊接介面、補強需求，要和船體設計一起確認；這類介面不屬於任何一邊的模型，最容易被遺漏。</p>
+</blockquote>
+<h2 id="77-hvac">7.7 通風（HVAC）與電纜</h2>
+<h3 id="771">7.7.1 通風</h3>
+<p>通風資料的結構與管路相似：<code>HVAC</code> 之下有 <code>BRAN</code>，<code>BRAN</code> 之下是風管元件（直風管、彎頭、變徑、風門、格柵等）。依 E3D Data Model Reference，Branch 元素的合法擁有者包括 <code>PIPE</code> 與 <code>HVAC</code>，合法成員也包含 <code>DAMPER</code>、<code>GRILLE</code>、<code>PLENUM</code>、<code>TAPER</code> 等風管元件。</p>
+<p>設計重點：</p>
+<ul>
+<li>風管尺寸（矩形或圓形）、保溫厚度。</li>
+<li>防火風門與穿越防火區域時的貫穿件。</li>
+<li>大尺寸風管對空間的佔用，通常需要最早確定路徑。</li>
+</ul>
+<h3 id="772">7.7.2 電纜托架與電纜</h3>
+<ul>
+<li><strong>電纜托架</strong>：托架路徑、層數、與管路的間距、支架。托架在模型中通常以結構或專用元素建立〔待核對：公司使用的托架建模方式與元素型別〕。</li>
+<li><strong>電纜貫穿件</strong>：電纜穿越艙壁或甲板時使用貫穿件（Multi Cable Transit，MCT），要維持水密或防火等級。</li>
+<li><strong>電纜佈線</strong>：Marine 有電纜設計相關功能，可依托架路徑計算電纜長度〔待核對：公司是否授權與使用〕。</li>
+</ul>
+<p>這兩類都會與管路爭奪空間。干涉檢查時，建議建立「管路／通風／電纜」三方的優先權規則，例如重力排放管優先、大風管其次。</p>
+<h2 id="78">7.8 干涉檢查與跨專業協調</h2>
+<h3 id="781">7.8.1 碰撞的層級</h3>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>做法</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬碰撞</td>
+<td>實體重疊，必須修正</td>
+<td>管子穿過梁</td>
+</tr>
+<tr>
+<td>軟碰撞</td>
+<td>侵入維修空間、保溫空間或操作空間</td>
+<td>管子擋住泵的抽軸空間</td>
+</tr>
+<tr>
+<td>規則違反</td>
+<td>間距不足、坡度錯誤、未經核准的貫穿</td>
+<td>電纜托架距熱管太近</td>
+</tr>
+</tbody>
+</table>
+<h3 id="782">7.8.2 協調流程</h3>
+<ol>
+<li>各專業在自己的 <code>ZONE</code> 內完成初步佈置。</li>
+<li>定期執行跨專業干涉檢查，產生問題清單。</li>
+<li>協調會議依優先權規則決定修改方。</li>
+<li>追蹤問題清單直到關閉，並保留紀錄。</li>
+</ol>
+<blockquote>
+<p><strong>開發人員須知：</strong> 碰撞清單是很好的開發題目：把系統產生的碰撞結果匯出，加上「負責專業、狀態、到期日」等欄位，做成追蹤表。重點是<strong>以元素參照或名稱作為鍵</strong>，讓下一次檢查的結果能與上一次比對，自動判斷哪些問題已解決。</p>
+</blockquote>
+<h2 id="79">7.9 船體與舾裝的介面：貫穿孔</h2>
+<h3 id="791">7.9.1 為什麼這個介面容易出錯</h3>
+<p>管路、通風、電纜穿過船體結構時，需要在船體構件上開孔。開孔「需求」來自舾裝，開孔「實作」在船體（<a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章</a>的 <code>HHOLE</code>）。一篇開放取用的研究（Kim, Park &amp; Yang, 2020）指出，傳統做法是舾裝把開孔資訊交給船體，船體在圖面上標示，現場再依圖面量測、劃線、手工切割；資訊在轉手過程中容易出錯，曲面外板的開孔甚至常留到現場才切割。</p>
+<p><img alt="導入前後流程比較：左為舊流程，右為舾裝申請、虛擬孔、船體確認、實際孔、NC 製造的新流程" src="images/cases/jamet_fig1_process.png" /></p>
+<p><em>圖 7-11　舊流程（左）與新流程（右）。新流程中，舾裝負責申請、建立虛擬孔與修改；船體負責確認、退回、驗證與產生實際孔，最後交給 NC 切割。（來源：Kim, Park &amp; Yang, 2020, JAMET 44(3), Figure 1，CC BY-NC 3.0）</em></p>
+<h3 id="792">7.9.2 以狀態管理介面</h3>
+<p>論文的系統把開孔分成兩種狀態：</p>
+<table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>意義</th>
+<th>負責方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marked（虛擬孔）</td>
+<td>只標示位置，尚待確認或修改</td>
+<td>舾裝建立</td>
+</tr>
+<tr>
+<td>Burnt（實際孔）</td>
+<td>確認後要在 NC 階段切出的孔</td>
+<td>船體確認並產生</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="AVEVA Marine「Handle holes in curved panel」對話框" src="images/cases/jamet_fig3_handle_holes_dialog.png" /></p>
+<p><em>圖 7-12　曲面板開孔對話框的實際畫面。可以看到開孔型式（<code>Designation</code>）、是否展開（<code>Developed</code>）、<code>Marked</code>／<code>Burnt</code> 狀態、座標點與方向點、餘量、坡口與修磨等欄位。（來源：Kim, Park &amp; Yang, 2020, JAMET 44(3), Figure 3，CC BY-NC 3.0）</em></p>
+<p><img alt="在外板上產生的虛擬孔，標註孔型、尺寸、圓角與中心座標" src="images/cases/jamet_fig4_virtual_hole.jpg" /></p>
+<p><em>圖 7-13　產生的虛擬孔。圖面上自動標註孔型、尺寸、圓角與中心座標，供船體人員確認。（來源：Kim, Park &amp; Yang, 2020, JAMET 44(3), Figure 4，CC BY-NC 3.0）</em></p>
+<p>建議的跨專業流程：</p>
+<ol>
+<li>舾裝在模型中建立開孔申請（虛擬孔），帶有位置、尺寸、型式、申請人。</li>
+<li>船體依申請檢查位置是否可行、是否需要補強，可行則建立實際開孔，不可行則退回。</li>
+<li>實際開孔進入零件抽出（<a href="ch06_hull_production_zh-TW.reading.html">第 6 章</a>），由 NC 在下料階段切出。</li>
+<li>舾裝路徑若再修改，申請要重新確認，已建立的實際開孔要同步調整。</li>
+</ol>
+<blockquote>
+<p><strong>開發人員須知：</strong> 這是典型的「工作流程 + 狀態機」問題：申請 → 確認 → 執行，再加上退回與變更。把它資料化之後，可以寫出很有價值的檢查工具，例如「列出所有穿過船體板架、卻沒有對應開孔的管線」，或「列出開孔位置與管線位置相差超過容許值的項目」。論文的完整實作在第 18 章說明。</p>
+</blockquote>
+<h2 id="710">7.10 開發人員須知</h2>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>注意事項</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>參照比幾何重要</td>
+<td>報表欄位多半來自 <code>SPRE</code> 參照鏈，不是幾何</td>
+</tr>
+<tr>
+<td><code>BRAN</code> 是有序串列</td>
+<td>元件順序就是流向；插入元件要指定位置，不能隨意附加在最後</td>
+</tr>
+<tr>
+<td>直管不是元素</td>
+<td>不要嘗試「建立直管」；要改直管長度，就移動前後元件</td>
+</tr>
+<tr>
+<td><code>HREF</code>／<code>TREF</code> 是外鍵</td>
+<td>刪除或改名管嘴、<code>TEE</code> 時，要檢查是否有 <code>BRAN</code> 參照它</td>
+</tr>
+<tr>
+<td>元件必須來自等級</td>
+<td>不要用基本體拼出「看起來像閥」的東西（第 8 章）</td>
+</tr>
+<tr>
+<td>權限邊界在 <code>ZONE</code> 與 DB</td>
+<td>批次修改前先確認目標元素所在 DB 可寫入（<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>）</td>
+</tr>
+<tr>
+<td>跨專業介面</td>
+<td>貫穿孔、基座、支架焊接點，是工具最能創造價值的地方</td>
+</tr>
+</tbody>
+</table>
+<h2 id="711">7.11 練習（只能在訓練專案）</h2>
+<h3 id="7-1">練習 7-1：拆解一台設備</h3>
+<ol>
+<li>選一台泵，列出它的基本體與管嘴。</li>
+<li>記錄每個管嘴的口徑、方向與 <code>SPRE</code>。</li>
+<li>找出哪些 <code>BRAN</code> 的 <code>HREF</code> 或 <code>TREF</code> 指向這些管嘴。</li>
+</ol>
+<h3 id="7-2">練習 7-2：讀懂一條管線</h3>
+<ol>
+<li>選一條有閥門、<code>TEE</code> 與分支的管線。</li>
+<li>畫出它的 <code>PIPE → BRAN → 元件</code> 樹，標出 Head、Tail 與各自的連接對象。</li>
+<li>對每個元件記錄 <code>ARRI</code>、<code>LEAV</code>、<code>SPRE</code>。</li>
+<li>在訓練專案中移動一個彎頭，觀察前後直管長度的變化。</li>
+<li>執行 7.4.5 節的 PML 範例，與手工記錄比對。</li>
+</ol>
+<h3 id="7-3">練習 7-3：貫穿孔流程演練</h3>
+<ol>
+<li>選一條穿過艙壁的管線。</li>
+<li>找出對應的船體開孔，比對位置與尺寸是否一致。</li>
+<li>寫下這個開孔從申請到生產的完整流程，並標出公司目前的負責人。</li>
+</ol>
+<h3 id="7-4">練習 7-4：碰撞清單</h3>
+<ol>
+<li>在訓練專案中對一個 <code>ZONE</code> 執行干涉檢查。</li>
+<li>把結果分成硬碰撞、軟碰撞、規則違反三類。</li>
+<li>設計一個追蹤表的欄位，說明如何在下一次檢查時比對結果。</li>
+</ol>
+<h2 id="712">7.12 自我檢核</h2>
+<ul>
+<li>[ ] 我能畫出 <code>WORLD → SITE → ZONE → EQUI／PIPE／HVAC／STRU</code> 的階層。</li>
+<li>[ ] 我能說明設備的基本體、管嘴、樣板與維修空間。</li>
+<li>[ ] 我能解釋 <code>PIPE</code>、<code>BRAN</code>、元件的關係，並說明 Head 與 Tail。</li>
+<li>[ ] 我能說明 <code>HREF</code>、<code>TREF</code>、<code>ARRI</code>、<code>LEAV</code>、<code>SPRE</code>、<code>LSTU</code> 的意義。</li>
+<li>[ ] 我知道直管不是元素，以及這對修改的影響。</li>
+<li>[ ] 我能依序說出管路設計流程的各步驟與產生的資料。</li>
+<li>[ ] 我能說明 <code>STRU → FRMW → SCTN／PANE</code> 的結構。</li>
+<li>[ ] 我能說明通風與電纜托架的建模重點。</li>
+<li>[ ] 我能區分硬碰撞、軟碰撞與規則違反。</li>
+<li>[ ] 我能說明貫穿孔的跨專業流程，以及 Marked 與 Burnt 狀態。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">Hull and Outfitting</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html">Navigating the AVEVA Marine Documentation</a>（需以瀏覽器開啟）</li>
+<li>AVEVA E3D Data Model Reference：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/DMRM/DMRM5.05.363.html">Branch Element（E3D 1.1，Head／Tail 與連接屬性清單）</a>（E3D 版本，觀念與 Marine 舾裝相通）</li>
+<li>AVEVA E3D 線上文件：<a href="https://docs.aveva.com/bundle/everything-e3d/page/1591528.html">Branch 元素說明（Head 與 Tail）</a>（需以瀏覽器開啟）</li>
+<li>AVEVA 官方產品資料（本章截圖來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>、<a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf">Brochure AVEVA Outfitting</a></li>
+<li>AVEVA Pipe Supports – Marine 發佈消息：<a href="https://www.cambridgenetwork.co.uk/news/aveva-releases-aveva-pipe-supports-marine">Cambridge Network</a></li>
+<li>貫穿孔案例：Kim, Park &amp; Yang (2020), <a href="https://doi.org/10.5916/jamet.2020.44.3.196">Journal of Advanced Marine Engineering and Technology 44(3)</a>，CC BY-NC 3.0</li>
+<li>管支架案例：eryar，〈AVEVA MARINE 中用 PML 寫管支架程序（二）〉，<a href="https://blog.csdn.net/eryar/article/details/4457072">CSDN 部落格</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch06_hull_production_zh-TW.reading.html"><small>← 上一篇</small>第 6 章　船體生產資訊、套料與裝配</a><a class="next" href="ch08_catalogue_spec_zh-TW.reading.html"><small>下一篇 →</small>第 8 章　目錄與等級</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

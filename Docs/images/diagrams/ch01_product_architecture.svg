@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <rect x="0" y="0" width="900" height="640" fill="#ffffff"/>
+  <text x="450" y="32" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">AVEVA Marine 產品架構（開發人員視角）</text>
+
+  <!-- heritage -->
+  <rect x="30" y="52" width="400" height="44" rx="6" fill="#fde7d4" stroke="#c2410c"/>
+  <text x="230" y="80" font-size="15" text-anchor="middle" fill="#7c2d12">傳承：Tribon M3（船體）</text>
+  <rect x="470" y="52" width="400" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="670" y="80" font-size="15" text-anchor="middle" fill="#1e3a8a">傳承：PDMS（工廠設計，舾裝）</text>
+
+  <!-- applications frame -->
+  <rect x="20" y="110" width="860" height="230" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-dasharray="5,4"/>
+  <text x="34" y="132" font-size="14" font-weight="bold" fill="#374151">應用模組（設計者每天開啟的程式）</text>
+
+  <rect x="40" y="144" width="380" height="140" rx="6" fill="#fff7ed" stroke="#c2410c"/>
+  <text x="56" y="168" font-size="14" font-weight="bold" fill="#7c2d12">船體</text>
+  <text x="56" y="192" font-size="13" fill="#1f2937">Hull Structural Design（基本結構設計）</text>
+  <text x="56" y="214" font-size="13" fill="#1f2937">Hull Detailed Design（平面、曲面、生產資訊）</text>
+  <text x="56" y="236" font-size="13" fill="#1f2937">Marine Drafting（船體圖面）</text>
+  <text x="56" y="258" font-size="13" fill="#1f2937">船體批次程式（零件抽出、套料等）〔待核對〕</text>
+
+  <rect x="480" y="144" width="380" height="140" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+  <text x="496" y="168" font-size="14" font-weight="bold" fill="#1e3a8a">舾裝</text>
+  <text x="496" y="192" font-size="13" fill="#1f2937">Outfitting（Design：設備、管路、結構、HVAC）</text>
+  <text x="496" y="214" font-size="13" fill="#1f2937">Outfitting Draft（舾裝圖面）</text>
+  <text x="496" y="236" font-size="13" fill="#1f2937">Isodraft（管路 ISO 圖）</text>
+  <text x="496" y="258" font-size="13" fill="#1f2937">Spooler 等管路生產模組〔待核對〕</text>
+
+  <rect x="200" y="294" width="500" height="36" rx="6" fill="#ecfdf5" stroke="#047857"/>
+  <text x="450" y="317" font-size="13" text-anchor="middle" fill="#064e3b">跨專業生產規劃：Assembly Planning（組立樹）、Weld Planning（焊接）</text>
+
+  <!-- admin -->
+  <rect x="20" y="354" width="860" height="76" rx="8" fill="#f5f3ff" stroke="#6d28d9"/>
+  <text x="34" y="376" font-size="14" font-weight="bold" fill="#4c1d95">共用管理模組（PDMS 系，管理員與目錄人員使用）</text>
+  <text x="34" y="402" font-size="13" fill="#1f2937">Monitor 登入與專案入口　Admin 使用者／團隊／DB／MDB　Lexicon UDA 定義（DICT）</text>
+  <text x="34" y="422" font-size="13" fill="#1f2937">Paragon 目錄元件（CATA）　Propcon 材料性質（PROP）　Specon 等級（命令式）</text>
+
+  <!-- data -->
+  <rect x="20" y="446" width="400" height="80" rx="8" fill="#fff7ed" stroke="#c2410c"/>
+  <text x="220" y="472" font-size="14" font-weight="bold" text-anchor="middle" fill="#7c2d12">船體 Databank（Tribon 格式）</text>
+  <text x="220" y="494" font-size="13" text-anchor="middle" fill="#1f2937">型線、板零件、型材零件、套料、生產資料</text>
+  <text x="220" y="514" font-size="12" text-anchor="middle" fill="#6b7280">實際分工依版本而異〔待核對〕</text>
+
+  <rect x="480" y="446" width="400" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8"/>
+  <text x="680" y="472" font-size="14" font-weight="bold" text-anchor="middle" fill="#1e3a8a">Dabacon 資料庫（PDMS 格式）</text>
+  <text x="680" y="494" font-size="13" text-anchor="middle" fill="#1f2937">SYST、DESI、CATA、PADD、DICT、PROP、ISOD</text>
+  <text x="680" y="514" font-size="12" text-anchor="middle" fill="#6b7280">樹狀元素 + 屬性，透過 MDB 掛載</text>
+
+  <line x1="420" y1="486" x2="480" y2="486" stroke="#374151" stroke-width="2"/>
+  <text x="450" y="478" font-size="12" text-anchor="middle" fill="#374151">同一專案</text>
+
+  <!-- customization -->
+  <rect x="20" y="542" width="400" height="80" rx="8" fill="#fefce8" stroke="#a16207"/>
+  <text x="220" y="568" font-size="14" font-weight="bold" text-anchor="middle" fill="#713f12">船體客製化</text>
+  <text x="220" y="592" font-size="13" text-anchor="middle" fill="#1f2937">Vitesse（Python 2.6）、資料抽取</text>
+  <text x="220" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 15 章</text>
+
+  <rect x="480" y="542" width="400" height="80" rx="8" fill="#fefce8" stroke="#a16207"/>
+  <text x="680" y="568" font-size="14" font-weight="bold" text-anchor="middle" fill="#713f12">舾裝與共用客製化</text>
+  <text x="680" y="592" font-size="13" text-anchor="middle" fill="#1f2937">PML、PML2 表單、PML.NET、.NET CAF Add-in</text>
+  <text x="680" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 10–14 章</text>
+</svg>

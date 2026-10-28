@@ -1,0 +1,1332 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 12 章　PML 資料庫操作 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#12-pml">第 12 章 PML 資料庫操作</a><ul>
+<li><a href="#121">12.1 學習目標</a></li>
+<li><a href="#122-dabacon">12.2 心智模型：用開發人員的語言看 Dabacon</a></li>
+<li><a href="#123">12.3 導覽</a><ul>
+<li><a href="#1231-ce">12.3.1 !!ce：目前元素</a></li>
+<li><a href="#1232">12.3.2 取得元素參照的幾種方式</a></li>
+<li><a href="#1233">12.3.3 檢查參照是否有效</a></li>
+</ul>
+</li>
+<li><a href="#124">12.4 讀取屬性</a><ul>
+<li><a href="#1241">12.4.1 點號存取</a></li>
+<li><a href="#1242-3">12.4.2 屬性的種類（複習第 3 章）</a></li>
+<li><a href="#1243-q">12.4.3 Q 與程式取值的差別</a></li>
+<li><a href="#1244">12.4.4 範例：描述一個元素</a></li>
+</ul>
+</li>
+<li><a href="#125-collectionexpression-pml1-collectevaluate">12.5 查詢：COLLECTION、EXPRESSION 與 PML1 的 collect／evaluate</a><ul>
+<li><a href="#1251-collection">12.5.1 COLLECTION 物件</a></li>
+<li><a href="#1252-expression">12.5.2 EXPRESSION 物件</a></li>
+<li><a href="#1253">12.5.3 範例：找出某範圍內特定用途的設備</a></li>
+<li><a href="#1254-pml1-var-collect-var-evaluate">12.5.4 PML1 寫法：var collect 與 var evaluate</a></li>
+</ul>
+</li>
+<li><a href="#126">12.6 建立元素</a><ul>
+<li><a href="#1261-new">12.6.1 NEW 命令</a></li>
+<li><a href="#1262">12.6.2 在函式中建立：$! 展開與錯誤處理</a></li>
+</ul>
+</li>
+<li><a href="#127">12.7 修改元素</a><ul>
+<li><a href="#1271">12.7.1 設定屬性</a></li>
+<li><a href="#1272">12.7.2 常見修改動作</a></li>
+</ul>
+</li>
+<li><a href="#128">12.8 刪除元素與相依檢查</a></li>
+<li><a href="#129">12.9 認領、儲存與復原</a><ul>
+<li><a href="#1291-claim">12.9.1 claim：寫入前的鎖定</a></li>
+<li><a href="#1292-savework-getwork">12.9.2 savework 與 getwork</a></li>
+<li><a href="#1293-undo">12.9.3 undo 標記</a></li>
+</ul>
+</li>
+<li><a href="#1210">12.10 批次修改的安全模式</a><ul>
+<li><a href="#12101">12.10.1 完整範例：批次取代設備描述中的文字</a></li>
+<li><a href="#12102">12.10.2 逐段解說</a></li>
+<li><a href="#12103">12.10.3 回復</a></li>
+<li><a href="#12104">12.10.4 安全清單</a></li>
+</ul>
+</li>
+<li><a href="#1211">12.11 效能</a></li>
+<li><a href="#1212-pml">12.12 讀懂真實程式：論文中的 PML 截圖</a><ul>
+<li><a href="#12121">12.12.1 截圖一：找出開孔中心落在哪一塊外板</a></li>
+<li><a href="#12122">12.12.2 截圖二：建立虛擬平面並求交線</a></li>
+<li><a href="#12123">12.12.3 截圖三：用兩個交點算出方向</a></li>
+<li><a href="#12124">12.12.4 從讀懂到改寫</a></li>
+</ul>
+</li>
+<li><a href="#1213">12.13 開發人員須知</a></li>
+<li><a href="#1214">12.14 練習</a><ul>
+<li><a href="#1">練習 1：導覽與屬性探索</a></li>
+<li><a href="#2">練習 2：查詢函式</a></li>
+<li><a href="#3">練習 3：建立與刪除（訓練專案）</a></li>
+<li><a href="#4">練習 4：批次修改（訓練專案）</a></li>
+<li><a href="#5">練習 5：讀懂真實程式</a></li>
+</ul>
+</li>
+<li><a href="#1215">12.15 自我檢核</a></li>
+<li><a href="#1216">12.16 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 13 / 21</span><h1 id="12-pml">第 12 章　PML 資料庫操作</h1>
+<blockquote>
+<p>本章把第 3 章的資料階層與第 11 章的 PML 語言接起來：如何用程式在元素樹上移動、讀取屬性、查詢一批元素、建立、修改與刪除元素，以及如何在多人共用的專案中安全地寫入（認領、儲存、回復）。最後用一篇學術論文附的<strong>實機 PML 程式截圖</strong>練習「讀懂真實程式」。</p>
+<p>語法依據 AVEVA E3D 2.1 PML Customisation User Guide 與 Software Customisation Reference Manual、E3D 2.1 Common Functionality（help.aveva.com 公開頁面）、Kim, Park &amp; Yang（2020）論文的實機截圖，以及 AVEVA Marine 12.1 SP4 開源範例（MIT 授權）。AVEVA Marine 的舾裝資料庫承襲 PDMS，與 E3D 的資料存取方式高度相同，但個別命令與屬性可能有版本差異。標示「-- 示意」的程式為本課程自行撰寫、未在實機驗證；<strong>所有會修改資料的程式只能在訓練專案中執行。</strong></p>
+</blockquote>
+<h2 id="121">12.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>用 <code>!!ce</code>、<code>OWNER</code>、<code>MEMBERS</code> 與元素名稱在資料樹上導覽，並說明「移動 CE」與「持有參照」的差別。</li>
+<li>用點號讀取屬性、偽屬性、參照屬性與 UDA，並說明命令 <code>Q</code> 與程式取值的差異。</li>
+<li>用 <code>COLLECTION</code> 與 <code>EXPRESSION</code> 物件查詢一批元素，也看得懂 PML1 的 <code>var ... collect</code> 與 <code>var ... evaluate</code>。</li>
+<li>建立元素並設定屬性；修改、移動、重新命名元素；刪除元素前做相依檢查。</li>
+<li>說明 claim、savework、getwork 的作用，以及 undo 標記。</li>
+<li>依「預覽 → 記錄 → 寫入 → 驗證 → 儲存」的安全模式寫批次修改工具。</li>
+<li>寫出效能合理的查詢程式。</li>
+<li>讀懂真實專案中混用 PML1 與 PML2 的資料庫程式。</li>
+</ol>
+<h2 id="122-dabacon">12.2 心智模型：用開發人員的語言看 Dabacon</h2>
+<table>
+<thead>
+<tr>
+<th>AVEVA 概念</th>
+<th>開發人員對照</th>
+<th>本章用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素樹</td>
+<td>XML DOM、檔案系統目錄樹</td>
+<td>導覽、走訪</td>
+</tr>
+<tr>
+<td>DBREF</td>
+<td>指向節點的指標；資料列的主鍵</td>
+<td><code>!e = !!ce</code>、<code>!e.owner</code></td>
+</tr>
+<tr>
+<td>名稱 <code>/P-101A</code></td>
+<td>唯一的路徑別名（像檔案的完整路徑）</td>
+<td><code>!e = /P-101A</code></td>
+</tr>
+<tr>
+<td>參照屬性（CREF、SPRE…）</td>
+<td>外鍵</td>
+<td><code>!!ce.cref.pspec.rating</code></td>
+</tr>
+<tr>
+<td>CE（Current Element）</td>
+<td>游標；命令的預設操作對象</td>
+<td><code>!!ce = !e</code></td>
+</tr>
+<tr>
+<td>COLLECTION</td>
+<td>查詢建構器（SELECT … FROM … WHERE）</td>
+<td><code>!coll.results()</code></td>
+</tr>
+<tr>
+<td>claim</td>
+<td>資料列鎖定</td>
+<td><code>CLAIM</code></td>
+</tr>
+<tr>
+<td>savework</td>
+<td>COMMIT</td>
+<td><code>SAVEWORK</code></td>
+</tr>
+<tr>
+<td>getwork</td>
+<td>重新整理，看到別人已提交的變更</td>
+<td><code>GETWORK</code></td>
+</tr>
+<tr>
+<td>undo 標記</td>
+<td>應用程式層級的復原堆疊</td>
+<td><code>MARKDB</code>／<code>ENDMARKDB</code></td>
+</tr>
+</tbody>
+</table>
+<p>PML 存取資料庫有兩種風格，同一個程式常會混用：</p>
+<table>
+<thead>
+<tr>
+<th>風格</th>
+<th>寫法</th>
+<th>特點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>物件存取（PML2）</strong></td>
+<td><code>!d = !e.desc</code>、<code>!e.desc = 'x'</code></td>
+<td>有型別、可在運算式中使用、不必移動 CE</td>
+</tr>
+<tr>
+<td><strong>命令（PML1）</strong></td>
+<td><code>/P-101A</code>、<code>DESC 'x'</code>、<code>NEW EQUI /X</code>、<code>Q DESC</code></td>
+<td>對 CE 操作；與手動在命令列輸入完全相同</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：模型樹、3D 畫面中的泵與關聯面板：設計人員在介面上看到的樹，就是 PML 導覽的資料樹</div></p>
+<p><em>圖 12-1　舾裝設計模組的模型樹與 3D 畫面。左側樹狀結構就是 PML 中 <code>owner</code>／<code>members</code> 走訪的對象，選取的元素就是 CE。來源：AVEVA Hull and Outfitting Datasheet。</em></p>
+<h2 id="123">12.3 導覽</h2>
+<h3 id="1231-ce">12.3.1 !!ce：目前元素</h3>
+<p>官方文件說明：全域變數 <code>!!ce</code> 永遠指向目前元素，型別是 DBREF。可以把它複製到變數，也可以<strong>指定新參照給 <code>!!ce</code> 來移動 CE</strong>。</p>
+<pre><code class="language-pml">!item = !!ce                 -- 取得目前元素的參照（CE 不動）
+!owner = !!ce.owner          -- 讀取擁有者
+!!ce = !!ce.owner            -- 移動 CE 到擁有者（畫面跟著變）
+</code></pre>
+<h3 id="1232">12.3.2 取得元素參照的幾種方式</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>寫法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目前元素</td>
+<td><code>!e = !!ce</code></td>
+<td>最常用</td>
+</tr>
+<tr>
+<td>名稱字面值</td>
+<td><code>!e = /P-101A</code></td>
+<td>名稱以 <code>/</code> 開頭，可以直接當 DBREF 使用</td>
+</tr>
+<tr>
+<td>字串轉換</td>
+<td><code>!e = !text.dbref()</code></td>
+<td>名稱來自使用者輸入或檔案時</td>
+</tr>
+<tr>
+<td>擁有者</td>
+<td><code>!e = !e.owner</code></td>
+<td>往上一層</td>
+</tr>
+<tr>
+<td>成員</td>
+<td><code>!kids = !e.members</code></td>
+<td>回傳 DBREF 陣列；<code>!kids[1]</code> 是第一個成員</td>
+</tr>
+<tr>
+<td>參照屬性</td>
+<td><code>!spec = !e.spref</code></td>
+<td>沿著外鍵走到另一個元素（屬性名稱依元素型別而定）</td>
+</tr>
+<tr>
+<td>命令導覽</td>
+<td><code>/P-101A</code>、<code>OWNER</code> 等命令</td>
+<td>移動 CE，等同在命令列輸入</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例中的「一路點下去」：</p>
+<pre><code class="language-pml">!Rating = !!CE.cref.pspec.rating     -- 沿著兩層參照讀取壓力等級
+!Dir = !!CE.Pdirection[1]            -- 第 1 個 P 點的方向（DIRECTION）
+!Pos = !!CE.Pposition[3]             -- 第 3 個 P 點的位置（POSITION）
+</code></pre>
+<h3 id="1233">12.3.3 檢查參照是否有效</h3>
+<pre><code class="language-pml">if (!ref eq NULREF) then       -- 參照未設定
+  ...
+endif
+if (unset(!ref)) then          -- 同上（NULREF 視為 UNSET）
+  ...
+endif
+if (badref(!ref)) then         -- 未設定，或無法導覽（例如已刪除、不在 MDB 中）
+  ...
+endif
+</code></pre>
+<p><img alt="導覽與收集：左邊以 DBREF 在樹上走一步一步，右邊以 COLLECTION 宣告範圍、型別與篩選條件一次取回" src="images/diagrams/ch12_navigation_collection.svg" /></p>
+<p><em>圖 12-2　兩種取得元素的方式。導覽適合「沿著關係走幾步」；收集適合「找出所有符合條件的元素」。（本課程自繪）</em></p>
+<blockquote>
+<p><strong>開發人員須知：</strong> <code>!!ce = ...</code> 會真的移動使用者的游標，介面會更新、事件會觸發。讀資料時請用變數持有參照（<code>!e.desc</code>），不要「移過去讀完再移回來」。只有在必須使用 PML1 命令（命令預設作用在 CE）時才移動 CE，並在結束時把 CE 還原到使用者原本的位置。</p>
+</blockquote>
+<h2 id="124">12.4 讀取屬性</h2>
+<h3 id="1241">12.4.1 點號存取</h3>
+<pre><code class="language-pml">!e = /P-101A
+!name  = !e.name          -- '/P-101A'
+!type  = !e.type          -- 元素型別，例如 'EQUI'
+!desc  = !e.desc          -- 描述（可能未設定）
+!pos   = !e.position      -- POSITION 物件
+!flnn  = !e.flnn          -- 完整名稱（不含開頭斜線），開源範例用來顯示
+</code></pre>
+<p>官方建議<strong>使用屬性的完整名稱</strong>（參考 Data Model Reference Manual 附錄），以確保與未來版本相容。例如程式中寫 <code>position</code> 比縮寫 <code>pos</code> 更穩定；命令列手動輸入時用縮寫則沒有問題。</p>
+<h3 id="1242-3">12.4.2 屬性的種類（複習第 3 章）</h3>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>例子</th>
+<th>讀法</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系統屬性</td>
+<td>NAME、TYPE、OWNER、MEMBERS</td>
+<td><code>!e.owner</code></td>
+<td>部分唯讀</td>
+</tr>
+<tr>
+<td>一般屬性</td>
+<td>DESC、PURPOSE、FUNCTION</td>
+<td><code>!e.desc</code></td>
+<td>可能未設定</td>
+</tr>
+<tr>
+<td>幾何屬性</td>
+<td>POSITION、ORIENTATION、XLEN</td>
+<td><code>!e.position</code></td>
+<td>回傳 POSITION 等物件</td>
+</tr>
+<tr>
+<td>參照屬性</td>
+<td>CREF、SPREF、PSPEC</td>
+<td><code>!e.spref</code></td>
+<td>回傳 DBREF，可能是 NULREF</td>
+</tr>
+<tr>
+<td>偽屬性</td>
+<td>FLNN、WVOL</td>
+<td><code>!e.flnn</code></td>
+<td>系統即時計算，不能寫入</td>
+</tr>
+<tr>
+<td>UDA</td>
+<td>公司自訂，如 <code>:MYCOSTATUS</code></td>
+<td><code>!e.:MYCOSTATUS</code></td>
+<td>名稱以冒號開頭〔寫法待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1243-q">12.4.3 Q 與程式取值的差別</h3>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>命令 <code>Q DESC</code></th>
+<th>程式 <code>!d = !e.desc</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>對象</td>
+<td>目前元素（CE）</td>
+<td>任何 DBREF</td>
+</tr>
+<tr>
+<td>結果</td>
+<td>印到命令列的文字</td>
+<td>有型別的值，存在變數中</td>
+</tr>
+<tr>
+<td>能否後續運算</td>
+<td>不能（只是輸出）</td>
+<td>能</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>人工查詢、探索屬性名稱</td>
+<td>工具程式</td>
+</tr>
+<tr>
+<td>列出全部</td>
+<td><code>Q ATT</code> 列出 CE 的所有屬性</td>
+<td>先用 <code>Q ATT</code> 找到名稱，再寫進程式</td>
+</tr>
+</tbody>
+</table>
+<p>探索新元素型別時的工作流程：在介面中選取一個元素，命令列輸入 <code>Q ATT</code> 看有哪些屬性與值，再挑需要的寫進程式。</p>
+<h3 id="1244">12.4.4 範例：描述一個元素</h3>
+<pre><code class="language-pml">-- 示意：mycodescribe.pmlfnc　印出元素的基本資訊（唯讀）
+define function !!mycoDescribe(!e is DBREF)
+  if (badref(!e)) then
+    $P 無效的元素參照
+    return
+  endif
+  !name = !e.flnn
+  !type = !e.type.string()
+  !own  = !e.owner.flnn
+  $P 名稱：$!name
+  $P 型別：$!type
+  $P 擁有者：$!own
+  !d = !e.desc
+  handle ANY
+    !d = '(無法讀取)'
+  endhandle
+  $P 描述：$!d
+  !kids = !e.members
+  !n = !kids.size()
+  $P 成員數：$!n
+endfunction
+</code></pre>
+<pre><code class="language-pml">call !!mycoDescribe(!!ce)
+</code></pre>
+<h2 id="125-collectionexpression-pml1-collectevaluate">12.5 查詢：COLLECTION、EXPRESSION 與 PML1 的 collect／evaluate</h2>
+<h3 id="1251-collection">12.5.1 COLLECTION 物件</h3>
+<p>官方說明：COLLECTION 物件以「篩選運算式（EXPRESSION 物件）、型別限制、範圍清單」從系統中取出資料庫元素。常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>方法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>範圍</td>
+<td><code>.scope(DBREF)</code></td>
+<td>清除並設定範圍；<strong>沒有設定範圍時，範圍是整個 MDB</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><code>.addscope(DBREF)</code>、<code>.scope(DBREF 陣列)</code>、<code>.clearscope()</code></td>
+<td>增加、取代、清除範圍</td>
+</tr>
+<tr>
+<td>型別</td>
+<td><code>.type(STRING)</code></td>
+<td>清除並設定一個型別</td>
+</tr>
+<tr>
+<td></td>
+<td><code>.addtype(STRING)</code>、<code>.types(陣列)</code>、<code>.cleartypes()</code></td>
+<td>增加、取代、清除型別</td>
+</tr>
+<tr>
+<td>篩選</td>
+<td><code>.filter(EXPRESSION)</code>、<code>.clearfilter()</code></td>
+<td>設定、清除篩選條件</td>
+</tr>
+<tr>
+<td>結果</td>
+<td><code>.results()</code></td>
+<td>全部結果（DBREF 陣列）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>.size()</code></td>
+<td>結果數量</td>
+</tr>
+<tr>
+<td></td>
+<td><code>.next(n)</code>、<code>.index()</code>、<code>.initialise()</code></td>
+<td>分批取回、目前位置、重新評估並把位置設回 1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1252-expression">12.5.2 EXPRESSION 物件</h3>
+<p>EXPRESSION 是一段 PML1 運算式，讓 COLLECTION 在資料庫端篩選：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>object EXPRESSION(STRING)</code></td>
+<td>以字串建立運算式，例如 <code>'PURP eq |PUMP|'</code> 一類</td>
+</tr>
+<tr>
+<td><code>.attributeexpression(STRING)</code></td>
+<td>把屬性名稱變成運算式；官方說明 <code>AttributeExpression('LENGTH')</code> 等同 <code>Expression('ATTRIBUTE LENGTH')</code></td>
+</tr>
+<tr>
+<td><code>.evaluate(DBREF)</code></td>
+<td>對某個元素求值，回傳結果</td>
+</tr>
+<tr>
+<td><code>.string()</code></td>
+<td>取回運算式字串</td>
+</tr>
+</tbody>
+</table>
+<p>官方也說明，讀屬性的運算式寫成 <code>ATTRIBUTE 名稱</code> 形式，速度與效率較好。</p>
+<h3 id="1253">12.5.3 範例：找出某範圍內特定用途的設備</h3>
+<pre><code class="language-pml">-- 示意：mycofindequi.pmlfnc　依 PURPOSE 找設備（唯讀）
+define function !!mycoFindEqui(!scope is DBREF, !purp is STRING) is ARRAY
+  !coll = object COLLECTION()
+  !coll.scope(!scope)
+  !coll.type('EQUI')
+  if (not !purp.empty()) then
+    !expr = object EXPRESSION('PURP eq |' &amp; !purp &amp; '|')
+    !coll.filter(!expr)
+  endif
+  return !coll.results()
+endfunction
+</code></pre>
+<pre><code class="language-pml">!pumps = !!mycoFindEqui(/Z-ER, 'PUMP')
+q var !pumps.size()
+do !p values !pumps
+  !n = !p.flnn
+  $P $!n
+enddo
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>程式片段</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!coll.scope(!scope)</code></td>
+<td>一定要設範圍，否則會搜尋整個 MDB</td>
+</tr>
+<tr>
+<td><code>'PURP eq |' &amp; !purp &amp; '|'</code></td>
+<td>外層用單引號，運算式內的字串用 <code>|...|</code>，避免引號衝突</td>
+</tr>
+<tr>
+<td><code>not !purp.empty()</code></td>
+<td>空字串時不加篩選</td>
+</tr>
+<tr>
+<td>回傳 <code>ARRAY</code></td>
+<td>回傳的是 DBREF 陣列，呼叫端再決定要讀哪些屬性</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 篩選運算式的語法屬於 PML1 運算式，屬性名稱、比較運算子與字串分隔方式請以公司版本的參考手冊確認〔待核對〕。先在命令列用 <code>!x = object EXPRESSION(...)</code> 與 <code>!x.evaluate(!!ce)</code> 測試運算式，再放進程式。</p>
+</blockquote>
+<h3 id="1254-pml1-var-collect-var-evaluate">12.5.4 PML1 寫法：var collect 與 var evaluate</h3>
+<p>既有程式中常見 PML1 的查詢寫法：</p>
+<pre><code class="language-pml">var !list collect all EQUI for /Z-ER
+</code></pre>
+<p>這行把 <code>/Z-ER</code> 底下所有 EQUI 收集到陣列 <code>!list</code>（元素通常是參照的文字表示，使用前可用 <code>.dbref()</code> 轉換〔待核對〕）。</p>
+<p>官方說明的 <code>evaluate</code> 形式，可以對每個選取的元素計算運算式，結果存入陣列：</p>
+<pre><code class="language-pml">VAR !Array EVALUATE (Expression) FOR select COUNTVAR !Counter
+VAR !BOXES APPEND EVALUATE ( XLEN*YLEN ) FOR ALL BOXES
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!Array</code></td>
+<td>存放結果的陣列</td>
+</tr>
+<tr>
+<td><code>(Expression)</code></td>
+<td>對每個元素計算的運算式</td>
+</tr>
+<tr>
+<td><code>select</code></td>
+<td>選取條件，例如 <code>ALL BOXES</code>（語法見產品參考手冊）</td>
+</tr>
+<tr>
+<td><code>COUNTVAR !Counter</code></td>
+<td>選用，記錄計算次數</td>
+</tr>
+<tr>
+<td><code>APPEND</code></td>
+<td>附加到既有陣列而不是覆蓋</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>建議寫法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新程式、需要 DBREF 再做其他處理</td>
+<td>COLLECTION</td>
+</tr>
+<tr>
+<td>只需要每個元素的一個計算值（例如面積）</td>
+<td><code>var ... evaluate</code>，一次取回，最省事</td>
+</tr>
+<tr>
+<td>維護舊程式</td>
+<td>看得懂 <code>var ... collect</code> 即可，不必急著改寫</td>
+</tr>
+</tbody>
+</table>
+<h2 id="126">12.6 建立元素</h2>
+<h3 id="1261-new">12.6.1 NEW 命令</h3>
+<p>建立元素使用 PML1 命令 <code>NEW</code>，它作用在 CE 上：</p>
+<pre><code class="language-pml">-- 示意：在訓練 ZONE 下建立設備與一個方塊
+/Z-TRAINING                          -- 1. 先把 CE 移到合法的擁有者
+NEW EQUI /T-EQUI-001                 -- 2. 建立設備並命名；完成後 CE 就是新設備
+DESC 'Created by myco training'      -- 3. 設定 CE 的屬性（命令風格）
+NEW BOX XLEN 500 YLEN 400 ZLEN 300   -- 4. 在設備底下建立一個方塊
+</code></pre>
+<p>建立的規則（複習第 3 章「合法成員」）：</p>
+<ul>
+<li>新元素的型別必須是擁有者型別的合法成員，例如 EQUI 要放在 ZONE 底下，BOX 要放在 EQUI 底下。</li>
+<li>名稱在整個 MDB 中必須唯一；名稱重複時命令會失敗。</li>
+<li>建立完成後，CE 會移到新元素〔CE 不是合法擁有者時系統如何決定插入位置，依版本行為待核對〕。</li>
+<li>寫入前必須有該資料庫的寫入權限，explicit claim 模式下還要先 claim 擁有者（12.9 節）。</li>
+</ul>
+<h3 id="1262">12.6.2 在函式中建立：$! 展開與錯誤處理</h3>
+<pre><code class="language-pml">-- 示意：mycocreatetestequi.pmlfnc　建立測試設備（只能在訓練專案使用）
+define function !!mycoCreateTestEqui(!zone is DBREF, !name is STRING) is DBREF
+  if (!name.substring(1, 1) ne '/') then
+    return error 1 '名稱必須以 / 開頭'
+  endif
+  !back = !!ce                       -- 記住使用者原本的 CE
+  !!ce = !zone
+  NEW EQUI $!name
+  handle ANY
+    !!ce = !back
+    return error                     -- 把原始錯誤交給呼叫者
+  endhandle
+  !equi = !!ce
+  !equi.desc = 'Created by myco training'
+  !posText = 'E 1000 N 2000 U 0'
+  !equi.position = !posText.position()
+  !!ce = !back                       -- 還原 CE
+  return !equi
+endfunction
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>程式片段</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>檢查名稱開頭</td>
+<td><code>$!name</code> 是文字替換，輸入格式錯誤會讓命令變成意料之外的樣子</td>
+</tr>
+<tr>
+<td><code>!back = !!ce</code></td>
+<td>工具結束時把 CE 還原，不打亂使用者的工作</td>
+</tr>
+<tr>
+<td><code>NEW EQUI $!name</code> 後接 <code>handle</code></td>
+<td>名稱重複、權限不足都會在這行失敗</td>
+</tr>
+<tr>
+<td><code>return error</code></td>
+<td>不吞掉錯誤，交給呼叫者決定如何提示</td>
+</tr>
+<tr>
+<td><code>!equi.desc = ...</code></td>
+<td>建立後改用物件存取設定屬性</td>
+</tr>
+<tr>
+<td><code>.position()</code></td>
+<td>把位置字串轉成 POSITION 物件（STRING 物件的方法）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="127">12.7 修改元素</h2>
+<h3 id="1271">12.7.1 設定屬性</h3>
+<p>官方說明：只要新值的型別與屬性型別相符，就可以直接指定，<strong>而且不必是目前元素</strong>：</p>
+<pre><code class="language-pml">!!CE.Built = TRUE                 -- 設定目前元素
+
+!A = !!CE
+!!CE = !!CE.Owner
+!A.Built = TRUE                   -- 設定非目前元素
+</code></pre>
+<p>屬性本身是物件（例如 POSITION）時，<strong>不能只改其中一個成員</strong>，要先取出、修改、再整個指定回去：</p>
+<pre><code class="language-pml">!Pos = !!CE.Position
+!Pos.Up = 2000
+!!CE.Position = !Pos
+</code></pre>
+<p>對照：這和 C# 中修改 <code>struct</code> 屬性的規則一樣：<code>obj.Pos.Y = 5</code> 不會生效，必須 <code>var p = obj.Pos; p.Y = 5; obj.Pos = p;</code>。</p>
+<h3 id="1272">12.7.2 常見修改動作</h3>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th>物件風格</th>
+<th>命令風格（作用在 CE）</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>改描述</td>
+<td><code>!e.desc = 'xxx'</code></td>
+<td><code>DESC 'xxx'</code></td>
+<td></td>
+</tr>
+<tr>
+<td>改位置</td>
+<td><code>!e.position = !pos</code></td>
+<td><code>POS E 1000 N 2000 U 0</code></td>
+<td>位置語法見第 4 章</td>
+</tr>
+<tr>
+<td>相對移動</td>
+<td>取出 POSITION 後加減再指定</td>
+<td><code>BY E 100</code>〔待核對〕</td>
+<td></td>
+</tr>
+<tr>
+<td>改方向</td>
+<td><code>!e.orientation = !ori</code></td>
+<td><code>ORI Y is N and Z is U</code></td>
+<td></td>
+</tr>
+<tr>
+<td>重新命名</td>
+<td>〔以屬性指定名稱的寫法待核對〕</td>
+<td><code>NAME /NEW-NAME</code></td>
+<td>名稱必須唯一</td>
+</tr>
+<tr>
+<td>取消名稱</td>
+<td></td>
+<td><code>UNNAME</code></td>
+<td></td>
+</tr>
+<tr>
+<td>改參照</td>
+<td><code>!e.spref = !spco</code></td>
+<td><code>SPREF /...</code></td>
+<td>參照錯誤會產生錯誤材料表（第 8 章）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 設定參照屬性（特別是等級、目錄相關的 SPREF、PSPEC）等於改外鍵。工具不應該自己「找一個看起來像的」元件填進去；正確做法是依等級選擇規則取得，或由使用者明確選定（第 8 章）。</p>
+</blockquote>
+<h2 id="128">12.8 刪除元素與相依檢查</h2>
+<pre><code class="language-pml">-- 示意：刪除目前元素（必須是 EQUI）
+/T-EQUI-001
+DELETE EQUI
+</code></pre>
+<p><code>DELETE 型別</code> 刪除的是 CE，而且型別必須與 CE 相符，這是一道防呆。刪除會連同所有成員一起刪掉（整棵子樹）。</p>
+<p>刪除前要問：<strong>有沒有別的元素參照它？</strong> 資料庫中的參照就像外鍵，刪掉被參照的一方，另一方就會留下懸空參照。例如設備的管嘴（NOZZ）可能被管線分支的頭尾參照。一個簡單的檢查方式是看管嘴的連接參照：</p>
+<pre><code class="language-pml">-- 示意：mycocandelete.pmlfnc　刪除設備前檢查管嘴是否已連接
+define function !!mycoCanDelete(!equi is DBREF) is BOOLEAN
+  !coll = object COLLECTION()
+  !coll.scope(!equi)
+  !coll.type('NOZZ')
+  !nozzles = !coll.results()
+  do !nz values !nozzles
+    !conn = !nz.cref
+    handle ANY
+      !conn = NULREF
+    endhandle
+    if (not badref(!conn)) then
+      !nzName = !nz.flnn
+      !cnName = !conn.flnn
+      $P 管嘴 $!nzName 已連接到 $!cnName，不可刪除
+      return FALSE
+    endif
+  enddo
+  return TRUE
+endfunction
+</code></pre>
+<p>這個檢查只涵蓋「管嘴連接」一種關係。實際專案中，圖面、材料表、支架、Global 衍生資料庫都可能參照同一個元素。<strong>自動刪除工具的風險很高</strong>，建議只做「標記待刪」（例如寫入 UDA 或產生清單），由人工確認後刪除。</p>
+<h2 id="129">12.9 認領、儲存與復原</h2>
+<h3 id="1291-claim">12.9.1 claim：寫入前的鎖定</h3>
+<p>多人同時編輯的資料庫（multiwrite）使用認領機制，避免兩個人同時修改同一個元素。官方說明：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>認領模式</td>
+<td>建立資料庫時決定。<strong>Explicit</strong>：修改前必須先 <code>CLAIM</code>；<strong>Implicit</strong>：修改時自動認領，也可以先手動認領</td>
+</tr>
+<tr>
+<td>可認領的對象</td>
+<td>只有「主要元素」（significant／primary element）。認領非主要元素時，系統會認領它上方最近的主要元素</td>
+</tr>
+<tr>
+<td>認領範圍</td>
+<td>只認領指定元素，或連同其下所有主要元素（<code>CLAIM /ZoneA HIERARCHY</code>）</td>
+</tr>
+<tr>
+<td>釋放</td>
+<td><code>UNCLAIM 名稱</code>、<code>UNCLAIM ALL</code>；切換模組或離開時自動釋放全部</td>
+</tr>
+<tr>
+<td>限制</td>
+<td><strong>修改過的元素在 savework 之前不能 unclaim</strong></td>
+</tr>
+<tr>
+<td>Extract 資料庫</td>
+<td>還要考慮 extract claim（第 2 章）</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-pml">-- 示意：認領後修改
+CLAIM /T-EQUI-001
+handle ANY
+  $P 無法認領（可能被他人占用或沒有寫入權限）
+  return
+endhandle
+!e = /T-EQUI-001
+!e.desc = 'Updated by myco'
+</code></pre>
+<h3 id="1292-savework-getwork">12.9.2 savework 與 getwork</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>資料庫對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAVEWORK</code></td>
+<td>把這段時間的變更寫入資料庫，對其他使用者可見</td>
+<td>COMMIT</td>
+</tr>
+<tr>
+<td><code>GETWORK</code></td>
+<td>取得其他使用者已 savework 的變更</td>
+<td>重新查詢最新資料</td>
+</tr>
+<tr>
+<td>不 savework 就離開</td>
+<td>變更不會保存〔離開模組時的提示與行為依版本而定，待核對〕</td>
+<td>ROLLBACK</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> <strong>工具不應該自動執行 SAVEWORK。</strong> savework 是使用者「確認這批變更」的動作，就像資料庫工具不會替你自動 COMMIT。工具做完修改後，顯示摘要，請使用者檢查無誤後自己按 Save Work。這也讓「驗證不通過就回復」成為可能。</p>
+</blockquote>
+<h3 id="1293-undo">12.9.3 undo 標記</h3>
+<p>E3D 2.1 官方文件說明，PML 可以把自己的一批資料庫修改包成一個可復原的單位：</p>
+<pre><code class="language-pml">MARKDB 'myco: batch update DESC'
+-- ……一連串資料庫修改……
+ENDMARKDB
+</code></pre>
+<p>之後使用者按一次 Undo，就能撤銷整批修改。官方另外提供可復原物件（undoable object）與 PostEvents 通知機制。AVEVA Marine 12.1 是否提供相同命令，請在訓練專案測試〔待核對〕；不支援時，回復要依靠 12.10 節的記錄檔。</p>
+<h2 id="1210">12.10 批次修改的安全模式</h2>
+<p>批次修改是最危險、也最常被要求的工具。下面這個模式適用於任何「一次改很多元素」的需求。</p>
+<p><img alt="批次修改的安全模式：預覽、記錄、寫入、驗證、儲存五個階段，驗證不通過時依記錄檔回復" src="images/diagrams/ch12_safe_batch_pipeline.svg" /></p>
+<p><em>圖 12-3　批次修改的五個階段。PML 沒有可以隨時 ROLLBACK 的交易，回復要靠你事先留下的舊值。（本課程自繪）</em></p>
+<h3 id="12101">12.10.1 完整範例：批次取代設備描述中的文字</h3>
+<p>需求：把某個 ZONE 底下所有設備 DESC 中的 <code>FW</code> 換成 <code>FRESH WATER</code>。</p>
+<pre><code class="language-pml">-- 示意：mycobatchdesc.pmlfnc　批次取代 DESC 文字（只能在訓練專案使用）
+-- !doWrite 為 FALSE 時只預覽，不寫入任何資料
+define function !!mycoBatchDesc(!scope is DBREF, !find is STRING, !repl is STRING, !logPath is STRING, !doWrite is BOOLEAN) is REAL
+
+  -- ===== 1. 預覽：收集並計算新值 =====
+  !coll = object COLLECTION()
+  !coll.scope(!scope)
+  !coll.type('EQUI')
+  !all = !coll.results()
+  !refs = ARRAY()
+  !olds = ARRAY()
+  !news = ARRAY()
+  do !e values !all
+    !old = !e.desc
+    handle ANY
+      !old = ''
+    endhandle
+    if (!old.match(!find) gt 0) then
+      !refs.append(!e)
+      !olds.append(!old)
+      !news.append(!old.replace(!find, !repl))
+    endif
+  enddo
+  !n = !refs.size()
+  $P 預計修改 $!n 筆
+  do !k indices !refs
+    !nm = !refs[!k].flnn
+    !o = !olds[!k]
+    !w = !news[!k]
+    $P   $!nm : [$!o] -&gt; [$!w]
+  enddo
+  if (not !doWrite or !n eq 0) then
+    return !n
+  endif
+
+  -- ===== 2. 記錄：先寫檔，後改模型 =====
+  !log = object FILE(!logPath)
+  !log.open('WRITE')
+  handle ANY
+    $P 無法建立記錄檔，停止：$!logPath
+    return error
+  endhandle
+  do !k indices !refs
+    !log.writerecord(!refs[!k].string() &amp; '|' &amp; !olds[!k] &amp; '|' &amp; !news[!k])
+  enddo
+  !log.close()
+
+  -- ===== 3. 寫入：逐筆認領與修改，失敗只記錄不中斷 =====
+  MARKDB 'myco: batch DESC replace'
+  !failed = ARRAY()
+  do !k indices !refs
+    !e = !refs[!k]
+    !nm = !e.name
+    !ok = TRUE
+    CLAIM $!nm
+    handle ANY
+      !ok = FALSE
+    endhandle
+    if (!ok) then
+      !e.desc = !news[!k]
+      handle ANY
+        !ok = FALSE
+      endhandle
+    endif
+    if (not !ok) then
+      !failed.append(!e.flnn)
+    endif
+  enddo
+  ENDMARKDB
+
+  -- ===== 4. 驗證：讀回比對 =====
+  !bad = 0
+  do !k indices !refs
+    if (!refs[!k].desc ne !news[!k]) then
+      !bad = !bad + 1
+    endif
+  enddo
+  !nf = !failed.size()
+  $P 完成：預計 $!n 筆，寫入失敗 $!nf 筆，驗證不符 $!bad 筆
+  $P 記錄檔：$!logPath
+  $P 請檢查結果後自行 Save Work；若需回復，依記錄檔把舊值寫回
+  return !n - !bad
+endfunction
+</code></pre>
+<p>使用方式：</p>
+<pre><code class="language-pml">-- 第一次：只預覽
+!cnt = !!mycoBatchDesc(/Z-TRAINING, 'FW', 'FRESH WATER', 'D:\temp\myco_desc.log', FALSE)
+-- 確認清單無誤後才寫入
+!cnt = !!mycoBatchDesc(/Z-TRAINING, 'FW', 'FRESH WATER', 'D:\temp\myco_desc.log', TRUE)
+</code></pre>
+<h3 id="12102">12.10.2 逐段解說</h3>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>程式重點</th>
+<th>為什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>預覽</td>
+<td>計算新值放進三個平行陣列，<code>$P</code> 列出「舊值 → 新值」</td>
+<td>使用者先看到影響範圍；<code>!doWrite</code> 預設 FALSE</td>
+</tr>
+<tr>
+<td>預覽</td>
+<td>讀 DESC 後接 <code>handle ANY</code></td>
+<td>未設定的 DESC 不讓整個工具中斷</td>
+</tr>
+<tr>
+<td>記錄</td>
+<td><code>object FILE(...)</code>、<code>.open('WRITE')</code>、<code>.writerecord()</code>、<code>.close()</code></td>
+<td><strong>先寫記錄再改模型</strong>；記錄檔建立失敗就停止。FILE 物件的細節見第 16 章〔方法名稱依版本核對〕</td>
+</tr>
+<tr>
+<td>記錄</td>
+<td>以 <code>|</code> 分隔參照、舊值、新值</td>
+<td>DESC 可能含逗號；分隔字元要選資料中不會出現的</td>
+</tr>
+<tr>
+<td>寫入</td>
+<td><code>MARKDB</code> … <code>ENDMARKDB</code></td>
+<td>讓使用者可以一次 Undo 整批〔Marine 12.1 是否支援待核對；若不支援，這行會出錯並在寫入前停止，屆時移除這兩行即可〕</td>
+</tr>
+<tr>
+<td>寫入</td>
+<td>每筆 <code>CLAIM</code> 與指定屬性後各接 <code>handle</code></td>
+<td>一筆失敗不影響其他筆，像每筆各自 try/catch</td>
+</tr>
+<tr>
+<td>驗證</td>
+<td>重新讀取 DESC 與預期值比較</td>
+<td>確認「寫進去的就是想寫的」</td>
+</tr>
+<tr>
+<td>儲存</td>
+<td>不自動 <code>SAVEWORK</code></td>
+<td>由使用者檢查後確認</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12103">12.10.3 回復</h3>
+<p>回復程式讀取記錄檔，把舊值寫回去：</p>
+<pre><code class="language-pml">-- 示意：mycorestoredesc.pmlfnc　依記錄檔還原 DESC（只能在訓練專案使用）
+define function !!mycoRestoreDesc(!logPath is STRING) is REAL
+  !log = object FILE(!logPath)
+  !lines = !log.readfile()          -- 讀入所有行〔方法名稱待核對〕
+  !done = 0
+  do !line values !lines
+    !f = !line.split('|')
+    !e = !f[1].dbref()
+    !nm = !e.name
+    CLAIM $!nm
+    handle ANY
+    endhandle
+    !e.desc = !f[2]
+    handle ANY
+      $P 還原失敗：$!line
+    elsehandle NONE
+      !done = !done + 1
+    endhandle
+  enddo
+  return !done
+endfunction
+</code></pre>
+<p>這裡 <code>!refs[!k].string()</code> 寫出的參照文字能否以 <code>.dbref()</code> 原樣轉回，請在公司版本測試〔待核對〕；若不行，改記錄元素名稱（<code>.flnn</code> 前加 <code>/</code>）。</p>
+<h3 id="12104">12.10.4 安全清單</h3>
+<ul>
+<li>[ ] 預設只預覽；要寫入必須明確傳入參數或按下確認按鈕。</li>
+<li>[ ] 範圍一定要明確（<code>scope</code>），不允許空範圍（等於整個 MDB）。</li>
+<li>[ ] 寫入前先產生記錄檔，記錄檔失敗就停止。</li>
+<li>[ ] 每筆寫入各自處理錯誤，最後彙總成功與失敗數。</li>
+<li>[ ] 寫入後重新讀回驗證。</li>
+<li>[ ] 不自動 savework；告訴使用者記錄檔位置與回復方式。</li>
+<li>[ ] 還原 CE 到使用者原本的位置。</li>
+</ul>
+<h2 id="1211">12.11 效能</h2>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>慢</th>
+<th>快</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>讀屬性</td>
+<td>每筆都 <code>!!ce = !e</code> 再讀</td>
+<td><code>!e.desc</code> 直接讀</td>
+<td>移動 CE 會觸發介面更新與事件</td>
+</tr>
+<tr>
+<td>找元素</td>
+<td>自己寫遞迴走訪 <code>members</code></td>
+<td>COLLECTION 設定 scope／type／filter</td>
+<td>由系統在資料庫端走訪</td>
+</tr>
+<tr>
+<td>篩選</td>
+<td>收集全部再在 PML 迴圈中判斷</td>
+<td><code>filter(EXPRESSION)</code></td>
+<td>減少回到 PML 的元素數</td>
+</tr>
+<tr>
+<td>只要一個計算值</td>
+<td>收集 DBREF 再逐一讀取</td>
+<td><code>var !x evaluate (...) for ...</code></td>
+<td>一個命令取回所有值</td>
+</tr>
+<tr>
+<td>範圍</td>
+<td>不設 scope（整個 MDB）</td>
+<td>設到最小的 SITE／ZONE</td>
+<td>範圍越小越快</td>
+</tr>
+<tr>
+<td>大量結果</td>
+<td>一次 <code>results()</code> 幾萬筆</td>
+<td><code>.next(n)</code> 分批處理</td>
+<td>降低記憶體與介面停頓</td>
+</tr>
+<tr>
+<td>字串累加</td>
+<td>迴圈中反覆 <code>!s = !s &amp; ...</code> 組成大字串</td>
+<td>先 <code>append</code> 到陣列，最後一次輸出</td>
+<td>減少大量字串複製</td>
+</tr>
+<tr>
+<td>輸出</td>
+<td>每筆 <code>$P</code> 或更新表單</td>
+<td>處理完再一次更新</td>
+<td>介面更新很昂貴</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 先量測再優化。在迴圈前後各印一次時間或筆數，找出真正慢的地方。大多數 PML 工具的瓶頸不在運算，而在「移動 CE」「重複查詢」與「介面更新」。</p>
+</blockquote>
+<h2 id="1212-pml">12.12 讀懂真實程式：論文中的 PML 截圖</h2>
+<p>Kim, Park &amp; Yang（2020）在 AVEVA Marine 上開發了外板開孔自動產生系統，論文附有三段實際執行的 PML 程式截圖（CC BY-NC 3.0）。這些程式混用 PML1 與 PML2，正是你在公司舊程式中會遇到的樣子。完整案例背景見第 18 章。</p>
+<h3 id="12121">12.12.1 截圖一：找出開孔中心落在哪一塊外板</h3>
+<p><img alt="論文 PML 程式：走訪外板清單，用 WVOL 包圍盒判斷開孔中心是否落在外板範圍內，找到就以 Namn of 取得名稱並 Break" src="images/cases/jamet_fig6_pml_find_plate.png" /></p>
+<p><em>圖 12-4　找出開孔所在外板的 PML 程式。（Kim et al., 2020, Figure 6，CC BY-NC 3.0）</em></p>
+<p>逐行解讀：</p>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>意義</th>
+<th>本章對應</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Input : !basePos, !boxList</code>、<code>Output : !csurfList(surface)</code></td>
+<td>作者的說明文字，不是 PML 語法</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Do !csurf Values !csurfList</code></td>
+<td>走訪外板清單（<code>do values</code>）</td>
+<td>11.8.2</td>
+</tr>
+<tr>
+<td><code>!boxList = WVOL of $!csurf</code></td>
+<td>PML1 運算式「屬性 of 元素」：取得外板的世界座標包圍盒（偽屬性 WVOL）；<code>$!csurf</code> 把變數展開成元素名稱</td>
+<td>12.4.2、11.14.3</td>
+</tr>
+<tr>
+<td><code>!x = !basePos.East</code> 等三行</td>
+<td>從 POSITION 物件取出東、北、上分量</td>
+<td>第 4 章</td>
+</tr>
+<tr>
+<td><code>If !x Geq !boxList[1] and ...</code></td>
+<td>判斷中心點是否大於等於包圍盒的最小值；<code>!boxList[1]</code>～<code>[3]</code> 是最小 E／N／U，<code>[4]</code>～<code>[6]</code> 是最大值</td>
+<td>陣列從 1 開始</td>
+</tr>
+<tr>
+<td><code>!surface = Namn of $!csurf</code></td>
+<td>取得外板名稱（NAMN 屬性的確切定義〔待核對〕）</td>
+<td>12.4.2</td>
+</tr>
+<tr>
+<td><code>Break</code></td>
+<td>找到就跳出迴圈</td>
+<td>11.8.3</td>
+</tr>
+<tr>
+<td><code>If !surface Eq 'nonechk' then ... namn of $!csurfList[1]</code></td>
+<td>都沒找到時（<code>!surface</code> 仍是預設值），用第一塊外板當預設</td>
+<td>預設值模式</td>
+</tr>
+</tbody>
+</table>
+<p>值得注意的地方：</p>
+<ul>
+<li>截圖中 <code>If</code> 後面沒有括號、<code>Handle</code> 沒有錯誤碼，也看不到對應的 <code>EndHandle</code>。官方語法要求 <code>if (條件) then</code>，<code>handle</code> 需要錯誤碼或 <code>ANY</code>。這可能是論文排版時刪節，或該版本較寬鬆的寫法。<strong>照抄前請改成標準語法。</strong></li>
+<li>包圍盒判斷很快但不精確：曲面外板的包圍盒會互相重疊，所以作者保留第一塊外板作為預設值。這是「先粗篩、再精算」的典型做法。</li>
+</ul>
+<h3 id="12122">12.12.2 截圖二：建立虛擬平面並求交線</h3>
+<p><img alt="論文 PML 程式：用 !!Dex.CreateRestrictedPlane 建立有限平面，用 SolveIntersectionSpaceCurvePML 求交線，再把交線點轉成 POSITION 物件收集起來" src="images/cases/jamet_fig8_pml_intersection.png" /></p>
+<p><em>圖 12-5　求外板與虛擬平面交點的 PML 程式。（Kim et al., 2020, Figure 8，CC BY-NC 3.0）</em></p>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!bPlane = !!Dex.CreateRestrictedPlane(!pos, !normalVec, !minPos, !maxPos)</code></td>
+<td>呼叫全域物件 <code>!!Dex</code> 的方法，以位置、法向量與範圍建立有限平面</td>
+</tr>
+<tr>
+<td><code>!contList = !!Dex.SolveIntersectionSpaceCurvePML(!surfaceName, !bPlane)</code></td>
+<td>求外板曲面與平面的交線，回傳交線清單</td>
+</tr>
+<tr>
+<td><code>!tempList = Array()</code></td>
+<td>建立空陣列</td>
+</tr>
+<tr>
+<td><code>!realCont = !cont.ContourPML()</code></td>
+<td>把交線轉成點列</td>
+</tr>
+<tr>
+<td><code>!p = object Position()</code></td>
+<td>建立空的 POSITION 物件</td>
+</tr>
+<tr>
+<td><code>!p.east = !tCont[0].X()</code> 等三行</td>
+<td>逐一設定座標分量。注意這裡的索引是 <code>[0]</code>，回傳的點列可能是 .NET 物件而非 PML 陣列〔待核對〕</td>
+</tr>
+<tr>
+<td><code>!p.origin = /*</code></td>
+<td>設定座標參考為世界（<code>/*</code> 代表 WORLD）</td>
+</tr>
+<tr>
+<td><code>!tempList.Append(!p)</code></td>
+<td>收集交點</td>
+</tr>
+</tbody>
+</table>
+<p><code>!!Dex</code> 及其方法名稱來自論文所用版本提供的函式庫，公司版本是否相同，請以 PML 參考手冊確認〔待核對〕。這段程式也示範了一個重要觀念：<strong>PML 可以呼叫由 .NET 或系統提供的全域物件</strong>，這正是第 14 章 PML.NET 的用途。</p>
+<h3 id="12123">12.12.3 截圖三：用兩個交點算出方向</h3>
+<p><img alt="論文 PML 程式：排序交點，以 AID SPHERE 畫出輔助球，再以 Line、OnProjected、Near 找出包夾開孔中心的線段並畫出" src="images/cases/jamet_fig11_pml_slope.png" /></p>
+<p><em>圖 12-6　計算開孔方向的 PML 程式，含 AID 除錯圖形。（Kim et al., 2020, Figure 11，CC BY-NC 3.0）</em></p>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!tempList.SortUnique()</code></td>
+<td>排序並去除重複（官方 ARRAY 方法）</td>
+</tr>
+<tr>
+<td><code>Do !i From 1 To !tempList.Size()</code></td>
+<td>計數迴圈，從 1 開始</td>
+</tr>
+<tr>
+<td><code>aid sphere $!templist[$!i] dia 200</code></td>
+<td>在 3D 視圖每個交點畫直徑 200 的輔助球，<strong>只畫在畫面上，不寫入資料庫</strong></td>
+</tr>
+<tr>
+<td><code>!line = !pos1.Line(!pos2)</code></td>
+<td>以相鄰兩點建立直線物件</td>
+</tr>
+<tr>
+<td><code>!chk = !line.OnProjected(!basepos)</code></td>
+<td>判斷中心點投影是否落在這段線上</td>
+</tr>
+<tr>
+<td><code>!chkPos = !line.Near(!basePos)</code></td>
+<td>線上最接近中心點的位置</td>
+</tr>
+<tr>
+<td><code>AID LINE $!pos1 to $!pos2</code>、<code>AID SPHERE $!chkPos dia 200</code></td>
+<td>畫出找到的線段與點，供人工確認</td>
+</tr>
+<tr>
+<td><code>Break</code></td>
+<td>找到就停止</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>AID</code> 輔助圖形是開發幾何演算法最實用的除錯方式：結果畫在畫面上，一眼就能看出算錯了沒有，又不會污染資料庫。<code>Line()</code>、<code>OnProjected()</code>、<code>Near()</code> 等幾何方法的確切名稱與所屬物件，請以公司版本的參考手冊確認〔待核對〕。</p>
+</blockquote>
+<h3 id="12124">12.12.4 從讀懂到改寫</h3>
+<p>讀完這三段程式，你應該能指出：</p>
+<table>
+<thead>
+<tr>
+<th>觀察</th>
+<th>改進方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>混用 PML1（<code>WVOL of $!csurf</code>）與 PML2（<code>!basePos.East</code>）</td>
+<td>新程式可改用 <code>!csurf.dbref().wvol</code> 一類的物件存取〔寫法待核對〕，少用 <code>$!</code> 文字替換</td>
+</tr>
+<tr>
+<td><code>'nonechk'</code> 這種魔術字串當作「沒找到」</td>
+<td>用 BOOLEAN 旗標或 UNSET 表示</td>
+</tr>
+<tr>
+<td>錯誤處理不完整</td>
+<td>每個可能失敗的屬性讀取後面接 <code>handle</code></td>
+</tr>
+<tr>
+<td>AID 圖形留在正式程式中</td>
+<td>改成由除錯旗標控制，正式執行時不畫</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1213">12.13 開發人員須知</h2>
+<ul>
+<li><strong>讀用參照，寫才動 CE。</strong> 讀資料一律用 DBREF 變數；必須用命令時才移動 CE，結束時還原。</li>
+<li><strong>一定要設範圍。</strong> COLLECTION 沒有 scope 時會搜尋整個 MDB，在大型專案中可能跑很久。</li>
+<li><strong>屬性可能未設定。</strong> 讀取時加 <code>handle</code> 或先檢查，否則一個空值就讓整批處理中斷。</li>
+<li><strong>用完整屬性名稱。</strong> 程式中寫完整名稱，與未來版本較相容；縮寫留給命令列。</li>
+<li><strong>寫入前想好回復。</strong> 沒有記錄檔的批次修改工具，不應該上線。</li>
+<li><strong>不自動 savework。</strong> 把確認權留給使用者。</li>
+<li><strong>刪除比修改更危險。</strong> 優先做「標記」而不是「刪除」，並檢查參照關係。</li>
+<li><strong>舊程式先讀懂再改。</strong> 混用 PML1／PML2 的程式很常見，先畫出資料流與每個變數的型別，再決定是否重構。</li>
+</ul>
+<h2 id="1214">12.14 練習</h2>
+<blockquote>
+<p>練習 1、2、5 是唯讀練習；練習 3、4 會修改資料，<strong>只能在訓練專案中進行</strong>。</p>
+</blockquote>
+<h3 id="1">練習 1：導覽與屬性探索</h3>
+<ol>
+<li>在訓練專案選取一個 EQUI，命令列執行 <code>Q ATT</code>，挑出 5 個你看得懂的屬性。</li>
+<li>用 PML 讀出這 5 個屬性，並用 <code>q var</code> 檢查每一個的型別。</li>
+<li>從這個 EQUI 一路 <code>.owner</code> 往上，印出每一層的名稱與型別，直到 WORLD。</li>
+</ol>
+<h3 id="2">練習 2：查詢函式</h3>
+<ol>
+<li>完成 12.5.3 節的 <code>!!mycoFindEqui</code>，在訓練專案的 ZONE 上測試。</li>
+<li>擴充成可以指定型別的版本：<code>!!mycoFind(!scope is DBREF, !type is STRING, !exprText is STRING) is ARRAY</code>。</li>
+<li>用 <code>var !x evaluate (...)</code> 寫一個等效的查詢，比較兩者的程式長度與執行時間。</li>
+</ol>
+<h3 id="3">練習 3：建立與刪除（訓練專案）</h3>
+<ol>
+<li>用 <code>!!mycoCreateTestEqui</code> 在訓練 ZONE 建立三個設備 <code>/T-EQUI-001</code> 到 <code>/T-EQUI-003</code>。</li>
+<li>故意用重複的名稱再建立一次，觀察錯誤碼，並把 <code>handle ANY</code> 改成該錯誤碼。</li>
+<li>用 <code>!!mycoCanDelete</code> 檢查後刪除這三個設備，最後執行 Save Work 前先請同事檢查。</li>
+</ol>
+<h3 id="4">練習 4：批次修改（訓練專案）</h3>
+<ol>
+<li>以預覽模式執行 <code>!!mycoBatchDesc</code>，檢查列出的清單。</li>
+<li>寫入模式執行後，<strong>不要</strong> savework，先用 Undo 測試 <code>MARKDB</code> 是否有效。</li>
+<li>再執行一次寫入，用 <code>!!mycoRestoreDesc</code> 依記錄檔還原，確認 DESC 回到原值。</li>
+<li>寫下這個工具若要給設計人員使用，還缺哪些保護。</li>
+</ol>
+<h3 id="5">練習 5：讀懂真實程式</h3>
+<ol>
+<li>把圖 12-4 的程式改寫成符合官方語法的 PML2 函式 <code>!!mycoFindPlate(!basePos is POSITION, !plates is ARRAY) is STRING</code>，<code>if</code> 加括號、<code>handle</code> 加 <code>ANY</code> 與 <code>endhandle</code>，找不到時回傳空字串。</li>
+<li>指出圖 12-6 中哪些行只用於除錯，並設計一個 <code>!!mycoDebug</code> 旗標控制是否畫出 AID 圖形。</li>
+</ol>
+<h2 id="1215">12.15 自我檢核</h2>
+<ul>
+<li>[ ] 我能用 <code>!!ce</code>、<code>.owner</code>、<code>.members</code> 與名稱導覽，並說明移動 CE 與持有參照的差別。</li>
+<li>[ ] 我會用 <code>NULREF</code>、<code>unset()</code>、<code>badref()</code> 檢查參照。</li>
+<li>[ ] 我能讀取一般屬性、參照屬性、偽屬性與 UDA，並說明 <code>Q</code> 與程式取值的差異。</li>
+<li>[ ] 我會用 COLLECTION 的 scope、type、filter、results，並用 EXPRESSION 篩選。</li>
+<li>[ ] 我看得懂 <code>var ... collect</code> 與 <code>var ... evaluate</code>。</li>
+<li>[ ] 我會用 <code>NEW</code> 建立元素、用屬性指定修改元素，知道物件型屬性要「取出、修改、指定回去」。</li>
+<li>[ ] 我知道 <code>DELETE</code> 的行為，並會在刪除前檢查參照關係。</li>
+<li>[ ] 我能說明 claim 的兩種模式、<code>CLAIM ... HIERARCHY</code>、<code>UNCLAIM</code>，以及「修改過的元素在 savework 前不能 unclaim」。</li>
+<li>[ ] 我知道 savework、getwork 的意義，以及為什麼工具不自動 savework。</li>
+<li>[ ] 我能寫出「預覽 → 記錄 → 寫入 → 驗證 → 儲存」的批次修改工具，並能依記錄檔回復。</li>
+<li>[ ] 我知道讓 PML 查詢變快的主要做法。</li>
+<li>[ ] 我能逐行解讀論文中的三段 PML 程式，並指出可改進之處。</li>
+</ul>
+<h2 id="1216">12.16 資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 PML Customisation User Guide：Accessing DB Elements As Objects（<code>!!CE</code>、參照、P 點、NULREF、BADREF）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.05.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.05.html</a></li>
+<li>同上：Assigning Values to Element Attributes：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.06.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.06.html</a></li>
+<li>同上：Accessing Information About a Session：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.07.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.07.html</a></li>
+<li>同上：Evaluating Selected DB Elements（<code>VAR ... EVALUATE</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.08.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.08.html</a></li>
+<li>同上：Undo and Redo（<code>MARKDB</code>、<code>ENDMARKDB</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.10.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.10.html</a></li>
+<li>同上：Using PML in AVEVA Products（PML1 運算式與 VAR）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG9.09.01.html</a></li>
+<li>AVEVA E3D 2.1 Software Customisation Reference Manual：COLLECTION Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.24.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.24.html</a></li>
+<li>同上：EXPRESSION Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.36.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.36.html</a></li>
+<li>同上：STRING Object（<code>.position()</code>、<code>.dbref()</code>、<code>.replace()</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.76.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.76.html</a></li>
+<li>AVEVA E3D 2.1 Common Functionality：Claimlists（認領模式、範圍、savework 前不能 unclaim）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DCFUG/DCFUG03.04.5.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DCFUG/DCFUG03.04.5.html</a></li>
+<li>AVEVA E3D Design 文件：CLAIM／UNCLAIM（<code>CLAIM /ZoneA HIERARCHY</code>、<code>UNCLAIM ALL</code>，需 JavaScript）：<a href="https://docs.aveva.com/bundle/e3d-design/page/911923.html">https://docs.aveva.com/bundle/e3d-design/page/911923.html</a></li>
+<li>Kim, C.-S., Park, D.-W., &amp; Yang, Y.-J. (2020). Development of an automatic shell plate hole generation system using AVEVA Marine. <em>Journal of Advanced Marine Engineering and Technology</em>, 44(3), 196–202. CC BY-NC 3.0. <a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a></li>
+<li>開源範例 aveva-marine-dev-skill（MIT 授權，COLLECTION 用法、<code>.flnn</code>）：<a href="https://github.com/912141548/aveva-marine-dev-skill">https://github.com/912141548/aveva-marine-dev-skill</a></li>
+<li>AVEVA Hull and Outfitting Datasheet（圖 12-1 來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf</a></li>
+<li>相關章節：<a href="ch02_project_database_zh-TW.reading.html">第 2 章　專案、資料庫、MDB 與權限</a>、<a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章　資料階層、元素、屬性與導覽</a>、<a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章　座標、方向與幾何</a>、<a href="ch11_pml_language_zh-TW.reading.html">第 11 章　PML 語言核心</a>、<a href="ch16_reports_integration_zh-TW.reading.html">第 16 章　報表、檔案與外部系統整合</a>、<a href="ch18_case_studies_zh-TW.reading.html">第 18 章　實戰案例與完整範例</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch11_pml_language_zh-TW.reading.html"><small>← 上一篇</small>第 11 章　PML 語言核心</a><a class="next" href="ch13_pml_forms_addins_zh-TW.reading.html"><small>下一篇 →</small>第 13 章　PML2 表單、選單與 Add-in</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="620" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">症狀導向的排錯樹：先分類，再依序檢查</text>
+
+  <g font-size="13" fill="#1f2937">
+    <!-- row 1 -->
+    <rect x="20" y="52" width="230" height="96" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="32" y="76" font-weight="bold">找不到函式或表單</text>
+    <text x="32" y="98" font-size="12">呼叫時報找不到定義、show 失敗</text>
+    <text x="32" y="118" font-size="12">剛新增或改名的檔案</text>
+    <rect x="280" y="52" width="600" height="96" rx="6" fill="#ffffff" stroke="#dc2626"/>
+    <text x="292" y="74" font-size="12">1. q evar pmllib：自己的目錄有沒有在搜尋路徑上，而且排在官方目錄前面</text>
+    <text x="292" y="94" font-size="12">2. 檔名全小寫、與定義名稱一致、副檔名正確（.pmlfnc／.pmlfrm／.pmlobj）</text>
+    <text x="292" y="114" font-size="12">3. pml rehash all 後稍等再試；確認位置：q var !!PML.getpathname('檔名')</text>
+    <text x="292" y="134" font-size="12">4. 共用伺服器的 pml.index 是否被其他人更新而本機尚未 pml index</text>
+
+    <!-- row 2 -->
+    <rect x="20" y="164" width="230" height="96" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="32" y="188" font-weight="bold">改了程式但畫面沒變</text>
+    <text x="32" y="210" font-size="12">表單仍是舊版</text>
+    <text x="32" y="230" font-size="12">物件方法仍是舊邏輯</text>
+    <rect x="280" y="164" width="600" height="96" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="292" y="186" font-size="12">1. 表單已載入記憶體：kill !!表單名 後 pml reload form !!表單名，再 show</text>
+    <text x="292" y="206" font-size="12">2. 物件定義：pml reload object 名稱；舊變數要刪除後重建</text>
+    <text x="292" y="226" font-size="12">3. 改到的是不是搜尋路徑上「第一個」同名檔案（被別的目錄覆蓋）</text>
+    <text x="292" y="246" font-size="12">4. .NET DLL：模組還開著時檔案被鎖定，必須關閉模組再覆蓋</text>
+
+    <!-- row 3 -->
+    <rect x="20" y="276" width="230" height="96" rx="6" fill="#e0e7ff" stroke="#4338ca"/>
+    <text x="32" y="300" font-weight="bold">寫入失敗</text>
+    <text x="32" y="322" font-size="12">DB 唯讀或無寫入權</text>
+    <text x="32" y="342" font-size="12">元素被他人認領</text>
+    <rect x="280" y="276" width="600" height="96" rx="6" fill="#ffffff" stroke="#4338ca"/>
+    <text x="292" y="298" font-size="12">1. 目前 MDB 中該 DB 是否可寫；使用者所屬 Team 是否擁有該 DB</text>
+    <text x="292" y="318" font-size="12">2. 元素是否已被其他使用者 Claim；需要時先 claim 再修改</text>
+    <text x="292" y="338" font-size="12">3. 是否在 Extract 或唯讀專案中；是否在 Global 的非主控地點</text>
+    <text x="292" y="358" font-size="12">4. 工具是否應該先做「預覽」而不是直接寫入（見第 12 章安全模式）</text>
+
+    <!-- row 4 -->
+    <rect x="20" y="388" width="230" height="96" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="32" y="412" font-weight="bold">型別或執行期錯誤</text>
+    <text x="32" y="434" font-size="12">(46,28) 變數未定義</text>
+    <text x="32" y="454" font-size="12">型別混用、UNSET 值</text>
+    <rect x="280" y="388" width="600" height="96" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="292" y="410" font-size="12">1. 在 handle 區塊內 q var !!error，或記錄 !!error.text、!!error.line</text>
+    <text x="292" y="430" font-size="12">2. 用 $P 或 q var !x 印出可疑變數，確認型別（.objectType()）</text>
+    <text x="292" y="450" font-size="12">3. 縮小範圍：$R 追蹤（$R100 開、$R0 關）或 alpha log 錄下命令</text>
+    <text x="292" y="470" font-size="12">4. 幾何問題用 AID 輔助圖形畫出來目視確認（不寫入資料庫）</text>
+
+    <!-- row 5 -->
+    <rect x="20" y="500" width="230" height="96" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+    <text x="32" y="524" font-weight="bold">.NET 外掛沒有出現</text>
+    <text x="32" y="546" font-size="12">中斷點不會停</text>
+    <text x="32" y="566" font-size="12">按鈕按了沒反應</text>
+    <rect x="280" y="500" width="600" height="96" rx="6" fill="#ffffff" stroke="#6d28d9"/>
+    <text x="292" y="522" font-size="12">1. Addins.xml 的 &lt;string&gt; 是否為組件名（不含 .dll）；檔案放在正確目錄</text>
+    <text x="292" y="542" font-size="12">2. 平台是否為 x86、目標 .NET Framework 是否為 3.5（BadImageFormatException）</text>
+    <text x="292" y="562" font-size="12">3. Start() 內的例外被靜默吞掉：看自己寫的錯誤記錄檔</text>
+    <text x="292" y="582" font-size="12">4. UIC 的 CommandId 與 Command.Key 逐字比對</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="250" y1="100" x2="276" y2="100"/>
+    <line x1="250" y1="212" x2="276" y2="212"/>
+    <line x1="250" y1="324" x2="276" y2="324"/>
+    <line x1="250" y1="436" x2="276" y2="436"/>
+    <line x1="250" y1="548" x2="276" y2="548"/>
+  </g>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="d9" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2937">舾裝圖面（Draft）的資料階層：圖面也是資料庫元素</text>
+
+  <text x="30" y="62" font-size="14" font-weight="bold" fill="#4338ca">PADD 圖面資料庫</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="30" y="76" width="220" height="44" rx="5" fill="#eef2ff" stroke="#6366f1"/>
+    <text x="42" y="97" font-weight="bold">DEPT</text>
+    <text x="42" y="113" font-size="12">部門（例如管裝課）</text>
+    <rect x="60" y="134" width="220" height="44" rx="5" fill="#eef2ff" stroke="#6366f1"/>
+    <text x="72" y="155" font-weight="bold">REGI</text>
+    <text x="72" y="171" font-size="12">登錄冊（例如某船號）</text>
+    <rect x="90" y="192" width="220" height="44" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="102" y="213" font-weight="bold">DRWG</text>
+    <text x="102" y="229" font-size="12">一張圖（圖號、版次）</text>
+    <rect x="120" y="250" width="220" height="44" rx="5" fill="#eef2ff" stroke="#6366f1"/>
+    <text x="132" y="271" font-weight="bold">SHEE</text>
+    <text x="132" y="287" font-size="12">圖紙（圖框、比例）</text>
+    <rect x="150" y="308" width="220" height="44" rx="5" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="162" y="329" font-weight="bold">VIEW</text>
+    <text x="162" y="345" font-size="12">視圖（方向、範圍、比例）</text>
+
+    <rect x="180" y="366" width="200" height="36" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+    <text x="192" y="389" font-size="12">尺寸標註（關聯尺寸）</text>
+    <rect x="180" y="410" width="200" height="36" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+    <text x="192" y="433" font-size="12">標籤（引出標示名稱等）</text>
+    <rect x="180" y="454" width="200" height="36" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+    <text x="192" y="477" font-size="12">註記 NOTE、手繪 2D 圖元</text>
+  </g>
+  <g fill="none" stroke="#6b7280" stroke-width="1.5">
+    <polyline points="45,120 45,156 60,156"/>
+    <polyline points="75,178 75,214 90,214"/>
+    <polyline points="105,236 105,272 120,272"/>
+    <polyline points="135,294 135,330 150,330"/>
+    <polyline points="165,352 165,472 180,472"/>
+    <line x1="165" y1="384" x2="180" y2="384"/>
+    <line x1="165" y1="428" x2="180" y2="428"/>
+  </g>
+
+  <!-- right side: what a VIEW references -->
+  <text x="470" y="62" font-size="14" font-weight="bold" fill="#065f46">VIEW 引用什麼</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="470" y="80" width="400" height="70" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+    <text x="484" y="104" font-weight="bold">設計模型（DESI 中的元素）</text>
+    <text x="484" y="126" font-size="12">以「內容清單」選出要畫的 ZONE、EQUI、PIPE…</text>
+    <text x="484" y="143" font-size="12">（只存參照，不複製幾何）</text>
+
+    <rect x="470" y="170" width="400" height="70" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+    <text x="484" y="194" font-weight="bold">表現規則（Representation Rules）</text>
+    <text x="484" y="216" font-size="12">依型別、屬性決定線型、顏色、填充、是否顯示中心線</text>
+    <text x="484" y="233" font-size="12">（屬性符合條件 → 套用某種樣式）</text>
+
+    <rect x="470" y="260" width="400" height="70" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+    <text x="484" y="284" font-weight="bold">圖庫（LIBY 等）</text>
+    <text x="484" y="306" font-size="12">圖框（Backing Sheet）、符號、標籤樣板</text>
+    <text x="484" y="323" font-size="12">由管理員維護，各圖共用</text>
+  </g>
+  <g fill="none" stroke="#dc2626" stroke-width="1.8" marker-end="url(#d9)">
+    <path d="M370,322 C420,322 420,115 468,115"/>
+    <path d="M370,330 C430,330 430,205 468,205"/>
+    <path d="M340,272 C420,272 420,295 468,295"/>
+  </g>
+
+  <rect x="470" y="352" width="400" height="138" rx="6" fill="#fff7ed" stroke="#fdba74"/>
+  <g font-size="12" fill="#374151">
+    <text x="484" y="376" font-weight="bold" fill="#9a3412">為什麼圖面能「更新」</text>
+    <text x="484" y="398">VIEW 只記住「畫哪些元素、用什麼規則畫」。</text>
+    <text x="484" y="418">模型改了，重新更新視圖就會重算投影。</text>
+    <text x="484" y="438">尺寸與標籤掛在模型元素上，會跟著移動。</text>
+    <text x="484" y="458">手繪 2D 線條沒有模型來源，不會跟著更新，</text>
+    <text x="484" y="478">這就是「圖面不要手繪」的原因。</text>
+  </g>
+
+  <text x="30" y="530" font-size="12" fill="#6b7280">DEPT、REGI、DRWG、SHEE、VIEW、NOTE、LIBY 為 PDMS 系 Draft 的元素型別；尺寸與標籤的元素代碼依版本而異，請以 DMRM 查證〔待核對〕。</text>
+</svg>

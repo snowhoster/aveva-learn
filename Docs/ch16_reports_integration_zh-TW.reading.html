@@ -1,0 +1,870 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 16 章　報表、檔案與外部系統整合 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#16">第 16 章 報表、檔案與外部系統整合</a><ul>
+<li><a href="#161">16.1 學習目標</a></li>
+<li><a href="#162">16.2 輸出管道總覽</a></li>
+<li><a href="#163-pml-file">16.3 PML FILE 物件</a><ul>
+<li><a href="#1631">16.3.1 生命週期</a></li>
+<li><a href="#1632">16.3.2 常用方法</a></li>
+<li><a href="#1633">16.3.3 讀檔：逐行與整檔</a></li>
+<li><a href="#1634">16.3.4 寫檔</a></li>
+</ul>
+</li>
+<li><a href="#164">16.4 文字編碼：中文為什麼會變亂碼</a><ul>
+<li><a href="#1641">16.4.1 規則整理</a></li>
+<li><a href="#1642">16.4.2 公司約定建議</a></li>
+<li><a href="#1643">16.4.3 編碼驗證步驟</a></li>
+</ul>
+</li>
+<li><a href="#165-csv-excel">16.5 CSV 與 Excel 輸出</a><ul>
+<li><a href="#1651-csv">16.5.1 CSV 的跳脫規則</a></li>
+<li><a href="#1652-csv">16.5.2 完整範例：設備清單 CSV</a></li>
+<li><a href="#1653-excel">16.5.3 從表格控制項匯出 Excel</a></li>
+</ul>
+</li>
+<li><a href="#166">16.6 讀取外部資料驅動建模</a><ul>
+<li><a href="#1661">16.6.1 流程</a></li>
+<li><a href="#1662">16.6.2 範例：解析與驗證</a></li>
+<li><a href="#1663-excel">16.6.3 為什麼不直接讀 Excel 檔</a></li>
+</ul>
+</li>
+<li><a href="#167-erppdm">16.7 與 ERP／PDM 交換資料</a><ul>
+<li><a href="#1671">16.7.1 三種架構</a></li>
+<li><a href="#1672">16.7.2 資料契約：比技術更重要</a></li>
+<li><a href="#1673-net">16.7.3 .NET 寫入中介資料表</a></li>
+<li><a href="#1674-web-api">16.7.4 Web API 的注意事項</a></li>
+</ul>
+</li>
+<li><a href="#168">16.8 排程與批次執行</a><ul>
+<li><a href="#1681">16.8.1 四種執行方式</a></li>
+<li><a href="#1682">16.8.2 使用者觸發的批次：進度與中斷</a></li>
+<li><a href="#1683">16.8.3 夜間批次的設計原則</a></li>
+</ul>
+</li>
+<li><a href="#169">16.9 開發人員須知</a></li>
+<li><a href="#1610">16.10 練習（只能在訓練專案）</a></li>
+<li><a href="#1611">16.11 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 17 / 21</span><h1 id="16">第 16 章　報表、檔案與外部系統整合</h1>
+<blockquote>
+<p>本章處理「資料離開 AVEVA」與「資料進入 AVEVA」兩個方向：用 PML 的 <code>FILE</code> 物件讀寫文字檔、處理中文編碼、輸出 CSV 與 Excel、讀取外部標準資料來驅動建模，以及與 ERP／PDM 交換資料時的架構選擇和排程批次。</p>
+<p><strong>資料可信度：</strong> <code>FILE</code> 物件的開檔模式、讀寫方法與錯誤碼，取自 AVEVA 官方 <em>PML Customisation User Guide</em> 與 <em>Software Customisation Reference Manual</em>（help.aveva.com 上的 <strong>E3D 2.1</strong> 版本，PML 語法與 Marine 12.1 相同系譜）。編碼規則中的環境變數（<code>CADC_LANG</code>、<code>CADC_LANG_NEW</code>）來自開源知識庫 aveva-marine-dev-skill 對 PDMS 12.1 使用手冊的摘錄，標為〔待核對〕。整合架構與排程是一般系統整合的工程實務，本章依 AVEVA 的限制調整；凡涉及 AVEVA 批次啟動參數的部分都標為〔待核對〕。程式碼除了來自 <code>examples/</code> 的部分外，都標示「示意」。</p>
+</blockquote>
+<h2 id="161">16.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>使用 PML <code>FILE</code> 物件以正確的模式開檔、逐行或整檔讀寫，並處理常見錯誤碼。</li>
+<li>說明中文在 AVEVA 中出現亂碼的原因，並訂出公司的編碼約定。</li>
+<li>產生格式正確的 CSV（含逗號與引號跳脫），以及從表格控制項匯出 Excel。</li>
+<li>設計「讀外部資料、驗證、預覽、再建模」的資料驅動工具。</li>
+<li>比較檔案交換、中介資料庫、Web API 三種整合架構，選出適合的方案。</li>
+<li>規劃排程與批次執行，並知道哪些環節需要在公司環境驗證。</li>
+</ol>
+<h2 id="162">16.2 輸出管道總覽</h2>
+<table>
+<thead>
+<tr>
+<th>管道</th>
+<th>寫法</th>
+<th>適合</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令列</td>
+<td><code>$P</code>、<code>q var</code></td>
+<td>開發時檢查</td>
+<td>不是給使用者的輸出</td>
+</tr>
+<tr>
+<td>訊息框</td>
+<td><code>!!alert.message()</code></td>
+<td>簡短結果</td>
+<td>會阻斷操作；不要在迴圈中使用</td>
+</tr>
+<tr>
+<td>表單表格</td>
+<td><code>NETGRIDCONTROL</code>（第 13 章）</td>
+<td>互動檢視、排序、篩選</td>
+<td>大量資料時注意效能</td>
+</tr>
+<tr>
+<td>文字檔、CSV</td>
+<td><code>FILE</code> 物件</td>
+<td>交換、存檔、給 Excel</td>
+<td>編碼與跳脫</td>
+</tr>
+<tr>
+<td>Excel 檔</td>
+<td>表格控制項的匯出功能，或 .NET</td>
+<td>直接給使用者</td>
+<td>版本與授權</td>
+</tr>
+<tr>
+<td>系統內建報表</td>
+<td>第 9 章的報表功能</td>
+<td>標準材料表</td>
+<td>客製化程度有限</td>
+</tr>
+<tr>
+<td>外部資料庫、API</td>
+<td>.NET（第 14 章）</td>
+<td>系統整合</td>
+<td>帳號、網路、重送</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 報表工具幾乎都是<strong>唯讀</strong>的，是最適合新手開始的工具類型（第 18 章的優先順序第 1 名）。但「唯讀」只是對 AVEVA 模型而言；把檔案寫到共用資料夾、寫進外部資料庫，仍然會影響別人。輸出位置、命名與保存期限要先講好。</p>
+</blockquote>
+<h2 id="163-pml-file">16.3 PML FILE 物件</h2>
+<h3 id="1631">16.3.1 生命週期</h3>
+<p><img alt="PML FILE 物件的生命週期：建立物件、開檔、讀寫、關檔，以及常見錯誤碼與編碼判斷流程" src="images/diagrams/ch16_file_io_encoding.svg" /></p>
+<p><em>圖 16-1　<code>FILE</code> 物件的生命週期、錯誤碼與編碼判斷。（本課程自繪，錯誤碼依官方 PML Customisation User Guide）</em></p>
+<p><code>object FILE(路徑)</code> 只建立物件，<strong>不會開檔</strong>。開檔模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>行為</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>READ</code></td>
+<td>讀取；檔案不存在時錯誤 (160,9)</td>
+</tr>
+<tr>
+<td><code>WRITE</code></td>
+<td>寫入新檔；<strong>檔案已存在時會跳出確認對話框</strong>，使用者拒絕時錯誤 (160,44)</td>
+</tr>
+<tr>
+<td><code>OVERWRITE</code></td>
+<td>直接覆寫，不詢問</td>
+</tr>
+<tr>
+<td><code>APPEND</code></td>
+<td>加在檔尾</td>
+</tr>
+</tbody>
+</table>
+<p>批次或排程工具不能有對話框，所以輸出檔請用 <code>OVERWRITE</code>（或檔名加時間戳記搭配 <code>WRITE</code>）。</p>
+<h3 id="1632">16.3.2 常用方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>open(模式)</code>、<code>close()</code>、<code>isOpen()</code>、<code>accessMode()</code></td>
+<td>開關檔與狀態</td>
+</tr>
+<tr>
+<td><code>readRecord()</code></td>
+<td>讀一行，回傳 STRING；<strong>到檔尾時回傳 UNSET 字串</strong>，用 <code>.set()</code> 或 <code>.unset()</code> 判斷</td>
+</tr>
+<tr>
+<td><code>writeRecord(字串)</code></td>
+<td>寫一行</td>
+</tr>
+<tr>
+<td><code>readFile()</code></td>
+<td>整檔讀成字串陣列，<strong>預設上限 10000 行</strong>，可傳入行數上限；超過時錯誤 (160,47)</td>
+</tr>
+<tr>
+<td><code>writeFile(模式, 陣列)</code></td>
+<td>把字串陣列整批寫出</td>
+</tr>
+<tr>
+<td><code>exists()</code>、<code>size()</code>、<code>dtm()</code></td>
+<td>檔案是否存在、大小、修改時間</td>
+</tr>
+<tr>
+<td><code>copy()</code>、<code>move()</code>、<code>deleteFile()</code></td>
+<td>檔案操作（請小心使用）</td>
+</tr>
+<tr>
+<td><code>files()</code>、<code>subDirs()</code></td>
+<td>當 FILE 指向目錄時，列出檔案與子目錄</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕上表中檔案操作與目錄列舉的方法名稱，來自開源知識庫整理的參考手冊摘要，請在公司版本用 <code>q meth !f</code> 確認。</p>
+<h3 id="1633">16.3.3 讀檔：逐行與整檔</h3>
+<pre><code class="language-pml">-- 示意：逐行讀取，適合大檔或需要邊讀邊處理
+define function !!mycoReadLines(!path is STRING) is ARRAY
+  !result = ARRAY()
+  !f = object FILE(!path)
+  !f.open('READ')
+  handle (160,9)
+    !!alert.error('找不到檔案：' &amp; !path)
+    return !result
+  elsehandle (41,319)
+    !!alert.error('沒有權限讀取：' &amp; !path)
+    return !result
+  endhandle
+
+  do
+    !line = !f.readRecord()
+    break if (!line.unset())
+    !result.append(!line)
+  enddo
+  !f.close()
+  return !result
+endfunction
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>重點</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handle</code> 緊接在 <code>open</code> 之後</td>
+<td>PML 的錯誤只能被<strong>下一行</strong>的 <code>handle</code> 攔截（第 11 章）</td>
+</tr>
+<tr>
+<td>開放式 <code>do ... enddo</code> 一定要有 <code>break if</code></td>
+<td>否則是無窮迴圈</td>
+</tr>
+<tr>
+<td>以 <code>.unset()</code> 判斷檔尾</td>
+<td><code>readRecord()</code> 到檔尾回傳 UNSET，不是空字串；空白行會回傳空字串，兩者不同</td>
+</tr>
+</tbody>
+</table>
+<p>整檔讀取比較簡短：</p>
+<pre><code class="language-pml">-- 示意：整檔讀取，檔案不超過 readFile 的行數上限時使用
+!f = object FILE(!path)
+!lines = !f.readFile()
+handle (160,9)
+  !!alert.error('找不到檔案：' &amp; !path)
+  return
+endhandle
+</code></pre>
+<h3 id="1634">16.3.4 寫檔</h3>
+<pre><code class="language-pml">-- 示意：整批寫出；先組好陣列，再一次寫入，減少檔案操作
+!lines = ARRAY()
+!lines.append('Name,Description')
+!lines.append('/E-101,Main pump')
+!f = object FILE('C:\temp\myco_out.csv')
+!f.writeFile('OVERWRITE', !lines)
+handle any
+  !!alert.error('寫檔失敗：' &amp; !!error.text)
+endhandle
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 輸出路徑不要寫死在程式碼中。可以讓使用者用檔案對話框選擇（知識庫提到官方用 <code>object PMLFILEBROWSER('SAVE')</code>〔待核對〕），或從公司設定檔讀取預設目錄。寫到共用資料夾前，先確認使用者帳號有寫入權限，錯誤 (41,319) 就是權限不足。</p>
+</blockquote>
+<h2 id="164">16.4 文字編碼：中文為什麼會變亂碼</h2>
+<p>中文名稱、描述、UDA 值在 AVEVA 內部顯示正常，輸出到檔案或讀入外部檔案時卻變成亂碼，幾乎都是<strong>同一段位元組被用不同的編碼解讀</strong>。</p>
+<h3 id="1641">16.4.1 規則整理</h3>
+<p>依開源知識庫摘錄的 PDMS 12.1 使用手冊內容〔待核對〕：</p>
+<table>
+<thead>
+<tr>
+<th>對象</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML 原始碼檔案</td>
+<td>只接受 UTF-8（含 BOM，優先）、UTF-16／UTF-32（含 BOM）或純 ASCII；不要使用 <code>°</code> 這類 8 位元單位元組字元，在 CJK 語系環境會出錯</td>
+</tr>
+<tr>
+<td>讀取外部文字檔</td>
+<td>有 BOM 時依 BOM 判斷；沒有 BOM 時依環境變數 <code>CADC_LANG</code>（未設定時視為 LATIN1）</td>
+</tr>
+<tr>
+<td>寫出新檔</td>
+<td>依環境變數 <code>CADC_LANG_NEW</code>（預設 UTF-8＋BOM），可設定為 CP950（Big5）等</td>
+</tr>
+<tr>
+<td>轉碼</td>
+<td>安裝目錄附有轉碼工具 <code>transc.exe</code>，PML 函式 <code>!!pmlTranscFile</code> 有封裝</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1642">16.4.2 公司約定建議</h3>
+<table>
+<thead>
+<tr>
+<th>約定</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML 原始碼一律存 UTF-8 含 BOM</td>
+<td>編輯器、Git、AVEVA 三方一致</td>
+</tr>
+<tr>
+<td>交換檔一律 UTF-8 含 BOM</td>
+<td>Excel 依 BOM 判斷 CSV 編碼；沒有 BOM 的 UTF-8 CSV 在中文 Windows 的 Excel 會被當成 Big5 而亂碼</td>
+</tr>
+<tr>
+<td>對方系統只吃 Big5 時，由交換程式端轉碼</td>
+<td>AVEVA 端維持單一編碼，轉換集中在一處</td>
+</tr>
+<tr>
+<td><code>CADC_LANG</code> 由系統管理員統一設定</td>
+<td>每台電腦設定不同，同一支工具在不同人電腦結果不同，是最難查的問題</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1643">16.4.3 編碼驗證步驟</h3>
+<p>每次調整編碼設定、或新工具第一次輸出中文時，都跑一次：</p>
+<ol>
+<li>在訓練專案建立一個描述含中文、全形符號與 <code>°</code> 的測試元素（例如 <code>測試泵浦 φ100 45°</code>）。</li>
+<li>用工具輸出 CSV。</li>
+<li>用記事本開啟，確認右下角顯示的編碼；用 Excel 直接開啟，確認中文正常。</li>
+<li>用 PML 讀回該檔，與元素原本的描述比較是否完全相同。</li>
+<li>把結果記錄在工具的測試紀錄（第 17 章）。</li>
+</ol>
+<h2 id="165-csv-excel">16.5 CSV 與 Excel 輸出</h2>
+<h3 id="1651-csv">16.5.1 CSV 的跳脫規則</h3>
+<p>CSV 欄位含逗號、雙引號或換行時，整個欄位要用雙引號包起來，欄位內的雙引號要寫成兩個。設計者常在描述中使用逗號，忽略這條規則會讓欄位錯位。</p>
+<pre><code class="language-pml">-- 示意：mycocsvfield.pmlfnc
+define function !!mycoCsvField(!value is STRING) is STRING
+  !s = !value
+  if (!s.match(',') gt 0 or !s.match('&quot;') gt 0) then
+    !s = '&quot;' &amp; !s.replace('&quot;', '&quot;&quot;') &amp; '&quot;'
+  endif
+  return !s
+endfunction
+</code></pre>
+<h3 id="1652-csv">16.5.2 完整範例：設備清單 CSV</h3>
+<pre><code class="language-pml">-- 示意：mycoexportequicsv.pmlfnc（唯讀）
+-- 收集範圍內的 EQUI，輸出名稱、描述、位置
+define function !!mycoExportEquiCsv(!scope is DBREF, !path is STRING) is REAL
+  !coll = object COLLECTION()
+  !coll.type('EQUI')
+  !coll.scope(!scope)
+  !items = !coll.results()
+
+  !lines = ARRAY()
+  !lines.append('Name,Description,Position')
+  do !e values !items
+    !row = !!mycoCsvField(!e.flnn) &amp; ','
+    !row = !row &amp; !!mycoCsvField(!e.desc) &amp; ','
+    !row = !row &amp; !!mycoCsvField(!e.pos.string())
+    !lines.append(!row)
+  enddo
+
+  !f = object FILE(!path)
+  !f.writeFile('OVERWRITE', !lines)
+  handle any
+    !!alert.error('寫檔失敗：' &amp; !!error.text)
+    return 0
+  endhandle
+  return !items.size()
+endfunction
+</code></pre>
+<p>使用方式：</p>
+<pre><code class="language-pml">!n = !!mycoExportEquiCsv(!!ce, 'C:\temp\equi_list.csv')
+$P 已輸出 $!n 筆
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>參數傳入範圍與路徑</td>
+<td>函式可被表單、排程、其他工具重複使用</td>
+</tr>
+<tr>
+<td>先組陣列再一次寫出</td>
+<td>減少檔案 I/O；寫檔失敗時不會留下半個檔案以外的副作用</td>
+</tr>
+<tr>
+<td>回傳筆數</td>
+<td>呼叫端可以記錄或顯示</td>
+</tr>
+<tr>
+<td>位置用 <code>.string()</code></td>
+<td>位置在 PML 是 POSITION 物件，輸出前要轉成字串；格式依目前單位設定〔待核對：是否要指定 WRT 與格式〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1653-excel">16.5.3 從表格控制項匯出 Excel</h3>
+<p>第 13 章的 MyCollect 範例用 <code>NETGRIDCONTROL</code> 顯示資料，再呼叫匯出函式：</p>
+<pre><code class="language-pml">define method .export()
+  !!exportToExcel(!this.grid, ||, |Save EQUI List|)
+endmethod
+</code></pre>
+<p><code>!!exportToExcel</code> 是 AVEVA 內建的表格匯出函式〔待核對：依版本而定〕；表格控制項本身也有 <code>saveGridToExcel(路徑)</code> 方法（開源知識庫引自官方 <code>NetGridExample</code> 範例〔待核對〕）。</p>
+<p><img alt="MyCollect 表單版面示意：Scope 輸入欄、Collect／Export／Close 按鈕與三欄表格" src="images/cases/mycollect_form_mockup.svg" /></p>
+<p><em>圖 16-2　MyCollect 的表單示意（依原始碼繪製，非實機截圖）。表格中的資料可直接匯出 Excel。</em></p>
+<p><strong>選擇方式：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSV</td>
+<td>最簡單，任何系統都能讀，適合交換</td>
+<td>沒有格式、多工作表、公式</td>
+</tr>
+<tr>
+<td>表格控制項匯出</td>
+<td>使用者看到什麼就匯出什麼</td>
+<td>需要表單；欄位格式受控制項限制</td>
+</tr>
+<tr>
+<td>.NET 產生 xlsx</td>
+<td>可控制格式、多工作表</td>
+<td>需要相容 .NET 3.5 的函式庫並確認授權；不要在伺服器端使用 Office COM 自動化</td>
+</tr>
+</tbody>
+</table>
+<h2 id="166">16.6 讀取外部資料驅動建模</h2>
+<p>第 18 章的管支架案例把「每種管夾的尺寸」放在資料檔中，程式讀檔後建模，改尺寸不必改程式。這是<strong>資料與程式分離</strong>的基本做法。</p>
+<h3 id="1661">16.6.1 流程</h3>
+<pre><code>Excel（標準件尺寸表，由領域人員維護）
+   ↓ 另存為 UTF-8 CSV，放到受控目錄
+讀檔 → 解析 → 驗證 → 預覽 → 使用者確認 → 建模（訓練專案先測）→ 記錄
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>來源</td>
+<td>由誰維護、放在哪裡、怎麼審核版本；不要讓工具讀使用者桌面上的檔案</td>
+</tr>
+<tr>
+<td>解析</td>
+<td>第一行是標題；以欄名而非欄位位置取值，欄位順序調整時才不會錯</td>
+</tr>
+<tr>
+<td>驗證</td>
+<td>必填欄位、數值範圍、單位、重複鍵；任何一列不合格就整批停止並列出錯誤</td>
+</tr>
+<tr>
+<td>預覽</td>
+<td>在表單列出將建立的物件與尺寸；可用 AID 輔助圖形在 3D 中畫出位置（第 17 章）</td>
+</tr>
+<tr>
+<td>建模</td>
+<td>先 Claim、建立、設定屬性；整批一個 <code>MARKDB</code> 標記，讓使用者可復原（第 12 章）</td>
+</tr>
+<tr>
+<td>記錄</td>
+<td>寫入使用的資料檔版本、建立的元素名稱</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1662">16.6.2 範例：解析與驗證</h3>
+<p>假設尺寸表 <code>clamp_std.csv</code>：</p>
+<pre><code>type,dn,width,height,thk
+CL-A,50,120,80,6
+CL-A,80,150,95,8
+CL-B,50,110,70,6
+</code></pre>
+<pre><code class="language-pml">-- 示意：mycoloadclampstd.pmlfnc
+-- 讀取尺寸表，回傳二維陣列；任何錯誤都記在 !errors
+define function !!mycoLoadClampStd(!path is STRING, !errors is ARRAY) is ARRAY
+  !rows = ARRAY()
+  !f = object FILE(!path)
+  !lines = !f.readFile()
+  handle any
+    !errors.append('無法讀取 ' &amp; !path &amp; '：' &amp; !!error.text)
+    return !rows
+  endhandle
+
+  -- 以標題決定欄位位置
+  !head = !lines[1].split(',')
+  !need = ARRAY()
+  !need.append('type')
+  !need.append('dn')
+  !need.append('width')
+  !need.append('height')
+  !need.append('thk')
+  !col = ARRAY()
+  do !k index !need
+    !pos = !head.findfirst(!need[!k])
+    if (!pos.unset()) then
+      !errors.append('缺少欄位：' &amp; !need[!k])
+      return !rows
+    endif
+    !col[!k] = !pos
+  enddo
+
+  do !i from 2 to !lines.size()
+    if (!lines[!i].trim().empty()) then
+      skip
+    endif
+    !cells = !lines[!i].split(',')
+    !row = ARRAY()
+    !row[1] = !cells[!col[1]]
+    do !k from 2 to 5
+      !v = !cells[!col[!k]].real()
+      handle any
+        !errors.append('第 ' &amp; !i.string() &amp; ' 行的 ' &amp; !need[!k] &amp; ' 不是數字')
+        skip
+      endhandle
+      if (!v le 0) then
+        !errors.append('第 ' &amp; !i.string() &amp; ' 行的 ' &amp; !need[!k] &amp; ' 必須大於 0')
+      endif
+      !row[!k] = !v
+    enddo
+    !rows.append(!row)
+  enddo
+  return !rows
+endfunction
+</code></pre>
+<p>〔待核對〕<code>ARRAY.findfirst()</code>、<code>STRING.trim()</code> 的確切名稱與回傳值，請在公司版本以 <code>q meth</code> 確認；若沒有 <code>findfirst</code>，可改用迴圈比對標題。</p>
+<p>建模部分（只在訓練專案）：</p>
+<pre><code class="language-pml">-- 示意：依驗證通過的尺寸建立一個以 BOX 表示的管夾設備
+-- 前提：CE 位於訓練專案中可寫的 ZONE，命名規則依公司標準
+MARKDB 'MYCO create clamp'
+NEW EQUI /MYCO-CLAMP-0001
+NEW BOX
+XLEN 120
+YLEN 80
+ZLEN 6
+</code></pre>
+<p>建模命令只是示意；實際的設備樣板、命名、位置與方向計算，請依第 7 章與公司標準設計，並且通過第 17 章的審查才能上線。</p>
+<h3 id="1663-excel">16.6.3 為什麼不直接讀 Excel 檔</h3>
+<table>
+<thead>
+<tr>
+<th>理由</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依賴少</td>
+<td>讀 xlsx 需要 .NET 與額外函式庫；CSV 用 PML 就能讀</td>
+</tr>
+<tr>
+<td>可審查</td>
+<td>CSV 是文字，可放進 Git 比對版本差異</td>
+</tr>
+<tr>
+<td>不受 Excel 版本與巨集影響</td>
+<td>合併儲存格、隱藏欄、公式結果都可能讓程式讀錯</td>
+</tr>
+</tbody>
+</table>
+<p>建議讓領域人員在 Excel 維護，發佈時「另存為 CSV UTF-8」並放進受控目錄或 Git。</p>
+<h2 id="167-erppdm">16.7 與 ERP／PDM 交換資料</h2>
+<h3 id="1671">16.7.1 三種架構</h3>
+<p><img alt="與 ERP／PDM 交換資料的三種架構：檔案交換、中介資料庫、Web API，以及實作語言、即時性、耦合程度、追蹤與重送、適合情境的比較" src="images/diagrams/ch16_integration_architectures.svg" /></p>
+<p><em>圖 16-3　三種整合架構的比較與建議起點。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>架構</th>
+<th>AVEVA 端</th>
+<th>外部端</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 檔案交換</td>
+<td>PML 寫 CSV／XML 到交換資料夾</td>
+<td>排程程式匯入，處理後搬到 <code>done</code> 或 <code>err</code></td>
+<td>材料表、重量重心表、每日匯出</td>
+</tr>
+<tr>
+<td>B. 中介資料庫</td>
+<td>.NET 寫入中介資料表</td>
+<td>ERP 端讀取狀態為 NEW 的資料，回寫結果</td>
+<td>大量明細、需要狀態回饋</td>
+</tr>
+<tr>
+<td>C. Web API</td>
+<td>.NET 呼叫公司 API</td>
+<td>ERP／PDM 服務即時回應</td>
+<td>建模時驗證料號、查詢庫存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1672">16.7.2 資料契約：比技術更重要</h3>
+<p>整合失敗的主因通常不是程式，而是雙方對資料的定義不同。開工前先寫好資料契約：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>要回答的問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鍵值對應</td>
+<td>AVEVA 的哪個屬性對應 ERP 料號？是目錄元件、等級、UDA，還是名稱規則？（第 8 章）</td>
+</tr>
+<tr>
+<td>粒度</td>
+<td>一列是一個元件、一條管線，還是一個材料彙總？</td>
+</tr>
+<tr>
+<td>單位</td>
+<td>長度 mm 或 m？重量 kg？口徑以 DN 或英寸？</td>
+</tr>
+<tr>
+<td>版本</td>
+<td>同一設計物件被修改後再次匯出，ERP 如何更新而不是重複新增？</td>
+</tr>
+<tr>
+<td>刪除</td>
+<td>設計中刪除的物件，如何通知 ERP？</td>
+</tr>
+<tr>
+<td>批次識別</td>
+<td>每次匯出有批次編號與時間，方便對帳與重送</td>
+</tr>
+<tr>
+<td>錯誤回饋</td>
+<td>ERP 拒收的資料，誰處理、怎麼通知設計者？</td>
+</tr>
+<tr>
+<td>冪等性</td>
+<td>同一批資料送兩次，結果要與送一次相同</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 設計資料在 AVEVA 中會持續變動，而 ERP 通常需要「某一時點、經過審核」的資料。比較好的做法是只匯出<strong>已發行狀態</strong>的資料（依公司的發行屬性或流程判斷），而不是任何時刻的工作中資料。這和第 6 章「生產資料是模型的快照」是同一個觀念。</p>
+</blockquote>
+<h3 id="1673-net">16.7.3 .NET 寫入中介資料表</h3>
+<pre><code class="language-csharp">// 示意：.NET 3.5 寫入中介資料表；連線字串由設定檔讀取，使用 Windows 驗證
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+public static class StagingWriter
+{
+    public static void WriteBatch(string connStr, string batchId, DataTable rows)
+    {
+        using (SqlConnection cn = new SqlConnection(connStr))
+        {
+            cn.Open();
+            using (SqlTransaction tx = cn.BeginTransaction())
+            {
+                foreach (DataRow r in rows.Rows)
+                {
+                    using (SqlCommand cmd = new SqlCommand(
+                        &quot;INSERT INTO aveva_mto_staging (batch_id, item_code, qty, unit, status) &quot; +
+                        &quot;VALUES (@b, @c, @q, @u, 'NEW')&quot;, cn, tx))
+                    {
+                        cmd.Parameters.AddWithValue(&quot;@b&quot;, batchId);
+                        cmd.Parameters.AddWithValue(&quot;@c&quot;, r[&quot;item_code&quot;]);
+                        cmd.Parameters.AddWithValue(&quot;@q&quot;, r[&quot;qty&quot;]);
+                        cmd.Parameters.AddWithValue(&quot;@u&quot;, r[&quot;unit&quot;]);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                tx.Commit();   // 整批成功才提交，失敗時自動回滾
+            }
+        }
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>參數化查詢</td>
+<td>避免 SQL 注入與引號問題</td>
+</tr>
+<tr>
+<td>整批一個交易</td>
+<td>ERP 端不會讀到一半的批次</td>
+</tr>
+<tr>
+<td>狀態欄 <code>NEW</code></td>
+<td>ERP 端處理後改成 <code>DONE</code> 或 <code>ERR</code>，可追蹤與重送</td>
+</tr>
+<tr>
+<td>連線字串不寫在程式中</td>
+<td>DLL 可被反編譯（第 14 章）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1674-web-api">16.7.4 Web API 的注意事項</h3>
+<ul>
+<li>.NET 3.5 預設不支援較新的 TLS 版本，呼叫只接受 TLS 1.2 的 API 可能失敗，需要 Windows 更新與程式設定配合〔待核對：公司環境的 .NET 3.5 修補狀態〕。必要時改由公司內部的中介服務轉呼叫。</li>
+<li>呼叫要設定逾時，並在背景執行，不要卡住 AVEVA 的畫面（第 14 章的執行緒提醒）。</li>
+<li>API 無法連線時，工具要能降級：記錄待送資料、提示使用者，而不是讓設計作業停擺。</li>
+</ul>
+<h2 id="168">16.8 排程與批次執行</h2>
+<h3 id="1681">16.8.1 四種執行方式</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>說明</th>
+<th>適合</th>
+<th>待確認</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用者觸發的批次</td>
+<td>表單按鈕啟動，在使用者的工作階段執行，顯示進度</td>
+<td>數十到數百個物件的處理</td>
+<td>無</td>
+</tr>
+<tr>
+<td>命令列模式啟動模組</td>
+<td>以批次檔啟動模組（不開圖形介面或最小化），登入後執行巨集，結束後離開</td>
+<td>夜間報表</td>
+<td>啟動參數、登入方式〔待核對〕</td>
+</tr>
+<tr>
+<td>.NET 獨立程式</td>
+<td>依官方 <code>Samples\ImportDXF</code> 的結構，以 <code>PdmsStandalone</code> 開啟專案與 MDB 後操作</td>
+<td>資料轉檔、整合</td>
+<td>授權與環境〔待核對〕</td>
+</tr>
+<tr>
+<td>Windows 工作排程器</td>
+<td>定時呼叫上兩者</td>
+<td>每日匯出</td>
+<td>執行帳號與網路磁碟權限</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1682">16.8.2 使用者觸發的批次：進度與中斷</h3>
+<pre><code class="language-pml">-- 示意：依開源知識庫整理的 FMSYS 進度寫法〔待核對〕
+-- !!fmstop 是一張只有「停止」按鈕的小表單，需另外定義
+!!FMSYS.setInterrupt(!!fmstop.stopButton)
+do !i index !items
+  -- 處理 !items[!i]
+  !!FMSYS.setProgress(!i * 100 / !items.size())
+  if (!!FMSYS.interrupt()) then
+    break
+  endif
+enddo
+!!FMSYS.setProgress(0)
+</code></pre>
+<h3 id="1683">16.8.3 夜間批次的設計原則</h3>
+<pre><code class="language-bat">@echo off
+rem 示意：每日匯出排程的外殼。AVEVA 端的啟動與登入方式請依公司版本設定〔待核對〕
+setlocal
+set STAMP=%DATE:~0,4%%DATE:~5,2%%DATE:~8,2%
+set LOG=\\toolsrv\aveva_jobs\logs\daily_mto_%STAMP%.log
+set OUT=\\toolsrv\aveva_jobs\out
+
+echo [%TIME%] start &gt;&gt; &quot;%LOG%&quot;
+rem 1. 以公司批次帳號、唯讀 MDB 啟動模組並執行匯出巨集（此行依公司環境填寫）
+rem call &lt;公司啟動批次檔&gt; &lt;模組&gt; &lt;登入參數&gt; &lt;執行巨集&gt;
+if errorlevel 1 (
+  echo [%TIME%] AVEVA job failed &gt;&gt; &quot;%LOG%&quot;
+  exit /b 1
+)
+rem 2. 確認輸出檔存在且非空，再交給 ERP 匯入程式
+for %%F in (&quot;%OUT%\mto_%STAMP%.csv&quot;) do if %%~zF GTR 0 (
+  echo [%TIME%] output ok %%~zF bytes &gt;&gt; &quot;%LOG%&quot;
+) else (
+  echo [%TIME%] output missing or empty &gt;&gt; &quot;%LOG%&quot;
+  exit /b 2
+)
+echo [%TIME%] done &gt;&gt; &quot;%LOG%&quot;
+endlocal
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用專用批次帳號與<strong>唯讀</strong> MDB</td>
+<td>報表不需要寫入；避免與設計者的 Claim 衝突</td>
+</tr>
+<tr>
+<td>排在無人作業的時段，並考慮 Global 同步時間</td>
+<td>讀到的是一致的資料</td>
+</tr>
+<tr>
+<td>每一步寫記錄、檢查結果</td>
+<td>夜間失敗要在早上被發現，而不是等使用者抱怨</td>
+</tr>
+<tr>
+<td>輸出先寫暫存檔再改名</td>
+<td>下游程式不會讀到寫到一半的檔案</td>
+</tr>
+<tr>
+<td>確認授權數</td>
+<td>批次啟動模組會占用授權，可能影響白天的使用者〔待核對：公司授權方式〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 開源知識庫提到 PML 的 <code>PMLUSERLOGIN</code> 物件可產生加密的自動登入巨集，以及 .NET 的 <code>PdmsStandalone.Open(專案, 帳號, 密碼, MDB)</code> 可開啟專案〔待核對〕。無論哪一種，都不要把明文密碼寫在批次檔或程式中，請與系統管理員討論帳號管理方式。</p>
+</blockquote>
+<h2 id="169">16.9 開發人員須知</h2>
+<ul>
+<li><strong>輸出是契約。</strong> 報表欄位一旦被下游使用，就不能任意改名、改順序或改單位。需要調整時增加版本號或新欄位。</li>
+<li><strong>大量資料先收集再寫。</strong> 先用 <code>COLLECTION</code> 收集、組好陣列，再一次 <code>writeFile</code>；不要在迴圈中反覆開關檔案。</li>
+<li><strong>缺值不是 0。</strong> 屬性未設定時輸出空白，並在報表說明中定義。</li>
+<li><strong>中文測試要常態化。</strong> 每個會輸出文字的工具，測試資料都要包含中文與特殊符號。</li>
+<li><strong>整合先唯讀。</strong> 先從 AVEVA 單向匯出開始；要把外部資料寫回 AVEVA，屬於第 18 章優先順序中的高風險工具。</li>
+<li><strong>路徑與帳號都來自設定。</strong> 共用目錄、資料庫連線、API 位址，放在受控的設定檔，部署時依環境（測試、試用、正式）切換。</li>
+</ul>
+<h2 id="1610">16.10 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>逐行讀檔。</strong> 寫一個函式，讀取一個含空白行的文字檔，統計總行數與空白行數。確認你能區分「空白行」與「檔尾」。</li>
+<li><strong>CSV 跳脫。</strong> 在訓練專案中建立描述含逗號與雙引號的設備，用 16.5.2 的函式輸出，再用 Excel 開啟確認欄位沒有錯位。</li>
+<li><strong>編碼驗證。</strong> 依 16.4.3 的步驟完成一次編碼驗證，記下你電腦上 <code>CADC_LANG</code> 與 <code>CADC_LANG_NEW</code> 的值（用 <code>q evar CADC_LANG</code>）。</li>
+<li><strong>資料驅動。</strong> 依 16.6.2 讀取尺寸表，故意在一列放入非數字與負數，確認錯誤清單正確且整批不建模。</li>
+<li><strong>整合設計。</strong> 針對你們公司的一個 ERP 交換需求，填完 16.7.2 的資料契約表，並選擇 A、B、C 其中一種架構，寫出理由。</li>
+</ol>
+<h2 id="1611">16.11 自我檢核</h2>
+<ul>
+<li>[ ] 我知道 <code>WRITE</code> 與 <code>OVERWRITE</code> 的差別，以及批次工具為什麼不能用會跳對話框的模式。</li>
+<li>[ ] 我能用 <code>readRecord()</code> 與 <code>.unset()</code> 正確判斷檔尾，並說出 <code>readFile()</code> 的行數上限。</li>
+<li>[ ] 我能列出 (160,9)、(160,44)、(160,47)、(41,319) 的意義。</li>
+<li>[ ] 我能解釋中文亂碼的原因，並說明 BOM、<code>CADC_LANG</code> 與 Excel 開啟 CSV 的關係。</li>
+<li>[ ] 我能寫出正確跳脫逗號與雙引號的 CSV 輸出。</li>
+<li>[ ] 我能設計「讀檔、驗證、預覽、確認、建模、記錄」的資料驅動流程。</li>
+<li>[ ] 我能比較檔案交換、中介資料庫、Web API 的優缺點，並寫出資料契約。</li>
+<li>[ ] 我知道夜間批次需要唯讀 MDB、記錄、結果檢查與授權確認。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 <em>PML Customisation User Guide</em>（官方，PML 語法與 Marine 12.1 同系譜）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG12.12.4.html">檔案讀取</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG12.12.7.html">FILE 物件錯誤處理與錯誤碼</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG12.12.1.html">檔案處理章節</a></li>
+<li>AVEVA E3D 2.1 <em>Software Customisation Reference Manual</em>：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.37.html">FILE 物件</a></li>
+<li>開源知識庫 <a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT）：《AVEVA-Marine-PML開發技能》（編碼規則、FMSYS 進度）、《Marine-PML對象API字典精要》（FILE 方法）、《Marine-PML錯誤碼速查》、《AVEVA-Marine-NET-API用法Cookbook》（<code>ImportDXF</code> 獨立程式結構、<code>NetGridExample</code>）。</li>
+<li>範例：<a href="examples/starter-kit-mycollect/"><code>examples/starter-kit-mycollect/</code></a>（MIT，同上）。</li>
+<li>案例：eryar，<a href="https://blog.csdn.net/eryar/article/details/4457072">AVEVA MARINE 中用 PML 寫管支架程序（二）</a>（資料檔驅動建模）。</li>
+<li>CSV 格式：<a href="https://www.rfc-editor.org/rfc/rfc4180">RFC 4180</a>。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch15_hull_vitesse_zh-TW.reading.html"><small>← 上一篇</small>第 15 章　船體開發：Vitesse Python 與資料抽取</a><a class="next" href="ch17_debug_deploy_zh-TW.reading.html"><small>下一篇 →</small>第 17 章　除錯、測試、部署與版本管理</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

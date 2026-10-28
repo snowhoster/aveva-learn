@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">PML FILE 物件的生命週期與編碼判斷</text>
+
+  <!-- lifecycle row -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="52" width="190" height="78" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="32" y="74" font-weight="bold">1. 建立物件</text>
+    <text x="32" y="96" font-size="12">!f = object FILE(!path)</text>
+    <text x="32" y="116" font-size="12">只建立，尚未開檔</text>
+
+    <rect x="236" y="52" width="200" height="78" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="248" y="74" font-weight="bold">2. 開檔</text>
+    <text x="248" y="96" font-size="12">!f.open('READ')</text>
+    <text x="248" y="116" font-size="12">WRITE／OVERWRITE／APPEND</text>
+
+    <rect x="462" y="52" width="210" height="78" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="474" y="74" font-weight="bold">3. 讀寫</text>
+    <text x="474" y="96" font-size="12">逐行：readRecord()／writeRecord()</text>
+    <text x="474" y="116" font-size="12">整檔：readFile()／writeFile()</text>
+
+    <rect x="698" y="52" width="182" height="78" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="710" y="74" font-weight="bold">4. 關檔</text>
+    <text x="710" y="96" font-size="12">!f.close()</text>
+    <text x="710" y="116" font-size="12">錯誤處理分支也要關</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="210" y1="91" x2="232" y2="91"/>
+    <line x1="436" y1="91" x2="458" y2="91"/>
+    <line x1="672" y1="91" x2="694" y2="91"/>
+  </g>
+
+  <!-- error codes -->
+  <rect x="20" y="146" width="860" height="104" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+  <text x="34" y="168" font-size="14" font-weight="bold" fill="#1f2937">常見錯誤碼（open 之後緊接著 handle）</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="34" y="192">(160,9) 檔案不存在</text>
+    <text x="300" y="192">(160,36) 未開檔就讀取</text>
+    <text x="580" y="192">(160,37) 未開檔就寫入</text>
+    <text x="34" y="216">(160,44) 檔案已存在，使用者不同意覆寫</text>
+    <text x="410" y="216">(160,47) 超過 readFile 的行數上限</text>
+    <text x="34" y="240">(41,319) 權限不足，無法存取檔案</text>
+    <text x="410" y="240">readRecord() 到檔尾時回傳 UNSET 字串</text>
+  </g>
+
+  <!-- encoding decision -->
+  <text x="20" y="284" font-size="16" font-weight="bold" fill="#1f2937">讀取外部文字檔時的編碼判斷（Marine 12.1 規則，〔待核對〕）</text>
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="300" width="200" height="56" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+    <text x="120" y="324" text-anchor="middle" font-weight="bold">要讀的檔案</text>
+    <text x="120" y="344" text-anchor="middle" font-size="12">有沒有 BOM？</text>
+
+    <rect x="290" y="300" width="270" height="56" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="302" y="324" font-weight="bold">有 BOM</text>
+    <text x="302" y="344" font-size="12">依 BOM 判斷 UTF-8／UTF-16／UTF-32</text>
+
+    <rect x="290" y="376" width="270" height="56" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="302" y="400" font-weight="bold">沒有 BOM</text>
+    <text x="302" y="420" font-size="12">依 CADC_LANG（未設定時為 LATIN1）</text>
+
+    <rect x="610" y="376" width="270" height="56" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="622" y="400" font-weight="bold">中文變亂碼的典型原因</text>
+    <text x="622" y="420" font-size="12">Big5／UTF-8 無 BOM 被當成 LATIN1</text>
+
+    <rect x="610" y="300" width="270" height="56" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="622" y="324" font-weight="bold">寫出新檔</text>
+    <text x="622" y="344" font-size="12">依 CADC_LANG_NEW（預設 UTF-8＋BOM）</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="220" y1="320" x2="286" y2="320"/>
+    <line x1="220" y1="340" x2="286" y2="396"/>
+    <line x1="560" y1="404" x2="606" y2="404"/>
+  </g>
+  <text x="250" y="312" font-size="12" fill="#047857">是</text>
+  <text x="240" y="384" font-size="12" fill="#b45309">否</text>
+
+  <rect x="20" y="452" width="860" height="94" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="34" y="474" font-size="14" font-weight="bold" fill="#1f2937">實務約定</text>
+  <text x="34" y="496" font-size="13" fill="#1f2937">• PML 原始碼本身存成 UTF-8（含 BOM）；不要在原始碼使用 ° 等 8 位元單位元組字元</text>
+  <text x="34" y="517" font-size="13" fill="#1f2937">• 交換檔一律約定「UTF-8＋BOM」，Excel 開 CSV 才不會亂碼；對方系統若只吃 Big5，在交換程式端轉碼</text>
+  <text x="34" y="538" font-size="13" fill="#1f2937">• 每次改編碼設定都用含中文名稱的測試檔驗證：寫出 → 用記事本與 Excel 開啟 → 再由 PML 讀回比對</text>
+</svg>

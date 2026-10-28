@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="640" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">CAF 外掛架構：宿主、Add-in 與服務</text>
+
+  <!-- host frame -->
+  <rect x="20" y="48" width="860" height="440" rx="8" fill="#f8fafc" stroke="#64748b" stroke-dasharray="6 4"/>
+  <text x="36" y="72" font-size="14" font-weight="bold" fill="#334155">宿主程序：marodes.exe（Outfitting 模組，x86 處理程序）</text>
+
+  <!-- left: load sequence -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="36" y="88" width="250" height="62" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="48" y="110" font-weight="bold">1. 讀取 Add-in 清單</text>
+    <text x="48" y="130">OutfittingAddins.xml</text>
+    <text x="48" y="145" font-size="12">安裝目錄或 CAF_ADDINS_PATH</text>
+
+    <rect x="36" y="172" width="250" height="62" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="48" y="194" font-weight="bold">2. 載入組件</text>
+    <text x="48" y="214">MyBrowserAddin.dll</text>
+    <text x="48" y="229" font-size="12">x86、.NET Framework 3.5</text>
+
+    <rect x="36" y="256" width="250" height="62" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="48" y="278" font-weight="bold">3. 建立 IAddin 實例</text>
+    <text x="48" y="298">呼叫 Start(ServiceManager)</text>
+    <text x="48" y="313" font-size="12">例外會被框架靜默吞掉</text>
+
+    <rect x="36" y="340" width="250" height="52" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="48" y="362" font-weight="bold">4. 模組關閉</text>
+    <text x="48" y="382">呼叫 Stop()</text>
+  </g>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#arr)">
+    <line x1="160" y1="150" x2="160" y2="168"/>
+    <line x1="160" y1="234" x2="160" y2="252"/>
+    <line x1="160" y1="318" x2="160" y2="336"/>
+  </g>
+
+  <!-- middle: service manager -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="320" y="88" width="270" height="52" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="455" y="110" text-anchor="middle" font-weight="bold">ServiceManager</text>
+    <text x="455" y="129" text-anchor="middle" font-size="12">GetService(typeof(XxxManager))</text>
+
+    <rect x="320" y="160" width="270" height="48" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="332" y="180" font-weight="bold">WindowManager</text>
+    <text x="332" y="198" font-size="12">CreateDockedWindow：停靠視窗</text>
+
+    <rect x="320" y="218" width="270" height="48" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="332" y="238" font-weight="bold">CommandManager</text>
+    <text x="332" y="256" font-size="12">Commands.Add：註冊命令</text>
+
+    <rect x="320" y="276" width="270" height="48" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="332" y="296" font-weight="bold">CommandBarManager</text>
+    <text x="332" y="314" font-size="12">AddUICustomizationFile：掛 UIC</text>
+
+    <rect x="320" y="334" width="270" height="48" rx="6" fill="#ffffff" stroke="#b45309"/>
+    <text x="332" y="354" font-weight="bold">ResourceManager</text>
+    <text x="332" y="372" font-size="12">LoadResourceFile：圖示資源</text>
+  </g>
+  <line x1="286" y1="287" x2="316" y2="120" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="455" y1="140" x2="455" y2="156" stroke="#b45309" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- right: static entries -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="620" y="88" width="244" height="52" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="742" y="110" text-anchor="middle" font-weight="bold">靜態入口（不經 ServiceManager）</text>
+    <text x="742" y="129" text-anchor="middle" font-size="12">Aveva.Pdms.Shared／Database</text>
+
+    <rect x="620" y="160" width="244" height="64" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="632" y="180" font-weight="bold">CurrentElement</text>
+    <text x="632" y="198" font-size="12">.Element：目前元素（CE）</text>
+    <text x="632" y="215" font-size="12">CurrentElementChanged 事件</text>
+
+    <rect x="620" y="234" width="244" height="64" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="632" y="254" font-weight="bold">DbElement／DbAttribute</text>
+    <text x="632" y="272" font-size="12">GetAttributes()、GetAsString()</text>
+    <text x="632" y="289" font-size="12">DbAttributeInstance.FLNM 等常數</text>
+
+    <rect x="620" y="308" width="244" height="74" rx="6" fill="#ffffff" stroke="#047857"/>
+    <text x="632" y="328" font-weight="bold">其他資料庫服務</text>
+    <text x="632" y="346" font-size="12">MDB、Project、DatabaseService</text>
+    <text x="632" y="363" font-size="12">UndoTransaction、Spatial</text>
+    <text x="632" y="378" font-size="12">（見官方 Samples）</text>
+  </g>
+
+  <!-- developer analogy -->
+  <rect x="36" y="410" width="828" height="64" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="50" y="434" font-size="13" fill="#1f2937"><tspan font-weight="bold">開發人員對照：</tspan>Addins.xml ＝ 外掛清單；IAddin ＝ 外掛進入點介面；ServiceManager ＝ 服務定位器</text>
+  <text x="50" y="458" font-size="13" fill="#1f2937">（Service Locator）；Command ＝ 命令模式；CurrentElementChanged ＝ 觀察者模式的事件訂閱。</text>
+
+  <!-- bottom: UIC binding -->
+  <text x="36" y="516" font-size="15" font-weight="bold" fill="#1f2937">介面綁定：UIC 檔的 CommandId 必須與 Command.Key 逐字相同</text>
+  <g font-size="12" fill="#1f2937">
+    <rect x="36" y="530" width="390" height="92" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="48" y="550" font-weight="bold" font-size="13">MyBrowser.uic（XML）</text>
+    <text x="48" y="570">&lt;StateButtonTool Name="MyCompany.MyBrowser.Show"&gt;</text>
+    <text x="60" y="588">&lt;CommandId&gt;MyCompany.MyBrowser.Show&lt;/CommandId&gt;</text>
+    <text x="48" y="606">&lt;CommandBar Name="MyBrowser"&gt; 工具列</text>
+
+    <rect x="474" y="530" width="390" height="92" rx="6" fill="#fef3c7" stroke="#b45309"/>
+    <text x="486" y="550" font-weight="bold" font-size="13">ShowBrowserCommand.cs（C#）</text>
+    <text x="486" y="570">class ShowBrowserCommand : Command</text>
+    <text x="498" y="588">Key = "MyCompany.MyBrowser.Show";</text>
+    <text x="498" y="606">Execute()：依 Checked 顯示或隱藏視窗</text>
+  </g>
+  <line x1="430" y1="584" x2="470" y2="584" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="450" y="574" font-size="12" text-anchor="middle" fill="#dc2626">相同</text>
+</svg>

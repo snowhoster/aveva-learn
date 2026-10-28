@@ -1,0 +1,851 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 5 章　船體建模：曲面、板架與拓撲 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#5">第 5 章 船體建模：曲面、板架與拓撲</a><ul>
+<li><a href="#51">5.1 學習目標</a></li>
+<li><a href="#52">5.2 船體資料鏈：從曲面到生產</a><ul>
+<li><a href="#521">5.2.1 實際系統畫面</a></li>
+</ul>
+</li>
+<li><a href="#53">5.3 船體資料在哪裡：資料模型概觀</a><ul>
+<li><a href="#531">5.3.1 兩種儲存方式並存</a></li>
+<li><a href="#532">5.3.2 船體元素階層</a></li>
+</ul>
+</li>
+<li><a href="#54">5.4 平面板架的解剖</a><ul>
+<li><a href="#541">5.4.1 組成總表</a></li>
+<li><a href="#542-mould-plane">5.4.2 型面（Mould Plane）</a></li>
+<li><a href="#543-boundary">5.4.3 邊界（Boundary）</a></li>
+<li><a href="#544-seamplate">5.4.4 接縫（Seam）與板（Plate）</a></li>
+<li><a href="#545-stiffener">5.4.5 加強材（Stiffener）</a></li>
+<li><a href="#546">5.4.6 缺口、切口與開孔：三種「去除材料」</a></li>
+<li><a href="#547-bracket">5.4.7 肘板（Bracket）</a></li>
+</ul>
+</li>
+<li><a href="#55">5.5 設計板架與生產板架</a></li>
+<li><a href="#56">5.6 拓撲參考與相依鏈</a><ul>
+<li><a href="#561">5.6.1 參考而不是數值</a></li>
+<li><a href="#562">5.6.2 相依圖</a></li>
+<li><a href="#563">5.6.3 專業團隊的做法</a></li>
+</ul>
+</li>
+<li><a href="#57-curved-hull">5.7 曲面船體（Curved Hull）</a><ul>
+<li><a href="#571">5.7.1 工作內容</a></li>
+<li><a href="#572-seambutt">5.7.2 接縫（Seam）與對接縫（Butt）</a></li>
+<li><a href="#573-shell-profile">5.7.3 外板縱骨（Shell Profile）</a></li>
+<li><a href="#574">5.7.4 展開與樣板</a></li>
+</ul>
+</li>
+<li><a href="#58">5.8 變更影響評估與重建</a><ul>
+<li><a href="#581">5.8.1 修改前的影響評估清單</a></li>
+<li><a href="#582">5.8.2 重建的順序</a></li>
+</ul>
+</li>
+<li><a href="#59-scheme">5.9 船體 Scheme：文字化的建模描述</a></li>
+<li><a href="#510">5.10 程式範例：唯讀查詢船體資料</a><ul>
+<li><a href="#5101-pml">5.10.1 PML：統計某分段下每個平面板架的直接成員</a></li>
+<li><a href="#5102-vitesse">5.10.2 Vitesse：以資料抽取語言讀取板厚</a></li>
+</ul>
+</li>
+<li><a href="#511">5.11 開發人員須知</a><ul>
+<li><a href="#5111">5.11.1 適合用程式讀取的船體資料</a></li>
+<li><a href="#5112">5.11.2 不應自動化的修改</a></li>
+</ul>
+</li>
+<li><a href="#512">5.12 練習（只能在訓練專案）</a><ul>
+<li><a href="#5-1">練習 5-1：讀懂一個既有板架</a></li>
+<li><a href="#5-2">練習 5-2：畫出相依圖</a></li>
+<li><a href="#5-3">練習 5-3：唯讀統計</a></li>
+</ul>
+</li>
+<li><a href="#513">5.13 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船舶設計業務領域 · 6 / 21</span><h1 id="5">第 5 章　船體建模：曲面、板架與拓撲</h1>
+<blockquote>
+<p>本章是第二部分「船舶設計業務領域」的第一章，說明船體結構在 AVEVA Marine 中如何建模，以及為什麼「改一處會牽動很多處」。讀完本章，你應該能看懂一個平面板架由哪些資料組成、這些資料彼此如何參照，並判斷哪些船體資料適合用程式讀取、哪些修改不應該自動化。</p>
+<p>內容依據 AVEVA 官方線上文件（Hull and Outfitting 12.1）、AVEVA E3D 2.1 Data Model Reference（船體元素定義）、AVEVA 官方產品型錄、開放取用的學術論文，以及 Tribon／AVEVA Marine 船體設計的通用工程實務自主撰寫，不是官方手冊的翻譯。E3D 2.1 的資料模型與 Marine 12.x 相近但不保證完全相同。標示 <strong>〔待核對〕</strong> 的項目，請以公司版本與管理員設定為準。所有建模練習只能在訓練專案進行。</p>
+</blockquote>
+<h2 id="51">5.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說出船體資料從初始設計、結構設計、詳細設計到生產的流動順序，以及每一層產生什麼資料。</li>
+<li>畫出一個平面板架（Planar Panel）的組成樹，並說明型面、邊界、接縫、板、加強材、折邊、肘板、缺口、切口、開孔各自的工程意義。</li>
+<li>分辨設計板架與生產板架。</li>
+<li>用「相依圖」的觀念解釋拓撲參考，並能列出一次上游修改的影響範圍。</li>
+<li>說明曲面船體的接縫、對接縫、外板縱骨與外板展開。</li>
+<li>知道船體 Scheme 是什麼，以及它對開發人員的價值。</li>
+<li>判斷哪些船體資料適合用程式讀取，哪些修改不應該自動化。</li>
+</ol>
+<h2 id="52">5.2 船體資料鏈：從曲面到生產</h2>
+<p>AVEVA Marine 的船體功能源自 Tribon M3。船體資料並不是一次畫完，而是沿著設計階段逐層細化。每一層都以上一層的結果為「參考」，這也是本章後面所說拓撲相依的起點。</p>
+<table>
+<thead>
+<tr>
+<th>層次</th>
+<th>主要內容</th>
+<th>交給下游什麼</th>
+<th>開發人員的類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始設計（Initial Design）</td>
+<td>船殼曲面（Surface）、型線、參考面物件、肋位與縱向定位系統</td>
+<td>曲面幾何、座標參考系統</td>
+<td>基礎資料與座標系統的「常數表」</td>
+</tr>
+<tr>
+<td>結構設計（Hull Structural Design）</td>
+<td>主要構件的概念佈置，用於強度評估、重量估算、基本設計</td>
+<td>主要構件的位置與尺寸</td>
+<td>粗粒度的資料模型草稿</td>
+</tr>
+<tr>
+<td>曲面船體（Curved Hull）</td>
+<td>外板接縫與對接縫、船殼曲線、外板縱骨、外板與曲面板架</td>
+<td>外板厚度、材料方向、縱骨位置</td>
+<td>被大量引用的上游模組</td>
+</tr>
+<tr>
+<td>平面船體（Planar Hull）</td>
+<td>甲板、艙壁、縱桁、肋板等平面板架與其附屬構件</td>
+<td>零件幾何、焊接與裝配資訊</td>
+<td>細粒度的業務物件</td>
+</tr>
+<tr>
+<td>生產資訊（Production）</td>
+<td>零件抽出、套料、型材草圖、樣板、NC 資料</td>
+<td>切割、彎曲、裝配用資料</td>
+<td>由模型衍生的物化資料</td>
+</tr>
+<tr>
+<td>裝配與焊接規劃</td>
+<td>分段、組立樹、焊接資訊</td>
+<td>生產排程與工時</td>
+<td>另一種角度的分組與彙總</td>
+</tr>
+</tbody>
+</table>
+<p>生產資訊與裝配規劃在<a href="ch06_hull_production_zh-TW.reading.html">第 6 章</a>說明，本章聚焦前四層。</p>
+<p>官方文件特別指出兩個依賴關係，值得先記住：</p>
+<ol>
+<li>曲面船體產生的<strong>接縫與外板縱骨</strong>，會被內部結構的平面建模引用。</li>
+<li>外板的<strong>厚度與材料方向</strong>，會影響貼合在外板上的內部構件幾何。</li>
+</ol>
+<p>所以外板一旦變更，連接在外板上的平面板架都可能要重建。這是船體設計的變更管理比舾裝更嚴格的根本原因。</p>
+<h3 id="521">5.2.1 實際系統畫面</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Structural Design 介面：左側為模型樹，右側 3D 視圖顯示全船艙區與一個選取中的分段</div></p>
+<p><em>圖 5-1　Hull Structural Design 的畫面。左側模型樹列出結構物件，右側 3D 視圖顯示全船艙區劃分，用於初步定義主要構件、估算重量與材料。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：結構設計與詳細設計共用同一個模型資料庫，設計視角與生產視角並存</div></p>
+<p><em>圖 5-2　結構設計（Design view）與詳細設計（Production view）共用同一個模型。官方說明，基本設計可依自訂的分段接縫，劃分成詳細設計用的分段與板架。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：分段劃分：全船甲板結構沿分段接縫切分成三個分段</div></p>
+<p><em>圖 5-3　分段劃分（Block Division）。上方為整體結構，下方為依分段接縫切出的分段，之後在 Hull Detailed Design 中繼續細化。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 分段（Block）是造船廠的「建造單位」，不是單純的資料夾。分段的劃分會影響板架怎麼切、零件怎麼編號、組立順序怎麼排。開發報表時，分段幾乎永遠是第一層的分組鍵。</p>
+</blockquote>
+<h2 id="53">5.3 船體資料在哪裡：資料模型概觀</h2>
+<h3 id="531">5.3.1 兩種儲存方式並存</h3>
+<p>第 1、2 章提過，船體資料承襲 Tribon，存放在 <strong>Databank</strong>；舾裝資料承襲 PDMS，存放在 <strong>Dabacon</strong> 資料庫。AVEVA Marine 12.x 為了讓船體與舾裝共用一個 3D 環境，船體模型在設計資料庫中也有對應的元素，這些元素帶有 <code>TBID</code>（Tribon ID）屬性，用來對應 Databank 中的物件。〔待核對〕哪一方是「主資料」、兩者何時同步，依版本與專案設定而異，請向系統管理員確認。</p>
+<p>對開發人員而言，實務上的結論是：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>常見做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在 3D 環境中瀏覽、收集船體元素、讀名稱與階層</td>
+<td>PML 或 .NET，以 <code>HPANEL</code> 等元素型別操作（第 12、14 章）</td>
+</tr>
+<tr>
+<td>讀取板厚、材質、型材規格、零件資訊等船體專屬資料</td>
+<td>Vitesse（Python）的資料抽取介面（<a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a>）</td>
+</tr>
+<tr>
+<td>修改船體模型</td>
+<td>透過船體建模功能或 Scheme，不建議直接寫入資料庫</td>
+</tr>
+</tbody>
+</table>
+<h3 id="532">5.3.2 船體元素階層</h3>
+<p>依 AVEVA E3D 2.1 Data Model Reference，船體元素的階層如下：</p>
+<ul>
+<li><code>WORLD</code> 之下有 <code>HBLWLD</code>（Hull Block World，船體分段世界）。</li>
+<li><code>HBLWLD</code> 之下是 <code>BLOCK</code>（分段）。<code>BLOCK</code> 的合法擁有者為 <code>HBLWLD</code> 或 <code>WORLD</code>。</li>
+<li><code>BLOCK</code> 的合法成員為 <code>HPANEL</code>（平面板架）與 <code>CPANEL</code>（曲面板架）。</li>
+<li><code>HPANEL</code> 的合法成員包括邊界、接縫、板、加強材、折邊、肘板、缺口、切口、開孔、壓筋、複板、柱、輔助曲線與點、子板架等。</li>
+</ul>
+<p><img alt="平面板架的資料樹：WORLD、HBLWLD、BLOCK、HPANEL 與成員元素" src="images/diagrams/ch05_panel_tree.svg" /></p>
+<p><em>圖 5-4　平面板架的資料樹。左側是從 WORLD 到 HPANEL 的階層，右側是 HPANEL 的合法成員。（本課程自繪，依據 AVEVA E3D 2.1 Data Model Reference）</em></p>
+<p>幾個值得注意的屬性（依 DMRM 的元素說明）：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>出現在</th>
+<th>意義</th>
+<th>開發時的用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TBID</code></td>
+<td>板架與其成員</td>
+<td>Tribon ID，對應 Databank 中的物件</td>
+<td>在兩種資料來源之間建立對照鍵</td>
+</tr>
+<tr>
+<td><code>IsChgd</code></td>
+<td>例如 <code>HSTIFF</code>、<code>HBRCKT</code></td>
+<td>船體模型被修改時為真</td>
+<td>判斷是否需要重新抽出生產資訊</td>
+</tr>
+<tr>
+<td><code>Modsta</code></td>
+<td>例如 <code>HSTIFF</code>、<code>HBRCKT</code></td>
+<td>模型建立狀態（列舉值）</td>
+<td>篩選建立完成或尚未完成的構件</td>
+</tr>
+<tr>
+<td><code>CHNGD</code></td>
+<td>例如 <code>HBEAD</code>、<code>HBRCKT</code></td>
+<td>修改計數器</td>
+<td>追蹤修改次數</td>
+</tr>
+<tr>
+<td><code>Spref</code></td>
+<td>例如 <code>HSTIFF</code></td>
+<td>元件等級參照</td>
+<td>連到型材規格（等級與目錄見<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a>）</td>
+</tr>
+<tr>
+<td><code>Desparam</code></td>
+<td>例如 <code>HSTIFF</code></td>
+<td>設計參數</td>
+<td>讀取設計端的參數值</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕各元素實際帶有哪些屬性，請在公司版本中以 <code>Q ATT</code> 逐一查詢，不要只依本表撰寫程式。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> <code>HSTIFF</code> 底下還有 <code>HPRCUT</code>、<code>HPREND</code>、<code>HPRHOL</code>、<code>HPRNOT</code>（加強材的切口、端部、開孔、缺口），<code>HBRCKT</code> 底下還有 <code>HBRABO</code>、<code>HBRFLA</code>、<code>HBRSTI</code>（肘板的邊界、折邊、加強材）。也就是說，「一個板架有多少開孔」這類統計不能只看 <code>HPANEL</code> 的直接成員，必須遞迴走訪，或用收集（Collection）一次收集整個範圍內的某型別元素。</p>
+</blockquote>
+<h2 id="54">5.4 平面板架的解剖</h2>
+<p>平面板架是平面船體建模的基本單位。官方資料模型將它描述為平面船體 3D 建模的基本元素，同時也是在其中建立接縫、板、加強材、肘板等構件的<strong>建模環境</strong>。板架的大小差異很大，小到只有一塊肘板狀的板，大到含數百個零件的整層甲板。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Detailed Design 介面：左側模型樹，右側為船艏區域的板架、肋板與外板縱骨</div></p>
+<p><em>圖 5-5　Hull Detailed Design 的畫面。右側為船艏區域的內部結構：肋板、開孔與外板縱骨（黃色），是平面板架與曲面外板交會的典型區域。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="541">5.4.1 組成總表</h3>
+<table>
+<thead>
+<tr>
+<th>組成</th>
+<th>元素型別</th>
+<th>工程意義</th>
+<th>常見錯誤</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>型面 Mould Plane</td>
+<td>板架本身的屬性</td>
+<td>板架所在的平面，也是局部 UV 座標系</td>
+<td>型面側選錯，板厚長錯方向</td>
+</tr>
+<tr>
+<td>邊界 Boundary</td>
+<td><code>HPANBO</code></td>
+<td>構成封閉輪廓的邊</td>
+<td>順序錯誤、未封閉、參考錯物件</td>
+</tr>
+<tr>
+<td>接縫 Seam</td>
+<td><code>HSEAM</code></td>
+<td>把板架切成多塊板</td>
+<td>位置不配合鋼板規格或分段</td>
+</tr>
+<tr>
+<td>板 Plate</td>
+<td><code>HPLATE</code></td>
+<td>每一塊板的厚度、型面側、材質</td>
+<td>缺少板定義，零件無法抽出</td>
+</tr>
+<tr>
+<td>加強材 Stiffener</td>
+<td><code>HSTIFF</code></td>
+<td>型材型號、方向、端部處理</td>
+<td>腹板方向、端部處理錯誤</td>
+</tr>
+<tr>
+<td>折邊 Flange</td>
+<td><code>HFLANG</code></td>
+<td>板緣折邊</td>
+<td>折邊方向與相鄰構件干涉</td>
+</tr>
+<tr>
+<td>肘板 Bracket</td>
+<td><code>HBRCKT</code></td>
+<td>構件交接處的補強板</td>
+<td>型式與連接構件不符</td>
+</tr>
+<tr>
+<td>缺口 Notch</td>
+<td><code>HNOTCH</code></td>
+<td>切入外輪廓的去除區</td>
+<td>避讓孔漏建</td>
+</tr>
+<tr>
+<td>切口 Cutout</td>
+<td><code>HCTOUT</code></td>
+<td>讓穿越型材通過的開口</td>
+<td>穿越處沒有切口</td>
+</tr>
+<tr>
+<td>開孔 Hole</td>
+<td><code>HHOLE</code></td>
+<td>板內部的封閉開孔</td>
+<td>太靠近邊緣或焊道</td>
+</tr>
+<tr>
+<td>其他</td>
+<td><code>HBEAD</code>、<code>HDOPLA</code>、<code>HPILLR</code> 等</td>
+<td>壓筋、複板、柱</td>
+<td>依構件而定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="542-mould-plane">5.4.2 型面（Mould Plane）</h3>
+<p>每個板架都位在一個平面上，這個平面同時是板架的局部座標系（UV 平面）。型面可以是主平面（X、Y、Z 其中一個為定值），也可以是斜面。建模時要先決定兩件事：</p>
+<ul>
+<li><strong>型面位置採用哪個參考</strong>：例如肋位 <code>FR85</code>（橫艙壁）或某甲板高度（甲板）。<a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章</a>說明了肋位與縱向位置的寫法。</li>
+<li><strong>型面側（Moulded Side）</strong>：板厚從型面往哪一側長。這會直接決定相鄰構件的實際接觸位置。</li>
+</ul>
+<p>用開發人員的話說，型面就是這個板架的「本地座標系」，板架內所有構件的位置都相對於它表示。</p>
+<h3 id="543-boundary">5.4.3 邊界（Boundary）</h3>
+<p>依公開的官方訓練教材摘要（TM-2102），每個板架最多可有 <strong>12 條邊界</strong>，在預設視角下依<strong>逆時針順序</strong>給定，而且必須構成<strong>封閉輪廓</strong>〔待核對：上限與方向規則依版本〕。邊界依輸入順序編號，之後的缺口、角隅處理會以「第幾條邊界、第幾個角」來引用。</p>
+<p>常見的邊界來源有四種：</p>
+<table>
+<thead>
+<tr>
+<th>邊界來源</th>
+<th>例子</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>其他板架</td>
+<td>以艙壁、甲板、縱桁為邊界</td>
+<td>參考的板架移動，本板架跟著變</td>
+</tr>
+<tr>
+<td>船殼曲面</td>
+<td>以外板曲面為邊界</td>
+<td>曲面或外板厚度改變會影響本板架</td>
+</tr>
+<tr>
+<td>定位系統平面</td>
+<td><code>FR</code>、<code>LP</code>、某甲板高度</td>
+<td>定位系統變更時跟著變</td>
+</tr>
+<tr>
+<td>直接輸入</td>
+<td>點與線的座標</td>
+<td>不會自動跟著任何東西變</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 重排或增減邊界之後，原本掛在「第 3 條邊界」上的缺口，可能變成掛在另一條邊界上。這和程式中「以陣列索引當作識別鍵」的風險完全一樣：索引會因插入或刪除而位移。修改邊界後，務必重新檢查所有依邊界或角隅編號定位的特徵。</p>
+</blockquote>
+<h3 id="544-seamplate">5.4.4 接縫（Seam）與板（Plate）</h3>
+<p>接縫把板架切成多塊板，每一塊板都要有板定義：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>說明</th>
+<th>檢查重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>厚度 Thickness</td>
+<td>板厚</td>
+<td>是否符合結構圖與船級要求</td>
+</tr>
+<tr>
+<td>型面側 Position</td>
+<td>板厚相對於型面往哪一側</td>
+<td>與相鄰構件一致，避免重疊或留縫</td>
+</tr>
+<tr>
+<td>材質 Material Quality</td>
+<td>鋼級，例如 A、AH32、AH36</td>
+<td>與結構圖、材料表一致</td>
+</tr>
+</tbody>
+</table>
+<p>板架內<strong>每一塊板都必須有板定義</strong>，缺少定義會導致零件無法正確抽出。接縫位置應配合鋼板規格、套料效率與分段劃分，不應只依幾何方便決定。</p>
+<h3 id="545-stiffener">5.4.5 加強材（Stiffener）</h3>
+<p>加強材是板架上數量最多、也最容易出錯的構件。定義時通常會涉及：</p>
+<ul>
+<li><strong>型材型號</strong>：扁鋼、球扁鋼、角鋼、T 型材等，從公司的型材標準庫選用。</li>
+<li><strong>位置與方向</strong>：沿哪條線佈置、腹板朝哪一側、翼緣朝哪個方向。</li>
+<li><strong>傾角</strong>：例如貼合外板時，腹板是否垂直於外板。</li>
+<li><strong>端部處理（End Cut）</strong>：斜切（Snipe）、直切，或以肘板連接。</li>
+<li><strong>與穿越構件的關係</strong>：穿過切口，或在該處截斷。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：型材穿越板材：左為切口，中為切口加補板，右為剖面</div></p>
+<p><em>圖 5-6　型材穿越板材時的切口與補板。從左到右：純切口、切口加補板（Collar），以及剖面示意。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 加強材的端部處理會決定生產端的切割形狀與焊接長度。設計審查時，可依「端部處理 → 是否需要肘板 → 穿越處的切口與補板」的順序逐點檢查。</p>
+</blockquote>
+<h3 id="546">5.4.6 缺口、切口與開孔：三種「去除材料」</h3>
+<p>三者都是把材料去掉，但工程意義與資料型別都不同：</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>元素型別</th>
+<th>定義</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缺口 Notch</td>
+<td><code>HNOTCH</code>（加強材上為 <code>HPRNOT</code>）</td>
+<td>切入板或型材<strong>外輪廓</strong>的去除區</td>
+<td>焊道避讓孔（Scallop）、流水孔、通氣孔、角隅缺口</td>
+</tr>
+<tr>
+<td>切口 Cutout</td>
+<td><code>HCTOUT</code>（加強材上為 <code>HPRCUT</code>）</td>
+<td>包圍<strong>穿越型材</strong>的開口</td>
+<td>縱骨穿過肋板時的開口，常搭配 Collar 或 Clip</td>
+</tr>
+<tr>
+<td>開孔 Hole</td>
+<td><code>HHOLE</code>（加強材上為 <code>HPRHOL</code>）</td>
+<td>位於板內部、不切到外輪廓的封閉孔</td>
+<td>減輕孔、人孔、管路與電纜貫穿孔</td>
+</tr>
+</tbody>
+</table>
+<p>缺口可以依「與接縫或線的交點」或「距加強材端點的距離」定位，也可以引用交會接縫，或以 <code>FR</code>、<code>LP</code> 座標定義限制型缺口（Limit Notch）。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 舾裝的貫穿孔最後會落在 <code>HHOLE</code> 這類元素上（<a href="ch07_outfitting_zh-TW.reading.html">第 7 章</a>）。如果要寫「檢查每個管路貫穿是否都有對應船體開孔」的工具，比對的兩端就是舾裝的貫穿資料與船體的開孔元素，比對鍵通常是位置、尺寸與所屬板架。</p>
+</blockquote>
+<h3 id="547-bracket">5.4.7 肘板（Bracket）</h3>
+<p>肘板用於構件交接處的補強，例如縱骨端部、甲板橫梁與肋骨的連接。肘板通常從標準型式庫中選用，再給定尺寸、厚度、折邊與所連接的構件。在資料模型中，<code>HBRCKT</code> 自己也有邊界（<code>HBRABO</code>）、折邊（<code>HBRFLA</code>）與加強材（<code>HBRSTI</code>），是一個「小板架」。</p>
+<h2 id="55">5.5 設計板架與生產板架</h2>
+<p>官方資料模型把平面船體資料分成三個階段：<strong>參考面</strong>（由 Initial Hull Design 建立）、<strong>設計板架</strong>（由 Structural Hull Design 建立）、<strong>生產板架</strong>（主要用於 Hull Detailed Design）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：一個設計板架細分為多個帶開孔與加強材的生產板架</div></p>
+<p><em>圖 5-7　同一個結構區域從設計板架（左）細化為多個生產板架（右）。生產板架帶有加強材、開孔與缺口等細節。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th>設計板架</th>
+<th>生產板架</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目的</td>
+<td>強度評估、重量估算、基本設計</td>
+<td>產生零件、圖面與生產資訊</td>
+</tr>
+<tr>
+<td>粒度</td>
+<td>粗，一個板架可能跨多個分段</td>
+<td>細，依分段與建造方式切分</td>
+</tr>
+<tr>
+<td>細節</td>
+<td>主要尺寸、板厚、主要加強材</td>
+<td>每塊板、每支加強材、缺口、開孔、肘板</td>
+</tr>
+<tr>
+<td>主要使用者</td>
+<td>基本設計、結構計算</td>
+<td>詳細設計、生產設計</td>
+</tr>
+<tr>
+<td>開發類比</td>
+<td>概念資料模型</td>
+<td>實體資料模型</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 兩者共用同一個模型，所以設計端的修改有機會傳遞到生產端，但這不代表「改了就自動正確」。從設計板架切分出生產板架之後，生產端常會加上大量細節，上游修改時仍要檢查細節是否還成立。</p>
+</blockquote>
+<h2 id="56">5.6 拓撲參考與相依鏈</h2>
+<h3 id="561">5.6.1 參考而不是數值</h3>
+<p>板架邊界如果寫成「與 FR85 艙壁相交」，而不是「X = 64,250」，艙壁移動時板架就能<strong>跟著重算</strong>。這就是 Marine 船體建模的核心觀念：<strong>用拓撲（Topology）描述構件之間的關係</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>描述方式</th>
+<th>優點</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>參考其他構件或定位系統</td>
+<td>設計變更可自動傳遞</td>
+<td>依賴鏈太長時，一處錯誤會影響多個板架</td>
+</tr>
+<tr>
+<td>直接輸入數值座標</td>
+<td>簡單、可預期</td>
+<td>變更後要人工逐一修改，容易遺漏</td>
+</tr>
+</tbody>
+</table>
+<p>實務原則是：<strong>主要結構邊界用參考，局部細節才用數值。</strong></p>
+<p>用開發人員熟悉的話說，這就像試算表中的儲存格公式：<code>=A1+B1</code> 會跟著 A1 變，直接打上數字則不會。拓撲參考讓模型變成一張由公式串起來的試算表。</p>
+<h3 id="562">5.6.2 相依圖</h3>
+<p><img alt="船體拓撲相依圖：修改外板接縫時，艙壁、甲板、縱桁、細節、零件、套料、圖面都受影響" src="images/diagrams/ch05_topology_dependency.svg" /></p>
+<p><em>圖 5-8　船體拓撲相依圖。箭頭從「被參考者」指向「參考者」，也就是變更傳遞的方向。修改外板接縫（黃框）時，所有沿箭頭可到達的節點（紅色虛線框）都要重建、重新抽出或更新。（本課程自繪）</em></p>
+<p>上圖可以讀成一條典型的相依鏈：</p>
+<pre><code>船殼曲面 → 外板接縫／外板縱骨 → 艙壁 A → 縱桁 B → B 上的開孔、肘板
+                                  甲板 D ↗
+</code></pre>
+<p>這是一張<strong>有向無環圖（DAG）</strong>。開發人員熟悉的幾個概念可以直接套用：</p>
+<table>
+<thead>
+<tr>
+<th>圖論概念</th>
+<th>在船體建模中的意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>節點</td>
+<td>板架、外板、定位系統、開孔申請</td>
+</tr>
+<tr>
+<td>有向邊</td>
+<td>「以……為邊界或參考」的關係</td>
+</tr>
+<tr>
+<td>從某節點出發可到達的節點集合</td>
+<td>一次修改的影響範圍</td>
+</tr>
+<tr>
+<td>拓撲排序</td>
+<td>合理的建模與重建順序：上游先、下游後</td>
+</tr>
+<tr>
+<td>環</td>
+<td>不應出現。兩個板架互為邊界，會造成無法決定的重算順序〔系統如何處理依版本而異，待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="563">5.6.3 專業團隊的做法</h3>
+<ol>
+<li><strong>由外往內、由主到次建模</strong>：先完成曲面與外板，再建主要艙壁與甲板，最後才是次要構件與細節。這正是拓撲排序。</li>
+<li><strong>凍結上游</strong>：外板與主要結構確認後，才大量細化下游；若必須修改，先評估影響範圍。</li>
+<li><strong>重建後檢查</strong>：重建板架後，確認邊界、缺口、肘板是否仍附著在正確的參考上。</li>
+<li><strong>控制依賴鏈長度</strong>：避免為了「方便跟著變」而讓細節參考很遠的上游物件。</li>
+</ol>
+<h2 id="57-curved-hull">5.7 曲面船體（Curved Hull）</h2>
+<h3 id="571">5.7.1 工作內容</h3>
+<p>依官方文件，曲面船體涵蓋：</p>
+<ul>
+<li>產生<strong>接縫與對接縫（Seams and Butts）</strong>，以及一般用途的船殼曲線。</li>
+<li>定義<strong>外板縱骨（Shell Profile）</strong>。</li>
+<li>定義並<strong>展開外板（Shell Plate）</strong>。</li>
+<li>以既有的外板與外板縱骨組成<strong>曲面板架</strong>（資料模型中的 <code>CPANEL</code>）。</li>
+<li>在曲面外板上定義開孔，用於劃線或切割。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：曲面外板模型：綠色外板上的紅色外板縱骨與內部構件</div></p>
+<p><em>圖 5-9　曲面船體模型。綠色為外板，紅色為外板縱骨與橫向構件。官方說明，曲面板會依船廠的工作方法自動展開。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：船殼曲面上的肋位線與外板接縫</div></p>
+<p><em>圖 5-10　船殼曲面上的肋位線與外板接縫規劃。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="572-seambutt">5.7.2 接縫（Seam）與對接縫（Butt）</h3>
+<p>外板的分板線分成兩個方向：大致沿船長方向的稱為接縫（Seam），大致沿橫向切斷的稱為對接縫（Butt）。兩者合起來把整個船殼切成一塊塊外板。接縫規劃會影響：</p>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鋼板利用率</td>
+<td>板寬、板長受鋼廠規格限制</td>
+</tr>
+<tr>
+<td>成形難度</td>
+<td>雙曲度大的區域，分板方式影響冷彎或線加熱的工作量</td>
+</tr>
+<tr>
+<td>分段劃分</td>
+<td>對接縫通常配合分段接頭</td>
+</tr>
+<tr>
+<td>內部結構</td>
+<td>接縫不應與內部構件的焊道過度接近</td>
+</tr>
+</tbody>
+</table>
+<h3 id="573-shell-profile">5.7.3 外板縱骨（Shell Profile）</h3>
+<p>外板縱骨是貼在外板內側的加強材。它的位置通常由曲線（例如與某平面的交線）定義，腹板方向要考慮與外板的夾角。外板縱骨會被內部平面板架引用（例如肋板上的切口位置），所以它也是相依圖中的重要上游。</p>
+<h3 id="574">5.7.4 展開與樣板</h3>
+<p>曲面外板必須展開成平板才能切割。系統會依船廠的工作方法自動展開，並可產生<strong>彎曲樣板</strong>（依曲率產生內側或外側樣板）。官方文件也提到，傳統木樣板逐漸被<strong>可重複使用、可調整的樣板</strong>取代；12.1 SP3 的版本說明中有胎架支柱（Jig Pillar）相關的強化。樣板與胎架在第 6 章詳述。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 曲面上的幾何計算（例如求某點的法向量）比平面困難許多。<a href="ch18_case_studies_zh-TW.reading.html">第 18 章</a>的外板開孔案例就是以「建立虛擬平面、求與外板的交線、再算斜率」的方式，在曲面上求得開孔方向。這類演算法要用輔助圖形（<code>AID</code>）逐步目視驗證。</p>
+</blockquote>
+<h2 id="58">5.8 變更影響評估與重建</h2>
+<h3 id="581">5.8.1 修改前的影響評估清單</h3>
+<p>修改任何上游構件前，至少回答下列問題：</p>
+<ul>
+<li>[ ] 哪些板架以它作為邊界或參考？（相依圖的直接下游）</li>
+<li>[ ] 這些板架又被誰參考？（遞迴下游）</li>
+<li>[ ] 是否已產生生產資訊、已套料，甚至已下料？</li>
+<li>[ ] 是否有舾裝開孔（管路、電纜、通風）依附在受影響的板上？</li>
+<li>[ ] 是否需要通知圖面、生產或其他專業？</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 已下料的零件被修改，代價遠高於設計階段的修改。請與生產管理確認零件狀態後，再決定修改方式。</p>
+</blockquote>
+<h3 id="582">5.8.2 重建的順序</h3>
+<p>重建要依拓撲順序進行：先重建最上游被修改的物件，再依序往下游重建。如果順序顛倒，下游板架會以舊的上游幾何計算，結果仍然錯誤，而且看起來「已經重建過」。</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>動作</th>
+<th>檢查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>修改上游物件</td>
+<td>修改內容與設計變更單一致</td>
+</tr>
+<tr>
+<td>2</td>
+<td>依拓撲順序重建下游板架</td>
+<td>邊界是否封閉、是否仍參考正確物件</td>
+</tr>
+<tr>
+<td>3</td>
+<td>檢查細節</td>
+<td>缺口、肘板、開孔是否仍在正確位置</td>
+</tr>
+<tr>
+<td>4</td>
+<td>重新抽出生產資訊</td>
+<td>零件數、編號、重量是否合理（第 6 章）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>更新圖面</td>
+<td>標註是否仍正確（<a href="ch09_drawings_zh-TW.reading.html">第 9 章</a>）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>通知下游</td>
+<td>生產、舾裝、圖面負責人</td>
+</tr>
+</tbody>
+</table>
+<h2 id="59-scheme">5.9 船體 Scheme：文字化的建模描述</h2>
+<p>板架的定義可以用文字形式呈現，業界常稱為 <strong>Scheme</strong>。Tribon 時期即以文字描述板架，Marine 中仍保有這種能力〔待核對：Scheme 的檔案位置、關鍵字與編輯方式依版本而異〕。專業使用者會利用 Scheme：</p>
+<ul>
+<li>一次檢視整個板架的完整定義，比在對話框逐項點選快。</li>
+<li>比對兩個相似板架的差異。</li>
+<li>以相似板架為範本，修改後建立新板架。</li>
+</ul>
+<p>以下只是<strong>示意結構</strong>，用來說明「Scheme 是一份描述性的原始碼」這個觀念，關鍵字不是官方語法：</p>
+<pre><code>// 示意：不是官方 Scheme 語法，僅說明內容組成
+PANEL 'B21-FL-FR42'  BLOCK 'B21'
+  PLANE  X = FR42                     // 型面：參考肋位
+  BOUNDARY  'B21-DB'                   // 邊界 1：內底板
+  BOUNDARY  SHELL                      // 邊界 2：外板曲面
+  BOUNDARY  'B21-GD-LP3'               // 邊界 3：縱桁
+  BOUNDARY  Z = 0                      // 邊界 4：基線
+  PLATE  THICKNESS 12  QUALITY 'AH32'  SIDE AFT
+  STIFFENER  PROFILE 'FB150x12'  ...
+  HOLE  'LIGHTENING-600x400'  ...
+</code></pre>
+<p>對開發人員來說，Scheme 的意義有三點：</p>
+<ol>
+<li><strong>它是可比對的文字</strong>：可以用一般的 diff 工具比較兩個版本的板架定義，甚至放進版本管理。</li>
+<li><strong>它是建模的「原始碼」</strong>：板架的 3D 幾何是由這份描述「編譯」出來的結果。修改原始碼再重建，比直接修改幾何結果更可靠。</li>
+<li><strong>它暴露了相依關係</strong>：每一條 <code>BOUNDARY</code> 參考了哪個物件，一眼可見。解析 Scheme 是建立相依圖的一種可行方式〔待核對：Scheme 是否能以程式批次輸出〕。</li>
+</ol>
+<h2 id="510">5.10 程式範例：唯讀查詢船體資料</h2>
+<p>以下兩段程式都只<strong>讀取</strong>，不修改模型。</p>
+<h3 id="5101-pml">5.10.1 PML：統計某分段下每個平面板架的直接成員</h3>
+<pre><code class="language-pml">-- 示意：未在實機驗證。列出分段 /B21 下所有 HPANEL，統計板與加強材數量
+-- 只讀取，不修改模型
+!coll = object COLLECTION()
+!coll.type('HPANEL')
+!coll.scope(/B21)
+!panels = !coll.results()
+
+do !p values !panels
+   !nPlate = 0
+   !nStiff = 0
+   do !m values !p.members
+      if (!m.type eq 'HPLATE') then
+         !nPlate = !nPlate + 1
+      elseif (!m.type eq 'HSTIFF') then
+         !nStiff = !nStiff + 1
+      endif
+   enddo
+   !msg = !p.name &amp; '  plates=' &amp; !nPlate.string() &amp; '  stiffeners=' &amp; !nStiff.string()
+   $p $!msg
+enddo
+</code></pre>
+<p>收集（<code>COLLECTION</code>）與走訪的寫法在<a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>詳述。這裡要注意的業務重點是：<code>HSTIFF</code> 底下的切口、開孔不在 <code>HPANEL</code> 的直接成員中，要統計它們必須把範圍擴大到整個分段，再依型別收集。</p>
+<h3 id="5102-vitesse">5.10.2 Vitesse：以資料抽取語言讀取板厚</h3>
+<p>板厚、材質這類船體專屬資料，可用 Vitesse 的資料抽取介面讀取。以下片段整理自 <code>Docs\examples\vitesse-hull-report</code> 的開源範例（完整說明見第 15 章），語法為 Python 2.6：</p>
+<pre><code class="language-python">import kcs_dex, kcs_util
+
+ok = kcs_util.success()
+
+def get_real(est):
+    # est 形如 HULL.PANEL('DECK01').PLA(1).THICKNESS
+    res = kcs_dex.extract(est)
+    if res == ok:
+        typ = kcs_dex.next_result()
+        if typ == 2:            # 1=INT, 2=REAL, 3=STRING
+            return kcs_dex.get_real()
+    return None
+
+thk = get_real(&quot;HULL.PANEL('%s').PLA(1).THICKNESS&quot; % 'DECK01')
+</code></pre>
+<p><code>HULL.PANEL('名稱').PLA(1).THICKNESS</code> 這類抽取語句，正好對應本章的資料結構：板架 → 第 1 塊板 → 厚度。範例中的板架名稱 <code>DECK01</code> 僅為示意，請換成訓練專案中的實際名稱。</p>
+<h2 id="511">5.11 開發人員須知</h2>
+<h3 id="5111">5.11.1 適合用程式讀取的船體資料</h3>
+<table>
+<thead>
+<tr>
+<th>資料</th>
+<th>典型用途</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>板架清單、名稱、所屬分段</td>
+<td>進度統計、命名規範檢查</td>
+<td>用收集即可取得</td>
+</tr>
+<tr>
+<td>板厚、材質、型材規格</td>
+<td>材料統計、與結構圖比對</td>
+<td>多半透過 Vitesse 抽取</td>
+</tr>
+<tr>
+<td>開孔、缺口、切口的數量與位置</td>
+<td>貫穿孔比對、審查報表</td>
+<td>注意成員的巢狀結構</td>
+</tr>
+<tr>
+<td>修改旗標與狀態（<code>IsChgd</code>、<code>Modsta</code>）</td>
+<td>找出需要重新抽出的構件</td>
+<td>屬性名稱依版本確認</td>
+</tr>
+<tr>
+<td><code>TBID</code></td>
+<td>建立 3D 元素與 Databank 物件的對照</td>
+<td>作為整合鍵</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5112">5.11.2 不應自動化的修改</h3>
+<table>
+<thead>
+<tr>
+<th>修改</th>
+<th>為什麼不要自動化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>批次修改邊界或型面參考</td>
+<td>會改變拓撲，影響範圍難以預估</td>
+</tr>
+<tr>
+<td>批次移動接縫或對接縫</td>
+<td>影響零件、套料與已下料的鋼板</td>
+</tr>
+<tr>
+<td>自動重建大量板架</td>
+<td>重建順序錯誤時結果看似正確卻是錯的</td>
+</tr>
+<tr>
+<td>直接寫入船體 Databank</td>
+<td>繞過建模邏輯，可能破壞資料一致性</td>
+</tr>
+<tr>
+<td>刪除構件</td>
+<td>下游參考會失去對象</td>
+</tr>
+</tbody>
+</table>
+<p>如果業務真的需要批次修改（例如統一更新某型號加強材的規格），建議的模式是：<strong>程式產生修改清單與預覽 → 人工審查 → 以官方建模功能或 Scheme 執行 → 重建後以程式比對前後差異</strong>。程式負責「找」與「驗」，人負責「改」。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 把船體模型當作一張相依圖來看待。任何寫入動作都要先回答「影響範圍是什麼」。如果你的工具答不出這個問題，它就不應該寫入。</p>
+</blockquote>
+<h2 id="512">5.12 練習（只能在訓練專案）</h2>
+<h3 id="5-1">練習 5-1：讀懂一個既有板架</h3>
+<ol>
+<li>選一個中等複雜度的板架，例如某肋位的實肋板。</li>
+<li>列出它的型面、所有邊界，以及各邊界參考的物件。</li>
+<li>列出所有板的厚度與材質，與結構圖比對。</li>
+<li>列出所有缺口、切口、開孔，依 5.4.6 節分類。</li>
+<li>若公司版本可輸出 Scheme，對照找出上述每一項在文字中的位置。</li>
+</ol>
+<h3 id="5-2">練習 5-2：畫出相依圖</h3>
+<ol>
+<li>選一個被多個板架參考的艙壁。</li>
+<li>用紙筆或任何繪圖工具，畫出以它為起點、往下游兩層的相依圖。</li>
+<li>依 5.8.1 節清單，列出受影響的板架與零件。</li>
+<li>在訓練專案中把艙壁移動一個肋距，依拓撲順序重建相關板架。</li>
+<li>比較前後差異：哪些自動更新了，哪些需要人工處理？</li>
+</ol>
+<h3 id="5-3">練習 5-3：唯讀統計</h3>
+<ol>
+<li>在訓練專案中執行 5.10.1 節的 PML 範例（範圍改成訓練專案中的分段名稱）。</li>
+<li>擴充程式，改為統計整個分段中 <code>HHOLE</code> 與 <code>HNOTCH</code> 的數量。</li>
+<li>與練習 5-1 的人工統計結果比對。</li>
+</ol>
+<h2 id="513">5.13 自我檢核</h2>
+<ul>
+<li>[ ] 我能說出船體資料鏈的各層，以及每層交給下游什麼資料。</li>
+<li>[ ] 我能畫出 <code>WORLD → HBLWLD → BLOCK → HPANEL</code> 的階層，並列出至少 8 種 <code>HPANEL</code> 成員。</li>
+<li>[ ] 我能解釋型面、型面側與邊界順序的意義。</li>
+<li>[ ] 我能區分缺口、切口與開孔。</li>
+<li>[ ] 我能說明設計板架與生產板架的差別。</li>
+<li>[ ] 我能用相依圖解釋「改一處牽動多處」，並說出合理的重建順序。</li>
+<li>[ ] 我能說明接縫、對接縫、外板縱骨與外板展開。</li>
+<li>[ ] 我知道 Scheme 是板架的文字化描述，並說得出它對開發的價值。</li>
+<li>[ ] 我能列出適合程式讀取的船體資料，以及不應自動化的修改。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 Data Model Reference：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.406.html">Planar Panel Element (HPANEL)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.419.html">Planar Panel Stiffener Element (HSTIFF)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.393.html">Planar Panel Bracket Element (HBRCKT)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.390.html">Planar Panel Bead Element (HBEAD)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.288.html">Block Element (BLOCK)</a>（E3D 版本，與 Marine 12.x 可能有差異）</li>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">Hull and Outfitting</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1136009.html">Block Element (BLOCK)</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1110536.html">Planar Hull 面板概念</a>、曲面船體相關主題（<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1110564.html">1110564</a>）、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224401.html">Hull Detailed Design 版本說明</a>（需以瀏覽器開啟）</li>
+<li>AVEVA 官方產品資料（本章截圖來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>、<a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_HullDetailedDesign_11-18.pdf">Hull Detailed Design Brochure</a></li>
+<li>官方訓練課程：<a href="https://learningacademy.aveva.com/courses/aveva-marine-1215-hull-detailed-design-planar-hull-modelling-instructor-led-training">AVEVA Marine 12.1.5 Hull Detailed Design – Planar Hull Modelling（Learning Academy）</a>；訓練手冊 TM-2101、TM-2102、TM-2103 僅參考公開摘要中的定義</li>
+<li>曲面開孔演算法：Kim, Park &amp; Yang (2020), <a href="https://doi.org/10.5916/jamet.2020.44.3.196">Journal of Advanced Marine Engineering and Technology 44(3)</a>，CC BY-NC 3.0</li>
+<li>Vitesse 抽取範例：本課程 <code>Docs\examples\vitesse-hull-report</code>（開源範例，授權見 <code>Docs\examples\LICENSE-aveva-marine-dev-skill.txt</code>）</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch04_coordinates_geometry_zh-TW.reading.html"><small>← 上一篇</small>第 4 章　座標、方向與幾何</a><a class="next" href="ch06_hull_production_zh-TW.reading.html"><small>下一篇 →</small>第 6 章　船體生產資訊、套料與裝配</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

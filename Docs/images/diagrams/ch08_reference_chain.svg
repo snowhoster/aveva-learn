@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="r8" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2937">參照鏈：設計元件 → SPCO → SCOM → GMSE／PTSE</text>
+
+  <!-- column backgrounds -->
+  <rect x="10" y="46" width="230" height="470" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="125" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e40af">設計資料庫（DESI）</text>
+  <rect x="255" y="46" width="290" height="470" rx="8" fill="#fefce8" stroke="#fde68a"/>
+  <text x="400" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#854d0e">等級（Specification）</text>
+  <rect x="560" y="46" width="330" height="470" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="725" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#166534">目錄（Catalogue）</text>
+
+  <!-- design -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="25" y="90" width="200" height="40" rx="5" fill="#ffffff" stroke="#93c5fd"/>
+    <text x="37" y="115">BRAN /P-100/B1</text>
+    <rect x="45" y="150" width="180" height="104" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="57" y="172" font-weight="bold">VALV（設計元件）</text>
+    <text x="57" y="194" font-size="12">SPRE = /A1A/GATE-50</text>
+    <text x="57" y="214" font-size="12">LSTU = /A1A/TUBE-50</text>
+    <text x="57" y="234" font-size="12">位置、方向、ARRI／LEAV</text>
+  </g>
+  <polyline points="35,130 35,200 45,200" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="25" y="290" font-size="12" fill="#374151">設計端只存「參照」與</text>
+  <text x="25" y="308" font-size="12" fill="#374151">位置方向，不存幾何。</text>
+  <text x="25" y="340" font-size="12" fill="#374151">口徑、材質、外形、</text>
+  <text x="25" y="358" font-size="12" fill="#374151">管嘴點都要沿鏈查出。</text>
+
+  <!-- spec tree -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="270" y="90" width="260" height="40" rx="5" fill="#ffffff" stroke="#ca8a04"/>
+    <text x="282" y="115">SPEC /A1A（管路等級）</text>
+    <rect x="290" y="146" width="240" height="40" rx="5" fill="#ffffff" stroke="#ca8a04"/>
+    <text x="302" y="171">SELE　依元件型式（如 VALV）</text>
+    <rect x="310" y="202" width="220" height="40" rx="5" fill="#ffffff" stroke="#ca8a04"/>
+    <text x="322" y="227">SELE　依口徑（PBOR）</text>
+    <rect x="330" y="258" width="200" height="104" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+    <text x="342" y="280" font-weight="bold">SPCO /A1A/GATE-50</text>
+    <text x="342" y="302" font-size="12">CATREF → 目錄元件</text>
+    <text x="342" y="322" font-size="12">DETAIL → DTEXT</text>
+    <text x="342" y="342" font-size="12">MATXT → MTEXT</text>
+
+    <rect x="290" y="400" width="240" height="60" rx="6" fill="#ffffff" stroke="#ca8a04"/>
+    <text x="302" y="424" font-weight="bold">DTEXT／MTEXT</text>
+    <text x="302" y="445" font-size="12">細部說明文字、材料說明文字</text>
+  </g>
+  <g fill="none" stroke="#6b7280" stroke-width="1.5">
+    <polyline points="280,130 280,166 290,166"/>
+    <polyline points="300,186 300,222 310,222"/>
+    <polyline points="320,242 320,310 330,310"/>
+  </g>
+
+  <!-- catalogue -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="575" y="90" width="300" height="40" rx="5" fill="#ffffff" stroke="#16a34a"/>
+    <text x="587" y="115">CATA → SECT → CATE（分類）</text>
+    <rect x="595" y="160" width="280" height="104" rx="6" fill="#ffffff" stroke="#15803d" stroke-width="2"/>
+    <text x="607" y="182" font-weight="bold">SCOM（目錄元件）</text>
+    <text x="607" y="204" font-size="12">GTYPE = VALV（通用型式）</text>
+    <text x="607" y="224" font-size="12">PARA = 參數陣列（口徑、長度…）</text>
+    <text x="607" y="244" font-size="12">GMREF → GMSE、PTREF → PTSE</text>
+
+    <rect x="575" y="300" width="145" height="110" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="587" y="322" font-weight="bold">GMSE</text>
+    <text x="587" y="342" font-size="12">幾何集：</text>
+    <text x="587" y="360" font-size="12">基本體的尺寸</text>
+    <text x="587" y="378" font-size="12">以 PARA 表示</text>
+    <text x="587" y="396" font-size="12">（外形、碰撞體）</text>
+
+    <rect x="730" y="300" width="145" height="110" rx="6" fill="#ffffff" stroke="#16a34a"/>
+    <text x="742" y="322" font-weight="bold">PTSE</text>
+    <text x="742" y="342" font-size="12">點集：p-point</text>
+    <text x="742" y="360" font-size="12">位置、方向、</text>
+    <text x="742" y="378" font-size="12">口徑、連接型式</text>
+    <text x="742" y="396" font-size="12">（ARRI／LEAV 用）</text>
+  </g>
+  <polyline points="585,130 585,212 595,212" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- reference arrows -->
+  <g fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#r8)">
+    <path d="M225,194 C280,194 280,300 328,300"/>
+    <path d="M530,300 C560,300 560,230 593,230"/>
+    <path d="M430,362 L430,398"/>
+    <path d="M660,264 L650,298"/>
+    <path d="M800,264 L805,298"/>
+  </g>
+  <g font-size="12" fill="#b91c1c">
+    <text x="232" y="250">SPRE</text>
+    <text x="538" y="282">CATREF</text>
+    <text x="438" y="386">DETAIL／MATXT</text>
+    <text x="602" y="286">GMREF</text>
+    <text x="812" y="286">PTREF</text>
+  </g>
+
+  <!-- legend -->
+  <rect x="10" y="528" width="880" height="62" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <line x1="26" y1="550" x2="66" y2="550" stroke="#dc2626" stroke-width="2" marker-end="url(#r8)"/>
+  <text x="76" y="554" font-size="12" fill="#374151">參照屬性（外鍵）：值是另一個元素的參照</text>
+  <line x1="420" y1="550" x2="460" y2="550" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="470" y="554" font-size="12" fill="#374151">擁有關係（樹的父子）</text>
+  <text x="26" y="578" font-size="12" fill="#374151">設計元件的 SPRE 直接指向 SPCO（不是 SPEC）；SPEC／SELE 只在「選元件」時用來過濾。名稱為示意。</text>
+</svg>

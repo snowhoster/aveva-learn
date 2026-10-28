@@ -1,0 +1,1541 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 11 章　PML 語言核心 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#11-pml">第 11 章 PML 語言核心</a><ul>
+<li><a href="#111">11.1 學習目標</a></li>
+<li><a href="#112-pml1-pml2">11.2 PML1 與 PML2</a></li>
+<li><a href="#113">11.3 三種執行方式</a></li>
+<li><a href="#114">11.4 基本語法規則</a></li>
+<li><a href="#115">11.5 變數與作用域</a></li>
+<li><a href="#116">11.6 型別</a><ul>
+<li><a href="#1161">11.6.1 常用內建型別</a></li>
+<li><a href="#1162">11.6.2 查詢與轉換型別</a></li>
+<li><a href="#1163">11.6.3 未設定的值</a></li>
+</ul>
+</li>
+<li><a href="#117">11.7 運算子</a></li>
+<li><a href="#118">11.8 流程控制</a><ul>
+<li><a href="#1181-ifelseifelse">11.8.1 if／elseif／else</a></li>
+<li><a href="#1182-do">11.8.2 do 迴圈</a></li>
+<li><a href="#1183-breakskip-golabel">11.8.3 break、skip 與 golabel</a></li>
+</ul>
+</li>
+<li><a href="#119">11.9 字串處理</a></li>
+<li><a href="#1110">11.10 陣列</a><ul>
+<li><a href="#11101">11.10.1 基本特性</a></li>
+<li><a href="#11102">11.10.2 常用方法</a></li>
+<li><a href="#11103-sortedindices">11.10.3 用 sortedIndices 排序「平行陣列」</a></li>
+<li><a href="#11104">11.10.4 多維陣列與物件陣列</a></li>
+</ul>
+</li>
+<li><a href="#1111">11.11 函式與程序</a><ul>
+<li><a href="#11111">11.11.1 定義與呼叫</a></li>
+<li><a href="#11112">11.11.2 程序（沒有回傳值）</a></li>
+<li><a href="#11113">11.11.3 引數是參照，不是複本</a></li>
+</ul>
+</li>
+<li><a href="#1112-define-object">11.12 物件導向：define object</a><ul>
+<li><a href="#11121-life">11.12.1 官方範例：LIFE 物件</a></li>
+<li><a href="#11122-mycotally">11.12.2 範例：一個小型統計物件 MYCOTALLY</a></li>
+</ul>
+</li>
+<li><a href="#1113-handle">11.13 錯誤處理：handle</a><ul>
+<li><a href="#11131">11.13.1 錯誤長什麼樣子</a></li>
+<li><a href="#11132-handle">11.13.2 handle 區塊</a></li>
+<li><a href="#11133-trycatch">11.13.3 與 try/catch 對照</a></li>
+<li><a href="#11134">11.13.4 實用範例：安全讀取元素描述</a></li>
+</ul>
+</li>
+<li><a href="#1114">11.14 巨集與除錯指令</a><ul>
+<li><a href="#11141">11.14.1 巨集</a></li>
+<li><a href="#11142">11.14.2 $ 開頭的指令</a></li>
+<li><a href="#11143-pml1-pml2">11.14.3 $! 展開：PML1 與 PML2 的橋樑</a></li>
+<li><a href="#11144">11.14.4 查詢與追蹤</a></li>
+</ul>
+</li>
+<li><a href="#1115">11.15 與其他語言對照總表</a></li>
+<li><a href="#1116">11.16 開發人員須知</a></li>
+<li><a href="#1117">11.17 練習</a><ul>
+<li><a href="#1">練習 1：命令列熱身</a></li>
+<li><a href="#2">練習 2：字串函式</a></li>
+<li><a href="#3">練習 3：陣列與排序</a></li>
+<li><a href="#4-mycotally">練習 4：完成 MYCOTALLY</a></li>
+<li><a href="#5">練習 5：錯誤處理</a></li>
+</ul>
+</li>
+<li><a href="#1118">11.18 自我檢核</a></li>
+<li><a href="#1119">11.19 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 12 / 21</span><h1 id="11-pml">第 11 章　PML 語言核心</h1>
+<blockquote>
+<p>本章把 PML（Programmable Macro Language）當成一門程式語言來教：變數、型別、運算子、流程控制、字串、陣列、函式、物件、錯誤處理與巨集。每一節都附可讀的範例，並與 C#、Python 等常見語言對照，讓有程式經驗的讀者能快速建立正確的心智模型，也避開 PML 特有的陷阱。</p>
+<p>語法依據 AVEVA E3D 2.1 的 PML Customisation User Guide 與 Software Customisation Reference Manual（help.aveva.com 公開頁面）。AVEVA Marine 12.1 的 PML 與 E3D 2.1 高度相同，但個別方法可能有版本差異。範例開頭標示「-- 示意」者為本課程自行撰寫、未在實機驗證的程式；請先在訓練專案中執行。互動練習可搭配 <a href="aveva_pml_learning_guide.html">PML 互動練習頁</a>。</p>
+</blockquote>
+<h2 id="111">11.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 PML1 與 PML2 的差別，並辨識一段程式屬於哪一種風格。</li>
+<li>正確使用區域變數 <code>!x</code>、全域變數 <code>!!x</code> 與物件成員 <code>!this.x</code>。</li>
+<li>使用 STRING、REAL、BOOLEAN、ARRAY、DBREF、POSITION 等內建型別，並做型別轉換。</li>
+<li>寫出 <code>if</code>、<code>do</code>（from/to、values、indices）、<code>break</code>、<code>skip</code>、<code>golabel</code> 等流程控制。</li>
+<li>運用字串與陣列的常用方法，並記得陣列從 1 開始。</li>
+<li>定義函式與程序，理解引數以參照傳遞的後果。</li>
+<li>定義一個 PML 物件：成員、方法、建構子與 <code>!this</code>。</li>
+<li>用 <code>handle</code>／<code>elsehandle</code>／<code>endhandle</code> 處理錯誤，並能自訂錯誤。</li>
+<li>執行巨集，使用 <code>$P</code>、<code>$!</code>、<code>$R</code> 等指令輸出與除錯。</li>
+</ol>
+<h2 id="112-pml1-pml2">11.2 PML1 與 PML2</h2>
+<p>PML 有兩代語法，而且在同一個系統裡並存：</p>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>PML1</th>
+<th>PML2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>年代與定位</td>
+<td>早期的巨集語言</td>
+<td>在 PML1 之上擴充的物件導向版本</td>
+</tr>
+<tr>
+<td>變數</td>
+<td>幾乎都當字串處理，常用 <code>var</code> 指令設定</td>
+<td>變數是<strong>有型別的物件</strong>，直接用 <code>=</code> 指定</td>
+</tr>
+<tr>
+<td>取值方式</td>
+<td>常用 <code>$!x</code> 把變數展開成文字再交給命令</td>
+<td>直接在運算式中使用 <code>!x</code></td>
+</tr>
+<tr>
+<td>典型語法</td>
+<td><code>var !list collect all EQUI for /ZONE-A</code></td>
+<td><code>!coll = object COLLECTION()</code></td>
+</tr>
+<tr>
+<td>介面</td>
+<td>舊式表單</td>
+<td><code>setup form</code> 表單、gadget、callback</td>
+</tr>
+<tr>
+<td>今天的用途</td>
+<td>規則（Rules）、報表範本中的運算式；大量既有程式</td>
+<td>新開發的函式、物件、表單</td>
+</tr>
+</tbody>
+</table>
+<p>官方文件說明：PML2 是較新的擴充，特別適合表單與選單；但 PML1 並未被淘汰，部分工作（例如規則與報表範本）只能使用 PML1 運算式，有些任務用 PML1 反而更有效率。實務上你讀到的公司程式與官方程式，常常在同一個檔案裡混用兩者。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 把 PML2 想成「主語言」，PML1 想成「內嵌的命令語言」。PML2 負責變數、邏輯、物件；需要對資料庫下命令時（例如 <code>NEW EQUI</code>、<code>CLAIM</code>），就寫一行 PML1 風格的命令，必要時用 <code>$!</code> 把變數值塞進命令裡。</p>
+</blockquote>
+<h2 id="113">11.3 三種執行方式</h2>
+<p>同一段邏輯可以用三種方式執行：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>寫法</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令列直接輸入</td>
+<td>在 Command Window 逐行輸入</td>
+<td>試驗語法、查詢變數</td>
+</tr>
+<tr>
+<td>巨集</td>
+<td>寫成文字檔，<code>$M 路徑</code> 執行</td>
+<td>一次性的批次命令、舊程式</td>
+</tr>
+<tr>
+<td>函式／物件／表單</td>
+<td>放在 <code>PMLLIB</code>，依名稱自動載入</td>
+<td>正式工具（第 10 章）</td>
+</tr>
+</tbody>
+</table>
+<p>在命令列試試看：</p>
+<pre><code class="language-pml">!greeting = 'Hello'
+!name = 'PML'
+!msg = !greeting &amp; ', ' &amp; !name
+q var !msg
+$P $!msg
+</code></pre>
+<p><code>q var !msg</code> 會顯示變數的型別與值；<code>$P</code> 把後面的文字印到命令列，而 <code>$!msg</code> 在印出前被換成變數內容。</p>
+<h2 id="114">11.4 基本語法規則</h2>
+<table>
+<thead>
+<tr>
+<th>規則</th>
+<th>說明</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>註解</td>
+<td><code>--</code> 到行尾；<code>$*</code> 也是行註解（較舊的寫法）</td>
+<td><code>-- 這是註解</code></td>
+</tr>
+<tr>
+<td>大小寫</td>
+<td>關鍵字、變數名、方法名不分大小寫；<strong>字串內容</strong>區分大小寫</td>
+<td><code>!Name</code> 與 <code>!name</code> 是同一個變數</td>
+</tr>
+<tr>
+<td>字串分隔</td>
+<td>單引號 <code>'...'</code> 或直線 <code>|...|</code>，前後必須成對</td>
+<td><code>'abc'</code>、<code>|it's ok|</code></td>
+</tr>
+<tr>
+<td>一行一個敘述</td>
+<td>不使用分號；<code>if</code> 不能寫成單行</td>
+<td>見 11.8 節</td>
+</tr>
+<tr>
+<td>物件與方法</td>
+<td>用點號存取成員與方法</td>
+<td><code>!s.length()</code>、<code>!!ce.owner</code></td>
+</tr>
+</tbody>
+</table>
+<p>兩種字串分隔符號的用途：字串內容本身有單引號時，用 <code>|...|</code> 包住；或在回呼字串中需要再放一層字串時（第 13 章）也很好用：</p>
+<pre><code class="language-pml">!sql = |NAME eq 'P-101'|
+!callback = |!this.show('ABC')|
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 官方文件特別警告：分隔符號不成對時，後面很多行程式會被「吃進」字串裡而失效，錯誤訊息卻出現在很遠的地方。看到莫名其妙的語法錯誤，先檢查上方的引號是否成對。</p>
+</blockquote>
+<h2 id="115">11.5 變數與作用域</h2>
+<p>PML 的變數以驚嘆號開頭，不需要宣告型別，但<strong>值本身有型別</strong>（這點像 Python，不像 JavaScript 的隨意轉型）。</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>名稱</th>
+<th>存活範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!x</code></td>
+<td>區域變數</td>
+<td>目前的函式、方法或巨集；在命令列輸入則留在命令列這一層</td>
+</tr>
+<tr>
+<td><code>!!x</code></td>
+<td>全域變數</td>
+<td>整個模組工作階段，直到離開模組</td>
+</tr>
+<tr>
+<td><code>!this.x</code></td>
+<td>物件成員</td>
+<td>跟著物件（或表單）存在，只能在該物件的方法中以 <code>!this</code> 存取</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="PML 變數的作用域：全域命名空間包含 !!ce、!!error 與表單；命令列、函式、物件各有自己的區域變數；下方為與 C#、Python 的對照" src="images/diagrams/ch11_variable_scope.svg" /></p>
+<p><em>圖 11-1　PML 變數的作用域與其他語言的對照。（本課程自繪）</em></p>
+<p>幾個重要的全域變數是系統提供的：</p>
+<table>
+<thead>
+<tr>
+<th>全域變數</th>
+<th>型別</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!!ce</code></td>
+<td>DBREF</td>
+<td>目前元素（Current Element），第 12 章的主角</td>
+</tr>
+<tr>
+<td><code>!!error</code></td>
+<td>錯誤物件</td>
+<td>最近一次錯誤的資訊，例如 <code>!!error.text</code></td>
+</tr>
+<tr>
+<td><code>!!表單名稱</code></td>
+<td>FORM</td>
+<td>每個已載入的表單都是一個全域物件</td>
+</tr>
+<tr>
+<td><code>!!alert</code></td>
+<td>提示物件</td>
+<td>顯示訊息框，例如 <code>!!alert.message('...')</code>、<code>!!alert.error('...')</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 全域變數在整個工作階段都存在，而且所有工具共用同一個命名空間。少用 <code>!!</code>；必須使用時加上公司前綴（<code>!!mycoXxx</code>）。跨方法共用的狀態，放在表單或物件的成員上，而不是全域變數。</p>
+</blockquote>
+<h2 id="116">11.6 型別</h2>
+<h3 id="1161">11.6.1 常用內建型別</h3>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>說明</th>
+<th>建立方式</th>
+<th>其他語言對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STRING</td>
+<td>字串</td>
+<td><code>'abc'</code>、<code>|abc|</code></td>
+<td><code>string</code>／<code>str</code></td>
+</tr>
+<tr>
+<td>REAL</td>
+<td>數值（沒有獨立的整數型別）</td>
+<td><code>42</code>、<code>3.14</code></td>
+<td><code>double</code>／<code>float</code></td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>布林</td>
+<td><code>TRUE</code>、<code>FALSE</code>（也接受 <code>T</code>、<code>F</code>、<code>YES</code>、<code>NO</code>）</td>
+<td><code>bool</code></td>
+</tr>
+<tr>
+<td>ARRAY</td>
+<td>陣列，可混放不同型別</td>
+<td><code>ARRAY()</code>、<code>object ARRAY()</code></td>
+<td><code>List&lt;object&gt;</code>／<code>list</code></td>
+</tr>
+<tr>
+<td>DBREF</td>
+<td>資料庫元素參照</td>
+<td><code>!!ce</code>、<code>/P-101</code>、<code>'/P-101'.dbref()</code></td>
+<td>指標或外鍵</td>
+</tr>
+<tr>
+<td>POSITION</td>
+<td>三維位置</td>
+<td><code>'E 1000 N 2000 U 0'.position()</code></td>
+<td>自訂 <code>Point3D</code> 結構</td>
+</tr>
+<tr>
+<td>DIRECTION</td>
+<td>方向</td>
+<td><code>'E'.direction()</code></td>
+<td>單位向量</td>
+</tr>
+<tr>
+<td>ORIENTATION</td>
+<td>姿態（三軸方向）</td>
+<td><code>'Y is N and Z is U'.orientation()</code></td>
+<td>旋轉矩陣</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>檔案</td>
+<td><code>object FILE('C:\temp\a.txt')</code></td>
+<td><code>FileInfo</code>（第 16 章）</td>
+</tr>
+<tr>
+<td>COLLECTION、EXPRESSION</td>
+<td>資料庫查詢</td>
+<td><code>object COLLECTION()</code></td>
+<td>查詢建構器（第 12 章）</td>
+</tr>
+<tr>
+<td>使用者自訂型別</td>
+<td><code>define object</code> 定義</td>
+<td><code>object MYCOTALLY()</code></td>
+<td><code>class</code></td>
+</tr>
+</tbody>
+</table>
+<p>位置、方向與姿態的字串寫法依第 4 章介紹的座標語法；字串轉成這些物件的方法（<code>.position()</code>、<code>.direction()</code>、<code>.orientation()</code>）列在官方 STRING 物件的方法表中。</p>
+<h3 id="1162">11.6.2 查詢與轉換型別</h3>
+<pre><code class="language-pml">!a = 42
+!b = !a.string()          -- REAL → STRING：'42'
+!c = '3.5'.real()         -- STRING → REAL：3.5
+!d = 'TRUE'.boolean()     -- STRING → BOOLEAN：TRUE
+!e = !a.objecttype()      -- 'REAL'
+q var !b
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>轉換</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任何值 → 字串</td>
+<td><code>.string()</code></td>
+</tr>
+<tr>
+<td>字串 → 數值</td>
+<td><code>.real()</code></td>
+</tr>
+<tr>
+<td>字串 → 布林</td>
+<td><code>.boolean()</code>（<code>TRUE</code>、<code>T</code>、<code>YES</code>、<code>Y</code> 為真；<code>FALSE</code>、<code>F</code>、<code>NO</code>、<code>N</code> 為假，不分大小寫）</td>
+</tr>
+<tr>
+<td>字串 → 元素參照</td>
+<td><code>.dbref()</code></td>
+</tr>
+<tr>
+<td>字串 → 位置／方向／姿態</td>
+<td><code>.position()</code>、<code>.direction()</code>、<code>.orientation()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1163">11.6.3 未設定的值</h3>
+<p>變數可能「存在但沒有值」，陣列也可能有「洞」。PML 提供這些檢查：</p>
+<pre><code class="language-pml">!x = REAL()               -- 建立一個未設定值的 REAL 變數
+if (unset(!x)) then
+  $P x 尚未設定
+endif
+
+!ref = !!ce.owner
+if (badref(!ref)) then    -- 參照未設定或無法導覽
+  $P 沒有有效的擁有者
+endif
+</code></pre>
+<blockquote>
+<p><strong>開發人員須知：</strong> PML 沒有 <code>null</code> 這個字，但有 UNSET 的概念。讀資料庫屬性時常會遇到未設定的值，直接拿去運算會出錯。對可能為空的值先檢查，就像 C# 檢查 <code>null</code>。</p>
+</blockquote>
+<h2 id="117">11.7 運算子</h2>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>PML</th>
+<th>C#／Python 對照</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指定</td>
+<td><code>=</code></td>
+<td><code>=</code></td>
+<td>只用於指定</td>
+</tr>
+<tr>
+<td>相等、不等</td>
+<td><code>eq</code>、<code>ne</code></td>
+<td><code>==</code>、<code>!=</code></td>
+<td><strong>不能</strong>寫 <code>==</code></td>
+</tr>
+<tr>
+<td>大小比較</td>
+<td><code>gt</code>、<code>lt</code>、<code>ge</code>、<code>le</code></td>
+<td><code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code></td>
+<td>論文程式中的 <code>Geq</code>、<code>Leq</code> 與 <code>ge</code>、<code>le</code> 同義〔待核對〕</td>
+</tr>
+<tr>
+<td>邏輯</td>
+<td><code>and</code>、<code>or</code>、<code>not</code></td>
+<td><code>&amp;&amp;</code>、<code>||</code>、<code>!</code></td>
+<td><code>!</code> 在 PML 是變數前綴，不是否定</td>
+</tr>
+<tr>
+<td>算術</td>
+<td><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code></td>
+<td>同</td>
+<td>數值一律是 REAL</td>
+</tr>
+<tr>
+<td>字串串接</td>
+<td><code>&amp;</code></td>
+<td><code>+</code></td>
+<td><code>'A' &amp; 'B'</code> 得 <code>'AB'</code>；<code>&amp;</code> 會把數值轉成字串</td>
+</tr>
+<tr>
+<td>分組</td>
+<td><code>( )</code></td>
+<td>同</td>
+<td><code>if</code> 的條件必須用括號</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-pml">-- 示意：運算子綜合範例
+!len = 1200
+!wid = 800
+!area = !len * !wid / 1000000          -- 0.96（平方公尺）
+!isBig = !area gt 0.5 and !len ge 1000
+!label = 'Area = ' &amp; !area &amp; ' m2'     -- &amp; 會轉字串
+if (!isBig and not (!label eq '')) then
+  $P $!label
+endif
+</code></pre>
+<p><strong>短路求值：</strong> 官方文件說明，當結果已經確定時，運算式不會強迫評估未設定的變數。例如 <code>!trueValue or !unsetValue</code> 與 <code>!falseValue and !unsetValue</code> 都不會因為 <code>!unsetValue</code> 未設定而出錯。可以利用這點寫出「先檢查再使用」的條件。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 字串比較 <code>eq</code> 對大小寫敏感與否，請在公司版本實測〔待核對〕。需要不分大小寫時，明確使用 <code>!a.eqnocase(!b)</code> 或把兩邊都 <code>.upcase()</code> 再比較，程式意圖最清楚。</p>
+</blockquote>
+<h2 id="118">11.8 流程控制</h2>
+<h3 id="1181-ifelseifelse">11.8.1 if／elseif／else</h3>
+<pre><code class="language-pml">if (!bore ge 200) then
+  !class = 'LARGE'
+elseif (!bore ge 50) then
+  !class = 'MEDIUM'
+else
+  !class = 'SMALL'
+endif
+</code></pre>
+<p>規則：</p>
+<ul>
+<li>條件必須是 BOOLEAN。<code>if (1)</code>、<code>if ('TRUE')</code> 都是錯的；需要時用 <code>.boolean()</code> 轉換。</li>
+<li>關鍵字是 <code>elseif</code>（一個字），不是 <code>else if</code>。</li>
+<li><strong>不能寫成單行</strong>。官方文件把 <code>if (!n lt 0) then !neg = TRUE endif</code> 明確標為錯誤。</li>
+</ul>
+<h3 id="1182-do">11.8.2 do 迴圈</h3>
+<p>PML 只有一個迴圈關鍵字 <code>do</code>，搭配不同子句：</p>
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th>語法</th>
+<th>對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>計數</td>
+<td><code>do !i from 1 to 10 by 2</code> … <code>enddo</code></td>
+<td><code>for (i = 1; i &lt;= 10; i += 2)</code></td>
+</tr>
+<tr>
+<td>走訪值</td>
+<td><code>do !v values !arr</code> … <code>enddo</code></td>
+<td><code>foreach (var v in arr)</code></td>
+</tr>
+<tr>
+<td>走訪索引</td>
+<td><code>do !n indices !arr</code> … <code>enddo</code></td>
+<td><code>for i in range(len(arr))</code>（從 1 開始）</td>
+</tr>
+<tr>
+<td>無限迴圈</td>
+<td><code>do</code> … <code>enddo</code></td>
+<td><code>while (true)</code>，要搭配 <code>break</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>from</code> 預設 1、<code>to</code> 預設無限大、<code>by</code> 預設 +1；迴圈變數是 REAL，結束後保留最後的值。</p>
+<pre><code class="language-pml">-- 示意：三種 do 的寫法
+!names = ARRAY()
+!names.append('P-101A')
+!names.append('P-101B')
+!names.append('HX-201')
+
+do !i from 1 to !names.size()
+  $P 第 $!i 個：$!names[$!i]
+enddo
+
+do !n values !names
+  $P 名稱：$!n
+enddo
+
+do !k indices !names
+  !names[!k] = !names[!k].lowcase()
+enddo
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 開源範例 <code>mycollect.pmlfrm</code> 使用 <code>do !e index !results</code>。官方文件記載的關鍵字是 <code>indices</code>；<code>index</code> 是否為可接受的寫法，請在公司版本確認〔待核對〕。新程式建議統一寫 <code>indices</code>。</p>
+</blockquote>
+<h3 id="1183-breakskip-golabel">11.8.3 break、skip 與 golabel</h3>
+<pre><code class="language-pml">-- 示意：找到第一個大於 100 的數就停止
+!total = 0
+do !n values !numbers
+  skip if (!n lt 0)          -- 略過負數，直接進入下一圈（同 continue）
+  break if (!n gt 100)       -- 跳出迴圈（同 break）
+  !total = !total + !n
+enddo
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>PML</th>
+<th>對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>break</code>、<code>break if (條件)</code></td>
+<td><code>break</code></td>
+</tr>
+<tr>
+<td><code>skip</code>、<code>skip if (條件)</code></td>
+<td><code>continue</code></td>
+</tr>
+<tr>
+<td><code>golabel /名稱</code> 與 <code>label /名稱</code></td>
+<td><code>goto</code>（少用，主要出現在舊程式與 <code>onerror GOLABEL</code>）</td>
+</tr>
+</tbody>
+</table>
+<p>官方說明 <code>break if</code> 的條件可以是任何結果為 BOOLEAN 的運算式（包含函式呼叫），括號可省略但建議保留。</p>
+<h2 id="119">11.9 字串處理</h2>
+<p>PML 的字串是物件，處理方式都是呼叫方法。下表整理官方 STRING 物件中最常用的方法（位置從 1 開始）：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>回傳</th>
+<th>範例</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.length()</code></td>
+<td>REAL</td>
+<td><code>'ABCDE'.length()</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>.substring(起點, 長度)</code></td>
+<td>STRING</td>
+<td><code>'ABCDE'.substring(2, 3)</code></td>
+<td><code>'BCD'</code></td>
+</tr>
+<tr>
+<td><code>.substring(起點)</code></td>
+<td>STRING</td>
+<td><code>'ABCDE'.substring(4)</code></td>
+<td><code>'DE'</code></td>
+</tr>
+<tr>
+<td><code>.upcase()</code>、<code>.lowcase()</code></td>
+<td>STRING</td>
+<td><code>'Pump'.upcase()</code></td>
+<td><code>'PUMP'</code></td>
+</tr>
+<tr>
+<td><code>.trim()</code></td>
+<td>STRING</td>
+<td><code>'  A  '.trim()</code></td>
+<td><code>'A'</code></td>
+</tr>
+<tr>
+<td><code>.split()</code></td>
+<td>ARRAY</td>
+<td><code>'A B  C'.split()</code></td>
+<td><code>['A','B','C']</code>（壓縮多個空白）</td>
+</tr>
+<tr>
+<td><code>.split(分隔字)</code></td>
+<td>ARRAY</td>
+<td><code>'A,,C'.split(',')</code></td>
+<td><code>['A','','C']</code>（不壓縮）</td>
+</tr>
+<tr>
+<td><code>.part(第 n 段, 分隔字)</code></td>
+<td>STRING</td>
+<td><code>'A-B-C'.part(2, '-')</code></td>
+<td><code>'B'</code></td>
+</tr>
+<tr>
+<td><code>.match(子字串)</code></td>
+<td>REAL</td>
+<td><code>'P-101A'.match('101')</code></td>
+<td><code>3</code>（找不到為 0）</td>
+</tr>
+<tr>
+<td><code>.matchwild(樣式)</code></td>
+<td>BOOLEAN</td>
+<td><code>'P-101A'.matchwild('P-*')</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr>
+<td><code>.replace(舊, 新)</code></td>
+<td>STRING</td>
+<td><code>'P_101'.replace('_', '-')</code></td>
+<td><code>'P-101'</code></td>
+</tr>
+<tr>
+<td><code>.after(子字串)</code>、<code>.before(子字串)</code></td>
+<td>STRING</td>
+<td><code>'/Z-ER/P-101'.after('/Z-ER/')</code></td>
+<td><code>'P-101'</code></td>
+</tr>
+<tr>
+<td><code>.occurs(子字串)</code></td>
+<td>REAL</td>
+<td><code>'A-B-C'.occurs('-')</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>.empty()</code></td>
+<td>BOOLEAN</td>
+<td><code>''.empty()</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr>
+<td><code>.real()</code>、<code>.boolean()</code>、<code>.dbref()</code></td>
+<td>對應型別</td>
+<td><code>'12.5'.real()</code></td>
+<td><code>12.5</code></td>
+</tr>
+<tr>
+<td><code>.eqnocase(另一字串)</code></td>
+<td>BOOLEAN</td>
+<td><code>'abc'.eqnocase('ABC')</code></td>
+<td><code>TRUE</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-pml">-- 示意：解析「區域-系統-序號」格式的設備名稱
+!tag = 'ER-FW-101A'
+!parts = !tag.split('-')
+if (!parts.size() eq 3) then
+  !zone = !parts[1]
+  !system = !parts[2]
+  !seq = !parts[3]
+  $P 區域 $!zone、系統 $!system、序號 $!seq
+else
+  $P 名稱格式不符：$!tag
+endif
+</code></pre>
+<h2 id="1110">11.10 陣列</h2>
+<h3 id="11101">11.10.1 基本特性</h3>
+<p>PML 陣列與多數語言最大的不同：<strong>索引從 1 開始</strong>。官方文件還補充：索引 0 雖然允許，但許多陣列功能會忽略第 0 個元素，不建議使用；負數索引已不允許。</p>
+<pre><code class="language-pml">!a = ARRAY()              -- 空陣列
+!a[1] = 'first'           -- 直接指定也會建立元素
+!a.append('second')       -- 加到最後
+!a[10] = 'tenth'          -- 允許有洞（稀疏陣列）
+q var !a.size()           -- 已定義元素的個數：3
+q var !a[5]               -- 未定義
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PML</th>
+<th>C#／Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一個元素</td>
+<td><code>!a[1]</code></td>
+<td><code>a[0]</code></td>
+</tr>
+<tr>
+<td>最後一個元素</td>
+<td><code>!a[!a.size()]</code> 或 <code>!a.last()</code>（無洞時）</td>
+<td><code>a[^1]</code>、<code>a[-1]</code></td>
+</tr>
+<tr>
+<td>元素型別</td>
+<td>可混放，甚至放物件</td>
+<td>依宣告或任意</td>
+</tr>
+<tr>
+<td>稀疏</td>
+<td>允許有洞</td>
+<td>不允許（list）</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td>已定義元素數</td>
+<td><code>Count</code>／<code>len()</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 因為允許有洞，<code>size()</code> 是「已定義元素的個數」，不一定等於最大索引。對有洞的陣列，用 <code>do !k indices !a</code> 走訪已定義的索引，或先 <code>.compress()</code> 移除未定義元素再處理。</p>
+</blockquote>
+<h3 id="11102">11.10.2 常用方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.append(值)</code>、<code>.appendarray(陣列)</code></td>
+<td>加到最後</td>
+</tr>
+<tr>
+<td><code>.insert(索引, 值)</code></td>
+<td>插入並重新編號</td>
+</tr>
+<tr>
+<td><code>.remove(n)</code>、<code>.removefirst()</code>、<code>.removelast()</code></td>
+<td>移除並回傳，其餘重新編號</td>
+</tr>
+<tr>
+<td><code>.size()</code>、<code>.empty()</code></td>
+<td>元素數、是否為空</td>
+</tr>
+<tr>
+<td><code>.first()</code>、<code>.last()</code></td>
+<td>第一個、最後一個</td>
+</tr>
+<tr>
+<td><code>.find(值)</code>、<code>.findfirst(值)</code></td>
+<td>找出所有位置、第一個位置（找不到為 UNSET）</td>
+</tr>
+<tr>
+<td><code>.sort()</code></td>
+<td>原地遞增排序</td>
+</tr>
+<tr>
+<td><code>.sortunique()</code></td>
+<td>排序並去除重複</td>
+</tr>
+<tr>
+<td><code>.unique()</code></td>
+<td>去除重複</td>
+</tr>
+<tr>
+<td><code>.sortedindices()</code></td>
+<td>回傳排序後的索引順序，原陣列不變</td>
+</tr>
+<tr>
+<td><code>.reindex(索引陣列)</code></td>
+<td>依索引陣列重新排列</td>
+</tr>
+<tr>
+<td><code>.union()</code>、<code>.intersect()</code>、<code>.difference()</code></td>
+<td>集合運算</td>
+</tr>
+<tr>
+<td><code>.from(起點, 個數)</code>、<code>.to(終點)</code></td>
+<td>取出片段</td>
+</tr>
+<tr>
+<td><code>.clear()</code>、<code>.compress()</code></td>
+<td>清空、移除未定義元素</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11103-sortedindices">11.10.3 用 sortedIndices 排序「平行陣列」</h3>
+<p>PML 沒有內建的字典或結構陣列排序，常見技巧是用 <code>sortedindices()</code> 取得順序，再套用到多個平行陣列：</p>
+<pre><code class="language-pml">-- 示意：依重量排序設備名稱
+!names   = ARRAY()
+!weights = ARRAY()
+!names.append('P-101A')
+!weights.append(850)
+!names.append('HX-201')
+!weights.append(2300)
+!names.append('T-301')
+!weights.append(120)
+
+!order = !weights.sortedindices()   -- 依重量由小到大的索引順序
+!names.reindex(!order)
+!weights.reindex(!order)
+do !k indices !names
+  $P $!names[$!k]  $!weights[$!k] kg
+enddo
+</code></pre>
+<h3 id="11104">11.10.4 多維陣列與物件陣列</h3>
+<pre><code class="language-pml">!grid = ARRAY()
+!grid[1][1] = 'Name'
+!grid[1][2] = 'Desc'
+!grid[2][1] = 'P-101A'
+!grid[2][2] = 'FW Pump'
+q var !grid[2][1]
+</code></pre>
+<p>「陣列的陣列」就是表格，第 13 章的 MyCollect 範例正是用這種結構把資料列交給表格控制項。陣列元素也可以是自訂物件（11.12 節）。</p>
+<h2 id="1111">11.11 函式與程序</h2>
+<h3 id="11111">11.11.1 定義與呼叫</h3>
+<p>函式寫在 <code>.pmlfnc</code> 檔，檔名等於函式名稱（第 10 章）。官方範例：</p>
+<pre><code class="language-pml">define function !!Area( !Length is REAL, !Width is REAL ) is REAL
+  !Area = !Length * !Width
+  return !Area
+endfunction
+</code></pre>
+<pre><code class="language-pml">!SurfaceArea = !!Area(7, 6)     -- 42
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>define function !!名稱(...)</code></td>
+<td>函式一定是全域名稱（<code>!!</code>）</td>
+</tr>
+<tr>
+<td><code>!參數 is 型別</code></td>
+<td>引數必須宣告型別：REAL、STRING、BOOLEAN、ARRAY、DBREF、物件型別，或 <code>ANY</code></td>
+</tr>
+<tr>
+<td>結尾的 <code>is REAL</code></td>
+<td>回傳型別；省略時就是「程序」</td>
+</tr>
+<tr>
+<td><code>return 值</code></td>
+<td>回傳；函式內的引數就像區域變數</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11112">11.11.2 程序（沒有回傳值）</h3>
+<p>省略回傳型別的函式稱為 PML 程序（Procedure），以 <code>call</code> 呼叫，結果透過「輸出引數」傳回：</p>
+<pre><code class="language-pml">define function !!AreaProc( !Length is REAL, !Width is REAL, !Result is REAL)
+  !Result = !Length * !Width
+endfunction
+</code></pre>
+<pre><code class="language-pml">!SurfaceArea = REAL()               -- 輸出引數必須先存在
+call !!AreaProc(7, 6, !SurfaceArea)
+q var !SurfaceArea                  -- 42
+</code></pre>
+<p>官方說明：即使沒有引數，括號也不能省略（<code>call !!Initialise()</code>）；把程序的結果直接指定給變數會出錯。</p>
+<h3 id="11113">11.11.3 引數是參照，不是複本</h3>
+<p>這是 PML 與多數語言最不同、也最危險的一點。官方文件說明：<strong>引數是對外部值的參照，等於原變數的另一個名字；在函式內修改引數，呼叫端的變數也會跟著改變。</strong></p>
+<pre><code class="language-pml">-- 示意：引數以參照傳遞
+define function !!mycoShout(!text is STRING) is STRING
+  !text = !text.upcase()     -- 這行也改到了呼叫端的變數
+  return !text
+endfunction
+</code></pre>
+<pre><code class="language-pml">!name = 'pump'
+!loud = !!mycoShout(!name)
+q var !name                  -- 也變成 'PUMP'
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>語言</th>
+<th>預設傳遞方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C#</td>
+<td>值型別傳值；參照型別傳參照的複本；需 <code>ref</code> 才能改變呼叫端變數</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>傳物件參照；重新指定參數不影響呼叫端</td>
+</tr>
+<tr>
+<td><strong>PML</strong></td>
+<td><strong>參照</strong>：重新指定參數也會改到呼叫端的變數</td>
+</tr>
+</tbody>
+</table>
+<p>建議：<strong>不要修改輸入引數</strong>。需要處理時先複製到區域變數：<code>!t = !text.upcase()</code>。另外，呼叫端傳入常數（例如字面字串）給會被修改的引數會出錯，官方文件把這種寫法標為錯誤。</p>
+<h2 id="1112-define-object">11.12 物件導向：define object</h2>
+<h3 id="11121-life">11.12.1 官方範例：LIFE 物件</h3>
+<p>官方用一個極簡的物件說明所有概念：</p>
+<pre><code class="language-pml">define object LIFE
+  member .Answer is REAL
+endobject
+
+define method .Life()
+  !This.Answer = 42
+endmethod
+
+define method .Answer() is REAL
+  return !This.Answer
+endmethod
+
+define method .Answer( !Value is REAL)
+  !This.Answer = !Value
+endmethod
+</code></pre>
+<pre><code class="language-pml">!Marvin = object LIFE()      -- 自動呼叫建構子 .Life()
+!Number = !Marvin.Answer()   -- 42
+!Marvin.Answer(40)           -- 呼叫有引數的版本
+!Number = !Marvin.Answer()   -- 40
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>PML</th>
+<th>C# 對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>類別定義</td>
+<td><code>define object 名稱</code> … <code>endobject</code></td>
+<td><code>class 名稱 { }</code></td>
+</tr>
+<tr>
+<td>欄位</td>
+<td><code>member .名稱 is 型別</code></td>
+<td>欄位宣告</td>
+</tr>
+<tr>
+<td>方法</td>
+<td><code>define method .名稱(...)</code>，寫在 <code>endobject</code> 之後、同一檔案</td>
+<td>方法</td>
+</tr>
+<tr>
+<td>建構子</td>
+<td>與型別同名、無引數的方法</td>
+<td>無參數建構子</td>
+</tr>
+<tr>
+<td>有引數的建構子</td>
+<td>與型別同名、引數相符的方法，例如 <code>object LIFE(40)</code></td>
+<td>多載建構子</td>
+</tr>
+<tr>
+<td>多載</td>
+<td>同名方法、不同引數（<code>.Answer()</code> 與 <code>.Answer(!Value)</code>）</td>
+<td>方法多載</td>
+</tr>
+<tr>
+<td>自己</td>
+<td><code>!this</code></td>
+<td><code>this</code></td>
+</tr>
+<tr>
+<td>建立實例</td>
+<td><code>object LIFE()</code></td>
+<td><code>new Life()</code></td>
+</tr>
+<tr>
+<td>呼叫同物件的其他方法</td>
+<td><code>!this.Answer(!Value)</code></td>
+<td><code>this.Answer(value)</code></td>
+</tr>
+</tbody>
+</table>
+<p>注意：沒有繼承、沒有存取修飾詞（所有成員都是公開的）、沒有介面宣告。新增方法後要執行 <code>pml reload object LIFE</code>（第 10 章）。</p>
+<h3 id="11122-mycotally">11.12.2 範例：一個小型統計物件 MYCOTALLY</h3>
+<p>PML 沒有字典（Dictionary／dict）。下面用平行陣列實作一個「分類計數器」，可以用來統計某 ZONE 下各種元素型別的數量。檔名 <code>mycotally.pmlobj</code>：</p>
+<pre><code class="language-pml">-- 示意：mycotally.pmlobj　分類計數器
+define object MYCOTALLY
+  member .keys   is ARRAY
+  member .counts is ARRAY
+endobject
+
+-- 建構子：初始化兩個平行陣列
+define method .mycotally()
+  !this.keys = ARRAY()
+  !this.counts = ARRAY()
+endmethod
+
+-- 把某個鍵的計數加 1
+define method .add(!key is STRING)
+  !pos = !this.keys.findfirst(!key)
+  if (unset(!pos)) then
+    !this.keys.append(!key)
+    !this.counts.append(1)
+  else
+    !this.counts[!pos] = !this.counts[!pos] + 1
+  endif
+endmethod
+
+-- 查詢某個鍵的計數，沒有則回傳 0
+define method .count(!key is STRING) is REAL
+  !pos = !this.keys.findfirst(!key)
+  if (unset(!pos)) then
+    return 0
+  endif
+  return !this.counts[!pos]
+endmethod
+
+-- 依鍵排序後輸出成文字陣列
+define method .report() is ARRAY
+  !order = !this.keys.sortedindices()
+  !lines = ARRAY()
+  do !k values !order
+    !lines.append(!this.keys[!k] &amp; ' : ' &amp; !this.counts[!k])
+  enddo
+  return !lines
+endmethod
+</code></pre>
+<p>使用方式（唯讀，只讀取型別）：</p>
+<pre><code class="language-pml">-- 示意：統計目前元素底下各型別的數量
+!tally = object MYCOTALLY()
+!coll = object COLLECTION()
+!coll.scope(!!ce)
+!all = !coll.results()
+do !e values !all
+  !tally.add(!e.type.string())   -- 與開源範例相同，以 .string() 確保是 STRING
+enddo
+!lines = !tally.report()
+do !line values !lines
+  $P $!line
+enddo
+</code></pre>
+<p>逐段解說：</p>
+<table>
+<thead>
+<tr>
+<th>段落</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>member .keys is ARRAY</code></td>
+<td>成員宣告型別，建構子中再給初值</td>
+</tr>
+<tr>
+<td><code>.mycotally()</code></td>
+<td>與型別同名、無引數，就是建構子；<code>object MYCOTALLY()</code> 時自動執行</td>
+</tr>
+<tr>
+<td><code>.findfirst(!key)</code></td>
+<td>官方 ARRAY 方法，找不到時回傳 UNSET，所以用 <code>unset()</code> 檢查</td>
+</tr>
+<tr>
+<td><code>.count()</code> 有兩個 <code>return</code></td>
+<td>方法可以提早回傳，與函式相同</td>
+</tr>
+<tr>
+<td><code>.report()</code> 用 <code>sortedindices()</code></td>
+<td>不改變內部陣列順序，只產生排序後的輸出</td>
+</tr>
+<tr>
+<td>使用端沒有 <code>type()</code></td>
+<td>COLLECTION 沒指定型別時收集範圍內所有元素（第 12 章）</td>
+</tr>
+<tr>
+<td>先存 <code>!all</code> 再走訪</td>
+<td>把方法結果先放進變數再 <code>do ... values</code>，可讀性較好，也方便用 <code>q var</code> 檢查</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 物件很適合把「狀態 + 操作」包在一起，讓表單程式碼保持簡潔。第 13 章的表單本身也是物件：<code>setup form</code> 宣告成員與 gadget，<code>define method</code> 定義行為，概念完全相同。</p>
+</blockquote>
+<h2 id="1113-handle">11.13 錯誤處理：handle</h2>
+<h3 id="11131">11.13.1 錯誤長什麼樣子</h3>
+<p>官方以使用不存在的變數為例：</p>
+<pre><code class="language-text">(46,28) ERROR - Variable FRED not defined
+</code></pre>
+<p>括號中的第一個數字代表偵測到錯誤的模組或程式區段，第二個數字是錯誤編號。錯誤發生時通常有三個效果：跳出需要使用者確認的警示框、在命令列輸出錯誤訊息與呼叫追蹤、放棄目前正在執行的巨集與函式。</p>
+<h3 id="11132-handle">11.13.2 handle 區塊</h3>
+<pre><code class="language-pml">-- 某行命令產生錯誤 (46, 28)
+handle (46, 27)
+  -- 不符合，不執行
+elsehandle (46, 28)
+  -- 符合，執行這裡
+elsehandle ANY
+  -- 其他任何錯誤
+elsehandle NONE
+  -- 沒有錯誤時才執行
+endhandle
+-- 處理完後從這一行繼續
+</code></pre>
+<p>規則（依官方文件）：</p>
+<ol>
+<li>錯誤發生時，PML 看<strong>下一個要處理的命令</strong>是不是相符的 <code>handle</code>。是的話，不輸出錯誤，改為執行該區塊，結束後從 <code>endhandle</code> 下一行繼續。</li>
+<li><code>elsehandle</code> 依序比對；<code>ANY</code> 接住其他任何錯誤；<code>NONE</code> 只在沒有錯誤時執行。</li>
+<li>下一行不是 <code>handle</code>：依 <code>onerror</code> 設定處理。預設 <code>onerror RETURN</code>，放棄目前的函式或巨集，錯誤交給呼叫者；呼叫者的下一行若是 <code>handle</code> 就由它處理，一路往上。</li>
+</ol>
+<p><img alt="handle 的錯誤處理流程與 try/catch 對照" src="images/diagrams/ch11_handle_flow.svg" /></p>
+<p><em>圖 11-2　handle 的錯誤處理流程。注意 handle 只負責緊接在它前面的那一行。（本課程自繪）</em></p>
+<h3 id="11133-trycatch">11.13.3 與 try/catch 對照</h3>
+<table>
+<thead>
+<tr>
+<th>C#</th>
+<th>PML</th>
+<th>差異</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>try { 多行 }</code></td>
+<td>沒有；<code>handle</code> 只保護它前面那一行</td>
+<td>要保護多行，就把多行包成函式，在呼叫函式的那行後面接 <code>handle</code></td>
+</tr>
+<tr>
+<td><code>catch (特定例外)</code></td>
+<td><code>handle (模組, 編號)</code></td>
+<td>以錯誤碼比對，不是以型別</td>
+</tr>
+<tr>
+<td><code>catch (Exception)</code></td>
+<td><code>elsehandle ANY</code> 或 <code>handle ANY</code></td>
+<td></td>
+</tr>
+<tr>
+<td>沒有例外才執行</td>
+<td><code>elsehandle NONE</code></td>
+<td>C# 沒有直接對應</td>
+</tr>
+<tr>
+<td><code>throw;</code></td>
+<td><code>return error</code></td>
+<td>把錯誤再丟給呼叫者</td>
+</tr>
+<tr>
+<td><code>throw new X("msg")</code></td>
+<td><code>return error 1 '訊息'</code></td>
+<td>使用者自訂錯誤編號</td>
+</tr>
+<tr>
+<td><code>catch (X)</code> 接自訂錯誤</td>
+<td><code>handle 1</code></td>
+<td>專用寫法</td>
+</tr>
+<tr>
+<td><code>finally</code></td>
+<td>沒有</td>
+<td>清理動作寫在 <code>endhandle</code> 之後</td>
+</tr>
+</tbody>
+</table>
+<p>其他官方提供的寫法：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q var !!error</code></td>
+<td>在 handle 區塊中查看錯誤內容</td>
+</tr>
+<tr>
+<td><code>return error noalert</code></td>
+<td>再丟出錯誤，但不顯示警示框</td>
+</tr>
+<tr>
+<td><code>return error 1 NOALERT</code></td>
+<td>產生自訂錯誤且不顯示警示框</td>
+</tr>
+<tr>
+<td><code>onerror GOLABEL /標籤</code></td>
+<td>未處理的錯誤跳到標籤；標籤後第一行必須是 <code>handle</code></td>
+</tr>
+<tr>
+<td><code>onerror CONTINUE</code></td>
+<td>壓制錯誤與警示框（非互動測試用，官方警告可能有無法預期的效果）</td>
+</tr>
+<tr>
+<td><code>onerror PAUSE</code></td>
+<td>錯誤時暫停，可輸入命令查看狀態，<code>$M+</code> 繼續；不要留在正式程式中</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11134">11.13.4 實用範例：安全讀取元素描述</h3>
+<pre><code class="language-pml">-- 示意：安全讀取名稱對應元素的 DESC
+define function !!mycoSafeDesc(!name is STRING) is STRING
+  !ref = !name.dbref()
+  handle ANY
+    return '(名稱無效)'
+  endhandle
+  if (badref(!ref)) then
+    return '(找不到元素)'
+  endif
+  !d = !ref.desc
+  handle ANY
+    return '(無法讀取 DESC)'
+  endhandle
+  return !d
+endfunction
+</code></pre>
+<p>每一個可能失敗的動作後面都接了自己的 <code>handle</code>，失敗時回傳說明文字而不是讓整個工具中斷。實際錯誤碼可以先用 <code>handle ANY</code> 加 <code>q var !!error</code> 觀察，再改寫成特定錯誤碼。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 開源範例 <code>mycollect.pmlfrm</code> 中，<code>import 'GridControl'</code> 後面接 <code>handle (1000,0)</code>，用來忽略「已經匯入過」的錯誤。這是官方範例也常用的慣用法：可預期、無害的錯誤，用特定錯誤碼接住並忽略；其他錯誤則讓它傳出去，不要一律 <code>handle ANY</code> 吞掉。</p>
+</blockquote>
+<h2 id="1114">11.14 巨集與除錯指令</h2>
+<h3 id="11141">11.14.1 巨集</h3>
+<p>巨集是一連串命令的文字檔，以 <code>$M</code> 執行：</p>
+<pre><code class="language-pml">$M D:\Company\pmllib\myco\macros\mycoinit.pmlmac
+</code></pre>
+<p>官方說明巨集可以接收引數：引數寫在巨集名稱後面、以空白分隔，在巨集內以 <code>$1</code>、<code>$2</code> … 取用（最多 9 個）。從 PML 程式呼叫巨集時，引數必須是字串，PML 變數要以 <code>$</code> 展開成文字。</p>
+<h3 id="11142">11.14.2 $ 開頭的指令</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$P 文字</code></td>
+<td>把文字印到命令列</td>
+<td><code>$P 開始處理</code></td>
+</tr>
+<tr>
+<td><code>$!變數</code></td>
+<td>把變數值展開成文字，嵌入命令或 <code>$P</code></td>
+<td><code>$P 名稱：$!name</code>、<code>NEW EQUI $!newName</code></td>
+</tr>
+<tr>
+<td><code>$M 檔案</code></td>
+<td>執行巨集</td>
+<td>見上</td>
+</tr>
+<tr>
+<td><code>$R100</code>、<code>$R0</code></td>
+<td>開啟、關閉 PML 追蹤（等同 <code>PML TRACE ON</code>／<code>OFF</code>）</td>
+<td>追蹤時每一行執行的程式都會印出行號</td>
+</tr>
+<tr>
+<td><code>$HR</code></td>
+<td>查看 <code>$R</code> 的線上說明</td>
+<td></td>
+</tr>
+<tr>
+<td><code>$*</code></td>
+<td>註解</td>
+<td><code>$* 舊式註解</code></td>
+</tr>
+<tr>
+<td><code>$M-</code>、<code>$M+</code></td>
+<td>暫停、繼續巨集執行（搭配 <code>onerror PAUSE</code>）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="11143-pml1-pml2">11.14.3 $! 展開：PML1 與 PML2 的橋樑</h3>
+<p>PML2 運算式直接使用變數（<code>!a = !b + 1</code>）；但<strong>資料庫命令是 PML1 語法</strong>，命令解析器看到的是文字。這時就要用 <code>$!</code> 把變數「貼」進命令：</p>
+<pre><code class="language-pml">!newName = '/T-EQUI-001'
+NEW EQUI $!newName            -- 命令看到的是：NEW EQUI /T-EQUI-001
+</code></pre>
+<p>對照：<code>$!</code> 就像 shell 的 <code>$var</code> 變數展開，或 C# 的字串內插 <code>$"NEW EQUI {newName}"</code> 之後再交給命令直譯器。也因為是「文字替換」，變數內容若含空白或特殊字元，可能讓命令變成意料之外的樣子，使用前要先驗證內容。</p>
+<h3 id="11144">11.14.4 查詢與追蹤</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q var !x</code></td>
+<td>顯示變數型別與值</td>
+</tr>
+<tr>
+<td><code>q var !!error</code></td>
+<td>顯示最後的錯誤</td>
+</tr>
+<tr>
+<td><code>PML TRACE ON</code>／<code>PML TRACE OFF</code></td>
+<td>開關追蹤（也可在啟動前設定環境變數 <code>PMLTRACE=ON</code>）</td>
+</tr>
+<tr>
+<td><code>!!alert.message('...')</code></td>
+<td>跳出訊息框（會打斷使用者，除錯用 <code>$P</code> 較好）</td>
+</tr>
+</tbody>
+</table>
+<p>第 17 章會把除錯技巧整理成完整流程。</p>
+<h2 id="1115">11.15 與其他語言對照總表</h2>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>PML</th>
+<th>C#</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>區域變數</td>
+<td><code>!x = 1</code></td>
+<td><code>var x = 1;</code></td>
+<td><code>x = 1</code></td>
+</tr>
+<tr>
+<td>全域變數</td>
+<td><code>!!x = 1</code></td>
+<td>static 欄位</td>
+<td>模組變數</td>
+</tr>
+<tr>
+<td>相等</td>
+<td><code>eq</code></td>
+<td><code>==</code></td>
+<td><code>==</code></td>
+</tr>
+<tr>
+<td>不等</td>
+<td><code>ne</code></td>
+<td><code>!=</code></td>
+<td><code>!=</code></td>
+</tr>
+<tr>
+<td>邏輯否定</td>
+<td><code>not</code></td>
+<td><code>!</code></td>
+<td><code>not</code></td>
+</tr>
+<tr>
+<td>字串串接</td>
+<td><code>&amp;</code></td>
+<td><code>+</code></td>
+<td><code>+</code></td>
+</tr>
+<tr>
+<td>字串字面</td>
+<td><code>'a'</code>、<code>|a|</code></td>
+<td><code>"a"</code></td>
+<td><code>'a'</code>、<code>"a"</code></td>
+</tr>
+<tr>
+<td>陣列第一個</td>
+<td><code>!a[1]</code></td>
+<td><code>a[0]</code></td>
+<td><code>a[0]</code></td>
+</tr>
+<tr>
+<td>迴圈</td>
+<td><code>do !v values !a</code></td>
+<td><code>foreach</code></td>
+<td><code>for v in a</code></td>
+</tr>
+<tr>
+<td>繼續／跳出</td>
+<td><code>skip</code>／<code>break</code></td>
+<td><code>continue</code>／<code>break</code></td>
+<td><code>continue</code>／<code>break</code></td>
+</tr>
+<tr>
+<td>函式</td>
+<td><code>define function !!f(!a is REAL) is REAL</code></td>
+<td><code>static double F(double a)</code></td>
+<td><code>def f(a):</code></td>
+</tr>
+<tr>
+<td>引數傳遞</td>
+<td>參照（會改到呼叫端）</td>
+<td>值或參照</td>
+<td>物件參照</td>
+</tr>
+<tr>
+<td>類別</td>
+<td><code>define object</code></td>
+<td><code>class</code></td>
+<td><code>class</code></td>
+</tr>
+<tr>
+<td>自己</td>
+<td><code>!this</code></td>
+<td><code>this</code></td>
+<td><code>self</code></td>
+</tr>
+<tr>
+<td>例外處理</td>
+<td><code>handle</code>（只保護前一行）</td>
+<td><code>try/catch</code></td>
+<td><code>try/except</code></td>
+</tr>
+<tr>
+<td>拋出</td>
+<td><code>return error 1 '訊息'</code></td>
+<td><code>throw</code></td>
+<td><code>raise</code></td>
+</tr>
+<tr>
+<td>空值</td>
+<td>UNSET、<code>unset()</code>、<code>badref()</code></td>
+<td><code>null</code></td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td>字串內插</td>
+<td><code>$!x</code>（命令層級）</td>
+<td><code>$"{x}"</code></td>
+<td><code>f"{x}"</code></td>
+</tr>
+<tr>
+<td>印出</td>
+<td><code>$P</code></td>
+<td><code>Console.WriteLine</code></td>
+<td><code>print</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1116">11.16 開發人員須知</h2>
+<ul>
+<li><strong>陣列從 1 開始，而且可以有洞。</strong> 從其他語言移植演算法時，所有 <code>0</code>、<code>-1</code>、<code>&lt; n</code> 的邊界都要重新檢查。</li>
+<li><strong>不要修改輸入引數。</strong> PML 的引數是參照，修改會影響呼叫端，造成難以追蹤的錯誤。</li>
+<li><strong>handle 只保護一行。</strong> 把容易出錯的步驟包成小函式，呼叫處接一個 <code>handle</code>，結構會比到處加 <code>handle</code> 清楚。</li>
+<li><strong>不要一律 <code>handle ANY</code> 吞掉錯誤。</strong> 至少記錄 <code>!!error.text</code>，否則問題會悄悄累積成錯誤資料。</li>
+<li><strong>PML1 命令與 PML2 運算式分清楚。</strong> 運算式中用 <code>!x</code>；命令中需要變數值時用 <code>$!x</code>，並先驗證內容。</li>
+<li><strong>少用全域變數。</strong> 狀態放在物件或表單成員上；必須使用全域變數時加公司前綴。</li>
+<li><strong>先在命令列試，再寫進檔案。</strong> PML 沒有完整的 IDE，命令列加 <code>q var</code> 就是你的 REPL。</li>
+</ul>
+<h2 id="1117">11.17 練習</h2>
+<blockquote>
+<p>本章練習只做計算與唯讀查詢，可在任何專案中執行；但建議仍使用訓練專案。</p>
+</blockquote>
+<h3 id="1">練習 1：命令列熱身</h3>
+<p>在命令列依序輸入下列程式，每一行後用 <code>q var</code> 檢查結果，並寫下你的預測與實際結果：</p>
+<pre><code class="language-pml">!s = '  ER-FW-101A  '
+!t = !s.trim()
+!u = !t.split('-')
+!n = !u.size()
+!last = !u[!n]
+!ok = !last.match('101') gt 0
+</code></pre>
+<h3 id="2">練習 2：字串函式</h3>
+<p>寫一個函式 <code>!!mycoTagSuffix(!tag is STRING) is STRING</code>，回傳設備名稱最後一段的英文字尾，例如 <code>'ER-FW-101A'</code> 回傳 <code>'A'</code>，沒有字尾時回傳空字串。提示：取出最後一段後，從尾端逐字檢查 <code>.isletters()</code>。</p>
+<h3 id="3">練習 3：陣列與排序</h3>
+<p>建立兩個平行陣列（名稱與重量），用 <code>sortedindices()</code> 依重量由大到小輸出。提示：遞增排序後反向走訪，或用 <code>.invert()</code>。</p>
+<h3 id="4-mycotally">練習 4：完成 MYCOTALLY</h3>
+<ol>
+<li>把 11.12.2 節的 <code>mycotally.pmlobj</code> 放進個人 <code>PMLLIB</code>，<code>pml rehash</code> 後在訓練專案的某個 ZONE 上執行使用範例。</li>
+<li>加一個方法 <code>.total() is REAL</code>，回傳所有計數的總和；執行 <code>pml reload object MYCOTALLY</code> 後測試。</li>
+<li>加一個方法 <code>.top(!n is REAL) is ARRAY</code>，回傳數量最多的前 n 個鍵。</li>
+</ol>
+<h3 id="5">練習 5：錯誤處理</h3>
+<ol>
+<li>執行 <code>!x = !notDefined + 1</code>，記錄錯誤碼。</li>
+<li>把這行放進一個函式，後面接 <code>handle</code> 該錯誤碼，回傳 <code>-1</code>。</li>
+<li>改寫成 <code>return error 1 '輸入無效'</code>，在呼叫端用 <code>handle 1</code> 接住並印出訊息。</li>
+</ol>
+<h2 id="1118">11.18 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 PML1 與 PML2 的差別，並辨識程式中的 PML1 命令與 PML2 運算式。</li>
+<li>[ ] 我知道 <code>!x</code>、<code>!!x</code>、<code>!this.x</code> 的作用域，也知道為什麼要少用全域變數。</li>
+<li>[ ] 我能使用 STRING、REAL、BOOLEAN、ARRAY、DBREF、POSITION，並用 <code>.string()</code>、<code>.real()</code>、<code>.dbref()</code> 等轉換。</li>
+<li>[ ] 我會用 <code>eq</code>、<code>ne</code>、<code>gt</code>、<code>lt</code>、<code>ge</code>、<code>le</code>、<code>and</code>、<code>or</code>、<code>not</code>，知道不能寫 <code>==</code>。</li>
+<li>[ ] 我會寫 <code>if/elseif/else/endif</code>，以及 <code>do</code> 的 from/to、values、indices 三種形式，並使用 <code>break</code>、<code>skip</code>。</li>
+<li>[ ] 我會用 <code>&amp;</code> 串接字串，並使用 <code>.substring()</code>、<code>.split()</code>、<code>.upcase()</code>、<code>.real()</code> 等方法。</li>
+<li>[ ] 我記得陣列從 1 開始，會用 <code>.append()</code>、<code>.size()</code>、<code>.sort()</code>、<code>sortedindices()</code> 與多維陣列。</li>
+<li>[ ] 我會定義函式與程序，並理解引數以參照傳遞的後果。</li>
+<li>[ ] 我能寫出一個有成員、建構子、多個方法的 PML 物件，並正確使用 <code>!this</code>。</li>
+<li>[ ] 我會用 <code>handle</code>／<code>elsehandle</code>／<code>endhandle</code> 處理錯誤，能用 <code>return error 1</code> 自訂錯誤。</li>
+<li>[ ] 我會用 <code>$M</code> 執行巨集、用 <code>$P</code> 與 <code>$!</code> 輸出、用 <code>$R100</code>／<code>$R0</code> 追蹤。</li>
+</ul>
+<h2 id="1119">11.19 資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 PML Customisation User Guide（簡介，PML1 與 PML2）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG2.02.1.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG2.02.1.html</a></li>
+<li>同上：Text Delimiters：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG4.04.07.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG4.04.07.html</a></li>
+<li>同上：Variables, Objects, Functions and Methods：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.01.html</a></li>
+<li>同上：PML Functions and Methods：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.12.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.12.html</a></li>
+<li>同上：PML Procedures：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.14.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.14.html</a></li>
+<li>同上：Function Arguments（引數為參照）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG10.10.6.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG10.10.6.html</a></li>
+<li>同上：Methods on User-Defined Object Types：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.18.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.18.html</a></li>
+<li>同上：Constructor Methods with Arguments：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.20.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.20.html</a></li>
+<li>同上：Invoking a Method from Another Method：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.22.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG3.03.22.html</a></li>
+<li>同上：Control Logic、IF Construct、BOOLEAN Expressions、DO Loops、break：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.01.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.02.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.02.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.04.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.04.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.06.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.06.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.07.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG6.06.07.html</a></li>
+<li>同上：Arrays：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG7.07.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG7.07.01.html</a></li>
+<li>同上：Errors and Error Handling、Handling Errors、Setting the ONERROR Behaviour、Other Responses to an Error：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.1.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.1.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.2.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.2.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.3.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.3.html</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.4.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG11.11.4.html</a></li>
+<li>同上：Naming and Running Macros：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG8.08.2.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG8.08.2.html</a></li>
+<li>同上：PML Tracing（<code>PML TRACE</code>、<code>$R100</code>、<code>$R0</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG13.13.06.html">https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG13.13.06.html</a></li>
+<li>AVEVA E3D 2.1 Software Customisation Reference Manual：STRING Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.76.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.76.html</a></li>
+<li>同上：ARRAY Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.16.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.16.html</a></li>
+<li>開源範例 aveva-marine-dev-skill（MIT 授權，<code>mycollect.pmlfrm</code> 的 <code>handle (1000,0)</code> 與 <code>do ... index</code> 寫法）：<a href="https://github.com/912141548/aveva-marine-dev-skill">https://github.com/912141548/aveva-marine-dev-skill</a></li>
+<li>互動練習：<a href="aveva_pml_learning_guide.html">PML 互動練習頁</a></li>
+<li>相關章節：<a href="ch10_dev_environment_zh-TW.reading.html">第 10 章　開發環境</a>、<a href="ch12_pml_database_zh-TW.reading.html">第 12 章　PML 資料庫操作</a>、<a href="ch13_pml_forms_addins_zh-TW.reading.html">第 13 章　PML2 表單、選單與 Add-in</a>、<a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章　除錯、測試、部署與版本管理</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch10_dev_environment_zh-TW.reading.html"><small>← 上一篇</small>第 10 章　開發環境：PMLLIB、檔案類型與部署結構</a><a class="next" href="ch12_pml_database_zh-TW.reading.html"><small>下一篇 →</small>第 12 章　PML 資料庫操作</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

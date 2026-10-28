@@ -1,0 +1,946 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 3 章　資料階層、元素、屬性與導覽 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#3">第 3 章 資料階層、元素、屬性與導覽</a><ul>
+<li><a href="#31">3.1 學習目標</a></li>
+<li><a href="#32">3.2 元素樹</a><ul>
+<li><a href="#321-db">3.2.1 每個 DB 都是一棵樹</a></li>
+<li><a href="#322">3.2.2 每一層的用途</a></li>
+</ul>
+</li>
+<li><a href="#33">3.3 主要元素型別</a><ul>
+<li><a href="#331">3.3.1 舾裝元素</a></li>
+<li><a href="#332">3.3.2 船體元素</a></li>
+</ul>
+</li>
+<li><a href="#34">3.4 元素的識別方式</a><ul>
+<li><a href="#341">3.4.1 名稱</a></li>
+<li><a href="#342-dbref">3.4.2 DBREF</a></li>
+<li><a href="#343">3.4.3 型別加序號</a></li>
+</ul>
+</li>
+<li><a href="#35">3.5 屬性</a><ul>
+<li><a href="#351">3.5.1 屬性的值型別</a></li>
+<li><a href="#352">3.5.2 屬性分類</a></li>
+<li><a href="#353">3.5.3 參照屬性就是外鍵</a></li>
+<li><a href="#354">3.5.4 常用屬性速查</a></li>
+</ul>
+</li>
+<li><a href="#36-ce">3.6 CE：目前元素</a><ul>
+<li><a href="#361-ce">3.6.1 CE 是什麼</a></li>
+<li><a href="#362">3.6.2 導覽命令</a></li>
+</ul>
+</li>
+<li><a href="#37-q">3.7 用 Q 查詢屬性</a><ul>
+<li><a href="#371">3.7.1 基本形式</a></li>
+<li><a href="#372">3.7.2 一次完整的查詢練習（唯讀）</a></li>
+<li><a href="#373-q-att">3.7.3 Q ATT 與其他屬性清單</a></li>
+<li><a href="#374-uda">3.7.4 查詢 UDA 與偽屬性</a></li>
+<li><a href="#375-pml">3.7.5 命令列查詢與 PML 取值的差別</a></li>
+</ul>
+</li>
+<li><a href="#38">3.8 屬性值的單位與格式</a></li>
+<li><a href="#39-legal-members">3.9 合法成員（Legal Members）</a><ul>
+<li><a href="#391">3.9.1 為什麼開發人員要懂合法成員</a></li>
+<li><a href="#392">3.9.2 去哪裡查</a></li>
+</ul>
+</li>
+<li><a href="#310">3.10 開發人員須知</a></li>
+<li><a href="#311">3.11 練習</a><ul>
+<li><a href="#1">練習 1：畫出訓練專案的樹</a></li>
+<li><a href="#2">練習 2：十種元素的屬性筆記</a></li>
+<li><a href="#3_1">練習 3：追蹤一條參照鏈</a></li>
+<li><a href="#4">練習 4：找出偽屬性</a></li>
+<li><a href="#5">練習 5：觀察序號識別的不穩定（僅限訓練專案）</a></li>
+</ul>
+</li>
+<li><a href="#312">3.12 自我檢核</a></li>
+<li><a href="#313">3.13 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第一部分　系統與資料模型 · 4 / 21</span><h1 id="3">第 3 章　資料階層、元素、屬性與導覽</h1>
+<blockquote>
+<p>本章是整套課程中最核心的資料模型章節。所有 PML 查詢、.NET API、報表工具，操作的都是本章介紹的「元素樹」與「屬性」。讀完本章，你應該能在命令列中自由地移動、查詢任何元素，並把它對應到開發人員熟悉的樹狀資料結構與資料庫欄位。</p>
+<p>內容依據 AVEVA E3D 2.1 Data Model Reference Manual（DMRM）、Database Management Reference Manual（DBRM）、Software Customisation Reference Manual（SCRM）的公開頁面，以及 PDMS／Marine 通用的命令列用法自主撰寫。E3D 2.1 的資料模型與 Marine 12.1 舾裝大致相同，並已包含船體平面板架元素；不同版本的屬性清單可能有差異。命令範例中標示 <strong>〔待核對〕</strong> 者，請在公司訓練專案中驗證。</p>
+</blockquote>
+<h2 id="31">3.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>畫出 WORLD → SITE → ZONE → 主要元素 → 子元件的樹，並說明每一層的用途。</li>
+<li>辨認常見的元素型別：EQUI、PIPE／BRAN、STRU／FRMW／SCTN／PANE、HVAC，以及船體的 BLOCK、HPANEL、HPLATE、HSTIFF、HBRCKT。</li>
+<li>用三種方式識別一個元素：名稱、DBREF、型別加序號。</li>
+<li>把屬性分成系統、幾何、參照、偽屬性、UDA 五類，並知道各類能不能寫。</li>
+<li>查詢 NAME、TYPE、OWNER、MEMBERS、DESC、POS、ORI、SPRE、PURP、FUNC 等常用屬性。</li>
+<li>理解 CE（目前元素），並用命令移動到擁有者、成員或指定名稱的元素。</li>
+<li>使用 <code>Q</code> 與 <code>Q ATT</code> 查詢屬性，也會用 <code>OF</code> 查詢「不是 CE 的元素」。</li>
+<li>說明合法成員（Legal Members）的概念，並知道去哪裡查。</li>
+</ol>
+<h2 id="32">3.2 元素樹</h2>
+<h3 id="321-db">3.2.1 每個 DB 都是一棵樹</h3>
+<p>AVEVA E3D 官方文件描述：資料庫是階層式的樹狀結構；除了最上層的 WORLD，所有元素都被其他元素擁有；被擁有的元素稱為擁有者的成員（Member），例如 ZONE 是 SITE 的成員。</p>
+<p><img alt="元素樹範例：舾裝的 SITE、ZONE、EQUI、PIPE、STRU 與船體的 HBLWLD、BLOCK、HPANEL" src="images/diagrams/ch03_element_tree.svg" /></p>
+<p><em>圖 3-1　設計資料庫的元素樹範例。上半部是承襲 PDMS 的舾裝階層，下半部是 E3D 2.1 資料模型中的船體平面板架階層。名稱為示意。（本課程自繪；船體階層依 AVEVA E3D 2.1 DMRM）</em></p>
+<p>以開發人員的角度理解：</p>
+<table>
+<thead>
+<tr>
+<th>AVEVA 概念</th>
+<th>樹狀資料結構</th>
+<th>XML DOM</th>
+<th>關聯式資料庫</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素（Element）</td>
+<td>節點</td>
+<td>Element node</td>
+<td>一筆資料列</td>
+</tr>
+<tr>
+<td>元素型別（Type）</td>
+<td>節點種類</td>
+<td>標籤名稱</td>
+<td>資料表</td>
+</tr>
+<tr>
+<td>屬性（Attribute）</td>
+<td>節點資料</td>
+<td>Attribute</td>
+<td>欄位</td>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>parent</td>
+<td>parentNode</td>
+<td>指向父資料的外鍵</td>
+</tr>
+<tr>
+<td>MEMBERS</td>
+<td>children（有順序）</td>
+<td>childNodes</td>
+<td>子資料（依序號排序）</td>
+</tr>
+<tr>
+<td>參照屬性</td>
+<td>交叉連結</td>
+<td>IDREF</td>
+<td>外鍵</td>
+</tr>
+<tr>
+<td>WORLD</td>
+<td>根節點</td>
+<td>documentElement</td>
+<td>無</td>
+</tr>
+</tbody>
+</table>
+<h3 id="322">3.2.2 每一層的用途</h3>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>型別</th>
+<th>用途</th>
+<th>實務切分方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>根</td>
+<td>WORLD</td>
+<td>每個 DB 的根，使用者不會直接建立</td>
+<td>系統自動存在</td>
+</tr>
+<tr>
+<td>管理層</td>
+<td>SITE</td>
+<td>最上層的分區</td>
+<td>依船號、主要區域或專業〔依公司規劃〕</td>
+</tr>
+<tr>
+<td>管理層</td>
+<td>ZONE</td>
+<td>第二層分區，ZONE 可以再包含 ZONE</td>
+<td>依分段、艙區或系統</td>
+</tr>
+<tr>
+<td>主要元素</td>
+<td>EQUI、PIPE、STRU、HVAC…</td>
+<td>工程上「一個東西」</td>
+<td>一台設備、一條管線、一組平台</td>
+</tr>
+<tr>
+<td>次級元素</td>
+<td>BRAN、FRMW、SUBE…</td>
+<td>主要元素的組成單位</td>
+<td>管線的分支、結構的框架</td>
+</tr>
+<tr>
+<td>元件</td>
+<td>ELBO、VALV、SCTN、BOX、NOZZ…</td>
+<td>最細的組成</td>
+<td>管件、型鋼、基本體、管嘴</td>
+</tr>
+</tbody>
+</table>
+<p>E3D 2.1 DMRM 描述 ZONE 是第三層的管理元素，可代表工廠的地理或組織區段，並可直接包含設備、土建、管路元素；ZONE 的合法擁有者包括 SITE 與 ZONE 本身。船上的「工廠區段」，在實務中通常對應到分段、艙區或系統。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> SITE 與 ZONE 的切分不是技術問題，而是專案管理問題。它會影響權限（不同 Team 的 DB 通常各有自己的 SITE）、圖面範圍、報表統計與效能。寫工具前，先向管理員取得專案的階層規劃，不要假設「一船一個 SITE」。</p>
+</blockquote>
+<h2 id="33">3.3 主要元素型別</h2>
+<h3 id="331">3.3.1 舾裝元素</h3>
+<table>
+<thead>
+<tr>
+<th>專業</th>
+<th>主要元素</th>
+<th>常見成員</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設備</td>
+<td><code>EQUI</code></td>
+<td><code>SUBE</code>（子設備）、基本體 <code>BOX</code>、<code>CYLI</code>、<code>CONE</code>、<code>DISH</code>…、管嘴 <code>NOZZ</code></td>
+<td>基本體有正、負體積（負體積表示挖空）</td>
+</tr>
+<tr>
+<td>管路</td>
+<td><code>PIPE</code> → <code>BRAN</code></td>
+<td><code>FLAN</code>、<code>GASK</code>、<code>ELBO</code>、<code>TEE</code>、<code>VALV</code>、<code>REDU</code>、<code>ATTA</code>…</td>
+<td>BRAN 的成員順序就是沿流向的元件順序</td>
+</tr>
+<tr>
+<td>鐵舾裝／結構</td>
+<td><code>STRU</code> → <code>FRMW</code>（<code>SBFR</code>）</td>
+<td><code>SCTN</code>（型鋼）、<code>PANE</code>（板）、節點</td>
+<td>型鋼斷面引用目錄</td>
+</tr>
+<tr>
+<td>通風</td>
+<td><code>HVAC</code></td>
+<td>HVAC 分支與風管元件</td>
+<td>結構與管路相似</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>支架、電纜托架（<code>CWAY</code>）、<code>RPLANE</code> 等</td>
+<td></td>
+<td>E3D 2.1 中 ZONE 的合法成員清單很長，見 3.9 節</td>
+</tr>
+</tbody>
+</table>
+<h3 id="332">3.3.2 船體元素</h3>
+<p>E3D 2.1 DMRM 列出一組「Hull Planar」與「Hull General」類別的元素。由上而下：</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>說明（依 DMRM）</th>
+<th>合法擁有者</th>
+<th>重要成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HBLWLD</code></td>
+<td>船體分段世界（Hull Block World）</td>
+<td>WORLD</td>
+<td>BLOCK</td>
+</tr>
+<tr>
+<td><code>BLOCK</code></td>
+<td>分段，屬 Hull General 類別的主要元素</td>
+<td>HBLWLD、WORLD</td>
+<td><code>HPANEL</code>、<code>CPANEL</code>（曲面板架）</td>
+</tr>
+<tr>
+<td><code>HPANEL</code></td>
+<td>平面板架，Hull Planar 類別的主要元素</td>
+<td>BLOCK</td>
+<td><code>HPLATE</code>、<code>HSTIFF</code>、<code>HBRCKT</code>、<code>HSEAM</code>、<code>HHOLE</code>、<code>HNOTCH</code>、<code>HFLANG</code>、<code>HCTOUT</code>、<code>HPANBO</code>（邊界）、<code>HBEAD</code>、<code>HPILLR</code>、<code>HSUBPN</code> 等</td>
+</tr>
+<tr>
+<td><code>HPLATE</code></td>
+<td>板架中的板</td>
+<td>HPANEL</td>
+<td>無</td>
+</tr>
+<tr>
+<td><code>HSTIFF</code></td>
+<td>加強材</td>
+<td>HPANEL</td>
+<td>型材端部、切口、開孔、缺口元素（<code>HPREND</code>、<code>HPRCUT</code>、<code>HPRHOL</code>、<code>HPRNOT</code>）</td>
+</tr>
+<tr>
+<td><code>HBRCKT</code></td>
+<td>肘板</td>
+<td>HPANEL</td>
+<td><code>HBRABO</code>、<code>HBRFLA</code>、<code>HBRSTI</code></td>
+</tr>
+</tbody>
+</table>
+<p>DMRM 中，<code>HBRCKT</code>、<code>HPLATE</code> 等船體元素帶有 <code>TBID</code>（Tribon ID）、<code>CHNGD</code>（變更計數）、<code>IsChgd</code>（船體模型是否被修改）、<code>Modsta</code>（建模狀態）等屬性。<code>TBID</code> 這個名稱本身就說明了：這些 Dabacon 元素是船體模型（Tribon 系）在設計資料庫中的對應。</p>
+<blockquote>
+<p><strong>版本差異〔待核對〕：</strong> 上表依 E3D 2.1 的資料模型。AVEVA Marine 12.1 中，船體元素在 Dabacon 中的階層、名稱與可寫性可能不同；船體元素的建立與修改通常應透過船體模組完成，而不是直接修改 Dabacon 屬性。用 PML 讀取船體元素前，先在訓練專案中用 <code>Q TYPE</code>、<code>Q OWNER</code> 實際確認階層（第 5、15 章）。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Design Explorer 模型樹與設備：左側為元素樹，中間為泵與管路</div></p>
+<p><em>圖 3-2　Design Explorer 就是元素樹的視覺化。展開樹節點，等於走訪 MEMBERS；點選節點，等於設定 CE。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h2 id="34">3.4 元素的識別方式</h2>
+<p>同一個元素可以用三種方式指稱：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>寫法</th>
+<th>例子</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>名稱</strong></td>
+<td><code>/</code> 開頭</td>
+<td><code>/P-101</code>、<code>/100-SW-001/B1</code></td>
+<td>人看得懂；可以改名；不是每個元素都有名稱</td>
+</tr>
+<tr>
+<td><strong>DBREF（資料庫參照）</strong></td>
+<td><code>=</code> 開頭，兩段數字</td>
+<td><code>=12345/678</code></td>
+<td>系統內部的唯一識別；改名不變；是參照屬性實際儲存的值</td>
+</tr>
+<tr>
+<td><strong>型別加序號</strong></td>
+<td>型別 + 序號，相對於擁有者</td>
+<td><code>ELBO 3 OF /100-SW-001/B1</code></td>
+<td>沒有名稱的元件常以此表示；序號會隨成員插入或刪除而改變</td>
+</tr>
+</tbody>
+</table>
+<h3 id="341">3.4.1 名稱</h3>
+<ul>
+<li>名稱以 <code>/</code> 開頭，在專案中應唯一〔唯一性的確切範圍依版本待核對〕。</li>
+<li>名稱常帶有階層意味，例如分支 <code>/100-SW-001/B1</code> 是管線 <code>/100-SW-001</code> 的第一個分支。這只是命名慣例，真正的擁有關係由 OWNER 決定。</li>
+<li>很多元件（彎頭、法蘭、基本體）沒有名稱。介面上會顯示為類似「ELBOW 3 of BRANCH /100-SW-001/B1」的形式。</li>
+<li>查詢名稱相關的屬性時要注意：<code>NAME</code> 是使用者設定的名稱；E3D 系文件中另有 <code>FLNM</code>、<code>FLNN</code>、<code>NAMN</code> 等偽屬性提供完整名稱或不含 <code>/</code> 的名稱〔各偽屬性的確切定義待核對〕。本課程開源範例 MyCollect 就用 <code>!results[!e].flnn</code> 取得設備名稱放進表格。</li>
+</ul>
+<h3 id="342-dbref">3.4.2 DBREF</h3>
+<p>DBREF 是元素的內部參照，格式為 <code>=</code> 加兩段數字，例如 <code>=12345/678</code>。可以把它想成「資料庫編號 + 該資料庫內的元素編號」組成的主鍵。E3D 2.1 DBRM 說明，參照型（Ref）屬性儲存的是另一個元素的內部資料庫參照，以兩個整數表示。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 工具在記憶體中保存元素時，用 DBREF（PML 的 <code>DBREF</code> 物件，或 .NET 的 <code>DbElement</code>），不要保存名稱字串。名稱可能被改、可能不存在；DBREF 在元素存在期間保持不變。但若要把元素識別寫到外部檔案（例如 Excel 回寫），要考慮 DB 重整或合併後參照是否仍有效〔待核對〕，通常同時記錄名稱與 DBREF。</p>
+</blockquote>
+<h3 id="343">3.4.3 型別加序號</h3>
+<p>在 BRAN 中，第三個彎頭可以寫成 <code>ELBO 3</code>。這是相對於目前擁有者的位置性識別，類似 XPath 的 <code>elbo[3]</code>。插入一個新彎頭後，原本的 <code>ELBO 3</code> 可能變成 <code>ELBO 4</code>，所以只適合在互動操作中臨時使用，不適合寫進程式長期保存。</p>
+<h2 id="35">3.5 屬性</h2>
+<h3 id="351">3.5.1 屬性的值型別</h3>
+<p>E3D 2.1 DBRM 列出屬性的基本型別，與一般程式語言對照如下：</p>
+<table>
+<thead>
+<tr>
+<th>AVEVA 型別</th>
+<th>意義</th>
+<th>程式語言對照</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integer</td>
+<td>整數</td>
+<td><code>int</code></td>
+<td>序號</td>
+</tr>
+<tr>
+<td>Real</td>
+<td>實數，可帶單位</td>
+<td><code>double</code></td>
+<td>直徑、長度</td>
+</tr>
+<tr>
+<td>Bool／Logical</td>
+<td>布林</td>
+<td><code>bool</code></td>
+<td>是否鎖定</td>
+</tr>
+<tr>
+<td>String／Text</td>
+<td>字串</td>
+<td><code>string</code></td>
+<td><code>DESC</code></td>
+</tr>
+<tr>
+<td>Ref</td>
+<td>指向另一元素的參照</td>
+<td>外鍵、物件參照</td>
+<td><code>SPRE</code>、<code>OWNER</code></td>
+</tr>
+<tr>
+<td>Position</td>
+<td>三個距離組成的位置</td>
+<td>3D 點</td>
+<td><code>POS</code></td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>方向</td>
+<td>單位向量</td>
+<td>管嘴方向</td>
+</tr>
+<tr>
+<td>Orientation</td>
+<td>姿態（三軸方向）</td>
+<td>旋轉矩陣</td>
+<td><code>ORI</code></td>
+</tr>
+<tr>
+<td>Word</td>
+<td>最多 4 或 6 個大寫字元的代碼</td>
+<td>列舉值（enum）</td>
+<td><code>TYPE</code>、<code>PURP</code></td>
+</tr>
+<tr>
+<td>陣列</td>
+<td>上述型別的陣列</td>
+<td>陣列</td>
+<td>參數清單</td>
+</tr>
+</tbody>
+</table>
+<p>Word 型別值得特別注意：DBRM 說明，Word 是最多 4 或 6 個大寫 ASCII 字元，以整數形式儲存，常作為列舉值使用；輸入過長會被<strong>靜默截斷</strong>，小寫會轉大寫，不允許空白。因此 <code>PURP</code> 寫入 <code>'PIPING'</code> 時，結果可能是 <code>PIPI</code>〔各屬性的字元上限依屬性而定〕。工具寫入 Word 型屬性前，應先驗證長度。</p>
+<h3 id="352">3.5.2 屬性分類</h3>
+<p>這是本章的核心表格。開發人員最常犯的錯，是試圖寫入一個不能寫的屬性，或把偽屬性當成儲存的資料。</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>說明</th>
+<th>範例</th>
+<th>可以寫嗎？</th>
+<th>開發人員對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>系統屬性</strong></td>
+<td>每個元素都有，描述身分與結構</td>
+<td><code>NAME</code>、<code>TYPE</code>、<code>OWNER</code>、<code>LOCK</code></td>
+<td><code>NAME</code> 可寫；<code>TYPE</code>、<code>OWNER</code> 透過專門命令改變（例如移動元素）〔待核對〕</td>
+<td>主鍵、類別、父鍵</td>
+</tr>
+<tr>
+<td><strong>一般／工程屬性</strong></td>
+<td>依型別而有，描述工程意義</td>
+<td><code>DESC</code>、<code>PURP</code>、<code>FUNC</code>、<code>AREA</code></td>
+<td>可寫（需權限）</td>
+<td>一般欄位</td>
+</tr>
+<tr>
+<td><strong>幾何屬性</strong></td>
+<td>位置、方向與尺寸</td>
+<td><code>POS</code>、<code>ORI</code>、<code>HEIG</code>、<code>DIAM</code>、<code>XLEN</code></td>
+<td>可寫，但常有連動（例如管件位置由連接決定）</td>
+<td>座標欄位</td>
+</tr>
+<tr>
+<td><strong>參照屬性</strong></td>
+<td>指向其他元素</td>
+<td><code>SPRE</code>、<code>CREF</code>、<code>HREF</code>、<code>TREF</code>、<code>PSPE</code>、<code>CATR</code></td>
+<td>可寫，但必須指向合法元素</td>
+<td>外鍵</td>
+</tr>
+<tr>
+<td><strong>偽屬性</strong>（Pseudo Attribute）</td>
+<td>查詢時才計算，不存在資料庫中</td>
+<td><code>CUTLENGTH</code>、<code>WVOL</code>、<code>FLNN</code>、<code>LASTMOD</code>、<code>ATTLIS</code></td>
+<td>一般不能寫</td>
+<td>計算欄位、View</td>
+</tr>
+<tr>
+<td><strong>UDA</strong>（使用者自訂屬性）</td>
+<td>公司在 Lexicon 定義，名稱以 <code>:</code> 開頭</td>
+<td><code>:VENDOR</code>、<code>:PO_NO</code>（示意）</td>
+<td>可寫（需權限）</td>
+<td>擴充欄位</td>
+</tr>
+</tbody>
+</table>
+<p>關於偽屬性，E3D 2.1 DBRM 的說明是：偽屬性在查詢時計算，不與一般屬性一起存在資料庫中，例如 SCTN 的 <code>CUTLENGTH</code>；這類屬性超過 1200 個；由於值是從其他屬性推導而來，一般不能直接設定。E3D Getting Started 也說明，偽屬性是系統為特定目的設定、使用者不能修改的屬性。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 偽屬性很好用，但要注意兩件事。第一，它每次查詢都要計算，在大量元素上查詢昂貴的偽屬性（例如需要幾何計算的）會很慢。第二，它沒有「歷史」，因為它不存在資料庫中。報表若需要固定某個時點的值，要自己把結果寫下來。</p>
+</blockquote>
+<h3 id="353">3.5.3 參照屬性就是外鍵</h3>
+<p><img alt="參照屬性：NOZZ、BRAN、VALV 在設計 DB 中，透過 PSPE、SPRE、CATR 連到目錄 DB 的 SPEC、SPCO、SCOM" src="images/diagrams/ch03_reference_attributes.svg" /></p>
+<p><em>圖 3-3　參照屬性串起整個資料模型：管嘴與分支以 <code>CREF</code>／<code>HREF</code> 互相指向；分支以 <code>PSPE</code> 指向等級；閥門以 <code>SPRE</code> 指向等級元件，等級元件再以 <code>CATR</code> 指向目錄元件。（本課程自繪）</em></p>
+<p>參照屬性存的是對方元素的 DBREF。因此：</p>
+<ul>
+<li>它可以跨 DB，例如設計 DB 中的 <code>SPRE</code> 指向目錄 DB 中的 <code>SPCO</code>。</li>
+<li>被參照的 DB 不在目前 MDB 中時，參照無法解析（第 2 章）。</li>
+<li>沿著參照可以「走」到其他元素，就像 SQL 的 JOIN。第 8 章會完整說明 <code>SPRE</code> → 等級 → 目錄的鏈結。</li>
+</ul>
+<h3 id="354">3.5.4 常用屬性速查</h3>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+<th>型別</th>
+<th>出現在</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NAME</code></td>
+<td>名稱</td>
+<td>String</td>
+<td>所有元素</td>
+<td>可為空</td>
+</tr>
+<tr>
+<td><code>TYPE</code></td>
+<td>元素型別</td>
+<td>Word</td>
+<td>所有元素</td>
+<td>唯讀</td>
+</tr>
+<tr>
+<td><code>OWNER</code></td>
+<td>擁有者</td>
+<td>Ref</td>
+<td>除 WORLD 外所有元素</td>
+<td>樹的父節點</td>
+</tr>
+<tr>
+<td><code>MEMBERS</code></td>
+<td>成員清單</td>
+<td>Ref 陣列</td>
+<td>有成員的元素</td>
+<td>有順序</td>
+</tr>
+<tr>
+<td><code>DESC</code></td>
+<td>描述</td>
+<td>String</td>
+<td>多數元素</td>
+<td>自由文字；不要用來存結構化資料</td>
+</tr>
+<tr>
+<td><code>POS</code></td>
+<td>位置</td>
+<td>Position</td>
+<td>有位置的元素</td>
+<td>預設相對於擁有者（第 4 章）</td>
+</tr>
+<tr>
+<td><code>ORI</code></td>
+<td>方向姿態</td>
+<td>Orientation</td>
+<td>有方向的元素</td>
+<td>例如 <code>Y is N and Z is U</code></td>
+</tr>
+<tr>
+<td><code>SPRE</code></td>
+<td>等級元件參照</td>
+<td>Ref</td>
+<td>管件、型鋼等</td>
+<td>外鍵，指向 SPCO</td>
+</tr>
+<tr>
+<td><code>PURP</code></td>
+<td>用途代碼</td>
+<td>Word</td>
+<td>多數管理與主要元素</td>
+<td>公司自訂代碼，例如區分系統〔待核對〕</td>
+</tr>
+<tr>
+<td><code>FUNC</code></td>
+<td>功能描述</td>
+<td>String</td>
+<td>多數管理與主要元素</td>
+<td>例如設備功能</td>
+</tr>
+</tbody>
+</table>
+<p>依 E3D 2.1 DMRM，ZONE 的屬性包括 Name、Description、Function、Purpose、Number、Area、Position、Orientation、Pspec 等。可以看到 <code>FUNC</code>、<code>PURP</code>、<code>POS</code>、<code>ORI</code> 連管理層元素都有。</p>
+<h2 id="36-ce">3.6 CE：目前元素</h2>
+<h3 id="361-ce">3.6.1 CE 是什麼</h3>
+<p>CE（Current Element）是命令列的「游標」。大多數命令與查詢，預設作用在 CE 上：</p>
+<ul>
+<li><code>Q NAME</code> 查的是 CE 的名稱。</li>
+<li><code>DESC 'xxx'</code> 改的是 CE 的描述。</li>
+<li><code>NEW EQUI</code> 會在 CE 底下（或依規則在適當層級）建立新元素〔建立位置規則見第 12 章〕。</li>
+</ul>
+<p>在介面上，CE 通常就是 Design Explorer 中被選取的節點。在 PML2 中，CE 以全域變數 <code>!!ce</code> 表示，型別是 DBREF。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 依賴 CE 的程式容易出錯：使用者在執行過程中點了別的元素，或程式自己移動了 CE 而沒有還原。好的工具會：一開始記住 <code>!start = !!ce</code>，處理時用 DBREF 物件與 <code>OF</code> 語法讀取資料而不移動 CE，結束時把 CE 還原。</p>
+</blockquote>
+<h3 id="362">3.6.2 導覽命令</h3>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>命令列寫法</th>
+<th>PML2 寫法（示意）</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依名稱跳轉</td>
+<td><code>/P-101</code></td>
+<td><code>!!ce = object DBREF('/P-101')</code></td>
+<td>命令列最常用</td>
+</tr>
+<tr>
+<td>依 DBREF 跳轉</td>
+<td><code>=12345/678</code></td>
+<td><code>!!ce = object DBREF('=12345/678')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>到擁有者</td>
+<td><code>END</code>〔待核對〕</td>
+<td><code>!!ce = !!ce.owner</code></td>
+<td>PDMS 系常用 <code>END</code> 回上一層</td>
+</tr>
+<tr>
+<td>到第 n 個成員</td>
+<td><code>1</code>、<code>2</code>…〔待核對〕</td>
+<td><code>!!ce = !!ce.members[1]</code></td>
+<td>PML 陣列從 1 開始</td>
+</tr>
+<tr>
+<td>到第 n 個某型別成員</td>
+<td><code>ELBO 3</code></td>
+<td></td>
+<td>相對於 CE</td>
+</tr>
+<tr>
+<td>下一個、上一個同層元素</td>
+<td><code>NEXT</code>、<code>PREV</code>〔待核對〕</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>沿參照屬性跳轉</td>
+<td><code>GOTO SPRE</code>〔待核對〕</td>
+<td><code>!!ce = !!ce.spre</code></td>
+<td>從設計元件跳到等級元件</td>
+</tr>
+</tbody>
+</table>
+<p>「〔待核對〕」的項目是 PDMS 系常見的命令，請在公司版本中逐一試過，把可用的寫法記到自己的速查表（附錄 B）。</p>
+<h2 id="37-q">3.7 用 <code>Q</code> 查詢屬性</h2>
+<h3 id="371">3.7.1 基本形式</h3>
+<p><code>Q</code> 是 <code>QUERY</code> 的縮寫。最常用的四種寫法：</p>
+<pre><code>Q NAME
+Q DESC
+Q ATT
+Q POS OF /P-101
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Q 屬性</code></td>
+<td>查詢 CE 的某個屬性</td>
+</tr>
+<tr>
+<td><code>Q ATT</code></td>
+<td>列出 CE 的所有一般屬性與值</td>
+</tr>
+<tr>
+<td><code>Q 屬性 OF 元素</code></td>
+<td>查詢指定元素的屬性，不移動 CE</td>
+</tr>
+<tr>
+<td><code>Q 屬性 WRT 元素</code></td>
+<td>位置、方向類屬性相對於指定元素的座標系（第 4 章）</td>
+</tr>
+</tbody>
+</table>
+<p>E3D 2.1 SCRM 的說明中，<code>Q POS</code> 回傳 CE 相對於其擁有者的位置，<code>Q POS OF /EQUIP1</code> 回傳 <code>/EQUIP1</code> 相對於其擁有者的位置，<code>Q POS WRT /*</code> 則回傳世界座標；DBRM 也列有 <code>Q POS WRT /MYBRAN</code>、<code>Q PPOS(1) WRT /MYBRAN</code> 這類寫法。</p>
+<h3 id="372">3.7.2 一次完整的查詢練習（唯讀）</h3>
+<p>以下是在一台泵上做的完整查詢流程。名稱為示意，請換成訓練專案中實際存在的元素：</p>
+<pre><code>/P-101
+Q TYPE
+Q NAME
+Q OWNER
+Q MEMBERS
+Q DESC
+Q POS
+Q POS WRT /*
+Q ORI
+Q ATT
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>你會看到的內容（示意）</th>
+<th>學到什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/P-101</code></td>
+<td>CE 移到這台泵</td>
+<td>依名稱導覽</td>
+</tr>
+<tr>
+<td><code>Q TYPE</code></td>
+<td><code>EQUI</code></td>
+<td>型別</td>
+</tr>
+<tr>
+<td><code>Q NAME</code></td>
+<td><code>/P-101</code></td>
+<td>名稱</td>
+</tr>
+<tr>
+<td><code>Q OWNER</code></td>
+<td>所屬 ZONE 的名稱</td>
+<td>父節點</td>
+</tr>
+<tr>
+<td><code>Q MEMBERS</code></td>
+<td>基本體與管嘴清單</td>
+<td>子節點</td>
+</tr>
+<tr>
+<td><code>Q DESC</code></td>
+<td>描述文字</td>
+<td>一般屬性</td>
+</tr>
+<tr>
+<td><code>Q POS</code></td>
+<td>相對於 ZONE 的位置，例如 <code>E 12000mm N 3500mm U 2100mm</code></td>
+<td>相對座標</td>
+</tr>
+<tr>
+<td><code>Q POS WRT /*</code></td>
+<td>世界座標</td>
+<td>座標轉換</td>
+</tr>
+<tr>
+<td><code>Q ORI</code></td>
+<td>例如 <code>Y is N and Z is U</code></td>
+<td>姿態</td>
+</tr>
+<tr>
+<td><code>Q ATT</code></td>
+<td>全部一般屬性</td>
+<td>屬性清單因型別而異</td>
+</tr>
+</tbody>
+</table>
+<p>接著，到它的一個管嘴，查連接關係：</p>
+<pre><code>/P-101
+Q MEMBERS
+NOZZ 1
+Q CREF
+Q NAME OF CREF
+</code></pre>
+<p>最後一行使用「屬性 OF 參照屬性」的寫法，直接查出管嘴所連接的分支名稱，而不必移動 CE〔<code>OF</code> 後接參照屬性的寫法請在公司版本驗證〕。</p>
+<h3 id="373-q-att">3.7.3 <code>Q ATT</code> 與其他屬性清單</h3>
+<p>E3D 2.1 DBRM 說明了四種「屬性清單」偽屬性，它們決定 <code>Q ATT</code> 與程式看到什麼：</p>
+<table>
+<thead>
+<tr>
+<th>偽屬性</th>
+<th>內容</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ATTLIS</code></td>
+<td>所有非偽屬性，包含 UDA 與隱藏屬性</td>
+<td>PML 的 DBREF <code>attributes</code> 方法使用同一份清單</td>
+</tr>
+<tr>
+<td><code>ATTOUT</code></td>
+<td>同 <code>ATTLIS</code>，但排除隱藏屬性</td>
+<td><code>Q ATT</code> 與屬性工具表單使用這份清單</td>
+</tr>
+<tr>
+<td><code>UDALIS</code></td>
+<td>該元素可用的 UDA，包含隱藏的</td>
+<td>找出公司自訂欄位</td>
+</tr>
+<tr>
+<td><code>PSATTS</code></td>
+<td>該元素可用的偽屬性</td>
+<td>清單很長（數百個），查詢可能較慢</td>
+</tr>
+</tbody>
+</table>
+<p>因此 <code>Q ATT</code> <strong>不會</strong>列出偽屬性，也不會列出隱藏屬性。但隱藏屬性仍可以個別查詢。想知道某型別有哪些偽屬性可用，可以查 <code>Q PSATTS</code>；想看公司的自訂欄位，可以查 <code>Q UDALIS</code>。</p>
+<h3 id="374-uda">3.7.4 查詢 UDA 與偽屬性</h3>
+<pre><code>Q UDALIS
+Q :VENDOR
+Q WVOL
+Q LASTMOD
+</code></pre>
+<ul>
+<li>UDA 的名稱以冒號開頭，例如 <code>:VENDOR</code>（示意名稱，請改用公司實際定義的 UDA）。</li>
+<li><code>WVOL</code> 是元素在世界座標中的包圍盒（6 個值：最小 E／N／U 與最大 E／N／U）。第 18 章的外板開孔論文中，實際的 PML 程式就用 <code>WVOL of $!csurf</code> 判斷點落在哪塊外板上。</li>
+<li><code>LASTMOD</code> 可以帶限定詞，例如 <code>Q LASTMOD(ATTNAME XLEN)</code>，查詢某屬性最後被修改的資訊（AVEVA Engineering 文件的例子；Marine 版本可用性待核對）。</li>
+</ul>
+<h3 id="375-pml">3.7.5 命令列查詢與 PML 取值的差別</h3>
+<p><code>Q</code> 是給人看的：結果印在命令列，格式含單位，不方便程式處理。程式中應該直接取值：</p>
+<pre><code>-- 示意：在 PML2 中讀取屬性，不移動 CE
+!pump = object DBREF('/P-101')
+!name = !pump.name
+!type = !pump.type
+!pos  = !pump.pos
+!own  = !pump.owner
+!mems = !pump.members
+$P 名稱 $!name 型別 $!type 擁有者 $!own
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>比較</th>
+<th><code>Q</code> 命令</th>
+<th>PML 取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>對象</td>
+<td>預設 CE，或用 <code>OF</code></td>
+<td>任何 DBREF 物件</td>
+</tr>
+<tr>
+<td>結果</td>
+<td>文字輸出到命令列</td>
+<td>有型別的值（STRING、REAL、POSITION、DBREF…）</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>互動查詢、除錯</td>
+<td>程式邏輯</td>
+</tr>
+<tr>
+<td>錯誤</td>
+<td>印出錯誤訊息</td>
+<td>可以用 <code>handle</code> 攔截</td>
+</tr>
+</tbody>
+</table>
+<p>第 12 章會完整介紹 PML 的資料庫操作。</p>
+<p><img alt="論文中的實際 PML 程式：以 WVOL 包圍盒判斷點落在哪塊外板，並以 Namn of 取得名稱" src="images/cases/jamet_fig6_pml_find_plate.png" /></p>
+<p><em>圖 3-4　真實專案中的 PML 片段：用 <code>WVOL of $!csurf</code> 讀取偽屬性（包圍盒），用 <code>!basePos.East</code> 等取出位置分量，用 <code>Namn of $!csurf</code> 取得名稱。這正是本章「屬性 OF 元素」的寫法在程式中的應用。（來源：Kim, Park &amp; Yang, 2020, JAMET 44(3), Figure 6，CC BY-NC 3.0）</em></p>
+<h2 id="38">3.8 屬性值的單位與格式</h2>
+<p><code>Q</code> 的輸出通常帶有單位，例如 <code>2100mm</code>。程式取值時得到的是數值，單位由目前的單位設定決定（第 4 章）。寫入時：</p>
+<ul>
+<li>長度通常可以帶單位，例如 <code>HEIG 500mm</code>〔單位語法待核對〕。</li>
+<li>字串屬性用單引號，例如 <code>DESC 'Main cooling pump'</code>。</li>
+<li>參照屬性寫入元素名稱或 DBREF，例如 <code>SPRE /SW-10K/...</code>（示意）。</li>
+<li>Word 屬性注意長度上限與自動轉大寫。</li>
+</ul>
+<h2 id="39-legal-members">3.9 合法成員（Legal Members）</h2>
+<p>不是任何型別都可以放在任何型別底下。資料模型定義了每個型別的<strong>合法擁有者</strong>與<strong>合法成員</strong>。這相當於 XML Schema 的內容模型，或物件模型中「這個類別的 children 只能是哪些類別」。</p>
+<p>以 E3D 2.1 DMRM 的 ZONE 為例：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>內容（摘錄）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合法擁有者</td>
+<td>APPLDATA、SITE、ZONE</td>
+</tr>
+<tr>
+<td>合法成員</td>
+<td>EQUIPMENT、PIPE、STRUCTURE、HVAC、SUPPORT、RESTRAINT、CABLE、CWAY、DATUM、TEXT、ZONE、Hull Panel Element（UPANEL）等二十多種</td>
+</tr>
+</tbody>
+</table>
+<p>再以船體為例：<code>HPANEL</code> 的合法擁有者是 <code>BLOCK</code>；<code>HPLATE</code> 的合法擁有者是 <code>HPANEL</code>，且沒有合法成員。</p>
+<h3 id="391">3.9.1 為什麼開發人員要懂合法成員</h3>
+<ul>
+<li><strong>建立元素時</strong>：在 EQUI 底下建立 BRAN 會失敗，因為 BRAN 只能在 PIPE（或 HVAC）底下。建立工具必須先把 CE 移到合法的擁有者。</li>
+<li><strong>走訪樹時</strong>：知道 ZONE 的合法成員，才能寫出不遺漏的收集條件（例如設備可能在 ZONE 底下，也可能在 SUBE 底下）。</li>
+<li><strong>讀取船體時</strong>：板厚在 HPLATE 上，加強材在 HSTIFF 上，兩者都是 HPANEL 的成員。</li>
+</ul>
+<h3 id="392">3.9.2 去哪裡查</h3>
+<ol>
+<li><strong>官方資料模型參考（DMRM）</strong>：每個元素型別一頁，列出屬性、合法擁有者與合法成員。E3D 2.1 版本可在 help.aveva.com 線上查閱。</li>
+<li><strong>命令列</strong>：PDMS 系有查詢合法成員的偽屬性，常見寫法為 <code>Q LIST</code>〔名稱與輸出格式待核對〕。</li>
+<li><strong>介面</strong>：在 Design Explorer 中對元素按右鍵建立新元素時，選單中只會列出合法的型別〔依版本而異〕。</li>
+</ol>
+<h2 id="310">3.10 開發人員須知</h2>
+<ul>
+<li><strong>樹是唯一的組織方式。</strong> 沒有「資料表」可以直接 SELECT，所有查詢都是「在某個範圍（子樹）內找某型別的元素」，再讀屬性。第 12 章的 <code>COLLECTION</code> 與 <code>collect</code> 都是這個模式。</li>
+<li><strong>型別決定一切。</strong> 先確認 <code>TYPE</code>，再決定要讀哪些屬性。對不存在的屬性取值會出錯，程式要處理。</li>
+<li><strong>參照屬性要判斷是否為空。</strong> <code>SPRE</code> 未設定時會是空參照（常顯示為 <code>Nulref</code> 或 <code>=0/0</code>〔顯示方式待核對〕），沿著它取值會出錯。</li>
+<li><strong>不要把結構化資料存進 DESC。</strong> 需要新欄位，請管理員定義 UDA。</li>
+<li><strong>DBREF 保存元素，名稱給人看。</strong> 程式內部用 DBREF，輸出報表時才轉成名稱。</li>
+<li><strong>偽屬性是計算值。</strong> 不能寫、可能很慢、沒有歷史。</li>
+<li><strong>CE 要還原。</strong> 工具開始時記住 CE，結束時恢復，避免使用者「點一下工具，選取就跑掉」。</li>
+</ul>
+<h2 id="311">3.11 練習</h2>
+<p>查詢類練習在任何專案都安全；練習 5 會修改資料，<strong>只能在訓練專案進行</strong>。</p>
+<h3 id="1">練習 1：畫出訓練專案的樹</h3>
+<p>從 WORLD 開始，畫出訓練專案的前三層（SITE、ZONE、主要元素），標出每個 SITE 屬於哪個 DB（用第 2 章的方法查詢）。</p>
+<h3 id="2">練習 2：十種元素的屬性筆記</h3>
+<p>選 10 種不同型別的元素（EQUI、NOZZ、PIPE、BRAN、ELBO、VALV、STRU、SCTN、ZONE、一個船體元素），對每一個執行 <code>Q ATT</code>，整理成表格：型別、合法擁有者（用 <code>Q OWNER</code> 推得）、你認為最重要的 5 個屬性。這是第 2 週的課程產出。</p>
+<h3 id="3_1">練習 3：追蹤一條參照鏈</h3>
+<p>選一個閥門，依序查詢：</p>
+<pre><code>Q SPRE
+Q NAME OF SPRE
+</code></pre>
+<p>再移到等級元件，查它的 <code>CATR</code>。把整條鏈畫成類似圖 3-3 的圖。</p>
+<h3 id="4">練習 4：找出偽屬性</h3>
+<p>對一個 SCTN 查詢 <code>Q PSATTS</code>，從清單中找出 <code>CUTLENGTH</code>（或公司版本中的對應名稱），查詢它的值。說明為什麼這個值不存在資料庫中。</p>
+<h3 id="5">練習 5：觀察序號識別的不穩定（僅限訓練專案）</h3>
+<p>在訓練專案的一條分支上，記錄 <code>ELBO 2</code> 的 DBREF（<code>Q REF</code>〔待核對〕）。在它前面插入一個新彎頭後，再查 <code>ELBO 2</code> 的 DBREF。比較兩者，說明為什麼程式不應保存型別加序號形式的識別。</p>
+<h2 id="312">3.12 自我檢核</h2>
+<ul>
+<li>[ ] 我能畫出 WORLD → SITE → ZONE → 主要元素 → 子元件的樹，並說明每層的用途。</li>
+<li>[ ] 我能說出 EQUI、PIPE、BRAN、STRU、FRMW、SCTN、PANE、HVAC 的意義與上下關係。</li>
+<li>[ ] 我知道船體平面板架 <code>HPANEL</code> 的擁有者與主要成員（<code>HPLATE</code>、<code>HSTIFF</code>、<code>HBRCKT</code>）。</li>
+<li>[ ] 我能說明名稱、DBREF、型別加序號三種識別方式的差異與適用時機。</li>
+<li>[ ] 我能把屬性分成系統、一般、幾何、參照、偽屬性、UDA，並說明哪些能寫。</li>
+<li>[ ] 我能查詢 NAME、TYPE、OWNER、MEMBERS、DESC、POS、ORI、SPRE、PURP、FUNC。</li>
+<li>[ ] 我會用 <code>Q</code>、<code>Q ATT</code>、<code>Q 屬性 OF 元素</code>、<code>Q POS WRT /*</code>。</li>
+<li>[ ] 我知道 <code>Q ATT</code> 不顯示偽屬性與隱藏屬性，並會用 <code>PSATTS</code>、<code>UDALIS</code> 找它們。</li>
+<li>[ ] 我能說明合法成員的概念，並知道在 DMRM 中查詢。</li>
+<li>[ ] 我理解為什麼工具要用 DBREF 保存元素、並在結束時還原 CE。</li>
+</ul>
+<p><strong>延伸閱讀：</strong> 上一章<a href="ch02_project_database_zh-TW.reading.html">第 2 章　專案、資料庫、MDB 與權限</a>；下一章<a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章　座標、方向與幾何</a>；目錄與等級的參照鏈見<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a>；用 PML 查詢與收集見<a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>；指令速查見<a href="appx_b_glossary_zh-TW.reading.html">附錄 B</a>。</p>
+<h2 id="313">3.13 資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 Getting Started：How AVEVA E3D Data is Stored（階層、擁有者與成員）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.1.html">https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.1.html</a></li>
+<li>AVEVA E3D 2.1 Getting Started：Pseudo-Attributes：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.5.html">https://help.aveva.com/AVEVA_Everything3D/2.1/GS/GS4.4.5.html</a></li>
+<li>AVEVA E3D 2.1 DMRM：Design Database（設計資料庫元素總覽）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.001.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.001.html</a></li>
+<li>AVEVA E3D 2.1 DMRM：Zone Element（ZONE 屬性、合法擁有者與成員）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.082.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.082.html</a></li>
+<li>AVEVA E3D 2.1 DMRM：Planar Panel Element（HPANEL）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.406.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.406.html</a></li>
+<li>AVEVA E3D 2.1 DMRM：Planar Panel Bracket Element（HBRCKT）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.393.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.393.html</a></li>
+<li>AVEVA E3D 2.1 DMRM：Block Element（BLOCK）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.288.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.288.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Attributes（屬性型別）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Query Attributes（ATTLIS、ATTOUT、UDALIS、PSATTS）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.09.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.09.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Pseudo Attributes：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM1.02.17.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM1.02.17.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Relative Positions, Directions, Orientations（<code>Q POS WRT</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html</a></li>
+<li>AVEVA E3D 2.1 SCRM：WRT（<code>Q POS</code>、<code>Q POS OF</code>、<code>Q POS WRT /*</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.18.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.18.html</a></li>
+<li>AVEVA Engineering 線上文件：偽屬性限定詞：<a href="https://docs.aveva.com/bundle/engineering/page/911892.html">https://docs.aveva.com/bundle/engineering/page/911892.html</a></li>
+<li>Kim, Park &amp; Yang (2020), Journal of Advanced Marine Engineering and Technology 44(3)，CC BY-NC 開放取用：<a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a></li>
+<li>開源範例 aveva-marine-dev-skill（MyCollect 範例中的 <code>flnn</code>、<code>COLLECTION</code> 用法，MIT 授權）：<a href="https://github.com/912141548/aveva-marine-dev-skill">https://github.com/912141548/aveva-marine-dev-skill</a></li>
+<li>AVEVA Hull and Outfitting Datasheet（圖 3-2 來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch02_project_database_zh-TW.reading.html"><small>← 上一篇</small>第 2 章　專案、資料庫、MDB 與權限</a><a class="next" href="ch04_coordinates_geometry_zh-TW.reading.html"><small>下一篇 →</small>第 4 章　座標、方向與幾何</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

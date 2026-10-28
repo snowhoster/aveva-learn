@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123630"><title>AVEVA Marine 學習中心</title><style>
+:root{--ink:#193934;--muted:#627872;--green:#176c5a;--line:#dbe6dd;--bg:#f4f6f0;--card:#fffefa;--soft:#e9f2e9;--lime:#d8f36a}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Segoe UI","Microsoft JhengHei",sans-serif}a{color:inherit;text-decoration:none}
+.top{background:#123630;color:#fff}.top-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:17px 24px;gap:16px}.brand{display:flex;gap:12px;align-items:center;font-weight:800}.logo{width:37px;height:37px;background:var(--lime);border-radius:11px;color:#123630;display:grid;place-items:center}.nav{display:flex;gap:22px;font-size:13px;color:#cee1d8;flex-wrap:wrap}.nav a:hover{color:var(--lime)}
+main{max-width:1200px;margin:auto;padding:32px 24px 65px}.hero{background:#173e37;color:#fff;border-radius:22px;padding:clamp(28px,5vw,55px);display:grid;grid-template-columns:1.4fr 1fr;gap:35px}.eyebrow{font-size:11px;letter-spacing:.15em;font-weight:800;color:#78a997}.hero .eyebrow{color:var(--lime)}h1{font-size:clamp(32px,5vw,52px);line-height:1.18;letter-spacing:-.04em;margin:13px 0}.hero p{color:#cce0d6;max-width:650px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.button{display:inline-block;padding:11px 17px;border-radius:9px;background:var(--lime);color:#163c32;font-weight:800;font-size:14px}.button.secondary{background:transparent;color:#fff;border:1px solid #719187}.hero-panel{border:1px solid #ffffff25;border-radius:15px;padding:22px;background:#ffffff09;align-self:center}.hero-panel strong{font-size:13px;color:var(--lime)}.hero-panel ol{padding-left:20px;margin-bottom:0;color:#d3e5da;font-size:14px}
+.section{margin-top:52px;scroll-margin-top:20px}.heading{margin-bottom:17px}h2{font-size:28px;line-height:1.3;margin:4px 0}.sub{color:var(--muted);margin:0;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.flow .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}.flow b{font-size:12px;color:var(--green);letter-spacing:.08em}.flow h3{margin:6px 0;font-size:19px}.flow p{margin:0;font-size:14px;color:var(--muted)}
+.part{margin-top:26px}.part h3{font-size:15px;color:var(--green);margin:0 0 10px;letter-spacing:.04em}.chapters{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.ch{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;transition:border-color .15s}.ch:hover{border-color:var(--green)}.no{flex-shrink:0;min-width:38px;padding:2px 8px;border-radius:7px;background:var(--soft);color:var(--green);font-size:13px;font-weight:800;text-align:center}.ch strong{display:block;font-size:15px}.ch span{display:block;font-size:13px;color:var(--muted)}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.tool{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}.tool h3{margin:8px 0 4px}.tool p{font-size:14px;color:var(--muted)}.tag{display:inline-block;background:var(--soft);color:var(--green);font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}.link{color:var(--green);font-weight:800;font-size:14px}
+.notice{margin-top:24px;border-left:3px solid #d78a51;background:#fff5e9;padding:13px 17px;color:#705b48;font-size:13px;border-radius:0 8px 8px 0}footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:#81918a;font-size:12px}
+@media(max-width:760px){.top-inner{flex-direction:column;align-items:flex-start}.hero,.flow,.chapters,.tools{grid-template-columns:1fr}main{padding:20px 16px 50px}}
+</style></head><body>
+<header class="top"><div class="top-inner"><a class="brand" href="index.html"><span class="logo">M</span><span>AVEVA Marine 學習中心</span></a><nav class="nav" aria-label="主導覽"><a href="#map">知識地圖</a><a href="#chapters">課程章節</a><a href="#tools">練習工具</a></nav></div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">AVEVA MARINE · 系統、業務與二次開發</div><h1>先懂資料，<br>再寫工具。</h1><p>一套給開發人員的完整課程：從 AVEVA Marine 的資料模型、船體與舾裝業務，到 PML、.NET 與 Vitesse 二次開發。共 18 章與 2 個附錄，搭配實際系統畫面、圖解與可部署範例。</p><div class="actions"><a class="button" href="Docs/ch00_knowledge_map_zh-TW.reading.html">從知識地圖開始 →</a><a class="button secondary" href="Docs/ch10_dev_environment_zh-TW.reading.html">直接進入開發</a></div></div><div class="hero-panel"><strong>建議 12 週進度</strong><ol><li>第 1–4 週：系統與資料模型、船體</li><li>第 5–6 週：舾裝、目錄等級、圖面</li><li>第 7–9 週：PML 語言、資料庫、表單</li><li>第 10–12 週：.NET／Vitesse、部署、實戰</li></ol></div></section>
+
+<section class="section" id="map"><div class="heading"><div class="eyebrow">KNOWLEDGE MAP</div><h2>三大部分</h2><p class="sub">九成的開發困難在資料，不在語法。所以先建立系統與業務概念，再進入開發技術。</p></div>
+<div class="flow"><div class="box"><b>第一部分 · 第 1–4 章</b><h3>系統與資料模型</h3><p>模組架構、資料庫與權限、元素樹與屬性、座標與幾何。懂得資料長什麼樣子、存在哪裡。</p></div><div class="box"><b>第二部分 · 第 5–9 章</b><h3>船舶設計業務</h3><p>船體建模與生產、舾裝設計、目錄與等級、圖面。懂得資料代表什麼工程意義、怎麼流動。</p></div><div class="box"><b>第三部分 · 第 10–18 章</b><h3>二次開發技術</h3><p>開發環境、PML、表單、.NET、Vitesse、整合、部署與實戰。懂得怎麼安全地讀寫與整合資料。</p></div></div></section>
+
+<section class="section" id="chapters"><div class="heading"><div class="eyebrow">CHAPTERS</div><h2>課程章節</h2><p class="sub">每章結構一致：學習目標、概念、畫面與圖解、範例、開發人員須知、練習與自我檢核。</p></div>
+<div class="part"><h3>課程總覽</h3><div class="chapters">
+<a class="ch" href="Docs/ch00_knowledge_map_zh-TW.reading.html"><span class="no">0</span><div><strong>課程總覽與知識地圖</strong><span>概念對照表、各章知識點清單、12 週進度與能力等級</span></div></a>
+</div></div>
+<div class="part"><h3>第一部分　系統與資料模型</h3><div class="chapters">
+<a class="ch" href="Docs/ch01_architecture_zh-TW.reading.html"><span class="no">1</span><div><strong>產品架構、模組與啟動環境</strong><span>Tribon 與 PDMS 的整合、模組、環境變數、命令列</span></div></a>
+<a class="ch" href="Docs/ch02_project_database_zh-TW.reading.html"><span class="no">2</span><div><strong>專案、資料庫、MDB 與權限</strong><span>DB 類型、Team、MDB、Claim、Session，以及寫入失敗的原因</span></div></a>
+<a class="ch" href="Docs/ch03_hierarchy_attributes_zh-TW.reading.html"><span class="no">3</span><div><strong>資料階層、元素、屬性與導覽</strong><span>元素樹、元素型別、屬性分類、CE 與查詢</span></div></a>
+<a class="ch" href="Docs/ch04_coordinates_geometry_zh-TW.reading.html"><span class="no">4</span><div><strong>座標、方向與幾何</strong><span>E/N/U、POS/ORI、WRT 轉換、肋位與縱向定位</span></div></a>
+</div></div>
+<div class="part"><h3>第二部分　船舶設計業務領域</h3><div class="chapters">
+<a class="ch" href="Docs/ch05_hull_modelling_zh-TW.reading.html"><span class="no">5</span><div><strong>船體建模：曲面、板架與拓撲</strong><span>板架組成、拓撲相依、曲面外板、變更影響</span></div></a>
+<a class="ch" href="Docs/ch06_hull_production_zh-TW.reading.html"><span class="no">6</span><div><strong>船體生產資訊、套料與裝配</strong><span>零件抽出、Databank、套料、收縮補償、組立</span></div></a>
+<a class="ch" href="Docs/ch07_outfitting_zh-TW.reading.html"><span class="no">7</span><div><strong>舾裝設計</strong><span>設備、管路結構與流程、鐵舾裝、通風、電纜、貫穿孔</span></div></a>
+<a class="ch" href="Docs/ch08_catalogue_spec_zh-TW.reading.html"><span class="no">8</span><div><strong>目錄與等級</strong><span>CATE/SCOM/GMSE/PTSE、SPEC/SELE/SPCO 與參照鏈</span></div></a>
+<a class="ch" href="Docs/ch09_drawings_zh-TW.reading.html"><span class="no">9</span><div><strong>圖面、ISO 圖與報表輸出</strong><span>圖面資料結構、自動標註、Isodraft、材料表</span></div></a>
+</div></div>
+<div class="part"><h3>第三部分　二次開發技術</h3><div class="chapters">
+<a class="ch" href="Docs/ch10_dev_environment_zh-TW.reading.html"><span class="no">10</span><div><strong>開發環境</strong><span>PMLLIB、pml.index、檔案類型、Add-in 目錄、工具庫結構</span></div></a>
+<a class="ch" href="Docs/ch11_pml_language_zh-TW.reading.html"><span class="no">11</span><div><strong>PML 語言核心</strong><span>變數、型別、流程、字串陣列、函式、物件、錯誤處理</span></div></a>
+<a class="ch" href="Docs/ch12_pml_database_zh-TW.reading.html"><span class="no">12</span><div><strong>PML 資料庫操作</strong><span>導覽、COLLECTION 查詢、建立修改刪除、批次修改安全模式</span></div></a>
+<a class="ch" href="Docs/ch13_pml_forms_addins_zh-TW.reading.html"><span class="no">13</span><div><strong>PML2 表單、選單與 Add-in</strong><span>控制項、回呼、.NET 表格嵌入、選單掛載、完整範例</span></div></a>
+<a class="ch" href="Docs/ch14_dotnet_zh-TW.reading.html"><span class="no">14</span><div><strong>.NET 開發</strong><span>CAF Add-in、ServiceManager、UIC、DbElement、PML.NET</span></div></a>
+<a class="ch" href="Docs/ch15_hull_vitesse_zh-TW.reading.html"><span class="no">15</span><div><strong>船體開發：Vitesse Python</strong><span>kcs 模組、資料抽取語句、Trigger 與右鍵選單</span></div></a>
+<a class="ch" href="Docs/ch16_reports_integration_zh-TW.reading.html"><span class="no">16</span><div><strong>報表、檔案與外部系統整合</strong><span>FILE 物件、編碼、CSV/Excel、ERP/PDM 整合</span></div></a>
+<a class="ch" href="Docs/ch17_debug_deploy_zh-TW.reading.html"><span class="no">17</span><div><strong>除錯、測試、部署與版本管理</strong><span>追蹤除錯、測試策略、Git、部署與回復、升級回歸</span></div></a>
+<a class="ch" href="Docs/ch18_case_studies_zh-TW.reading.html"><span class="no">18</span><div><strong>實戰案例與完整範例</strong><span>外板開孔自動化（實機畫面）、三個可部署範例、工具立案</span></div></a>
+</div></div>
+<div class="part"><h3>附錄</h3><div class="chapters">
+<a class="ch" href="Docs/appx_a_resources_zh-TW.reading.html"><span class="no">A</span><div><strong>專業資源與官方訓練地圖</strong><span>官方文件、TM 手冊編號、論文與社群資源分級</span></div></a>
+<a class="ch" href="Docs/appx_b_glossary_zh-TW.reading.html"><span class="no">B</span><div><strong>術語表與指令速查</strong><span>中英術語對照、常用命令與 PML 管理指令</span></div></a>
+</div></div>
+</section>
+
+<section class="section" id="tools"><div class="heading"><div class="eyebrow">PRACTICE</div><h2>練習工具</h2></div><div class="tools">
+<div class="tool"><span class="tag">互動</span><h3>PML 互動課程</h3><p>四個階段的程式範例、小測驗與學習進度，適合搭配第 11–13 章練習。</p><a class="link" href="Docs/aveva_pml_learning_guide.html">開始練習 →</a></div>
+<div class="tool"><span class="tag">3D</span><h3>Marine 3D 學習實驗室</h3><p>切換船體、設備與管線，觀察空間關係，適合搭配第 3–7 章。</p><a class="link" href="Docs/marine_3d_lab.html">開啟 3D 練習 →</a></div>
+</div>
+<div class="notice">課程內容依公開官方資料、開放取用論文與開源範例自主撰寫，不是官方手冊翻譯。標示〔待核對〕的內容與所有選單、指令，請以公司安裝的 AVEVA Marine 版本確認。會修改資料的練習只能在訓練專案進行。</div></section>
+</main><footer>AVEVA Marine 學習中心 · 本地離線教材</footer></body></html>

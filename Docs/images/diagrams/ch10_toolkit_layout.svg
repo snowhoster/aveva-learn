@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="640" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">公司工具庫目錄結構建議（Git 儲存庫 → 部署位置）</text>
+
+  <!-- repository tree -->
+  <rect x="24" y="50" width="470" height="570" rx="8" fill="#f9fafb" stroke="#6b7280"/>
+  <text x="40" y="76" font-size="15" font-weight="bold" fill="#1f2937">Git 儲存庫 company-aveva-tools\</text>
+  <g font-size="13" fill="#1f2937">
+    <circle cx="43" cy="100" r="2.5" fill="#6b7280"/><text x="52" y="104" font-family="Consolas, monospace">pmllib\</text>
+    <circle cx="69" cy="122" r="2.5" fill="#6b7280"/><text x="78" y="126" font-family="Consolas, monospace">myco\</text>
+    <circle cx="95" cy="144" r="2.5" fill="#6b7280"/><text x="104" y="148" font-family="Consolas, monospace">forms\</text><text x="250" y="148">*.pmlfrm</text>
+    <circle cx="95" cy="166" r="2.5" fill="#6b7280"/><text x="104" y="170" font-family="Consolas, monospace">functions\</text><text x="250" y="170">*.pmlfnc</text>
+    <circle cx="95" cy="188" r="2.5" fill="#6b7280"/><text x="104" y="192" font-family="Consolas, monospace">objects\</text><text x="250" y="192">*.pmlobj</text>
+    <circle cx="95" cy="210" r="2.5" fill="#6b7280"/><text x="104" y="214" font-family="Consolas, monospace">macros\</text><text x="250" y="214">*.pmlmac</text>
+    <circle cx="95" cy="232" r="2.5" fill="#6b7280"/><text x="104" y="236" font-family="Consolas, monospace">data\</text><text x="250" y="236">設定檔、對照表</text>
+    <circle cx="43" cy="262" r="2.5" fill="#6b7280"/><text x="52" y="266" font-family="Consolas, monospace">pdmsui\</text>
+    <circle cx="69" cy="284" r="2.5" fill="#6b7280"/><text x="78" y="288" font-family="Consolas, monospace">DES\DFLTS\ADDINS\MYCOLLECT</text>
+    <circle cx="43" cy="314" r="2.5" fill="#6b7280"/><text x="52" y="318" font-family="Consolas, monospace">dotnet\</text><text x="250" y="318">C# 方案（第 14 章）</text>
+    <circle cx="43" cy="336" r="2.5" fill="#6b7280"/><text x="52" y="340" font-family="Consolas, monospace">vitesse\</text><text x="250" y="340">船體腳本（第 15 章）</text>
+    <circle cx="43" cy="366" r="2.5" fill="#6b7280"/><text x="52" y="370" font-family="Consolas, monospace">deploy\</text>
+    <circle cx="69" cy="388" r="2.5" fill="#6b7280"/><text x="78" y="392" font-family="Consolas, monospace">install.cmd</text>
+    <circle cx="69" cy="410" r="2.5" fill="#6b7280"/><text x="78" y="414" font-family="Consolas, monospace">uninstall.cmd</text>
+    <circle cx="69" cy="432" r="2.5" fill="#6b7280"/><text x="78" y="436" font-family="Consolas, monospace">evars_company.bat</text>
+    <circle cx="43" cy="462" r="2.5" fill="#6b7280"/><text x="52" y="466" font-family="Consolas, monospace">tests\</text><text x="250" y="466">測試巨集與預期結果</text>
+    <circle cx="43" cy="492" r="2.5" fill="#6b7280"/><text x="52" y="496" font-family="Consolas, monospace">docs\</text><text x="250" y="496">使用說明、變更紀錄</text>
+    <circle cx="43" cy="522" r="2.5" fill="#6b7280"/><text x="52" y="526" font-family="Consolas, monospace">README.md</text>
+  </g>
+  <text x="40" y="566" font-size="13" fill="#6b7280">規則：檔名全小寫，與定義名稱相同；</text>
+  <text x="40" y="588" font-size="13" fill="#6b7280">所有公司檔案都用同一個前綴（例：myco）。</text>
+
+  <!-- deploy targets -->
+  <rect x="560" y="80" width="316" height="120" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="576" y="106" font-size="14" font-weight="bold" fill="#1f2937">PMLLIB 的第一個目錄</text>
+  <text x="576" y="130" font-size="13" font-family="Consolas, monospace" fill="#1f2937">D:\Company\pmllib\myco\</text>
+  <text x="576" y="156" font-size="13" fill="#1f2937">放表單、函式、物件</text>
+  <text x="576" y="180" font-size="13" fill="#1f2937">部署後執行 pml rehash all</text>
+
+  <rect x="560" y="236" width="316" height="120" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="576" y="262" font-size="14" font-weight="bold" fill="#1f2937">PDMSUI 搜尋路徑的公司目錄</text>
+  <text x="576" y="286" font-size="13" font-family="Consolas, monospace" fill="#1f2937">...\DES\DFLTS\ADDINS\</text>
+  <text x="576" y="312" font-size="13" fill="#1f2937">放 Add-in 定義檔</text>
+  <text x="576" y="336" font-size="13" fill="#1f2937">重新啟動模組才生效</text>
+
+  <rect x="560" y="392" width="316" height="120" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="576" y="418" font-size="14" font-weight="bold" fill="#1f2937">公司啟動批次檔</text>
+  <text x="576" y="442" font-size="13" fill="#1f2937">先呼叫官方批次檔，再把</text>
+  <text x="576" y="466" font-size="13" fill="#1f2937">公司路徑加到 PMLLIB 前面</text>
+  <text x="576" y="490" font-size="13" fill="#1f2937">官方檔案一行都不改</text>
+
+  <line x1="330" y1="150" x2="556" y2="140" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="330" y1="288" x2="556" y2="296" stroke="#15803d" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="260" y1="436" x2="556" y2="452" stroke="#b45309" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="560" y="540" width="316" height="72" rx="8" fill="#fef2f2" stroke="#b91c1c"/>
+  <text x="576" y="566" font-size="13" fill="#1f2937">tests、docs、dotnet 原始碼不部署到</text>
+  <text x="576" y="590" font-size="13" fill="#1f2937">PMLLIB；只部署執行需要的檔案。</text>
+</svg>

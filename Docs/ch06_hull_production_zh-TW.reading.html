@@ -1,0 +1,640 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 6 章　船體生產資訊、套料與裝配 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#6">第 6 章 船體生產資訊、套料與裝配</a><ul>
+<li><a href="#61">6.1 學習目標</a></li>
+<li><a href="#62">6.2 從模型到生產：整體流程</a></li>
+<li><a href="#63">6.3 零件抽出</a><ul>
+<li><a href="#631">6.3.1 零件是什麼</a></li>
+<li><a href="#632">6.3.2 零件上帶有的生產資訊</a></li>
+<li><a href="#633">6.3.3 零件編號與識別</a></li>
+</ul>
+</li>
+<li><a href="#64-databank">6.4 資料存放：Databank 與生產資料庫</a></li>
+<li><a href="#65-nesting">6.5 套料（Nesting）</a><ul>
+<li><a href="#651">6.5.1 套料在做什麼</a></li>
+<li><a href="#652">6.5.2 鋼板利用率</a></li>
+<li><a href="#653">6.5.3 套料時的其他考量</a></li>
+<li><a href="#654">6.5.4 型材套料與型材草圖</a></li>
+</ul>
+</li>
+<li><a href="#66">6.6 曲面零件：樣板與胎架</a></li>
+<li><a href="#67">6.7 收縮補償與裝配劃線</a><ul>
+<li><a href="#671">6.7.1 焊接收縮補償</a></li>
+<li><a href="#672">6.7.2 裝配劃線與劃線三角</a></li>
+</ul>
+</li>
+<li><a href="#68">6.8 裝配規劃與焊接規劃</a><ul>
+<li><a href="#681">6.8.1 組立樹</a></li>
+<li><a href="#682">6.8.2 焊接規劃</a></li>
+</ul>
+</li>
+<li><a href="#69">6.9 程式範例：一致性檢查的思路</a></li>
+<li><a href="#610">6.10 開發人員須知</a><ul>
+<li><a href="#6101">6.10.1 生產資料是快照</a></li>
+<li><a href="#6102">6.10.2 整合外部系統的建議</a></li>
+<li><a href="#6103">6.10.3 把變更流程想成狀態機</a></li>
+<li><a href="#6104">6.10.4 典型的開發題目</a></li>
+</ul>
+</li>
+<li><a href="#611">6.11 練習（只能在訓練專案）</a><ul>
+<li><a href="#6-1">練習 6-1：從板架到零件</a></li>
+<li><a href="#6-2">練習 6-2：套料與利用率</a></li>
+<li><a href="#6-3">練習 6-3：快照實驗</a></li>
+<li><a href="#6-4">練習 6-4：組立樹</a></li>
+</ul>
+</li>
+<li><a href="#612">6.12 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船舶設計業務領域 · 7 / 21</span><h1 id="6">第 6 章　船體生產資訊、套料與裝配</h1>
+<blockquote>
+<p>本章說明船體 3D 模型如何變成工廠可以使用的資料：零件、套料、切割與劃線資訊、型材草圖、樣板，以及裝配與焊接規劃。對開發人員來說，本章最重要的觀念是：<strong>生產資料是模型在某一時刻的快照</strong>，模型修改後若沒有重新產生，下游拿到的就是舊資料。</p>
+<p>內容依據 AVEVA 官方線上文件（Hull and Outfitting 12.1）、AVEVA 官方產品型錄與新聞稿，以及船廠生產設計的通用實務自主撰寫，不是官方手冊的翻譯。生產資訊模組的實際選單、Databank 名稱與檔案位置依版本與專案設定差異很大，標示 <strong>〔待核對〕</strong> 的項目請以公司環境確認。所有練習只能在訓練專案進行。</p>
+</blockquote>
+<h2 id="61">6.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明「零件抽出」做了什麼，以及板零件與型材零件包含哪些資訊。</li>
+<li>列出船體生產資料的存放位置：型線、板零件、型材零件、套料與生產資料庫。</li>
+<li>解釋套料的目的，並計算鋼板利用率；說明零件方向、劃線、坡口的意義。</li>
+<li>說明型材草圖、彎曲樣板與胎架的用途。</li>
+<li>解釋焊接收縮補償與裝配劃線。</li>
+<li>畫出組立樹，並說明裝配規劃與焊接規劃的關係。</li>
+<li>說明生產資料為什麼是快照，以及開發工具應如何處理模型與生產資料的一致性。</li>
+</ol>
+<h2 id="62">6.2 從模型到生產：整體流程</h2>
+<p>傳統造船流程在設計與生產之間，有一個「放樣（Lofting）」階段：由放樣人員依圖面重新取得實際尺寸、製作樣板。官方產品資料指出，AVEVA 的生產資訊功能可以直接從模型產生零件製造與裝配所需的資訊，<strong>不必另設放樣階段</strong>；輸出的切割與劃線資訊可以包含<strong>焊接收縮補償</strong>，並直接驅動 NC 生產設備。</p>
+<p><img alt="從船體模型到生產資料的管線：模型、零件抽出、零件 Databank、套料、切割資料；下方為快照時間軸" src="images/diagrams/ch06_model_to_production.svg" /></p>
+<p><em>圖 6-1　從船體模型到生產資料的管線。上半部是資料流，下半部說明為什麼零件 Databank 是模型的「快照」。（本課程自繪）</em></p>
+<p>整個流程可以用開發人員熟悉的資料管線來理解：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>船廠用語</th>
+<th>開發類比</th>
+<th>產出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3D 建模（<a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章</a>）</td>
+<td>維護來源資料表</td>
+<td>板架、曲面板</td>
+</tr>
+<tr>
+<td>2</td>
+<td>零件抽出（Part Generation）</td>
+<td>執行 ETL，產生衍生資料</td>
+<td>板零件、型材零件</td>
+</tr>
+<tr>
+<td>3</td>
+<td>套料（Nesting）</td>
+<td>最佳化排程（二維裝箱問題）</td>
+<td>套料板、套料型材</td>
+</tr>
+<tr>
+<td>4</td>
+<td>產生加工資料</td>
+<td>匯出到外部系統的格式</td>
+<td>NC 程式、切割草圖、型材草圖、樣板</td>
+</tr>
+<tr>
+<td>5</td>
+<td>裝配與焊接規劃</td>
+<td>另一種分組與彙總</td>
+<td>組立樹、焊接資訊</td>
+</tr>
+</tbody>
+</table>
+<h2 id="63">6.3 零件抽出</h2>
+<h3 id="631">6.3.1 零件是什麼</h3>
+<p>在設計模型中，一個平面板架包含板、加強材、肘板等構件。生產端需要的不是「構件」，而是「一塊要從鋼板上切下來的料」或「一根要從型材上切下來的料」。零件抽出就是把模型中的構件轉換成可製造的零件：</p>
+<table>
+<thead>
+<tr>
+<th>零件類型</th>
+<th>來自模型的哪裡</th>
+<th>主要內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>板零件（Plate Part）</td>
+<td>板架中的每一塊板、肘板、補板</td>
+<td>外輪廓、內部開孔、缺口、厚度、材質、零件編號</td>
+</tr>
+<tr>
+<td>型材零件（Profile Part）</td>
+<td>加強材、外板縱骨</td>
+<td>型材規格、長度、端部處理形狀、開孔與缺口位置</td>
+</tr>
+<tr>
+<td>曲面板零件</td>
+<td>曲面外板</td>
+<td>展開後的外輪廓，加上彎曲加工資訊</td>
+</tr>
+</tbody>
+</table>
+<h3 id="632">6.3.2 零件上帶有的生產資訊</h3>
+<p>模型中只有「設計意圖」，零件上則加入了大量「製造資訊」：</p>
+<table>
+<thead>
+<tr>
+<th>資訊</th>
+<th>說明</th>
+<th>為什麼需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>零件編號與標籤</td>
+<td>依船廠命名規則產生</td>
+<td>現場辨識、追蹤、組立歸屬</td>
+</tr>
+<tr>
+<td>劃線（Marking）</td>
+<td>其他構件的安裝線、檢驗線、對位線</td>
+<td>讓裝配時知道東西放哪裡</td>
+</tr>
+<tr>
+<td>餘量（Excess）</td>
+<td>刻意多留的材料，之後再修切</td>
+<td>吸收裝配誤差，常見於分段接頭</td>
+</tr>
+<tr>
+<td>坡口（Bevel）</td>
+<td>板邊的斜切形狀</td>
+<td>焊接需要，依板厚與焊接型式決定</td>
+</tr>
+<tr>
+<td>收縮補償（Shrinkage）</td>
+<td>依焊道預估的收縮量，把零件放大</td>
+<td>焊後尺寸才會正確</td>
+</tr>
+<tr>
+<td>加工方向</td>
+<td>軋製方向、正反面</td>
+<td>某些鋼板或成形工序有方向要求</td>
+</tr>
+</tbody>
+</table>
+<p>官方型錄也提到<strong>零件檢查</strong>功能：顯示自動產生的零件，包含所有標籤、劃線、餘量與坡口資訊，讓設計者在交付前確認。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：左為 3D 零件，右為自動產生的零件草圖</div></p>
+<p><em>圖 6-2　從 3D 零件（左）自動產生零件草圖（右），草圖上有標籤、劃線與加工資訊。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 零件抽出前，請確認第 5 章的板定義完整（每塊板都有厚度、型面側、材質）。缺少板定義是零件抽出失敗最常見的原因之一。</p>
+</blockquote>
+<h3 id="633">6.3.3 零件編號與識別</h3>
+<p>零件編號是生產端的主鍵：切割機、物流、組立、ERP 都靠它辨識零件。船廠通常把多種資訊編進零件編號中，以下為<strong>示意</strong>的組成方式：</p>
+<table>
+<thead>
+<tr>
+<th>片段</th>
+<th>例子</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船號</td>
+<td><code>S1234</code></td>
+<td>哪一艘船</td>
+</tr>
+<tr>
+<td>分段</td>
+<td><code>B21</code></td>
+<td>屬於哪個分段</td>
+</tr>
+<tr>
+<td>板架或組立</td>
+<td><code>FL42</code></td>
+<td>來自哪個板架，或屬於哪個組立</td>
+</tr>
+<tr>
+<td>序號</td>
+<td><code>001</code></td>
+<td>同一板架內的流水號</td>
+</tr>
+<tr>
+<td>舷別</td>
+<td><code>P</code>／<code>S</code></td>
+<td>左舷或右舷（對稱構件）</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕公司的實際編號規則、由系統自動產生還是人工指定，請向生產設計負責人確認。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 撰寫整合工具前，先確認一件事：<strong>重新抽出後，同一個零件的編號會不會改變？</strong> 如果會，外部系統以零件編號為鍵存放的資料（例如切割進度、物流狀態）就會在每次重新抽出後失去對應。這是生產資料整合最常見的設計缺陷。</p>
+</blockquote>
+<h2 id="64-databank">6.4 資料存放：Databank 與生產資料庫</h2>
+<p>官方文件說明了下列船體生產資料的存放位置：</p>
+<table>
+<thead>
+<tr>
+<th>資料庫／Databank</th>
+<th>內容</th>
+<th>開發類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>型線 Form Databank</td>
+<td>曲面、船殼曲線、接縫與對接縫</td>
+<td>幾何基礎資料</td>
+</tr>
+<tr>
+<td>板零件 Plate Databank</td>
+<td>從模型抽出、可直接生產的板零件</td>
+<td>衍生資料表（板）</td>
+</tr>
+<tr>
+<td>型材零件 Profile Databank</td>
+<td>從模型抽出、可直接生產的型材零件</td>
+<td>衍生資料表（型材）</td>
+</tr>
+<tr>
+<td>套料 Nested Plates／Burning Sketches</td>
+<td>套料結果與切割草圖</td>
+<td>最佳化結果</td>
+</tr>
+<tr>
+<td>套料型材 Nested Profiles</td>
+<td>型材的套料結果</td>
+<td>最佳化結果</td>
+</tr>
+<tr>
+<td>生產資料庫 Production Database</td>
+<td>存放抽出零件資訊的 Oracle 資料庫</td>
+<td>供外部系統查詢的整合資料庫</td>
+</tr>
+</tbody>
+</table>
+<p>官方說明，生產資料庫是給<strong>使用者自行開發的生產程式</strong>使用的。這是船體生產資料與外部系統（MES、ERP）整合最正規的入口。</p>
+<p>〔待核對〕Tribon 時期各 Databank 以 <code>SB_</code> 開頭的環境變數指定位置，Marine 12.x 的實際名稱、路徑與 Oracle 生產資料庫是否啟用，請向系統管理員取得專案設定。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 不要直接寫入 Databank 或生產資料庫。Databank 的內部格式不公開，生產資料庫的資料由抽出流程產生；直接寫入會讓資料與模型不一致，而且下次重新抽出時會被覆蓋。外部系統應<strong>唯讀</strong>取用，必要時把自己的資料存在另一個資料庫，以零件編號關聯。</p>
+</blockquote>
+<h2 id="65-nesting">6.5 套料（Nesting）</h2>
+<h3 id="651">6.5.1 套料在做什麼</h3>
+<p>套料是把零件排列在原料鋼板上的工作，直接影響材料成本。從演算法角度看，它是一個二維不規則形狀的裝箱問題（Bin Packing），一般無法求得最佳解，只能求得夠好的解。</p>
+<p>AVEVA 的自動板材套料（Automated Plate Nesting）是 Hull Detailed Design 的外掛功能。官方新聞稿宣稱，與半自動套料相比，最多可節省 13% 原料。12.1 SP4 版本說明也列出套料草圖零件表、方向文字等改善。</p>
+<h3 id="652">6.5.2 鋼板利用率</h3>
+<p>套料最常用的指標是<strong>鋼板利用率</strong>：</p>
+<pre><code>鋼板利用率 = 零件淨面積總和 ÷ 使用的原料鋼板面積 × 100%
+</code></pre>
+<p>例如在一塊 2,500 mm × 10,000 mm（25 m²）的鋼板上排了 21.5 m² 的零件，利用率是 86%。剩下的 3.5 m² 可能成為可再利用的餘料，或成為廢料。</p>
+<table>
+<thead>
+<tr>
+<th>影響利用率的因素</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鋼板規格</td>
+<td>板寬、板長、厚度要與零件匹配</td>
+</tr>
+<tr>
+<td>零件形狀</td>
+<td>不規則形狀難以緊密排列</td>
+</tr>
+<tr>
+<td>同厚度、同材質的零件數量</td>
+<td>只有同厚度、同鋼級的零件能排在同一塊板上</td>
+</tr>
+<tr>
+<td>零件方向限制</td>
+<td>有軋製方向要求的零件不能任意旋轉</td>
+</tr>
+<tr>
+<td>切割間隙與邊緣</td>
+<td>切割寬度與夾持邊會佔用面積</td>
+</tr>
+</tbody>
+</table>
+<h3 id="653">6.5.3 套料時的其他考量</h3>
+<ul>
+<li><strong>鋼板管理</strong>：鋼級、爐號、船級證書。部分零件要求可追溯到特定爐號。</li>
+<li><strong>切割順序與熱變形</strong>：切割順序不當會讓板材受熱變形，影響精度。</li>
+<li><strong>零件方向</strong>：軋製方向是否有要求，曲面零件的成形方向。</li>
+<li><strong>劃線資訊</strong>：構件安裝線、檢驗線、零件編號。</li>
+<li><strong>坡口與邊緣加工</strong>：坡口零件要確認切割機是否支援。</li>
+</ul>
+<h3 id="654">6.5.4 型材套料與型材草圖</h3>
+<p>型材零件需要輸出<strong>型材草圖</strong>，內容包括長度、端部處理形狀、開孔與缺口位置、劃線與零件編號，供型材加工線使用。<strong>型材套料</strong>則決定一根原料型材（例如 12 m）能切出哪些零件，屬於一維的裝箱問題，比板材套料單純，但同樣影響材料成本。</p>
+<h2 id="66">6.6 曲面零件：樣板與胎架</h2>
+<p>曲面外板展開成平板切割後，還要彎成正確的曲面。這需要兩種工具：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>系統提供的資訊</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>彎曲樣板（Template）</td>
+<td>在彎板時比對曲率，確認是否彎到位</td>
+<td>依曲率產生內側或外側樣板，可輸出多種格式</td>
+</tr>
+<tr>
+<td>胎架（Jig／Pin Jig）</td>
+<td>支撐曲面板或分段的可調整支柱</td>
+<td>每根支柱的位置與高度</td>
+</tr>
+</tbody>
+</table>
+<p>官方文件提到，傳統木樣板逐漸被<strong>可重複使用、可調整的樣板</strong>取代；12.1 SP3 的版本說明中有胎架支柱（Jig Pillar）相關的強化。胎架的高度資料本質上是「曲面在一組格點上的高度值」，是很適合以程式輸出成表格的資料〔待核對：公司版本可輸出的格式〕。</p>
+<h2 id="67">6.7 收縮補償與裝配劃線</h2>
+<h3 id="671">6.7.1 焊接收縮補償</h3>
+<p>鋼材焊接後會收縮。如果零件完全照設計尺寸切割，焊完之後整個組立會變短、變窄。收縮補償的做法是：<strong>依焊道的位置與數量，把零件預先放大</strong>。</p>
+<p>官方型錄說明，系統可依船廠實測的收縮表，分析焊道後自動決定板與型材的收縮量與方向。概念上的計算如下（數值僅為示意，實際以船廠收縮表為準）：</p>
+<pre><code>示意：一塊 6,000 mm 長的板，沿長度方向有 3 條橫向焊道與之相接
+     若船廠收縮表規定每條焊道收縮 0.5 mm
+     則切割長度 = 6,000 + 3 × 0.5 = 6,001.5 mm
+</code></pre>
+<blockquote>
+<p><strong>開發人員須知：</strong> 因為零件尺寸含收縮補償，所以<strong>零件的尺寸不等於模型的設計尺寸</strong>。如果你寫的工具要比對模型與零件，必須先決定比較的是「設計尺寸」還是「切割尺寸」，否則會產生大量假的差異。</p>
+</blockquote>
+<h3 id="672">6.7.2 裝配劃線與劃線三角</h3>
+<p>劃線是在零件上標示其他構件應該放在哪裡。官方型錄提到 Genauigkeit 劃線三角：自動產生劃線三角與對位線，讓裝配時的零件對位更容易、更準確。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：劃線三角與對位線示意</div></p>
+<p><em>圖 6-3　Genauigkeit 劃線三角與對位線，用於提高裝配精度。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h2 id="68">6.8 裝配規劃與焊接規劃</h2>
+<h3 id="681">6.8.1 組立樹</h3>
+<p>船不是一次焊成的，而是由零件組成小組立，小組立組成大組立，大組立組成分段，分段在船台或船塢合攏。<strong>組立樹</strong>描述了這個由下往上的裝配順序：</p>
+<pre><code>船
+└── 分段（Block）
+    └── 大組立
+        └── 小組立
+            └── 零件（板零件、型材零件）
+</code></pre>
+<p><img alt="組立樹：左為設計視角的 BLOCK 與板架，右為建造視角的分段、大組立、小組立與零件" src="images/diagrams/ch06_assembly_tree.svg" /></p>
+<p><em>圖 6-4　同一批零件同時屬於兩棵樹：設計視角依構件組織（左），建造視角依裝配順序組織（右）。焊接資訊掛在組立節點上。（本課程自繪，零件編號為示意）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：雙層底分段模型</div></p>
+<p><em>圖 6-5　分段模型。組立規劃以分段為單位，向下展開大組立、小組立與零件。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p>官方說明 Assembly Planning 的工作順序是：先建立整船建造策略，再細化組立定義，最後準備組立生產資料。</p>
+<table>
+<thead>
+<tr>
+<th>設計樹與組立樹的差別</th>
+<th>設計樹</th>
+<th>組立樹</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>組織原則</td>
+<td>依構件（板架）</td>
+<td>依裝配順序</td>
+</tr>
+<tr>
+<td>一個板架的零件</td>
+<td>都在同一個 <code>HPANEL</code> 下</td>
+<td>可能分屬不同小組立</td>
+</tr>
+<tr>
+<td>誰維護</td>
+<td>設計者</td>
+<td>生產設計、生產管理</td>
+</tr>
+<tr>
+<td>開發類比</td>
+<td>依資料表的主鍵分組</td>
+<td>依另一個維度（工序）分組</td>
+</tr>
+</tbody>
+</table>
+<h3 id="682">6.8.2 焊接規劃</h3>
+<p>Hull Weld Planning 會分析船體組立結構，依可自訂的規則計算完整的焊接技術資訊，例如：</p>
+<ul>
+<li>哪兩個零件相接、焊道長度。</li>
+<li>焊接型式（填角、對接）與焊腳尺寸。</li>
+<li>焊接姿勢（平焊、立焊、仰焊）。</li>
+</ul>
+<p>焊接資訊依賴組立樹，因為焊接姿勢取決於「這兩個零件在哪一個組立階段、以什麼方向擺放時焊接」。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 組立順序決定了「哪些零件在何時、以什麼姿勢焊接」。設計階段若沒有考慮組立順序，可能出現焊槍無法到達、或必須仰焊的情況。</p>
+</blockquote>
+<h2 id="69">6.9 程式範例：一致性檢查的思路</h2>
+<p>生產資料的一致性檢查，是船體開發中最有價值的工具之一。以下 Python 程式<strong>示意</strong>一種不需要寫入任何系統的做法：分別從模型端與零件端匯出清單（CSV），再在系統外比對。</p>
+<pre><code class="language-python"># 示意：未在實機驗證。比對「模型板架清單」與「零件抽出清單」
+# model.csv 欄位：panel, modified_at        （由模型端工具匯出）
+# parts.csv 欄位：panel, part_no, extracted_at（由生產端匯出）
+# 欄位名稱與匯出方式依公司系統而定〔待核對〕
+import csv
+from datetime import datetime
+
+FMT = &quot;%Y-%m-%d %H:%M:%S&quot;
+
+def load(path, key, ts):
+    rows = {}
+    with open(path, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+        for r in csv.DictReader(f):
+            t = datetime.strptime(r[ts], FMT)
+            # 同一板架有多個零件時，取最早的抽出時間
+            if r[key] not in rows or t &lt; rows[r[key]]:
+                rows[r[key]] = t
+    return rows
+
+model = load(&quot;model.csv&quot;, &quot;panel&quot;, &quot;modified_at&quot;)
+parts = load(&quot;parts.csv&quot;, &quot;panel&quot;, &quot;extracted_at&quot;)
+
+for panel, modified in sorted(model.items()):
+    extracted = parts.get(panel)
+    if extracted is None:
+        print(&quot;NO PARTS  &quot;, panel)
+    elif modified &gt; extracted:
+        print(&quot;STALE     &quot;, panel, &quot;modified&quot;, modified, &quot;extracted&quot;, extracted)
+</code></pre>
+<p>這段程式的重點不在語法，而在<strong>設計原則</strong>：</p>
+<ol>
+<li>先把兩邊的資料「取出來」，在系統外比對，不在生產系統中直接運算。</li>
+<li>只讀不寫，輸出的是「待處理清單」，由人決定是否重新抽出。</li>
+<li>比對鍵（板架名稱或 <code>TBID</code>）與時間欄位，要先和系統管理員確認來源與意義。</li>
+</ol>
+<p>如果模型端可以讀到 <code>IsChgd</code> 這類修改旗標（第 5 章），也可以直接列出所有旗標為真的構件，作為更簡單的第一版工具〔待核對：旗標何時被清除〕。</p>
+<h2 id="610">6.10 開發人員須知</h2>
+<h3 id="6101">6.10.1 生產資料是快照</h3>
+<table>
+<thead>
+<tr>
+<th>現象</th>
+<th>原因</th>
+<th>對策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型改了，零件沒變</td>
+<td>零件只在抽出時更新</td>
+<td>建立「修改 → 重新抽出 → 重新套料 → 通知生產」的固定流程</td>
+</tr>
+<tr>
+<td>零件尺寸與模型不同</td>
+<td>零件含收縮補償與餘量</td>
+<td>比對時區分設計尺寸與切割尺寸</td>
+</tr>
+<tr>
+<td>已下料的零件被重新抽出</td>
+<td>抽出不知道現場進度</td>
+<td>抽出前查詢零件狀態，已下料者走變更流程</td>
+</tr>
+<tr>
+<td>報表數字對不上</td>
+<td>一份報表依模型、一份依零件</td>
+<td>報表標示資料來源與擷取時間</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6102">6.10.2 整合外部系統的建議</h3>
+<ul>
+<li><strong>以零件編號為整合鍵</strong>：零件編號是生產端的主鍵，也是 ERP、MES 認得的識別碼。要先確認編號規則在重新抽出時是否穩定。</li>
+<li><strong>讀生產資料庫，不讀內部檔案</strong>：官方提供的 Oracle 生產資料庫是給外部程式用的正式入口。</li>
+<li><strong>記錄擷取時間</strong>：任何從生產資料產生的報表，都要附上資料擷取時間，讓使用者知道它是哪一刻的快照。</li>
+<li><strong>只讀不寫</strong>：生產資訊的產生交給官方功能，自建工具負責查詢、比對與通知。</li>
+</ul>
+<h3 id="6103">6.10.3 把變更流程想成狀態機</h3>
+<p>零件從產生到使用，會經過幾個狀態。把它寫成狀態機，比較容易看出哪些轉換需要管制：</p>
+<pre><code>示意：零件的狀態與轉換（狀態名稱依公司流程而定）
+
+  [已抽出] --套料--&gt; [已套料] --發行--&gt; [已發行給現場] --切割--&gt; [已下料]
+     ^                   |                     |                        |
+     |                   |                     |                        |
+     +----模型修改，重新抽出----+---------------+                        |
+                                                                        |
+                                    模型修改 --&gt; 變更單流程（不可直接重新抽出覆蓋）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>轉換</th>
+<th>誰觸發</th>
+<th>工具可以做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型修改 → 重新抽出</td>
+<td>設計者</td>
+<td>偵測修改旗標，提醒需要重新抽出</td>
+</tr>
+<tr>
+<td>已套料 → 重新套料</td>
+<td>生產設計</td>
+<td>列出受影響的套料板</td>
+</tr>
+<tr>
+<td>已發行 → 變更</td>
+<td>生產設計與生產管理</td>
+<td>產生變更通知，附上差異清單</td>
+</tr>
+<tr>
+<td>已下料 → 變更</td>
+<td>需走變更單</td>
+<td>阻擋或警告，不自動處理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6104">6.10.4 典型的開發題目</h3>
+<table>
+<thead>
+<tr>
+<th>題目</th>
+<th>資料來源</th>
+<th>技術</th>
+<th>參考章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需要重新抽出的板架清單</td>
+<td>模型修改旗標、零件抽出時間</td>
+<td>PML 或 Vitesse，加上外部比對</td>
+<td><a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>、<a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a></td>
+</tr>
+<tr>
+<td>分段材料與重量統計</td>
+<td>零件資料或生產資料庫</td>
+<td>Vitesse 抽取、SQL 查詢</td>
+<td><a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a>、<a href="ch16_reports_integration_zh-TW.reading.html">第 16 章</a></td>
+</tr>
+<tr>
+<td>套料利用率報表</td>
+<td>套料結果</td>
+<td>依公司可用介面〔待核對〕</td>
+<td><a href="ch16_reports_integration_zh-TW.reading.html">第 16 章</a></td>
+</tr>
+<tr>
+<td>零件資料送 MES／ERP</td>
+<td>生產資料庫</td>
+<td>.NET 或排程程式唯讀查詢</td>
+<td><a href="ch14_dotnet_zh-TW.reading.html">第 14 章</a>、<a href="ch16_reports_integration_zh-TW.reading.html">第 16 章</a></td>
+</tr>
+<tr>
+<td>零件草圖批次輸出</td>
+<td>零件與草圖</td>
+<td>依版本提供的批次功能〔待核對〕</td>
+<td><a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 把零件 Databank 想成資料庫中的「物化檢視（Materialized View）」：它查起來快、格式適合下游，但只有在重新整理（重新抽出）時才會反映來源資料的變更。所有一致性問題都源自這一點。</p>
+</blockquote>
+<h2 id="611">6.11 練習（只能在訓練專案）</h2>
+<h3 id="6-1">練習 6-1：從板架到零件</h3>
+<ol>
+<li>選一個第 5 章已讀懂的小板架。</li>
+<li>抽出生產資訊，列出零件清單：零件數、編號、材質、厚度、重量。</li>
+<li>對照板架中的板與加強材，確認每個構件都有對應零件。</li>
+<li>打開一個板零件的草圖，找出劃線、坡口與餘量。</li>
+</ol>
+<h3 id="6-2">練習 6-2：套料與利用率</h3>
+<ol>
+<li>在訓練專案中對同厚度、同鋼級的零件執行套料。</li>
+<li>計算鋼板利用率，與系統報告的數字比對。</li>
+<li>調整一條接縫位置，重新抽出並套料，觀察零件與利用率的變化。</li>
+</ol>
+<h3 id="6-3">練習 6-3：快照實驗</h3>
+<ol>
+<li>記下某板架的零件清單與抽出時間。</li>
+<li>在訓練專案中修改該板架（例如改一塊板的厚度），<strong>不要</strong>重新抽出。</li>
+<li>查詢零件資料，確認仍為舊值。</li>
+<li>重新抽出後再查一次，記錄差異。把這個實驗寫成給同事看的一頁說明。</li>
+</ol>
+<h3 id="6-4">練習 6-4：組立樹</h3>
+<ol>
+<li>選一個分段，畫出它的組立樹（分段 → 大組立 → 小組立 → 零件）。</li>
+<li>找出一個板架的零件分屬哪些小組立。</li>
+<li>說明某條焊道在哪一個組立階段施焊，姿勢為何。</li>
+</ol>
+<h2 id="612">6.12 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明零件抽出做了什麼，以及板零件、型材零件包含哪些資訊。</li>
+<li>[ ] 我能列出型線、板零件、型材零件、套料 Databank 與生產資料庫的用途。</li>
+<li>[ ] 我能計算鋼板利用率，並說出影響利用率的因素。</li>
+<li>[ ] 我能說明劃線、餘量、坡口、收縮補償的意義。</li>
+<li>[ ] 我能說明型材草圖、彎曲樣板與胎架的用途。</li>
+<li>[ ] 我能畫出組立樹，並說明它與設計樹的差別。</li>
+<li>[ ] 我能說明焊接規劃為什麼依賴組立樹。</li>
+<li>[ ] 我能解釋「生產資料是快照」，並提出至少兩種一致性檢查做法。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">Hull and Outfitting</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224401.html">Hull Detailed Design 版本說明</a>、生產資料相關主題（<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1114217.html">1114217</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1139653.html">1139653</a>）（需以瀏覽器開啟）</li>
+<li>AVEVA 官方產品資料（本章截圖來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>、<a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_HullDetailedDesign_11-18.pdf">Hull Detailed Design Brochure</a></li>
+<li>AVEVA 自動套料新聞稿：<a href="https://www.cambridgenetwork.co.uk/news/new-aveva-automated-plate-nesting-optimises-material-use-ship-and-offshore-construction">Cambridge Network</a></li>
+<li>AVEVA E3D 2.1 Data Model Reference：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.419.html">Planar Panel Stiffener Element (HSTIFF)</a>（<code>IsChgd</code>、<code>Modsta</code> 屬性）</li>
+<li>官方訓練手冊 TM-2106（Production Information）：僅參考公開摘要，完整內容請向公司或 AVEVA 取得授權版本</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch05_hull_modelling_zh-TW.reading.html"><small>← 上一篇</small>第 5 章　船體建模：曲面、板架與拓撲</a><a class="next" href="ch07_outfitting_zh-TW.reading.html"><small>下一篇 →</small>第 7 章　舾裝設計：設備、管路、結構、通風與電纜</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

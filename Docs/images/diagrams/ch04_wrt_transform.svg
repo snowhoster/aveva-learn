@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="r" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#b91c1c"/></marker>
+    <marker id="b" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1d4ed8"/></marker>
+    <marker id="g" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#047857"/></marker>
+    <marker id="k" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#6b7280"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">相對座標與 WRT：同一個管嘴，三種答案（俯視，示意數值）</text>
+
+  <!-- grid -->
+  <rect x="40" y="56" width="530" height="500" fill="#f9fafb" stroke="#e5e7eb"/>
+  <g stroke="#eef2f7">
+    <line x1="160" y1="56" x2="160" y2="556"/><line x1="240" y1="56" x2="240" y2="556"/>
+    <line x1="320" y1="56" x2="320" y2="556"/><line x1="400" y1="56" x2="400" y2="556"/>
+    <line x1="480" y1="56" x2="480" y2="556"/>
+    <line x1="40" y1="440" x2="570" y2="440"/><line x1="40" y1="360" x2="570" y2="360"/>
+    <line x1="40" y1="280" x2="570" y2="280"/><line x1="40" y1="200" x2="570" y2="200"/>
+    <line x1="40" y1="120" x2="570" y2="120"/>
+  </g>
+
+  <!-- world / site axes -->
+  <line x1="80" y1="520" x2="150" y2="520" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#r)"/>
+  <line x1="80" y1="520" x2="80" y2="450" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#r)"/>
+  <text x="152" y="536" font-size="13" fill="#b91c1c">E</text>
+  <text x="66" y="456" font-size="13" fill="#b91c1c">N</text>
+  <circle cx="80" cy="520" r="5" fill="#b91c1c"/>
+  <text x="90" y="548" font-size="13" fill="#b91c1c">WORLD = SITE 原點（0, 0）</text>
+
+  <!-- zone -->
+  <line x1="80" y1="520" x2="236" y2="442" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#k)"/>
+  <line x1="240" y1="440" x2="300" y2="440" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#b)"/>
+  <line x1="240" y1="440" x2="240" y2="380" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#b)"/>
+  <circle cx="240" cy="440" r="5" fill="#1d4ed8"/>
+  <text x="250" y="462" font-size="13" fill="#1e3a8a">ZONE /ZONE-ER</text>
+  <text x="250" y="480" font-size="12" fill="#1e3a8a">POS E 2000 N 1000（相對 SITE）</text>
+
+  <!-- equi -->
+  <line x1="240" y1="440" x2="476" y2="322" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#k)"/>
+  <rect x="440" y="290" width="80" height="60" fill="#d1fae5" stroke="#047857" opacity="0.8"/>
+  <line x1="480" y1="320" x2="480" y2="262" stroke="#047857" stroke-width="2.5" marker-end="url(#g)"/>
+  <line x1="480" y1="320" x2="420" y2="320" stroke="#047857" stroke-width="2.5" marker-end="url(#g)"/>
+  <text x="486" y="276" font-size="12" fill="#047857">局部 X（E）</text>
+  <text x="378" y="312" font-size="12" fill="#047857">局部 Y</text>
+  <circle cx="480" cy="320" r="5" fill="#047857"/>
+  <text x="420" y="372" font-size="13" fill="#064e3b">EQUI /P-101</text>
+  <text x="420" y="390" font-size="12" fill="#064e3b">POS E 3000 N 1500 U 1000</text>
+  <text x="420" y="406" font-size="12" fill="#064e3b">（相對 ZONE）</text>
+  <text x="420" y="424" font-size="12" fill="#064e3b">ORI Y is W and Z is U</text>
+
+  <!-- nozzle -->
+  <circle cx="480" cy="256" r="7" fill="#b45309"/>
+  <text x="468" y="214" font-size="13" fill="#b45309" font-weight="bold" text-anchor="end">NOZZ /P-101/N1</text>
+  <text x="468" y="232" font-size="12" fill="#b45309" text-anchor="end">POS E 800 N 0 U 500</text>
+  <text x="468" y="250" font-size="12" fill="#b45309" text-anchor="end">（相對 EQUI 的局部軸）</text>
+
+  <!-- right panel -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="590" y="56" width="296" height="232" rx="6" fill="#fff7ed" stroke="#b45309"/>
+    <text x="604" y="80" font-size="14" font-weight="bold" fill="#7c2d12">CE = /P-101/N1（管嘴）</text>
+    <text x="604" y="106" font-weight="bold">Q POS</text>
+    <text x="620" y="126">E 800 N 0 U 500</text>
+    <text x="620" y="144" font-size="12" fill="#6b7280">預設：相對擁有者 EQUI 的軸</text>
+    <text x="604" y="172" font-weight="bold">Q POS WRT /ZONE-ER</text>
+    <text x="620" y="192">E 3000 N 2300 U 1500</text>
+    <text x="604" y="220" font-weight="bold">Q POS WRT /*</text>
+    <text x="620" y="240">E 5000 N 3300 U 1500</text>
+    <text x="620" y="258" font-size="12" fill="#6b7280">世界座標（/* 代表 WORLD）</text>
+
+    <rect x="590" y="304" width="296" height="128" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="604" y="328" font-size="14" font-weight="bold" fill="#064e3b">CE = /P-101（設備）</text>
+    <text x="604" y="352">Q POS → E 3000 N 1500 U 1000</text>
+    <text x="604" y="374">Q POS WRT /* → E 5000 N 2500 U 1000</text>
+    <text x="604" y="396">Q ORI → Y is W and Z is U</text>
+    <text x="604" y="418" font-size="12" fill="#6b7280">局部 X 指向世界 N，局部 Y 指向世界 W</text>
+
+    <rect x="590" y="448" width="296" height="108" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+    <text x="604" y="472" font-size="14" font-weight="bold" fill="#4c1d95">換算方式</text>
+    <text x="604" y="496">管嘴局部 E 800 → 轉成世界 N 800</text>
+    <text x="604" y="518">世界 = 設備世界位置 + 旋轉後偏移</text>
+    <text x="604" y="540">= E5000 N2500 U1000 + N800 U500</text>
+  </g>
+</svg>

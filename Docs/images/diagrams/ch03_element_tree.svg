@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <rect x="0" y="0" width="900" height="720" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">元素樹：從 WORLD 到子元件（設計資料庫範例）</text>
+
+  <g stroke="#9ca3af" stroke-width="1.5" fill="none">
+    <!-- WORLD vertical -->
+    <path d="M44 72 V 568"/>
+    <path d="M44 100 H 66"/>
+    <path d="M44 568 H 66"/>
+    <!-- SITE vertical -->
+    <path d="M84 114 V 152"/>
+    <path d="M84 128 H 106"/>
+    <path d="M84 152 H 106"/>
+    <!-- ZONE-EQUI -->
+    <path d="M124 166 V 352"/>
+    <path d="M124 180 H 146"/>
+    <path d="M124 274 H 146"/>
+    <path d="M124 352 H 146"/>
+    <!-- EQUI -->
+    <path d="M164 194 V 252"/>
+    <path d="M164 208 H 186"/><path d="M164 230 H 186"/><path d="M164 252 H 186"/>
+    <!-- PIPE -->
+    <path d="M164 288 V 302"/><path d="M164 302 H 186"/>
+    <path d="M204 316 V 338"/><path d="M204 330 H 226"/>
+    <!-- STRU -->
+    <path d="M164 366 V 380"/><path d="M164 380 H 186"/>
+    <path d="M204 394 V 430"/><path d="M204 408 H 226"/><path d="M204 430 H 226"/>
+    <!-- hull -->
+    <path d="M84 582 V 596"/><path d="M84 596 H 106"/>
+    <path d="M124 610 V 624"/><path d="M124 624 H 146"/>
+    <path d="M164 638 V 696"/>
+    <path d="M164 652 H 186"/><path d="M164 674 H 186"/><path d="M164 696 H 186"/>
+  </g>
+  <!-- also SITE second child ZONE note -->
+  <g font-size="14" fill="#1f2937">
+    <text x="30" y="68" font-weight="bold" fill="#111827">WORLD　（根節點，每個 DB 一個）</text>
+    <text x="70" y="104" font-weight="bold" fill="#1e3a8a">SITE　/SHIP-H123</text>
+    <text x="110" y="132" fill="#1e3a8a">ZONE　/H123-DECK　（甲板區，成員略）</text>
+    <text x="110" y="156" font-weight="bold" fill="#1e3a8a">ZONE　/H123-ER　（機艙區）</text>
+    <text x="150" y="184" font-weight="bold" fill="#047857">EQUI　/P-101　（冷卻水泵）</text>
+    <text x="190" y="212">BOX　（底座）</text>
+    <text x="190" y="234">CYLI　（泵體）</text>
+    <text x="190" y="256">NOZZ　/P-101/N1　（管嘴）</text>
+    <text x="150" y="278" font-weight="bold" fill="#047857">PIPE　/100-SW-001</text>
+    <text x="190" y="306">BRAN　/100-SW-001/B1</text>
+    <text x="230" y="334">FLAN、GASK、ELBO、VALV、TEE…（依流向排序）</text>
+    <text x="150" y="356" font-weight="bold" fill="#047857">STRU　/ER-PLATFORM-01</text>
+    <text x="190" y="384">FRMW　（框架）</text>
+    <text x="230" y="412">SCTN　（型鋼）</text>
+    <text x="230" y="434">PANE　（板）</text>
+    <text x="150" y="462" fill="#6b7280">HVAC、電纜托架、支架…</text>
+
+    <text x="70" y="572" font-weight="bold" fill="#7c2d12">HBLWLD　（船體分段世界）</text>
+    <text x="110" y="600" font-weight="bold" fill="#7c2d12">BLOCK　（分段）</text>
+    <text x="150" y="628" font-weight="bold" fill="#7c2d12">HPANEL　（平面板架）</text>
+    <text x="190" y="656">HPLATE　（板）</text>
+    <text x="190" y="678">HSTIFF　（加強材）</text>
+    <text x="190" y="700">HBRCKT、HSEAM、HHOLE、HNOTCH…</text>
+  </g>
+
+  <text x="240" y="500" font-size="13" fill="#6b7280">（舾裝：PDMS 傳統階層）</text>
+  <line x1="60" y1="520" x2="580" y2="520" stroke="#e5e7eb" stroke-width="2"/>
+  <text x="120" y="545" font-size="13" fill="#6b7280">（船體：E3D 2.1 資料模型中的階層，Marine 版本待核對）</text>
+
+  <!-- right notes -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="600" y="52" width="285" height="116" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+    <text x="614" y="74" font-size="14" font-weight="bold" fill="#1e3a8a">管理層（Administrative）</text>
+    <text x="614" y="96">SITE、ZONE 用來分區與分權</text>
+    <text x="614" y="116">ZONE 可以再包含 ZONE</text>
+    <text x="614" y="136">切分原則由專案決定：</text>
+    <text x="614" y="156">船號、區域、分段、系統</text>
+
+    <rect x="600" y="186" width="285" height="116" rx="6" fill="#ecfdf5" stroke="#047857"/>
+    <text x="614" y="208" font-size="14" font-weight="bold" fill="#064e3b">主要元素（Primary）</text>
+    <text x="614" y="230">EQUI、PIPE、STRU、HPANEL</text>
+    <text x="614" y="250">工程上「一個東西」的單位</text>
+    <text x="614" y="270">報表、權限、認領常以此為單位</text>
+    <text x="614" y="290">類比：資料表中的一筆主檔</text>
+
+    <rect x="600" y="320" width="285" height="128" rx="6" fill="#f9fafb" stroke="#6b7280"/>
+    <text x="614" y="342" font-size="14" font-weight="bold" fill="#374151">組成元素（成員）</text>
+    <text x="614" y="364">BOX、NOZZ、BRAN、ELBO、SCTN</text>
+    <text x="614" y="384">HPLATE、HSTIFF…</text>
+    <text x="614" y="404">位置相對於擁有者（第 4 章）</text>
+    <text x="614" y="424">BRAN 的成員順序有工程意義</text>
+
+    <rect x="600" y="466" width="285" height="96" rx="6" fill="#fff7ed" stroke="#c2410c"/>
+    <text x="614" y="488" font-size="14" font-weight="bold" fill="#7c2d12">規則</text>
+    <text x="614" y="510">除 WORLD 外，每個元素</text>
+    <text x="614" y="530">恰有一個擁有者（OWNER）</text>
+    <text x="614" y="550">型別決定可放哪些成員</text>
+
+    <rect x="600" y="580" width="285" height="96" rx="6" fill="#f5f3ff" stroke="#6d28d9"/>
+    <text x="614" y="602" font-size="14" font-weight="bold" fill="#4c1d95">開發人員類比</text>
+    <text x="614" y="624">元素 ≈ XML DOM 節點</text>
+    <text x="614" y="644">型別 ≈ 類別；屬性 ≈ 欄位</text>
+    <text x="614" y="664">OWNER／MEMBERS ≈ parent／children</text>
+  </g>
+</svg>

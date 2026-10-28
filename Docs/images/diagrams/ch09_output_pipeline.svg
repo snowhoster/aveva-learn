@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="p9" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="540" fill="#ffffff"/>
+  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2937">同一個模型，三條輸出管線：圖面、ISO 圖、報表</text>
+
+  <!-- source -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="20" y="200" width="170" height="120" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+    <text x="105" y="234" text-anchor="middle" font-weight="bold">3D 模型資料庫</text>
+    <text x="105" y="258" text-anchor="middle" font-size="12">船體：Databank</text>
+    <text x="105" y="278" text-anchor="middle" font-size="12">舾裝：DESI</text>
+    <text x="105" y="298" text-anchor="middle" font-size="12">（唯一的真實來源）</text>
+  </g>
+
+  <!-- lane 1 drawings -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="250" y="60" width="180" height="70" rx="6" fill="#ffffff" stroke="#059669"/>
+    <text x="340" y="86" text-anchor="middle" font-weight="bold">圖面定義</text>
+    <text x="340" y="106" text-anchor="middle" font-size="12">Marine Drafting／</text>
+    <text x="340" y="122" text-anchor="middle" font-size="12">Outfitting Draft</text>
+    <rect x="470" y="60" width="180" height="70" rx="6" fill="#ffffff" stroke="#059669"/>
+    <text x="560" y="86" text-anchor="middle" font-weight="bold">視圖＋表現規則</text>
+    <text x="560" y="106" text-anchor="middle" font-size="12">自動標註、關聯尺寸</text>
+    <text x="560" y="122" text-anchor="middle" font-size="12">模型修改後可更新</text>
+    <rect x="690" y="60" width="190" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="785" y="86" text-anchor="middle" font-weight="bold">佈置圖、結構圖</text>
+    <text x="785" y="106" text-anchor="middle" font-size="12">輸出 PDF、DXF、DWG</text>
+    <text x="785" y="122" text-anchor="middle" font-size="12">〔格式依版本〕</text>
+  </g>
+
+  <!-- lane 2 iso -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="250" y="225" width="180" height="70" rx="6" fill="#ffffff" stroke="#d97706"/>
+    <text x="340" y="251" text-anchor="middle" font-weight="bold">管段（Spool）</text>
+    <text x="340" y="271" text-anchor="middle" font-size="12">PIPE／BRAN 範圍</text>
+    <text x="340" y="287" text-anchor="middle" font-size="12">焊口、切管點</text>
+    <rect x="470" y="225" width="180" height="70" rx="6" fill="#ffffff" stroke="#d97706"/>
+    <text x="560" y="251" text-anchor="middle" font-weight="bold">Isodraft</text>
+    <text x="560" y="271" text-anchor="middle" font-size="12">ISO 樣式設定（選項檔）</text>
+    <text x="560" y="287" text-anchor="middle" font-size="12">由管理員維護</text>
+    <rect x="690" y="225" width="190" height="70" rx="6" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
+    <text x="785" y="251" text-anchor="middle" font-weight="bold">ISO 管段圖</text>
+    <text x="785" y="271" text-anchor="middle" font-size="12">尺寸、元件清單</text>
+    <text x="785" y="287" text-anchor="middle" font-size="12">焊口編號、切管長度</text>
+  </g>
+
+  <!-- lane 3 reports -->
+  <g font-size="13" fill="#1f2937">
+    <rect x="250" y="390" width="180" height="70" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="340" y="416" text-anchor="middle" font-weight="bold">收集範圍</text>
+    <text x="340" y="436" text-anchor="middle" font-size="12">ZONE、系統、分段</text>
+    <text x="340" y="452" text-anchor="middle" font-size="12">（等於一段查詢）</text>
+    <rect x="470" y="390" width="180" height="70" rx="6" fill="#ffffff" stroke="#2563eb"/>
+    <text x="560" y="416" text-anchor="middle" font-weight="bold">報表範本</text>
+    <text x="560" y="436" text-anchor="middle" font-size="12">欄位＝屬性運算式</text>
+    <text x="560" y="452" text-anchor="middle" font-size="12">沿 SPRE 取材料資訊</text>
+    <rect x="690" y="390" width="190" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="785" y="416" text-anchor="middle" font-weight="bold">材料表（MTO）</text>
+    <text x="785" y="436" text-anchor="middle" font-size="12">零件表、重量重心</text>
+    <text x="785" y="452" text-anchor="middle" font-size="12">CSV／文字檔</text>
+  </g>
+
+  <g stroke="#4b5563" stroke-width="1.6" fill="none" marker-end="url(#p9)">
+    <path d="M190,230 C220,230 220,95 248,95"/>
+    <line x1="190" y1="260" x2="248" y2="260"/>
+    <path d="M190,290 C220,290 220,425 248,425"/>
+    <line x1="430" y1="95" x2="468" y2="95"/>
+    <line x1="650" y1="95" x2="688" y2="95"/>
+    <line x1="430" y1="260" x2="468" y2="260"/>
+    <line x1="650" y1="260" x2="688" y2="260"/>
+    <line x1="430" y1="425" x2="468" y2="425"/>
+    <line x1="650" y1="425" x2="688" y2="425"/>
+  </g>
+
+  <g font-size="12" fill="#6b7280">
+    <text x="250" y="160">圖面：持久物件，存在 PADD／圖面 Databank，可更新</text>
+    <text x="250" y="325">ISO 圖：多半為每次重新產生的輸出檔</text>
+    <text x="250" y="490">報表：查詢結果，執行當下的快照</text>
+  </g>
+
+  <rect x="20" y="502" width="860" height="30" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="34" y="522" font-size="12" fill="#374151">自動化切入點：批次執行「產生／更新／輸出」，而不是在程式裡自己畫線；報表欄位一律從模型屬性取值。</text>
+</svg>

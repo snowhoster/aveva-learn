@@ -1,0 +1,901 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 17 章　除錯、測試、部署與版本管理 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#17">第 17 章 除錯、測試、部署與版本管理</a><ul>
+<li><a href="#171">17.1 學習目標</a></li>
+<li><a href="#172">17.2 除錯工具</a><ul>
+<li><a href="#1721-aid">17.2.1 用 AID 輔助圖形除錯幾何</a></li>
+<li><a href="#1722">17.2.2 記錄函式</a></li>
+</ul>
+</li>
+<li><a href="#173">17.3 常見錯誤與排除</a></li>
+<li><a href="#174">17.4 測試策略</a><ul>
+<li><a href="#1741">17.4.1 四個原則</a></li>
+<li><a href="#1742">17.4.2 測試資料設計</a></li>
+<li><a href="#1743">17.4.3 回歸測試清單範本</a></li>
+<li><a href="#1744">17.4.4 自動化測試的可能性</a></li>
+</ul>
+</li>
+<li><a href="#175">17.5 程式碼規範</a><ul>
+<li><a href="#1751">17.5.1 命名</a></li>
+<li><a href="#1752">17.5.2 檔頭</a></li>
+<li><a href="#1753">17.5.3 規範條目</a></li>
+</ul>
+</li>
+<li><a href="#176-git">17.6 用 Git 管理工具庫</a><ul>
+<li><a href="#1761">17.6.1 建議的儲存庫結構</a></li>
+<li><a href="#1762">17.6.2 分支與發佈</a></li>
+<li><a href="#1763">17.6.3 版本號</a></li>
+</ul>
+</li>
+<li><a href="#177">17.7 部署：測試、試用、正式</a><ul>
+<li><a href="#1771">17.7.1 正式環境的目錄與啟動方式</a></li>
+<li><a href="#1772">17.7.2 部署腳本</a></li>
+</ul>
+</li>
+<li><a href="#178-pml-publisher-net-dll">17.8 保護：PML Publisher 與 .NET DLL</a><ul>
+<li><a href="#1781-pml-publisher">17.8.1 PML Publisher</a></li>
+<li><a href="#1782-pml-pml-net">17.8.2 PML、加密 PML 與 .NET 的取捨</a></li>
+</ul>
+</li>
+<li><a href="#179-service-pack">17.9 Service Pack 升級回歸清單</a><ul>
+<li><a href="#1791">17.9.1 升級前</a></li>
+<li><a href="#1792">17.9.2 升級後逐項檢查</a></li>
+<li><a href="#1793">17.9.3 升級紀錄</a></li>
+</ul>
+</li>
+<li><a href="#1710">17.10 開發人員須知</a></li>
+<li><a href="#1711">17.11 練習（只能在訓練專案）</a></li>
+<li><a href="#1712">17.12 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 18 / 21</span><h1 id="17">第 17 章　除錯、測試、部署與版本管理</h1>
+<blockquote>
+<p>前面幾章教的是「怎麼寫出能動的工具」，本章處理「怎麼讓工具可靠、可維護、可以安全上線」：PML 的除錯工具、常見錯誤的排除順序、測試策略、程式碼規範、用 Git 管理工具庫、部署與回復腳本、PML Publisher 加密，以及 Service Pack 升級時的回歸清單。</p>
+<p><strong>資料可信度：</strong> 除錯命令（<code>$P</code>、<code>$R</code>、<code>q var</code>、<code>alpha log</code>、<code>pml reload</code> 等）是 PDMS／Marine 通用的 PML 功能，細節參考開源知識庫 aveva-marine-dev-skill 對 PDMS 12.1 使用手冊的摘錄；PML Publisher 的說明取自 AVEVA 官方 <em>PML Publisher User Guide</em>（help.aveva.com 上的 <strong>E3D 1.1</strong> 版本，Marine 12.1 是否隨附相同工具與參數〔待核對〕）。Git 結構、部署與回復腳本是本課程依一般軟體工程實務設計的建議做法，<strong>不是 AVEVA 官方流程</strong>，腳本標示「示意」，請依公司 IT 規範調整。</p>
+</blockquote>
+<h2 id="171">17.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>熟練使用 <code>$P</code>、<code>q var</code>、<code>$R</code> 追蹤、<code>alpha log</code>、<code>!!alert</code>、AID 輔助圖形與 <code>!!error</code> 除錯。</li>
+<li>依症狀分類，按順序排除「找不到函式」「表單沒更新」「寫入失敗」「型別錯誤」等問題。</li>
+<li>建立訓練專案的測試資料與回歸測試清單，落實唯讀優先。</li>
+<li>依公司程式碼規範撰寫檔頭、命名、錯誤處理，不寫死路徑、不殘留除錯命令。</li>
+<li>用 Git 管理 PMLLIB、.NET 與 Vitesse 工具庫，搭配分支與標籤發佈。</li>
+<li>以「測試、試用、正式」三段流程部署，並能用腳本快速回復。</li>
+<li>說明 PML Publisher 加密與 .NET DLL 在保護上的取捨。</li>
+<li>在 Service Pack 升級時，依清單完成回歸驗證。</li>
+</ol>
+<h2 id="172">17.2 除錯工具</h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>寫法</th>
+<th>用途</th>
+<th>交付時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>輸出訊息</td>
+<td><code>$P 文字 $!變數</code></td>
+<td>在命令列印出進度與變數值</td>
+<td>移除或改為記錄函式</td>
+</tr>
+<tr>
+<td>查詢變數</td>
+<td><code>q var !x</code>、<code>q var LOCAL</code>、<code>q var GLOBAL</code></td>
+<td>查看變數的型別與值</td>
+<td>不可留在程式中</td>
+</tr>
+<tr>
+<td>查詢方法</td>
+<td><code>q meth !obj</code></td>
+<td>列出物件可用的方法與簽章，查 API 最可靠的方法</td>
+<td>不可留</td>
+</tr>
+<tr>
+<td>錯誤內容</td>
+<td><code>!!error.text</code>、<code>!!error.line</code>、<code>q var !!error</code></td>
+<td>在 <code>handle</code> 區塊中取得錯誤訊息與行號</td>
+<td>寫入記錄</td>
+</tr>
+<tr>
+<td>追蹤</td>
+<td><code>$R100</code> 開啟、<code>$R0</code> 關閉（或 <code>PML TRACE ON</code>／<code>OFF</code>）</td>
+<td>逐行顯示執行到哪裡</td>
+<td>必須移除</td>
+</tr>
+<tr>
+<td>命令記錄</td>
+<td><code>alpha log /C:\temp\debug.log</code> … <code>alpha log end</code></td>
+<td>把命令窗口的輸出錄到檔案</td>
+<td>必須移除</td>
+</tr>
+<tr>
+<td>訊息框</td>
+<td><code>!!alert.message()</code>、<code>!!alert.error()</code></td>
+<td>給使用者的提示；除錯時也可暫停流程</td>
+<td>只保留給使用者的訊息</td>
+</tr>
+<tr>
+<td>輔助圖形</td>
+<td><code>aid sphere ...</code>、<code>aid line ...</code></td>
+<td>在 3D 視圖畫出計算結果，<strong>不寫入資料庫</strong></td>
+<td>必須移除或做成開關</td>
+</tr>
+<tr>
+<td>重新載入</td>
+<td><code>pml reload form !!f</code>、<code>pml reload object 名稱</code>、<code>pml rehash all</code></td>
+<td>修改後不必重啟模組</td>
+<td>不寫在程式中</td>
+</tr>
+<tr>
+<td>檔案位置</td>
+<td><code>q var !!PML.getpathname('檔名.pmlfnc')</code></td>
+<td>確認實際載入的是哪個檔案</td>
+<td>不寫在程式中</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕<code>$R</code> 的編號（例如 <code>$R100</code>、<code>$R102</code>、<code>$R109</code>）代表不同的追蹤細節與輸出位置，請以公司版本的 PML 使用手冊或 <code>$HR</code> 說明確認。</p>
+<h3 id="1721-aid">17.2.1 用 AID 輔助圖形除錯幾何</h3>
+<p>第 18 章的外板開孔論文提供了真實的示範：作者把計算出的交點與線段用 <code>aid sphere</code>、<code>aid line</code> 畫在 3D 視圖上，用眼睛確認演算法是否正確。</p>
+<p><img alt="論文中的 PML 程式：排序交點、用 Line 與 OnProjected 找出包夾中心點的線段，並用 AID 圖形顯示" src="images/cases/jamet_fig11_pml_slope.png" /></p>
+<p><em>圖 17-1　論文中以 <code>aid sphere $!templist[$!i] dia 200</code> 標出每個交點，再以 <code>AID LINE</code> 畫出找到的線段。（Kim, Park &amp; Yang, 2020, Figure 11，CC BY-NC 3.0）</em></p>
+<p>建議把除錯圖形做成開關，交付時預設關閉：</p>
+<pre><code class="language-pml">-- 示意：以全域旗標控制除錯圖形
+define function !!mycoDebugMark(!pos is POSITION, !label is STRING)
+  -- 未定義的全域變數直接取用會產生 (46,28)，先以 undefined() 檢查〔待核對〕
+  if (undefined(!!mycoDebug)) then
+    return
+  endif
+  if (not !!mycoDebug) then
+    return
+  endif
+  aid sphere $!pos dia 100
+  $P DEBUG $!label at $!pos
+endfunction
+</code></pre>
+<p>開啟方式：命令列輸入 <code>!!mycoDebug = true</code>。〔待核對〕清除輔助圖形的命令（例如 <code>aid clear all</code>）請以公司版本確認。</p>
+<h3 id="1722">17.2.2 記錄函式</h3>
+<p>給使用者的工具不應該在命令列印出一堆訊息，但出問題時又需要資訊。可以寫一個記錄函式，寫到每位使用者自己的記錄檔：</p>
+<pre><code class="language-pml">-- 示意：mycolog.pmlfnc，附加一行到使用者暫存目錄的記錄檔
+define function !!mycoLog(!tool is STRING, !level is STRING, !msg is STRING)
+  -- 正式版應從公司設定檔或環境變數取得記錄目錄；此處簡化為固定目錄
+  !dir = 'C:\temp'
+  !clock = object DATETIME()
+  !line = !clock.string() &amp; ' | ' &amp; !tool &amp; ' | ' &amp; !level &amp; ' | ' &amp; !msg
+  !f = object FILE(!dir &amp; '\myco_tools.log')
+  !f.open('APPEND')
+  handle any
+    return
+  endhandle
+  !f.writeRecord(!line)
+  !f.close()
+endfunction
+</code></pre>
+<p>在錯誤處理中使用：</p>
+<pre><code class="language-pml">handle any
+  !!mycoLog('mycollect', 'ERROR', !!error.text)
+  !!alert.error('收集失敗，請將 C:\temp\myco_tools.log 提供給工具負責人。')
+  return
+endhandle
+</code></pre>
+<p>〔待核對〕<code>DATETIME</code> 物件的建構與格式化方法、讀取環境變數的 PML 寫法，請用 <code>q meth</code> 在公司版本確認。記錄函式本身失敗時必須安靜返回，不能讓「寫記錄失敗」中斷使用者的工作。</p>
+<h2 id="173">17.3 常見錯誤與排除</h2>
+<p><img alt="症狀導向的排錯樹：找不到函式或表單、改了程式但畫面沒變、寫入失敗、型別或執行期錯誤、.NET 外掛沒有出現，各有依序檢查的步驟" src="images/diagrams/ch17_troubleshooting_tree.svg" /></p>
+<p><em>圖 17-2　症狀導向的排錯樹。先判斷症狀屬於哪一類，再依序檢查。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>症狀</th>
+<th>最常見原因</th>
+<th>檢查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>呼叫函式時說找不到</td>
+<td>新檔案未重建索引；檔名有大寫；檔名與定義名不同</td>
+<td><code>pml rehash all</code>；檔名全小寫；<code>q var !!PML.getpathname(...)</code></td>
+</tr>
+<tr>
+<td>修改後行為沒變</td>
+<td>表單或物件已在記憶體中</td>
+<td><code>kill !!表單</code> 後 <code>pml reload form</code>；物件用 <code>pml reload object</code></td>
+</tr>
+<tr>
+<td>改了檔案但載入的是別的檔</td>
+<td>搜尋路徑中有同名檔案排在前面</td>
+<td><code>q evar pmllib</code> 看順序；<code>getpathname</code> 確認</td>
+</tr>
+<tr>
+<td>(46,28)</td>
+<td>變數未定義：拼字錯誤，或在 <code>handle</code> 之後用了沒被賦值的變數</td>
+<td>檢查拼字與賦值路徑</td>
+</tr>
+<tr>
+<td>(2,109)</td>
+<td>元素不存在：名稱打錯或已被刪除</td>
+<td>先用 <code>handle (2,109)</code> 處理，給使用者清楚訊息</td>
+</tr>
+<tr>
+<td>(41,12)</td>
+<td>建立元素時名稱已存在</td>
+<td>命名規則加流水號，或先檢查</td>
+</tr>
+<tr>
+<td>寫入失敗</td>
+<td>DB 唯讀、Team 不擁有該 DB、元素被他人 Claim</td>
+<td>第 2 章的寫入權限檢查</td>
+</tr>
+<tr>
+<td>比較時出錯</td>
+<td>REAL 與 STRING 混用、對 UNSET 值操作</td>
+<td><code>.real()</code>、<code>.string()</code> 轉換；先 <code>.unset()</code> 判斷</td>
+</tr>
+<tr>
+<td>(1000,n)</td>
+<td>PML.NET 的 .NET 端例外</td>
+<td>第 14 章</td>
+</tr>
+<tr>
+<td>迴圈不會結束</td>
+<td>開放式 <code>do</code> 沒有 <code>break if</code></td>
+<td>改用 <code>do !i index</code> 或 <code>do !x values</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> PML 的錯誤只能被緊接在下一行的 <code>handle</code> 攔截。很多「明明有寫 handle 卻沒攔到」的問題，都是 <code>handle</code> 前面多了一行其他命令。</p>
+</blockquote>
+<h2 id="174">17.4 測試策略</h2>
+<h3 id="1741">17.4.1 四個原則</h3>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>訓練專案</td>
+<td>所有測試在訓練專案或其複本進行，使用開發用帳號；<strong>不在生產專案「試一下」</strong></td>
+</tr>
+<tr>
+<td>固定測試資料</td>
+<td>建立一個專用的測試 ZONE（例如 <code>/ZONE-MYCO-TEST</code>），內容固定且有文件：幾台設備、哪些有中文描述、哪些缺屬性</td>
+</tr>
+<tr>
+<td>唯讀優先</td>
+<td>工具先做出唯讀版本（查詢、預覽），確認資料理解正確後，才加寫入功能</td>
+</tr>
+<tr>
+<td>回歸測試</td>
+<td>每次修改與每次 SP 升級，都依清單重跑</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1742">17.4.2 測試資料設計</h3>
+<p>好的測試資料要涵蓋「正常」與「邊界」：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常</td>
+<td>名稱、描述、位置都完整的設備</td>
+</tr>
+<tr>
+<td>中文與符號</td>
+<td>描述含中文、逗號、雙引號、<code>°</code></td>
+</tr>
+<tr>
+<td>缺值</td>
+<td>沒有描述、UDA 未設定</td>
+</tr>
+<tr>
+<td>空範圍</td>
+<td>沒有任何設備的 ZONE</td>
+</tr>
+<tr>
+<td>大量</td>
+<td>數百個元素的範圍，觀察效能</td>
+</tr>
+<tr>
+<td>權限</td>
+<td>唯讀 DB 中的元素、被他人 Claim 的元素</td>
+</tr>
+<tr>
+<td>名稱衝突</td>
+<td>已存在的名稱（建立型工具）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1743">17.4.3 回歸測試清單範本</h3>
+<p>每個工具都附一份清單，放在 Git 的 <code>tests/</code> 目錄：</p>
+<pre><code class="language-text">工具：MyCollect 1.2.0　　測試環境：訓練專案 TRN，帳號 DEVTEST
+日期：________　測試者：________　AVEVA 版本：Marine 12.1 SP__
+
+[ ] 1. 啟動 Outfitting，Utilities 選單出現 My EQUI Collector...
+[ ] 2. CE = /ZONE-MYCO-TEST，Collect，筆數 = 12
+[ ] 3. 中文描述「主海水泵浦, 1 號」顯示正確
+[ ] 4. Scope 輸入不存在的名稱，出現錯誤訊息且表單不關閉
+[ ] 5. 空的 ZONE，出現「No EQUI found」警告
+[ ] 6. Export 存成 Excel，Excel 開啟中文正常、欄位不錯位
+[ ] 7. 關閉後重新開啟，無殘留錯誤
+[ ] 8. 記錄檔沒有 ERROR
+結果：通過 ／ 不通過（附說明）
+</code></pre>
+<h3 id="1744">17.4.4 自動化測試的可能性</h3>
+<ul>
+<li>PML 有開源的單元測試框架 PmlUnit（GitHub：PoByBolek/PmlUnit），可評估是否適用公司版本〔待核對：與 Marine 12.1 的相容性〕。</li>
+<li>把純邏輯（字串處理、CSV 跳脫、尺寸驗證）寫成不依賴資料庫的函式，最容易自動測試。</li>
+<li>.NET 端的純邏輯可用一般的單元測試框架在開發機測試；與 AVEVA 互動的部分仍需人工冒煙測試。</li>
+<li>Vitesse 端同理：不 import <code>kcs_*</code> 的模組可以在開發機測試（第 15 章）。</li>
+</ul>
+<h2 id="175">17.5 程式碼規範</h2>
+<h3 id="1751">17.5.1 命名</h3>
+<table>
+<thead>
+<tr>
+<th>對象</th>
+<th>規則</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全域函式、表單、物件</td>
+<td>公司前綴，避免與官方或他人衝突</td>
+<td><code>!!mycoExportEquiCsv</code>、<code>!!mycoCollect</code>、<code>MYCOCLAMP</code></td>
+</tr>
+<tr>
+<td>檔名</td>
+<td>全小寫，與定義名相同</td>
+<td><code>mycoexportequicsv.pmlfnc</code></td>
+</tr>
+<tr>
+<td>目錄</td>
+<td><code>pmllib/myco/{forms,functions,objects}</code></td>
+<td>與官方結構一致</td>
+</tr>
+<tr>
+<td>區域變數</td>
+<td>有意義的英文</td>
+<td><code>!items</code>、<code>!errors</code>，不要 <code>!a1</code>、<code>!tmp2</code></td>
+</tr>
+<tr>
+<td>工具產生的元素</td>
+<td>可追溯的命名規則</td>
+<td><code>/MYCO-CLAMP-0001</code></td>
+</tr>
+<tr>
+<td>.NET</td>
+<td>命名空間「公司.工具」</td>
+<td><code>MyCompany.MyBrowser</code></td>
+</tr>
+<tr>
+<td>Vitesse</td>
+<td>檔名加公司前綴</td>
+<td><code>myco_dex.py</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1752">17.5.2 檔頭</h3>
+<pre><code class="language-pml">--------------------------------------------------------------------------------
+-- File:        mycoexportequicsv.pmlfnc
+-- Type:        Function
+-- Module:      Outfitting / Design
+-- Description: 收集範圍內的 EQUI，輸出 CSV（唯讀）
+-- Arguments:   !scope DBREF  收集範圍
+--              !path  STRING 輸出檔完整路徑
+-- Returns:     REAL  輸出筆數；失敗時 0
+-- Data access: READ ONLY
+-- Author:      ____  Reviewer: ____
+-- History:     1.0  2026-10-28  初版
+--------------------------------------------------------------------------------
+</code></pre>
+<p><code>Data access</code> 一欄一定要寫：<code>READ ONLY</code>、<code>WRITE（範圍）</code> 或 <code>HULL RED ZONE</code>（第 15 章），審查者第一眼就知道風險。</p>
+<h3 id="1753">17.5.3 規範條目</h3>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>規則</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>註解用 <code>--</code>，不要用 <code>!</code> 或 <code>//</code></td>
+<td><code>!</code> 是變數前綴，會造成解析錯誤</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>比較用 <code>eq</code>、<code>ne</code>、<code>gt</code>、<code>lt</code>、<code>ge</code>、<code>le</code>，條件加括號，<code>if</code> 後面要有 <code>then</code></td>
+<td>PML 沒有 <code>==</code>、<code>&gt;</code> 等符號比較</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>每個資料庫寫入與檔案操作後都有 <code>handle</code></td>
+<td>錯誤不可被吞掉，也不可讓整批中斷而不說明</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>不用 <code>golabel</code>、<code>gosub</code>；開放式 <code>do</code> 必須有 <code>break if</code></td>
+<td>可讀性與避免無窮迴圈</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>不寫死路徑、帳號、專案名稱</td>
+<td>由參數、設定檔或環境變數提供</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>交付程式不得留有 <code>$R</code>、<code>PML TRACE</code>、<code>q var</code>、<code>alpha log</code>、未受開關控制的 <code>aid</code></td>
+<td>影響效能，也會讓使用者看到內部資訊</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>不修改官方檔案；需要改官方行為時，以平行目錄或掛勾方式擴充</td>
+<td>SP 升級時不會被覆蓋，也容易回復</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>寫入型工具要有預覽與確認，整批一個復原標記</td>
+<td>第 12 章安全模式</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>原始碼存 UTF-8 含 BOM</td>
+<td>第 16 章</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>使用者訊息清楚說明「發生什麼、下一步怎麼做」</td>
+<td>減少支援負擔</td>
+</tr>
+</tbody>
+</table>
+<p>開源知識庫附有一份 PML 審核規範與靜態檢查腳本（<code>pml_audit.py</code>），可作為公司規範的參考；依本課程的共同規則，<strong>請只閱讀其規則內容，在公司審查通過前不要執行其中任何腳本</strong>。</p>
+<h2 id="176-git">17.6 用 Git 管理工具庫</h2>
+<h3 id="1761">17.6.1 建議的儲存庫結構</h3>
+<pre><code class="language-text">aveva-tools/                    公司工具庫（一個 Git 儲存庫）
+├─ pmllib/
+│  └─ myco/
+│     ├─ forms/                 *.pmlfrm
+│     ├─ functions/             *.pmlfnc
+│     └─ objects/               *.pmlobj
+├─ pdmsui/
+│  └─ DES/DFLTS/ADDINS/         PML Add-in 定義檔（例如 MYCOLLECT）
+├─ dotnet/
+│  ├─ MyBrowser/                C# 專案（.csproj、src）
+│  └─ caf/                      公司版 OutfittingAddins.xml、*.uic
+├─ vitesse/
+│  ├─ Lib/                      myco_*.py
+│  └─ Context_Menu/
+├─ data/                        標準資料 CSV（由領域人員維護，經審查合併）
+├─ config/
+│  ├─ test.cfg                  各環境的路徑、輸出目錄
+│  ├─ pilot.cfg
+│  └─ prod.cfg
+├─ deploy/
+│  ├─ deploy.bat
+│  └─ rollback.bat
+├─ tests/
+│  ├─ regression_mycollect.txt  回歸測試清單
+│  └─ testdata.md               測試 ZONE 的內容說明
+├─ docs/
+│  └─ tools.md                  工具清單：用途、風險、負責人、入口
+├─ CHANGELOG.md
+├─ .gitattributes
+└─ .gitignore
+</code></pre>
+<p><code>.gitattributes</code> 與 <code>.gitignore</code> 的建議：</p>
+<pre><code class="language-text"># .gitattributes：PML 與批次檔以 CRLF 儲存，避免換行差異
+*.pmlfnc text eol=crlf
+*.pmlfrm text eol=crlf
+*.pmlobj text eol=crlf
+*.pmlmac text eol=crlf
+*.bat    text eol=crlf
+*.py     text eol=crlf
+*.uic    text eol=crlf
+
+# .gitignore：建置產物與執行期檔案不進版控
+dotnet/**/bin/
+dotnet/**/obj/
+pml.index
+*.pyc
+*.log
+</code></pre>
+<blockquote>
+<p><strong>開發人員須知：</strong> <code>pml.index</code> 是索引檔，會由 <code>pml rehash</code> 重新產生，不要放進 Git，否則每個人的路徑差異會造成衝突。編輯器請設定「保留 UTF-8 BOM」，否則 Git 會顯示整個檔案都被改過。</p>
+</blockquote>
+<h3 id="1762">17.6.2 分支與發佈</h3>
+<table>
+<thead>
+<tr>
+<th>分支或標籤</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td>隨時可以發佈的版本；只能經由合併請求更新</td>
+</tr>
+<tr>
+<td><code>feature/&lt;工具&gt;-&lt;功能&gt;</code></td>
+<td>開發新功能；完成後經審查合併回 <code>main</code></td>
+</tr>
+<tr>
+<td><code>hotfix/&lt;版本&gt;</code></td>
+<td>正式環境緊急修正</td>
+</tr>
+<tr>
+<td>標籤 <code>v1.2.0</code></td>
+<td>每次發佈打一個標籤；<strong>部署腳本只從標籤匯出</strong></td>
+</tr>
+</tbody>
+</table>
+<p>合併到 <code>main</code> 前的審查清單：</p>
+<ul>
+<li>[ ] 符合 17.5 的規範；檔頭的 <code>Data access</code> 正確。</li>
+<li>[ ] 回歸測試清單已更新並在訓練專案通過。</li>
+<li>[ ] <code>CHANGELOG.md</code> 已記錄變更、相容性與移除方式。</li>
+<li>[ ] 寫入型或船體紅區工具，有領域人員簽核。</li>
+</ul>
+<h3 id="1763">17.6.3 版本號</h3>
+<p>採用「主版本.次版本.修正」：</p>
+<table>
+<thead>
+<tr>
+<th>位數</th>
+<th>何時增加</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主版本</td>
+<td>輸出格式、資料契約或操作方式不相容</td>
+<td>CSV 欄位改名</td>
+</tr>
+<tr>
+<td>次版本</td>
+<td>新功能，向下相容</td>
+<td>新增一個匯出欄位</td>
+</tr>
+<tr>
+<td>修正</td>
+<td>錯誤修正</td>
+<td>修正中文亂碼</td>
+</tr>
+</tbody>
+</table>
+<h2 id="177">17.7 部署：測試、試用、正式</h2>
+<p><img alt="工具庫的版本管理與發佈流程：Git 的 main 與開發分支、tag；測試、試用、正式三段環境；正式環境以 releases 目錄與 current 指標部署與回復" src="images/diagrams/ch17_release_pipeline.svg" /></p>
+<p><em>圖 17-3　版本管理與三段式發佈。部署時新增版本目錄、更新指標；回復時把指標改回上一版。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>環境</th>
+<th>誰使用</th>
+<th>通過條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>測試</td>
+<td>訓練專案、開發帳號</td>
+<td>開發人員</td>
+<td>回歸清單全部通過</td>
+</tr>
+<tr>
+<td>試用</td>
+<td>真實專案，限定 2 到 3 位使用者</td>
+<td>關鍵使用者</td>
+<td>1 到 2 週無重大問題，回饋已處理</td>
+</tr>
+<tr>
+<td>正式</td>
+<td>共用伺服器的發佈目錄</td>
+<td>全體使用者</td>
+<td>發佈公告、版本說明、回復方式已備妥</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1771">17.7.1 正式環境的目錄與啟動方式</h3>
+<pre><code class="language-text">\\toolsrv\aveva_tools\
+├─ releases\
+│  ├─ v1.1.0\  pmllib\  pdmsui\  caf\  vitesse\
+│  └─ v1.2.0\  pmllib\  pdmsui\  caf\  vitesse\
+├─ current.txt        內容只有一行：v1.2.0
+└─ deploy.log
+</code></pre>
+<p>公司啟動批次檔在呼叫 AVEVA 原本的啟動批次檔之前，讀取 <code>current.txt</code> 並把對應目錄加到搜尋路徑<strong>前面</strong>：</p>
+<pre><code class="language-bat">@echo off
+rem 示意：公司啟動批次檔片段（呼叫 AVEVA 原啟動批次檔之前）
+set TOOLROOT=\\toolsrv\aveva_tools
+set /p TOOLVER=&lt;&quot;%TOOLROOT%\current.txt&quot;
+set TOOLDIR=%TOOLROOT%\releases\%TOOLVER%
+
+if not exist &quot;%TOOLDIR%\pmllib&quot; (
+  echo [WARN] 公司工具 %TOOLVER% 不存在，略過載入
+  goto :start_aveva
+)
+set PMLLIB=%TOOLDIR%\pmllib %PMLLIB%
+set PDMSUI=%TOOLDIR%\pdmsui %PDMSUI%
+set CAF_ADDINS_PATH=%TOOLDIR%\caf;%CAF_ADDINS_PATH%
+
+:start_aveva
+rem 接著呼叫 AVEVA 原本的啟動批次檔
+</code></pre>
+<p>〔待核對〕<code>PMLLIB</code>、<code>PDMSUI</code> 多個路徑的分隔方式（空格或分號）與 AVEVA 啟動批次檔是否會覆寫這些變數，請依公司版本的 <code>evars.bat</code> 確認；若 AVEVA 的批次檔會重設變數，改在專案層級的 evars 批次檔中前置。第 10 章有搜尋路徑的完整說明。</p>
+<h3 id="1772">17.7.2 部署腳本</h3>
+<pre><code class="language-bat">@echo off
+rem 示意：deploy.bat &lt;版本標籤&gt;
+rem 由工具負責人在有寫入權限的電腦執行；從 Git 標籤匯出，不從工作目錄複製
+setlocal
+if &quot;%~1&quot;==&quot;&quot; ( echo 用法：deploy.bat v1.2.0 &amp; exit /b 1 )
+set VER=%~1
+set TOOLROOT=\\toolsrv\aveva_tools
+set TARGET=%TOOLROOT%\releases\%VER%
+set REPO=%~dp0..
+
+if exist &quot;%TARGET%&quot; ( echo [ERR] %TARGET% 已存在，版本不可覆蓋 &amp; exit /b 1 )
+
+rem 1. 確認標籤存在
+git -C &quot;%REPO%&quot; rev-parse &quot;%VER%&quot; &gt;nul 2&gt;&amp;1 || ( echo [ERR] 找不到標籤 %VER% &amp; exit /b 1 )
+
+rem 2. 從標籤匯出到暫存目錄
+set STAGE=%TEMP%\aveva_tools_%VER%
+if exist &quot;%STAGE%&quot; rmdir /s /q &quot;%STAGE%&quot;
+mkdir &quot;%STAGE%&quot;
+git -C &quot;%REPO%&quot; archive --format=zip -o &quot;%STAGE%\src.zip&quot; &quot;%VER%&quot; || exit /b 1
+powershell -NoProfile -Command &quot;Expand-Archive -Path '%STAGE%\src.zip' -DestinationPath '%STAGE%\src'&quot; || exit /b 1
+
+rem 3. 複製到新的版本目錄（.NET DLL 需先另行建置並放入 caf\）
+mkdir &quot;%TARGET%&quot;
+xcopy /s /i /y &quot;%STAGE%\src\pmllib&quot;  &quot;%TARGET%\pmllib&quot;  &gt;nul || exit /b 1
+xcopy /s /i /y &quot;%STAGE%\src\pdmsui&quot;  &quot;%TARGET%\pdmsui&quot;  &gt;nul || exit /b 1
+xcopy /s /i /y &quot;%STAGE%\src\vitesse&quot; &quot;%TARGET%\vitesse&quot; &gt;nul || exit /b 1
+copy /y &quot;%STAGE%\src\config\prod.cfg&quot; &quot;%TARGET%\myco.cfg&quot; &gt;nul || exit /b 1
+
+echo %DATE% %TIME% %USERNAME% DEPLOYED %VER% (not yet current) &gt;&gt; &quot;%TOOLROOT%\deploy.log&quot;
+echo [OK] 已部署到 %TARGET%
+echo      請以試用帳號把 PMLLIB 指向該目錄、執行 pml rehash all 並完成冒煙測試，
+echo      通過後再執行：switch.bat %VER%
+endlocal
+</code></pre>
+<p>切換與回復共用同一支腳本，只改指標：</p>
+<pre><code class="language-bat">@echo off
+rem 示意：switch.bat &lt;版本&gt;，用於正式切換與回復
+setlocal
+set TOOLROOT=\\toolsrv\aveva_tools
+if &quot;%~1&quot;==&quot;&quot; ( echo 用法：switch.bat v1.1.0 &amp; exit /b 1 )
+if not exist &quot;%TOOLROOT%\releases\%~1\pmllib&quot; ( echo [ERR] 版本 %~1 不存在 &amp; exit /b 1 )
+
+set /p OLD=&lt;&quot;%TOOLROOT%\current.txt&quot;
+&gt; &quot;%TOOLROOT%\current.txt&quot; echo %~1
+echo %DATE% %TIME% %USERNAME% SWITCH %OLD% -^&gt; %~1 &gt;&gt; &quot;%TOOLROOT%\deploy.log&quot;
+echo [OK] current: %OLD% -^&gt; %~1。請通知使用者重新啟動模組。
+endlocal
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>版本目錄不可覆蓋</td>
+<td>正在使用舊版的人不會讀到一半新一半舊的檔案</td>
+</tr>
+<tr>
+<td>從標籤匯出</td>
+<td>部署內容可追溯到確定的原始碼</td>
+</tr>
+<tr>
+<td>部署與切換分開</td>
+<td>先放上去、驗證，再切換；回復只是再切一次</td>
+</tr>
+<tr>
+<td>永不刪除舊版本目錄</td>
+<td>回復不需要重新部署</td>
+</tr>
+<tr>
+<td>記錄誰、何時、從哪版切到哪版</td>
+<td>出問題時能對照時間點</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>pml.index</code> 需要對新版本目錄重新產生。做法是由有寫入權限的工具負責人，用指向新目錄的 <code>PMLLIB</code> 啟動模組並執行 <code>pml rehash all</code>〔待核對：rehash 寫入索引檔的位置與權限需求；開源知識庫另提到安裝目錄附有 <code>pmlscan.exe</code> 可離線產生索引〕。.NET DLL 被執行中的模組鎖定，所以 DLL 也要隨版本目錄分開存放，不能覆蓋正在使用的檔案。</p>
+</blockquote>
+<h2 id="178-pml-publisher-net-dll">17.8 保護：PML Publisher 與 .NET DLL</h2>
+<h3 id="1781-pml-publisher">17.8.1 PML Publisher</h3>
+<p>官方的 PML Publisher 以命令列工具 <code>pmlencrypt.exe</code> 加密 PML 檔案。依 E3D 1.1 的 <em>PML Publisher User Guide</em>：</p>
+<table>
+<thead>
+<tr>
+<th>重點</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不可逆</td>
+<td><strong>官方沒有提供解密工具</strong>；加密前務必保留原始碼（Git 就是你的原始碼備份）</td>
+</tr>
+<tr>
+<td>處理整個目錄</td>
+<td>例如 <code>pmlencrypt.exe -pmllib pmllib_original pmllib</code>，處理 <code>.pmlmac</code>、<code>.pmlfrm</code>、<code>.pmlobj</code>、<code>.pmlfnc</code> 等檔案</td>
+</tr>
+<tr>
+<td>演算法</td>
+<td>預設使用 RC4；<code>-basic</code> 較弱、不建議；另有僅供測試的簡易加密</td>
+</tr>
+<tr>
+<td><code>-buffer</code></td>
+<td>讓常用的加密檔留在記憶體，減少重複解密</td>
+</tr>
+<tr>
+<td>強度有限</td>
+<td>官方明言加密強度有限，不能抵擋所有攻擊</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕Marine 12.1 安裝目錄是否附有 <code>pmlencrypt.exe</code>、參數是否相同。</p>
+<p>建議流程：Git 保存原始碼 → 部署腳本在「複製到版本目錄」之後執行加密 → 加密後在試用環境冒煙測試（加密可能暴露原本不明顯的語法問題）。</p>
+<h3 id="1782-pml-pml-net">17.8.2 PML、加密 PML 與 .NET 的取捨</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>保護程度</th>
+<th>除錯</th>
+<th>部署</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>明碼 PML</td>
+<td>無</td>
+<td>最容易，使用者端也能看</td>
+<td>最簡單</td>
+<td>公司內部工具</td>
+</tr>
+<tr>
+<td>加密 PML</td>
+<td>中（強度有限）</td>
+<td>使用者端無法看原始碼，需在開發環境重現</td>
+<td>多一步加密</td>
+<td>交付給外部或含業務規則的工具</td>
+</tr>
+<tr>
+<td>.NET DLL</td>
+<td>中（可被反編譯，可再混淆）</td>
+<td>需要 Visual Studio</td>
+<td>需要建置與版本綁定</td>
+<td>本來就需要 .NET 的功能</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 對公司內部工具來說，最大的風險通常不是被偷看，而是「只有一個人看得懂」。保護之前先確定原始碼、文件與回歸清單都在 Git 中，任何人都能接手。</p>
+</blockquote>
+<h2 id="179-service-pack">17.9 Service Pack 升級回歸清單</h2>
+<p>AVEVA 升級 Service Pack 時，官方檔案會被替換。依賴官方行為的工具，可能在沒有任何錯誤訊息的情況下行為改變。</p>
+<h3 id="1791">17.9.1 升級前</h3>
+<ul>
+<li>[ ] 閱讀新 SP 的版本說明，標出與 PML、.NET、Vitesse、資料庫結構有關的變更。</li>
+<li>[ ] 盤點工具清單（<code>docs/tools.md</code>），列出每個工具依賴的官方元件：官方表單、官方函式、<code>Addins.xml</code>、<code>.uic</code>、marAPI、Vitesse Trigger。</li>
+<li>[ ] 備份目前安裝目錄中<strong>被公司修改過</strong>的官方檔案（理想上應該是零個；Vitesse 的 <code>trig_draft_popup_menu.py</code> 是常見例外）。</li>
+<li>[ ] 準備一個安裝新 SP 的測試環境，訓練專案與測試 ZONE 一併複製。</li>
+</ul>
+<h3 id="1792">17.9.2 升級後逐項檢查</h3>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>檢查項目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>啟動環境</td>
+<td>新版啟動批次檔是否改變變數名稱或順序；公司前置的 <code>PMLLIB</code>、<code>PDMSUI</code>、<code>CAF_ADDINS_PATH</code> 是否仍生效</td>
+</tr>
+<tr>
+<td>PML</td>
+<td><code>pml rehash all</code>；所有工具的回歸清單；有覆蓋或擴充官方表單、選單的工具特別注意（官方表單結構可能改變）</td>
+</tr>
+<tr>
+<td>PML Add-in</td>
+<td>選單入口是否還在；<code>.modifyMenus()</code> 掛勾使用的官方選單名稱是否改變</td>
+</tr>
+<tr>
+<td>.NET</td>
+<td>參考指向新安裝目錄重新建置；確認強名與版本；Addins.xml 是否被安裝程式覆蓋；UIC 的父選單名稱是否改變</td>
+</tr>
+<tr>
+<td>PML.NET／marAPI</td>
+<td>用 <code>q meth</code> 對照工具使用的方法是否仍存在</td>
+</tr>
+<tr>
+<td>Vitesse</td>
+<td>官方 Trigger 是否被覆蓋，公司修改區段需重新合併；<code>kcs_*</code> 函式行為抽樣驗證</td>
+</tr>
+<tr>
+<td>編碼</td>
+<td>依第 16 章重跑一次中文驗證</td>
+</tr>
+<tr>
+<td>效能</td>
+<td>大量資料的工具抽測執行時間</td>
+</tr>
+<tr>
+<td>試用</td>
+<td>關鍵使用者在試用環境使用一週</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1793">17.9.3 升級紀錄</h3>
+<p>把每次升級的結果記在 <code>CHANGELOG.md</code> 或升級報告中：版本、日期、受影響工具、修改內容、測試者。下一次升級時，這份紀錄就是最好的檢查清單起點。</p>
+<h2 id="1710">17.10 開發人員須知</h2>
+<ul>
+<li><strong>先重現，再修改。</strong> 使用者回報問題時，先在訓練專案用相同資料重現；無法重現時，請使用者提供記錄檔與操作步驟。</li>
+<li><strong>一次只改一件事。</strong> 除錯時同時改多處，就無法確定是哪一處解決了問題。</li>
+<li><strong>除錯命令不進版本庫。</strong> 合併前搜尋 <code>$R</code>、<code>PML TRACE</code>、<code>q var</code>、<code>alpha log</code>，可以寫成簡單的 Git 檢查。</li>
+<li><strong>部署是可重複的程序。</strong> 任何靠「記得要手動做」的步驟，都應該寫進腳本或清單。</li>
+<li><strong>回復要演練。</strong> 第一次正式部署前，先在測試環境演練一次切換與回復。</li>
+<li><strong>工具清單是資產。</strong> 每個工具的用途、風險等級、負責人、入口、移除方式都要登記，人員異動時才能接手。</li>
+</ul>
+<h2 id="1711">17.11 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>追蹤一次執行。</strong> 對第 16 章的 <code>!!mycoExportEquiCsv</code> 開啟 <code>$R</code> 追蹤與 <code>alpha log</code>，錄下一次執行，找出它讀了哪些屬性。完成後關閉並確認程式中沒有殘留。</li>
+<li><strong>AID 除錯。</strong> 寫一個函式，把目前 ZONE 中每台設備的位置用 <code>aid sphere</code> 標出，並以 <code>!!mycoDebug</code> 控制開關。</li>
+<li><strong>測試資料。</strong> 依 17.4.2 在訓練專案建立測試 ZONE，寫成 <code>tests/testdata.md</code>。</li>
+<li><strong>建立儲存庫。</strong> 依 17.6.1 建立工具庫的 Git 儲存庫，放入 MyCollect，打上 <code>v1.0.0</code> 標籤。</li>
+<li><strong>部署與回復演練。</strong> 在本機資料夾模擬 <code>\\toolsrv\aveva_tools</code>，用 <code>deploy.bat</code> 部署 <code>v1.0.0</code> 與 <code>v1.1.0</code>，切換後再回復，檢查 <code>deploy.log</code>。</li>
+<li><strong>升級盤點。</strong> 針對你們目前使用中的工具，填寫 17.9.1 的依賴盤點。</li>
+</ol>
+<h2 id="1712">17.12 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 <code>$P</code>、<code>q var</code>、<code>q meth</code>、<code>$R</code>、<code>alpha log</code>、<code>!!error</code>、AID 各自的用途。</li>
+<li>[ ] 我知道 <code>handle</code> 只攔截上一行的錯誤。</li>
+<li>[ ] 我能依症狀分類排除常見錯誤，並知道 <code>pml reload</code> 與 <code>pml rehash all</code> 的差別。</li>
+<li>[ ] 我能設計涵蓋中文、缺值、空範圍、權限的測試資料與回歸清單。</li>
+<li>[ ] 我的程式有標準檔頭、公司前綴、錯誤處理，沒有寫死路徑與殘留除錯命令。</li>
+<li>[ ] 我能說明工具庫的 Git 結構、分支、標籤與 <code>.gitignore</code> 的內容。</li>
+<li>[ ] 我能用「新增版本目錄、更新指標」的方式部署與回復。</li>
+<li>[ ] 我知道 PML Publisher 加密不可逆，以及它與 .NET DLL 的取捨。</li>
+<li>[ ] 我能依清單完成 Service Pack 升級後的回歸驗證。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 1.1 <em>PML Publisher User Guide</em>（官方）：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/PMLPUG/PMLPUG3.3.01.html">PML Publisher 概述</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/PMLPUG/PMLPUG3.3.03.html">User Guide 章節</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/PMLPUG/PMLPUG3.3.16.html">相關章節（加密選項）</a></li>
+<li>AVEVA E3D 2.1 <em>PML Customisation User Guide</em>：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG12.12.7.html">FILE 物件錯誤處理</a></li>
+<li>開源知識庫 <a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT）：《AVEVA-Marine-PML開發技能》（除錯工具箱、<code>pml reload</code>、部署驗證）、《Marine-PML錯誤碼速查》、《PML審核規範》、《AVEVA-Marine-TTY環境自檢腳本》。</li>
+<li>論文圖片：Kim, C.-S., Park, D.-W., &amp; Yang, Y.-J. (2020). Development of an automatic shell plate hole generation system using AVEVA Marine. <em>Journal of Advanced Marine Engineering and Technology</em>, 44(3), 196–202. <a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a>（CC BY-NC 3.0）</li>
+<li>PML 單元測試框架：<a href="https://github.com/PoByBolek/PmlUnit">PoByBolek/PmlUnit（GitHub）</a></li>
+<li>版本號規則參考：<a href="https://semver.org/">Semantic Versioning 2.0.0</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch16_reports_integration_zh-TW.reading.html"><small>← 上一篇</small>第 16 章　報表、檔案與外部系統整合</a><a class="next" href="ch18_case_studies_zh-TW.reading.html"><small>下一篇 →</small>第 18 章　實戰案例與完整範例</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

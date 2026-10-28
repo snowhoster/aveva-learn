@@ -1,0 +1,620 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 0 章　課程總覽與知識地圖 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#0">第 0 章 課程總覽與知識地圖</a><ul>
+<li><a href="#01">0.1 為什麼開發人員要先懂業務</a></li>
+<li><a href="#02">0.2 開發人員視角的概念對照表</a></li>
+<li><a href="#03">0.3 章節地圖</a><ul>
+<li><a href="#_1">第一部分 系統與資料模型</a></li>
+<li><a href="#_2">第二部分 船舶設計業務領域</a></li>
+<li><a href="#_3">第三部分 二次開發技術</a></li>
+<li><a href="#_4">附錄</a></li>
+</ul>
+</li>
+<li><a href="#04">0.4 各章知識點清單</a><ul>
+<li><a href="#1">第 1 章 產品架構、模組與啟動環境</a></li>
+<li><a href="#2-mdb">第 2 章 專案、資料庫、MDB 與權限</a></li>
+<li><a href="#3">第 3 章 資料階層、元素、屬性與導覽</a></li>
+<li><a href="#4">第 4 章 座標、方向與幾何</a></li>
+<li><a href="#5">第 5 章 船體建模：曲面、板架與拓撲</a></li>
+<li><a href="#6">第 6 章 船體生產資訊、套料與裝配</a></li>
+<li><a href="#7">第 7 章 舾裝設計：設備、管路、結構、通風與電纜</a></li>
+<li><a href="#8">第 8 章 目錄與等級</a></li>
+<li><a href="#9-iso">第 9 章 圖面、ISO 圖與報表輸出</a></li>
+<li><a href="#10-pmllib">第 10 章 開發環境：PMLLIB、檔案類型與部署結構</a></li>
+<li><a href="#11-pml">第 11 章 PML 語言核心</a></li>
+<li><a href="#12-pml">第 12 章 PML 資料庫操作</a></li>
+<li><a href="#13-pml2-add-in">第 13 章 PML2 表單、選單與 Add-in</a></li>
+<li><a href="#14-net-pmlnet-caf-add-in">第 14 章 .NET 開發：PML.NET 與 CAF Add-in</a></li>
+<li><a href="#15-vitesse-python">第 15 章 船體開發：Vitesse Python 與資料抽取</a></li>
+<li><a href="#16">第 16 章 報表、檔案與外部系統整合</a></li>
+<li><a href="#17">第 17 章 除錯、測試、部署與版本管理</a></li>
+<li><a href="#18">第 18 章 實戰案例與完整範例</a></li>
+</ul>
+</li>
+<li><a href="#05-12">0.5 建議學習進度（12 週）</a></li>
+<li><a href="#06">0.6 能力等級</a></li>
+<li><a href="#07">0.7 課程使用說明</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">課程總覽 · 1 / 21</span><h1 id="0">第 0 章　課程總覽與知識地圖</h1>
+<blockquote>
+<p>這是整套「AVEVA Marine 與二次開發」課程的總綱。它說明<strong>學會 AVEVA Marine 並能進行二次開發需要哪些知識點</strong>、章節順序、每章的學習成果與自我檢核方式。</p>
+<p>本課程的目標讀者是<strong>開發人員</strong>：具備一般程式設計經驗（任何語言皆可，懂 SQL 或物件導向更好），但不一定有造船背景。課程會把船舶設計的領域知識，轉譯成開發人員熟悉的概念，例如資料模型、樹狀結構、外鍵、事件、外掛架構。</p>
+</blockquote>
+<h2 id="01">0.1 為什麼開發人員要先懂業務</h2>
+<p>AVEVA Marine 的二次開發，九成的困難不在語法，而在<strong>資料</strong>：</p>
+<ul>
+<li>不知道「板架」「加強材」「管段」在資料庫裡是什麼元素、屬性叫什麼，就寫不出查詢。</li>
+<li>不知道船體修改會連動哪些構件，就寫不出安全的批次修改工具。</li>
+<li>不知道目錄與等級的關係，就會寫出產生錯誤材料表的工具。</li>
+</ul>
+<p>所以本課程分成三大部分，<strong>先建立系統與資料模型的概念，再理解業務領域，最後才進入開發技術</strong>。</p>
+<pre><code>第一部分　系統與資料模型（第 1–4 章）
+        ↓   懂得「資料長什麼樣子、存在哪裡」
+第二部分　船舶設計業務領域（第 5–9 章）
+        ↓   懂得「資料代表什麼工程意義、怎麼流動」
+第三部分　二次開發技術（第 10–18 章）
+            懂得「怎麼安全地讀、寫、呈現與整合這些資料」
+</code></pre>
+<h2 id="02">0.2 開發人員視角的概念對照表</h2>
+<table>
+<thead>
+<tr>
+<th>AVEVA Marine 概念</th>
+<th>開發人員熟悉的對應概念</th>
+<th>說明章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專案（Project）</td>
+<td>一套資料庫系統的執行個體</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>DB（DESI、CATA、PADD…）</td>
+<td>資料庫中的 schema 或資料表群組</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>MDB</td>
+<td>連線時掛載的資料庫組合（類似 search path）</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>Team／Claim</td>
+<td>寫入權限與資料列鎖定</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>交易紀錄與版本快照</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>元素（Element）</td>
+<td>樹狀結構中的節點（類似 XML DOM 節點）</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>元素型別（SITE、ZONE、PIPE…）</td>
+<td>節點的類別（Class）</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>屬性（Attribute）</td>
+<td>節點的欄位</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>參照屬性（SPRE、CREF…）</td>
+<td>外鍵</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>UDA（使用者自訂屬性）</td>
+<td>自訂欄位、擴充欄位</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>CE（Current Element）</td>
+<td>目前游標所在的節點</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>目錄與等級</td>
+<td>主檔資料與允許值規則</td>
+<td>第 8 章</td>
+</tr>
+<tr>
+<td>船體拓撲（板架參考）</td>
+<td>相依圖（Dependency Graph）</td>
+<td>第 5 章</td>
+</tr>
+<tr>
+<td>生產資訊抽出</td>
+<td>由模型產生的衍生資料（Materialized View）</td>
+<td>第 6 章</td>
+</tr>
+<tr>
+<td>PML</td>
+<td>內嵌於系統的腳本語言</td>
+<td>第 11–13 章</td>
+</tr>
+<tr>
+<td>PML2 表單</td>
+<td>宣告式 GUI</td>
+<td>第 13 章</td>
+</tr>
+<tr>
+<td>.NET Add-in</td>
+<td>外掛（Plugin），以依賴注入取得服務</td>
+<td>第 14 章</td>
+</tr>
+<tr>
+<td>Vitesse</td>
+<td>船體模組的 Python 2.6 腳本環境</td>
+<td>第 15 章</td>
+</tr>
+</tbody>
+</table>
+<h2 id="03">0.3 章節地圖</h2>
+<h3 id="_1">第一部分　系統與資料模型</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>標題</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="ch01_architecture_zh-TW.reading.html">產品架構、模組與啟動環境</a></td>
+<td>Marine 由哪些模組組成？從哪裡啟動？環境變數做什麼？</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="ch02_project_database_zh-TW.reading.html">專案、資料庫、MDB 與權限</a></td>
+<td>資料存在哪裡？誰能改？如何追蹤變更？</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="ch03_hierarchy_attributes_zh-TW.reading.html">資料階層、元素、屬性與導覽</a></td>
+<td>資料樹怎麼組織？怎麼查詢屬性？</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="ch04_coordinates_geometry_zh-TW.reading.html">座標、方向與幾何</a></td>
+<td>位置與方向怎麼表示？船體定位系統是什麼？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">第二部分　船舶設計業務領域</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>標題</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td><a href="ch05_hull_modelling_zh-TW.reading.html">船體建模：曲面、板架與拓撲</a></td>
+<td>船體結構如何建模？為什麼改一處會牽動很多處？</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="ch06_hull_production_zh-TW.reading.html">船體生產資訊、套料與裝配</a></td>
+<td>模型如何變成切割與裝配資料？</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="ch07_outfitting_zh-TW.reading.html">舾裝設計：設備、管路、結構、通風與電纜</a></td>
+<td>舾裝物件怎麼建模？管路設計流程是什麼？</td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="ch08_catalogue_spec_zh-TW.reading.html">目錄與等級</a></td>
+<td>元件從哪裡來？等級如何約束設計？</td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="ch09_drawings_zh-TW.reading.html">圖面、ISO 圖與報表輸出</a></td>
+<td>圖面如何從模型產生並保持更新？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">第三部分　二次開發技術</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>標題</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td><a href="ch10_dev_environment_zh-TW.reading.html">開發環境：PMLLIB、檔案類型與部署結構</a></td>
+<td>程式放在哪裡？系統如何找到它？</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="ch11_pml_language_zh-TW.reading.html">PML 語言核心</a></td>
+<td>變數、型別、流程控制、函式、物件、錯誤處理</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="ch12_pml_database_zh-TW.reading.html">PML 資料庫操作</a></td>
+<td>如何導覽、查詢、建立、修改與刪除元素？</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="ch13_pml_forms_addins_zh-TW.reading.html">PML2 表單、選單與 Add-in</a></td>
+<td>如何做出使用者介面並掛進系統選單？</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="ch14_dotnet_zh-TW.reading.html">.NET 開發：PML.NET 與 CAF Add-in</a></td>
+<td>什麼時候用 C#？怎麼寫、怎麼部署？</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="ch15_hull_vitesse_zh-TW.reading.html">船體開發：Vitesse Python 與資料抽取</a></td>
+<td>船體資料怎麼用程式讀取？</td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="ch16_reports_integration_zh-TW.reading.html">報表、檔案與外部系統整合</a></td>
+<td>如何輸出 Excel／CSV、與 ERP／PDM 交換資料？</td>
+</tr>
+<tr>
+<td>17</td>
+<td><a href="ch17_debug_deploy_zh-TW.reading.html">除錯、測試、部署與版本管理</a></td>
+<td>如何讓工具可靠、可維護、可安全上線？</td>
+</tr>
+<tr>
+<td>18</td>
+<td><a href="ch18_case_studies_zh-TW.reading.html">實戰案例與完整範例</a></td>
+<td>真實專案怎麼做？完整範例怎麼部署？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">附錄</h3>
+<table>
+<thead>
+<tr>
+<th>附錄</th>
+<th>標題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><a href="appx_a_resources_zh-TW.reading.html">專業資源與官方訓練地圖</a></td>
+</tr>
+<tr>
+<td>B</td>
+<td><a href="appx_b_glossary_zh-TW.reading.html">術語表與指令速查</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="04">0.4 各章知識點清單</h2>
+<p>以下是每章必須掌握的知識點。可以把它當作學習檢核表：每一項都能用自己的話解釋，或能寫出對應的程式，才算學會。</p>
+<h3 id="1">第 1 章　產品架構、模組與啟動環境</h3>
+<ul>
+<li>[ ] AVEVA Marine 的來源：Tribon M3（船體）與 PDMS（舾裝）的整合。</li>
+<li>[ ] 主要應用模組：Hull Structural Design、Hull Detailed Design（平面、曲面、生產）、Outfitting（Design）、Marine Drafting、Outfitting Draft、Isodraft、Assembly Planning、Weld Planning。</li>
+<li>[ ] 共用管理模組：Monitor、Admin、Lexicon、Paragon、Propcon、Specon。</li>
+<li>[ ] 啟動流程：啟動批次檔、專案選擇、使用者／MDB 登入、模組選擇。</li>
+<li>[ ] 環境變數的角色：專案資料路徑（<code>XXX000</code> 形式）、<code>PMLLIB</code>、<code>PDMSUI</code>、<code>PDMSEXE</code>、<code>CAF_ADDINS_PATH</code>。</li>
+<li>[ ] 船體與舾裝資料的差異：船體使用 Databank，舾裝使用 Dabacon 資料庫。</li>
+<li>[ ] 命令列（Command Window）的角色：所有介面操作背後都是命令。</li>
+</ul>
+<h3 id="2-mdb">第 2 章　專案、資料庫、MDB 與權限</h3>
+<ul>
+<li>[ ] 專案的組成：系統資料庫（SYST）與各類型資料庫。</li>
+<li>[ ] 資料庫類型：DESI、CATA、PADD、DICT、PROP、ISOD、SYST，以及船體 Databank。</li>
+<li>[ ] Team 擁有 DB，User 屬於 Team；寫入權限的判斷方式。</li>
+<li>[ ] MDB：可讀可寫的 DB 組合與搜尋順序。</li>
+<li>[ ] Claim（認領）機制：顯式與隱式認領、Release。</li>
+<li>[ ] Session、Savework、Getwork：變更何時寫入、何時對他人可見。</li>
+<li>[ ] Extract（衍生資料庫）與合併。</li>
+<li>[ ] Global 多地點同步的概念。</li>
+<li>[ ] 開發人員須知：工具為什麼會「寫入失敗」，常見原因與檢查方式。</li>
+</ul>
+<h3 id="3">第 3 章　資料階層、元素、屬性與導覽</h3>
+<ul>
+<li>[ ] 元素樹：WORLD → SITE → ZONE → 物件 → 子元件。</li>
+<li>[ ] 主要元素型別：EQUI、PIPE／BRAN、STRU／FRMW／SCTN／PANE、HVAC、船體板架相關元素（HPANEL、HPLATE、HSTIFF、HBRCKT 等）。</li>
+<li>[ ] 元素識別：名稱（以 <code>/</code> 開頭）、參照（DBREF，如 <code>=12345/678</code>）、型別與序號。</li>
+<li>[ ] 屬性分類：系統屬性、幾何屬性、參照屬性、偽屬性（Pseudo Attribute）、UDA。</li>
+<li>[ ] 常用屬性：NAME、TYPE、OWNER、MEMBERS、DESC、POS、ORI、SPRE、PURP、FUNC。</li>
+<li>[ ] CE（目前元素）與導覽：上一層、成員、依名稱跳轉。</li>
+<li>[ ] 以命令查詢屬性：<code>Q</code> 指令與 <code>Q ATT</code> 列出所有屬性。</li>
+<li>[ ] 元素的合法成員（Legal Members）：哪些型別可以放在哪些型別底下。</li>
+</ul>
+<h3 id="4">第 4 章　座標、方向與幾何</h3>
+<ul>
+<li>[ ] 世界座標：E／N／U（東、北、上）與船舶座標 X／Y／Z 的對應。</li>
+<li>[ ] POS 與 ORI：位置與方向的表示法，例如 <code>E 1000 N 2000 U 300</code>、<code>Y is N and Z is U</code>。</li>
+<li>[ ] <code>WRT</code>（With Respect To）：相對座標系統與座標轉換。</li>
+<li>[ ] 船體定位系統：肋位（FR）、縱向位置（LP）、甲板高度與偏移寫法。</li>
+<li>[ ] 左右舷與對稱的表示。</li>
+<li>[ ] PML 的幾何物件：POSITION、DIRECTION、ORIENTATION、LINE、PLANE。</li>
+<li>[ ] 單位：長度單位、角度單位，與船體／圖面單位設定。</li>
+</ul>
+<h3 id="5">第 5 章　船體建模：曲面、板架與拓撲</h3>
+<ul>
+<li>[ ] 船體資料鏈：初始設計（曲面、參考面）→ 結構設計 → 詳細設計 → 生產。</li>
+<li>[ ] 平面板架的組成：型面、邊界、接縫、板、加強材、折邊、肘板、缺口、切口、開孔。</li>
+<li>[ ] 設計板架與生產板架的差別。</li>
+<li>[ ] 拓撲參考與相依鏈：參考而非數值的設計原則。</li>
+<li>[ ] 曲面船體：接縫與對接縫、外板縱骨、外板展開。</li>
+<li>[ ] 變更影響評估與重建。</li>
+<li>[ ] 船體 Scheme（文字化的建模描述）。</li>
+<li>[ ] 開發人員須知：哪些船體資料適合用程式讀取，哪些修改不應自動化。</li>
+</ul>
+<h3 id="6">第 6 章　船體生產資訊、套料與裝配</h3>
+<ul>
+<li>[ ] 零件抽出：從模型產生板零件與型材零件。</li>
+<li>[ ] Databank：型線、板零件、型材零件、套料、生產資料庫。</li>
+<li>[ ] 套料：鋼板利用率、零件方向、劃線、坡口。</li>
+<li>[ ] 型材草圖、樣板與胎架。</li>
+<li>[ ] 收縮補償與裝配劃線。</li>
+<li>[ ] 裝配規劃（組立樹）與焊接規劃。</li>
+<li>[ ] 開發人員須知：生產資料是模型的「快照」，與模型的一致性問題。</li>
+</ul>
+<h3 id="7">第 7 章　舾裝設計：設備、管路、結構、通風與電纜</h3>
+<ul>
+<li>[ ] 設備：基本體、管嘴、樣板、維修空間。</li>
+<li>[ ] 管路：PIPE／BRAN 結構、Head／Tail、元件順序、連接與流向。</li>
+<li>[ ] 管路設計流程：P&amp;ID → 佈管 → 干涉檢查 → 支架 → 貫穿孔 → 管段 → ISO。</li>
+<li>[ ] 鐵舾裝結構：FRMW、SCTN、PANE、節點。</li>
+<li>[ ] 通風（HVAC）與電纜托架。</li>
+<li>[ ] 干涉檢查與跨專業協調。</li>
+<li>[ ] 船體與舾裝的介面：貫穿孔與開孔申請。</li>
+</ul>
+<h3 id="8">第 8 章　目錄與等級</h3>
+<ul>
+<li>[ ] 目錄階層：CATA → SECT → CATE → SCOM，以及幾何集（GMSE）與點集（PTSE）。</li>
+<li>[ ] 參數化元件：參數如何驅動幾何。</li>
+<li>[ ] 等級階層：SPEC → SELE → SPCO，選擇條件（口徑、型式）。</li>
+<li>[ ] 設計元件的 SPRE 如何連到等級，再連到目錄。</li>
+<li>[ ] 型鋼、材料、螺栓等其他目錄。</li>
+<li>[ ] 目錄管理的權限與流程。</li>
+<li>[ ] 開發人員須知：為什麼工具不應自行建立「看起來像」的元件。</li>
+</ul>
+<h3 id="9-iso">第 9 章　圖面、ISO 圖與報表輸出</h3>
+<ul>
+<li>[ ] Marine Drafting（船體圖面）與 Outfitting Draft（舾裝圖面）的差異。</li>
+<li>[ ] 圖面資料階層：DEPT → REGI → DRWG → SHEE → VIEW 與標註。</li>
+<li>[ ] 關聯尺寸與自動標註、圖面更新。</li>
+<li>[ ] 表現規則（Representation）與圖層。</li>
+<li>[ ] Isodraft：ISO 圖產生與樣式設定。</li>
+<li>[ ] 系統內建報表與材料表（MTO）。</li>
+<li>[ ] 開發人員須知：批次出圖與報表自動化的切入點。</li>
+</ul>
+<h3 id="10-pmllib">第 10 章　開發環境：PMLLIB、檔案類型與部署結構</h3>
+<ul>
+<li>[ ] 開發路線比較：PML、PML.NET、.NET Add-in、Vitesse。</li>
+<li>[ ] <code>PMLLIB</code> 搜尋路徑與 <code>pml.index</code>；<code>pml rehash all</code>、<code>pml index</code>。</li>
+<li>[ ] 檔案類型與命名規則：<code>.pmlmac</code>、<code>.pmlfnc</code>、<code>.pmlfrm</code>、<code>.pmlobj</code>、<code>.pmlcmd</code>（檔名須小寫且與定義名稱一致）。</li>
+<li>[ ] <code>PDMSUI</code> 與 Add-in 定義目錄。</li>
+<li>[ ] 不修改官方檔案的原則：以平行目錄擴充、以搜尋順序覆蓋。</li>
+<li>[ ] 開發用專案與帳號、編輯器與語法高亮。</li>
+<li>[ ] 公司工具庫的目錄結構建議。</li>
+</ul>
+<h3 id="11-pml">第 11 章　PML 語言核心</h3>
+<ul>
+<li>[ ] PML1 與 PML2 的差別。</li>
+<li>[ ] 變數：區域 <code>!x</code> 與全域 <code>!!x</code>；變數不需宣告型別，但值有型別。</li>
+<li>[ ] 內建型別：STRING、REAL、BOOLEAN、ARRAY、DBREF、POSITION 等。</li>
+<li>[ ] 運算子與比較：<code>eq</code>、<code>ne</code>、<code>gt</code>、<code>lt</code>、<code>ge</code>、<code>le</code>、<code>and</code>、<code>or</code>、<code>not</code>。</li>
+<li>[ ] 流程控制：<code>if/elseif/else/endif</code>、<code>do ... enddo</code>（from/to、values、index）、<code>break</code>、<code>skip</code>、<code>golabel</code>。</li>
+<li>[ ] 字串處理：串接 <code>&amp;</code>、<code>.substring()</code>、<code>.split()</code>、<code>.upcase()</code>、<code>.real()</code>、<code>.string()</code>。</li>
+<li>[ ] 陣列：起始索引為 1、<code>.append()</code>、<code>.size()</code>、<code>.sort()</code>、多維陣列。</li>
+<li>[ ] 函式（<code>define function</code>）與引數、回傳值。</li>
+<li>[ ] 物件（<code>define object</code>、<code>member</code>、<code>define method</code>）、建構子、<code>!this</code>。</li>
+<li>[ ] 錯誤處理：<code>handle</code>／<code>elsehandle</code>／<code>endhandle</code>、錯誤碼 <code>(模組,編號)</code>、<code>!!error</code>。</li>
+<li>[ ] 巨集執行：<code>$m</code>、<code>$P</code> 輸出、<code>$!</code> 變數展開、<code>$R</code> 追蹤。</li>
+</ul>
+<h3 id="12-pml">第 12 章　PML 資料庫操作</h3>
+<ul>
+<li>[ ] 導覽：設定 CE、<code>!!ce</code>、<code>OWNER</code>、<code>MEMBERS</code>、依名稱跳轉。</li>
+<li>[ ] 讀取屬性：<code>!elem.attr</code>、<code>ATTRIB</code>、<code>Q</code> 與程式取值的差異。</li>
+<li>[ ] 查詢：<code>COLLECTION</code> 物件、<code>EXPRESSION</code> 篩選、<code>var !x collect ... for ...</code>、<code>evaluate</code>。</li>
+<li>[ ] 建立元素：<code>NEW &lt;型別&gt;</code>、命名、設定屬性。</li>
+<li>[ ] 修改元素：設定屬性、移動、重新命名。</li>
+<li>[ ] 刪除元素與相依檢查。</li>
+<li>[ ] 認領、儲存與復原：<code>claim</code>、<code>savework</code>、<code>undo</code> 標記。</li>
+<li>[ ] 批次修改的安全模式：先預覽、記錄、再寫入；失敗時回復。</li>
+<li>[ ] 效能：減少 CE 切換、使用收集而非遞迴走訪。</li>
+</ul>
+<h3 id="13-pml2-add-in">第 13 章　PML2 表單、選單與 Add-in</h3>
+<ul>
+<li>[ ] 表單定義：<code>setup form ... exit</code>、表單型別（dialog、main、document）。</li>
+<li>[ ] 版面：<code>path</code>、<code>hdist</code>／<code>vdist</code>、<code>frame</code>、<code>at</code> 定位、<code>anchor</code>／<code>dock</code>。</li>
+<li>[ ] 控制項（Gadget）：button、text、toggle、option、list、textpane、paragraph、frame、container。</li>
+<li>[ ] 回呼（Callback）：字串回呼與方法回呼、<code>!this</code>、事件時機（<code>initcall</code>、<code>okcall</code>、<code>cancelcall</code>）。</li>
+<li>[ ] 表單成員與方法：把狀態放在表單物件上。</li>
+<li>[ ] .NET 控制項嵌入：<code>container ... pmlNetControl</code>、<code>NETGRIDCONTROL</code>。</li>
+<li>[ ] 選單：<code>APPMENU</code>、<code>!!appMenuCntrl</code>、工具列。</li>
+<li>[ ] Add-in 定義檔與 <code>.modifyMenus()</code> 掛勾。</li>
+<li>[ ] 表單設計原則：唯讀預設、確認對話框、進度回饋。</li>
+</ul>
+<h3 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h3>
+<ul>
+<li>[ ] CAF（Common Application Framework）架構。</li>
+<li>[ ] <code>IAddin</code>、<code>ServiceManager</code>、<code>WindowManager</code>、<code>CommandManager</code>、<code>CommandBarManager</code>。</li>
+<li>[ ] Command 模式與 UIC 介面自訂檔；<code>Key</code> 與 <code>CommandId</code> 一致。</li>
+<li>[ ] 資料庫 API：<code>DbElement</code>、<code>DbAttribute</code>、<code>DbAttributeInstance</code>、<code>CurrentElement</code>。</li>
+<li>[ ] PML.NET：<code>[PMLNetCallable]</code>、在 PML 中 <code>import</code> 與 <code>using namespace</code>、物件生命週期。</li>
+<li>[ ] 建置設定：目標 .NET Framework 版本、x86／x64、<code>Copy Local = false</code>。</li>
+<li>[ ] 部署：<code>&lt;模組&gt;Addins.xml</code>、<code>CAF_ADDINS_PATH</code>。</li>
+<li>[ ] 除錯：附加到處理程序、<code>Start()</code> 例外被吞掉的問題。</li>
+</ul>
+<h3 id="15-vitesse-python">第 15 章　船體開發：Vitesse Python 與資料抽取</h3>
+<ul>
+<li>[ ] Vitesse 的定位：船體模組的 Python 2.6 腳本環境。</li>
+<li>[ ] 主要模組：<code>kcs_ui</code>、<code>kcs_draft</code>、<code>kcs_dex</code>、<code>kcs_util</code> 等。</li>
+<li>[ ] 資料抽取語言：<code>HULL.PANEL('名稱').PLA(1).THICKNESS</code> 這類語句與結果型別。</li>
+<li>[ ] Trigger、右鍵選單、批次腳本三種掛載方式。</li>
+<li>[ ] 從 PML／.NET 呼叫船體資料的方式〔依版本而異〕。</li>
+<li>[ ] 船體資料自動化的安全界線。</li>
+</ul>
+<h3 id="16">第 16 章　報表、檔案與外部系統整合</h3>
+<ul>
+<li>[ ] PML 檔案讀寫：<code>FILE</code> 物件、開檔模式、逐行讀寫。</li>
+<li>[ ] 文字編碼：中文名稱、UTF-8 與系統編碼問題。</li>
+<li>[ ] CSV 與 Excel 輸出（含表格控制項匯出）。</li>
+<li>[ ] 讀取外部資料驅動建模（例如從 Excel 匯入標準件尺寸）。</li>
+<li>[ ] 與 ERP／PDM 交換：檔案交換、資料庫、Web API（以 .NET 實作）。</li>
+<li>[ ] 排程與批次執行。</li>
+</ul>
+<h3 id="17">第 17 章　除錯、測試、部署與版本管理</h3>
+<ul>
+<li>[ ] 除錯工具：<code>$R</code> 追蹤、<code>$P</code> 輸出、<code>!!alert</code>、AID 輔助圖形、錯誤碼查詢。</li>
+<li>[ ] 常見錯誤與排除：找不到函式、表單未更新、權限不足、型別錯誤。</li>
+<li>[ ] 測試策略：訓練專案、測試資料、唯讀優先、回歸測試清單。</li>
+<li>[ ] 程式碼規範：命名、註解標頭、錯誤處理、不寫死路徑。</li>
+<li>[ ] 版本管理：用 Git 管理 PMLLIB 工具庫、分支與發佈。</li>
+<li>[ ] 部署：測試 → 試用 → 正式；部署與回復腳本。</li>
+<li>[ ] 保護：PML Publisher（加密）與 .NET DLL 的取捨。</li>
+<li>[ ] 升級相容性：Service Pack 升級時要重測什麼。</li>
+</ul>
+<h3 id="18">第 18 章　實戰案例與完整範例</h3>
+<ul>
+<li>[ ] 案例：外板開孔自動化（論文，含實機畫面與實際 PML）。</li>
+<li>[ ] 案例：PML 管支架自動建立。</li>
+<li>[ ] 範例：PML 設備收集與 Excel 匯出（可部署）。</li>
+<li>[ ] 範例：C# 停靠視窗屬性瀏覽器（可部署）。</li>
+<li>[ ] 範例：Vitesse 船體板厚報表。</li>
+<li>[ ] 公司工具開發的優先順序與立案方式。</li>
+</ul>
+<h2 id="05-12">0.5 建議學習進度（12 週）</h2>
+<table>
+<thead>
+<tr>
+<th>週</th>
+<th>章節</th>
+<th>產出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>第 1–2 章</td>
+<td>公司環境卡：版本、專案、MDB、環境變數、訓練專案帳號</td>
+</tr>
+<tr>
+<td>2</td>
+<td>第 3–4 章</td>
+<td>用命令列查詢 10 種元素的屬性，整理成筆記</td>
+</tr>
+<tr>
+<td>3</td>
+<td>第 5 章</td>
+<td>讀懂一個板架的完整定義與參考關係</td>
+</tr>
+<tr>
+<td>4</td>
+<td>第 6 章</td>
+<td>追蹤一個零件從模型到套料的資料</td>
+</tr>
+<tr>
+<td>5</td>
+<td>第 7–8 章</td>
+<td>追蹤一個閥門從設計到等級到目錄的關聯</td>
+</tr>
+<tr>
+<td>6</td>
+<td>第 9 章</td>
+<td>產生一張圖並觀察模型修改後的更新</td>
+</tr>
+<tr>
+<td>7</td>
+<td>第 10–11 章</td>
+<td>建立個人 PMLLIB，寫出第一個函式與物件</td>
+</tr>
+<tr>
+<td>8</td>
+<td>第 12 章</td>
+<td>唯讀查詢工具：列出某 ZONE 的設備與屬性</td>
+</tr>
+<tr>
+<td>9</td>
+<td>第 13 章</td>
+<td>把查詢工具做成表單並掛到選單</td>
+</tr>
+<tr>
+<td>10</td>
+<td>第 14 或 15 章</td>
+<td>依工作需求選擇 .NET 或 Vitesse，完成範例</td>
+</tr>
+<tr>
+<td>11</td>
+<td>第 16–17 章</td>
+<td>加入匯出、錯誤處理與部署腳本，用 Git 管理</td>
+</tr>
+<tr>
+<td>12</td>
+<td>第 18 章</td>
+<td>完成一個公司實際需求的小工具並提交審查</td>
+</tr>
+</tbody>
+</table>
+<h2 id="06">0.6 能力等級</h2>
+<table>
+<thead>
+<tr>
+<th>等級</th>
+<th>能做到</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 使用者</td>
+<td>瀏覽模型、查詢屬性、看懂圖面</td>
+<td>1–4</td>
+</tr>
+<tr>
+<td>L2 領域理解</td>
+<td>說明船體與舾裝的資料關係與設計流程</td>
+<td>5–9</td>
+</tr>
+<tr>
+<td>L3 工具開發</td>
+<td>撰寫唯讀查詢、報表與表單工具</td>
+<td>10–13、16</td>
+</tr>
+<tr>
+<td>L4 進階開發</td>
+<td>撰寫建立／修改工具、.NET 外掛、船體抽取</td>
+<td>12、14、15</td>
+</tr>
+<tr>
+<td>L5 工具負責人</td>
+<td>設計工具架構、規範、部署與維護流程</td>
+<td>17、18</td>
+</tr>
+</tbody>
+</table>
+<h2 id="07">0.7 課程使用說明</h2>
+<ul>
+<li>每章結構一致：<strong>學習目標 → 概念說明 → 實際畫面或圖解 → 程式範例（若適用）→ 開發人員須知 → 練習 → 自我檢核 → 資料來源</strong>。</li>
+<li>標示 <strong>〔待核對〕</strong> 的內容，請在公司版本中確認。</li>
+<li>程式碼若標示「示意」，表示未在實機驗證；未標示者為官方文件或開源範例中的寫法，仍建議先在訓練環境執行。</li>
+<li>所有會修改資料的練習，只能在<strong>訓練專案</strong>中進行。</li>
+<li>系統截圖來源與授權，見各圖片資料夾的 <code>README.txt</code>。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="next" href="ch01_architecture_zh-TW.reading.html"><small>下一篇 →</small>第 1 章　產品架構、模組與啟動環境</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

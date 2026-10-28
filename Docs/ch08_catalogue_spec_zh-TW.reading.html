@@ -1,0 +1,699 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 8 章　目錄與等級 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#8">第 8 章 目錄與等級</a><ul>
+<li><a href="#81">8.1 學習目標</a></li>
+<li><a href="#82">8.2 為什麼需要目錄與等級</a></li>
+<li><a href="#83">8.3 目錄階層</a><ul>
+<li><a href="#831">8.3.1 目錄資料庫的結構</a></li>
+<li><a href="#832">8.3.2 目錄元件的四個類別</a></li>
+<li><a href="#833">8.3.3 目錄元件的關鍵屬性</a></li>
+<li><a href="#834-gmseptse">8.3.4 幾何集（GMSE）與點集（PTSE）</a></li>
+</ul>
+</li>
+<li><a href="#84">8.4 參數化元件</a><ul>
+<li><a href="#841">8.4.1 參數驅動幾何</a></li>
+<li><a href="#842">8.4.2 三種參數</a></li>
+<li><a href="#843">8.4.3 目錄的建立方式</a></li>
+</ul>
+</li>
+<li><a href="#85">8.5 等級階層</a><ul>
+<li><a href="#851">8.5.1 等級的結構</a></li>
+<li><a href="#852-spco">8.5.2 等級元件 SPCO</a></li>
+<li><a href="#853">8.5.3 等級的類型</a></li>
+<li><a href="#854">8.5.4 等級的表格觀點</a></li>
+</ul>
+</li>
+<li><a href="#86">8.6 參照鏈：從設計元件一路查到幾何</a><ul>
+<li><a href="#861">8.6.1 整條鏈</a></li>
+<li><a href="#862-pml">8.6.2 用 PML 走一遍參照鏈</a></li>
+<li><a href="#863">8.6.3 斷鏈與常見問題排除</a></li>
+</ul>
+</li>
+<li><a href="#87">8.7 其他目錄與參考資料</a></li>
+<li><a href="#88">8.8 目錄管理的權限與流程</a><ul>
+<li><a href="#881">8.8.1 權限</a></li>
+<li><a href="#882">8.8.2 變更流程</a></li>
+</ul>
+</li>
+<li><a href="#89">8.9 開發人員須知：為什麼工具不應自行建立「看起來像」的元件</a></li>
+<li><a href="#810">8.10 練習（只能在訓練專案）</a><ul>
+<li><a href="#8-1">練習 8-1：追蹤一個閥門的來源</a></li>
+<li><a href="#8-2">練習 8-2：比較兩個口徑</a></li>
+<li><a href="#8-3">練習 8-3：斷鏈檢查</a></li>
+</ul>
+</li>
+<li><a href="#811">8.11 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船舶設計業務領域 · 9 / 21</span><h1 id="8">第 8 章　目錄與等級</h1>
+<blockquote>
+<p>本章回答兩個問題：設計中的每一個元件（閥、彎頭、法蘭、型鋼）<strong>從哪裡來</strong>，以及<strong>等級如何約束設計</strong>。目錄（Catalogue）與等級（Specification）是舾裝資料的主檔與規則層；設計者不能任意建立元件，必須從等級選用，而等級又引用目錄中的元件定義。看懂這條參照鏈，才能寫出正確的材料表、檢查工具與報表。</p>
+<p>本章依據 AVEVA E3D 2.1 的 Catalogues and Specifications Reference Manual（CSRM）、Catalogues and Specifications User Guide（CSUG）、Data Model Reference（DMRM），以及 AVEVA Hull and Outfitting 12.1 線上文件自主撰寫，不是官方手冊的翻譯。E3D 與 Marine 舾裝的目錄觀念相通，但介面與細節可能不同，需在公司版本中確認。標示 <strong>〔待核對〕</strong> 的項目請以公司專案設定為準。目錄與等級的修改只能由授權的管理員在測試專案中進行。</p>
+</blockquote>
+<h2 id="81">8.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明目錄與等級存在的理由，並用「主檔資料」與「允許值規則」的觀念解釋它們。</li>
+<li>畫出目錄階層 <code>CATA → SECT → CATE → SCOM</code>，並說明幾何集（<code>GMSE</code>）與點集（<code>PTSE</code>）的角色。</li>
+<li>說明參數化元件：<code>PARA</code> 參數如何驅動幾何與連接點。</li>
+<li>畫出等級階層 <code>SPEC → SELE → SPCO</code>，並說明選擇條件（問題與答案，例如型式與口徑）。</li>
+<li>從一個設計元件出發，沿 <code>SPRE → SPCO → CATREF → SCOM → GMREF／PTREF</code> 一路查到幾何與連接點。</li>
+<li>列出型鋼、材料、螺栓、保溫等其他目錄與等級。</li>
+<li>說明目錄管理的權限與變更流程。</li>
+<li>解釋為什麼工具不應自行建立「看起來像」的元件。</li>
+</ol>
+<h2 id="82">8.2 為什麼需要目錄與等級</h2>
+<p>想像一個沒有目錄與等級的世界：每位設計者自己畫一個閘閥的外形，自己填口徑與材質。結果會是：</p>
+<ul>
+<li>同一個閥在材料表上出現十種寫法，採購無法合併。</li>
+<li>高壓系統裡被畫進了低壓閥，沒有人發現。</li>
+<li>ISO 圖不知道這個「閥」的連接點在哪裡，無法計算切管長度。</li>
+</ul>
+<p>目錄與等級就是為了避免這些問題。三層資料的分工如下：</p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>內容</th>
+<th>誰維護</th>
+<th>開發類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目錄 Catalogue</td>
+<td>元件的幾何（參數化）、連接點、屬性</td>
+<td>目錄管理員</td>
+<td>產品主檔（Product Master）</td>
+</tr>
+<tr>
+<td>等級 Specification</td>
+<td>某管路系統允許使用哪些元件、口徑範圍、材質、壓力等級</td>
+<td>管材／系統工程師與管理員</td>
+<td>允許值規則表、白名單</td>
+</tr>
+<tr>
+<td>設計 Design</td>
+<td>實際的管線與元件，引用等級中的項目</td>
+<td>設計者</td>
+<td>交易資料（訂單明細）</td>
+</tr>
+</tbody>
+</table>
+<p>官方文件的說法是：在設計模組中選用元件時，系統會記錄一個<strong>規格參照（SPREF）</strong>，存在設計資料庫中；這個參照指向等級中的一筆<strong>等級元件（SPCOM）</strong>，而等級元件再指向目錄中的<strong>目錄元件</strong>（例如 <code>SCOM</code>）。目錄與等級可以是公司層級的標準，跨多個專案共用；設計資料則屬於單一專案。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 設計中如果找不到需要的元件，正確的做法是<strong>向目錄管理員提出需求</strong>，而不是用基本體湊出一個外形相似的物件。後者會讓材料表、管段圖與採購資料全部失真。</p>
+</blockquote>
+<h2 id="83">8.3 目錄階層</h2>
+<h3 id="831">8.3.1 目錄資料庫的結構</h3>
+<p>目錄存放在 CATA 類型的資料庫中（<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>）。常見的階層如下：</p>
+<pre><code>CATA            目錄
+└── SECT        區段（例如「閥類」「管件類」）
+    ├── CATE    類別（例如「法蘭端閘閥」）
+    │   ├── SCOM    目錄元件（例如每個口徑一筆）
+    │   ├── GMSE    幾何集（3D 外形）
+    │   ├── PTSE    點集（連接點）
+    │   └── DTSE    資料集（可選）
+    └── ...
+</code></pre>
+<p>官方 CSRM 的例子以 <code>PTSE 4 OF SECT 2 OF CATA /ASA-CATA</code> 這樣的識別方式引用點集，說明點集可以直接放在 <code>SECT</code> 之下。CSRM 也把點集與幾何集歸類為「區段與類別都可使用的元素」，所以 <code>GMSE</code>、<code>PTSE</code> 放在 <code>CATE</code> 或 <code>SECT</code> 之下都有，依目錄的規劃方式而定〔待核對：公司目錄的實際放法〕。</p>
+<p><img alt="目錄樹、等級樹與參數化元件的示意" src="images/diagrams/ch08_catalogue_spec_trees.svg" /></p>
+<p><em>圖 8-1　左為目錄樹（主檔資料），中為等級樹（允許值規則），右為參數如何驅動幾何與連接點。（本課程自繪，名稱與數值為示意）</em></p>
+<h3 id="832">8.3.2 目錄元件的四個類別</h3>
+<p>依 CSRM，目錄元件分為四類：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>常見元素型別</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管路元件（Piping Component）</td>
+<td><code>SCOM</code></td>
+<td>管件、閥、法蘭、墊片、管嘴等</td>
+</tr>
+<tr>
+<td>型材（Profile）</td>
+<td><code>SPRF</code></td>
+<td>結構型鋼斷面</td>
+</tr>
+<tr>
+<td>接頭（Joint）</td>
+<td><code>SJOI</code></td>
+<td>結構構件之間的連接</td>
+</tr>
+<tr>
+<td>配件（Fitting）</td>
+<td><code>SFIT</code></td>
+<td>結構上的附屬配件</td>
+</tr>
+</tbody>
+</table>
+<p>CSRM 也說明了兩個重要的規則：目錄元件<strong>沒有成員元素</strong>；目錄元件本身的屬性（參數以外）必須是實際值（字詞或對其他元素的參照），不能用參數定義。</p>
+<h3 id="833">8.3.3 目錄元件的關鍵屬性</h3>
+<p>依 CSRM 對目錄元件的屬性說明：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GTYPE</code></td>
+<td>通用型式（Generic Type），例如 <code>VALV</code>、<code>ELBO</code>、<code>FLAN</code>；設計端元件的型別要與它相符</td>
+</tr>
+<tr>
+<td><code>PARA</code>（<code>PARAM</code>）</td>
+<td>元件參數，一串數值，供點集與幾何集使用</td>
+</tr>
+<tr>
+<td><code>PTREF</code></td>
+<td>指向 3D 點集（<code>PTSE</code>）的參照</td>
+</tr>
+<tr>
+<td><code>GMREF</code></td>
+<td>指向 3D 幾何集（<code>GMSE</code>）的參照</td>
+</tr>
+<tr>
+<td><code>DTREF</code></td>
+<td>指向資料集（<code>DTSE</code>）的參照</td>
+</tr>
+</tbody>
+</table>
+<h3 id="834-gmseptse">8.3.4 幾何集（GMSE）與點集（PTSE）</h3>
+<p>CSRM 的定義可以摘要如下：</p>
+<ul>
+<li><strong>3D 點集（Pointset）</strong>：定義元件 p-point 的位置、方向、連接型式與口徑，供設計模組、ISODRAFT 等使用。</li>
+<li><strong>3D 幾何集（Geomset）</strong>：一組 3D 基本體，定義每個基本體的尺寸、方向與障礙（碰撞）幾何。</li>
+</ul>
+<p>用開發人員的話說：</p>
+<table>
+<thead>
+<tr>
+<th>目錄元素</th>
+<th>類比</th>
+<th>被誰使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PTSE</code></td>
+<td>元件的「介面定義」：有幾個接口、在哪裡、朝哪裡、什麼規格</td>
+<td>佈管時的連接、<code>ARRI</code>／<code>LEAV</code>、ISO 圖、連接檢查</td>
+</tr>
+<tr>
+<td><code>GMSE</code></td>
+<td>元件的「外觀與碰撞體」</td>
+<td>3D 顯示、圖面、干涉檢查</td>
+</tr>
+</tbody>
+</table>
+<p><a href="ch07_outfitting_zh-TW.reading.html">第 7 章</a>提到元件的 <code>ARRI</code>／<code>LEAV</code> 是 p-point 編號，它們的意義就定義在 <code>PTSE</code> 中。</p>
+<h2 id="84">8.4 參數化元件</h2>
+<h3 id="841">8.4.1 參數驅動幾何</h3>
+<p>目錄不會為每個口徑畫一次閥。做法是：<strong>一組 <code>GMSE</code>／<code>PTSE</code> 定義形狀與接口的「公式」，每一筆 <code>SCOM</code> 提供一組參數值</strong>。例如：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>內容（示意）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCOM</code>（DN50 閘閥）的 <code>PARA</code></td>
+<td><code>[1] 50</code> 公稱口徑、<code>[2] 178</code> 面對面長度、<code>[3] 165</code> 法蘭外徑</td>
+</tr>
+<tr>
+<td><code>GMSE</code> 中的圓柱基本體</td>
+<td>直徑 = <code>PARAM 3</code>，高度 = <code>PARAM 2</code></td>
+</tr>
+<tr>
+<td><code>PTSE</code> 中的 p-point</td>
+<td>P1 在 -X 方向距中心 <code>PARAM 2 / 2</code>；P2 在 +X 方向距中心 <code>PARAM 2 / 2</code>；口徑 = <code>PARAM 1</code></td>
+</tr>
+</tbody>
+</table>
+<p>換成 DN80 閘閥時，只要再建一筆 <code>SCOM</code>，給一組不同的 <code>PARA</code>，就能共用同一組 <code>GMSE</code>／<code>PTSE</code>。這就是參數化元件。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 參數化元件很像「類別定義加上建構參數」：<code>GMSE</code>／<code>PTSE</code> 是類別，<code>SCOM</code> 的 <code>PARA</code> 是建構參數，設計中的元件是實例。所以要知道某個閥的實際長度，不能只看 <code>SCOM</code>，要把 <code>PARA</code> 代入 <code>GMSE</code> 的運算式才得到結果。通常應透過系統提供的屬性或偽屬性取得計算後的值，而不是自己解析運算式〔待核對：公司版本可用的偽屬性〕。</p>
+</blockquote>
+<h3 id="842">8.4.2 三種參數</h3>
+<p>CSRM 說明，點集與幾何集的屬性可以用三種參數定義：</p>
+<table>
+<thead>
+<tr>
+<th>參數種類</th>
+<th>存在哪裡</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元件參數（Component Parameters）</td>
+<td>目錄元件的 <code>PARA</code></td>
+<td>口徑、面對面長度</td>
+</tr>
+<tr>
+<td>設計參數（Design Parameters）</td>
+<td>設計資料庫中的元件</td>
+<td>可變長度的元件，由設計者給定長度</td>
+</tr>
+<tr>
+<td>保溫參數（Insulation Parameters）</td>
+<td>保溫等級</td>
+<td>保溫厚度</td>
+</tr>
+</tbody>
+</table>
+<p>元件參數可以是數值、運算式或字詞；保溫、結構與設計參數只能是數值或運算式。<a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章</a>看到 <code>HSTIFF</code> 有 <code>Desparam</code>（設計參數）屬性，正是同一個觀念在船體元素上的體現。</p>
+<h3 id="843">8.4.3 目錄的建立方式</h3>
+<p>CSRM 說明，目錄通常以<strong>目錄巨集（Catalogue Macros）</strong>的形式建立成一個函式庫，專案的目錄資料庫再從這些巨集中挑選組成。建立與修改目錄資料庫的工具是 <strong>Paragon</strong> 模組（<a href="ch01_architecture_zh-TW.reading.html">第 1 章</a>的管理模組之一）。</p>
+<h2 id="85">8.5 等級階層</h2>
+<h3 id="851">8.5.1 等級的結構</h3>
+<p>等級存在 CATA 類型的資料庫中（與目錄同類型，但通常是不同的 DB）。結構如下：</p>
+<pre><code>SPWL            等級世界〔元素代碼待核對〕
+└── SPEC        一份等級，例如 /A1A（某壓力、某材質的海水管等級）
+    └── SELE    選擇器：問「型式？」
+        └── SELE    選擇器：答 VALV，再問「口徑？」
+            ├── SPCO    答 50 → 指向 DN50 閘閥
+            └── SPCO    答 80 → 指向 DN80 閘閥
+</code></pre>
+<p>依 DMRM，選擇器（<code>SELEC</code>）的合法擁有者是 <code>SPEC</code> 或另一個 <code>SELEC</code>，合法成員是 <code>SELEC</code> 或等級元件（<code>SPCOMPONENT</code>，簡稱 <code>SPCO</code>）。選擇器帶有下列屬性：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Question</code></td>
+<td>這一層要問的問題（例如依型式或口徑分支）</td>
+</tr>
+<tr>
+<td><code>Answer</code>／<code>Maxanswer</code></td>
+<td>數值答案（可為範圍）</td>
+</tr>
+<tr>
+<td><code>Tquestion</code>／<code>Tanswer</code></td>
+<td>文字型的問題與答案</td>
+</tr>
+<tr>
+<td><code>Default</code>／<code>Tdefault</code></td>
+<td>預設答案</td>
+</tr>
+<tr>
+<td><code>Qtype</code></td>
+<td>問題的型別</td>
+</tr>
+</tbody>
+</table>
+<p>用開發人員的話說，等級就是一棵<strong>決策樹</strong>：設計者選元件時，系統沿著 <code>SELE</code> 一層層回答問題（型式？口徑？端部型式？），走到葉節點 <code>SPCO</code>，再把它的參照寫進設計元件的 <code>SPRE</code>。</p>
+<h3 id="852-spco">8.5.2 等級元件 SPCO</h3>
+<p><code>SPCO</code> 是等級的葉節點，也是設計元件 <code>SPRE</code> 實際指向的對象。依官方文件，它的關鍵屬性有：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>指向</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CATREF</code></td>
+<td>目錄元件（<code>SCOM</code>、<code>SPRF</code> 等）</td>
+<td><strong>唯一必填</strong>的指標</td>
+</tr>
+<tr>
+<td><code>DETAIL</code></td>
+<td>細部文字（<code>DTEXT</code>）</td>
+<td>元件的說明文字，用於材料表</td>
+</tr>
+<tr>
+<td><code>MATXT</code></td>
+<td>材料文字（<code>MTEXT</code>）</td>
+<td>材料說明，用於材料表</td>
+</tr>
+<tr>
+<td><code>BLTREF</code></td>
+<td>螺栓需求（<code>BLTAB</code>）</td>
+<td>法蘭連接需要的螺栓</td>
+</tr>
+<tr>
+<td><code>CMPREF</code></td>
+<td>元件性質（<code>CMPT</code>，位於 Properties DB）</td>
+<td>重量等物理性質</td>
+</tr>
+<tr>
+<td><code>PRTREF</code></td>
+<td>零件需求</td>
+<td>〔用途依公司設定，待核對〕</td>
+</tr>
+</tbody>
+</table>
+<p>官方 E3D 文件也提醒：建立 <code>SPCO</code> 時，若 <code>CATREF</code> 指向的目錄元件不存在，會出現 <code>Undefined Name</code> 錯誤，<code>CATREF</code> 會顯示為 <code>=0</code>。這是目錄與等級不同步時最常見的徵兆。</p>
+<h3 id="853">8.5.3 等級的類型</h3>
+<table>
+<thead>
+<tr>
+<th>等級類型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管路等級</td>
+<td>管件、閥、法蘭、墊片，設在 <code>PIPE</code> 的 <code>PSPE</code></td>
+</tr>
+<tr>
+<td>保溫等級</td>
+<td>依溫度與口徑決定保溫厚度，設在 <code>ISPE</code></td>
+</tr>
+<tr>
+<td>伴熱等級</td>
+<td>伴熱需求，設在 <code>TSPE</code></td>
+</tr>
+<tr>
+<td>結構型鋼等級</td>
+<td>鐵舾裝 <code>SCTN</code> 選用的型鋼斷面</td>
+</tr>
+<tr>
+<td>電纜托架、支架等級</td>
+<td>依公司設定〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<p>官方文件說明，AVEVA Catalogue Manager 可儲存、管理並發佈等級，並與 AVEVA Marine 整合；可匯入的等級類型包括管路、螺栓、電纜托架、保溫與結構。等級核准後會自動發佈到設計端，必要時也可以手動執行「Republish Spec to Design」重新發佈。</p>
+<h3 id="854">8.5.4 等級的表格觀點</h3>
+<p>管理員維護等級時，常以「表格」的形式思考：每一列是一筆 <code>SPCO</code>，欄位是各層選擇器的答案與各種參照。以下為<strong>示意</strong>，欄位名稱與格式不是官方的等級檔案語法：</p>
+<table>
+<thead>
+<tr>
+<th>型式（TYPE）</th>
+<th>口徑（PBOR）</th>
+<th>SPCO 名稱</th>
+<th>CATREF</th>
+<th>DETAIL</th>
+<th>MATXT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VALV</td>
+<td>50</td>
+<td><code>/A1A/GATE-50</code></td>
+<td><code>/CAT/GV-FL-50</code></td>
+<td><code>/DT/GATE-VALVE</code></td>
+<td><code>/MT/BRONZE</code></td>
+</tr>
+<tr>
+<td>VALV</td>
+<td>80</td>
+<td><code>/A1A/GATE-80</code></td>
+<td><code>/CAT/GV-FL-80</code></td>
+<td><code>/DT/GATE-VALVE</code></td>
+<td><code>/MT/BRONZE</code></td>
+</tr>
+<tr>
+<td>ELBO</td>
+<td>50</td>
+<td><code>/A1A/ELBO-50</code></td>
+<td><code>/CAT/EL90-50</code></td>
+<td><code>/DT/ELBOW-90</code></td>
+<td><code>/MT/STEEL</code></td>
+</tr>
+</tbody>
+</table>
+<p>這張表說明了幾件事：</p>
+<ul>
+<li><strong>選擇器的問題就是表格的前幾欄</strong>：型式與口徑決定走到哪一列。</li>
+<li><strong><code>CATREF</code> 是每一列唯一必填的參照</strong>，其他參照可以留空。</li>
+<li><strong>多列可以共用同一份文字</strong>：例如所有口徑的閘閥共用同一筆 <code>DTEXT</code>。</li>
+</ul>
+<p>〔待核對〕Marine 12.x 中等級的建立與匯入方式（Specon 文字檔、Catalogue Manager 匯入等），請以公司管理員的作業方式為準。</p>
+<h2 id="86">8.6 參照鏈：從設計元件一路查到幾何</h2>
+<h3 id="861">8.6.1 整條鏈</h3>
+<p><img alt="參照鏈：設計元件的 SPRE 指向 SPCO，SPCO 的 CATREF 指向 SCOM，SCOM 的 GMREF 與 PTREF 指向 GMSE 與 PTSE" src="images/diagrams/ch08_reference_chain.svg" /></p>
+<p><em>圖 8-2　參照鏈。紅色箭頭是參照屬性（外鍵），灰色線是擁有關係（樹的父子）。設計元件的 <code>SPRE</code> 直接指向 <code>SPCO</code>，<code>SPEC</code>／<code>SELE</code> 只在選元件時用來過濾。（本課程自繪，名稱為示意）</em></p>
+<p>用 SQL 的話說，這是一串 JOIN：</p>
+<pre><code class="language-sql">-- 示意：用 SQL 比喻參照鏈，不是可執行的查詢
+SELECT d.name, s.detail, c.gtype, c.para, g.*, p.*
+FROM   design_component d
+JOIN   spco  s ON d.spre   = s.ref     -- 設計 → 等級
+JOIN   scom  c ON s.catref = c.ref     -- 等級 → 目錄
+JOIN   gmse  g ON c.gmref  = g.ref     -- 目錄 → 幾何集
+JOIN   ptse  p ON c.ptref  = p.ref;    -- 目錄 → 點集
+</code></pre>
+<h3 id="862-pml">8.6.2 用 PML 走一遍參照鏈</h3>
+<pre><code class="language-pml">-- 示意：未在實機驗證。從一個閥沿參照鏈查到目錄元件
+-- 只讀取，不修改任何資料
+!valve = /P-100/B1/VALV1          -- 請換成訓練專案中的元件名稱
+!spco  = !valve.spre               -- 設計 → 等級元件
+if (!spco.isNull()) then
+   $p 這個元件沒有 SPRE，請檢查
+   return
+endif
+!scom  = !spco.catref              -- 等級元件 → 目錄元件
+!msg = 'SPCO : ' &amp; !spco.name
+$p $!msg
+!msg = 'SCOM : ' &amp; !scom.name &amp; '  GTYPE=' &amp; !scom.gtype
+$p $!msg
+!msg = 'GMREF: ' &amp; !scom.gmref.string() &amp; '  PTREF: ' &amp; !scom.ptref.string()
+$p $!msg
+q PARA of $!scom                 -- 以命令列查詢顯示參數陣列
+</code></pre>
+<p>在命令列中也可以逐步查詢：先 <code>Q SPRE</code> 取得等級元件名稱，跳到該元件後 <code>Q CATREF</code>，再跳到目錄元件 <code>Q PARA</code>、<code>Q GMREF</code>、<code>Q PTREF</code>。〔待核對〕<code>.isNull()</code> 的寫法、<code>PARA</code> 陣列的輸出格式，請在公司版本確認；導覽與屬性讀取見<a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 參照鏈中任何一環斷掉（<code>SPRE</code> 為空、<code>CATREF</code> 為 <code>=0</code>、目錄元件被刪除），下游的材料表、ISO 圖、碰撞檢查都會出錯。寫報表或檢查工具時，<strong>每一步都要檢查參照是否為空</strong>，並把斷鏈的元件列入例外清單，而不是讓程式中斷或默默跳過。</p>
+</blockquote>
+<h3 id="863">8.6.3 斷鏈與常見問題排除</h3>
+<table>
+<thead>
+<tr>
+<th>現象</th>
+<th>可能原因</th>
+<th>檢查方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元件在 3D 中看不到或顯示異常</td>
+<td><code>SPRE</code> 為空，或 <code>GMREF</code> 指向不存在的幾何集</td>
+<td>沿參照鏈逐一查詢</td>
+</tr>
+<tr>
+<td>材料表缺少某元件</td>
+<td><code>SPRE</code> 為空，或 <code>SPCO</code> 沒有 <code>DETAIL</code>／<code>MATXT</code></td>
+<td>查 <code>SPCO</code> 的文字參照</td>
+</tr>
+<tr>
+<td>ISO 圖無法連接</td>
+<td><code>PTSE</code> 的 p-point 方向或連接型式錯誤</td>
+<td>查 <code>PTREF</code> 與點集內容</td>
+</tr>
+<tr>
+<td><code>CATREF</code> 顯示 <code>=0</code></td>
+<td>建立 <code>SPCO</code> 時目錄元件尚不存在</td>
+<td>確認目錄元件名稱後重新設定</td>
+</tr>
+<tr>
+<td>設計者的 MDB 看不到等級</td>
+<td>MDB 未包含等級 DB</td>
+<td>請管理員檢查 MDB（<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="87">8.7 其他目錄與參考資料</h2>
+<p>管路元件只是目錄的一部分。完整的專案還有：</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>內容</th>
+<th>與設計的關係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>型鋼目錄</td>
+<td>型鋼斷面（<code>SPRF</code>）、接頭（<code>SJOI</code>）、配件（<code>SFIT</code>）</td>
+<td>鐵舾裝 <code>SCTN</code> 經等級引用</td>
+</tr>
+<tr>
+<td>螺栓表</td>
+<td>法蘭連接所需的螺栓規格與數量（<code>BLTAB</code>）</td>
+<td><code>SPCO</code> 的 <code>BLTREF</code> 引用</td>
+</tr>
+<tr>
+<td>材料性質</td>
+<td>密度等性質，存在 PROP 類型資料庫（<code>CMPT</code>）</td>
+<td><code>SPCO</code> 的 <code>CMPREF</code> 引用，用於重量計算</td>
+</tr>
+<tr>
+<td>文字</td>
+<td>細部文字（<code>DTEXT</code>）、材料文字（<code>MTEXT</code>）</td>
+<td>材料表與 ISO 圖的說明欄</td>
+</tr>
+<tr>
+<td>保溫</td>
+<td>保溫等級與厚度規則</td>
+<td><code>ISPE</code> 引用</td>
+</tr>
+<tr>
+<td>船體標準</td>
+<td>型材斷面、肘板型式、端部處理型式等船體標準</td>
+<td>船體建模引用〔存放方式與舾裝目錄不同，依版本待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h2 id="88">8.8 目錄管理的權限與流程</h2>
+<h3 id="881">8.8.1 權限</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>對目錄 DB</th>
+<th>對等級 DB</th>
+<th>對設計 DB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目錄管理員</td>
+<td>讀寫</td>
+<td>讀寫</td>
+<td>讀</td>
+</tr>
+<tr>
+<td>管材／系統工程師</td>
+<td>讀</td>
+<td>依公司規定審核</td>
+<td>讀</td>
+</tr>
+<tr>
+<td>設計者</td>
+<td>讀</td>
+<td>讀</td>
+<td>讀寫（自己的 <code>ZONE</code>）</td>
+</tr>
+<tr>
+<td>工具開發者</td>
+<td>讀</td>
+<td>讀</td>
+<td>依工具用途</td>
+</tr>
+</tbody>
+</table>
+<p>權限由 Team 擁有 DB、MDB 組合決定（第 2 章）。設計者的 MDB 中，目錄與等級 DB 通常只能讀。</p>
+<h3 id="882">8.8.2 變更流程</h3>
+<ol>
+<li>設計者提出需求（缺少的元件、口徑、型式），附上廠商資料。</li>
+<li>目錄管理員在<strong>測試專案</strong>中建立或修改目錄元件與等級。</li>
+<li>系統或管材工程師審核等級。</li>
+<li>發佈到正式專案，通知設計者。</li>
+<li>記錄變更，供日後追溯。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 不要刪除或改名已被設計使用的 <code>SPCO</code> 或目錄元件。被參照的元素消失後，設計元件的 <code>SPRE</code> 或 <code>CATREF</code> 會失去對象，造成大量斷鏈。需要淘汰元件時，應先查詢使用情況，改以「停止在等級中提供」的方式處理〔具體做法依公司規範，待核對〕。</p>
+</blockquote>
+<h2 id="89">8.9 開發人員須知：為什麼工具不應自行建立「看起來像」的元件</h2>
+<p>開發自動建模工具時，常見的誘惑是：等級裡找不到合適的元件，就用基本體在設計資料庫中「畫」一個外形相同的東西。這樣做的後果：</p>
+<table>
+<thead>
+<tr>
+<th>下游</th>
+<th>會發生什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>材料表（MTO）</td>
+<td>這個物件沒有 <code>SPRE</code>，不會出現在材料表，或以錯誤名稱出現</td>
+</tr>
+<tr>
+<td>ISO 圖</td>
+<td>沒有 <code>PTSE</code>，Isodraft 不認得它的接口，無法計算切管長度</td>
+</tr>
+<tr>
+<td>連接檢查</td>
+<td>沒有連接型式與口徑資訊，檢查會報錯或漏報</td>
+</tr>
+<tr>
+<td>採購</td>
+<td>採購清單沒有這個料號</td>
+</tr>
+<tr>
+<td>重量重心</td>
+<td>沒有 <code>CMPREF</code>，重量不正確</td>
+</tr>
+<tr>
+<td>未來修改</td>
+<td>等級更新不會影響它，它永遠停在被畫出來的那一刻</td>
+</tr>
+</tbody>
+</table>
+<p>正確的做法：</p>
+<ol>
+<li>工具只從等級中選用元件，寫入 <code>SPRE</code>。</li>
+<li>找不到元件時，工具停止並回報「缺少等級項目」，而不是自行補一個。</li>
+<li>需要特殊元件時，走 8.8.2 節的變更流程。</li>
+<li>工具的測試要包含「等級中沒有對應元件」的情況。</li>
+</ol>
+<blockquote>
+<p><strong>開發人員須知：</strong> 對程式來說，「看起來一樣」和「是同一個東西」完全不同。資料庫中一筆沒有外鍵的資料，在所有下游系統眼中都不存在。這和在 ERP 中手打一個沒有料號的品名是一樣的錯誤。</p>
+</blockquote>
+<h2 id="810">8.10 練習（只能在訓練專案）</h2>
+<h3 id="8-1">練習 8-1：追蹤一個閥門的來源</h3>
+<ol>
+<li>在訓練專案中選一個閥門。</li>
+<li>查出它的 <code>SPRE</code> 指向哪個 <code>SPCO</code>，該 <code>SPCO</code> 屬於哪個 <code>SPEC</code>，沿途經過哪些 <code>SELE</code>，每一層的問題與答案是什麼。</li>
+<li>查出 <code>SPCO</code> 的 <code>CATREF</code> 指向哪個目錄元件，記錄它的 <code>GTYPE</code> 與 <code>PARA</code>。</li>
+<li>找出它的 <code>GMSE</code> 與 <code>PTSE</code>，記錄點集中有幾個 p-point。</li>
+<li>對照設計中這個閥的 <code>ARRI</code>／<code>LEAV</code>，說明它們對應 <code>PTSE</code> 中的哪些點。</li>
+</ol>
+<h3 id="8-2">練習 8-2：比較兩個口徑</h3>
+<ol>
+<li>找出同一 <code>CATE</code> 中兩個不同口徑的 <code>SCOM</code>。</li>
+<li>比較它們的 <code>PARA</code>、<code>GMREF</code>、<code>PTREF</code>。</li>
+<li>說明哪些相同、哪些不同，以及為什麼。</li>
+</ol>
+<h3 id="8-3">練習 8-3：斷鏈檢查</h3>
+<ol>
+<li>執行 8.6.2 節的 PML 範例，改寫成對一個 <code>ZONE</code> 內所有管路元件執行。</li>
+<li>列出 <code>SPRE</code> 為空或 <code>CATREF</code> 為空的元件。</li>
+<li>討論：發現斷鏈時，工具應該怎麼回報？</li>
+</ol>
+<h2 id="811">8.11 自我檢核</h2>
+<ul>
+<li>[ ] 我能用「主檔資料」與「允許值規則」解釋目錄與等級。</li>
+<li>[ ] 我能畫出 <code>CATA → SECT → CATE → SCOM</code>，並說明 <code>GMSE</code> 與 <code>PTSE</code> 的角色。</li>
+<li>[ ] 我能說明 <code>GTYPE</code>、<code>PARA</code>、<code>GMREF</code>、<code>PTREF</code> 的意義。</li>
+<li>[ ] 我能解釋參數化元件，以及元件參數、設計參數、保溫參數的差別。</li>
+<li>[ ] 我能畫出 <code>SPEC → SELE → SPCO</code>，並說明選擇器的問題與答案。</li>
+<li>[ ] 我能說明 <code>SPCO</code> 的 <code>CATREF</code>、<code>DETAIL</code>、<code>MATXT</code>、<code>BLTREF</code>、<code>CMPREF</code>。</li>
+<li>[ ] 我能從設計元件沿參照鏈查到幾何集與點集。</li>
+<li>[ ] 我能列出型鋼、螺栓、材料、保溫等其他目錄。</li>
+<li>[ ] 我能說明目錄管理的權限與變更流程。</li>
+<li>[ ] 我能說明為什麼工具不應自行建立「看起來像」的元件。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 Catalogues and Specifications Reference Manual：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM4.05.01.html">Catalogue Database Structure</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM4.05.03.html">目錄、等級與設計資料的關係</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM4.05.17.html">Catalogue Components</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM4.05.21.html">Fitting（PTREF、GMREF、PARAM、GTYPE、DTREF）</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM4.05.07.html">Elements Used in Both Types of Catalogue Section/Category（Pointset 與 Geomset 定義）</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSRM/CSRM11.12.5.html">SPCOmponent and the Component Data（SPCO 的指標）</a></li>
+<li>AVEVA E3D 2.1 Catalogues and Specifications User Guide：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/CSUG/CSUG3.03.02.html">SPREF、SPCOM 與目錄元件</a></li>
+<li>AVEVA E3D 2.1 Data Model Reference：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM3.04.086.html">Selector Element (SELEC)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM3.04.095.html">Specification Component Element (SPCOMPONENT)</a></li>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1135769.html">Specification Component Element</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1226804.html">Catalogue Manager 與 Marine 整合</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1230122.html">Republish Spec to Design</a>（需以瀏覽器開啟）</li>
+<li>AVEVA E3D Design 線上文件：<a href="https://docs.aveva.com/bundle/e3d-design/page/889985.html">CATREF 說明</a>（需以瀏覽器開啟）</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch07_outfitting_zh-TW.reading.html"><small>← 上一篇</small>第 7 章　舾裝設計：設備、管路、結構、通風與電纜</a><a class="next" href="ch09_drawings_zh-TW.reading.html"><small>下一篇 →</small>第 9 章　圖面、ISO 圖與報表輸出</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

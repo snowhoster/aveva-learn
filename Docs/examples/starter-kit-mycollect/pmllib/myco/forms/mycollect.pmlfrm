@@ -1,0 +1,82 @@
+--========================================================================
+-- File:      mycollect.pmlfrm   Type: Form Definition   Module: myco
+-- Description: Collect EQUIs under CE, show in grid, export to Excel
+--========================================================================
+import 'GridControl'
+  handle (1000,0)
+    -- already imported - ignore
+  endhandle
+
+setup form !!mycollect dialog resizeable VarChars NoAlign
+  title 'My EQUI Collector'
+  !this.formRevision = '1.0'
+
+  member .grid     is NETGRIDCONTROL
+  member .rows     is ARRAY
+
+  path down
+  text .scope 'Scope(空=当前CE)' width 22 is STRING
+  frame .fmeBtns 'Actions'
+    path right
+    button .btnGo    'Collect'   callback '!this.collect()'   tooltip 'Collect EQUIs'
+    button .btnXls   'Export...' callback '!this.export()'    tooltip 'Save grid to Excel'
+    button .btnClose 'Close'     CANCEL
+  exit
+  container .netFrame 'Grid' nobox pmlNetControl width 60 height 16 anchor all
+exit
+
+define method .mycollect()
+  !this.initcall = '!this.onShow()'
+endmethod
+
+define method .onShow()
+  !this.grid = object NETGRIDCONTROL()
+  !this.netFrame.control = !this.grid.handle()
+  !this.collect()
+endmethod
+
+define method .collect()
+  !this.rows = ARRAY()
+  !heads = ARRAY()
+  !heads[1] = 'Name'
+  !heads[2] = 'Description'
+  !heads[3] = 'Type'
+  !coll = object COLLECTION()
+  !coll.type(|EQUI|)
+  !scope = !this.scope.val
+  if (!scope.empty()) then
+    !coll.scope(!!ce)
+  else
+    !target = object DBREF(!scope)
+    handle (2,109)
+      !!alert.error('Scope element not found: ' & !scope)
+      return
+    elsehandle NONE
+    endhandle
+    !coll.scope(!target)
+  endif
+  !results = !coll.results()
+  if (!results.size() gt 0) then
+    do !e index !results
+      !row = ARRAY()
+      !row[1] = !results[!e].flnn
+      !row[2] = !results[!e].desc
+      !row[3] = !results[!e].type.string()
+      !this.rows.append(!row)
+    enddo
+  else
+    !!alert.warning('No EQUI found under the scope.')
+  endif
+  !ds = object NETDATASOURCE('MyCollect', !heads, !this.rows)
+  handle (1000,0)
+    !!alert.error(!!error.text)
+    return
+  endhandle
+  !this.grid.bindToDataSource(!ds)
+  !this.grid.setNameColumnImage()
+endmethod
+
+define method .export()
+  !!exportToExcel(!this.grid, ||, |Save EQUI List|)
+endmethod
+-- End of form definition for !!mycollect

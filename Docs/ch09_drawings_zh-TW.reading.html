@@ -1,0 +1,643 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 9 章　圖面、ISO 圖與報表輸出 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#9-iso">第 9 章 圖面、ISO 圖與報表輸出</a><ul>
+<li><a href="#91">9.1 學習目標</a></li>
+<li><a href="#92">9.2 兩種圖面工具</a></li>
+<li><a href="#93">9.3 舾裝圖面的資料階層</a><ul>
+<li><a href="#931">9.3.1 元素樹</a></li>
+<li><a href="#932">9.3.2 開發人員的讀法</a></li>
+<li><a href="#933">9.3.3 圖面的生命週期</a></li>
+</ul>
+</li>
+<li><a href="#94">9.4 視圖內容與表現規則</a><ul>
+<li><a href="#941">9.4.1 視圖內容</a></li>
+<li><a href="#942-representation-rules">9.4.2 表現規則（Representation Rules）</a></li>
+<li><a href="#943">9.4.3 圖層</a></li>
+</ul>
+</li>
+<li><a href="#95">9.5 關聯尺寸、自動標註與圖面更新</a><ul>
+<li><a href="#951">9.5.1 為什麼圖面能更新</a></li>
+<li><a href="#952">9.5.2 船體圖面：在圖面中建模</a></li>
+<li><a href="#953">9.5.3 什麼會更新、什麼不會</a></li>
+<li><a href="#954">9.5.4 圖面品質檢查</a></li>
+</ul>
+</li>
+<li><a href="#96-isodraftiso">9.6 Isodraft：ISO 管段圖</a><ul>
+<li><a href="#961-iso">9.6.1 ISO 圖是什麼</a></li>
+<li><a href="#962-isodraft">9.6.2 Isodraft 的運作</a></li>
+</ul>
+</li>
+<li><a href="#97-mto">9.7 系統內建報表與材料表（MTO）</a><ul>
+<li><a href="#971">9.7.1 報表是什麼</a></li>
+<li><a href="#972-mto">9.7.2 材料表（MTO）</a></li>
+<li><a href="#973">9.7.3 船體報表</a></li>
+</ul>
+</li>
+<li><a href="#98">9.8 開發人員須知：批次出圖與報表自動化</a><ul>
+<li><a href="#981">9.8.1 切入點</a></li>
+<li><a href="#982">9.8.2 批次工具的骨架</a></li>
+<li><a href="#983">9.8.3 不應該做的事</a></li>
+</ul>
+</li>
+<li><a href="#99">9.9 練習（只能在訓練專案）</a><ul>
+<li><a href="#9-1">練習 9-1：拆解一張圖</a></li>
+<li><a href="#9-2">練習 9-2：圖面更新</a></li>
+<li><a href="#9-3iso">練習 9-3：ISO 圖與資料品質</a></li>
+<li><a href="#9-4">練習 9-4：自製材料表</a></li>
+</ul>
+</li>
+<li><a href="#910">9.10 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船舶設計業務領域 · 10 / 21</span><h1 id="9-iso">第 9 章　圖面、ISO 圖與報表輸出</h1>
+<blockquote>
+<p>本章是第二部分的最後一章，說明 3D 模型如何變成工廠與審查單位使用的文件：佈置圖、結構圖、ISO 管段圖與材料表。核心觀念只有一個：<strong>圖面與報表都是模型的「視圖」</strong>。資訊應該來自模型與自動標註，而不是在圖面上手繪；這樣模型修改後，圖面才能更新。對開發人員而言，本章也指出批次出圖與報表自動化的切入點。</p>
+<p>本章依據 AVEVA Hull and Outfitting 12.1 線上文件、AVEVA E3D 2.1 的 DRAW Reference Manual 與 Data Model Reference（E3D 版本，觀念與 Marine 的 Outfitting Draft 相通）、AVEVA 官方產品型錄，以及 PDMS 系的通用知識自主撰寫，不是官方手冊的翻譯。E3D 中的圖面模組名稱為 DRAW，Marine 12.x 為 Outfitting Draft，介面與指令可能不同。標示 <strong>〔待核對〕</strong> 的項目請以公司版本與管理員設定為準。所有練習只能在訓練專案進行。</p>
+</blockquote>
+<h2 id="91">9.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Marine Drafting（船體圖面）與 Outfitting Draft（舾裝圖面）的差異，以及各自的客製化途徑。</li>
+<li>畫出舾裝圖面的資料階層 <code>DEPT → REGI → DRWG → SHEE → VIEW</code>，並說明標註掛在哪裡。</li>
+<li>解釋關聯尺寸、自動標註與圖面更新的原理。</li>
+<li>說明表現規則（Representation）與圖層的用途。</li>
+<li>說明 Isodraft 如何從管線產生 ISO 管段圖，以及樣式由誰設定。</li>
+<li>說明系統內建報表與材料表（MTO）的產生方式。</li>
+<li>指出批次出圖與報表自動化的切入點，以及不應該做的事。</li>
+</ol>
+<h2 id="92">9.2 兩種圖面工具</h2>
+<p>AVEVA Marine 12.1 的文件分別包含 <strong>Marine Drafting</strong> 與 <strong>Outfitting Draft</strong>。兩者都直接從 3D 模型產生圖面，但血統不同：</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th>Marine Drafting</th>
+<th>Outfitting Draft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>來源</td>
+<td>Tribon 的圖面系統</td>
+<td>PDMS 的 Draft 模組</td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>船體結構圖、板架圖、分段圖、生產用草圖</td>
+<td>設備佈置圖、管路佈置圖、鐵舾裝圖</td>
+</tr>
+<tr>
+<td>圖面資料存放</td>
+<td>船體圖面 Databank〔待核對〕</td>
+<td>PADD 類型的 Dabacon 資料庫（<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>）</td>
+</tr>
+<tr>
+<td>資料結構</td>
+<td>圖面、視圖、子圖（Subpicture）等 Tribon 結構</td>
+<td><code>DEPT → REGI → DRWG → SHEE → VIEW</code> 元素樹</td>
+</tr>
+<tr>
+<td>客製化</td>
+<td>Vitesse（Python），例如 <code>kcs_draft</code> 模組（<a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a>）</td>
+<td>PML 與 .NET（第 11–14 章）</td>
+</tr>
+<tr>
+<td>開發類比</td>
+<td>以 API 操作的文件物件</td>
+<td>存在資料庫中的樹狀文件物件</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 同一張「機艙佈置圖」如果同時有船體結構與舾裝，要先確認它是用哪一個工具產生的，才知道要用哪一套 API 自動化。混用兩種工具的圖面時，責任分工與更新流程也要事先講清楚。</p>
+</blockquote>
+<h2 id="93">9.3 舾裝圖面的資料階層</h2>
+<h3 id="931">9.3.1 元素樹</h3>
+<p>PDMS 系的圖面同樣是資料庫元素。依 E3D DRAW Reference Manual，圖面（<code>DRWG</code>）是傳統紙本圖的資料庫對應物，它底下的每個元素都儲存定義這張圖所需的資訊；一張圖可以有一張或多張圖紙（<code>SHEE</code>），每張圖紙可以有一個或多個視圖（<code>VIEW</code>）。</p>
+<p><img alt="舾裝圖面的資料階層：DEPT、REGI、DRWG、SHEE、VIEW 與標註；右側為 VIEW 引用的設計模型、表現規則與圖庫" src="images/diagrams/ch09_draft_hierarchy.svg" /></p>
+<p><em>圖 9-1　舾裝圖面的資料階層。左側是 PADD 資料庫中的元素樹，右側是 VIEW 引用的資料。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>意義</th>
+<th>主要內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DEPT</code></td>
+<td>部門</td>
+<td>分組用，例如依專業或課別</td>
+</tr>
+<tr>
+<td><code>REGI</code></td>
+<td>登錄冊（Registry）</td>
+<td>分組用，例如依船號或圖面類別；依 DMRM，<code>DRWG</code> 的擁有者是 Registry</td>
+</tr>
+<tr>
+<td><code>DRWG</code></td>
+<td>一張圖</td>
+<td>圖號、標題、版次</td>
+</tr>
+<tr>
+<td><code>SHEE</code></td>
+<td>圖紙</td>
+<td>圖紙大小、圖框（Backing Sheet）參照、繪製清單名稱</td>
+</tr>
+<tr>
+<td><code>VIEW</code></td>
+<td>視圖</td>
+<td>視線方向、通過點、比例、在圖紙上的大小與位置，以及要畫哪些元素</td>
+</tr>
+<tr>
+<td>標註類元素</td>
+<td>尺寸、標籤、註記</td>
+<td>掛在 <code>VIEW</code> 或 <code>SHEE</code> 下〔元素代碼依版本，待核對〕</td>
+</tr>
+<tr>
+<td><code>LIBY</code></td>
+<td>圖庫</td>
+<td>圖框、符號、標籤樣板，由管理員維護</td>
+</tr>
+</tbody>
+</table>
+<p>DRAW Reference Manual 說明，每個 <code>VIEW</code> 會記錄自己的視圖參數（視線方向、通過點或比例）、在圖紙上的大小、位置與方向，以及一個參照，指向列出「要畫哪些設計或目錄元素」的清單元素。依 DMRM，<code>SHEE</code> 的屬性包括圖框參照（<code>Bsrf</code>）、圖紙大小（<code>Size</code>）與繪製清單名稱（<code>Idlname</code>）等。</p>
+<h3 id="932">9.3.2 開發人員的讀法</h3>
+<table>
+<thead>
+<tr>
+<th>圖面概念</th>
+<th>開發類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DRWG</code> 樹</td>
+<td>文件物件模型（DOM）</td>
+</tr>
+<tr>
+<td><code>VIEW</code> 的內容清單</td>
+<td>一段查詢：「要顯示哪些元素」</td>
+</tr>
+<tr>
+<td>表現規則</td>
+<td>樣式表（CSS）：依型別與屬性決定外觀</td>
+</tr>
+<tr>
+<td>圖框、符號</td>
+<td>範本與元件庫</td>
+</tr>
+<tr>
+<td>更新圖面</td>
+<td>重新執行查詢並重新繪製</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>VIEW</code> 本身<strong>不存幾何</strong>，它存的是「畫哪些東西」與「怎麼畫」。真正的線條是在產生或更新時，依模型即時計算出來的。</p>
+<h3 id="933">9.3.3 圖面的生命週期</h3>
+<p>圖面和程式碼一樣有生命週期。把它想清楚，批次工具才知道在哪個階段可以做什麼：</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>動作</th>
+<th>誰負責</th>
+<th>工具可以做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立</td>
+<td>選範本、建立 <code>DRWG</code>、<code>SHEE</code>、<code>VIEW</code></td>
+<td>設計者</td>
+<td>依清單批次建立同類型圖面的骨架</td>
+</tr>
+<tr>
+<td>編輯</td>
+<td>調整視圖、加標註</td>
+<td>設計者</td>
+<td>檢查命名、圖框、比例是否符合規範</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>依最新模型重新產生</td>
+<td>設計者或批次作業</td>
+<td>批次更新並記錄時間</td>
+</tr>
+<tr>
+<td>審查</td>
+<td>檢查內容與品質</td>
+<td>審查者</td>
+<td>產生檢查清單、比對前後版差異</td>
+</tr>
+<tr>
+<td>發行</td>
+<td>定版、輸出 PDF 或交付格式</td>
+<td>文管</td>
+<td>批次輸出、填寫版次資訊</td>
+</tr>
+<tr>
+<td>改版</td>
+<td>模型變更後再更新、升版次</td>
+<td>設計者與文管</td>
+<td>找出「模型已改但圖未更新」的圖面</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 「模型已改、圖面未更新」和第 6 章的「模型已改、零件未重新抽出」是同一類問題：衍生資料落後於來源資料。檢查工具的思路也相同，比對模型修改時間與圖面更新時間〔圖面更新時間能否以屬性讀取，待核對〕。</p>
+</blockquote>
+<h2 id="94">9.4 視圖內容與表現規則</h2>
+<h3 id="941">9.4.1 視圖內容</h3>
+<p>決定一個視圖要顯示什麼，通常有三個層面：</p>
+<ul>
+<li><strong>範圍</strong>：哪些 <code>ZONE</code>、<code>EQUI</code>、<code>PIPE</code>、<code>STRU</code> 要畫進來，哪些要排除。</li>
+<li><strong>視線與剖切</strong>：從哪個方向看、是否剖切、剖切面在哪裡（例如某甲板以上 1.5 m 的平面圖）。</li>
+<li><strong>比例與位置</strong>：在圖紙上的比例與擺放位置。</li>
+</ul>
+<h3 id="942-representation-rules">9.4.2 表現規則（Representation Rules）</h3>
+<p>表現規則決定「同一個 3D 物件在圖面上畫成什麼樣子」，例如：</p>
+<table>
+<thead>
+<tr>
+<th>物件</th>
+<th>可能的表現</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管路</td>
+<td>單線或雙線、是否畫中心線、保溫是否顯示</td>
+</tr>
+<tr>
+<td>設備</td>
+<td>實線外形、維修空間是否顯示</td>
+</tr>
+<tr>
+<td>結構</td>
+<td>剖切到的構件填充、看到的構件細線、隱藏線虛線</td>
+</tr>
+<tr>
+<td>船體構件</td>
+<td>板厚線、型材符號、型面側標示</td>
+</tr>
+</tbody>
+</table>
+<p>規則通常以「元素型別與屬性符合某條件 → 套用某種線型、顏色、填充」的形式定義，由管理員設定、各圖共用。〔待核對〕Outfitting Draft 中表現規則的元素型別與設定介面，請以公司版本確認。</p>
+<h3 id="943">9.4.3 圖層</h3>
+<p>圖層（Layer）用來分類圖面上的圖元，方便控制顯示、列印與匯出到其他 CAD 系統。Marine Drafting 承襲 Tribon 的圖層觀念；匯出 DXF／DWG 時，圖層對照表通常由公司統一設定〔待核對：公司的圖層規範與對照方式〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 表現規則與圖層是<strong>公司標準</strong>，不是個人偏好。個別圖面上手動覆寫線型或圖層，下一次更新或換人接手時，常會被還原或造成不一致。</p>
+</blockquote>
+<h2 id="95">9.5 關聯尺寸、自動標註與圖面更新</h2>
+<h3 id="951">9.5.1 為什麼圖面能更新</h3>
+<p>官方型錄說明，所有圖面（包含佈置圖與 ISO 圖）都有<strong>關聯尺寸與智慧標註</strong>，設計修改後可以自動更新。原理是：</p>
+<ol>
+<li>視圖只記住「畫哪些元素、用什麼規則畫」。</li>
+<li>尺寸與標籤掛在<strong>模型元素</strong>上，而不是掛在圖面座標上。</li>
+<li>模型修改後執行更新，系統重新計算投影，尺寸與標籤跟著所掛的元素移動、重算數值。</li>
+</ol>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：圖面產生介面：左側模型樹、中間圖面預覽、右側範本與搜尋結果</div></p>
+<p><em>圖 9-2　圖面產生介面。官方說明，所有圖面都有關聯尺寸與智慧標註，設計修改後可自動更新。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：全船佈置圖</div></p>
+<p><em>圖 9-3　從模型產生的全船佈置圖。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="952">9.5.2 船體圖面：在圖面中建模</h3>
+<p>官方型錄也提到船體的<strong>在圖面中建模</strong>（Model in a Drawing）：各類板架圖可直接從模型產生，並可在圖面中直接建模與修改。這代表船體圖面不只是輸出，也可以是建模介面。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：板架圖面：在圖面中直接建模與標註</div></p>
+<p><em>圖 9-4　板架圖面。官方稱為「在圖面中建模」，各類板架圖可直接從模型產生並在圖面中修改。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="953">9.5.3 什麼會更新、什麼不會</h3>
+<table>
+<thead>
+<tr>
+<th>圖面內容</th>
+<th>模型修改後</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>由視圖投影產生的線條</td>
+<td>更新</td>
+<td>重新依模型計算</td>
+</tr>
+<tr>
+<td>掛在模型元素上的尺寸</td>
+<td>更新</td>
+<td>數值與位置都重算</td>
+</tr>
+<tr>
+<td>掛在模型元素上的標籤（名稱、規格）</td>
+<td>更新</td>
+<td>內容來自屬性</td>
+</tr>
+<tr>
+<td>掛在圖紙座標上的註記</td>
+<td>不會移動</td>
+<td>位置可能與新的模型不符</td>
+</tr>
+<tr>
+<td>手繪的 2D 線條、文字</td>
+<td>不更新</td>
+<td>沒有模型來源</td>
+</tr>
+<tr>
+<td>被刪除元素的標註</td>
+<td>可能失效或成為孤立標註</td>
+<td>要人工檢查〔系統行為依版本，待核對〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 圖面上用手工畫的線條，模型修改後不會跟著更新。應盡量讓圖面上的資訊來自模型與自動標註，減少手工繪製。如果發現某種資訊「只能手畫」，通常代表模型缺少對應的資料，應回頭補模型或提出客製需求。</p>
+</blockquote>
+<h3 id="954">9.5.4 圖面品質檢查</h3>
+<ul>
+<li>[ ] 圖框、圖號、版次、比例正確。</li>
+<li>[ ] 視圖範圍與方向正確，剖面標示一致。</li>
+<li>[ ] 標註沒有重疊，尺寸鏈閉合。</li>
+<li>[ ] 圖面已在最新模型上更新。</li>
+<li>[ ] 沒有孤立標註（所掛元素已刪除）。</li>
+<li>[ ] 版次說明清楚列出本次變更內容。</li>
+</ul>
+<h2 id="96-isodraftiso">9.6 Isodraft：ISO 管段圖</h2>
+<h3 id="961-iso">9.6.1 ISO 圖是什麼</h3>
+<p>ISO 圖（Isometric Drawing，等角管段圖）是以等角投影畫出單一管線或管段的圖，不依比例，但標示完整尺寸。它是管路預製工廠最重要的文件，內容包括：</p>
+<ul>
+<li>管線路徑與每段尺寸。</li>
+<li>元件清單（來自等級的細部文字與材料文字，<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a>）。</li>
+<li>焊口編號、現場焊口標示。</li>
+<li>切管長度。</li>
+<li>管段（Spool）編號與範圍。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：自動產生的管路等角圖（ISO）</div></p>
+<p><em>圖 9-5　自動產生的管路等角圖。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="962-isodraft">9.6.2 Isodraft 的運作</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>輸入</td>
+<td><code>PIPE</code> 或 <code>BRAN</code>（<a href="ch07_outfitting_zh-TW.reading.html">第 7 章</a>），以及元件的參照鏈（第 8 章）</td>
+</tr>
+<tr>
+<td>樣式設定</td>
+<td>ISO 圖的格式、符號、材料表欄位、切分規則等，由管理員設定，存放於 ISOD 類型資料庫與選項檔〔設定方式依版本，待核對〕</td>
+</tr>
+<tr>
+<td>輸出</td>
+<td>ISO 圖檔、材料清單、切管清單</td>
+</tr>
+<tr>
+<td>依賴</td>
+<td>元件的 <code>PTSE</code>（判斷接口）、<code>SPCO</code> 的 <code>DETAIL</code>／<code>MATXT</code>（材料說明）、<code>LSTU</code>（直管規格）</td>
+</tr>
+</tbody>
+</table>
+<p>Isodraft 完全依賴第 7、8 章的資料品質。常見的 ISO 圖錯誤，追根究柢多半是：</p>
+<ul>
+<li>元件沒有 <code>SPRE</code>，或參照鏈斷掉。</li>
+<li>元件之間沒有正確連接（連接型式或口徑不符）。</li>
+<li>用基本體拼出的「假元件」，Isodraft 不認得。</li>
+</ul>
+<blockquote>
+<p><strong>開發人員須知：</strong> ISO 圖出錯時，先不要懷疑 Isodraft，而是先跑一遍資料一致性檢查與第 8 章的斷鏈檢查。ISO 圖是資料品質的「試金石」。</p>
+</blockquote>
+<h2 id="97-mto">9.7 系統內建報表與材料表（MTO）</h2>
+<h3 id="971">9.7.1 報表是什麼</h3>
+<p>報表是「對模型執行一段查詢，再把結果排成表格」。PDMS 系提供報表功能，可定義報表範本：</p>
+<table>
+<thead>
+<tr>
+<th>報表組成</th>
+<th>意義</th>
+<th>開發類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>收集範圍</td>
+<td>要報哪些元素（例如某 <code>ZONE</code> 內所有 <code>VALV</code>）</td>
+<td><code>FROM ... WHERE</code></td>
+</tr>
+<tr>
+<td>欄位</td>
+<td>每一欄是一個屬性或屬性運算式</td>
+<td><code>SELECT</code> 欄位清單</td>
+</tr>
+<tr>
+<td>排序與分組</td>
+<td>依系統、口徑、型式排序或小計</td>
+<td><code>ORDER BY</code>、<code>GROUP BY</code></td>
+</tr>
+<tr>
+<td>輸出</td>
+<td>畫面、文字檔、CSV</td>
+<td>結果集匯出</td>
+</tr>
+</tbody>
+</table>
+<p>〔待核對〕報表範本的建立介面、檔案格式與存放位置依版本而異，請以公司版本的報表功能為準。</p>
+<h3 id="972-mto">9.7.2 材料表（MTO）</h3>
+<p>材料表（Material Take-Off）是採購與生產的依據。以管路為例，MTO 的邏輯是：</p>
+<ol>
+<li>收集範圍內所有管路元件。</li>
+<li>依 <code>SPRE</code>（等級元件）分組計數；同一個 <code>SPCO</code> 代表同一種料。</li>
+<li>直管不是元素，要另外依 <code>LSTU</code> 分組，加總長度。</li>
+<li>從 <code>SPCO</code> 的 <code>DETAIL</code>／<code>MATXT</code> 取得說明文字；需要時從 <code>BLTREF</code> 計算螺栓。</li>
+</ol>
+<pre><code class="language-pml">-- 示意：未在實機驗證。依 SPRE 統計某 BRAN 的元件數量（不含直管）
+!bran   = /P-100/B1            -- 請換成訓練專案中的名稱
+!keys   = ARRAY()
+!counts = ARRAY()
+do !c values !bran.members
+   !k = !c.spre.string()
+   !idx = !keys.findfirst(!k)
+   if (!idx.unset()) then
+      !keys.append(!k)
+      !counts.append(1)
+   else
+      !counts[!idx] = !counts[!idx] + 1
+   endif
+enddo
+do !i index !keys
+   !msg = !keys[!i] &amp; '   qty=' &amp; !counts[!i].string()
+   $p $!msg
+enddo
+</code></pre>
+<p>〔待核對〕<code>.findfirst()</code> 找不到時的回傳值、DBREF 的 <code>.string()</code> 輸出格式，請在公司版本確認；陣列與字串方法見<a href="ch11_pml_language_zh-TW.reading.html">第 11 章</a>。這段程式的業務重點是：<strong>以 <code>SPRE</code> 作為料號鍵</strong>，而不是以名稱、描述或外形。</p>
+<h3 id="973">9.7.3 船體報表</h3>
+<p>船體的材料與重量報表通常來自零件資料（<a href="ch06_hull_production_zh-TW.reading.html">第 6 章</a>），而不是直接來自模型；Marine 也提供重量重心等報表。要特別注意報表的資料來源是「模型」還是「抽出的零件」，兩者在收縮補償、餘量與時間點上都可能不同。</p>
+<p><img alt="同一個模型的三條輸出管線：圖面、ISO 圖、報表" src="images/diagrams/ch09_output_pipeline.svg" /></p>
+<p><em>圖 9-6　同一個模型，三條輸出管線。圖面是可更新的持久物件，ISO 圖多半為每次重新產生的輸出檔，報表則是執行當下的快照。（本課程自繪）</em></p>
+<h2 id="98">9.8 開發人員須知：批次出圖與報表自動化</h2>
+<h3 id="981">9.8.1 切入點</h3>
+<table>
+<thead>
+<tr>
+<th>自動化需求</th>
+<th>切入點</th>
+<th>技術</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>批次更新一批舾裝圖面</td>
+<td>依 <code>REGI</code> 或 <code>DRWG</code> 清單逐一執行更新與輸出</td>
+<td>PML 巨集呼叫 Outfitting Draft 的命令（<a href="ch12_pml_database_zh-TW.reading.html">第 12 章</a>）〔指令依版本，待核對〕</td>
+</tr>
+<tr>
+<td>批次輸出 PDF／DXF</td>
+<td>同上，在更新後執行輸出</td>
+<td>PML 或 .NET</td>
+</tr>
+<tr>
+<td>船體圖面的批次處理</td>
+<td>開啟圖面、處理、儲存</td>
+<td>Vitesse 的 <code>kcs_draft</code> 等模組（第 15 章）</td>
+</tr>
+<tr>
+<td>批次產生 ISO 圖</td>
+<td>依管線清單逐一呼叫 Isodraft</td>
+<td>PML 巨集〔指令依版本，待核對〕</td>
+</tr>
+<tr>
+<td>自訂報表</td>
+<td>收集元素、讀屬性、沿參照鏈取資料、寫檔</td>
+<td>PML 的收集與檔案物件（第 12、16 章）</td>
+</tr>
+<tr>
+<td>圖面檢查</td>
+<td>讀取 <code>DRWG</code> 樹，檢查圖號、版次、是否已更新</td>
+<td>PML 或 .NET 讀取 PADD 元素</td>
+</tr>
+</tbody>
+</table>
+<h3 id="982">9.8.2 批次工具的骨架</h3>
+<p>不論用 PML、.NET 或 Vitesse，批次出圖工具的骨架都差不多。以下 PML <strong>示意</strong>只呈現結構；真正執行更新與輸出的指令，請依公司版本的 Outfitting Draft 文件填入：</p>
+<pre><code class="language-pml">-- 示意：批次處理一個 REGI 下所有圖面的骨架，未在實機驗證
+-- 實際的「更新」「輸出」指令依版本而異〔待核對〕
+!regi  = /REG-S1234-PIPING          -- 請換成訓練專案中的名稱
+!coll  = object COLLECTION()
+!coll.type('DRWG')
+!coll.scope(!regi)
+!drwgs = !coll.results()
+
+!ok   = 0
+!fail = ARRAY()
+do !d values !drwgs
+   -- 1. 前往該圖面，例如把 CE 設為 !d
+   -- 2. 執行更新（依公司版本的指令）
+   -- 3. 執行輸出（依公司版本的指令）
+   -- handle 區塊處理「緊接在它前面的那一個命令」所發生的錯誤
+   handle any
+      !fail.append(!d.name)
+   elsehandle none
+      !ok = !ok + 1
+   endhandle
+enddo
+!msg = '完成 ' &amp; !ok.string() &amp; ' 張，失敗 ' &amp; !fail.size().string() &amp; ' 張'
+$p $!msg
+</code></pre>
+<p>這個骨架要表達的設計重點：</p>
+<ol>
+<li><strong>範圍由資料決定</strong>：以 <code>REGI</code> 或清單收集圖面，而不是寫死圖號。</li>
+<li><strong>單張失敗不中斷整批</strong>：每張圖都包在錯誤處理中，失敗的記下來最後回報。</li>
+<li><strong>先更新再輸出</strong>，並把處理時間寫入日誌，方便追查（<a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章</a>）。</li>
+</ol>
+<p>〔待核對〕<code>handle</code> 只攔截緊接在前的單一命令；若更新與輸出是多個命令，每個命令後都要有自己的錯誤處理，或把它們包成一個函式再處理。完整寫法見第 11 章與公司版本的 PML 參考手冊。</p>
+<h3 id="983">9.8.3 不應該做的事</h3>
+<table>
+<thead>
+<tr>
+<th>不建議</th>
+<th>原因</th>
+<th>建議做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用程式在圖面上畫線、寫字來「補資訊」</td>
+<td>模型修改後不會更新</td>
+<td>把資訊放進模型屬性（例如 UDA），用標籤顯示</td>
+</tr>
+<tr>
+<td>用程式修改表現規則或圖庫</td>
+<td>影響全公司的圖面</td>
+<td>走管理員的變更流程</td>
+</tr>
+<tr>
+<td>報表欄位寫死文字或數值</td>
+<td>與模型脫鉤</td>
+<td>一律從屬性與參照鏈取值</td>
+</tr>
+<tr>
+<td>批次輸出前不更新</td>
+<td>輸出的是舊圖</td>
+<td>先更新再輸出，並記錄更新時間</td>
+</tr>
+<tr>
+<td>長時間批次作業在尖峰時段執行</td>
+<td>佔用授權與資源</td>
+<td>排程在離峰時段，並記錄日誌（第 16、17 章）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 圖面與報表都是模型的「視圖」。自動化工具的目標是<strong>讓這些視圖更快、更一致地被重新產生</strong>，而不是在視圖上加入模型沒有的資訊。凡是要在圖面上手動補的東西，都值得問一句：這個資訊應不應該存在模型裡？</p>
+</blockquote>
+<h2 id="99">9.9 練習（只能在訓練專案）</h2>
+<h3 id="9-1">練習 9-1：拆解一張圖</h3>
+<ol>
+<li>在訓練專案中找一張設備佈置圖。</li>
+<li>在資料樹中找出它的 <code>DEPT</code>、<code>REGI</code>、<code>DRWG</code>、<code>SHEE</code>、<code>VIEW</code>。</li>
+<li>記錄 <code>VIEW</code> 的方向、比例與內容範圍。</li>
+<li>列出圖上的標註，分辨哪些掛在模型元素上，哪些是手繪。</li>
+</ol>
+<h3 id="9-2">練習 9-2：圖面更新</h3>
+<ol>
+<li>產生一張簡單的設備佈置圖。</li>
+<li>移動一台設備，更新圖面。</li>
+<li>觀察哪些標註自動更新，哪些需要人工處理，填入 9.5.3 節的表格。</li>
+</ol>
+<h3 id="9-3iso">練習 9-3：ISO 圖與資料品質</h3>
+<ol>
+<li>選一條管線產生 ISO 圖。</li>
+<li>對照第 8 章的參照鏈，確認 ISO 圖元件清單中的每一項說明來自哪個 <code>SPCO</code> 的哪個文字。</li>
+<li>在訓練專案中刻意讓兩個元件的連接型式不符，重新產生 ISO 圖，觀察錯誤訊息。完成後還原。</li>
+</ol>
+<h3 id="9-4">練習 9-4：自製材料表</h3>
+<ol>
+<li>執行 9.7.2 節的 PML 範例。</li>
+<li>擴充成對一個 <code>ZONE</code> 內所有 <code>BRAN</code> 執行，並加上依 <code>LSTU</code> 統計直管總長度的功能（直管長度的取得方式請查第 12 章與公司版本文件）。</li>
+<li>與系統內建報表的結果比對，說明差異原因。</li>
+</ol>
+<h2 id="910">9.10 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 Marine Drafting 與 Outfitting Draft 的差異與各自的客製化途徑。</li>
+<li>[ ] 我能畫出 <code>DEPT → REGI → DRWG → SHEE → VIEW</code> 的階層。</li>
+<li>[ ] 我能說明 <code>VIEW</code> 存的是「畫什麼、怎麼畫」，而不是幾何。</li>
+<li>[ ] 我能解釋關聯尺寸與圖面更新的原理，並列出不會更新的內容。</li>
+<li>[ ] 我能說明表現規則與圖層的用途。</li>
+<li>[ ] 我能說明 Isodraft 的輸入、樣式設定與輸出，以及它依賴哪些資料。</li>
+<li>[ ] 我能說明報表與 MTO 的組成，並知道 MTO 應以 <code>SPRE</code> 為料號鍵。</li>
+<li>[ ] 我能列出批次出圖與報表自動化的切入點，以及不應該做的事。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA E3D 2.1 DRAW Reference Manual：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DRUGP/DRUGP4.04.02.html">Drawing、Sheet 與 View 的關係</a>（E3D 版本，觀念與 Marine Outfitting Draft 相通）</li>
+<li>AVEVA E3D 2.1 Data Model Reference：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM7.11.038.html">Drawing Element (DRWG)</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM7.11.122.html">Sheet Element</a></li>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html">Hull and Outfitting</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html">Navigating the AVEVA Marine Documentation</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1136379.html">Drawing 元素（Hull and Outfitting 版，頁面 1136379）</a>（需以瀏覽器開啟）</li>
+<li>AVEVA 官方產品資料（本章截圖來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>、<a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf">Brochure AVEVA Outfitting</a></li>
+<li>Vitesse 圖面模組範例：本課程 <code>Docs\examples\vitesse-hull-report</code>（開源範例，授權見 <code>Docs\examples\LICENSE-aveva-marine-dev-skill.txt</code>）</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch08_catalogue_spec_zh-TW.reading.html"><small>← 上一篇</small>第 8 章　目錄與等級</a><a class="next" href="ch10_dev_environment_zh-TW.reading.html"><small>下一篇 →</small>第 10 章　開發環境：PMLLIB、檔案類型與部署結構</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

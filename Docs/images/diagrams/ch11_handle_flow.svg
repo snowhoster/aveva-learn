@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">handle 的錯誤處理流程（與 try/catch 的差異）</text>
+
+  <!-- code panel -->
+  <rect x="20" y="50" width="360" height="300" rx="8" fill="#f9fafb" stroke="#6b7280"/>
+  <text x="36" y="74" font-size="14" font-weight="bold" fill="#1f2937">程式碼</text>
+  <g font-size="13" font-family="Consolas, monospace" fill="#1f2937">
+    <text x="36" y="102">!ref = !name.dbref()</text>
+    <text x="36" y="124" fill="#b91c1c">!d = !ref.desc   ← 可能出錯</text>
+    <text x="36" y="146" fill="#1d4ed8">handle (2,109)</text>
+    <text x="56" y="168">!d = '(找不到)'</text>
+    <text x="36" y="190" fill="#1d4ed8">elsehandle ANY</text>
+    <text x="56" y="212">return error</text>
+    <text x="36" y="234" fill="#1d4ed8">elsehandle NONE</text>
+    <text x="56" y="256">!ok = !ok + 1</text>
+    <text x="36" y="278" fill="#1d4ed8">endhandle</text>
+    <text x="36" y="300">$P $!d</text>
+  </g>
+  <text x="36" y="334" font-size="12" fill="#6b7280">錯誤碼 (2,109) 為示意，請以實際訊息為準</text>
+
+  <!-- flow -->
+  <rect x="420" y="56" width="440" height="44" rx="6" fill="#fef2f2" stroke="#b91c1c"/>
+  <text x="640" y="84" font-size="14" text-anchor="middle" fill="#1f2937">某一行命令失敗，產生錯誤 (模組, 編號)</text>
+  <line x1="640" y1="100" x2="640" y2="126" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="420" y="128" width="440" height="44" rx="6" fill="#fffbeb" stroke="#b45309"/>
+  <text x="640" y="156" font-size="14" text-anchor="middle" fill="#1f2937">PML 看「下一行」是不是 handle？</text>
+
+  <line x1="530" y1="172" x2="500" y2="208" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="470" y="196" font-size="13" fill="#15803d">是</text>
+  <line x1="750" y1="172" x2="780" y2="208" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="790" y="196" font-size="13" fill="#b91c1c">否</text>
+
+  <rect x="420" y="210" width="210" height="110" rx="6" fill="#eff6ff" stroke="#1d4ed8"/>
+  <g font-size="13" fill="#1f2937">
+    <text x="432" y="234">依序比對 handle、</text>
+    <text x="432" y="254">elsehandle 的錯誤碼</text>
+    <text x="432" y="278">執行第一個相符區塊</text>
+    <text x="432" y="300">然後從 endhandle 下一行繼續</text>
+  </g>
+
+  <rect x="650" y="210" width="210" height="110" rx="6" fill="#fef2f2" stroke="#b91c1c"/>
+  <g font-size="13" fill="#1f2937">
+    <text x="662" y="234">依 onerror 設定處理</text>
+    <text x="662" y="254">預設 onerror RETURN：</text>
+    <text x="662" y="278">放棄目前函式或巨集</text>
+    <text x="662" y="300">錯誤交給呼叫者</text>
+  </g>
+
+  <line x1="755" y1="320" x2="755" y2="354" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="560" y="356" width="300" height="64" rx="6" fill="#fffbeb" stroke="#b45309"/>
+  <text x="572" y="382" font-size="13" fill="#1f2937">呼叫者的下一行若是 handle 就由它處理；</text>
+  <text x="572" y="404" font-size="13" fill="#1f2937">一路往上都沒有，就顯示錯誤視窗與追蹤</text>
+
+  <!-- comparison -->
+  <rect x="20" y="440" width="860" height="140" rx="8" fill="#ffffff" stroke="#9ca3af"/>
+  <text x="36" y="466" font-size="14" font-weight="bold" fill="#1f2937">對照 C# try/catch</text>
+  <g font-size="13" fill="#1f2937">
+    <text x="36" y="492">• try 包住一段程式；handle 只負責「緊接在它前面的那一行」。要保護多行，就要每行後面各接 handle，或把多行包成函式。</text>
+    <text x="36" y="516">• catch (SomeException) ≈ handle (模組,編號)；catch (Exception) ≈ elsehandle ANY；沒有例外時才執行 ≈ elsehandle NONE。</text>
+    <text x="36" y="540">• throw; ≈ return error；throw new MyError("訊息") ≈ return error 1 '訊息'，呼叫端用 handle 1 接住。</text>
+    <text x="36" y="564">• 沒有 finally：清理動作要寫在 endhandle 之後，或在每個分支裡各寫一次。</text>
+  </g>
+</svg>

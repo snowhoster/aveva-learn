@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserInterfaceCustomization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="www.aveva.com">
+  <Version>1.0</Version>
+  <Tools>
+    <StateButtonTool Name="MyCompany.MyBrowser.Show">
+      <Command><Type>Instance</Type><CommandId>MyCompany.MyBrowser.Show</CommandId><Arguments /></Command>
+      <Caption>My Browser</Caption>
+    </StateButtonTool>
+  </Tools>
+  <InstanceTools />
+  <CommandBars>
+    <CommandBar Name="MyBrowser">
+      <Tools><Tool Name="MyCompany.MyBrowser.Show" /></Tools>
+      <DockedColumn>1</DockedColumn><DockedRow>1</DockedRow>
+      <DockedPosition>Top</DockedPosition>
+      <AllowFloating>true</AllowFloating><AllowHiding>true</AllowHiding>
+      <FillEntireRow>false</FillEntireRow><ShowInToolbarList>true</ShowInToolbarList>
+      <Caption>My Browser</Caption>
+    </CommandBar>
+  </CommandBars>
+  <TaskPanes /><ContextMenus />
+  <Namespace>MyBrowserAddin</Namespace>
+</UserInterfaceCustomization>

@@ -1,0 +1,712 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 4 章　座標、方向與幾何 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#4">第 4 章 座標、方向與幾何</a><ul>
+<li><a href="#41">4.1 學習目標</a></li>
+<li><a href="#42">4.2 兩套座標語言</a><ul>
+<li><a href="#421">4.2.1 船舶座標系</a></li>
+<li><a href="#422">4.2.2 舾裝的世界座標</a></li>
+</ul>
+</li>
+<li><a href="#43">4.3 位置、方向與姿態</a><ul>
+<li><a href="#431">4.3.1 三種幾何量</a></li>
+<li><a href="#432">4.3.2 位置的寫法</a></li>
+<li><a href="#433">4.3.3 方向的寫法</a></li>
+<li><a href="#434">4.3.4 姿態的寫法</a></li>
+<li><a href="#435">4.3.5 設定位置與姿態的命令</a></li>
+</ul>
+</li>
+<li><a href="#44-wrt">4.4 相對座標與 WRT</a><ul>
+<li><a href="#441">4.4.1 規則：位置預設相對於擁有者</a></li>
+<li><a href="#442">4.4.2 換算步驟</a></li>
+<li><a href="#443-wrt">4.4.3 WRT 的用法</a></li>
+<li><a href="#444">4.4.4 為什麼要相對座標</a></li>
+</ul>
+</li>
+<li><a href="#45">4.5 船體定位系統：肋位與縱向位置</a><ul>
+<li><a href="#451">4.5.1 為什麼船體不用絕對座標</a></li>
+<li><a href="#452-fr">4.5.2 肋位（FR）</a></li>
+<li><a href="#453-lp">4.5.3 縱向位置（LP）</a></li>
+<li><a href="#454">4.5.4 甲板高度與平面</a></li>
+<li><a href="#455">4.5.5 板架的局部座標</a></li>
+</ul>
+</li>
+<li><a href="#46">4.6 左右舷與對稱</a><ul>
+<li><a href="#461">4.6.1 符號慣例</a></li>
+<li><a href="#462">4.6.2 對稱建模</a></li>
+</ul>
+</li>
+<li><a href="#47-pml">4.7 PML 的幾何物件</a><ul>
+<li><a href="#471">4.7.1 讀取位置分量</a></li>
+<li><a href="#472">4.7.2 真實程式中的幾何物件</a></li>
+<li><a href="#473">4.7.3 平面運算</a></li>
+</ul>
+</li>
+<li><a href="#48">4.8 單位</a></li>
+<li><a href="#49">4.9 開發人員須知</a></li>
+<li><a href="#410">4.10 練習</a><ul>
+<li><a href="#1">練習 1：同一個點，三種座標</a></li>
+<li><a href="#2-fr">練習 2：把世界座標換成 FR</a></li>
+<li><a href="#3">練習 3：舷別判讀</a></li>
+<li><a href="#4_1">練習 4：觀察相對座標（僅限訓練專案）</a></li>
+<li><a href="#5">練習 5：讀懂實際程式</a></li>
+</ul>
+</li>
+<li><a href="#411">4.11 自我檢核</a></li>
+<li><a href="#412">4.12 資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第一部分　系統與資料模型 · 5 / 21</span><h1 id="4">第 4 章　座標、方向與幾何</h1>
+<blockquote>
+<p>本章說明 AVEVA Marine 如何表示「在哪裡」與「朝哪個方向」。舾裝承襲 PDMS，用東、北、上（E／N／U）描述位置；船體承襲 Tribon，用 X／Y／Z 與肋位、縱向位置描述位置。兩者在同一個專案中共存，開發人員必須能互相換算，並理解「位置預設是相對於擁有者」這個最容易出錯的規則。</p>
+<p>內容依據 AVEVA Hull and Outfitting 12.1 線上文件（船舶座標系與 FR／LP 定位）、AVEVA E3D 2.1 Software Customisation Reference Manual（位置表示式、WRT、PLANE 物件）、Database Management Reference Manual，以及開放取用論文中的實際 PML 程式自主撰寫。不同版本的語法細節可能不同，標示 <strong>〔待核對〕</strong> 者請在公司訓練專案中驗證。</p>
+</blockquote>
+<h2 id="41">4.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明世界座標 E／N／U 與船舶座標 X／Y／Z 的對應，以及船舶座標原點的慣例位置。</li>
+<li>讀懂並寫出 <code>E 1000 N 2000 U 300</code> 這類位置、<code>N 45 E</code> 這類方向、<code>Y is N and Z is U</code> 這類姿態。</li>
+<li>解釋「位置預設相對於擁有者」，並用 <code>WRT</code> 在不同座標系間轉換。</li>
+<li>用肋位（FR）與縱向位置（LP）描述船體位置，並說明為什麼船體建模偏好參考而不是數值。</li>
+<li>說明左右舷的符號慣例與對稱建模時的注意事項。</li>
+<li>認識 PML 的 POSITION、DIRECTION、ORIENTATION、LINE、PLANE 物件。</li>
+<li>知道長度、角度單位在哪裡設定，以及工具輸出時要注意什麼。</li>
+</ol>
+<h2 id="42">4.2 兩套座標語言</h2>
+<h3 id="421">4.2.1 船舶座標系</h3>
+<p>AVEVA Hull and Outfitting 文件描述的船舶座標系慣例是：</p>
+<ul>
+<li><strong>原點</strong>通常位於船艉、低處、中心線上，例如艉垂線（AP）與基線的交點。把原點放在船艉，可以讓 X 座標都是正值。</li>
+<li><strong>X 軸</strong>指向船艏。</li>
+<li><strong>Y 軸</strong>指向左舷（Portside）。</li>
+<li><strong>Z 軸</strong>向上。Z 座標可以是負值（例如基線以下的構件）。</li>
+</ul>
+<p><img alt="船舶座標系：側視圖顯示 X 向艏、Z 向上與肋位；俯視圖顯示 Y 向左舷與縱向位置" src="images/diagrams/ch04_ship_axes.svg" /></p>
+<p><em>圖 4-1　船舶座標系、肋位與縱向位置。上為側視，下為俯視。FR 沿 X 方向編號，LP 是平行於中心線的縱向位置。數值為示意。（本課程自繪，依 AVEVA Hull and Outfitting 文件的座標系說明）</em></p>
+<h3 id="422">4.2.2 舾裝的世界座標</h3>
+<p>PDMS 系的舾裝模組沿用工廠設計的習慣，以地理方向描述位置：</p>
+<table>
+<thead>
+<tr>
+<th>舾裝（PDMS 系）</th>
+<th>船舶（Tribon 系）</th>
+<th>船上意義</th>
+<th>反方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E（East，東）</td>
+<td>X</td>
+<td>向艏</td>
+<td>W（West）、−X，向艉</td>
+</tr>
+<tr>
+<td>N（North，北）</td>
+<td>Y</td>
+<td>向左舷</td>
+<td>S（South）、−Y，向右舷</td>
+</tr>
+<tr>
+<td>U（Up，上）</td>
+<td>Z</td>
+<td>向上</td>
+<td>D（Down）、−Z，向下</td>
+</tr>
+</tbody>
+</table>
+<p>兩套都是右手座標系，對應關係是 <strong>E = X、N = Y、U = Z</strong>。所以「東」在船上就是「船艏方向」，「北」就是「左舷方向」。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 這個對應是 Marine 專案的常見設定，但它取決於專案初始化時船體座標系如何對應到舾裝世界座標〔請向管理員確認公司專案的設定〕。在官方型錄的畫面中，可以同時看到兩種寫法：設備定位手把顯示 <code>X 35 -Y</code>，閥門方向手把顯示 <code>E 45 U</code>。介面顯示哪一種，可能與模組和設定有關〔待核對〕。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設備定位：3D 操控手把顯示方向 X 35 -Y</div></p>
+<p><em>圖 4-2　以 3D 操控手把定位設備，畫面即時顯示方向 <code>X 35 -Y</code>，意思是「從 +X 往 −Y 轉 35 度」。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：閥門方向調整：圓形操控手把顯示 E 45 U</div></p>
+<p><em>圖 4-3　以圓形操控手把旋轉閥門手輪，顯示方向 <code>E 45 U</code>，意思是「從 E 往 U 轉 45 度」。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h2 id="43">4.3 位置、方向與姿態</h2>
+<h3 id="431">4.3.1 三種幾何量</h3>
+<table>
+<thead>
+<tr>
+<th>量</th>
+<th>意義</th>
+<th>寫法範例</th>
+<th>屬性</th>
+<th>數學對照</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位置（Position）</td>
+<td>空間中的一個點</td>
+<td><code>E 1000 N 2000 U 300</code></td>
+<td><code>POS</code></td>
+<td>3D 點</td>
+</tr>
+<tr>
+<td>方向（Direction）</td>
+<td>一個指向，不含位置</td>
+<td><code>N</code>、<code>N 45 E</code>、<code>E 45 U</code>、<code>-X</code></td>
+<td>管嘴方向、連接點方向等</td>
+<td>單位向量</td>
+</tr>
+<tr>
+<td>姿態（Orientation）</td>
+<td>物件局部座標軸的整體朝向</td>
+<td><code>Y is N and Z is U</code></td>
+<td><code>ORI</code></td>
+<td>旋轉矩陣</td>
+</tr>
+</tbody>
+</table>
+<p>E3D 2.1 DBRM 說明，Position、Direction、Orientation 都是由三個實數組成的特殊屬性型別。</p>
+<h3 id="432">4.3.2 位置的寫法</h3>
+<p>位置由三個分量組成，每個分量是「方向字母 + 數值」：</p>
+<pre><code>E 1000 N 2000 U 300
+W 500 S 1200 D 100
+E 1000mm N 2000mm U 300mm
+</code></pre>
+<ul>
+<li>負方向可以用反向字母（<code>W</code>、<code>S</code>、<code>D</code>）表示。</li>
+<li>數值可以帶單位〔可接受的單位寫法依版本待核對〕。</li>
+<li>省略的分量視為 0〔待核對〕。</li>
+</ul>
+<p>E3D 2.1 SCRM 列出更多位置表示式，常用的有：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POS OF /VESS1 WRT /*</code></td>
+<td>某元素的位置屬性，以世界座標表示</td>
+</tr>
+<tr>
+<td><code>P1 POS OF /CYL2</code></td>
+<td>某元素第 1 個連接點（P-point）的位置</td>
+</tr>
+<tr>
+<td><code>N 45 W 20000 U 1000</code></td>
+<td>直接寫出的卡氏座標位置</td>
+</tr>
+<tr>
+<td><code>N 1000 FROM /ATEST</code></td>
+<td>從某元素往北 1000 的位置</td>
+</tr>
+<tr>
+<td><code>N 1000 FROM P1 OF /BOX2</code></td>
+<td>從某元素的連接點出發的偏移</td>
+</tr>
+<tr>
+<td><code>N (DESP[1] + 10) E</code></td>
+<td>數值部分可以是運算式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="433">4.3.3 方向的寫法</h3>
+<p>方向表示「從一個軸往另一個軸轉一個角度」：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>N</code></td>
+<td>正北（船上：指向左舷）</td>
+</tr>
+<tr>
+<td><code>-X</code> 或 <code>W</code></td>
+<td>指向船艉</td>
+</tr>
+<tr>
+<td><code>N 45 E</code></td>
+<td>從 N 往 E 轉 45 度，也就是東北</td>
+</tr>
+<tr>
+<td><code>E 45 U</code></td>
+<td>從 E 往 U 仰起 45 度</td>
+</tr>
+<tr>
+<td><code>X 35 -Y</code></td>
+<td>從 +X 往 −Y 轉 35 度（船上：從艏向往右舷偏 35 度）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="434">4.3.4 姿態的寫法</h3>
+<p>姿態用「局部軸指向哪個世界方向」描述，通常指定兩個軸，第三個軸由右手定則決定：</p>
+<pre><code>ORI Y is N and Z is U
+ORI Y is W and Z is U
+ORI X is N and Z is U
+</code></pre>
+<ul>
+<li><code>Y is N and Z is U</code> 是預設姿態：局部軸與擁有者的軸一致。</li>
+<li><code>Y is W and Z is U</code> 表示繞垂直軸轉了 90 度：局部 Y 指向 W，局部 Z 仍向上，依右手定則局部 X 指向 N。</li>
+<li>姿態也可以帶角度的方向，例如 <code>Y is N 30 E and Z is U</code>〔語法細節待核對〕。</li>
+</ul>
+<blockquote>
+<p><strong>開發人員須知：</strong> 姿態本質上是旋轉矩陣。程式中如果需要做座標換算，不要自己解析 <code>Y is W and Z is U</code> 字串再寫三角函數，應該使用 PML 的 ORIENTATION、POSITION 物件方法，或用 <code>WRT</code> 讓系統換算（4.4 節、4.7 節）。</p>
+</blockquote>
+<h3 id="435">4.3.5 設定位置與姿態的命令</h3>
+<p>以下命令會修改資料，<strong>只能在訓練專案中練習</strong>：</p>
+<pre><code>-- 示意：設定 CE 的位置與姿態（僅限訓練專案）
+/TRAIN-EQUI-01
+POS E 1000 N 2000 U 300
+ORI Y is N and Z is U
+Q POS
+Q ORI
+</code></pre>
+<p>PDMS 系還有相對移動的命令，例如 <code>BY E 100</code>（往東移 100）〔Marine 中的可用性待核對〕。</p>
+<h2 id="44-wrt">4.4 相對座標與 WRT</h2>
+<h3 id="441">4.4.1 規則：位置預設相對於擁有者</h3>
+<p>這是本章最重要的觀念。E3D 2.1 SCRM 說明：預設情況下，卡氏座標是以擁有元素的座標系表示；<code>Q POS</code> 回傳 CE 相對於其擁有者的位置；要取得世界座標，使用 <code>Q POS WRT /*</code>。</p>
+<p>換句話說，<code>POS</code> 屬性儲存的是「在擁有者座標系中的位置」，就像 HTML 中 <code>position: relative</code> 的元素，或遊戲引擎中物件的 local transform。要知道絕對位置，必須沿著擁有者鏈一路累加平移與旋轉。</p>
+<p><img alt="WRT 換算範例：SITE、ZONE、旋轉過的 EQUI 與其管嘴，在三種座標系下的位置" src="images/diagrams/ch04_wrt_transform.svg" /></p>
+<p><em>圖 4-4　同一個管嘴在三種座標系下的位置。設備 <code>/P-101</code> 繞垂直軸轉了 90 度，所以管嘴的局部 <code>E 800</code> 在世界座標中變成 <code>N 800</code>。（本課程自繪，數值為示意）</em></p>
+<h3 id="442">4.4.2 換算步驟</h3>
+<p>以圖 4-4 為例，管嘴的世界座標是這樣算出來的：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>元素</th>
+<th>在擁有者座標系中的 POS</th>
+<th>擁有者的世界位置</th>
+<th>擁有者姿態</th>
+<th>本元素的世界位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ZONE <code>/ZONE-ER</code></td>
+<td>E 2000 N 1000 U 0</td>
+<td>SITE 在原點</td>
+<td>預設</td>
+<td>E 2000 N 1000 U 0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>EQUI <code>/P-101</code></td>
+<td>E 3000 N 1500 U 1000</td>
+<td>E 2000 N 1000 U 0</td>
+<td>預設</td>
+<td>E 5000 N 2500 U 1000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NOZZ <code>/P-101/N1</code></td>
+<td>E 800 N 0 U 500</td>
+<td>E 5000 N 2500 U 1000</td>
+<td><code>Y is W and Z is U</code>（局部 E 指向世界 N）</td>
+<td>E 5000 N 3300 U 1500</td>
+</tr>
+</tbody>
+</table>
+<p>第 3 步的關鍵是：管嘴的局部 <code>E 800</code> 要先用設備的姿態旋轉，變成世界方向的 <code>N 800</code>，再加上設備的世界位置。</p>
+<h3 id="443-wrt">4.4.3 WRT 的用法</h3>
+<p><code>WRT</code>（With Respect To）指定「以哪個元素的座標系表示」：</p>
+<pre><code>Q POS
+Q POS WRT /*
+Q POS WRT /ZONE-ER
+Q POS OF /P-101/N1 WRT /*
+Q PPOS(1) WRT /MYBRAN
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Q POS</code></td>
+<td>相對於擁有者</td>
+</tr>
+<tr>
+<td><code>Q POS WRT /*</code></td>
+<td>世界座標（<code>/*</code> 代表 WORLD）</td>
+</tr>
+<tr>
+<td><code>Q POS WRT /ZONE-ER</code></td>
+<td>以指定元素的座標系表示</td>
+</tr>
+<tr>
+<td><code>Q PPOS(1) WRT /MYBRAN</code></td>
+<td>第 1 個連接點相對於某分支（E3D 2.1 DBRM 範例）</td>
+</tr>
+</tbody>
+</table>
+<p><code>WRT</code> 也可以接在卡氏座標後面，把「相對於某元素」的位置變成絕對位置。SCRM 的例子是 <code>N 100 WRT /BOX1</code>：表示在 <code>/BOX1</code> 的座標系中往北 100 的那個點。SCRM 也提到 <code>WRT</code> 可以再加上 <code>FROM</code> 限定，以及 <code>CONSTRUCT</code> 語法預設使用世界座標。</p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 工具輸出座標時，<strong>一定要說明是哪個座標系</strong>。報表欄位寫「POS」是不夠的，應寫成「世界座標 X（mm）」或「相對 ZONE」。比對兩個元素的距離、做干涉判斷時，兩個位置必須在同一個座標系，最簡單的做法是全部換成世界座標。</p>
+</blockquote>
+<h3 id="444">4.4.4 為什麼要相對座標</h3>
+<p>相對座標看起來麻煩，但它讓「移動整組物件」變得簡單：移動一台設備，只要改設備的 <code>POS</code>，它底下的所有基本體與管嘴自動跟著移動，因為它們的位置是相對於設備的。這和 CAD 的區塊（Block）或 3D 引擎的場景圖（Scene Graph）是同一個設計。</p>
+<h2 id="45">4.5 船體定位系統：肋位與縱向位置</h2>
+<h3 id="451">4.5.1 為什麼船體不用絕對座標</h3>
+<p>船體設計很少直接寫「X = 64250」，而是寫「FR85 + 200」。理由是：</p>
+<ol>
+<li><strong>與船的結構對齊。</strong> 肋骨、橫艙壁都位在肋位上，用肋位描述最自然。</li>
+<li><strong>變更可傳遞。</strong> 如果肋距表調整，以肋位描述的構件會跟著重算。</li>
+<li><strong>溝通方便。</strong> 現場、圖面、船級審查都用肋位溝通。</li>
+</ol>
+<h3 id="452-fr">4.5.2 肋位（FR）</h3>
+<p>AVEVA Hull and Outfitting 文件說明的重點：</p>
+<ul>
+<li>FR 只能用來定義 <strong>X 方向</strong>（船長方向）的位置。</li>
+<li>位置可以寫成相對於某個肋位的偏移，正值表示往船艏。</li>
+<li>可以一次指定一組等間隔的肋位，文件中的例子是 <code>FR123(5)133 + 500</code>，表示「肋位 123、128、133 各往艏 500 mm」。</li>
+</ul>
+<p>常見寫法：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FR85</code></td>
+<td>肋位 85</td>
+</tr>
+<tr>
+<td><code>FR85+200</code></td>
+<td>肋位 85 往艏 200 mm</td>
+</tr>
+<tr>
+<td><code>FR85-300</code></td>
+<td>肋位 85 往艉 300 mm</td>
+</tr>
+<tr>
+<td><code>FR123(5)133 + 500</code></td>
+<td>肋位 123、128、133 各往艏 500 mm</td>
+</tr>
+</tbody>
+</table>
+<p>肋位與 X 座標的換算由專案的<strong>肋位表</strong>決定。肋距不一定固定，常見做法是艉部、中段、艏部採用不同肋距，例如（示意）：</p>
+<table>
+<thead>
+<tr>
+<th>區段</th>
+<th>肋距</th>
+<th>FR 與 X 的換算（示意）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR0 至 FR20</td>
+<td>700 mm</td>
+<td>X = FR × 700</td>
+</tr>
+<tr>
+<td>FR20 至 FR180</td>
+<td>800 mm</td>
+<td>X = 14000 + (FR − 20) × 800</td>
+</tr>
+<tr>
+<td>FR180 以後</td>
+<td>650 mm</td>
+<td>X = 142000 + (FR − 180) × 650</td>
+</tr>
+</tbody>
+</table>
+<p>依上表，<code>FR85+200</code> 的 X = 14000 + 65 × 800 + 200 = 66200 mm。實際數值必須查公司專案的肋位表。</p>
+<h3 id="453-lp">4.5.3 縱向位置（LP）</h3>
+<p>LP（Longitudinal Position）描述的是縱向構件（縱骨、縱桁）的位置。AVEVA 文件說明，LP 可以定義 <strong>Y 方向</strong>的位置（例如船底縱骨的編號），也可以定義 <strong>Z 方向</strong>的位置（例如舷側縱骨的編號）。也就是說，<code>LP</code> 的意義取決於它用在哪個方向：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>LP 代表</th>
+<th>例子（示意）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船底、甲板縱骨</td>
+<td>距中心線的 Y 位置</td>
+<td><code>LP4</code> = 從中心線算起第 4 條縱骨的位置</td>
+</tr>
+<tr>
+<td>舷側縱骨</td>
+<td>Z 方向的高度位置</td>
+<td><code>LP3</code> = 舷側第 3 條縱骨的高度</td>
+</tr>
+</tbody>
+</table>
+<p>LP 也可以加偏移，例如 <code>LP4+50</code>〔寫法依版本待核對〕。</p>
+<h3 id="454">4.5.4 甲板高度與平面</h3>
+<p>Z 方向除了 LP，也常以甲板、平台或基線高度表示，例如「主甲板」「二甲板 + 300」。這些高度可能以命名的參考面（Reference Surface Object，RSO）或座標平面定義，由初始設計階段建立〔寫法依公司專案設定待核對〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 肋位表、LP 定義、甲板高度在專案初始化時由管理員設定，修改它們會影響整船的船體模型。開發人員的工具應<strong>讀取</strong>這些定義來換算，而不是在程式中寫死肋距。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：船殼曲面上的肋位線與外板接縫</div></p>
+<p><em>圖 4-5　船殼曲面上的肋位線與外板接縫。肋位線就是 FR 在曲面上的軌跡。（來源：AVEVA Hull and Outfitting Datasheet）</em></p>
+<h3 id="455">4.5.5 板架的局部座標</h3>
+<p>船體平面板架有自己的局部座標系：板架所在的型面（Mould Plane）是局部的 UV 平面。這是「相對座標」觀念在船體上的延伸：板架內的構件以型面座標描述，型面本身再以 FR、LP 或甲板高度定位。第 5 章會詳細說明。</p>
+<h2 id="46">4.6 左右舷與對稱</h2>
+<h3 id="461">4.6.1 符號慣例</h3>
+<p>依船舶座標系，Y 軸指向左舷：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>Y 的符號</th>
+<th>常見標記</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左舷（Port）</td>
+<td>Y &gt; 0</td>
+<td>P、PS</td>
+</tr>
+<tr>
+<td>中心線上</td>
+<td>Y = 0</td>
+<td>C、CL</td>
+</tr>
+<tr>
+<td>右舷（Starboard）</td>
+<td>Y &lt; 0</td>
+<td>S、SB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="462">4.6.2 對稱建模</h3>
+<p>船體結構大多左右對稱。常見做法是只建一舷，或以對稱的定義同時涵蓋兩舷；命名上常以後綴區分，例如無後綴代表對稱、<code>P</code> 代表左舷、<code>S</code> 代表右舷〔確切規則以公司命名規範為準〕。</p>
+<p>開發人員要注意：</p>
+<ul>
+<li><strong>鏡射不只是 Y 變號。</strong> 位置的鏡射是 Y → −Y，但方向與姿態的鏡射會改變左右手性。型材的腹板方向、肘板的朝向，鏡射後不一定能用「轉一下」得到。</li>
+<li><strong>對稱定義的元素可能只有一筆資料。</strong> 統計數量、重量時，要知道一筆資料是代表一舷還是兩舷〔對稱元素的屬性表示方式待核對〕。</li>
+<li><strong>報表要標示舷別。</strong> 只給座標的報表，讀者容易看錯左右。</li>
+</ul>
+<h2 id="47-pml">4.7 PML 的幾何物件</h2>
+<p>PML2 提供一組幾何物件，讓程式不必自己寫向量運算。以下整理本課程有依據的成員與方法；未在官方頁面或實際程式中看到的部分標示〔待核對〕。</p>
+<table>
+<thead>
+<tr>
+<th>物件</th>
+<th>代表</th>
+<th>有依據的成員與方法</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POSITION</code></td>
+<td>點</td>
+<td><code>.east</code>、<code>.north</code>、<code>.up</code> 分量；<code>.Line(POSITION)</code> 建立兩點之間的直線</td>
+<td>論文實際 PML、開源 pml-json</td>
+</tr>
+<tr>
+<td><code>DIRECTION</code></td>
+<td>單位向量</td>
+<td>由方向字串建立，例如 <code>N 45 E</code>〔建構方式待核對〕</td>
+<td>一般用法</td>
+</tr>
+<tr>
+<td><code>ORIENTATION</code></td>
+<td>姿態</td>
+<td>PLANE 的 <code>Orientation</code> 成員型別</td>
+<td>E3D 2.1 SCRM</td>
+</tr>
+<tr>
+<td><code>LINE</code></td>
+<td>直線或線段</td>
+<td><code>.OnProjected(POSITION)</code> 判斷投影是否落在線段上；<code>.Near(POSITION)</code> 取最近點</td>
+<td>論文實際 PML</td>
+</tr>
+<tr>
+<td><code>PLANE</code></td>
+<td>平面</td>
+<td><code>Position</code>、<code>Orientation</code> 成員；<code>Plane(POSITION, ORIENTATION)</code>；<code>Direction()</code>；<code>Intersection(LINE)</code>；<code>Intersection(PLANE)</code>；<code>Near(POSITION)</code>；<code>XYOffset(POSITION)</code></td>
+<td>E3D 2.1 SCRM PLANE Object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="471">4.7.1 讀取位置分量</h3>
+<p>從資料庫取得的 <code>POS</code> 是 POSITION 物件，可以直接取分量：</p>
+<pre><code>-- 示意：讀取設備的世界座標分量
+!pump  = object DBREF('/P-101')
+!world = object DBREF('/*')
+!wpos  = !pump.pos.wrt(!world)
+!x = !wpos.east
+!y = !wpos.north
+!z = !wpos.up
+$P X=$!x Y=$!y Z=$!z
+</code></pre>
+<p>〔<code>.wrt()</code> 方法名稱與參數寫法待核對；若不可用，可改用 PML1 表示式 <code>var !wpos (POS WRT /* )</code> 之類的寫法，語法同樣請在訓練專案驗證。〕</p>
+<h3 id="472">4.7.2 真實程式中的幾何物件</h3>
+<p>第 18 章的外板開孔論文附有實際執行的 PML 截圖，其中一段示範了 POSITION 與 LINE 的用法：</p>
+<p><img alt="論文中的 PML：排序交點，用 Line 與 OnProjected 找出包夾中心點的線段，並用 AID 圖形顯示" src="images/cases/jamet_fig11_pml_slope.png" /></p>
+<p><em>圖 4-6　實際 PML：<code>!pos1.Line(!pos2)</code> 由兩個 POSITION 建立 LINE；<code>!line.OnProjected(!basepos)</code> 判斷開孔中心的投影是否落在線段上；<code>!line.Near(!basePos)</code> 取線段上最近的點；<code>AID LINE</code>、<code>AID SPHERE</code> 在 3D 視圖畫輔助圖形以目視除錯。（來源：Kim, Park &amp; Yang, 2020, JAMET 44(3), Figure 11，CC BY-NC 3.0）</em></p>
+<p>用自己的話改寫這段邏輯（示意）：</p>
+<pre><code>-- 示意：在一串交點中，找出包夾目標點的線段，並取得線上最近點
+-- !pts 為 POSITION 陣列，!target 為 POSITION
+do !i from 1 to !pts.size() - 1
+  !seg = !pts[!i].Line(!pts[!i + 1])
+  if (!seg.OnProjected(!target)) then
+    !nearest = !seg.Near(!target)
+    break
+  endif
+enddo
+</code></pre>
+<h3 id="473">4.7.3 平面運算</h3>
+<p>E3D 2.1 SCRM 的 PLANE 物件提供常見的平面運算，例如：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>回傳</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plane(POSITION, ORIENTATION)</code></td>
+<td>PLANE</td>
+<td>由原點與姿態定義平面</td>
+</tr>
+<tr>
+<td><code>Direction()</code></td>
+<td>DIRECTION</td>
+<td>平面的法向（Z 方向）</td>
+</tr>
+<tr>
+<td><code>Intersection(LINE)</code></td>
+<td>POSITION</td>
+<td>無限直線與平面的交點</td>
+</tr>
+<tr>
+<td><code>Intersection(PLANE)</code></td>
+<td>LINE</td>
+<td>兩平面的交線</td>
+</tr>
+<tr>
+<td><code>Intersection(PLANE, PLANE)</code></td>
+<td>POSITION</td>
+<td>三平面的交點</td>
+</tr>
+<tr>
+<td><code>Near(POSITION)</code></td>
+<td>POSITION</td>
+<td>平面上離指定點最近的點</td>
+</tr>
+<tr>
+<td><code>XYOffset(POSITION)</code></td>
+<td>XYPOSITION</td>
+<td>把點換成平面上的 XY 偏移</td>
+</tr>
+</tbody>
+</table>
+<p>這些方法很適合用在「某點投影到甲板面」「管線與艙壁的交點」這類船上常見的計算。Marine 版本中的可用方法請以公司版本的 Software Customisation Reference Manual 核對〔待核對〕。</p>
+<h2 id="48">4.8 單位</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>常見預設</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船體長度</td>
+<td>mm</td>
+<td>官方文件指出，Hull 與 Marine Drafting 的單位設定在 12.0、12.1 與 Tribon M3 之間保持一致</td>
+</tr>
+<tr>
+<td>舾裝長度</td>
+<td>mm（可設定為英制）</td>
+<td>PDMS 系可分別設定距離（distance）與口徑（bore）的單位〔命令與介面待核對〕</td>
+</tr>
+<tr>
+<td>管徑（Bore）</td>
+<td>mm 或 inch</td>
+<td>口徑單位可能與距離單位不同，例如距離用 mm、口徑用 inch</td>
+</tr>
+<tr>
+<td>角度</td>
+<td>度（degree）</td>
+<td>方向與姿態中的角度</td>
+</tr>
+<tr>
+<td>圖面</td>
+<td>依圖面設定</td>
+<td>比例與標註單位在圖面中另行設定（第 9 章）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 從 <code>Q</code> 的輸出取值時，字串會帶單位（例如 <code>2100mm</code>），不要用字串切割去解析。程式中應直接取屬性值，並在報表標題寫明單位。與外部系統交換資料時（第 16 章），在檔案中明確記錄單位與座標系，避免對方誤以為是公尺或英吋。</p>
+</blockquote>
+<h2 id="49">4.9 開發人員須知</h2>
+<ul>
+<li><strong>POS 是相對位置。</strong> 需要絕對位置，就用 <code>WRT /*</code>；比較兩個元素的位置，先轉到同一座標系。</li>
+<li><strong>E／N／U 與 X／Y／Z 是同一件事的兩種說法。</strong> 在 Marine 專案中通常 E = X（艏）、N = Y（左舷）、U = Z（上），但仍以專案設定為準。</li>
+<li><strong>不要寫死肋距。</strong> FR 與 X 的換算要讀專案的定義。工具輸出時，同時提供 FR 寫法與 X 座標，對船體人員最友善。</li>
+<li><strong>注意左右舷符號。</strong> Y &gt; 0 是左舷。報表加上舷別欄位。</li>
+<li><strong>使用系統的幾何物件。</strong> POSITION、LINE、PLANE 的方法比自己寫三角函數可靠。</li>
+<li><strong>用 AID 圖形除錯幾何。</strong> 論文作者在 3D 視圖畫輔助球與輔助線檢查計算結果，這是幾何程式最有效的除錯方法（第 17 章）。</li>
+</ul>
+<h2 id="410">4.10 練習</h2>
+<p>查詢類練習在任何專案都安全；練習 4 會修改資料，<strong>只能在訓練專案進行</strong>。</p>
+<h3 id="1">練習 1：同一個點，三種座標</h3>
+<p>選一個管嘴，查詢：</p>
+<pre><code>Q POS
+Q POS WRT /*
+Q POS WRT &lt;它所屬的 ZONE 名稱&gt;
+</code></pre>
+<p>再到它所屬的設備，查詢 <code>Q POS</code>、<code>Q ORI</code>、<code>Q POS WRT /*</code>。用 4.4.2 的表格方法，手算管嘴的世界座標，與系統的結果比對。</p>
+<h3 id="2-fr">練習 2：把世界座標換成 FR</h3>
+<p>取得公司專案的肋位表。把練習 1 得到的世界 X 座標換算成「FRnn ± 偏移」的寫法，請船體同事確認是否正確。</p>
+<h3 id="3">練習 3：舷別判讀</h3>
+<p>在訓練專案中找三個元素：一個在左舷、一個在右舷、一個在中心線上。查詢它們的世界 Y 座標，驗證 Y 的正負號與舷別的對應。</p>
+<h3 id="4_1">練習 4：觀察相對座標（僅限訓練專案）</h3>
+<ol>
+<li>建立或選擇一台訓練設備，記錄它的一個管嘴的 <code>Q POS</code> 與 <code>Q POS WRT /*</code>。</li>
+<li>把設備的 <code>ORI</code> 改成 <code>Y is W and Z is U</code>。</li>
+<li>再查一次管嘴的兩個位置。說明為什麼 <code>Q POS</code> 沒變，<code>Q POS WRT /*</code> 變了。</li>
+<li>把設備的姿態改回原值。</li>
+</ol>
+<h3 id="5">練習 5：讀懂實際程式</h3>
+<p>閱讀圖 4-6 的程式，回答：<code>!templist</code> 中的元素是什麼型別？<code>OnProjected</code> 回傳什麼型別？為什麼作者要用 <code>AID SPHERE</code> 畫出每個交點？</p>
+<h2 id="411">4.11 自我檢核</h2>
+<ul>
+<li>[ ] 我能說出船舶座標系的原點慣例與 X、Y、Z 的方向。</li>
+<li>[ ] 我知道 E／N／U 與 X／Y／Z 的對應，以及要向誰確認公司專案的設定。</li>
+<li>[ ] 我能讀寫位置 <code>E 1000 N 2000 U 300</code>、方向 <code>N 45 E</code>、姿態 <code>Y is N and Z is U</code>。</li>
+<li>[ ] 我能解釋「POS 預設相對於擁有者」，並用 <code>Q POS WRT /*</code> 取得世界座標。</li>
+<li>[ ] 我能手算一個簡單例子中，經過旋轉的子元素的世界座標。</li>
+<li>[ ] 我能解釋 <code>FR85+200</code>、<code>FR123(5)133 + 500</code> 的意義，並用肋位表換算 X。</li>
+<li>[ ] 我知道 LP 可以代表 Y 方向或 Z 方向的縱向位置。</li>
+<li>[ ] 我知道 Y &gt; 0 是左舷，並了解鏡射時方向與姿態的注意事項。</li>
+<li>[ ] 我認識 POSITION、DIRECTION、ORIENTATION、LINE、PLANE，並知道 PLANE 有哪些常用方法。</li>
+<li>[ ] 我知道工具輸出座標時要標明座標系與單位。</li>
+</ul>
+<p><strong>延伸閱讀：</strong> 上一章<a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章　資料階層、元素、屬性與導覽</a>；船體型面與拓撲參考見<a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章</a>；外板開孔的完整幾何案例見<a href="ch18_case_studies_zh-TW.reading.html">第 18 章</a>；術語見<a href="appx_b_glossary_zh-TW.reading.html">附錄 B</a>。</p>
+<h2 id="412">4.12 資料來源</h2>
+<ul>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：船舶座標系、原點與軸向（需以瀏覽器開啟）：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1110625.html">https://docs.aveva.com/bundle/hull-and-outfitting/page/1110625.html</a></li>
+<li>AVEVA Hull and Outfitting 12.1 線上文件：FR 與 LP 定位語法：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1115619.html">https://docs.aveva.com/bundle/hull-and-outfitting/page/1115619.html</a>、<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1112589.html">https://docs.aveva.com/bundle/hull-and-outfitting/page/1112589.html</a></li>
+<li>AVEVA E3D 2.1 SCRM：Positions（位置表示式）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.17.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.17.html</a></li>
+<li>AVEVA E3D 2.1 SCRM：WRT（相對與絕對座標、<code>Q POS WRT /*</code>、<code>N 100 WRT /BOX1</code>）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.18.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM6.5.18.html</a></li>
+<li>AVEVA E3D 2.1 SCRM：PLANE Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.59.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.59.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Attributes（Position、Direction、Orientation 型別）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html</a></li>
+<li>AVEVA E3D 2.1 DBRM：Relative Positions, Directions, Orientations：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html</a></li>
+<li>Kim, Park &amp; Yang (2020), Journal of Advanced Marine Engineering and Technology 44(3)，CC BY-NC 開放取用（圖 4-6 來源）：<a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a></li>
+<li>k-awata/pml-json（開源，POSITION 物件的 east、north、up 成員用例）：<a href="https://github.com/k-awata/pml-json">https://github.com/k-awata/pml-json</a></li>
+<li>AVEVA Hull and Outfitting Datasheet（圖 4-2、4-3、4-5 來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf</a></li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch03_hierarchy_attributes_zh-TW.reading.html"><small>← 上一篇</small>第 3 章　資料階層、元素、屬性與導覽</a><a class="next" href="ch05_hull_modelling_zh-TW.reading.html"><small>下一篇 →</small>第 5 章　船體建模：曲面、板架與拓撲</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>
