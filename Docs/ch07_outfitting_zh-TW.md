@@ -4,6 +4,8 @@
 >
 > 舾裝功能承襲自 PDMS，資料階層與 PDMS／AVEVA E3D 高度相似。本章依據 AVEVA 官方線上文件（Hull and Outfitting 12.1）、AVEVA E3D Data Model Reference（E3D 版本，觀念與 Marine 舾裝相通）、AVEVA 官方產品型錄、開放取用的學術論文，以及 PDMS 系的通用知識自主撰寫，不是官方手冊的翻譯。公司的目錄、等級、命名與權限都是客製的；標示 **〔待核對〕** 的項目請以公司專案設定為準。所有會修改資料的練習只能在訓練專案進行。
 
+> **延伸閱讀：** 本章是舾裝的總覽。管路的完整流程（Pspec、路由、穿孔、Spooling、Isometric、管支架）見[第 21 章](ch21_pipework_zh-TW.reading.html)；結構的完整流程（型鋼、接頭、板、平台梯欄）見[第 22 章](ch22_structures_zh-TW.reading.html)。
+
 ## 7.1 學習目標
 
 讀完本章，你應該能夠：

@@ -95,6 +95,45 @@ AVEVA Marine 的二次開發，九成的困難不在語法，而在**資料**：
 |---|---|---|
 | 20 | [系統管理與維運：安裝、資料庫、帳號、備份與檔案管理](ch20_system_administration_zh-TW.reading.html) | 系統怎麼安裝、授權、備份、還原、升級與稽核？ |
 
+### 第五部分　設計領域補充
+
+| 章 | 標題 | 核心問題 |
+|---|---|---|
+| 21 | [管路設計（Pipework）：從 PIPE／BRAN 到 Spool、Isometric 與管支架](ch21_pipework_zh-TW.reading.html) | 一條管線從建模、路由、穿孔到 Spooling 與出圖，資料如何流動？ |
+| 22 | [結構設計（Structures）：型鋼、板、接頭與平台梯欄](ch22_structures_zh-TW.reading.html) | 型鋼構件、接頭、板與平台梯欄在資料庫裡如何表示？ |
+| 23 | [初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力](ch23_initial_design_zh-TW.reading.html) | 從型線到艙室、靜水力與耐海性，初始設計的資料怎麼流動、怎麼交給後續設計？ |
+| 24 | [曲面管理與分區：Surface Manager、Block Division 與多視圖專案](ch24_surface_block_zh-TW.reading.html) | 曲面如何檢查與整理、早期模型如何切成生產分段、設計與生產如何共用同一模型？ |
+| 25 | [空間管理與有限元素模型：Space Management 與 Finite Element Model](ch25_space_fem_zh-TW.reading.html) | 空間如何建立並用於算量，結構模型如何理想化成有限元素模型並交給外部分析？ |
+| 26 | [電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports](ch26_cable_supports_zh-TW.reading.html) | 電纜如何佈線並檢查填充率？跨專業的支撐如何統一設計與管理？ |
+| 27 | [艙室設計與原理圖：Room Design 與 Schematics](ch27_room_schematics_zh-TW.reading.html) | 艙室如何建模？原理圖與 3D 模型如何比對並同步？ |
+| 28 | [其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation](ch28_other_modules_zh-TW.reading.html) | 還有哪些設計輔助模組、各自解決什麼問題、何時該用？ |
+| 29 | [外部整合與舊版開發工具：Interfaces 與 Legacy Applications](ch29_interfaces_legacy_zh-TW.reading.html) | Marine 如何與 ERM 等外部系統整合？舊版 Vitesse 與 Data Extraction 還要懂多少？ |
+
+### 第六部分　官方文件深入
+
+以官方 AVEVA Marine 12.1 文件的模組為單位，補齊前面章節沒有深入的部分。各章章末都寫明取材覆蓋與〔待核對〕項目，可依需要選讀。
+
+| 章 | 標題 | 核心問題 |
+|---|---|---|
+| 30 | [Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具](ch30_monitor_runtime_zh-TW.reading.html) | 進入 Marine 前後，Monitor 與執行環境在做什麼？命令與錯誤怎麼讀？ |
+| 31 | [Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT](ch31_draft_admin_production_zh-TW.reading.html) | 出圖流程需要管理者先設定什麼？圖怎麼從模型產生並輸出？ |
+| 32 | [Marine Drafting 與 Design Draft：船體與舾裝的圖面製作](ch32_marine_drafting_zh-TW.reading.html) | 船體與舾裝的圖面資料怎麼存？視圖、標註與修訂怎麼運作？ |
+| 33 | [船體詳細設計（一）：設定與標準、初始化工具、平面板架建模](ch33_hull_detail_planar_zh-TW.reading.html) | 船體詳細設計要先設定哪些標準？平面板架怎麼建？ |
+| 34 | [船體詳細設計（二）：曲面板架建模、選用功能與雜項工具](ch34_hull_detail_curved_zh-TW.reading.html) | 曲面外板與加強材怎麼建模與展開？有哪些選用功能？ |
+| 35 | [船體詳細設計（三）：製造資訊與鐵舾裝生產特徵](ch35_hull_detail_manufacturing_zh-TW.reading.html) | 船體模型如何轉成製造資料？套料與切割輸出怎麼運作？ |
+| 36 | [船體概念與基礎：Product Information Model、模型物件、拓撲與命名](ch36_hull_concepts_zh-TW.reading.html) | 船體資料模型的底層概念是什麼？XML 介面怎麼接？ |
+| 37 | [船體資料庫與分散式專案：Hull Dabacon 與 Global](ch37_dabacon_global_zh-TW.reading.html) | 船體資料存在哪裡？多地點協作的 Global 怎麼運作與維護？ |
+| 38 | [裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design](ch38_assembly_structural_zh-TW.reading.html) | 組立怎麼規劃並出圖？結構初步設計如何順暢轉入詳細設計？ |
+| 39 | [通風與設備設計：HVAC Designer 與 Equipment](ch39_hvac_equipment_zh-TW.reading.html) | 設備與風管如何建立、修改並出圖？ |
+| 40 | [管路等角圖：Isodraft](ch40_isodraft_zh-TW.reading.html) | 管路等角圖怎麼產生與客製？材料清單與標註如何設定？ |
+| 41 | [目錄與等級深入：Catalogs and Specifications 與 Design Templates](ch41_catalogs_specs_deep_zh-TW.reading.html) | 目錄、等級與設計樣板怎麼建置、檢查與維護？ |
+| 42 | [資料庫管理深入：Database Management、SQL Direct 與 Status Control](ch42_database_management_zh-TW.reading.html) | 資料庫怎麼管理、回溯與合併？怎麼用 SQL 查 Marine 資料？ |
+| 43 | [資料模型參考導讀：Data Model Reference Manual](ch43_data_model_reference_zh-TW.reading.html) | 怎麼查資料模型手冊？各領域有哪些元素型別與屬性？ |
+| 44 | [客製化官方手冊導讀：Software Customization、.NET Customization、Data Access Routines 與 Marine Customization](ch44_customization_manuals_zh-TW.reading.html) | 官方客製化手冊各講什麼？與本課程第 10–17 章如何對應？ |
+| 45 | [設計共通功能：Clash Manager、Data Checker、Design Model Editor 與 Reporting](ch45_design_common_zh-TW.reading.html) | 怎麼檢查碰撞與資料正確性？報表工具怎麼選與使用？ |
+| 46 | [Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）](ch46_getting_started_zh-TW.reading.html) | 第一次打開 Marine，該懂哪些資料與 GUI 的基本操作？ |
+| 47 | [12.1 版本說明與升級：Release Bulletin、設定需求與功能變更](ch47_release_upgrade_zh-TW.reading.html) | 12.1 有哪些變更？升級前要確認什麼、有哪些風險？ |
+
 ### 附錄
 
 | 附錄 | 標題 |

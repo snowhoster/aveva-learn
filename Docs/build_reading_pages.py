@@ -9,6 +9,8 @@ PART1 = '第一部分　系統與資料模型'
 PART2 = '第二部分　船舶設計業務領域'
 PART3 = '第三部分　二次開發技術'
 PART4 = '第四部分　系統管理與維運'
+PART5 = '第五部分　設計領域補充'
+PART6 = '第六部分　官方文件深入'
 APPX = '附錄'
 books = [
     ('ch00_knowledge_map_zh-TW.md', '第 0 章　課程總覽與知識地圖', PART0),
@@ -32,6 +34,33 @@ books = [
     ('ch18_case_studies_zh-TW.md', '第 18 章　實戰案例與完整範例', PART3),
     ('ch19_loading_computer_zh-TW.md', '第 19 章　載重電腦整合：從 AVEVA 取得重量重心與水艙資料', PART3),
     ('ch20_system_administration_zh-TW.md', '第 20 章　系統管理與維運：安裝、資料庫、帳號、備份與檔案管理', PART4),
+    ('ch21_pipework_zh-TW.md', '第 21 章　管路設計（Pipework）：從 PIPE／BRAN 到 Spool、Isometric 與管支架', PART5),
+    ('ch22_structures_zh-TW.md', '第 22 章　結構設計（Structures）：型鋼、板、接頭與平台梯欄', PART5),
+    ('ch23_initial_design_zh-TW.md', '第 23 章　初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力', PART5),
+    ('ch24_surface_block_zh-TW.md', '第 24 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案', PART5),
+    ('ch25_space_fem_zh-TW.md', '第 25 章　空間管理與有限元素模型：Space Management 與 Finite Element Model', PART5),
+    ('ch26_cable_supports_zh-TW.md', '第 26 章　電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports', PART5),
+    ('ch27_room_schematics_zh-TW.md', '第 27 章　艙室設計與原理圖：Room Design 與 Schematics', PART5),
+    ('ch28_other_modules_zh-TW.md', '第 28 章　其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation', PART5),
+    ('ch29_interfaces_legacy_zh-TW.md', '第 29 章　外部整合與舊版開發工具：Interfaces 與 Legacy Applications', PART5),
+    ('ch30_monitor_runtime_zh-TW.md', '第 30 章　Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具', PART6),
+    ('ch31_draft_admin_production_zh-TW.md', '第 31 章　Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT', PART6),
+    ('ch32_marine_drafting_zh-TW.md', '第 32 章　Marine Drafting 與 Design Draft：船體與舾裝的圖面製作', PART6),
+    ('ch33_hull_detail_planar_zh-TW.md', '第 33 章　船體詳細設計（一）：設定與標準、初始化工具、平面板架建模', PART6),
+    ('ch34_hull_detail_curved_zh-TW.md', '第 34 章　船體詳細設計（二）：曲面板架建模、選用功能與雜項工具', PART6),
+    ('ch35_hull_detail_manufacturing_zh-TW.md', '第 35 章　船體詳細設計（三）：製造資訊與鐵舾裝生產特徵', PART6),
+    ('ch36_hull_concepts_zh-TW.md', '第 36 章　船體概念與基礎：Product Information Model、模型物件、拓撲與命名', PART6),
+    ('ch37_dabacon_global_zh-TW.md', '第 37 章　船體資料庫與分散式專案：Hull Dabacon 與 Global', PART6),
+    ('ch38_assembly_structural_zh-TW.md', '第 38 章　裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design', PART6),
+    ('ch39_hvac_equipment_zh-TW.md', '第 39 章　通風與設備設計：HVAC Designer 與 Equipment', PART6),
+    ('ch40_isodraft_zh-TW.md', '第 40 章　管路等角圖：Isodraft', PART6),
+    ('ch41_catalogs_specs_deep_zh-TW.md', '第 41 章　目錄與等級深入：Catalogs and Specifications 與 Design Templates', PART6),
+    ('ch42_database_management_zh-TW.md', '第 42 章　資料庫管理深入：Database Management、SQL Direct 與 Status Control', PART6),
+    ('ch43_data_model_reference_zh-TW.md', '第 43 章　資料模型參考導讀：Data Model Reference Manual', PART6),
+    ('ch44_customization_manuals_zh-TW.md', '第 44 章　客製化官方手冊導讀：Software Customization、.NET Customization、Data Access Routines 與 Marine Customization', PART6),
+    ('ch45_design_common_zh-TW.md', '第 45 章　設計共通功能：Clash Manager、Data Checker、Design Model Editor 與 Reporting', PART6),
+    ('ch46_getting_started_zh-TW.md', '第 46 章　Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）', PART6),
+    ('ch47_release_upgrade_zh-TW.md', '第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更', PART6),
     ('appx_a_resources_zh-TW.md', '附錄 A　專業資源與官方訓練地圖', APPX),
     ('appx_b_glossary_zh-TW.md', '附錄 B　術語表與指令速查', APPX),
     ('appx_c_reading_list_zh-TW.md', '附錄 C　參考文獻導讀與繁中摘要', APPX),

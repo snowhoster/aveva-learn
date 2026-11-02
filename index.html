@@ -14,7 +14,7 @@ html[data-theme=dark]{color-scheme:dark;--ink:#d9e5de;--muted:#93a89e;--green:#6
 </style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body>
 <header class="top"><div class="top-inner"><a class="brand" href="index.html"><span class="logo">M</span><span>AVEVA Marine 學習中心</span></a><nav class="nav" aria-label="主導覽"><a href="#map">知識地圖</a><a href="#chapters">課程章節</a><a href="#tools">練習工具</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></nav><script>(function(){var b=document.querySelector('.theme-toggle');function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'\u2600 \u6d45\u8272':'\ud83c\udf19 \u6df1\u8272';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('aveva-theme',n);document.documentElement.dataset.theme=n;lbl();});})();</script></header>
 <main>
-<section class="hero"><div><div class="eyebrow">AVEVA MARINE · 系統、業務與二次開發</div><h1>先懂資料，<br>再寫工具。</h1><p>一套給開發人員的完整課程：從 AVEVA Marine 的資料模型、船體與舾裝業務，到 PML、.NET 與 Vitesse 二次開發。共 20 章與 3 個附錄，搭配實際系統畫面、圖解、可部署範例與文獻導讀。</p><div class="actions"><a class="button" href="Docs/ch00_knowledge_map_zh-TW.reading.html">從知識地圖開始 →</a><a class="button secondary" href="Docs/ch10_dev_environment_zh-TW.reading.html">直接進入開發</a></div></div><div class="hero-panel"><strong>建議 12 週進度</strong><ol><li>第 1–4 週：系統與資料模型、船體</li><li>第 5–6 週：舾裝、目錄等級、圖面</li><li>第 7–9 週：PML 語言、資料庫、表單</li><li>第 10–12 週：.NET／Vitesse、部署、實戰</li></ol></div></section>
+<section class="hero"><div><div class="eyebrow">AVEVA MARINE · 系統、業務與二次開發</div><h1>先懂資料，<br>再寫工具。</h1><p>一套給開發人員的完整課程：從 AVEVA Marine 的資料模型、船體與舾裝業務，到 PML、.NET 與 Vitesse 二次開發。共 47 章與 3 個附錄，搭配實際系統畫面、圖解、可部署範例與文獻導讀。</p><div class="actions"><a class="button" href="Docs/ch00_knowledge_map_zh-TW.reading.html">從知識地圖開始 →</a><a class="button secondary" href="Docs/ch10_dev_environment_zh-TW.reading.html">直接進入開發</a></div></div><div class="hero-panel"><strong>建議 12 週進度</strong><ol><li>第 1–4 週：系統與資料模型、船體</li><li>第 5–6 週：舾裝、目錄等級、圖面</li><li>第 7–9 週：PML 語言、資料庫、表單</li><li>第 10–12 週：.NET／Vitesse、部署、實戰</li></ol></div></section>
 
 <section class="section" id="map"><div class="heading"><div class="eyebrow">KNOWLEDGE MAP</div><h2>四大部分</h2><p class="sub">九成的開發困難在資料，不在語法。先建立系統與業務概念，再進入開發技術，最後補上讓系統長期可用的維運能力。</p></div>
 <div class="flow"><div class="box"><b>第一部分 · 第 1–4 章</b><h3>系統與資料模型</h3><p>模組架構、資料庫與權限、元素樹與屬性、座標與幾何。懂得資料長什麼樣子、存在哪裡。</p></div><div class="box"><b>第二部分 · 第 5–9 章</b><h3>船舶設計業務</h3><p>船體建模與生產、舾裝設計、目錄與等級、圖面。懂得資料代表什麼工程意義、怎麼流動。</p></div><div class="box"><b>第三部分 · 第 10–19 章</b><h3>二次開發技術</h3><p>開發環境、PML、表單、.NET、Vitesse、整合、部署、實戰與載重電腦整合。懂得怎麼安全地讀寫與整合資料。</p></div><div class="box"><b>第四部分 · 第 20 章</b><h3>系統管理與維運</h3><p>安裝需求、資料庫與 Area、帳號與 DAC、DICE、備份還原、檔案管理、授權、監控與升級。</p></div></div></section>
@@ -50,6 +50,37 @@ html[data-theme=dark]{color-scheme:dark;--ink:#d9e5de;--muted:#93a89e;--green:#6
 </div></div>
 <div class="part"><h3>第四部分　系統管理與維運</h3><div class="chapters">
 <a class="ch" href="Docs/ch20_system_administration_zh-TW.reading.html"><span class="no">20</span><div><strong>系統管理與維運</strong><span>安裝需求、資料庫與 Area、帳號權限、DICE、備份還原、監控與升級</span></div></a>
+</div></div>
+<div class="part"><h3>第五部分　設計領域補充</h3><div class="chapters">
+<a class="ch" href="Docs/ch21_pipework_zh-TW.reading.html"><span class="no">21</span><div><strong>管路設計</strong><span>PIPE／BRAN 階層、路由、穿孔、Spooling、Isometric、Pipe Fabrication、管支架</span></div></a>
+<a class="ch" href="Docs/ch22_structures_zh-TW.reading.html"><span class="no">22</span><div><strong>結構設計</strong><span>型鋼斷面、柱梁斜撐、接頭與端部、板牆地板、平台梯子欄杆</span></div></a>
+<a class="ch" href="Docs/ch23_initial_design_zh-TW.reading.html"><span class="no">23</span><div><strong>初始設計</strong><span>Data、Lines、Surface、Compartment、Hydrostatics、Hydrodynamics 與 Utilities 的流程與資料交換</span></div></a>
+<a class="ch" href="Docs/ch24_surface_block_zh-TW.reading.html"><span class="no">24</span><div><strong>曲面管理與分區</strong><span>Surface Manager 曲面健檢、Block Division 生產分段、Multi-View 設計與生產視圖</span></div></a>
+<a class="ch" href="Docs/ch25_space_fem_zh-TW.reading.html"><span class="no">25</span><div><strong>空間管理與有限元素</strong><span>Space 的建立與計算、Calculation Geometry、FE 理想化、檢查與 ANSYS／Patran 輸出</span></div></a>
+<a class="ch" href="Docs/ch26_cable_supports_zh-TW.reading.html"><span class="no">26</span><div><strong>電纜設計與多專業支撐</strong><span>Cableway 與橋架、電纜佈線、填充率檢查、MDS 支撐設計流程與健康檢查</span></div></a>
+<a class="ch" href="Docs/ch27_room_schematics_zh-TW.reading.html"><span class="no">27</span><div><strong>艙室設計與原理圖</strong><span>Room 階層、牆天花地板與家具、Schematic Integrator 與 3D 一致性比對</span></div></a>
+<a class="ch" href="Docs/ch28_other_modules_zh-TW.reading.html"><span class="no">28</span><div><strong>其他設計模組速覽</strong><span>跨專案設計重用、區域樣板批次出圖、焊接規劃、工廠自動化中立檔</span></div></a>
+<a class="ch" href="Docs/ch29_interfaces_legacy_zh-TW.reading.html"><span class="no">29</span><div><strong>外部整合與舊版工具</strong><span>ERM–Design 整合與材料對應、其他外部介面、Vitesse、Data Extraction 與 Keywords</span></div></a>
+</div></div>
+<div class="part"><h3>第六部分　官方文件深入</h3><div class="chapters">
+<a class="ch" href="Docs/ch30_monitor_runtime_zh-TW.reading.html"><span class="no">30</span><div><strong>Monitor 與執行環境</strong><span>Monitor 命令與錯誤訊息、Job Launcher、環境變數與命令列工具</span></div></a>
+<a class="ch" href="Docs/ch31_draft_admin_production_zh-TW.reading.html"><span class="no">31</span><div><strong>Draft 管理與出圖</strong><span>Draft Administrator、AutoDRAFT、Drawing Production、PLOT 繪圖輸出</span></div></a>
+<a class="ch" href="Docs/ch32_marine_drafting_zh-TW.reading.html"><span class="no">32</span><div><strong>Marine Drafting</strong><span>船體圖面與舾裝圖面的資料結構、操作、表現規則與選單地圖</span></div></a>
+<a class="ch" href="Docs/ch33_hull_detail_planar_zh-TW.reading.html"><span class="no">33</span><div><strong>船體詳細（一）平面</strong><span>Setup 與標準、inithull、平面板架的設計語言與互動建模</span></div></a>
+<a class="ch" href="Docs/ch34_hull_detail_curved_zh-TW.reading.html"><span class="no">34</span><div><strong>船體詳細（二）曲面</strong><span>曲面板架、外板展開、選用功能、零件表與重心</span></div></a>
+<a class="ch" href="Docs/ch35_hull_detail_manufacturing_zh-TW.reading.html"><span class="no">35</span><div><strong>船體詳細（三）製造</strong><span>PPI、自動位置編號、套料、切割、型材與曲面板製造、鐵舾裝特徵</span></div></a>
+<a class="ch" href="Docs/ch36_hull_concepts_zh-TW.reading.html"><span class="no">36</span><div><strong>船體概念與基礎</strong><span>PIM、模型物件、拓撲、命名、標準、座標與 XML 介面</span></div></a>
+<a class="ch" href="Docs/ch37_dabacon_global_zh-TW.reading.html"><span class="no">37</span><div><strong>船體資料庫與 Global</strong><span>Dabacon 資料庫、專案生命週期、Global 分散式專案與 WCF 設定</span></div></a>
+<a class="ch" href="Docs/ch38_assembly_structural_zh-TW.reading.html"><span class="no">38</span><div><strong>裝配規劃與結構初步設計</strong><span>組立樹與組立圖、Structural Design 的功能選單與預設檔</span></div></a>
+<a class="ch" href="Docs/ch39_hvac_equipment_zh-TW.reading.html"><span class="no">39</span><div><strong>通風與設備</strong><span>設備建立、參數化樣板與空間關聯、HVAC 管理者設定與設計流程</span></div></a>
+<a class="ch" href="Docs/ch40_isodraft_zh-TW.reading.html"><span class="no">40</span><div><strong>管路等角圖 Isodraft</strong><span>Isodraft 流程、選項檔、符號與標註、材料清單、輸出與 Spool 圖</span></div></a>
+<a class="ch" href="Docs/ch41_catalogs_specs_deep_zh-TW.reading.html"><span class="no">41</span><div><strong>目錄與等級深入</strong><span>設計慣例、目錄階層與參數、SPECON、Design Templates、Properties</span></div></a>
+<a class="ch" href="Docs/ch42_database_management_zh-TW.reading.html"><span class="no">42</span><div><strong>資料庫管理深入</strong><span>資料庫結構與指令、Session 與 Extract、SQL Direct、Status Control</span></div></a>
+<a class="ch" href="Docs/ch43_data_model_reference_zh-TW.reading.html"><span class="no">43</span><div><strong>資料模型參考導讀</strong><span>手冊結構、屬性型別、各領域元素型別地圖、偽屬性與 UDA</span></div></a>
+<a class="ch" href="Docs/ch44_customization_manuals_zh-TW.reading.html"><span class="no">44</span><div><strong>客製化官方手冊導讀</strong><span>官方客製化手冊地圖、Data Access Routines、PML 與 .NET 補充、座標顯示客製</span></div></a>
+<a class="ch" href="Docs/ch45_design_common_zh-TW.reading.html"><span class="no">45</span><div><strong>設計共通功能</strong><span>碰撞檢查、資料檢查、圖形化模型編輯、Report Designer 與標準報表</span></div></a>
+<a class="ch" href="Docs/ch46_getting_started_zh-TW.reading.html"><span class="no">46</span><div><strong>Marine 入門基礎</strong><span>功能與資料庫、屬性、GUI 基本操作、Drawlist、搜尋與 Grid，附新手第一天操作指南</span></div></a>
+<a class="ch" href="Docs/ch47_release_upgrade_zh-TW.reading.html"><span class="no">47</span><div><strong>版本說明與升級</strong><span>12.1 Release Bulletin：安裝、升級框架、設定需求、系統與資料庫變更、各領域新功能與升級檢查清單</span></div></a>
 </div></div>
 <div class="part"><h3>附錄</h3><div class="chapters">
 <a class="ch" href="Docs/appx_a_resources_zh-TW.reading.html"><span class="no">A</span><div><strong>專業資源與官方訓練地圖</strong><span>官方文件、TM 手冊編號、論文與社群資源分級</span></div></a>

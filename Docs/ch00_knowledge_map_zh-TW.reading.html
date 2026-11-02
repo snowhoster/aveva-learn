@@ -12,8 +12,10 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 <li><a href="#_2">第二部分 船舶設計業務領域</a></li>
 <li><a href="#_3">第三部分 二次開發技術</a></li>
 <li><a href="#_4">第四部分 系統管理與維運</a></li>
-<li><a href="#_5">附錄</a></li>
-<li><a href="#_6">獨立課程</a></li>
+<li><a href="#_5">第五部分 設計領域補充</a></li>
+<li><a href="#_6">第六部分 官方文件深入</a></li>
+<li><a href="#_7">附錄</a></li>
+<li><a href="#_8">獨立課程</a></li>
 </ul>
 </li>
 <li><a href="#04">0.4 各章知識點清單</a><ul>
@@ -46,7 +48,7 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">課程總覽 · 1 / 24</span><h1 id="0">第 0 章　課程總覽與知識地圖</h1>
+</aside><article><span class="stage">課程總覽 · 1 / 51</span><h1 id="0">第 0 章　課程總覽與知識地圖</h1>
 <blockquote>
 <p>這是整套「AVEVA Marine 與二次開發」課程的總綱。它說明<strong>學會 AVEVA Marine 並能進行二次開發需要哪些知識點</strong>、章節順序、每章的學習成果與自我檢核方式。</p>
 <p>本課程的目標讀者是<strong>開發人員</strong>：具備一般程式設計經驗（任何語言皆可，懂 SQL 或物件導向更好），但不一定有造船背景。課程會把船舶設計的領域知識，轉譯成開發人員熟悉的概念，例如資料模型、樹狀結構、外鍵、事件、外掛架構。</p>
@@ -324,7 +326,167 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 </tr>
 </tbody>
 </table>
-<h3 id="_5">附錄</h3>
+<h3 id="_5">第五部分　設計領域補充</h3>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>標題</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21</td>
+<td><a href="ch21_pipework_zh-TW.reading.html">管路設計（Pipework）：從 PIPE／BRAN 到 Spool、Isometric 與管支架</a></td>
+<td>一條管線從建模、路由、穿孔到 Spooling 與出圖，資料如何流動？</td>
+</tr>
+<tr>
+<td>22</td>
+<td><a href="ch22_structures_zh-TW.reading.html">結構設計（Structures）：型鋼、板、接頭與平台梯欄</a></td>
+<td>型鋼構件、接頭、板與平台梯欄在資料庫裡如何表示？</td>
+</tr>
+<tr>
+<td>23</td>
+<td><a href="ch23_initial_design_zh-TW.reading.html">初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力</a></td>
+<td>從型線到艙室、靜水力與耐海性，初始設計的資料怎麼流動、怎麼交給後續設計？</td>
+</tr>
+<tr>
+<td>24</td>
+<td><a href="ch24_surface_block_zh-TW.reading.html">曲面管理與分區：Surface Manager、Block Division 與多視圖專案</a></td>
+<td>曲面如何檢查與整理、早期模型如何切成生產分段、設計與生產如何共用同一模型？</td>
+</tr>
+<tr>
+<td>25</td>
+<td><a href="ch25_space_fem_zh-TW.reading.html">空間管理與有限元素模型：Space Management 與 Finite Element Model</a></td>
+<td>空間如何建立並用於算量，結構模型如何理想化成有限元素模型並交給外部分析？</td>
+</tr>
+<tr>
+<td>26</td>
+<td><a href="ch26_cable_supports_zh-TW.reading.html">電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</a></td>
+<td>電纜如何佈線並檢查填充率？跨專業的支撐如何統一設計與管理？</td>
+</tr>
+<tr>
+<td>27</td>
+<td><a href="ch27_room_schematics_zh-TW.reading.html">艙室設計與原理圖：Room Design 與 Schematics</a></td>
+<td>艙室如何建模？原理圖與 3D 模型如何比對並同步？</td>
+</tr>
+<tr>
+<td>28</td>
+<td><a href="ch28_other_modules_zh-TW.reading.html">其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation</a></td>
+<td>還有哪些設計輔助模組、各自解決什麼問題、何時該用？</td>
+</tr>
+<tr>
+<td>29</td>
+<td><a href="ch29_interfaces_legacy_zh-TW.reading.html">外部整合與舊版開發工具：Interfaces 與 Legacy Applications</a></td>
+<td>Marine 如何與 ERM 等外部系統整合？舊版 Vitesse 與 Data Extraction 還要懂多少？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">第六部分　官方文件深入</h3>
+<p>以官方 AVEVA Marine 12.1 文件的模組為單位，補齊前面章節沒有深入的部分。各章章末都寫明取材覆蓋與〔待核對〕項目，可依需要選讀。</p>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>標題</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td><a href="ch30_monitor_runtime_zh-TW.reading.html">Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</a></td>
+<td>進入 Marine 前後，Monitor 與執行環境在做什麼？命令與錯誤怎麼讀？</td>
+</tr>
+<tr>
+<td>31</td>
+<td><a href="ch31_draft_admin_production_zh-TW.reading.html">Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT</a></td>
+<td>出圖流程需要管理者先設定什麼？圖怎麼從模型產生並輸出？</td>
+</tr>
+<tr>
+<td>32</td>
+<td><a href="ch32_marine_drafting_zh-TW.reading.html">Marine Drafting 與 Design Draft：船體與舾裝的圖面製作</a></td>
+<td>船體與舾裝的圖面資料怎麼存？視圖、標註與修訂怎麼運作？</td>
+</tr>
+<tr>
+<td>33</td>
+<td><a href="ch33_hull_detail_planar_zh-TW.reading.html">船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</a></td>
+<td>船體詳細設計要先設定哪些標準？平面板架怎麼建？</td>
+</tr>
+<tr>
+<td>34</td>
+<td><a href="ch34_hull_detail_curved_zh-TW.reading.html">船體詳細設計（二）：曲面板架建模、選用功能與雜項工具</a></td>
+<td>曲面外板與加強材怎麼建模與展開？有哪些選用功能？</td>
+</tr>
+<tr>
+<td>35</td>
+<td><a href="ch35_hull_detail_manufacturing_zh-TW.reading.html">船體詳細設計（三）：製造資訊與鐵舾裝生產特徵</a></td>
+<td>船體模型如何轉成製造資料？套料與切割輸出怎麼運作？</td>
+</tr>
+<tr>
+<td>36</td>
+<td><a href="ch36_hull_concepts_zh-TW.reading.html">船體概念與基礎：Product Information Model、模型物件、拓撲與命名</a></td>
+<td>船體資料模型的底層概念是什麼？XML 介面怎麼接？</td>
+</tr>
+<tr>
+<td>37</td>
+<td><a href="ch37_dabacon_global_zh-TW.reading.html">船體資料庫與分散式專案：Hull Dabacon 與 Global</a></td>
+<td>船體資料存在哪裡？多地點協作的 Global 怎麼運作與維護？</td>
+</tr>
+<tr>
+<td>38</td>
+<td><a href="ch38_assembly_structural_zh-TW.reading.html">裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</a></td>
+<td>組立怎麼規劃並出圖？結構初步設計如何順暢轉入詳細設計？</td>
+</tr>
+<tr>
+<td>39</td>
+<td><a href="ch39_hvac_equipment_zh-TW.reading.html">通風與設備設計：HVAC Designer 與 Equipment</a></td>
+<td>設備與風管如何建立、修改並出圖？</td>
+</tr>
+<tr>
+<td>40</td>
+<td><a href="ch40_isodraft_zh-TW.reading.html">管路等角圖：Isodraft</a></td>
+<td>管路等角圖怎麼產生與客製？材料清單與標註如何設定？</td>
+</tr>
+<tr>
+<td>41</td>
+<td><a href="ch41_catalogs_specs_deep_zh-TW.reading.html">目錄與等級深入：Catalogs and Specifications 與 Design Templates</a></td>
+<td>目錄、等級與設計樣板怎麼建置、檢查與維護？</td>
+</tr>
+<tr>
+<td>42</td>
+<td><a href="ch42_database_management_zh-TW.reading.html">資料庫管理深入：Database Management、SQL Direct 與 Status Control</a></td>
+<td>資料庫怎麼管理、回溯與合併？怎麼用 SQL 查 Marine 資料？</td>
+</tr>
+<tr>
+<td>43</td>
+<td><a href="ch43_data_model_reference_zh-TW.reading.html">資料模型參考導讀：Data Model Reference Manual</a></td>
+<td>怎麼查資料模型手冊？各領域有哪些元素型別與屬性？</td>
+</tr>
+<tr>
+<td>44</td>
+<td><a href="ch44_customization_manuals_zh-TW.reading.html">客製化官方手冊導讀：Software Customization、.NET Customization、Data Access Routines 與 Marine Customization</a></td>
+<td>官方客製化手冊各講什麼？與本課程第 10–17 章如何對應？</td>
+</tr>
+<tr>
+<td>45</td>
+<td><a href="ch45_design_common_zh-TW.reading.html">設計共通功能：Clash Manager、Data Checker、Design Model Editor 與 Reporting</a></td>
+<td>怎麼檢查碰撞與資料正確性？報表工具怎麼選與使用？</td>
+</tr>
+<tr>
+<td>46</td>
+<td><a href="ch46_getting_started_zh-TW.reading.html">Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）</a></td>
+<td>第一次打開 Marine，該懂哪些資料與 GUI 的基本操作？</td>
+</tr>
+<tr>
+<td>47</td>
+<td><a href="ch47_release_upgrade_zh-TW.reading.html">12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</a></td>
+<td>12.1 有哪些變更？升級前要確認什麼、有哪些風險？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">附錄</h3>
 <table>
 <thead>
 <tr>
@@ -347,7 +509,7 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 </tr>
 </tbody>
 </table>
-<h3 id="_6">獨立課程</h3>
+<h3 id="_8">獨立課程</h3>
 <table>
 <thead>
 <tr>

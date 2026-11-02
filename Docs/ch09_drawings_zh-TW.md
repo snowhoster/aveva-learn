@@ -24,7 +24,7 @@ AVEVA Marine 12.1 的文件分別包含 **Marine Drafting** 與 **Outfitting Dra
 |---|---|---|
 | 來源 | Tribon 的圖面系統 | PDMS 的 Draft 模組 |
 | 主要用途 | 船體結構圖、板架圖、分段圖、生產用草圖 | 設備佈置圖、管路佈置圖、鐵舾裝圖 |
-| 圖面資料存放 | 船體圖面 Databank〔待核對〕 | PADD 類型的 Dabacon 資料庫（[第 2 章](ch02_project_database_zh-TW.reading.html)） |
+| 圖面資料存放 | PADD 資料庫加 `.SDB` 檔雙重儲存（依 12.1 官方文件，見[第 32 章](ch32_marine_drafting_zh-TW.reading.html)） | PADD 類型的 Dabacon 資料庫（[第 2 章](ch02_project_database_zh-TW.reading.html)） |
 | 資料結構 | 圖面、視圖、子圖（Subpicture）等 Tribon 結構 | `DEPT → REGI → DRWG → SHEE → VIEW` 元素樹 |
 | 客製化 | Vitesse（Python），例如 `kcs_draft` 模組（[第 15 章](ch15_hull_vitesse_zh-TW.reading.html)） | PML 與 .NET（第 11–14 章） |
 | 開發類比 | 以 API 操作的文件物件 | 存在資料庫中的樹狀文件物件 |

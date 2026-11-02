@@ -1,0 +1,1449 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 30 章　Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#30-monitor-marine-monitor-referenceprogram-environmentruntime">第 30 章 Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</a><ul>
+<li><a href="#301">30.1 學習目標</a></li>
+<li><a href="#302">30.2 本章在整體架構中的位置</a></li>
+<li><a href="#303-marineaccess-rights">30.3 進入 Marine：Access Rights 的完整流程</a><ul>
+<li><a href="#3031-monitor">30.3.1 Monitor 的前提</a></li>
+<li><a href="#3032">30.3.2 進入順序</a></li>
+<li><a href="#3033-monitor">30.3.3 資料庫類型（Monitor 視角）</a></li>
+<li><a href="#3034-team">30.3.4 資料庫存取控制與 Team 命名</a></li>
+<li><a href="#3035">30.3.5 模組存取控制</a></li>
+</ul>
+</li>
+<li><a href="#304-monitor">30.4 Monitor 的日常操作</a><ul>
+<li><a href="#3041-monitor">30.4.1 Monitor 選單地圖</a></li>
+<li><a href="#3042">30.4.2 常用操作速查</a></li>
+<li><a href="#3043-syntax-graph">30.4.3 命令語法的讀法（Syntax Graph）</a></li>
+</ul>
+</li>
+<li><a href="#305-currentdeferred">30.5 Current、Deferred 與資料庫切換</a><ul>
+<li><a href="#3051">30.5.1 三個命令</a></li>
+<li><a href="#3052-listquery">30.5.2 LIST／QUERY 輸出怎麼讀</a></li>
+<li><a href="#3053-protect-password">30.5.3 PROTECT 與 PASSWORD</a></li>
+<li><a href="#3054-db">30.5.4 跨 DB 連接巨集</a></li>
+</ul>
+</li>
+<li><a href="#306-batch">30.6 批次模式（Batch）</a><ul>
+<li><a href="#3061">30.6.1 批次的基本規則</a></li>
+<li><a href="#3062-batch-copynocopy">30.6.2 BATCH COPY／NOCOPY</a></li>
+<li><a href="#3063">30.6.3 批次的安全與資料完整性</a></li>
+</ul>
+</li>
+<li><a href="#307-monitor">30.7 Monitor 命令總表</a></li>
+<li><a href="#308-monitor">30.8 二次開發者與管理者怎麼接 Monitor</a></li>
+<li><a href="#309-monitor">30.9 Monitor 錯誤訊息</a></li>
+<li><a href="#3010-marine">30.10 Marine 系統目錄與檔案</a><ul>
+<li><a href="#30101">30.10.1 安裝根目錄</a></li>
+<li><a href="#30102-projmar-default-file">30.10.2 &lt;proj&gt;MAR 與 Default File</a></li>
+</ul>
+</li>
+<li><a href="#3011-job-launchermarine">30.11 Job Launcher：Marine 程式如何被啟動</a><ul>
+<li><a href="#30111">30.11.1 名詞</a></li>
+<li><a href="#30112-marjobsxml">30.11.2 MarJobs.xml：應用程式定義檔</a></li>
+<li><a href="#30113">30.11.3 啟動方式與主控台應用</a></li>
+<li><a href="#30114">30.11.4 主要執行檔清單</a></li>
+</ul>
+</li>
+<li><a href="#3012-runtime-marine-environment-utility">30.12 Runtime：環境變數與 Marine Environment utility</a><ul>
+<li><a href="#30121">30.12.1 環境變數清單</a></li>
+<li><a href="#30122-marine-environment-utility">30.12.2 Marine Environment utility</a></li>
+</ul>
+</li>
+<li><a href="#3013-sa004">30.13 命令列工具：SA004</a></li>
+<li><a href="#3014">30.14 文件內的矛盾與缺口</a></li>
+<li><a href="#3015">30.15 常見錯誤</a></li>
+<li><a href="#3016">30.16 本章小結</a></li>
+<li><a href="#3017">30.17 練習題（只能在訓練專案或唯讀測試環境）</a></li>
+<li><a href="#3018">30.18 自我檢核</a></li>
+<li><a href="#3019">30.19 〔待核對〕項目彙整</a></li>
+<li><a href="#_1">取材與延伸</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第六部分　官方文件深入 · 31 / 51</span><h1 id="30-monitor-marine-monitor-referenceprogram-environmentruntime">第 30 章　Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</h1>
+<blockquote>
+<p>第 1 章把 Monitor 列在「進入專案後的起點」，第 2 章講了 User、Team、MDB 與寫入權限，第 20 章從系統管理員的角度談了備份、DICE 與升級。這一章補上它們都沒細講的兩塊：<strong>第一，Monitor 這個模組本身有哪些命令、會丟出哪些錯誤訊息；第二，Marine 程式是怎麼被啟動的（Job Launcher、<code>MarJobs.xml</code>）、環境變數怎麼層層覆蓋，以及有哪些命令列工具。</strong></p>
+<p>這些內容看起來瑣碎，但二次開發與維運時最常卡在這裡：批次作業登入失敗、<code>MDB not found</code>、自家工具想被 Job Launcher 掛起來卻沒有出現在 Log Viewer、某位使用者的預設檔想改又不想影響別人。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 離線文件的 <em>Monitor Reference</em>（約 54 頁）與 <em>Marine Administration</em>（約 17 頁，含 Program Environment、Projects、Runtime System、Command-line Utilities）。官方文件帶有 PDMS 時代的殘留（例如 <code>PDMSEXE</code>、<code>PDMSWK</code>、<code>PDMSUI</code>、<code>PDMS_ID</code>），且機器翻譯品質不一，譯名已改為台灣慣用說法。文件之間有互相矛盾之處（見 30.14），一律標〔待核對〕。文件沒有講的（例如 Monitor 與 PML 的細節 API）不編造。與 Marine 專案目錄、備份、DICE 的管理面請回到<a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>，資料庫類型與 Team／MDB 概念請見<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>。</p>
+</blockquote>
+<h2 id="301">30.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明進入 Marine 的順序（<code>PROJECT</code> → <code>USERNAME</code> → 選 MDB → 切模組），以及 Monitor 為什麼會擋住你。</li>
+<li>區分 Free／General 使用者、Free／Restricted 模組，並判斷「為什麼這個人進不了 Admin」。</li>
+<li>解釋 Current 與 Deferred（non-current）資料庫，並正確使用 <code>CURRENT</code>、<code>DEFER</code>、<code>EXCHANGE</code>。</li>
+<li>使用 <code>LIST</code>、<code>QUERY</code>、<code>STATUS</code>、<code>SYSTAT</code> 查詢專案、使用者與資料庫狀態。</li>
+<li>用 <code>PROTECT</code> 暫時降低自己的存取權，並知道它不能升權。</li>
+<li>設計批次作業：<code>BATCH COPY</code>／<code>NOCOPY</code> 的語意、登入失敗行為、帳密保護與 COMMS DB 風險。</li>
+<li>看懂 Monitor 錯誤訊息 <code>(39,n)</code> 的意義與處置。</li>
+<li>說明 Job Launcher、Session、Job、<code>MarJobs.xml</code> 與 <code>marjobstarter.exe</code> 的關係。</li>
+<li>解釋 <code>&lt;proj&gt;MAR</code> 目錄、Default File、環境變數三層覆蓋順序與 Marine Environment utility。</li>
+<li>說明 <code>SA004</code> 資料庫工具能做什麼，以及它的使用界線。</li>
+</ol>
+<h2 id="302">30.2 本章在整體架構中的位置</h2>
+<pre><code> 專案環境變數（&lt;proj&gt;MAR、d065、環境表）
+        |                          |
+   Monitor 線                 Job Launcher 線
+ PROJECT/USERNAME/MDB      MarJobs.xml -&gt; marjobstarter.exe
+ -&gt; mon、adm、lex、設計模組   -&gt; sf416d、sj902、sa004 等 exe -&gt; Log Viewer
+</code></pre>
+<p>實務上可以把 Marine 分成兩條線：</p>
+<table>
+<thead>
+<tr>
+<th>線</th>
+<th>代表程式</th>
+<th>管什麼</th>
+<th>本章章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitor 線（Dabacon 資料庫模組）</td>
+<td><code>mon</code>（Monitor）、<code>adm</code>（Admin）、<code>lex</code>（Lexicon）、設計與出圖模組</td>
+<td>專案、使用者、MDB、DB 的 Current／Deferred、模組切換</td>
+<td>30.3–30.9</td>
+</tr>
+<tr>
+<td>Job Launcher 線（獨立執行檔）</td>
+<td><code>sf416d</code>、<code>sj902</code>、<code>sa004</code> 等數百支 exe</td>
+<td>以 Session／Job 形式啟動、輸入輸出參數、Log Viewer</td>
+<td>30.10–30.13</td>
+</tr>
+</tbody>
+</table>
+<p>兩條線共用同一組專案環境與環境變數，所以管理員常要同時懂兩邊。</p>
+<h2 id="303-marineaccess-rights">30.3 進入 Marine：Access Rights 的完整流程</h2>
+<h3 id="3031-monitor">30.3.1 Monitor 的前提</h3>
+<p>官方 <em>Monitor Reference</em> 的「Assumptions」只有兩句：讀者已有有效授權且軟體已安裝、已完成 AVEVA 基礎訓練；手冊是寫給「需要自訂介面或撰寫巨集」的人。這也是本章的定位。</p>
+<h3 id="3032">30.3.2 進入順序</h3>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>命令</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>PROJECT proj_name</code></td>
+<td>指定專案，例如 <code>PROJECT SAM</code>。可先查詢有哪些專案。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>USERNAME</code></td>
+<td>指定使用者名稱與密碼。登入前就能查詢使用者與 MDB，但<strong>設定 MDB 之前必須先給 username</strong>。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>進入 Monitor</td>
+<td>帳密正確後即在 Monitor 內，可用本章的命令。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>指定 MDB</td>
+<td>要進入任何其他模組（ADMIN 除外）前，Monitor 會檢查是否已選 MDB。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>輸入模組名稱</td>
+<td>進入有權使用的模組；在任何模組輸入 <code>Monitor</code> 可回到 Monitor。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 非圖形模式下，官方建議<strong>單獨輸入</strong> <code>USERNAME</code>，等系統提示後再輸入帳密（畫面不回顯）。不要寫成 <code>USERNAME SYSTEM/XXXXXX</code> 一行完成，那是安全風險。文件中的 <code>USER SYSTEM/XXXXXX</code> 範例只適用於不得已的巨集情境，詳見 30.6.3 的批次安全。</p>
+</blockquote>
+<h3 id="3033-monitor">30.3.3 資料庫類型（Monitor 視角）</h3>
+<p>第 2 章已有完整的資料庫類型表，這裡只列 Monitor 文件的分法，方便讀 <code>LIST</code> 輸出：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Databases</td>
+<td>SYSTEM（存取控制資料）、COMMS（誰在用哪個模組、有哪些模型 DB 可用）、MISC（使用者間訊息、跨 DB 巨集）；Global 專案另有 Global DB 與 transaction DB</td>
+</tr>
+<tr>
+<td>Model Databases</td>
+<td>DESIGN、CATALOGUE、PADD（Draft 圖面資料）、PROPERTIES、DICTIONARY（UDA 定義，Lexicon 維護）、ISOD（SPOOLER 的管段圖）</td>
+</tr>
+<tr>
+<td>Marine 專案另有</td>
+<td>SCHE（P&amp;ID 模組的流程圖資料）、MANU（製造資料）、NSEQ（名稱序列）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3034-team">30.3.4 資料庫存取控制與 Team 命名</h3>
+<p>使用者對某個 DB 的存取只有三種：<strong>Read/Write</strong>、<strong>Read-only</strong>、<strong>None</strong>。每個 DB 另有存取模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>官方定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UPDATE</code></td>
+<td>可被多位使用者以 Read-only 存取，但同時只有一位 Read/Write</td>
+</tr>
+<tr>
+<td><code>MULTIWRITE</code></td>
+<td>可被多位使用者同時 Read/Write</td>
+</tr>
+<tr>
+<td><code>CONTROLLED</code></td>
+<td>由外部系統控制</td>
+</tr>
+</tbody>
+</table>
+<p>DB 名稱格式為 <code>teamid/identifier</code>，例如 <code>PIPING/PIPING-A</code>。<code>teamid</code> 即擁有完整 Read/Write 的團隊；管路團隊對 <code>MASTER/CATALOGUE-1</code> 則只有唯讀。<strong>外部資料庫（Foreign DB）</strong>是從別的專案納入的，常用於 Catalogue，讓許多人讀同一份而不必複製；<code>LIST</code> 輸出中會標示 <code>Foreign</code>。</p>
+<p>使用者等級（由系統管理員指派）：</p>
+<table>
+<thead>
+<tr>
+<th>等級</th>
+<th>存取行為</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Free</td>
+<td>對所有資料庫都有 Read/Write</td>
+</tr>
+<tr>
+<td>General</td>
+<td>對「目前 MDB 中自己團隊擁有的 DB」Read/Write，其他 DB 副本唯讀</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3035">30.3.5 模組存取控制</h3>
+<p>模組分 <strong>Free</strong> 與 <strong>Restricted</strong>：只有 Free 使用者可用 Restricted 模組；General 使用者只能用 Free 模組。出廠設定中<strong>只有 Admin 與 Lexicon 是 Restricted</strong>，其餘皆 Free。這是「為什麼一般設計者進不了 Admin」的答案（錯誤 <code>(39,14)</code>，見 30.9）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> MDB 最多可含 1000 個 DB，且可任意多個同時為 Current。但選 MDB 進入設計模組時，<strong>UNITS 設定取自第一個 Current 的 Catalogue DB</strong>，所有 Current Catalogue DB 的連接相容（COCO）表都會可用。所以 Catalogue DB 在 MDB 裡的排序不是隨便的。〔排序對實際單位的影響，待核對〕</p>
+</blockquote>
+<h2 id="304-monitor">30.4 Monitor 的日常操作</h2>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Monitor 主視窗的 Monitor 選單，展開 Modules 子選單可見 Admin、Hull Design、Marine Drafting 等模組</div></p>
+<p><em>圖 30-1　Monitor 主選單列的 Monitor &gt; Modules 子選單：列出本安裝可進入的模組（Admin、Hull Design、Marine Drafting、Outfitting、Outfitting Draft、Isodraft、Spooler、Paragon、Specon、Lexicon、Propcon 等）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="3041-monitor">30.4.1 Monitor 選單地圖</h3>
+<p>官方「Menu Maps」共 6 張圖，涵蓋 Monitor 主選單列的 Monitor／Display／Project／Window／Help 五個選單。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Monitor 的 Project 選單，含 Inter-db Macros、User Status、List（Users、Teams、DBs、MDBs、User Rights）與 Change Password</div></p>
+<p><em>圖 30-2　Project 選單：Inter-db Macros...、User Status...、List（Users...、Teams...、DBs...、MDBs...、User Rights...）、Change Password...。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Monitor 的 Display 選單，含 Monitor、Command Window、Show Descriptions、Show Names</div></p>
+<p><em>圖 30-3　Display 選單：Monitor...、Command Window...、Show Descriptions、Show Names。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Monitor 的 Help 選單，含 Contents、Search、About</div></p>
+<p><em>圖 30-4　Help 選單：Contents、Search、About。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>選單與命令的對應（依圖文推斷，官方未逐項對照，〔對應關係待核對〕）：</p>
+<table>
+<thead>
+<tr>
+<th>選單項目</th>
+<th>對應的命令概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project &gt; List &gt; Users／Teams／DBs／MDBs</td>
+<td><code>LIST USERS</code>／<code>TEAMS</code>／<code>MDBS</code>／<code>DBS</code></td>
+</tr>
+<tr>
+<td>Project &gt; User Status...</td>
+<td><code>STATUS</code></td>
+</tr>
+<tr>
+<td>Project &gt; Inter-db Macros...</td>
+<td>跨 DB 連接巨集（<code>QUERY MACRO</code>／<code>DELETE MACRO</code>）</td>
+</tr>
+<tr>
+<td>Project &gt; Change Password...</td>
+<td><code>PASSWORD</code></td>
+</tr>
+<tr>
+<td>Display &gt; Command Window...</td>
+<td>命令視窗，可直接輸入本章命令</td>
+</tr>
+<tr>
+<td>Monitor &gt; Modules &gt; ...</td>
+<td>以模組名稱切換模組</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 圖形介面的操作最後都會轉成命令字串（第 1 章已提過）。想知道某個選單「到底做了什麼」，就開 Command Window 看對應命令。</p>
+</blockquote>
+<h3 id="3042">30.4.2 常用操作速查</h3>
+<table>
+<thead>
+<tr>
+<th>想做的事</th>
+<th>作法</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>改密碼</td>
+<td><code>PASSWORD password</code></td>
+<td>管理員可以鎖定（見 30.5.3）</td>
+</tr>
+<tr>
+<td>看自己的狀態</td>
+<td><code>STATUS</code></td>
+<td>專案、使用者（含主機）、所屬 Teams、MDB、各 DB 與 RW／R 模式</td>
+</tr>
+<tr>
+<td>看誰在線上</td>
+<td><code>SYSTAT</code></td>
+<td>每位使用者的 ID、登入名、主機、進入時間、模組、MDB、各 DB 模式</td>
+</tr>
+<tr>
+<td>設目前團隊</td>
+<td><code>SET TEAM SAMPLE</code></td>
+<td>之後可寫 <code>Q DB /DESI</code> 取代 <code>Q DB SAMPLE/DESI</code></td>
+</tr>
+<tr>
+<td>傳訊息</td>
+<td><code>MESSAGE</code></td>
+<td>訊息要用單引號包住；只送給目前已在專案內的人，且在對方<strong>下次切換模組</strong>時才顯示</td>
+</tr>
+<tr>
+<td>輸出到檔案</td>
+<td><code>ALPHA FILE</code>（建議）或 <code>FILE</code></td>
+<td><code>ALPHA FILE END</code> 回到螢幕；<code>FILE</code> 要用 <code>TERMINAL</code> 回螢幕</td>
+</tr>
+<tr>
+<td>更換輸出裝置</td>
+<td><code>DEVICE GRAPHICS／NOGRAPHICS／TTY</code></td>
+<td><code>Query DEVICE</code> 查詢目前值</td>
+</tr>
+<tr>
+<td>離開</td>
+<td><code>FINISH</code>（Monitor 內可縮寫 <code>FIN</code>）</td>
+<td>其他模組內必須完整輸入</td>
+</tr>
+</tbody>
+</table>
+<p>輸出預設為「螢幕、每行 80 字元」。<code>ALPHA FILE</code> 與 <code>FILE</code> 還能設定每行字元數、每頁行數，以及是否覆寫。</p>
+<h3 id="3043-syntax-graph">30.4.3 命令語法的讀法（Syntax Graph）</h3>
+<p>官方以語法圖表示命令，讀法如下，後面幾章（以及其他模組的命令手冊）都用同樣慣例：</p>
+<table>
+<thead>
+<tr>
+<th>慣例</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大寫字母</td>
+<td>最小縮寫，例如 <code>Query</code> 可打 <code>Q</code>、<code>QU</code>、<code>QUE</code>、<code>QUER</code>、<code>QUERY</code></td>
+</tr>
+<tr>
+<td>全大寫的命令</td>
+<td>不可縮寫（例如 <code>DELETE</code>，為防誤刪）</td>
+</tr>
+<tr>
+<td>小寫斜體</td>
+<td>引數描述，要換成實際值</td>
+</tr>
+<tr>
+<td><code>+</code> 接點</td>
+<td>選項，擇一，或直接 Enter 取預設</td>
+</tr>
+<tr>
+<td><code>*</code> 接點</td>
+<td>迴圈，選項可重複</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>引數</th>
+<th>定義</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>元素名稱</td>
+<td><code>PIPE-A63</code></td>
+</tr>
+<tr>
+<td><code>refno</code></td>
+<td>參考編號</td>
+<td><code>=23/1403</code></td>
+</tr>
+<tr>
+<td><code>integer</code></td>
+<td>正整數</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>正或負數</td>
+<td><code>3.142</code></td>
+</tr>
+<tr>
+<td><code>word</code></td>
+<td>最多 4 個字母</td>
+<td><code>FLOW</code></td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>英數字串</td>
+<td><code>'Enclose in quotes'</code></td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td>檔案路徑</td>
+<td><code>/c:\\testing</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：Marine 的所有名稱都以斜線開頭</strong>，所以完整路徑也要先加一個 <code>/</code>。這也是 <code>PASSWORD /SECRET</code> 的由來。命令大小寫不拘。</p>
+<h2 id="305-currentdeferred">30.5 Current、Deferred 與資料庫切換</h2>
+<h3 id="3051">30.5.1 三個命令</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>語法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CURRENT</code></td>
+<td>把指定 DB 設為 Current，並插在 Current 清單第 n 個位置（1–1000）</td>
+<td><code>CUrrent dbname n ...</code></td>
+</tr>
+<tr>
+<td><code>DEFER</code></td>
+<td>把 DB 從 Current 清單移除，改為 Deferred</td>
+<td><code>DEfer dbname ...</code></td>
+</tr>
+<tr>
+<td><code>EXCHANGE</code></td>
+<td>用一個 Deferred DB 取代一個 Current DB</td>
+<td><code>EXchange dbname dbname ...</code>（成對）</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例：MDB <code>/DESIGN</code> 的 Current 為 <code>PIPING/PIPING-A</code>、<code>PIPING/PIPING-C</code>、<code>MASTER/CATA-D</code>，Deferred 為 <code>PIPING/PIPING-B</code>、<code>MASTER/PIPING-E</code>。執行</p>
+<pre><code>EXCHANGE PIPING/PIPING-A PIPING/PIPING-B MASTER/PIPING-E MASTER/CATA-D
+</code></pre>
+<p>後，Current 變成 <code>PIPING/PIPING-B</code>、<code>PIPING/PIPING-C</code>、<code>MASTER/PIPING-E</code>，Deferred 變成 <code>PIPING/PIPING-A</code>、<code>MASTER/CATA-D</code>。名稱的先後不重要（MDB 自己知道誰是 Current），<strong>但多於兩個名稱時必須正確配對</strong>。<code>CURRENT PIPING/PIPING-A 1 MASTER/CATA-D 4</code> 則是依序把兩者插入第 1、第 4 位，且<strong>位置是以前一次插入完成後的清單為準</strong>。</p>
+<h3 id="3052-listquery">30.5.2 LIST／QUERY 輸出怎麼讀</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>輸出重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LIST USERS</code></td>
+<td>每位使用者的等級（Free／General）與所屬 Teams</td>
+</tr>
+<tr>
+<td><code>LIST TEAMS</code></td>
+<td>每個 Team 的成員與其 DB</td>
+</tr>
+<tr>
+<td><code>LIST MDBS</code></td>
+<td>每個 MDB 的 Current DBs（序號、<code>team/db</code>、類型、模式如 <code>Update</code>、是否 <code>Foreign</code>）與 Deferred DBs</td>
+</tr>
+<tr>
+<td><code>LIST DBS</code></td>
+<td>每個 DB 的類型、<code>Number</code>（資料庫編號）、模式、<code>Size ... pages</code>、含它的 MDBs</td>
+</tr>
+<tr>
+<td><code>LIST COPIES</code></td>
+<td>從別的專案複製來的 DB 與其副本名稱</td>
+</tr>
+<tr>
+<td><code>LIST MODULES</code></td>
+<td>每個模組的 Security（Free／Restricted）、<code>Imacro</code>、<code>Open Attlib</code>、<code>Open Message</code>、<code>Resume</code> 路徑（如 <code>/%PDMSEXE%/mon</code>）</td>
+</tr>
+</tbody>
+</table>
+<p><code>LIST</code> 另有 <code>EXTERNAL</code>（外部 DB）、<code>TYPES</code>、<code>FILES</code>、<code>SIZES</code>（頁數與 Mbytes）、<code>MACROS</code>、<code>AREA n</code>、<code>MESSAGES</code>、<code>ALL</code>、<code>WORKING EXTRACTS [FOR username]</code>、<code>AUTHUSERS</code>（NT 授權使用者）。</p>
+<p><code>QUERY</code> 的 Monitor 版可查：</p>
+<table>
+<thead>
+<tr>
+<th>查詢</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用者</td>
+<td><code>Q USER</code>、<code>Q USER SAMPLE</code>、<code>Q USER SYSTEM ACCESS</code>（僅 Free 使用者可得）、<code>DESCRIPTION</code>、<code>PASS</code></td>
+</tr>
+<tr>
+<td>在線人數</td>
+<td><code>Q ACTIVE</code></td>
+</tr>
+<tr>
+<td>Team／MDB</td>
+<td><code>Q TEAM SAMPLE</code>、<code>Q MDB /SAMPLE</code>、<code>Q SET TEAM</code></td>
+</tr>
+<tr>
+<td>DB 屬性</td>
+<td><code>Q DB SAMPLE/DESI</code>，後接 <code>TYPE</code>、<code>FILE</code>、<code>NUMBER</code>、<code>SIZE</code>、<code>FOREIGN</code>、<code>ACCESS</code>、<code>DESCRIPTION</code></td>
+</tr>
+<tr>
+<td>副本、巨集</td>
+<td><code>Q COPIES SAMPLE/DESI</code>、<code>Q MACRO 1</code>（<code>FILENAME</code>／<code>FROMDB</code>／<code>TODB</code>）</td>
+</tr>
+<tr>
+<td>其他</td>
+<td><code>Q PASSWORDLOCK</code>、<code>Q PROJ</code>（<code>NAME</code>／<code>NUMBER</code>／<code>DESCRIPTION</code>／<code>MESSAGE</code>）、<code>Q DEVICE</code></td>
+</tr>
+</tbody>
+</table>
+<p>DESCRIPTION 類輸出必須事先設定過描述才有內容；DB 的詳細查詢「主要供系統管理員參考」。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>Q DB 名稱 FILE</code> 會直接回傳實際檔名（官方範例 <code>/%MAS000%/mas005</code>，其中 <code>MAS000</code> 是 Area 環境變數），是追查「這個 DB 到底在哪個檔案」最快的方法，比到磁碟上找快得多。這與第 20 章的 DB 檔案命名一致。</p>
+</blockquote>
+<h3 id="3053-protect-password">30.5.3 PROTECT 與 PASSWORD</h3>
+<p><code>PROTECT dbname RW|Read|None</code> 可暫時降低自己對目前 MDB 內某 DB 的權限，<strong>只能降、不能升</strong>，且只在當前 Session 有效。範例：<code>PROT PIPING/AREA-B READ</code>，之後 <code>STATUS</code> 的 MODE 欄由 <code>RW</code> 變成 <code>R</code>。這對「我只想檢查，不要不小心寫入」很實用。</p>
+<p><code>PASSWORD</code> 在管理員打開 PASSWORDLOCK 時不能用，可先 <code>Q PASSWORDLOCK</code> 確認；被鎖時改密碼要請管理員處理（錯誤 <code>(39,36)</code>）。若輸入錯誤密碼導致自己進不去，也只能請管理員。〔密碼長度與字元限制，見 30.14。〕</p>
+<h3 id="3054-db">30.5.4 跨 DB 連接巨集</h3>
+<p>在設計模組要連接到「沒有寫入權限的另一個 DB 裡的元素」時，系統會建立 <strong>inter-DB 連接巨集</strong>，要由適當的使用者（擁有寫入權的團隊）在 Design 內執行，系統再自動刪除。Monitor 的 <code>LIST MACROS</code>、<code>Q MACRO n</code>、<code>DELETE MACRO n</code> 管理它們。<code>DELETE</code> 不可縮寫；對方團隊還沒讀取的巨集不能刪（<code>(39,19)</code>）。</p>
+<h2 id="306-batch">30.6 批次模式（Batch）</h2>
+<h3 id="3061">30.6.1 批次的基本規則</h3>
+<p>批次作業要以<strong>批次模式啟動 Marine</strong>（細節見 <em>Marine Software Installation Guide</em>，本課程資料中未涵蓋）。你要先寫一個檔案，內容是平常在鍵盤上輸入的所有命令，再用作業系統的一般方式執行。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>互動模式</th>
+<th>批次模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>帳密嘗試次數</td>
+<td>3 次</td>
+<td><strong>1 次</strong>，錯了就把控制權還給作業系統並終止</td>
+</tr>
+<tr>
+<td>專案名／帳號／密碼錯誤</td>
+<td>重試</td>
+<td>立即中止</td>
+</tr>
+<tr>
+<td>其他錯誤</td>
+<td>顯示後繼續</td>
+<td>立即中止，<strong>除非使用 PML 錯誤處理</strong></td>
+</tr>
+<tr>
+<td><code>BATCH</code> 命令</td>
+<td>被忽略，產生 <code>(39,23)</code></td>
+<td>有效</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3062-batch-copynocopy">30.6.2 BATCH COPY／NOCOPY</h3>
+<p>批次作業預設若沒給 <code>COPY</code>，會<strong>複製所有 Design DB</strong>；若完全不複製，原始 DB 一律以 <strong>Read-only</strong> 存取（不論原本權限）。複製的目的是讓批次作業用副本（可寫，例如自動建群組需要寫入），互動使用者繼續用正式版。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BATCH COPY DESI DRWG</code></td>
+<td>複製選定 MDB 的所有 Design 與 Drawing DB</td>
+</tr>
+<tr>
+<td><code>BATCH COPY PIPING/DES74A CIVIL/DES13B</code></td>
+<td>複製指定的兩個 DB</td>
+</tr>
+<tr>
+<td><code>BATCH COPY ALL</code></td>
+<td>複製 MDB 內全部</td>
+</tr>
+<tr>
+<td><code>BATCH COPY NONE</code></td>
+<td>不複製任何 DB</td>
+</tr>
+<tr>
+<td><code>BATCH NOCOPY PIPING/DES74A</code></td>
+<td>此 DB 不複製</td>
+</tr>
+</tbody>
+</table>
+<p><code>dbtype</code> 可為 <code>DESI</code>、<code>CATA</code>、<code>PROP</code>、<code>PADD</code>、<code>DICT</code>、<code>ISOD</code>。<strong>COPY 是累加的</strong>：官方例子依序下 <code>COPY NONE</code>、<code>COPY PIPING/DES75A PIPING/DES37C</code>、<code>COPY DRWG</code>，結果只有那兩個 DESI 被標記複製（因為該 MDB 沒有 DRWG 類）。</p>
+<p>何時真的複製：第一次「切換模組」命令之後才複製。若選了新 MDB，或重選同一個 MDB 而殘存上次的副本，<strong>舊副本全部刪除再重新複製</strong>。副本是暫時的，批次結束（不論成功）或選新 MDB 時消失；要永久副本須由管理員用 Admin 建立。</p>
+<p>此外，透過 Admin 與 RECONFIGURER 存取 DB 只能 Read-only，嘗試修改專案結構會得到 <code>Trying to alter a read-only database</code>。</p>
+<h3 id="3063">30.6.3 批次的安全與資料完整性</h3>
+<ul>
+<li><strong>帳密存在檔案裡</strong>：批次檔必須用作業系統權限保護；許多批次系統會把提交的檔案複製到他處，使用者若看得到那份副本，帳密仍會外洩，專案協調者應與 IT 確認。</li>
+<li><strong>COMMS DB 風險</strong>：唯讀批次時唯一會被寫入的是 COMMS DB，批次若中途被打斷有損毀風險。官方建議：不要遠端下指令中止批次作業、不要使用有 CPU 或經過時間限制的批次佇列、有磁碟將滿風險時不要執行。</li>
+<li><strong>磁碟</strong>：每次選 MDB 都重新複製，批次使用者必須評估對磁碟空間的影響。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 把批次用的 Marine 帳號做成專用帳號、給最小權限、密碼獨立輪替，並讓批次檔所在目錄只開給該服務帳號。批次作業要偵測失敗時，在 PML 層面加錯誤處理（官方指向 <em>Software Customization Guide</em>，本章未涵蓋），否則「遇錯即停」會讓夜間批次半途而廢。</p>
+</blockquote>
+<h2 id="307-monitor">30.7 Monitor 命令總表</h2>
+<p>官方「Command Summary」共 18 個命令，加上 <code>QUERY</code>：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>官方功能</th>
+<th>本章章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BATCH</code></td>
+<td>指定批次作業處理方式</td>
+<td>30.6</td>
+</tr>
+<tr>
+<td><code>CURRENT</code></td>
+<td>使資料庫成為 Current</td>
+<td>30.5.1</td>
+</tr>
+<tr>
+<td><code>DEFER</code></td>
+<td>使資料庫成為 Deferred</td>
+<td>30.5.1</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>刪除 inter-DB 連接巨集</td>
+<td>30.5.4</td>
+</tr>
+<tr>
+<td><code>DEVICE</code></td>
+<td>指定裝置類型</td>
+<td>30.4.2</td>
+</tr>
+<tr>
+<td><code>EXCHANGE</code></td>
+<td>用 Deferred DB 取代 Current DB</td>
+<td>30.5.1</td>
+</tr>
+<tr>
+<td><code>FINISH</code></td>
+<td>離開 Marine</td>
+<td>30.4.2</td>
+</tr>
+<tr>
+<td><code>LIST</code></td>
+<td>列出專案資訊</td>
+<td>30.5.2</td>
+</tr>
+<tr>
+<td><code>MESSAGE</code></td>
+<td>傳訊息給其他使用者</td>
+<td>30.4.2</td>
+</tr>
+<tr>
+<td><code>PASSWORD</code></td>
+<td>改密碼</td>
+<td>30.5.3</td>
+</tr>
+<tr>
+<td><code>PROJECT</code></td>
+<td>指定目前專案</td>
+<td>30.3.2</td>
+</tr>
+<tr>
+<td><code>PROTECT</code></td>
+<td>變更對 DB 的存取權</td>
+<td>30.5.3</td>
+</tr>
+<tr>
+<td><code>QUERY</code></td>
+<td>查詢命名的管理元素</td>
+<td>30.5.2</td>
+</tr>
+<tr>
+<td><code>RUN</code></td>
+<td>執行無法透過一般模組切換命令啟動的模組</td>
+<td>見下</td>
+</tr>
+<tr>
+<td><code>SET</code></td>
+<td>設定目前團隊（<code>SET TEAM teamid</code>）</td>
+<td>30.4.2</td>
+</tr>
+<tr>
+<td><code>STATUS</code></td>
+<td>目前狀態與可存取的 DB</td>
+<td>30.4.2</td>
+</tr>
+<tr>
+<td><code>SYSTAT</code></td>
+<td>專案目前活動狀態</td>
+<td>見下</td>
+</tr>
+<tr>
+<td><code>USERNAME</code></td>
+<td>指定使用者名稱與密碼</td>
+<td>30.3.2</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>SYSTAT</code></strong> 預設列出全專案每位在線使用者，也可篩選：<code>SYSTAT USER pdms_id</code>、<code>NAME 'login_id'</code>、<code>HOST 'host_id'</code>、<code>MODULE module</code>、<code>MDB mdb_name</code>。管理員常用它在維護前確認「誰還在用哪個 DB、是 R 還是 RW」，再搭配 <code>MESSAGE</code> 通知。例如 <code>MESS TEAM PIPING 'LATEST PIPE ROUTING HAS BEEN APPROVED'</code>。<code>MESSAGE</code> 的收件對象可指定為 <code>n</code>、<code>HOST hostname</code>、<code>ID descript</code>、<code>LOGIN loginid</code>、<code>USER userid</code>、<code>TEAM teamid</code>，不指定則為全部在線使用者。</p>
+<p><strong><code>RUN module</code></strong>：官方明確寫「僅應在 AVEVA 建議下使用」。<strong>本課程不建議自行嘗試。</strong></p>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>SYSTAT</code> 的 R 與 RW 很重要：看到某個 UPDATE 模式的 DB 被別人以 RW 佔著，就能說明為什麼你寫不進去（第 2 章 2.10 的原因之一）；但它看不到「未存檔的 Session 內容」，維護前仍須主動通知。</p>
+</blockquote>
+<h2 id="308-monitor">30.8 二次開發者與管理者怎麼接 Monitor</h2>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>文件依據</th>
+<th>作法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>想做自己的登入或啟動巨集</td>
+<td>Monitor Reference 假設讀者會「自訂介面或撰寫巨集」；<code>LIST MODULES</code> 顯示每個模組有 <code>Imacro</code>（如 <code>/%PDMSUI%/MON/ADMIN/START</code>）</td>
+<td>沿用官方啟動巨集的路徑慣例；修改其內容的細節〔待核對，文件未說明〕</td>
+</tr>
+<tr>
+<td>想在工具裡列出 MDB 或 DB</td>
+<td><code>LIST</code>／<code>QUERY</code> 的輸出格式已列於 30.5.2</td>
+<td>以命令取得輸出，再解析；PML 內取得輸出的 API 及其行為〔待核對：本章資料未涵蓋〕</td>
+</tr>
+<tr>
+<td>想在批次中遇錯不中止</td>
+<td>文件：除非使用 PML 錯誤處理</td>
+<td>依 <em>Software Customization Guide</em>〔本章未讀〕</td>
+</tr>
+<tr>
+<td>想把輸出導到檔案</td>
+<td><code>ALPHA FILE</code>／<code>FILE</code>／<code>TERMINAL</code></td>
+<td>見 30.4.2</td>
+</tr>
+<tr>
+<td>排查「為什麼進不了模組」</td>
+<td><code>(39,8)</code>、<code>(39,13)</code>、<code>(39,14)</code></td>
+<td>見 30.9</td>
+</tr>
+<tr>
+<td>想讓使用者別看到圖形</td>
+<td><code>DEVICE NOGRAPHICS</code></td>
+<td>批次或自動化測試時有用</td>
+</tr>
+</tbody>
+</table>
+<h2 id="309-monitor">30.9 Monitor 錯誤訊息</h2>
+<p>官方說明：Monitor 專屬的訊息編號都以 <strong>39</strong> 開頭，格式 <code>(39,n)</code>；螢幕輸出含編號，訊息檔則省略編號。其他模組的訊息不在此列。以下為官方列出的全部項目，處置欄為本課程依文意補充。</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>訊息</th>
+<th>官方原因</th>
+<th>處置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(39,3)</td>
+<td>MDB not found</td>
+<td>引用的 MDB 名稱在目前專案不存在</td>
+<td><code>LIST MDBS</code> 查名稱；MDB 名以 <code>/</code> 開頭</td>
+</tr>
+<tr>
+<td>(39,4)</td>
+<td>DB not found</td>
+<td>DB 名稱不存在</td>
+<td><code>LIST DBS</code>；記得 <code>team/db</code> 格式或先 <code>SET TEAM</code></td>
+</tr>
+<tr>
+<td>(39,5)</td>
+<td>TEAM not found</td>
+<td>Team 不存在</td>
+<td><code>LIST TEAMS</code></td>
+</tr>
+<tr>
+<td>(39,6)</td>
+<td>Insufficient status to set this mode</td>
+<td>使用者權限不允許修改相關檔案</td>
+<td>找管理員，或確認是否為 Free</td>
+</tr>
+<tr>
+<td>(39,7)</td>
+<td>USER not found</td>
+<td>該使用者不是指定（或目前）Team 的成員</td>
+<td>先確認 Team 成員</td>
+</tr>
+<tr>
+<td>(39,8)</td>
+<td>MODULE not found</td>
+<td>專案資料庫內找不到該模組的 runfile，須由管理員用 Admin 設定</td>
+<td>管理員處理</td>
+</tr>
+<tr>
+<td>(39,11)</td>
+<td>DB not current</td>
+<td><code>EXCHANGE</code>／<code>DEFER</code> 指定的 DB 不是 Current</td>
+<td>先 <code>LIST MDBS</code> 確認</td>
+</tr>
+<tr>
+<td>(39,12)</td>
+<td>User number not found</td>
+<td>沒有使用者以該 ID 登入</td>
+<td><code>SYSTAT</code> 查 ID</td>
+</tr>
+<tr>
+<td>(39,13)</td>
+<td>Resume file not found</td>
+<td>找不到模組的 runfile（同 39,8）</td>
+<td>管理員處理</td>
+</tr>
+<tr>
+<td>(39,14)</td>
+<td>Insufficient status to run module</td>
+<td>你沒有該模組的存取權</td>
+<td>見 30.3.5：Restricted 模組只有 Free 使用者可用</td>
+</tr>
+<tr>
+<td>(39,15)</td>
+<td>No MDB has been specified</td>
+<td>進入大多數模組、或設 DB 為 Current 前，必須先選 MDB</td>
+<td>先選 MDB</td>
+</tr>
+<tr>
+<td>(39,16)</td>
+<td>DB is not part of this MDB</td>
+<td>該 DB 不在指定（或目前）MDB 內</td>
+<td><code>LIST MDBS</code></td>
+</tr>
+<tr>
+<td>(39,17)</td>
+<td>DB already current</td>
+<td><code>CURRENT</code>／<code>EXCHANGE</code> 指定的 DB 已是 Current</td>
+<td>忽略或調整命令</td>
+</tr>
+<tr>
+<td>(39,18)</td>
+<td>Filing error - cannot delete macro file</td>
+<td><code>DELETE MACRO</code> 的巨集 ID 無效</td>
+<td><code>LIST MACROS</code> 查 ID</td>
+</tr>
+<tr>
+<td>(39,19)</td>
+<td>Cannot delete - macro not yet read</td>
+<td>接收團隊尚未讀取該巨集</td>
+<td>等對方執行</td>
+</tr>
+<tr>
+<td>(39,20)</td>
+<td>Current position out of range</td>
+<td>加入 Current 的位置須為 1–1000</td>
+<td>修正位置</td>
+</tr>
+<tr>
+<td>(39,21)</td>
+<td>There are already 1000 current DBs</td>
+<td>MDB 同時最多 1000 個可存取 DB</td>
+<td>用 <code>EXCHANGE</code> 或 <code>DEFER</code> 騰出空間</td>
+</tr>
+<tr>
+<td>(39,22)</td>
+<td>Actions turned off</td>
+<td>已下過 <code>ACTIONS OFF</code></td>
+<td>〔<code>ACTIONS</code> 命令文件未收錄，待核對〕</td>
+</tr>
+<tr>
+<td>(39,23)</td>
+<td>BATCH command ignored for interactive use</td>
+<td><code>BATCH</code> 只在以批次選項進入時有效</td>
+<td>以批次模式啟動</td>
+</tr>
+<tr>
+<td>(39,25)</td>
+<td>/* is not a valid MDB</td>
+<td>MDB 必須完整指名，不可用萬用字元</td>
+<td>寫出完整名稱</td>
+</tr>
+<tr>
+<td>(39,36)</td>
+<td>User password not changed - passwordLock is on</td>
+<td>管理員已將 PASSWORDLOCK 設為 ON</td>
+<td>請管理員改</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3010-marine">30.10 Marine 系統目錄與檔案</h2>
+<h3 id="30101">30.10.1 安裝根目錄</h3>
+<p>系統一律安裝在一個 root 目錄下：</p>
+<table>
+<thead>
+<tr>
+<th>子目錄</th>
+<th>官方用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Config</code></td>
+<td>目前的專案組態與設定</td>
+</tr>
+<tr>
+<td><code>customize</code></td>
+<td>與專案無關的範例檔</td>
+</tr>
+<tr>
+<td><code>Documentation</code></td>
+<td>線上 HTMLHelp 文件</td>
+</tr>
+<tr>
+<td><code>Etc</code></td>
+<td>訊息檔、語法檔、符號檔</td>
+</tr>
+<tr>
+<td><code>Projects</code></td>
+<td>隨系統安裝的範例專案</td>
+</tr>
+<tr>
+<td><code>Template project</code></td>
+<td>建立新專案時使用的範本專案</td>
+</tr>
+<tr>
+<td><code>Vitesse</code></td>
+<td>Vitesse 原始碼檔</td>
+</tr>
+<tr>
+<td><code>Python</code></td>
+<td>Python 原始碼檔</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>Bin</code>、<code>Config</code>、<code>Documentation</code> 是系統安裝本體，不得手動編輯。</strong>客製內容請放在專案目錄或自己的工具庫，不要放進這三個目錄。（Vitesse 見<a href="ch15_hull_vitesse_zh-TW.reading.html">第 15 章</a>。）</p>
+<h3 id="30102-projmar-default-file">30.10.2 <code>&lt;proj&gt;MAR</code> 與 Default File</h3>
+<p>除了第 20 章談過的建立專案程序，Marine 專案還要設一個 Windows 環境變數 <code>&lt;proj&gt;MAR</code>（專案叫 ABC 就是 <code>ABCMAR</code>），指向額外的 Marine 專案資料。標準子目錄：</p>
+<table>
+<thead>
+<tr>
+<th>子目錄</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\dat</code></td>
+<td>各種輸入資料檔</td>
+</tr>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\def</code></td>
+<td>預設值與標準（例如 Default File）</td>
+</tr>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\lst</code></td>
+<td>輸出與日誌檔</td>
+</tr>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\nc</code></td>
+<td>輸出給 NC 機器的資料</td>
+</tr>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\sch</code></td>
+<td>結構生成方案、曲面板方案</td>
+</tr>
+<tr>
+<td><code>&lt;Proj&gt;\MAR\navarch</code></td>
+<td>曲面（Surface）檔</td>
+</tr>
+</tbody>
+</table>
+<p>三種設定載體：</p>
+<table>
+<thead>
+<tr>
+<th>載體</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Default File</strong></td>
+<td>以「關鍵字加值」組成的純文字檔，應用程式透過「指向其路徑檔名的環境變數」存取。例：<code>SBD_DEF1</code> 指向出圖類應用的預設檔</td>
+</tr>
+<tr>
+<td><strong>IP File</strong></td>
+<td>Hull 應用的預設檔對應物</td>
+</tr>
+<tr>
+<td><strong>Settings Objects</strong></td>
+<td>某些應用設定以物件形式存在資料庫中</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 這與第 6、15 章的 Hull 製造資料有直接關係：Hull 的輸入、輸出與預設檔散落在這幾個子目錄，備份專案時只備份 DB 而漏掉 <code>MAR</code> 目錄，會讓預設檔與輸出紀錄一起遺失。備份清單請與<a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>對照補齊。</p>
+</blockquote>
+<h2 id="3011-job-launchermarine">30.11 Job Launcher：Marine 程式如何被啟動</h2>
+<h3 id="30111">30.11.1 名詞</h3>
+<table>
+<thead>
+<tr>
+<th>名詞</th>
+<th>官方定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session</td>
+<td>單一應用程式（任一個 exe）的一次執行，例如 Hull Extract Scheme、Hull Parts List、Ppanparts</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>環境表中所有環境變數；Marine 專用的環境表<strong>與 Windows 系統及使用者變數分開</strong></td>
+</tr>
+<tr>
+<td>Job</td>
+<td>Session 加上其輸入輸出參數</td>
+</tr>
+<tr>
+<td>Job file</td>
+<td>某個 Job 的實例，內含應用名稱、輸入輸出參數、執行日期；<strong>是暫時性的，不含真正資料</strong>，存在 <code>%PDMSWK%</code> 下的 <code>jobs</code> 子目錄</td>
+</tr>
+</tbody>
+</table>
+<p>Job file 對使用者是隱形的；Log Viewer 用它來顯示輸入輸出參數與追蹤執行狀態。</p>
+<h3 id="30112-marjobsxml">30.11.2 <code>MarJobs.xml</code>：應用程式定義檔</h3>
+<p>所有應用（工具程式除外）定義在 <code>SB_SYSTEM</code> 目錄的 <code>MarJobs.xml</code>。每個應用一個 <code>&lt;application&gt;</code> 節點，包含：名稱、簡稱（用於 log 檔命名）、執行檔名稱、輸入參數（描述與型別）、輸出參數（描述、型別與副檔名）。官方範例：</p>
+<pre><code class="language-xml">&lt;application&gt;
+  &lt;name&gt;Hull Plane Part Gen.&lt;/name&gt;
+  &lt;short_name&gt;ppanparts&lt;/short_name&gt;
+  &lt;executable&gt;sf416d.exe&lt;/executable&gt;
+  &lt;inputs&gt;&lt;input&gt;Input Selection&lt;/input&gt;&lt;/inputs&gt;
+  &lt;outputs&gt;
+    &lt;output extension=&quot;log&quot;&gt;Check of input selection&lt;/output&gt;
+    &lt;output extension=&quot;lst&quot;&gt;List file&lt;/output&gt;
+  &lt;/outputs&gt;
+&lt;/application&gt;
+</code></pre>
+<p>輸出檔的<strong>檔名由 Job Launcher 在執行時決定，副檔名由此定義</strong>。<code>&lt;executable&gt;</code> 只給檔名時，Job Launcher 在 <code>%PDMSEXE%</code> 找；要啟動別處的程式則要寫完整路徑（官方範例為 <code>c:\windows\system32\notepad.exe</code>）。</p>
+<h3 id="30113">30.11.3 啟動方式與主控台應用</h3>
+<p>每個 Session 由專用的啟動程式 <code>marjobstarter.exe</code> 啟動，讓每個 Session 擁有環境的私有副本並備齊輸入資料；Job Launcher 在背景等待程式結束，並把執行狀態通知 Log Viewer。官方範例：</p>
+<pre><code>marjobstarter.exe -input c:\input.dat -application &quot;Hull Parts List&quot;
+</code></pre>
+<p>要跑<strong>主控台應用</strong>（例如 <code>sa004.exe</code>），有兩個參數：</p>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-stdin_file &lt;fname&gt;</code></td>
+<td>從指定檔案讀標準輸入，適合無人值守的批次</td>
+</tr>
+<tr>
+<td><code>-console_stdout</code></td>
+<td>把標準輸出寫到主控台；僅限主控台應用。省略時預設把 stdout 轉向檔案（可在 Log Viewer 看）</td>
+</tr>
+</tbody>
+</table>
+<p>三種用法（官方範例）：</p>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>互動使用，輸出在主控台</td>
+<td><code>marjobstarter.exe -console_stdout -application sa004</code></td>
+</tr>
+<tr>
+<td>主控台輸出並提供輸入檔</td>
+<td><code>marjobstarter.exe -console_stdout -stdin_file c:\input.txt -application sa004</code></td>
+</tr>
+<tr>
+<td>輸出轉檔並提供輸入檔</td>
+<td><code>marjobstarter.exe -stdin_file c:\input.txt -application sa004</code></td>
+</tr>
+</tbody>
+</table>
+<p>要讓應用被 Job Launcher 看見，必須先定義在 <code>MarJobs.xml</code>。官方範例在 <code>&lt;system name="User"&gt;</code> 區塊下加入 <code>&lt;application&gt;</code>（<code>&lt;name&gt;sa004&lt;/name&gt;</code>、<code>&lt;short_name&gt;sa004&lt;/short_name&gt;</code>、<code>&lt;executable&gt;sa004.exe&lt;/executable&gt;</code>）。<strong>自家的批次工具若要納入 Log Viewer 追蹤，這是文件有依據的掛入點</strong>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 文中一處寫 <code>marjobstarter.exe</code>，一處寫 <code>tbstartjob.exe</code> 包含這兩個參數，兩者是同一機制的不同名稱或版本差異〔待核對〕。實務請以你安裝目錄裡實際存在的檔案為準。另外，<code>MarJobs.xml</code> 屬於安裝內容，修改前應備份並建立變更紀錄，升版時需重新合併。</p>
+</blockquote>
+<h3 id="30114">30.11.4 主要執行檔清單</h3>
+<p>官方列出「主要 Marine 執行檔」，並提醒不是每家客戶都有（取決於授權、客製開發與 Software Pack 版本）。依群組整理如下，只列代表項，完整清單約 160 項：</p>
+<table>
+<thead>
+<tr>
+<th>群組</th>
+<th>代表執行檔（exe → 說明）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Early Design／Hull</td>
+<td><code>marhdes</code>（Hull Design）、<code>maridCalc</code>（Hydrostatics &amp; Hydrodynamics）、<code>maridLines</code>、<code>maridSurface</code>（Surface and Compartment）、<code>sj701</code>／<code>sj702</code>（Block Division／Block Create）、<code>sj706</code>（Create Design Project）</td>
+</tr>
+<tr>
+<td>Hull</td>
+<td><code>sf416d</code>（Plane Parts Generation，ppanparts）、<code>sf831d</code>（Curved Parts Generation）、<code>sj902</code>（Extract Scheme）、<code>sf101d</code>（Hull Parts List）、<code>sf103d</code>（Hull Material List）、<code>sf609d</code>（Profile Cutting）、<code>se032</code>（Material Nesting）、<code>sg011</code>（Weld Planning Batch）、<code>sj011</code>（Hull Modelling Batch）、<code>inithull</code>（Hull Init）</td>
+</tr>
+<tr>
+<td>Migration</td>
+<td><code>marhullmigrate</code>（從 M3 遷移 Hull）、<code>marHullVerify</code>、<code>marassmigrate</code></td>
+</tr>
+<tr>
+<td>Outfitting</td>
+<td><code>marodes</code>、<code>marodra</code>（Outfitting Draft）、<code>diagrams</code>、<code>smm</code>（Schematic Model Manager）、<code>iss</code>（IsoDraft）、<code>isd</code>（IsoDraw）、<code>spc</code>（Specon）</td>
+</tr>
+<tr>
+<td>Drafting</td>
+<td><code>marhdra</code>（Hull Drafting）、<code>sb021</code>–<code>sb023</code>（Symbol Font 相關）、<code>sz004</code>（Create Model pictures in Batch）、<code>sz005</code>（Hidden Lines Removal - batch）、<code>sz020</code>／<code>sz021</code>（DXF Transfer）</td>
+</tr>
+<tr>
+<td>Basic</td>
+<td><code>sx700</code>（Data Extraction）、<code>ea255</code>（Error Look Up）、<code>sa004</code>（Hull DB Utility）、<code>tbdbutil</code>（Hull Object Listing）、<code>marenvutil</code>（Hull Environment Utility）、<code>MarLogViewer</code>（Hull Log Viewer）、<code>MarJobStarter</code>（Job Launcher）、<code>tbsetup</code>（Toolkit Preferences）</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td><code>adm</code>（Admin）、<code>mon</code>（Monitor）、<code>lex</code>（Lexicon）、<code>BackgroundProcessManager</code>、<code>make</code>（Make Project）、<code>ProjectCreation</code>（Project Creation Wizard）、<code>ResourceEditor</code>、<code>PDMSConsole</code>、<code>PDMSWait</code>、<code>marsurfservmaint</code>、<code>Launcher</code>、<code>dop</code>（DICE outside PDMS, global）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>清單裡的 <code>mon</code> 與 <code>adm</code> 正是 <code>LIST MODULES</code> 中 <code>Resume /%PDMSEXE%/mon</code>、<code>Resume /%PDMSEXE%/adm</code> 指向的檔案，這是 Monitor 線與 Job Launcher 線在檔案層面的交會點。<code>sa004</code> 與 <code>tbdbutil</code> 備註「僅用於列表，不處理圖面」。</p>
+</blockquote>
+<h2 id="3012-runtime-marine-environment-utility">30.12 Runtime：環境變數與 Marine Environment utility</h2>
+<h3 id="30121">30.12.1 環境變數清單</h3>
+<p>官方文件另附「All Logical Names」（原為獨立 Excel 表，後轉成網頁表，約 375 個項目；不一定所有變數都適用所有客戶或版本）。欄位為：變數名、型別、說明。變數型別有 <code>string</code>、<code>filename</code>、<code>databank</code>、<code>real</code>、<code>directory</code>、<code>file</code>、<code>enum units</code>、<code>object</code>、<code>integer</code> 等。依前綴約略分群：</p>
+<table>
+<thead>
+<tr>
+<th>前綴</th>
+<th>數量（約）</th>
+<th>性質</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SBH_</code></td>
+<td>168</td>
+<td>Hull 應用設定</td>
+<td>多為 Hull 預設檔與資料庫指定</td>
+</tr>
+<tr>
+<td><code>SB_</code></td>
+<td>129</td>
+<td>通用設定與資料庫</td>
+<td><code>SB_ASSDB</code>（Assembly 資料庫）、<code>SB_CGDB</code>（船型資料庫）、<code>SB_BACK_COL</code>（互動應用的背景色）、<code>SB_COORDINATE_UNIT</code>、<code>SB_AREA_UNIT</code>、<code>SB_TEMPERATURE_UNIT</code>（<code>enum units</code>，單位）、<code>SB_CSV_SEPARATOR</code>、<code>SB_DB_LOC1</code>–<code>9</code>（資料庫伺服器位置字串）、<code>SB_PROJ</code>（內部專案名）、<code>SB_CUSTOMER</code></td>
+</tr>
+<tr>
+<td><code>SBB_</code></td>
+<td>23</td>
+<td>另一組 Hull 相關設定</td>
+<td>〔本章未逐項核對〕</td>
+</tr>
+<tr>
+<td><code>SBD_</code></td>
+<td>9</td>
+<td>出圖／標準</td>
+<td><code>SBD_DEF1</code>（預設檔）、<code>SBD_STD</code>（標準與表格 DB）、<code>SBD_PICT</code>（圖片 DB）、<code>SBD_LAYER_CLASS</code></td>
+</tr>
+<tr>
+<td><code>DXF_</code>、<code>IGES_</code></td>
+<td>約 10</td>
+<td>資料交換</td>
+<td><code>DXF_LAYER_CTRL</code>（DXF 圖層控制檔）、<code>DXFOUT_EXPLODE_DIM</code>、<code>IGES_TO_VENDOR</code></td>
+</tr>
+<tr>
+<td><code>TB_</code></td>
+<td>10</td>
+<td>Tribon 時期遺留</td>
+<td><code>TB_CUSTOMER</code>、<code>TB_PARTNAME_CTRL</code>（零件名控制檔）</td>
+</tr>
+</tbody>
+</table>
+<p><code>SBD_DEF1</code> 在專案文件說明為「出圖類預設檔」，變數表寫「Default file General Design」，兩處措辭不同〔待核對〕。此外有若干變數名稱帶 Oracle 相關描述（如 <code>SB_CMP_SOURCE</code> 設定零件從 Oracle 或原生資料庫讀取），可見環境變數會牽涉到外部資料庫。〔實際啟用與否依你們的組態，待核對。〕</p>
+<h3 id="30122-marine-environment-utility">30.12.2 Marine Environment utility</h3>
+<p><code>marenvutil.exe</code> 可從已設好 Windows 環境變數（例如 <code>MAR000</code>、<code>MARMAR</code>）以定義專案的命令提示字元啟動，用來<strong>覆蓋專案定義檔（d065）中的 Marine 環境變數</strong>。典型情境：某位使用者暫時要用不同的 Marine Drafting 預設檔，改 <code>SBD_DEF1</code> 的值而不影響他人。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Marine Environment utility 視窗：Project 與 System 兩個分頁，上方列出專案變數，下方為使用者變數與 Set、Unset、Remove 按鈕</div></p>
+<p><em>圖 30-5　Marine Environment utility：Current project 為 MAR，分頁分「Project」與「System」；Project 頁上半為專案變數（如 <code>DRAW_BEVEL_COLOURS</code>、<code>REVIEW_EXPORT</code>、<code>SB_ASSDB</code>），下半為使用者變數（範例為 <code>SB_TEST</code>＝<code>test</code>），並可輸入 User variable 與 Value 後按 <code>Set</code>、<code>Unset</code>、<code>Remove</code>。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>覆蓋層級</th>
+<th>儲存位置</th>
+<th>影響範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User variables（專案層）</td>
+<td>使用者設定檔</td>
+<td>僅該專案、僅該 Windows 使用者、僅該台機器</td>
+</tr>
+<tr>
+<td>System overrides</td>
+<td>安裝目錄中的檔案</td>
+<td>同一安裝下所有使用者與專案</td>
+</tr>
+<tr>
+<td>專案定義檔 d065</td>
+<td>專案</td>
+<td>該專案</td>
+</tr>
+</tbody>
+</table>
+<p><strong>執行時指派順序</strong>：1. 讀系統變數；2. 讀 d065 檔的變數；3. 讀使用者變數。後者遮蔽前者，所以<strong>使用者變數 ＞ d065 ＞ 系統變數</strong>。用此工具設定的任何值<strong>都不會修改 d065 檔</strong>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 「我這邊沒問題、他那邊有問題」多半是環境變數差異：先看使用者層有沒有被覆蓋（<code>marenvutil</code> 的 User variables 清單），再看 d065。排查時可請對方截圖該視窗。要還原，選取後按 <code>Remove</code> 即可；<code>Unset</code> 與 <code>Remove</code> 的細節差異〔文件未說明，待核對〕。</p>
+</blockquote>
+<h2 id="3013-sa004">30.13 命令列工具：SA004</h2>
+<p>官方在「Command-line Utilities」一節先聲明：<strong>控制台小程式（Control Panel applets）是首選工具</strong>，命令列程式僅提供部分功能。其中 Data Bank Utilities 是為索引式資料庫（data bank）的備份、復原與其他維護而設計的一族工具，<strong>僅限管理員，不應給一般使用者</strong>；備份或重整（reorganization）期間，建議不要讓其他應用存取該 data bank。</p>
+<blockquote>
+<p>注意：此處的 data bank 是 Hull 側的索引式資料庫，與第 2 章的 Dabacon DB（DESI、CATA 等）是不同的東西。兩者的備份各自處理。</p>
+</blockquote>
+<p><code>SA004</code>（Data Bank Utility）可處理索引式或循序式資料庫，<strong>輸入由程式互動詢問</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copy</td>
+<td>在資料庫之間複製物件，可改名</td>
+</tr>
+<tr>
+<td>Move</td>
+<td>在資料庫之間搬移物件，可改名；<strong>不可從循序資料庫搬出</strong></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>從索引式資料庫刪除物件</td>
+</tr>
+<tr>
+<td>List</td>
+<td>列出資料庫中的物件</td>
+</tr>
+<tr>
+<td>Archive</td>
+<td>與 Move 相同，但<strong>保留物件的建立日期</strong></td>
+</tr>
+</tbody>
+</table>
+<p>物件可用下列條件指定，並可任意組合：物件名稱、物件碼 1、物件碼 2、<code>After date</code>、<code>Before date</code>。名稱規則：</p>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>意義</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>任意數量字元</td>
+<td><code>TB-272-*-1</code>、<code>*272*</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>恰好一個字元</td>
+<td><code>TB%72*</code></td>
+</tr>
+<tr>
+<td>結尾加 <code>*</code></td>
+<td>群組名稱</td>
+<td><code>TB272*</code>、<code>TB*</code></td>
+</tr>
+</tbody>
+</table>
+<p>給了確切名稱或群組名稱時可同時指定新名稱，例如 Object name <code>TB272*</code>、New object name <code>TB114*</code>。若資料庫在別的目錄，必須另外指定目錄。錯誤訊息輸出在標準輸出裝置，文件稱「不需解釋」；<strong>執行過的操作會寫入 <code>sa004.lst</code></strong>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>SA004</code> 的 Move、Delete、Archive 會改動資料。使用前先備份該 data bank；用於「只想看內容」時，以 List 為限。要在無人值守的流程使用，請搭配 30.11.3 的 <code>-stdin_file</code> 與輸出轉檔，並檢查 <code>sa004.lst</code>，作業前先在測試專案演練。</p>
+</blockquote>
+<h2 id="3014">30.14 文件內的矛盾與缺口</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>文件內容</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>密碼規則</td>
+<td>Using Monitor 寫「<code>PASS</code> 後接 <code>/</code> 與新密碼，最多 15 字元，不可含 <code>'@$/*"</code>」；命令頁則寫「最多 6 個英文字母」</td>
+<td>〔待核對，以實測或管理員政策為準〕</td>
+</tr>
+<tr>
+<td>命令縮寫</td>
+<td>使用說明寫 <code>PASS</code>，命令頁寫 <code>PASSword</code>、<code>USERname</code>（輸入時以 <code>USER</code> 簡寫）</td>
+<td>縮寫規則依 30.4.3</td>
+</tr>
+<tr>
+<td><code>MESSAGE ID</code> 範例</td>
+<td>範例 <code>ID '64da-36'</code>，說明卻為「process/host identifier 64da-ws36」</td>
+<td>格式〔待核對〕</td>
+</tr>
+<tr>
+<td><code>LIST</code> 的語法圖</td>
+<td><code>DBs</code> 重複出現；範例用 <code>MDBS</code>、<code>DBS</code></td>
+<td>不影響使用</td>
+</tr>
+<tr>
+<td><code>tbstartjob.exe</code> 與 <code>marjobstarter.exe</code></td>
+<td>同一節兩個名稱</td>
+<td>〔待核對〕</td>
+</tr>
+<tr>
+<td>平台殘留</td>
+<td><code>PDMSEXE</code>、<code>PDMSWK</code>、<code>PDMSUI</code>、<code>PDMS_ID</code>、<code>Imacro</code> 路徑</td>
+<td>以實際安裝的變數為準</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3015">30.15 常見錯誤</h2>
+<table>
+<thead>
+<tr>
+<th>症狀</th>
+<th>常見原因</th>
+<th>處置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>批次作業一開始就結束</td>
+<td>帳密、專案名錯誤（批次只給 1 次機會）</td>
+<td>先用互動模式驗證相同帳密</td>
+</tr>
+<tr>
+<td>批次作業可讀不可寫</td>
+<td>沒有 <code>BATCH COPY</code>，原件被以 Read-only 開啟</td>
+<td>加 <code>BATCH COPY</code>，並評估磁碟</td>
+</tr>
+<tr>
+<td>批次中途中止留下 COMMS DB 問題</td>
+<td>被遠端強制中止、佇列有時間限制、磁碟滿</td>
+<td>見 30.6.3，並對 COMMS DB 跑完整性檢查〔見第 20 章 DICE〕</td>
+</tr>
+<tr>
+<td>進不了 Admin／Lexicon</td>
+<td>帳號是 General，而這兩者是 Restricted</td>
+<td>不要為此提升為 Free，改請管理員代辦</td>
+</tr>
+<tr>
+<td><code>MDB not found</code>／<code>No MDB has been specified</code></td>
+<td>MDB 名稱未以 <code>/</code> 開頭，或還沒選 MDB</td>
+<td>先 <code>LIST MDBS</code> 再選</td>
+</tr>
+<tr>
+<td>在大量 Current DB 的 MDB 無法再加 DB</td>
+<td>已達 1000 個</td>
+<td><code>DEFER</code> 或 <code>EXCHANGE</code></td>
+</tr>
+<tr>
+<td><code>EXCHANGE</code> 後結果怪異</td>
+<td>多於兩個名稱時配對錯誤</td>
+<td>兩兩成對，先 Current 後 Deferred，再 <code>LIST</code> 驗證</td>
+</tr>
+<tr>
+<td>自家 exe 沒出現在 Log Viewer</td>
+<td>沒有定義在 <code>MarJobs.xml</code></td>
+<td>補 <code>&lt;application&gt;</code>（30.11.2）</td>
+</tr>
+<tr>
+<td>同事的預設檔改動影響他人</td>
+<td>改了系統層覆蓋而非使用者層</td>
+<td>用 <code>marenvutil</code> 的 User variables</td>
+</tr>
+<tr>
+<td>備份後還原，Hull 預設值不見</td>
+<td>只備份了資料庫，漏了 <code>&lt;proj&gt;MAR</code> 子目錄</td>
+<td>補進備份清單</td>
+</tr>
+<tr>
+<td>直接改動 <code>Config</code>／<code>Bin</code></td>
+<td>官方不得手動編輯</td>
+<td>還原安裝，改放客製位置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3016">30.16 本章小結</h2>
+<p>要點：進入順序為 <code>PROJECT</code>、<code>USERNAME</code>、選 MDB、切模組；存取權由使用者等級、DB 的 Team 與模式、模組分級三層決定；Current／Deferred 用 <code>CURRENT</code>、<code>DEFER</code>、<code>EXCHANGE</code> 管理，<code>PROTECT</code> 只能降權；批次只給一次登入機會、遇錯即停，<code>BATCH COPY</code> 累加且副本暫時；Monitor 錯誤皆為 <code>(39,n)</code>；Hull 程式由 Job Launcher 依 <code>MarJobs.xml</code> 啟動；環境變數優先順序為使用者 ＞ d065 ＞ 系統；<code>SA004</code> 僅限管理員。</p>
+<h2 id="3017">30.17 練習題（只能在訓練專案或唯讀測試環境）</h2>
+<ol>
+<li>以 General 帳號登入 Monitor，用 <code>STATUS</code> 與 <code>LIST MDBS</code> 記錄你的 MDB、Current DB 與各 DB 的 RW／R；再用 <code>SYSTAT</code> 比較。</li>
+<li>在 MDB 中以 <code>PROTECT</code> 將一個 RW 的 DB 降為 <code>READ</code>，再用 <code>STATUS</code> 驗證；嘗試再把它升回 <code>RW</code>，記錄結果並解釋原因。</li>
+<li>用 <code>Q DB team/db FILE</code>、<code>NUMBER</code>、<code>SIZE</code> 找出三個 DB 的實際檔名與大小，並與磁碟實際檔案核對。</li>
+<li>故意輸入不存在的 MDB、DB、Team，記錄 <code>(39,3)</code>、<code>(39,4)</code>、<code>(39,5)</code>，並對照 30.9 的處置欄。</li>
+<li>寫出一份批次作業需求書：它要複製哪些 DB？副本會佔多少磁碟？帳密放哪裡？失敗時如何通知？</li>
+<li>用 <code>marenvutil</code> 為自己的 Windows 帳號覆蓋一個無害變數（例如 <code>SB_TEST</code>），確認不影響其他帳號與 d065，再 <code>Remove</code>。</li>
+<li>在測試安裝內，依 30.11.3 的格式把一支唯讀的主控台程式定義進 <code>MarJobs.xml</code>（先備份），用三種 <code>marjobstarter</code> 命令各跑一次，查看輸出位置。</li>
+</ol>
+<h2 id="3018">30.18 自我檢核</h2>
+<ul>
+<li>[ ] 我能依序說出進入 Marine 的五個步驟，以及每一步可能出現的錯誤。</li>
+<li>[ ] 我能解釋 General 使用者為什麼進不了 Admin。</li>
+<li>[ ] 我能說出 Current、Deferred 與 <code>EXCHANGE</code> 配對規則。</li>
+<li>[ ] 我知道批次模式與互動模式在登入次數與錯誤處理上的差異。</li>
+<li>[ ] 我能舉出至少五個 <code>(39,n)</code> 錯誤與處置。</li>
+<li>[ ] 我能說出 Session、Job、Job file 與 <code>MarJobs.xml</code> 的關係。</li>
+<li>[ ] 我知道環境變數三層覆蓋順序，以及 <code>marenvutil</code> 不會修改 d065。</li>
+<li>[ ] 我知道 <code>SA004</code> 屬於管理員工具，使用前要備份。</li>
+</ul>
+<h2 id="3019">30.19 〔待核對〕項目彙整</h2>
+<ol>
+<li>Catalogue DB 在 MDB 中的排序對單位設定的實際影響（30.3.5）。</li>
+<li>選單項目與命令的對應（30.4.1）。</li>
+<li>Monitor 啟動巨集（<code>Imacro</code>）的修改方式（30.8）。</li>
+<li>PML 內取得 <code>LIST</code>／<code>QUERY</code> 輸出的 API 與可用範圍（30.8）。</li>
+<li>PML 錯誤處理在批次中的寫法（見 <em>Software Customization Guide</em>，本章未讀）（30.6.3、30.8）。</li>
+<li><code>ACTIONS OFF</code> 命令的說明（30.9）。</li>
+<li>Monitor 訊息是否還有未列出的編號（30.9）。</li>
+<li><code>PASSWORD</code> 密碼長度與字元規則（30.14）。</li>
+<li><code>MESSAGE ID</code> 的識別碼格式（30.14）。</li>
+<li><code>tbstartjob.exe</code> 與 <code>marjobstarter.exe</code> 的關係（30.11.3）。</li>
+<li><code>SBD_DEF1</code> 的說明差異；<code>SBB_</code> 前綴變數的用途；Oracle 相關變數是否啟用（30.12.1）。</li>
+<li><code>marenvutil</code> 的 <code>Unset</code> 與 <code>Remove</code> 差異（30.12.2）。</li>
+<li>批次模式的啟動方式（見 <em>Marine Software Installation Guide</em>，本章未讀）（30.6.1）。</li>
+</ol>
+<h2 id="_1">取材與延伸</h2>
+<p><strong>實際讀了多少：</strong> <em>Monitor Reference</em>（根頁 1151778）底下約 54 頁全數讀完（Assumptions、Access Rights 全部子頁、Using Monitor 全部子頁、Command Summary 全部 19 個命令頁、Error Messages、Menu Maps）。<em>Marine Administration</em>（根頁 1103794）底下 17 頁全數讀完（Program Environment 全部子頁、Projects、Runtime System、Command-line Utilities、Data Bank Utilities、Programs）。</p>
+<p><strong>只讀了部分：</strong> 兩頁超大型表格——「List of Executables」（約 160 項）已全讀，但本章只列代表項；「All Logical Names」（約 375 個環境變數）只讀了開頭與以前綴統計抽樣，<strong>並未逐項核對全部變數說明</strong>，所以 30.12.1 的前綴數量為約略值。</p>
+<p><strong>沒讀的：</strong> 文件內提及但不在這兩個根頁底下的 <em>Administration User Guide</em>、<em>Marine Software Installation Guide</em>、<em>Software Customization Guide</em>、<em>Database Management Reference Manual</em>（Extract 與 Working Extract 細節）。</p>
+<p><strong>圖片：</strong> Monitor Reference 的 Menu Maps 共 6 張小圖，採用其中 4 張（Monitor &gt; Modules、Project、Display、Help）；其餘兩張（僅主選單列、Window 選單）資訊量低，未收。Marine Environment utility 1 張。30.2 的架構示意以文字圖呈現，無圖檔。</p>
+<p><strong>延伸閱讀：</strong> <a href="ch01_architecture_zh-TW.reading.html">第 1 章</a>（架構與模組）、<a href="ch02_project_database_zh-TW.reading.html">第 2 章</a>（專案與資料庫）、<a href="ch10_dev_environment_zh-TW.reading.html">第 10 章</a>（開發環境）、<a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章</a>（部署）、<a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>（系統管理）。</p><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch29_interfaces_legacy_zh-TW.reading.html"><small>← 上一篇</small>第 29 章　外部整合與舊版開發工具：Interfaces 與 Legacy Applications</a><a class="next" href="ch31_draft_admin_production_zh-TW.reading.html"><small>下一篇 →</small>第 31 章　Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

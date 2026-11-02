@@ -1,0 +1,682 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 27 章　艙室設計與原理圖：Room Design 與 Schematics | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#27-room-design-schematics">第 27 章 艙室設計與原理圖：Room Design 與 Schematics</a><ul>
+<li><a href="#271">27.1 學習目標</a></li>
+<li><a href="#272-room-design">27.2 Room Design：艙室配置</a><ul>
+<li><a href="#2721">27.2.1 定位與既有章節的分工</a></li>
+<li><a href="#2722">27.2.2 工作區與介面</a></li>
+<li><a href="#2723">27.2.3 資料階層</a></li>
+<li><a href="#2724-building-blockfloor-elevation-room">27.2.4 建立 Building Block、Floor Elevation 與 Room</a></li>
+<li><a href="#2725">27.2.5 牆、天花、地板與細部</a></li>
+<li><a href="#2726">27.2.6 家具、配件、門窗與貫穿孔</a></li>
+<li><a href="#2727">27.2.7 報表與二次開發接點</a></li>
+</ul>
+</li>
+<li><a href="#273-schematics-3d">27.3 Schematics：原理圖與 3D 的一致性</a><ul>
+<li><a href="#2731">27.3.1 本節涵蓋什麼</a></li>
+<li><a href="#2732">27.3.2 原理圖資料類型</a></li>
+<li><a href="#2733-integrator">27.3.3 Integrator 三大功能</a></li>
+<li><a href="#2734">27.3.4 連結資料與管理</a></li>
+<li><a href="#2735">27.3.5 設定檔與規則</a></li>
+<li><a href="#2736-compareupdate">27.3.6 Compare/Update：跨資料來源同步</a></li>
+<li><a href="#2737">27.3.7 二次開發者怎麼接</a></li>
+</ul>
+</li>
+<li><a href="#274">27.4 本章小結</a></li>
+<li><a href="#275">27.5 練習題／自我檢核</a></li>
+<li><a href="#276">27.6 〔待核對〕彙整</a></li>
+<li><a href="#277">27.7 取材範圍與限制</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第五部分　設計領域補充 · 28 / 51</span><h1 id="27-room-design-schematics">第 27 章　艙室設計與原理圖：Room Design 與 Schematics</h1>
+<blockquote>
+<p>前面幾章處理的都是「船體與管線這類大結構」。船上還有另一半工作：住艙、廚房、控制室、走道的<strong>艙室配置</strong>（牆、天花、地板覆蓋、門窗、家具與各類配件），以及在 3D 模型之前就存在、在模型之後必須對得起來的<strong>原理圖</strong>（P&amp;ID、系統圖、線表）。</p>
+<p>這一章把兩件事放在一起，因為它們共用一個問題：<strong>「設計意圖」與「3D 模型」如何保持一致。</strong> Room Design 把建築式的設計意圖（房間類型、淨高、牆厚、天花格柵）存成專屬資料結構；Schematic 3D Integrator 與 Compare/Update 則把原理圖資料與 3D 資料逐項比對、連結、更新。</p>
+<p><strong>資料可信度：</strong> 本章操作流程、視窗名稱、元素型別（<code>BBLOCK</code>、<code>BLEVEL</code>、<code>ROOM</code>、<code>CTWALL</code>、<code>CYMLNK</code> 等）與 PML 方法名，取自 AVEVA Marine 12.1 官方離線文件的 <em>Room Design</em> 與 <em>Schematics</em> 兩大章節。須注意兩點：（1）Room Design 的使用者指南多為視窗欄位說明，且 <code>RPATH</code> 一節明載「將於後續 Service Pack 提供」，內容偏薄；（2）文件中的 <em>Schematics</em> 實際涵蓋 Compare/Update、Schematic 3D Integrator 與 Tags 三份指南，<strong>並不教你如何繪製原理圖</strong>（那屬於 AVEVA Diagrams／P&amp;ID 產品，不在本文件範圍內）。官方頁面的中文為機器翻譯，譯名生硬，本章改用台灣慣用譯名並保留英文術語。文件僅有 Compare/Update 與 Integrator 有 PML 範例；Room Design 沒有任何 PML 範例，相關處一律標〔待核對〕。</p>
+</blockquote>
+<h2 id="271">27.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Room Design 的資料階層 <code>BBLOCK → BLEVEL → ROOM → DETGRP</code>，並指出各層的責任。</li>
+<li>從 Design &gt; Room Design 啟動應用，並說明工具列、Navigator 與 Layout／Detailing 兩組工作視窗的分工。</li>
+<li>依步驟建立 Building Block、Floor Elevation 與 Room，並說明 Room Type、淨高與房間邊界的設定。</li>
+<li>說明牆（<code>CTWALL</code>）、天花（<code>CEILIN</code>）、地板覆蓋（<code>FLRCOV</code>）、隔熱需求（<code>INSURQ</code>）的建立入口與細部（Panel／Profile／Joiner）。</li>
+<li>說明家具、配件與固定設備如何經 Room Design Specification（<code>SPWL</code>／<code>TABGROUP</code>／<code>CTABLE</code>／<code>TABITEM</code>／<code>GPART</code>）選取。</li>
+<li>說明門窗與配件的貫穿孔機制（<code>OPGE</code>／<code>HPGE</code>），以及為何船殼開孔需經 Hole Management 核准。</li>
+<li>說明原理圖資料類型，以及 Integrator 的三大功能：Compare、Build、Link。</li>
+<li>讀懂比較報表與顏色代碼，並知道如何接受差異、自動連結、自動更新屬性。</li>
+<li>說明 Compare/Update 的 Scope by Source／Scope by Destination 與 Dabacon 元素的比對對應。</li>
+<li>指出二次開發的接點：<code>CompareUpdate</code>、<code>integrator</code>、<code>IntegratorProjectHandler</code> 與 <code>CYMLNK</code> 偽屬性，並分辨哪些在文件中有依據。</li>
+</ol>
+<h2 id="272-room-design">27.2 Room Design：艙室配置</h2>
+<h3 id="2721">27.2.1 定位與既有章節的分工</h3>
+<p>Room Design 是 Outfitting 模組中的建築式艙室配置工具，資料與 3D 模型同屬 DABACON 資料庫，因此可以與管路、設備在同一個模型中瀏覽與出報表。它與其他章節的分工如下：</p>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>在哪一章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舾裝資料階層與元件概念</td>
+<td><a href="ch07_outfitting_zh-TW.reading.html">第 7 章</a></td>
+</tr>
+<tr>
+<td>管路穿過牆或殼板的「開孔」協調</td>
+<td>本章 27.2.6 概述，管路端見 <a href="ch21_pipework_zh-TW.reading.html">第 21 章</a></td>
+</tr>
+<tr>
+<td>艙室作為「空間」被計算、分析</td>
+<td><a href="ch25_space_fem_zh-TW.reading.html">第 25 章</a>（Space Management）</td>
+</tr>
+</tbody>
+</table>
+<p>本章只談 Room Design 這套<strong>專屬的資料模型與操作</strong>，不重複上述章節。</p>
+<h3 id="2722">27.2.2 工作區與介面</h3>
+<p>從主選單 <strong>Design &gt; Room Design</strong> 啟動。官方文件的說明是：Create 選單提供建立入口，Modify 選單依「目前元素（Current Element）」的情境啟用；Room Design 視窗可停駐（docking），並以<strong>連結標籤</strong>（link label）引導使用者走完某項工作的各步驟。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Room Design 工作區：標題列顯示 Outfitting - Room Design，左為 Design Explorer，右為 3D View</div></p>
+<p><em>圖 27-1　Room Design 工作區（Design &gt; Room Design）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>Room Design 工具列把主要建模功能分成六組（文件僅說明六組，未逐一列名，詳見〔待核對〕），其中最常用的是兩個任務視窗：</p>
+<table>
+<thead>
+<tr>
+<th>任務視窗</th>
+<th>用途</th>
+<th>主要項目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main Layout Tasks（工具列 Layout）</td>
+<td>配置房間的基本骨架</td>
+<td>Create：Walls、Doors and Windows、Geometry for defined Room、Stairwell；Modify：Walls；Delete：Delete Selected Walls</td>
+</tr>
+<tr>
+<td>Main Detailing Tasks（工具列 Detailing）</td>
+<td>細化與加料</td>
+<td>Wall details、Doors and Windows、Ceilings、Ceiling grids、Ceiling supports、Ceiling fittings、Floor coverings、Furniture, Fittings and Fixtures、Insulation Requirements</td>
+</tr>
+<tr>
+<td>Room Design Main Data（Building Block Tasks）</td>
+<td>管理上層容器</td>
+<td>Building Block Tasks、Floor Elevation Tasks、Room Tasks</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 「Geometry for defined Room」只有在目前元素是 <code>BLEVEL</code> 時才會啟用；若發現按鈕灰掉，多半是 Current Element 停在錯誤的層級。Wall 的「Enhance」（紅色高亮）對已有 Wall Detail 的牆不起作用，這是文件明載的限制，不是畫面故障。</p>
+</blockquote>
+<h3 id="2723">27.2.3 資料階層</h3>
+<p>Room Design 的擁有者元素是 <strong>Building Block（<code>BBLOCK</code>）</strong>，官方說明其角色「類似 <code>SITE</code>」，是 World 之下的行政元素，用來把建築或艙室類元素分組。</p>
+<pre><code>WORLD
+└─ BBLOCK        建築分塊（類似 SITE）
+   ├─ BLEVEL     Building Level，即 Floor Elevation（樓層／甲板標高）
+   │   └─ ROOM   艙室
+   │       └─ DETGRP   Detail Group：CTWALL、CEILIN、FLRCOV、INSURQ、HANDRA、LADDER…
+   ├─ OPENSP 開放空間   RSTARE 限制區域   RUTVOL 路徑體積
+   ├─ STRWEL 梯井       DETGRP            BNDLIN 邊界線   AREADE 區域定義
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>說明（依官方文件）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BBLOCK</code></td>
+<td>主要行政元素，包含 Room 與 Floor Elevation</td>
+</tr>
+<tr>
+<td><code>BLEVEL</code></td>
+<td>代表模型中的主要標高，容納各樓層的 Room、<code>RSTARE</code>、<code>RUTVOL</code>、<code>OPENSP</code>、<code>REFDAT</code>、<code>BNDLIN</code>、<code>SPBSET</code>、<code>INVLST</code>，並可含 <code>STRWEL</code>、<code>DETGRP</code>、<code>AREADE</code>、<code>ACCSET</code></td>
+</tr>
+<tr>
+<td><code>ROOM</code></td>
+<td>定義艙室的設計準則與基本定義；其下的子元素類型與 <code>BLEVEL</code> 同一組</td>
+</tr>
+<tr>
+<td><code>DETGRP</code></td>
+<td>純行政分組，把外觀類似的實體（牆、門窗、地板覆蓋…）放在一起</td>
+</tr>
+<tr>
+<td><code>RPATH</code></td>
+<td>General Routing Path：描述開放路徑或封閉邊界的通用機制（例如牆的路徑）；<strong>官方文件寫明使用者資訊留待後續版本</strong></td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：BLEVEL 之下可擁有的元素階層圖</div></p>
+<p><em>圖 27-2　<code>BLEVEL</code> 的資料庫階層：ROOM、RSTAR、RUTVO、OPENS、REFDA、BNDLIN、SPBSE、INVLST，以及 STRWE、DETGR、AREAD、ACCSE。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：ROOM 之下的元素階層圖</div></p>
+<p><em>圖 27-3　<code>ROOM</code> 的資料庫階層，子元素型別與 <code>BLEVEL</code> 相同一組。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p>文件在拼字上不一致：工作區頁寫 <code>STRWLL</code>，管理員指南寫 <code>STRWEL</code>。實際型別名請在你的專案中以 <code>Query</code> 或型別列表確認，標〔待核對〕。</p>
+</blockquote>
+<h3 id="2724-building-blockfloor-elevation-room">27.2.4 建立 Building Block、Floor Elevation 與 Room</h3>
+<p>建議順序是由上而下：<strong>BBLOCK → BLEVEL → ROOM → 牆 → 細部</strong>。</p>
+<ol>
+<li>在 Room Design Main Data 選 Building Block Tasks → Create → Building Block。</li>
+<li>在 Building Block Tasks 視窗選 Create → Floor Elevation，建立 <code>BLEVEL</code>。</li>
+<li>在 Room Tasks 選 Create &gt; Room，開啟 Create Room 視窗。</li>
+<li>填名稱、Description、Number，按 <strong>Room Type</strong> 開啟 Room Types 視窗選擇類型；選定並按 Apply 後，Function、Room Type 與 Occupancy 會自動帶入。</li>
+<li>設定 Floor height、Ceiling height、Room Offset（可圖形化點選 X、Y）與 Angle from Floor Elevation 的北向角度。</li>
+<li>展開 Design Criteria、Environmental Settings、Defaults 三個面板輸入準則。</li>
+<li>按 <strong>Define Room geometry</strong> 開啟 Define Room Boundary：選形狀、輸入尺寸與原點，或用 Pick Corner Points 圖形化選角點，再按 Define Boundary。</li>
+<li>勾選 Create ceiling、Create ceiling grid、Create floor covering（對應 <code>CEILIN</code>、<code>CLNPNG</code>、<code>FLRCOV</code>），最後按 <strong>Create Room</strong>。</li>
+</ol>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create Room 視窗：名稱、Room Type、高度、Offset 與 Create options</div></p>
+<p><em>圖 27-4　Create Room 視窗（範例：Junior class／CABIN，Floor height 100 mm、Ceiling height 2400 mm、矩形 2000 x 2500 mm）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>建立方式</th>
+<th>路徑</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般房間</td>
+<td>Create &gt; Room</td>
+<td>如上</td>
+</tr>
+<tr>
+<td>標準艙室</td>
+<td>Create &gt; Room &gt; Standard</td>
+<td>從 Assembly 或既有 Room 複製出標準房間設計</td>
+</tr>
+<tr>
+<td>補定義幾何</td>
+<td>Layout &gt; Geometry for defined Room</td>
+<td>對「已建立但尚無幾何」的 Room 補上邊界，可用 Define points 或 Derive from graphics</td>
+</tr>
+<tr>
+<td>複製</td>
+<td>Create &gt; Copy</td>
+<td>三種：Offset、Rotate、Mirror</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> Room 可以先建立元素、後定義幾何。若你用腳本或批次先佈好房間清單，之後再補邊界，應走「Geometry for defined Room」而非重建，才不會產生重複的 <code>ROOM</code>。</p>
+</blockquote>
+<h3 id="2725">27.2.5 牆、天花、地板與細部</h3>
+<p><strong>牆（<code>CTWALL</code>，Constant Thickness Wall）。</strong> 從 Main Layout Tasks 選 Create &gt; Walls，在 Wall Definition Tasks 設定 Thickness、Height、Justification，並選擇定義方式：Derive from selection、Define points、Derive from graphics、Define Points Explicitly；Modify Points 可 Re-Pick、Insert Point after 或 Remove Point。按 Create wall 後產生 <code>CTWALL</code> 並進入 Wall Modification Tasks。</p>
+<p><strong>牆細部（Wall Detailing）。</strong> 從 Main Detailing Tasks 進入 Wall details，可對牆建立／修改／刪除三類細部：<strong>Wall Panels</strong>、<strong>Wall Profiles</strong>、<strong>Wall Joiners</strong>。窗格上方列出 Room Design Navigator 目前選取項目之下的所有牆。</p>
+<p><strong>其他細部元素：</strong></p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>型別</th>
+<th>入口與重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天花</td>
+<td><code>CEILIN</code></td>
+<td>由支撐格柵與天花元件（板、燈具）組成。子功能包含 Ceiling Grid、Ceiling Tiles、Ceiling Profile、Ceiling Supports and Hangers、Ceiling Fitting；Profile 可複製</td>
+</tr>
+<tr>
+<td>地板覆蓋</td>
+<td><code>FLRCOV</code></td>
+<td>可定義 Floor Layers（多層構造）與 Camber/Sheer Planes（船舶甲板的拱度與舷弧平面）</td>
+</tr>
+<tr>
+<td>隔熱需求</td>
+<td><code>INSURQ</code></td>
+<td>以 Profile Editor 定義覆蓋範圍</td>
+</tr>
+<tr>
+<td>梯井</td>
+<td><code>STRWLL</code>／<code>STRWEL</code></td>
+<td>由 Layout 的 Stairwell 建立</td>
+</tr>
+<tr>
+<td>門、窗</td>
+<td><code>DOOR</code>、<code>WINDOW</code></td>
+<td>見 27.2.6</td>
+</tr>
+</tbody>
+</table>
+<p>每一類元素的視窗幾乎都是同一個模式：<strong>Create／Modify（定義與幾何分開）／Delete</strong>，並以 Confirm 訊息框確認刪除。這使 Room Design 容易學，但也意味著「定義」與「幾何」是兩個獨立的 Modify 動作，修改尺寸時別只改了其中一個。</p>
+<h3 id="2726">27.2.6 家具、配件、門窗與貫穿孔</h3>
+<p><strong>建立位置（儲存區）。</strong> 家具、配件與固定設備（<code>ELFITT</code>、<code>HVACFI</code>、<code>FIXTUR</code>、<code>FURNIT</code>）必須建立在某個 <code>ROOM</code> 或 <code>CTWALL</code> 之下。在 Furniture, Fittings and Fixtures - Element Tasks 視窗中，先以 <strong>Graphical selection</strong>（選畫面元素或框選）或 <strong>Current Element</strong> 產生可用的「儲存區」清單，選定後按 Edit Selected Element 才能建立、修改或刪除。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Furniture, Fittings and Fixtures - Element Tasks：列出可用儲存區 /Room_1 與 CTWALL</div></p>
+<p><em>圖 27-5　先選定儲存區（ROOM 或 CTWALL），才能進入元件的建立與修改。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>元件如何被選到：Room Design Specification。</strong> Room Design 的選取並非直接指向 <code>SFIT</code>，而是指向 <code>GPART</code>；<code>GPART</code> 可透過 <code>CATREF</code> 或 <code>TMPREF</code> 指向目錄的 <code>SFIT</code> 或設計庫的樣板 <code>TMPL</code>，因此兩者可互換使用。選取表結構如下：</p>
+<pre><code>SPWL（Specification World）
+└─ TABGROUP   一類元件（依 Purpose 區分）
+   └─ CTABLE  子分類
+      └─ TABITEM   以 PARTREFERENCE 連到 GPART；可含 TABQUESTION 供 Choose 表增加欄位
+CTABLE 另有 TABHEA（表頭）→ TABHQU（表頭問題，Purpose 與 TABQUESTION 對應）
+</code></pre>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：目錄中的 Room Design 規格世界：Furniture、Door、Window、HVAC 等 TABGROUP</div></p>
+<p><em>圖 27-6　範例資料中 <code>SPWL</code> 之下的各類 <code>TABGROUP</code>。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>TABGROUP 類別</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Furniture</td>
+<td><code>FURN</code></td>
+</tr>
+<tr>
+<td>Ceiling Tiles</td>
+<td><code>CLTI</code></td>
+</tr>
+<tr>
+<td>Doors</td>
+<td><code>DOOR</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>WIND</code></td>
+</tr>
+<tr>
+<td>Electrical Fittings</td>
+<td><code>ELFI</code></td>
+</tr>
+<tr>
+<td>Fire Protection Fittings</td>
+<td><code>FPFI</code></td>
+</tr>
+<tr>
+<td>HVAC Fittings</td>
+<td><code>HVFI</code></td>
+</tr>
+<tr>
+<td>Information Fittings</td>
+<td><code>INFI</code></td>
+</tr>
+<tr>
+<td>Wall Panels</td>
+<td><code>WLPN</code></td>
+</tr>
+</tbody>
+</table>
+<p>要在選取視窗多出 TYPE、WIDT、HEIG 等欄位，需三個 <code>TABQUESTION</code>（<code>Tpurpose = TYPE／WIDT／HEIG</code>，<code>Tanswer</code> 為對應內容），並在 <code>CTABLE</code> 之下有三個 <code>TABHQU</code> 提供欄位標題。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Choose DOOR 視窗：TYPE、WIDT、HEIG 欄位來自 TABQUESTION</div></p>
+<p><em>圖 27-7　門的選取視窗（Choose DOOR），欄位由 <code>TABQUESTION</code> 與 <code>TABHQU</code> 產生。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>貫穿孔。</strong> Room Design 可改自己的牆，但<strong>不被預期直接修改船殼</strong>；船殼板或牆板的開孔必須經 <strong>Hole Management</strong> 核准後才產生。形狀由目錄項目中負幾何（<code>NSEX</code> 下的 <code>SLOOP</code>）的 Purpose 決定：</p>
+<table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>意義</th>
+<th>用於</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OPGE</code></td>
+<td>Outfitting Penetrating Geometry Element</td>
+<td>穿過 <code>CTWALL</code> 的開孔</td>
+</tr>
+<tr>
+<td><code>HPGE</code></td>
+<td>Hull Penetrating Geometry Element</td>
+<td>不穿牆、但穿船殼板或 panel 的開孔</td>
+</tr>
+</tbody>
+</table>
+<p>即使兩種開孔形狀相同，也必須各有一個 loop 並分別標 <code>OPGE</code> 與 <code>HPGE</code>（鋼構切口與壁板切口常不同）。樣板（<code>TMPL</code>）則改用 <code>EXTR</code>／<code>NXTR</code>（含 <code>LOOP</code>、<code>VERT</code>）作為穿孔輪廓，並在 <code>PORS</code> 之下建立 <code>PORI</code>，以其 <code>tarf</code> 屬性參照該 <code>LOOP</code>，Purpose 同樣標 <code>OPGE</code>／<code>HPGE</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：穿孔示意：鋼構切口與壁板切口</div></p>
+<p><em>圖 27-8　貫穿元件需分別定義「結構鋼切口」與「壁板切口」。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>操作上，在 Select Opening 視窗按 <strong>Managed Hole</strong>，或在配件視窗選支援管理孔的配件後按 Create options 的 Managed Hole，選定壁板並確認，系統即建立一筆<strong>孔關聯</strong>，之後由 Utilities 選單的 Hole Management 管理。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 文件明講「目錄必須以特定方式建立」才能走 Managed Hole。若你的專案目錄缺 <code>OPGE</code>／<code>HPGE</code> 的 <code>SLOOP</code>，按鈕會無法使用或孔形不正確；這屬於目錄管理員的工作，與 <a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a> 的目錄概念相通。</p>
+</blockquote>
+<h3 id="2727">27.2.7 報表與二次開發接點</h3>
+<p>Room Design 資料在同一資料庫，因此可用既有報表機制（見 <a href="ch16_reports_integration_zh-TW.reading.html">第 16 章</a>）。官方文件說明資料模型兼顧「設計意圖」與「用於 MTO（材料統計）與生產的細節」，但<strong>未提供專屬報表範本或 PML 範例</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>文件依據</th>
+<th>開發者做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素型別與階層</td>
+<td>有（27.2.3）</td>
+<td>以型別名遍歷 <code>BBLOCK</code>／<code>BLEVEL</code>／<code>ROOM</code>／<code>DETGRP</code></td>
+</tr>
+<tr>
+<td>規格選取結構</td>
+<td>有（27.2.6）</td>
+<td>以 <code>TABGROUP</code> Purpose 查詢目錄</td>
+</tr>
+<tr>
+<td>房間屬性名（面積、淨高、類型的 PML 屬性名）</td>
+<td>視窗欄位有名稱，屬性名未列</td>
+<td>〔待核對〕在專案以 Query 對照</td>
+</tr>
+<tr>
+<td><code>RPATH</code> 屬性與 API</td>
+<td>文件指向 <em>Software Customization</em>（本章未涵蓋）</td>
+<td>〔待核對〕</td>
+</tr>
+<tr>
+<td>Room Design 的 PML 物件／事件</td>
+<td>無</td>
+<td>〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h2 id="273-schematics-3d">27.3 Schematics：原理圖與 3D 的一致性</h2>
+<h3 id="2731">27.3.1 本節涵蓋什麼</h3>
+<p>官方 <em>Schematics</em> 章節有三份指南：</p>
+<table>
+<thead>
+<tr>
+<th>指南</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compare/Update</td>
+<td>在 Design、Schematic、Engineering 資料庫之間，或自 AVEVA Instrumentation、Electrical、P&amp;ID 匯入的資料之間，比對並更新</td>
+</tr>
+<tr>
+<td>Schematic 3D Integrator</td>
+<td>原理圖物件與 3D 物件的 Compare、Build、Link</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>以清單方式瀏覽與管理標籤資料、狀態、認領（claim）、匯出入、資料表</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 這裡的「原理圖」是<strong>資料庫中的 schematic 物件</strong>（型別以 <code>SC</code> 開頭，如 <code>SCEQUI</code>、<code>SCPLIN</code>、<code>SCVALV</code>）。圖面由 AVEVA Diagrams 或 Schematic Model Manager 匯入而來，Integrator 用 Diagram Viewer 顯示它們，但不負責繪圖。</p>
+</blockquote>
+<h3 id="2732">27.3.2 原理圖資料類型</h3>
+<p>Schematic 資料庫有一組型別階層：Schematic Group、System、P&amp;ID 圖紙，其下為 Equipment（含 Nozzle）、Pipeline／HVACline（含 Branch，Branch 之下有 Valve、Fitting、Instrument）、Offline Instrument、Cable。每個 schematic 物件都參照一張或多張圖，Integrator 靠這個參照決定物件可在哪張圖上看到。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：原理圖資料類型階層：Equipment、Pipeline/HVACline、Offline Instrument、Cable</div></p>
+<p><em>圖 27-9　原理圖資料類型階層。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>Schematic 型別</th>
+<th>對應 3D 型別</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCEQUI</code>（設備）</td>
+<td><code>EQUI</code></td>
+</tr>
+<tr>
+<td><code>SCSUBE</code>、<code>SCNOZZ</code></td>
+<td><code>SUBE</code>、<code>NOZZ</code>（樣板內的 <code>NOZZ</code> 可與 <code>SCEQUI</code> 下的 <code>SCNOZZ</code> 跨層對應）</td>
+</tr>
+<tr>
+<td><code>SCPLIN</code>（管線）、<code>SCBRANCH</code></td>
+<td><code>PIPE</code>、<code>BRAN</code>（一條 pipeline 可對多條 pipe）</td>
+</tr>
+<tr>
+<td><code>SCVALV</code>、<code>SCFITT</code>、<code>SCINST</code></td>
+<td><code>VALV</code>、管件、<code>INST</code>（僅比對有名稱者）</td>
+</tr>
+<tr>
+<td><code>SCHVFI</code>（HVAC 管件）</td>
+<td>HVAC 管件</td>
+</tr>
+<tr>
+<td>電纜</td>
+<td><code>CABLE</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2733-integrator">27.3.3 Integrator 三大功能</h3>
+<p>啟動：Integrator 選單 <strong>Show</strong>。畫面通常包含主表（Main Table）、子類型表（Subtype Table）、Diagram Viewer 與 3D 視圖。右鍵選單中的 <strong>Compare</strong>、<strong>Build</strong>、<strong>Link／Unlink</strong> 是三個核心動作。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Integrator 使用者介面：3D 視圖與 Diagram Viewer 並排</div></p>
+<p><em>圖 27-10　Integrator 的 3D 視圖與 Diagram Viewer 並排，顏色反映比對結果。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>作用</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compare</td>
+<td>比對連接關係、元件順序與屬性</td>
+<td>依設定檔規則；輸出報表並為圖面與 3D 上色</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>由原理圖資料在 3D 建立設備、管路、HVAC、電纜、離線儀表</td>
+<td>建立後自動 Link；需 <code>Releaseto3dstatus</code> 已設（語法 <code>RESTAT 1</code>）</td>
+</tr>
+<tr>
+<td>Link／Unlink</td>
+<td>將既有 3D 物件與 schematic 物件建立或移除關聯</td>
+<td>適用已先行建模的情形</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compare 的三個面向：</strong> (1) 連接：設備的 nozzle、管路的 head／tail 與 connection reference；(2) 元件順序：儀表、閥、三通、大小頭是否漏掉或順序不同；(3) 屬性：例如 name 由 prefix、suffix、function 組成，bore 與 spec reference 必須相符。<strong>Comparison Category</strong> 可決定哪類差異（Names、Spec Attributes、Other Attributes）要被回報，以便聚焦。</p>
+<p><strong>顏色代碼</strong>（可設定，下列為典型設定）：</p>
+<table>
+<thead>
+<tr>
+<th>顏色</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>綠</td>
+<td>比對相符</td>
+</tr>
+<tr>
+<td>紅</td>
+<td>一邊有、另一邊缺（缺元件時，所缺的管段標紅；缺 nozzle 時，設備本體標紅）</td>
+</tr>
+<tr>
+<td>藍</td>
+<td>連接錯誤</td>
+</tr>
+<tr>
+<td>黃</td>
+<td>屬性不符、匹配不明確（如同一閥匹配到兩處）、owner 錯誤</td>
+</tr>
+<tr>
+<td>青（cyan）</td>
+<td>未比對</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Compare 結果：Diagram Viewer 與 3D 視圖皆以顏色標出缺少的閥</div></p>
+<p><em>圖 27-11　比對後圖面與 3D 同步著色：紅色代表缺漏，綠色代表相符。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>Integrator 會另開一個專用 3D 視圖與獨立 drawlist，以免影響你既有的視圖。比對報表有 Summary 與 Details 兩個分頁；點 Summary 的某列會自動切到 Details 並過濾。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Integrator 比較報表 Summary 分頁：設備、nozzle、管線、閥的比對數量與錯誤</div></p>
+<p><em>圖 27-12　比較報表 Summary：例如 Valves 8 項中 6 項 Compared OK、2 項 Not Matched。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>接受差異。</strong> 當 3D 與原理圖的細節層級不同（例如排氣、排放、儀表接口、焊接附件），可選擇：Accept Differences（連結物件的差異）、Accept Missing Element（缺的元素，若日後補上仍會匹配）、Disable Matching（永不匹配，例如 trunnion 用的三通）。這些動作可還原，且接受後需重跑比對才見效果；可能需要多輪。MDS trunnion 會被自動忽略。</p>
+<p><strong>Build 的行為。</strong> 以設備為例：依規則決定 <code>SITE</code> 與 <code>ZONE</code>（缺則依設定可建立，預設不自動建立）、建立 <code>EQUI</code>、<code>SUBE</code>、<code>NOZZ</code>／<code>ELCONN</code>、複製 spec 參照、套用位置與屬性，最後連結；若樣板已有 bore 相同的 <code>NOZZ</code>，會改為連結樣板內者並刪除自動建立者。管路則建立 <code>PIPE</code>、<code>BRAN</code> 與元件，無法唯一選型時彈出 Choose 表讓人選。</p>
+<blockquote>
+<p><strong>常見錯誤與注意事項</strong>
+- <strong>Build 按鈕灰掉：</strong> 通常是 schematic 物件尚未 release to 3D。
+- <strong>Build 時從 Diagram Viewer 開右鍵選單：</strong> 會把 Current Element 切到 schematic 物件，Integrator 就無法在你預期的 <code>ZONE</code> 建立。應從 Main Table 的選單操作。
+- <strong>一條 pipeline 想建成多條 pipe：</strong> 目前不支援自動建；需先以 Pipework 建好各 pipe 再 Link（詳見 <a href="ch21_pipework_zh-TW.reading.html">第 21 章</a>）。
+- <strong>建立多條相連管線：</strong> 官方建議先建主線，再建支線。
+- <strong>訊息「Project Configuration Rules evaluation FAILED」：</strong> 檢查該 <code>SCFITT</code>、<code>SCVALV</code>、<code>SCINST</code>、<code>SCHVFI</code> 是否有有效的 <code>GTYP</code>。
+- <strong>設備先建、後才選 spec：</strong> 不會再做 nozzle 自動匹配；先設 spec 再改 spec，則先前自動複製到樣板 nozzle 的連結與資料會被刪除。</p>
+</blockquote>
+<h3 id="2734">27.3.4 連結資料與管理</h3>
+<p>Integrator 的連結存為獨立的 <code>CYMLNK</code> 物件：<code>deslnk</code> 指向 3D 物件、<code>schlnk</code> 指向原理圖物件、<code>cmpstatus</code> 記錄比對狀態；兩端物件皆有 <code>cmplnk</code> 指回該連結。<code>CYMLNK</code> 歸入 <code>CYMGRP</code>，統一置於單一 <code>CYMWRL</code>（link world）。另有偽屬性 <code>schlnk</code>、<code>deslnk</code>（兩端直接導覽）與 <code>cmpsts</code>（比對狀態描述）。<code>CYMLNK</code> 另有 <code>englnk</code> 指向工程物件，但 Integrator 本身不用。連結基數多為 0..1 對 0..1，<strong>例外</strong>是 schematic pipeline 可連多條 pipe、HVAC line 可連多條 HVAC。</p>
+<p>管理要點：
+- 所有 Integrator 使用者都須對單一 <code>CYMWRL</code> 有寫入權；12.1 起建議建立獨立的 Design Reference 資料庫放 link world，並讓其在所有 MDB 上為 current。
+- 舊版（12.1 之前）link world 放在 Design 資料庫，可用 <strong>Manage Links</strong> 合併到新庫。
+- Global project 需在各站點建立 link world 資料庫的 extract 並指定一個為 primary。
+- 在 extract 資料庫中，Issue／Flush／Drop 有被連結參照的元素時，會自動包含連結物件；<code>INCFLU</code> 屬性可回傳參照該元素的連結。</p>
+<h3 id="2735">27.3.5 設定檔與規則</h3>
+<p>規則存在專案設定檔，預設位於 Marine 執行檔資料夾，專案客製應複製到 Project Defaults 的 ModelManagement 資料夾，例如 <code>%SAMDFLTS%\ModelManagement\ProjectConfiguration.xml</code>；管理員用 <strong>Project Configuration Explorer</strong> 編輯。</p>
+<table>
+<thead>
+<tr>
+<th>設定區段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Defaults</td>
+<td>Real Tolerance（預設 0.00001）、Distance Tolerance（預設 0.01）、單位 mm／inch、Can Create Site／Zone（預設 false）、是否比較法蘭／接頭／unions</td>
+</tr>
+<tr>
+<td>Dictionaries</td>
+<td>鍵值對照，供公式使用 <code>Lookup()</code></td>
+</tr>
+<tr>
+<td>Spec Queries</td>
+<td>管路等級中可供 Selector 規則使用的選擇器（如 <code>STYP</code>）</td>
+</tr>
+<tr>
+<td>Compare Colours</td>
+<td>各比對狀態的顏色：Accepted Difference、Connection Error、Difference、Error、Highlight、Missing、Not Compared、OK</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>Rule Set → Rule Group（Source Type）→ Create／Assign 規則</td>
+</tr>
+<tr>
+<td>Comparison Category、Categories</td>
+<td>控制哪些差異被回報</td>
+</tr>
+</tbody>
+</table>
+<p><strong>規則概念：</strong> 每個 Rule Group 針對一個來源（source）schematic 型別，如 <code>SCEQUI</code>；Create 規則決定要建／要比的 3D 型別（可用 <code>Variant(TEE, OLET, FLAN)</code> 列出多個可接受型別，Build 時取第一個）；Assign 規則設定或比較某屬性，並可指定 <strong>Build Action</strong>（<code>set</code>／<code>ignore</code>）、<strong>Compare Action</strong>（<code>match</code>、<code>matchorexceed</code>、<code>matchornotexceed</code>、<code>matchaskeyattribute</code>、<code>ignore</code>）與 <strong>Mismatch Severity</strong>（<code>criticalerror</code>、<code>error</code>、<code>warning</code>、<code>information</code>）。範例公式：<code>Format('/{0}-{1:D2}-EQUIP', Lookup('Discipline',FUNC of source), AREA of target)</code>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 文件警告 Build 時 <code>target</code> 尚未存在，以 <code>target</code> 為依據的名稱規則（例如以 owner 的 owner 組 ZONE 名）可能得不到預期結果。規則應盡量只依 <code>source</code>。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Comparison Category 設定後的報表：標題含類別名，被忽略的差異不再以紅色回報</div></p>
+<p><em>圖 27-13　套用 Comparison Category 後的比對報表（標題含類別 <code>NoName:SpecOther</code>）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2736-compareupdate">27.3.6 Compare/Update：跨資料來源同步</h3>
+<p>Compare/Update 是產品通用能力，可在 Design、Schematic、Engineering 資料庫之間比對並更新，也能自 AVEVA Instrumentation、Electrical、P&amp;ID 取資料。兩種範圍：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>範圍</th>
+<th>能做的事</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope by Source</td>
+<td>來源庫中選定型別的全部物件</td>
+<td>找出目標庫缺少的物件與差異，可自動新增缺漏物件並複製屬性</td>
+</tr>
+<tr>
+<td>Scope by Destination</td>
+<td>目前工作範圍（drawlist、目前圖、目前清單、目前選取或 Current Element）</td>
+<td>回報來源庫沒有的物件與差異，並可複製屬性</td>
+</tr>
+</tbody>
+</table>
+<p>兩者<strong>都不會刪除</strong>物件，只能用結果觸發人工處理。預設比對以 Name 為準；pipeline 對 pipe 建議改用 key attributes（一對多）；已連結者優先於名稱規則。Design 的 Valves 與 Piping Specials 只比對有名稱的元素，且 <strong>Compare/Update 無法新增</strong>這兩類（插入位置須在 Pipework 應用中審慎決定）。多對一比對時，只允許 Link 與 Unlink。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Compare/Update 視窗：左為管線比對結果，右為 Side-by-Side 的屬性差異</div></p>
+<p><em>圖 27-14　Compare/Update：Accept 欄選取要更新的列，右側顯示 Schematic 與 Engineering 值的差異。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>流程：選 Source → 登入（Instrumentation／Electrical／P&amp;ID 需另登入專案）→ 選來源群組或設定（Configuration）→ 自動比對 → 用 Accept 選項（All Displayed／All Linked／All Matched／All Unmatched／None）或逐列勾選 → <strong>Update Database</strong>。</p>
+<h3 id="2737">27.3.7 二次開發者怎麼接</h3>
+<p>以下皆有官方文件依據。</p>
+<p><strong>Compare/Update 的 <code>CompareUpdate</code> 物件</strong>（需先在介面設好 Options and Mappings）：</p>
+<pre><code class="language-pml">!run = object CompareUpdate()
+!run.selectEngineering()
+!run.compareEquipment()
+!run.acceptAllDisplayed()
+!run.updateLink()
+</code></pre>
+<p>主要方法：<code>selectDesign()</code>／<code>selectSchematic()</code>／<code>selectEngineering()</code>、<code>compareEquipment()</code>／<code>compareLines()</code>／<code>comparePipes()</code>／<code>compareInstruments()</code>／<code>compareValves()</code>／<code>comparePipingSpecials()</code>、<code>compare(STRING)</code>、<code>owner(STRING)</code>、<code>acceptAllDisplayed／Linked／Matched／Unmatched()</code>、<code>updateLink()</code>、<code>updateUnlink()</code>、<code>export(elementsFile, attributesFile)</code>（輸出 csv）。Instrumentation、Electrical、P&amp;ID 整合<strong>不支援命令列</strong>，僅能互動。</p>
+<p><strong>Integrator 物件</strong>（先 <code>!!integratorInit()</code>）：<code>build</code>、<code>compare</code>、<code>link</code>、<code>unlink</code>（字串或陣列；有重名時用參照如 <code>=123/45678</code>）、<code>projectConfigurationFile</code>、<code>getConfigurations</code>、<code>configuration</code>、<code>compareColours／compareCategory／compareRuleset</code>、<code>setReportVisible(false)</code>、<code>setReportPath(path)</code>、<code>openReport()</code>、<code>setCompareAutoLinkMatches</code>、<code>setCompareAutoUpdateAttributes</code>、<code>validateLinks()</code>。<code>validateLinks()</code> 僅可在所有被連結物件所在資料庫皆為 MDB current 時使用。</p>
+<p>文件另附完整範例巨集：用 <code>COLLECTION</code> 以 <code>diaref</code> 取某張圖上的 <code>SCEQUI</code> 與 <code>SCPLIN</code>，轉成字串陣列後呼叫 <code>!!integrator.compare(!comlist)</code>，並將報表輸出為 xml。</p>
+<p><strong>連結與圖面物件。</strong> 舊式 <code>mmTools</code>／<code>mmViewer</code>／<code>mmManageLinks</code> 需 <code>import 'MMservices'</code>；<strong>12.1.SP4 起這三者不可用</strong>，改用 <code>!!integrator.link／unlink／validateLinks</code> 與 <code>IntegratorManager</code>（<code>import 'IntegratorAddin'</code>），後者提供 <code>findOnDrawing</code>、<code>setColour</code>、<code>resetDiagramColours</code>、<code>closeDiagram</code> 等。由 3D 元素找圖面的範例：<code>!itemList[1] = !!ce.schlnk.ref.string()</code>。</p>
+<p><strong>客製化回呼。</strong> <code>IntegratorProjectHandler</code> 物件（位於 <code>pmllib\Integrator\objects</code>）提供 <code>BeginBuildCallback</code>、<code>PreCreateCallback</code>、<code>PostCreateCallback</code>、<code>EndBuildCallback</code>、<code>BeginCompareCallback</code>、<code>EndCompareCallback</code>，只可在標示「Start/End of customization」的區段內加入程式；其他 AVEVA 提供的 PML 修改可能破壞資料完整性。</p>
+<p><strong>整合 UDA。</strong> 要在比對時保存來源資料庫參照，需在 Lexicon 建立 Indexed text UDA，如 <code>pmg-sch-ai</code>、<code>pmg-sch-ae</code>、<code>pmg-design-ai</code>、<code>pmg-design-ae</code>（長度 50，掛在 <code>EQUIPMENT</code>、<code>CABLE</code>、<code>INSTRUMENT</code> 等型別）。</p>
+<p><strong>HVAC 對照表。</strong> HVAC build 讀 <code>HVACStypeTable.xml</code>（先找 <code>%&lt;proj&gt;dflts%\modelmanagement</code>，再找 pdmsexe），可依公司需求修改。</p>
+<table>
+<thead>
+<tr>
+<th>想做的事</th>
+<th>建議接點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>夜間排程比對並輸出報表</td>
+<td><code>integratorInit()</code> + <code>compare(array)</code> + <code>setReportPath</code>（需確認無圖形模式下的限制，〔待核對〕）</td>
+</tr>
+<tr>
+<td>在 Build 前後套公司規則</td>
+<td><code>IntegratorProjectHandler</code> 的 <code>PreCreate／PostCreate</code></td>
+</tr>
+<tr>
+<td>報表中顯示對應的 schematic 名稱</td>
+<td><code>schlnk</code> 偽屬性（官方稱可用於報表與交付物）</td>
+</tr>
+<tr>
+<td>清理死連結</td>
+<td><code>validateLinks()</code></td>
+</tr>
+<tr>
+<td>讀 Room Design 資料</td>
+<td>見 27.2.7，目前無文件依據</td>
+</tr>
+</tbody>
+</table>
+<h2 id="274">27.4 本章小結</h2>
+<ul>
+<li>Room Design 把艙室配置分成 <code>BBLOCK → BLEVEL → ROOM → DETGRP</code> 四層，牆、天花、地板覆蓋等外觀元素放在 <code>DETGRP</code>；家具與配件則建在 <code>ROOM</code> 或 <code>CTWALL</code> 之下。</li>
+<li>元件選取透過 <code>SPWL → TABGROUP → CTABLE → TABITEM → GPART</code>；<code>TABGROUP</code> 的 Purpose 決定在哪個視窗出現。</li>
+<li>船殼與牆板開孔須經 Hole Management 核准；目錄需有 <code>OPGE</code>／<code>HPGE</code> 兩種 loop。</li>
+<li>原理圖不是圖面檔，而是資料庫物件；Integrator 提供 Compare、Build、Link 三種動作，以 <code>CYMLNK</code> 保存關聯。</li>
+<li>差異可被「接受」或以 Comparison Category 過濾，但不是修好；兩種做法的目的不同。</li>
+<li>Compare/Update 不刪除物件，且對 Valves／Piping Specials 不能新增。</li>
+<li>二次開發的文件依據集中在 <code>CompareUpdate</code>、<code>integrator</code>、<code>IntegratorProjectHandler</code>；Room Design 沒有 PML 依據，一律需實測。</li>
+</ul>
+<h2 id="275">27.5 練習題／自我檢核</h2>
+<ol>
+<li>畫出 <code>BBLOCK</code>、<code>BLEVEL</code>、<code>ROOM</code>、<code>DETGRP</code>、<code>CTWALL</code> 的階層，並說明為何 <code>DETGRP</code> 是純行政元素。</li>
+<li>在 Create Room 視窗中，哪些欄位會在選了 Room Type 之後自動帶入？「Create ceiling grid」勾選後，產生哪個型別？</li>
+<li>為什麼門的選取視窗可能缺少 WIDT、HEIG 欄位？需要補哪些元素？</li>
+<li>說明 <code>OPGE</code> 與 <code>HPGE</code> 的差別，以及為何兩個形狀相同也要各做一個 loop。</li>
+<li>Integrator 的 Build 按鈕灰掉，列出兩個可能原因。</li>
+<li>某 pipeline 在 3D 被拆成三條 pipe，應該用什麼方式比對？能不能用 Compare/Update 新增或更新這些 pipe？</li>
+<li>寫出一段巨集大綱，比較某張圖上所有 <code>SCEQUI</code> 並將報表輸出到檔案。</li>
+<li>在 12.1.SP4 環境中，<code>mmViewer.findOnDrawing</code> 要改成什麼？</li>
+</ol>
+<h2 id="276">27.6 〔待核對〕彙整</h2>
+<ol>
+<li>Room Design 工具列六組功能的完整名稱與順序（文件只列出其中部分頁面）。</li>
+<li><code>STRWLL</code> 與 <code>STRWEL</code> 哪一個是實際型別名。</li>
+<li>Room 的面積、淨高、Function、Occupancy 等屬性在 PML 中的實際屬性名。</li>
+<li><code>RPATH</code> 的屬性、API 與在 <code>CTWALL</code> 中的使用方式（文件指向 <em>Software Customization</em>）。</li>
+<li>Room Design 是否有 PML 物件、事件或 Add-in 擴充點。</li>
+<li>Room Design 專屬報表範本與 MTO 輸出方式。</li>
+<li>Integrator 在無圖形模式下可用的功能範圍（文件僅提到 <code>openReport()</code> 不可用於 non-graphics）。</li>
+<li>Schematic Model Manager 與 AVEVA Diagrams 在 Marine 12.1 實際授權與安裝情況（文件僅在相容性頁面提及）。</li>
+<li>Tags 模組與 Integrator 在本公司專案的使用範圍（本章只概述，未逐頁讀取 Tags 內容）。</li>
+</ol>
+<h2 id="277">27.7 取材範圍與限制</h2>
+<p>本章依 <em>Room Design</em>（約 149 頁）與 <em>Schematics</em>（約 283 頁）的總覽與關鍵子頁撰寫，Tags 指南僅依目錄概述。圖片取自官方文件，均已預覽確認主題相符。</p><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch26_cable_supports_zh-TW.reading.html"><small>← 上一篇</small>第 26 章　電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</a><a class="next" href="ch28_other_modules_zh-TW.reading.html"><small>下一篇 →</small>第 28 章　其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

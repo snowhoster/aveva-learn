@@ -1,0 +1,1439 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#47-121-release-bulletin">第 47 章 12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</a><ul>
+<li><a href="#471">47.1 學習目標</a></li>
+<li><a href="#472">47.2 版本公告怎麼讀</a><ul>
+<li><a href="#4721">47.2.1 這份文件是什麼</a></li>
+<li><a href="#4722">47.2.2 版本標記速查</a></li>
+</ul>
+</li>
+<li><a href="#473">47.3 軟體發行與安裝</a><ul>
+<li><a href="#4731">47.3.1 官方的安裝重點</a></li>
+<li><a href="#4732-cache-service">47.3.2 空白路徑與 Cache Service</a></li>
+<li><a href="#4733-test-projects">47.3.3 範例專案（Test Projects）</a></li>
+</ul>
+</li>
+<li><a href="#474-optional-upgrade">47.4 升級框架：版本控管、Optional Upgrade 與流程</a><ul>
+<li><a href="#4741-part-upgrade">47.4.1 Part Upgrade 與升級框架</a></li>
+<li><a href="#4742-database-version-control">47.4.2 Database Version Control</a></li>
+<li><a href="#4743-optional-upgradesp3sp4">47.4.3 Optional Upgrade（SP3、SP4）</a></li>
+<li><a href="#4744">47.4.4 升級流程（官方順序）</a></li>
+<li><a href="#4745-extract-offline-location">47.4.5 Extract 與 Offline Location</a></li>
+<li><a href="#4746-unicode">47.4.6 Unicode 與度量單位：兩項「資料表示法」變更</a></li>
+</ul>
+</li>
+<li><a href="#475">47.5 設定需求</a><ul>
+<li><a href="#4751-operating-environmentsp5">47.5.1 作業環境（Operating Environment，SP5）</a></li>
+<li><a href="#4752-windows">47.5.2 Windows、顯示卡、環境變數</a></li>
+<li><a href="#4753">47.5.3 官方文件中提到的環境變數與開關</a></li>
+</ul>
+</li>
+<li><a href="#476">47.6 系統與資料庫變更</a><ul>
+<li><a href="#4761">47.6.1 一般系統變更</a></li>
+<li><a href="#4762">47.6.2 資料庫變更</a></li>
+<li><a href="#4763-dabacon-buffer">47.6.3 Dabacon buffer 與效能</a></li>
+</ul>
+</li>
+<li><a href="#477">47.7 使用者介面與管理</a><ul>
+<li><a href="#4771">47.7.1 使用者介面變更</a></li>
+<li><a href="#4772-administration-global">47.7.2 Administration 與 Global 的變更</a></li>
+<li><a href="#4773-global">47.7.3 Global 相容性重點</a></li>
+</ul>
+</li>
+<li><a href="#478">47.8 各領域新功能與變更彙整</a><ul>
+<li><a href="#4781-initial-design">47.8.1 通用與 Initial Design</a></li>
+<li><a href="#4782-hull">47.8.2 Hull</a></li>
+<li><a href="#4783-marine-drafting-outfitting-draft">47.8.3 Marine Drafting 與 Outfitting Draft</a></li>
+<li><a href="#4784-outfittingcatalogueglobalengineer">47.8.4 Outfitting、Catalogue、Global、Engineer</a></li>
+<li><a href="#4785-erm-tribon">47.8.5 ERM 整合與 Tribon 移轉</a></li>
+<li><a href="#4786">47.8.6 已知問題</a></li>
+</ul>
+</li>
+<li><a href="#479">47.9 升級檢查清單</a><ul>
+<li><a href="#4791">47.9.1 版本差異與升級風險排序</a></li>
+</ul>
+</li>
+<li><a href="#4710">47.10 術語與縮寫重點</a><ul>
+<li><a href="#47101-terminology">47.10.1 Terminology（官方詞彙表重點）</a></li>
+<li><a href="#47102-abbreviationsmarine">47.10.2 Abbreviations（Marine 專用縮寫）</a></li>
+</ul>
+</li>
+<li><a href="#4711">47.11 本章小結</a></li>
+<li><a href="#4712">47.12 練習題／自我檢核</a></li>
+<li><a href="#4713">47.13 〔待核對〕項目與取材覆蓋</a><ul>
+<li><a href="#_1">待核對</a></li>
+<li><a href="#_2">取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第六部分　官方文件深入 · 48 / 51</span><h1 id="47-121-release-bulletin">第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</h1>
+<blockquote>
+<p><a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>講了升級的基本觀念（Part Upgrade、all-or-nothing、升級後不能 Backtrack）。這一章換成<strong>規劃者與維運者的視角</strong>：手上拿到一份 12.1 的版本公告（Release Bulletin），要怎麼讀它、從中抽出「會影響我們專案的變更」、排出升級順序，並在升級前後知道該檢查什麼。</p>
+<p>官方文件裡名為「Hull and Outfitting」的那一大塊，其實不是操作手冊，而是 <strong>AVEVA Hull and Outfitting 12.1／12.1.SP5 的 User Bulletin</strong>（約 587 個子頁）。它的價值在於：每個功能都標了哪一個 Service Pack 加進來，也標了相容性限制。本章把它整理成「版本差異與升級風險」表。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件：<em>Hull and Outfitting</em>（Release Bulletin，12.1.SP5 版）、<em>What's New in AVEVA Marine?</em>、<em>Welcome to the AVEVA Marine Documentation</em>、<em>Terminology</em>、<em>Abbreviations in the User Documentation</em>。<strong>公告本身是 SP5 時期的舊文件，部分內容為 12.0 或更早版本遺留（例如 Windows XP、IE 7/8、.NET 3.5 的敘述），與 SP5 的需求表互相矛盾處，本章標〔待核對〕。</strong>官方沒有給「升級耗時」「硬體規格數字」，本章不編造。「升級檢查清單」中，標〔官方〕者來自公告，標〔一般實務〕者是常見 IT 維運做法，不代表 AVEVA 的要求。完整的 12.0→12.1 步驟在另一份官方《12.0 to 12.1 Upgrade》手冊，不在本文件範圍。</p>
+</blockquote>
+<h2 id="471">47.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Release Bulletin 的結構，並用 SP2／SP3／SP4／SP5 標記判斷某個功能是哪一版加入的。</li>
+<li>說明 12.1 安裝的幾個重點：MSI 靜默安裝、ALS 授權、不可有空白字元的安裝路徑、修復版本（fix release）的套用方式。</li>
+<li>說明「升級號碼」（upgrade number）、Database Version Control 與唯讀開啟的關係，並讀懂 R/W、R、X 矩陣。</li>
+<li>區分強制升級與 Optional Upgrade（12010301、12010401），並說明套用後的相容性代價。</li>
+<li>依官方 16 步驟寫出升級流程，並說明 Extract、Working Extract、Offline Location 的處理方式。</li>
+<li>說明 Unicode 與度量單位（Units of Measure）兩項「資料表示法」變更，對舊資料與自訂 PML 的影響。</li>
+<li>列出 SP5 的作業環境需求，並辨認公告內互相矛盾的舊敘述。</li>
+<li>說明資料庫層的主要新增：ENGI、Design Reference DB、DBRange、Database Views、Distributed Attributes、Dabacon buffer。</li>
+<li>依領域（Hull、Outfitting、Draft、Catalogue、Global…）查出 12.1 的變更，並判斷哪些屬於「行為改變」而非單純新功能。</li>
+<li>產出一份升級前後的檢查清單，並說明哪些項目要先在測試專案驗證。</li>
+</ol>
+<h2 id="472">47.2 版本公告怎麼讀</h2>
+<h3 id="4721">47.2.1 這份文件是什麼</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>內容（來源：About 各頁）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>對象</td>
+<td>AVEVA Hull and Outfitting 12.1，是 12.0 的「重大更新」（major update）</td>
+</tr>
+<tr>
+<td>12.1.SP5</td>
+<td>完整版本（full release），取代 12.1.SP4 與其後所有部分修復版本；包含 SP4 修復版本中的錯誤修正，以及早期採用者與 AVEVA 測試計畫發現的問題</td>
+</tr>
+<tr>
+<td>主要讀者</td>
+<td>從 12.0 升級的使用者；更早版本的使用者還要讀 12.0 的 User Bulletin（最好是 SP6 版）</td>
+</tr>
+<tr>
+<td>涵蓋產品</td>
+<td>同一張 DVD-R 上的相關產品，分成 Engineer、Design、Manage 三個家族</td>
+</tr>
+<tr>
+<td>SP5 新增標記</td>
+<td>內文以 <code>*12.1.SP5*</code> 標示 SP5 才引進的重大變更</td>
+</tr>
+</tbody>
+</table>
+<p><em>What's New in AVEVA Marine?</em> 這頁只有一段話：Release Notes 說明新功能、期望、限制、已知問題與已修復問題，<strong>放在 AVEVA Knowledge &amp; Support Center 的 Product Hub</strong>（softwaresupport.aveva.com），離線文件裡沒有。換句話說，離線文件中的「公告」不等於當前最新的發行說明，升級前仍要去官方站查最新版。<em>Welcome</em> 頁則一句話定位 AVEVA Marine：從早期計算到控制製造機器人的一體化船體與舾裝設計與生產方案，資料來自「唯一且拓樸相連的 3D 模型」，並與其他 AVEVA 工程與設計方案保持相容。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：12 系列使用者文件的線上說明索引：AVEVA Marine 下分 Design、Engineer、Manage、Read Me First</div></p>
+<p><em>圖 47-1　12 系列使用者文件的索引頁。Hull、Outfitting、Administration、Assembly Planning、Space Management、Surface Manager、Weld Planning 等各有獨立的使用者指南。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>12.1 的文件改動：全部手冊更新、新增《12.0 to 12.1 Upgrade》手冊與 Design Reuse、Space Management、Surface Manager、Report Designer、Tags、Isometric ADP 等新手冊；PDF 手冊不再單獨提供。</p>
+<h3 id="4722">47.2.2 版本標記速查</h3>
+<table>
+<thead>
+<tr>
+<th>標記</th>
+<th>意義</th>
+<th>讀法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>無標記</td>
+<td>12.1 初版（或 SP1）引進</td>
+<td>從 12.0 升上來都會遇到</td>
+</tr>
+<tr>
+<td><code>12.1.SP2</code></td>
+<td>SP2 引進</td>
+<td>從 SP2 以前升上來才有</td>
+</tr>
+<tr>
+<td><code>12.1.SP3</code></td>
+<td>SP3 引進</td>
+<td>常伴隨 Optional Upgrade 12010301</td>
+</tr>
+<tr>
+<td><code>12.1.SP4</code></td>
+<td>SP4 引進</td>
+<td>常伴隨 Optional Upgrade 12010401</td>
+</tr>
+<tr>
+<td><code>12.1.SP5</code></td>
+<td>SP5 引進</td>
+<td>含 Administration 1.5、入口與 ERM 整合等</td>
+</tr>
+</tbody>
+</table>
+<p>每一則功能說明的固定格式是：Description、Benefits、<strong>Compatibility Constraints</strong>、For More Information、Affected Programs。<strong>規劃升級時最先掃的是 Compatibility Constraints 與 Affected Programs</strong>，這兩欄告訴你有沒有行為改變、會波及哪些程式。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 「Compatibility Constraints：None」只代表「該功能本身沒有相容性問題」，不代表升級對你的自訂 PML、報表或批次工具沒有影響。公告多次寫「僅在此註記」（Only noted here），這類功能的細節要自己在測試專案驗證。</p>
+</blockquote>
+<h2 id="473">47.3 軟體發行與安裝</h2>
+<h3 id="4731">47.3.1 官方的安裝重點</h3>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>公告內容</th>
+<th>對維運的意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>媒體</td>
+<td>12.1.SP5 以 DVD-R 發行，用標準 Microsoft 安裝程序自行安裝</td>
+<td>完整套件通常裝在各 PC，授權伺服器與授權檔裝在網路 Windows 伺服器</td>
+</tr>
+<tr>
+<td>授權</td>
+<td>需要 <strong>AVEVA Licensing System（ALS）</strong>與適當授權，<strong>不能用 FlexMan</strong>；ALS 支援虛擬環境，並利於 Citrix 支援；ALS <strong>不在產品 DVD 上</strong>，要從 AVEVA 網站下載</td>
+<td>升級前先確認授權伺服器版本與授權檔</td>
+</tr>
+<tr>
+<td>安裝技術</td>
+<td>標準 MSI，可用標準 MSI 方式靜默安裝，通常由 <code>setup.exe</code> 觸發</td>
+<td>可用於大量部署</td>
+</tr>
+<tr>
+<td>安裝程式數量</td>
+<td>比以前少，每個 AVEVA「release」一個；Hull &amp; Outfitting／Marine 安裝程式含多數相關產品的選項</td>
+<td>部分產品仍用獨立安裝程式</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>安裝程式含 Global client 選項；<strong>Global server 另有安裝程式</strong>，通常裝在另一台不一定有 Hull and Outfitting 的伺服器</td>
+<td>規劃時 client 與 server 要分開排程</td>
+</tr>
+<tr>
+<td>捷徑</td>
+<td>可選擇在桌面或開始功能表裝批次檔與捷徑，並可自動設定 pml index</td>
+<td></td>
+</tr>
+<tr>
+<td>瘦客戶端</td>
+<td><strong>不再支援</strong> thin client 安裝</td>
+<td>以 Citrix 等方式部署時要另行評估〔待核對〕</td>
+</tr>
+<tr>
+<td>變更／修復／移除</td>
+<td>一律從「控制台的新增或移除程式」進行，會視需要要求原始 DVD</td>
+<td>確保裝的是 AVEVA 測試過的一致產品組合</td>
+</tr>
+<tr>
+<td>修復版本（Fix release）</td>
+<td>用標準更新流程，會檢查並在必要時「修復」既有安裝；可從新增或移除程式移除；<strong>套用到一起安裝的所有產品，不是個別產品</strong>；建議用最新的修復版本（包含先前所有修復）</td>
+<td>不要只對單一產品打補丁</td>
+</tr>
+<tr>
+<td>路徑限制</td>
+<td>可改安裝路徑，但<strong>路徑中不可含有空白字元的資料夾</strong></td>
+<td>不要裝在 <code>C:\Program Files\…</code>〔見下方 Global 例外說明〕</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：AVEVA Marine Setup 的 Custom Setup 畫面：AVEVA Marine Suite 12.1.SP5 下可選 Hull and Outfitting、Global Client、Area Based ADP、Schematic 3D Integrator 等功能，預設安裝位置為 AVEVA 資料夾下的 Marine 目錄</div></p>
+<p><em>圖 47-2　Marine 安裝程式的功能樹。路徑範例為 <code>C:\AVEVA\Marine\OH12.1.SP5\</code>，不含空白。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4732-cache-service">47.3.2 空白路徑與 Cache Service</h3>
+<ul>
+<li><strong>專案路徑含空白</strong>：12.1 <strong>不完全支援</strong>專案資料夾路徑有空白，官方說「正在處理，尚無確定日期」。Known Issues 另記載：Global daemon 裝在 <code>C:\Program Files\</code> 能運作，但 <code>REMOTE CHECK</code> 在 daemon 目錄含空白時無法執行 Standalone DICE（部分原因是分號分隔符）。</li>
+<li><strong>AVEVA Database Cache Service（SP3 起）</strong>：把讀過的專案資料以高度最佳化的副本存在本機磁碟，對「跨網路重複讀專案資料」有效；必須在執行 AVEVA 應用程式的<strong>客戶端機器</strong>上啟用，同機器的使用者共用；已在本機磁碟的專案不會被快取。Hull Design、Outfitting、Marine Drafting、Outfitting Draft 可使用；<strong>可選用</strong>；需啟用 MSMQ，步驟見《Marine Software Installation Guide》。</li>
+</ul>
+<h3 id="4733-test-projects">47.3.3 範例專案（Test Projects）</h3>
+<p>DVD 提供 <code>MAR</code> 範例專案與 <code>MAS</code>（Catalogue）專案。<code>MAR</code> 的 MDB 包含：<code>ALL_NO_MDS</code>、<code>ALL_WITH_MDS</code>（專案設定用）以及依角色劃分的 <code>PLANARHULL</code>、<code>CURVEDHULL</code>、<code>HULLNESTING</code>、<code>INITDES</code>、<code>ASSYPLANNING</code>、<code>PIPEAFT</code>、<code>HVACAFT</code>、<code>SCHEMATICS</code>、<code>WELDPLANNING</code>、<code>PROJADMIN</code> 等（共約 20 個）。各 MDB 可由系統（FREE）使用者 <code>SYSTEM/XXXXXX</code> 進入，也各有專用使用者；專案頂層有 <code>MARProjectDescription.pdf</code>、<code>MASProjectDescription.pdf</code>，內含團隊與使用者（含密碼）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 範例專案是做升級演練、驗證自訂工具的最佳沙盒。<strong>專案說明 PDF 內含預設密碼，進入正式環境前務必清除或改密碼。</strong>〔一般實務〕</p>
+</blockquote>
+<p><strong>常見錯誤：</strong> 把 12.1 裝在 <code>C:\Program Files</code> 下、或把專案放在有空白的路徑，結果某些功能（Global 檢查、批次工具）出現難以解釋的失敗。</p>
+<h2 id="474-optional-upgrade">47.4 升級框架：版本控管、Optional Upgrade 與流程</h2>
+<h3 id="4741-part-upgrade">47.4.1 Part Upgrade 與升級框架</h3>
+<p>升級概述的核心概念（第 20 章已介紹，這裡只列公告新增的細節）：</p>
+<ul>
+<li>12.1 的許多增強需要資料庫升級，每一項個別變更稱為 <strong>Part Upgrade</strong>；多數設計成「可選」，未升級的資料庫軟體仍能用，但<strong>只能唯讀</strong>，部分新功能不可用（graceful degradation）。</li>
+<li>這讓客戶可以繼續與<strong>外來資料庫（Foreign DB）</strong>共用，例如與 12.0 專案共用的公司層級 Catalogue DB。</li>
+<li>全部 Part Upgrade 由 <strong>Upgrade Framework</strong> 在 Admin 執行；以 <code>lock</code>、<code>dbupgrade project to latest</code>、<code>unlock</code> 啟動。Global 專案可用，但要額外預防措施。</li>
+<li><strong>更早的專案要先升級到 12.0。</strong> Schematic Model Manager 有自己的單位處理與升級機制，軟體會提示是否需執行。</li>
+</ul>
+<p>框架內的 Part Upgrade 項目（官方清單）：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UKEY</td>
+<td>現在含資料庫編號以避免重複</td>
+</tr>
+<tr>
+<td>元素尋找效能</td>
+<td>依 type 建索引</td>
+</tr>
+<tr>
+<td>Module Definitions</td>
+<td>新增 TAGS 模組；Drafting 模組更名為 Marine Drafting</td>
+</tr>
+<tr>
+<td>字元處理</td>
+<td>名稱與文字改用 Unicode 表示</td>
+</tr>
+<tr>
+<td>HULL FEM Data Model</td>
+<td></td>
+</tr>
+<tr>
+<td>Compressed HULL Objects</td>
+<td>壓縮的 Hull 物件，同時新增 Hull object type 索引</td>
+</tr>
+<tr>
+<td>Name Sequence 起始值</td>
+<td></td>
+</tr>
+<tr>
+<td>Assembly POS 屬性</td>
+<td></td>
+</tr>
+<tr>
+<td>Draft 線寬</td>
+<td>細、中、粗線寬改存於系統資料庫</td>
+</tr>
+</tbody>
+</table>
+<p>升級工具會在資料庫放一個<strong>升級編號</strong>，用於開啟時偵測是否已升級，也供 Reconfigure 使用。框架外還有「非框架升級」：彼此獨立、可任意順序套用，但<strong>無法回溯（backtrack）到升級前的 Session</strong>。</p>
+<h3 id="4742-database-version-control">47.4.2 Database Version Control</h3>
+<p>軟體啟動時，會比對資料庫的升級版本與軟體版本，限制最大開啟模式：</p>
+<table>
+<thead>
+<tr>
+<th>軟體版本＼資料庫升級版本</th>
+<th>12.1 前</th>
+<th>12.1.1</th>
+<th>未來（如 12.2）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12.1 前</td>
+<td>R/W</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>12.1.1</td>
+<td>R</td>
+<td>R/W</td>
+<td>X</td>
+</tr>
+<tr>
+<td>未來（如 12.2）</td>
+<td>R</td>
+<td>R</td>
+<td>R/W</td>
+</tr>
+</tbody>
+</table>
+<p>R/W＝可讀寫，R＝唯讀，X＝無法存取。<strong>但 12.1 之前的版本不做這個檢查，所以偵測不到已升級到 12.1 的資料庫</strong>——舊版軟體仍可能去開、去寫，這是官方明文警告的「版本混用風險」。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：警告視窗：有資料庫的升級編號與此軟體（12010103）不符，有 2 個資料庫未升級，將以唯讀開啟</div></p>
+<p><em>圖 47-3　從尚未升級的專案開啟 MDB 時的警告。官方說明這代表專案需要升級到最新版本才能取得寫入權限。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4743-optional-upgradesp3sp4">47.4.3 Optional Upgrade（SP3、SP4）</h3>
+<table>
+<thead>
+<tr>
+<th>升級等級</th>
+<th>版本</th>
+<th>內容</th>
+<th>相容性代價</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12010301</td>
+<td>12.1.SP3</td>
+<td>2893：儲存 space arrangement 定義；2931：GENPRI 下儲存座標系實體（STEP 匯入）；38541：PADD 的 marine drawing type 表屬性；15251：PADD 舾裝模型的新 Layers 與 ID；45823：新的 Marine drawing types（ADP）</td>
+<td>套用後<strong>不再相容 12.1.SP2 或更早版本</strong></td>
+</tr>
+<tr>
+<td>12010401</td>
+<td>12.1.SP4</td>
+<td>僅一項：93792，一般資料庫變更</td>
+<td>同一專案混用 SP4 與舊版會造成資料庫不一致；套用後資料庫<strong>不會被 SP4 之前的任何版本更新</strong>（官方「強烈建議但非強制」）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>套用方式：<code>DBUP PROJECT TO LATEST OPTIONAL</code>；<code>Q UPGRADE LIST</code> 會對可選的升級給簡短提示（例如 <code>12010301 ... Optional upgrade version</code>）。</li>
+<li><strong>套用時機</strong>：由系統管理員在「專案中所有使用者都已在跑該 SP」時才套用。</li>
+<li><strong>SP2 與 SP3 並行</strong>：只有在 SP2 使用者都裝了特定 hotfix（官方說稍後公布）、且<strong>沒有</strong>套用 SP3 的 Optional Upgrade 時，兩個版本才能共用同一專案資料庫。</li>
+<li><strong>Global Server</strong>：Global Server 12.1SP2 支援 Marine 12.1SP3，但僅限<strong>尚未套用</strong> Optional Upgrade 的專案；Global Server 12.1SP3 隨 Marine 12.1SP3 hotfix 1 發行，不論有沒有套用都可使用。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> Optional Upgrade 的好處是「可選擇何時不相容」。<strong>最穩的做法是：全員升到同一 SP、穩定一段時間後，才套用 Optional Upgrade；一旦套用，視為單向門。</strong>〔一般實務，依官方「套用後不相容舊版」推論〕</p>
+</blockquote>
+<h3 id="4744">47.4.4 升級流程（官方順序）</h3>
+<p>升級由負責各地點的系統管理員執行；一次只升級一個專案，多專案要協調順序；升級期間專案須鎖定、所有使用者離線。</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>動作</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>確認所有使用者已離開專案</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>在<strong>所有地點</strong>鎖定專案（升級會檢查）</td>
+<td>專案整體不能鎖，只能鎖各地點；可從 HUB 用 <code>LOCK AT &lt;location&gt;</code> 鎖所有線上地點；<code>QUERY LOCK AT &lt;location&gt;</code> 確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td>必要時停用自動更新事件</td>
+<td>建議但非必要</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Expunge 本地系統所有使用者</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>清空 Working Extract 的資料</td>
+<td>這些不被考慮；Global 專案中應刪除</td>
+</tr>
+<tr>
+<td>6</td>
+<td>用 <strong>DICE</strong> 檢查專案</td>
+<td>有問題先處理再重跑；處理期間可解鎖，但最後一次 DICE 前要再排除所有使用者並鎖定</td>
+</tr>
+<tr>
+<td>7</td>
+<td>備份所有地點的專案</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>暫時把所有非外部（non-Foreign）DB 遷到其主要（master）的 Primary 地點</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>確認沒有 Transient Databases</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>在每個地點升級專案</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>（可選）合併 Sessions</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>（可選）為 Unicode 重新設定（Reconfigure）</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>再做一次 DICE</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>把 Extract 遷回原地點</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>若適用，執行非框架升級</td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td>解鎖專案</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>升級的核心限制：<strong>每個資料庫必須整體處於「已升級」或「未升級」其中之一</strong>，所以任何資料庫的所有 Extract 都必須在升級期間處理；整個專案（Foreign DB 除外）應一次升完。</p>
+<h3 id="4745-extract-offline-location">47.4.5 Extract 與 Offline Location</h3>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>官方要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般 Extract 階層</td>
+<td>不需要改階層、也不需要在 Extract 之間 <code>FLUSH</code>／<code>ISSUE</code>／<code>DROP</code>，也不必刪除 Extract family 只留 Master；但所有 Extract 都要<strong>遷到單一地點</strong>（不必是 HUB）</td>
+</tr>
+<tr>
+<td>Working Extract</td>
+<td>因為只屬於單一地點、無法傳播，所有資料<strong>必須 flush</strong>，並把 claim 釋放給父層；只有 Working Extract 有此要求</td>
+</tr>
+<tr>
+<td>Offline Location</td>
+<td>Global 支援 Offline 地點，HUB 不一定有連線；Offline 地點不支援分散式 Extract（可支援獨立 Extract family），<strong>無法從別的地點協調升級</strong>，要各自獨立處理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4746-unicode">47.4.6 Unicode 與度量單位：兩項「資料表示法」變更</h3>
+<p><strong>Unicode：</strong>
+- 12.1 新建資料庫，名稱與文字屬性預設用 Unicode；<strong>舊資料庫不強制升級</strong>，依專案字元集（Admin 的 <code>PROJECT CHARSET</code>／<code>PROJECT MBCHARSET</code>）處理，Reconfigure 時也依此轉換，所以這個設定必須正確。
+- 需要擴充字元範圍時，可用 Reconfigure 把「舊版（legacy）」資料庫轉成 Unicode 編碼。官方範例（Lexicon 的 DICT 資料庫）流程：<code>FROM DB MASTER/DICT</code> → <code>TO FILE ...</code> → <code>RCFCOPY ALL</code> → <code>RECONFIG SESSIONS</code> → <code>FROM FILE ...</code> → <code>TO DB MASTER/DICT</code> → <code>RECONFIG</code>。FROM 階段用 <code>RECONFIG SESSIONS</code> 可保留 Session 與參考，不必刪除重建 DB、也不必重新加入 MDB。
+- 內部字串格式為 UTF-8；循序文字檔預設以<strong>含 BOM 的 UTF-8</strong> 讀寫，另附命令列 transcoder。PML 字串都支援 Unicode，PML 語言檔建議用含 BOM 的 UTF-8 或純 ASCII；檔名建議用 ASCII（DXF、DGN 輸出與 PML Publisher 有問題）。
+- 相容性：舊版（legacy）資料庫可被 12.1 與更早版本<strong>讀</strong>，也可被 12.1 與非 Unicode 版本寫（字元範圍受專案設定限制）；<strong>Unicode 編碼的資料庫，12.1 以前的版本不能開（讀寫皆不行）</strong>。
+- 限制：只處理由左至右的語言（不含阿拉伯文、希伯來文）；繪圖輸出只能用 Admin 設定的 TrueType 字型（預設 font 5＝Arial Unicode MS），無法產生 plotfile。<strong>Hull Design 建立的物件名稱即使在 Unicode 專案中，仍只能用大寫 A–Z、數字與 <code>- . _ +</code>。</strong></p>
+<p><strong>度量單位（Units of Measure）：</strong>
+- 12.1 內建大量單位與換算（壓力、質量、溫度、角度、能量等），多數實數屬性有預設儲存單位（通常 SI）；新的 <code>UNITS</code> 指令（例如 <code>UNITS MM DISTANCE</code>、<code>UNITS POUND MASS</code>），指令列行為有改變，<strong>自訂的 PML 應用程式要重新檢查</strong>，並可由 .NET Units 介面使用。
+- 距離與口徑（bore）沿用舊方式，不需轉換；其他屬性<strong>首次設定 UNIT 欄位</strong>。以前它們是「憑慣例」存的無單位數值，不同應用程式、不同專案可能不同。相容作法是把該維度設為 <code>NUMERIC</code>，等於停用該維度的單位換算（也就得不到新功能的好處）。
+- 部分單位<strong>區分大小寫</strong>（例如 <code>m</code>／<code>M</code>、<code>s</code>／<code>S</code>），Imperial 單位與 <code>MM</code> 等舊單位除外。
+- <strong>升級要做的事</strong>（官方）：標準屬性已設好；客戶要為自己的 UDA、Catalogue／Design 參數與屬性設好維度（例如角度 UDA 要設 <code>UUNIT</code> 為 <code>ANGL</code>）。依既有資料狀況分四種：資料已存成新資料庫單位 → 只設 <code>UUNIT</code>，並可刪除原本記錄單位的 UDA 與自製換算 appware；資料存成同一個非新單位 → 以 <code>UNITS NUMERIC &lt;維度&gt;</code> 輸出 datal，再在設好目前單位（如 <code>UNITS DEGF TEMPERATURE</code>）後讀回；混合單位且有 UDA 記錄單位 → 輸出「值＋單位」檔、檢查格式、讀回；只靠「慣例」的混合單位 → 短期設為 <code>NUMERIC</code>，並規劃更嚴謹的單位使用。不必一次改完全部維度。
+- Hull 與 Drafting 的單位設定<strong>與 Outfitting 不同</strong>：呈現格式只有 SI（預設）或 Imperial，由環境變數與 default 變數控制。
+- Schematic Model Manager 先前專用的單位支援不再需要；升級包含它的 Part Upgrade，且 12.1 以前匯入的 Schematic 資料<strong>必須升級</strong>（進入模組時自動檢查並警告）。CATA 元素 <code>MSET</code>、<code>MTYP</code>、<code>ATLI</code>、<code>USEC</code>、<code>UDEF</code> 不再使用，日後移除。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 單位變更是「看不到錯誤、數字卻不對」的升級風險。實務上要挑壓力、溫度、質量三類，在測試專案做 12.0 與 12.1 的報表數字對照。〔一般實務〕</p>
+</blockquote>
+<p><strong>常見錯誤：</strong> (1) <code>PROJECT CHARSET</code> 設錯，Reconfigure 時把舊資料轉成亂碼；(2) 把 Unicode 編碼的資料庫放回仍有 12.0 使用者的專案。</p>
+<h2 id="475">47.5 設定需求</h2>
+<h3 id="4751-operating-environmentsp5">47.5.1 作業環境（Operating Environment，SP5）</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>官方內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>必要作業系統</td>
+<td>Windows 7 Professional／Enterprise + SP1、Windows Server 2008 R2 + SP1、Windows 8.1、Windows Server 2012 R2、Windows 10</td>
+</tr>
+<tr>
+<td>.NET</td>
+<td>Microsoft .NET Framework <strong>4.6.1</strong></td>
+</tr>
+<tr>
+<td>建置作業系統</td>
+<td>Windows Server 2012 R2</td>
+</tr>
+<tr>
+<td>附註</td>
+<td>Windows 7 SP1／Server 2008 R2 SP1 需先裝 Windows Platform Update，才能在 3D canvas 精確繪製 2D（例如文字）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4752-windows">47.5.2 Windows、顯示卡、環境變數</h3>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>公告內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>桌面</td>
+<td>不再支援 Windows XP Professional；<strong>單一 32 位元版本</strong>，可跑在 32 與 64 位元的受支援 Windows；Windows 7 的 UAC 使需要寫入的檔案必須讓非管理員使用者可存取</td>
+</tr>
+<tr>
+<td>Internet Explorer</td>
+<td>線上說明需要 IE；建議 7 或 8（9 當時無法正常運作）〔待核對：SP5 時期此敘述是否仍適用〕</td>
+</tr>
+<tr>
+<td>.NET</td>
+<td>另有一段寫 12.1 需要 <strong>.NET Framework 3.5</strong>（隨 DVD，必要時安裝）〔待核對：與 SP5 表的 4.6.1 並存，推測 3.5 為舊版遺留〕</td>
+</tr>
+<tr>
+<td>.NET 附加元件</td>
+<td>部署在網路上的 .NET add-in 可能無法執行；AVEVA 建議每台機器本機安裝；跨網路時 local intranet 預設非 Full Trust，可用 <code>caspol</code> 調整</td>
+</tr>
+<tr>
+<td>Office</td>
+<td>支援 Office 2007 與 2010；即使在 64 位元 Windows，也建議用 <strong>32 位元 Office（含 Visio）</strong>，因 64 位元版曾遇到問題</td>
+</tr>
+<tr>
+<td>顯示卡</td>
+<td>不在文件列出支援清單（硬體變動太快），請看 AVEVA Product Support 網站 IT Configuration 的已測試清單</td>
+</tr>
+<tr>
+<td>環境變數</td>
+<td>專案資料庫資料夾與使用者工作區位置等設定依賴環境變數</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4753">47.5.3 官方文件中提到的環境變數與開關</h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>作用</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PDMSBUF</code></td>
+<td>使用者層級設定 Dabacon buffer（MB）；大於 1000 會被忽略</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td><code>AVEVA_NOCONSOLE=TRUE</code></td>
+<td>隱藏 console 視窗（亦可 <code>-noconsole</code> 啟動參數）</td>
+<td>SP5</td>
+</tr>
+<tr>
+<td><code>MARINE_DESIGN_EXPLORER_PLAIN</code></td>
+<td>設任何值即關閉 Design Explorer 對 hull 零件的「第二名稱」顯示</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td><code>SBH_ENABLE_SOLID_PLATES=YES</code></td>
+<td>啟用殼板新的 Generic Primitive 表示（建立速度會變慢）</td>
+<td>SP4</td>
+</tr>
+<tr>
+<td><code>SBH_FREE_SEAMPROF_NAMES</code></td>
+<td>自由命名；改由 InitHull 設定，此變數僅作最後手段</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td><code>SBH_GRP=Mixed</code></td>
+<td>同專案混用 FRP 與 Steel</td>
+<td>SP4</td>
+</tr>
+<tr>
+<td><code>SBH_NO_IND_SYMPARTS</code></td>
+<td><strong>已移除</strong>：對稱結構產生的零件一律個別儲存（左右舷各一）</td>
+<td>SP2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 這張表是「升級時環境變數稽核」的起點：先盤點現行啟動腳本裡設了哪些，再逐一對照有無改義或移除。Marine 的 <code>SBH_*</code> 變數是否仍被讀取，要在目標版本驗證。〔一般實務〕</p>
+</blockquote>
+<h2 id="476">47.6 系統與資料庫變更</h2>
+<h3 id="4761">47.6.1 一般系統變更</h3>
+<table>
+<thead>
+<tr>
+<th>變更</th>
+<th>說明</th>
+<th>升級風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASL（SP4）</td>
+<td>12.0／12.1 開發的 Access platforms, Stairs and Ladders 應用程式<strong>被移除</strong>，由 Vantage Marine 11.6 的 primitive 型能力取代；「Future Considerations」頁另說新應用將改稱 Stairs, Ladders and Handrailing（SLH），平台改用一般 Beams &amp; Columns、Panels &amp; Plates，可搭配 Standard Model Library</td>
+<td>用到 ASL 的專案要規劃替代方式〔待核對：兩頁敘述的先後關係〕</td>
+</tr>
+<tr>
+<td>密碼保護</td>
+<td>建立沒有密碼的使用者時會跳確認；Generate Script 對話框會檢查專案登入密碼；USER 物件新增 <code>ConfirmID()</code> 方法（與 SESSION 物件類似）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Status Control</td>
+<td>新增偽屬性 <code>STVMOD</code>／<code>STVUSE</code>、<code>STM COMMENT</code> 指令、PML2 屬性查詢；<strong>Status Change Event Methods 的第一個引數改為物件陣列</strong>；<code>StatusProjectHandler</code>、<code>StatusData</code> PML 物件已更新</td>
+<td><strong>客製的 StatusProjectHandler 要移到新版</strong></td>
+</tr>
+<tr>
+<td>報表</td>
+<td>新 Reporting add-in（DevExpress XtraReports），可輸出多種格式並送到 AVEVA NET；Design、Paragon、Spooler、Draft、Isodraft 與部分 Engineer 模組可用；舊式 PML 報表改稱 Standard Reporting，<strong>輸出單位會改變</strong>（距離預設 mm，單位轉換 Off 時數值會附單位，例如 <code>25.4mm</code>）</td>
+<td>報表輸出格式要重新驗證</td>
+</tr>
+<tr>
+<td>GML 效能</td>
+<td>針對 Mechanical Equipment Interface 匯入資料的繪圖加速</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4762">47.6.2 資料庫變更</h3>
+<table>
+<thead>
+<tr>
+<th>變更</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENGI 資料庫</td>
+<td>新型別，存不出現在示意圖上的工程資料；頂層元素為 <code>SATWLD</code>；已加入 <code>modmac.mac</code> 與 Admin／Global 表單</td>
+</tr>
+<tr>
+<td>Design Reference DB</td>
+<td>受限的 Design 資料庫：不可含 SITE 或 HULL 資料、不可為 MDB 預設 DB、僅在建立時設旗標（不可事後取消）；用於存 Systems 與 Areas，適合只有 2D 授權的使用者</td>
+</tr>
+<tr>
+<td>資料庫存取</td>
+<td>Hull &amp; Outfitting 使用者可讀寫 3D 資料庫；要碰 Schematic／Engineering 需 Schematic 3D Integrator 授權；Diagrams 使用者可讀寫 Schematic，只可讀 3D 與 ENGI；Engineering 使用者可讀寫 Schematic 與 ENGI，只可讀 3D；既有 Diagrams、Schematic Model Manager、Schematic 3D Integrator 使用者<strong>需要更新的授權檔</strong></td>
+</tr>
+<tr>
+<td>資料庫數量</td>
+<td>專案上限提高到 <strong>250,000</strong>；250,001–255,000 與 7,001–8,000 保留給 AVEVA；可建 <strong>DBRange</strong> 元素（<code>DBRBEG</code>／<code>DBREND</code>，位於 SYSTEM 或 GLOBAL 資料庫 STAT 之下）；<code>CREATE DB ... UNIQUE</code> 與偽屬性 <code>NXTDBU</code>；編號可用 10,000–250,000</td>
+</tr>
+<tr>
+<td>Database Views</td>
+<td>管理者用 Database Views Editor 設定，存於 Lexicon（DICT）的 Database View World（<code>DBVWWL</code>）；也可存本機設定檔；用來彙整分散在多個資料庫的元素與屬性，供報表與 Excel 匯入／匯出使用</td>
+</tr>
+<tr>
+<td>Distributed Attributes</td>
+<td>屬性群組分散在 DESI 與 ENGI 資料庫（目前僅此兩型），以「binding 元素」綁定；提高並行度、縮小 claim、簡化存取控制（以資料庫歸屬）、減少 Global Extract 需求</td>
+</tr>
+<tr>
+<td>UDA／UDET 鍵</td>
+<td>UKEY 現在含資料庫編號，避免合併資料時的名稱衝突；Lexicon 新指令可重新配置既有 UKEY，舊鍵存於 <code>OLDKEY</code></td>
+</tr>
+<tr>
+<td><code>BACKREF</code>／<code>CLEANUP</code>（SP3）</td>
+<td><code>Q BACKREF</code> 回答「誰參考我」；<code>CLEANUP</code> 清除空參考與無效參考</td>
+</tr>
+<tr>
+<td>Extract Control</td>
+<td>對有 Integrator link 的元素 flush／issue／drop 時自動包含連結物件；新參考陣列屬性 <code>INCFLU</code>；Extract Control 表單以「R」標示</td>
+</tr>
+<tr>
+<td>PBS（SP4）</td>
+<td>Project Breakdown Structure：管理者在 Lexicon 於 <code>PBSWLD</code>／<code>PBSTPL</code> 下定義，供 Engineering 與 Diagrams 的 PBS Explorer 使用</td>
+</tr>
+<tr>
+<td>Draft 線寬</td>
+<td>系統線寬存於系統資料庫，預設 ISO：Thin 0.25 mm、Medium 0.35 mm、Thick 0.70 mm</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create Database 表單：Database Type 為 Design，勾選 2D Reference Only 即建立 Design Reference 資料庫；右側有 DB Number 的 Unique 按鈕</div></p>
+<p><em>圖 47-4　建立 Design Reference 資料庫的方式：建立時勾選 2D Reference Only（只能在建立時設定）。DB Number 欄位旁的 Unique 按鈕對應 DBRange 的新功能。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Database Views Editor：View Definition Set 區可 Open、Close、New、Delete、Save，下方有 Views 與 View Sets 分頁</div></p>
+<p><em>圖 47-5　Database Views Editor。目前在 Lexicon 與 Tags 模組的 Display &gt; Database Views Editor 可使用。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4763-dabacon-buffer">47.6.3 Dabacon buffer 與效能</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>12.0</th>
+<th>12.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buffer 範圍</td>
+<td>32,000–51,200,000 整數（預設 12,800,000，約 50 MB，上限 200 MB）</td>
+<td><strong>20 MB–1 GB</strong></td>
+</tr>
+<tr>
+<td>新專案預設</td>
+<td></td>
+<td>Monitor 20 MB；Admin、Specon、Propcon、Isodraft、Lexicon、DARs、Toolbox 200 MB；Design、Draft、Paragon、Spooler 與 Diagrams、Schematic Model Manager、Tags 500 MB</td>
+</tr>
+</tbody>
+</table>
+<p>設定方法：以 Admin 的 <code>ED MOD &lt;module&gt; &lt;size&gt;</code> 修改（可用 MB 或整數，256000 整數＝1 MB）、或初始專案設定的 <code>modmac.mac</code>、或使用者環境變數 <code>PDMSBUF</code>；<code>Q DABACON AVAIL</code> 可查未用量。buffer 大於可用記憶體會增加分頁而抵銷效益。另有 Dabacon index tables 擴充（依 Hull object type code、元素型別、UDET 或 UDA 值加速選取），以及 Hull 物件新的儲存模型（I/O 最多減少 40%，需依升級文件選擇性轉換）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Extract Data Control 表單：Get All Changes、From parent extract only／From all extract ancestors、Update CE、Extract Claimlists、User Claimlists，清單左側以 H、M、R 等字母標示狀態</div></p>
+<p><em>圖 47-6　Extract Data Control。12.1 在 Extract 中對含 Integrator link 的元素 flush、issue、drop 時，會自動帶入連結物件並以「R」標示。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>常見錯誤：</strong> 把 buffer 全部設到 1 GB 卻忘了每個模組各自佔用，多開幾個模組後記憶體不足，反而變慢。</p>
+<h2 id="477">47.7 使用者介面與管理</h2>
+<h3 id="4771">47.7.1 使用者介面變更</h3>
+<table>
+<thead>
+<tr>
+<th>變更</th>
+<th>說明</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>進入系統</td>
+<td>可直接進入任何模組，不必經 Monitor；登入表單帶對應啟動畫面，並提供桌面與開始功能表捷徑；<strong>登入表單移除「Integrate Engineering and Schematics」選項</strong>，授權功能 <code>ENGI-DB-RO-ACCESS</code>、<code>SCHE-DB-RO-ACCESS</code> 不再需要</td>
+<td>SP5</td>
+</tr>
+<tr>
+<td>Save Work</td>
+<td>現在會顯示表單，可一併「Unclaim All」</td>
+<td>SP5</td>
+</tr>
+<tr>
+<td>儲存與還原視圖</td>
+<td>3D View 新圖示，儲存目前 drawlist、視圖屬性與縮圖；<strong>舊的編號式視圖不再可用</strong></td>
+<td>12.1</td>
+</tr>
+<tr>
+<td>PML Collection</td>
+<td><strong>範圍為空現在代表 ALL 而不是 NONE</strong>（會慢很多）</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td>Attributes Utility</td>
+<td>取代舊的 Query Attributes 與 Attributes 表單，可在權限允許下編輯</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td>Auto-naming</td>
+<td>命名規則可用 PML1 <code>IFTRUE</code>；<strong>整個 Format 必須全是 PML1，不可混用 PML2</strong></td>
+<td>12.1</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：HullDesign login 表單：Project、Username、Password、MDB，以及 Open Read Only 與 Restore Views 兩個選項</div></p>
+<p><em>圖 47-7　SP5 的直接登入表單（以 HullDesign 為例）。Options 區有 Open Read Only 與 Restore Views。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 「PML Collection 空範圍變 ALL」和「Auto-naming 不可混用 PML1／PML2」這類不顯眼的行為改變，最容易讓自訂工具在升級後變慢或出錯。要在升級盤點時 <code>grep</code> 專案的 PML 找 collection 與命名規則。〔一般實務〕</p>
+</blockquote>
+<h3 id="4772-administration-global">47.7.2 Administration 與 Global 的變更</h3>
+<ul>
+<li><strong>AVEVA Administration 成為獨立產品（SP5）</strong>：Hull and Outfitting 12.1.SP5 不再內建管理功能，改用通用 <strong>Administration 1.5</strong>；因此 AVEVA 決定<strong>終止從 Tribon 移轉資料到 12.1 的能力</strong>，需要的客戶要保留獨立的 12.1.SP4 安裝，再把結果搬到 12.1.SP5 專案（見 47.8.5）。</li>
+<li>管理 GUI：使用者、團隊可從 Excel 匯入；UDA／USDA 的 Lists of Values 可設「Optional」（PML 方法 <code>LIMITSVALIDOPTIONAL</code>）。</li>
+<li><strong>Global</strong>：支援 Linked Documents 傳播（預設關閉，Admin Project 選單開啟；<code>GLINKP</code> 屬性；<code>SYNCHR &lt;dbname&gt; LINKDOC FORCE</code> 可強制）；<strong>Database Distribution 表單</strong>（Data 選單）以矩陣顯示各資料庫在各地點的狀態（<code>+</code> primary、<code>-</code> 配置於此但 primary 在他處、<code>&gt;</code> 轉移中、<code>*</code> foreign）並可批次改 primary 地點；DB Sessions 表單顯示 Session 的「Reason」。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Admin 的 Data 選單：Database Distribution 項目位於 Database Allocation 與 Update 之間</div></p>
+<p><em>圖 47-8　Admin 的 Data 選單中的 Database Distribution…。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：DB Sessions 視窗：左側資料庫清單，右側顯示 Session Number、Author、Date、Reason（savework）與 Comment</div></p>
+<p><em>圖 47-9　DB Sessions 現在會顯示建立 Session 的原因（Reason）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4773-global">47.7.3 Global 相容性重點</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global WCF（12.0.SP6.6 起）</td>
+<td>以 WCF 取代 RPC，可套用 WCF 的傳輸層安全等設定（XML 設定檔）</td>
+</tr>
+<tr>
+<td>WCF 服務名稱</td>
+<td>為了強制 12.0.SP6 與 12.1 之間的介面變更，端點改為 <code>.../GlobalWcfService_11_1_201011</code>，WSDL、服務合約同步改名；<strong>從 12.0.SP6 沿用的 <code>GlobalWcfClient.config</code> 與 <code>admindWCF.exe.config</code> 必須手動改</strong></td>
+</tr>
+<tr>
+<td>Claim 指令</td>
+<td>對 Extract 的 Global Claim <strong>必須全部成功才通過</strong>（以前部分失敗也會通過）</td>
+</tr>
+<tr>
+<td><code>ADUUID</code></td>
+<td>屬性長度由 120 縮為 40 字元</td>
+</tr>
+<tr>
+<td>已知問題</td>
+<td>RPC daemon 偵測不到已在跑的 WCF daemon；Database Distribution 在 HUB daemon 停止時會卡住直到所有重新配置指令逾時；預設繪圖檔與 Stencil 不會在建立新地點時傳播；分散式 Extract 的 issue 失敗時 claim 可能遺失（出現「has been deleted in a later session」）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="478">47.8 各領域新功能與變更彙整</h2>
+<blockquote>
+<p>以下依公告章節整理，標示 SP 版本；「行為變更」欄是對升級影響的判斷，來自各頁的 Compatibility Constraints 或描述中的「不再…／改為…」。數量龐大（Hull Detailed Design 單章逾 100 則），只列代表項目。</p>
+</blockquote>
+<h3 id="4781-initial-design">47.8.1 通用與 Initial Design</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>版本</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hull 物件與 Extract</td>
+<td>12.1</td>
+<td>在 Extract 修改 hull 物件時<strong>自動嘗試 claim</strong>，不必明確 claim</td>
+</tr>
+<tr>
+<td>無名 Hull 元素識別</td>
+<td>12.1</td>
+<td>顯示名稱由 <code>HSTIFF 3 of ...</code> 改為 <code>HSTIFF idsp 6003 of ...</code>（依 <code>TBID</code> 值）〔行為變更：依序號辨識的腳本要檢查〕</td>
+</tr>
+<tr>
+<td>NameSeq</td>
+<td>12.1</td>
+<td><code>SetStart</code> 不再重新開始序列，改為儲存起始值；新增 <code>ReStart</code> 方法〔行為變更〕</td>
+</tr>
+<tr>
+<td><code>!!HullNewBlock</code></td>
+<td>12.1</td>
+<td>PML 函數，在指定資料庫建立 BLOCK</td>
+</tr>
+<tr>
+<td>孤兒 STALNK</td>
+<td>SP2</td>
+<td><code>!!stmcleanup()</code> 清除 CELREF 無效的 STALNK</td>
+</tr>
+<tr>
+<td>Initial Design（SP3–SP4）</td>
+<td></td>
+<td>ALYS 資料庫型別（存放 Hydrostatics 輸出）；Oil Outflow（MARPOL）；SOLAS 2009 機率穩度；多個 Lightship 重量；各 Loading Condition 設海水密度；Lines 的 PACE 新功能；專案資料支援 roaming profile</td>
+</tr>
+<tr>
+<td>Release of Weights to Calc</td>
+<td>12.1</td>
+<td>預設改為<strong>關閉</strong>〔行為變更〕</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4782-hull">47.8.2 Hull</h3>
+<table>
+<thead>
+<tr>
+<th>領域</th>
+<th>版本</th>
+<th>代表項目</th>
+<th>行為變更／升級注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>SP2–SP5</td>
+<td>Ship coordinate 對 RSO 標註（SP3）、HPLATE 與 HPREND 的 Ppoints、Hull Notes 與 Posno 分開、Surface 上限 100→<strong>1000</strong>、Hull Qualities 移到 CATA（<code>HullCreateQualityList</code>）、raw plate 由 MANU 移到 CATA（<code>HullDefineRawPlates</code>）、<code>SBH_FREE_SEAMPROF_NAMES</code> 改由 InitHull 設定、殼板 Generic Primitive 表示（SP4）</td>
+<td>自由命名、Hull Qualities 要依升級手冊轉換</td>
+</tr>
+<tr>
+<td>Surface Manager</td>
+<td>12.1–SP5</td>
+<td><strong>取代 Surface Server</strong>：所有曲面必須釋放進資料庫；可匯入 IGES、SAT、STEP、dml；曲面比較、水靜力資料、Flip Normals、匯出 blines（SP5）</td>
+<td>依賴 Surface Server 的流程要改</td>
+</tr>
+<tr>
+<td>Space Management</td>
+<td>SP3</td>
+<td>空間定義資料存於資料庫、可重建；Space Interrogation API 偽屬性（<code>SPMAS</code>、<code>SPMCF</code>、<code>SPMRSO</code>、<code>RSOPP</code>）；需特別授權</td>
+<td>需 Optional Upgrade 項目 2893</td>
+</tr>
+<tr>
+<td>Structural Design</td>
+<td>SP2–SP5</td>
+<td>Create RSO from Panel（RSO Sketch 2D，SP5）、Block Divide 新介面（SP4）、RSO 重建／改名／改 Envelope、Patran 介面（SP2）、FEMWLD 容納 HIBLO／HIPAN／FEMODL／FEMIMG、<strong>Jumbo panels 移除</strong>、Envelope 可用 box 產生</td>
+<td><code>COR</code> 關鍵字統一，<strong>升級前建立的 panel 重建後可能改變</strong></td>
+</tr>
+<tr>
+<td>Detailed Design（一般）</td>
+<td>SP2–SP5</td>
+<td>新 Bevel 類型 117 等與 profile endcut、FRP 擴充（doubling、seam、notch、hole beads）、Mixed FRP 與 Steel 專案、Hull Marks 重寫（SP3 起存於 Hull Mark world）、Jig Pillar、Reporting（SP3）</td>
+<td></td>
+</tr>
+<tr>
+<td>生產資料（MANU）</td>
+<td>12.1</td>
+<td><strong>MBLOCK／MPANEL 作廢</strong>，生產零件改存於 <code>MANPKG</code>（含 <code>MPKGFT</code> 規則與 <code>MPKGFL</code> 資料夾）；生產程式<strong>不再更新 DESI</strong>；sub panel plate parts、bracket panel plate parts 不再儲存；曲板 template／jig／pillar 資訊改存 MANU</td>
+<td><strong>舊專案必須用 ManuConfig add-in 的 Upgrade tool 升級</strong></td>
+</tr>
+<tr>
+<td>Design Reuse</td>
+<td>SP4</td>
+<td>專案間複製設計資料；支援 Distributed Attributes；PML Triggers</td>
+<td></td>
+</tr>
+<tr>
+<td>Assembly Planning</td>
+<td>SP2–SP5</td>
+<td>Verify naming（SP5）、Assembly ADP 圖紙類型與 parts list 展開、<code>AssemblySelection</code> PMLNET 物件、ASMBLY 新增 POS 屬性</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Envelopes 對話框：勾選 Generate from Box 後，可輸入 Min. Point 與 Max. Point，或用 Box from GP 取得</div></p>
+<p><em>圖 47-10　Envelope 以軸向對齊的 box 產生：官方說明從 General Particulars 取值時會在各方向各加一公尺。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設計樹狀：FEMWLD 之下有 FEMIMG、HIBLO、HIPAN、FEMODL 等元素，與 BLOCK 並列於 Design WORLD</div></p>
+<p><em>圖 47-11　新的 FEM 世界 FEMWLD：容納理想化區塊（HIBLO）、理想化平面（HIPAN）、FE 模型（FEMODL）與 FE 影像（FEMIMG）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4783-marine-drafting-outfitting-draft">47.8.3 Marine Drafting 與 Outfitting Draft</h3>
+<table>
+<thead>
+<tr>
+<th>領域</th>
+<th>版本</th>
+<th>代表項目</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模組改名</td>
+<td>12.1</td>
+<td><strong>Hull Drafting 改名 Marine Drafting</strong>：<code>PDMSUI\hdra</code> → <code>PDMSUI\mdra</code>、<code>PMLLIB\hulldrafting</code> → <code>PMLLIB\marinedrafting</code></td>
+<td><strong>自訂 PML 路徑與引用要改</strong></td>
+</tr>
+<tr>
+<td>觸發器</td>
+<td>SP4</td>
+<td>新 PML Triggers 要取代舊 Vitesse triggers</td>
+<td>舊觸發器遷移</td>
+</tr>
+<tr>
+<td>圖紙類型與 ADP</td>
+<td>SP3</td>
+<td>新的 marine drawing types、General ADP、Steelwork Detailing、Autotagging 引入 Marine Drafting；圖紙清單效能大幅提升</td>
+<td>需 Optional Upgrade 項目 38541、45823、15251</td>
+</tr>
+<tr>
+<td>圖層</td>
+<td>SP3</td>
+<td>舾裝模型不再全放同一層（原本是 <code>-2501</code>）</td>
+<td>依圖層過濾的流程要重新檢查</td>
+</tr>
+<tr>
+<td>SP5 變更</td>
+<td>SP5</td>
+<td>Blanking 控制、Insert Model 預設目標視圖、<strong>無效的 model subview 處理</strong>、<strong>邏輯資料庫名稱（D065 檔）</strong>、Open Drawing 圖紙類型比對、<code>MarAPI DwgOpen</code>／<code>DwgExist</code> 行為改變、Insert Fillet</td>
+<td><code>DwgOpen</code> 傳入全名與圖紙類型時，類型不符就不會開啟〔行為變更〕</td>
+</tr>
+<tr>
+<td>SP2</td>
+<td>SP2</td>
+<td><strong>SZ021 批次程式不再支援</strong>（改用 C# 或 PML 搭配 Marine .NET API）</td>
+<td></td>
+</tr>
+<tr>
+<td>輸出格式</td>
+<td>12.1</td>
+<td><strong>移除 CGM 與 TIFF PackBits</strong> 匯出</td>
+<td></td>
+</tr>
+<tr>
+<td>Outfitting Draft</td>
+<td>12.1</td>
+<td>線寬在所有輸出格式精準輸出（ISO 128：0.18、0.25、0.35、0.5…）；使用者線型不再轉成 0.2 mm 的倍數；可設定 DXF/DWG/DGN 匯出（建議 AutoCAD 2007–2010，DXF 版本為 AutoCAD 2006）；Unicode 文字</td>
+<td>預設 <code>MINLW</code> 欄位自 Plot 表單移除；DXF General 表單的「Polyline width factor」與「Character encoding」移除</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Open Drawing 對話框：Drawing type 下拉選單最後一項 Assembly ADP drawing 以紅框標示</div></p>
+<p><em>圖 47-12　12.1 新增的 Assembly ADP drawing 圖紙類型，專供 Assembly Automatic Document Production 建立的圖紙。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Plotting Options 表單：Colour correction mode（Standard、Colour Plus、Greyscale、Black &amp; White）與 AVEVA-Plot-Service、Postscript、HPGL、Print、Other documents 五個列印選項</div></p>
+<p><em>圖 47-13　Draft 的 Plotting Options 表單。12.1 起，Minimum Line Width 欄位已自此表單移除。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4784-outfittingcatalogueglobalengineer">47.8.4 Outfitting、Catalogue、Global、Engineer</h3>
+<table>
+<thead>
+<tr>
+<th>領域</th>
+<th>版本</th>
+<th>代表項目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model Editor</td>
+<td>12.1–SP5</td>
+<td>Offset From Feature…；結構 primitives 可像設備一樣編輯；Move／Drag Move／Plane Move 新定位選單（含 WRT gadget）；Reorder Hierarchy（SP5）；Weight and CofG 表單移除 Within Area</td>
+</tr>
+<tr>
+<td>變更管理</td>
+<td>12.1</td>
+<td>Session 顯示原因；<code>REVert</code> 指令；Extract Data Control 與 Model Changes add-in（Query &gt; DB Changes）可在 3D 圖形標示變更</td>
+</tr>
+<tr>
+<td>Mechanical Equipment Interface</td>
+<td>SP3–SP4</td>
+<td>Tesselation cache、匯入 SUBE 層級、STEP 座標系實體（需 Optional Upgrade 2931）、單一 STEP 檔匯出</td>
+</tr>
+<tr>
+<td>Equipment／Piping</td>
+<td>SP3–SP5</td>
+<td>CSV import 擴及 Piping、HVAC、Cable Tray；非標準管路連接（tappings、boss，SP4）；管製造新能力（SP4）；Pipe Sketch 表單大幅修改（新增 Drawing Name、Revision、Status 欄，SP5）；斜率管路（<code>OFFTOL</code>）；直接設定保溫厚度與材料；彎管機 NC 輸出；管製造檢查用自訂庫存長度；Pipe Penetration seal 元件</td>
+</tr>
+<tr>
+<td>Structures</td>
+<td>SP4</td>
+<td>新元素 <code>BPANEL</code>（彎曲面板）；鋼構連接介面改用 EDG</td>
+</tr>
+<tr>
+<td>Hole Management</td>
+<td>SP4–SP5</td>
+<td>建立、合併、修改孔；Hole Association Manager；Design 與 Outfitting 中的孔管理（SP5）</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>12.1</td>
+<td>Standard Model Library；Clash Utility 新表單；Cable Design 手動路由；HVAC 分多個 Branch 與新屬性（<code>HEADW</code>、<code>HEADH</code>、<code>TAILW</code>、<code>TAILH</code> 等，SP5）</td>
+</tr>
+<tr>
+<td>Isodraft</td>
+<td>12.1</td>
+<td>輸出 PDF、Image、EMF；TrueType 字型；大座標；PSPOOL 繪製</td>
+</tr>
+<tr>
+<td>Catalogue</td>
+<td>12.1–SP2</td>
+<td>Model Settings 只改 catalogue 參數；Detail Text 可用以 <code>(</code> 開頭 <code>)</code> 結尾的文字運算式；結構 catalogue 的 Copy 按鈕；SPRF 一致性檢查新增多項警告（SP2）</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>SP3</td>
+<td>見 47.7.3</td>
+</tr>
+<tr>
+<td>Diagrams／Engineering</td>
+<td>SP2–SP5</td>
+<td><strong>SP5 起 AVEVA Diagrams（14.1.SP1）與 AVEVA Engineering（14.2）為獨立產品，不隨 H&amp;O 12.1.SP5 安裝</strong>；Tags 模組、Compare/Update、Datasheets、Ribbon UI、Diagrams Rules、Design Reuse 等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4785-erm-tribon">47.8.5 ERM 整合與 Tribon 移轉</h3>
+<ul>
+<li><strong>AVEVA ERM 整合（SP5）</strong>：原本是獨立安裝的 add-in，現在是標準功能。三個新方向：在 Marine Catalogue 定義 raw profiles 並與 ERM 同步；在 ERM 預留與配置 raw plates／profiles 供 Marine 套料，並在兩者間傳輸；把 Schematics 資料庫為基礎的預備零件表轉成 ERM 的 Advance Bill of Material。</li>
+<li><strong>Tribon M3 移轉能力終止（SP5）</strong>：原因是 Administration 1.5 為通用模組，難以支援 Tribon 的專用能力；需要持續移轉的客戶可保留獨立的 12.1.SP4 安裝，再把結果搬到 12.1.SP5。另：讀取原生 Tribon indexed databanks 的能力已移除，移轉前須先把 Tribon databank 升級成中性格式；Tribon 5 Curved Hull 輸入資料的轉換選項也已不存在。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Catalogue Explorer 與 Material Category Mapping 表單：ERM Material Type、Material Description、Plate/Profile Mapping 分頁與 TABWLD、RPRTAB 欄位</div></p>
+<p><em>圖 47-14　AVEVA ERM 整合的 Material Category Mapping 表單：把 ERM 材料類型對應到 Catalogue 的 raw profile（RAWPRM）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="4786">47.8.6 已知問題</h3>
+<p>SP5 的 General Issues 只寫「請見發行文件的更新清單」，離線文件裡沒有具體清單。可看到的已知問題：PML 表單 layout 變更會影響既有表單（SP3，KB4453）；Global 的幾項問題（見 47.7.3）；新 Reporting add-in 的限制（批次效能、RTF 背景色、浮水印、表格不能 Copy/Cut/Paste、calculated field 不能引用 summary 等）。</p>
+<h2 id="479">47.9 升級檢查清單</h2>
+<blockquote>
+<p>〔官方〕來自公告；〔一般實務〕為維運常見做法，需依公司政策調整。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>檢查項目</th>
+<th>來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>規劃</td>
+<td>確認目前版本與目標版本；<strong>早於 12.0 的專案先升 12.0</strong></td>
+<td>官方</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>通讀公告的 Compatibility Constraints、Affected Programs，列出與我們使用領域有關的行為變更</td>
+<td>一般實務</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>確認授權：ALS 而非 FlexMan；Diagrams／Schematic Model Manager／Schematic 3D Integrator 使用者要更新授權檔</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>決定 Optional Upgrade 的時機與是否需要與舊版並行（SP2＋SP3 需要特定 hotfix 與不套用 Optional Upgrade）</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>確認路徑無空白；規劃 Cache Service（MSMQ）</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>盤點自訂 PML：Status handler、Auto-naming、PML Collection、單位相關指令、Marine Drafting 路徑改名、Vitesse trigger、SZ021、<code>SBH_*</code> 變數</td>
+<td>官方＋一般實務</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>盤點 UDA／Catalogue 參數的單位，決定每個維度採新單位或 <code>NUMERIC</code></td>
+<td>官方</td>
+</tr>
+<tr>
+<td>規劃</td>
+<td>確認 <code>PROJECT CHARSET</code>／<code>PROJECT MBCHARSET</code>；決定哪些 DB 轉 Unicode</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>演練</td>
+<td>在複製的專案先走完整流程，含 Global 與 Extract 情境</td>
+<td>一般實務</td>
+</tr>
+<tr>
+<td>升級前</td>
+<td>使用者全部離線、各地點鎖定、清 Working Extract、Expunge、DICE（問題先修）、備份所有地點</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>升級前</td>
+<td>非外部 DB 遷到其 master 的 Primary 地點；確認無 Transient DB</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>升級</td>
+<td><code>lock</code> → <code>dbupgrade project to latest</code> → 可選合併 Session 與 Reconfigure → DICE → Extract 遷回 → 非框架升級 → <code>unlock</code></td>
+<td>官方</td>
+</tr>
+<tr>
+<td>升級後</td>
+<td>確認沒有「以唯讀開啟」警告；舊版軟體使用者全數汰除</td>
+<td>官方（舊版不做檢查）</td>
+</tr>
+<tr>
+<td>升級後</td>
+<td>跑報表對照、單位數字對照、圖紙更新、批次工具回歸（見 <a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章</a> 的 SP 回歸清單）</td>
+<td>一般實務</td>
+</tr>
+<tr>
+<td>回復</td>
+<td>官方：升級後無法 backtrack 到升級前的 Session（詳見 <a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>）；回復只能靠升級前備份</td>
+<td>官方＋一般實務</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4791">47.9.1 版本差異與升級風險排序</h3>
+<table>
+<thead>
+<tr>
+<th>風險</th>
+<th>事項</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高</td>
+<td>舊版軟體仍開已升級的資料庫</td>
+<td>12.1 以前版本不做檢查，可能造成不一致</td>
+</tr>
+<tr>
+<td>高</td>
+<td>Unicode 編碼資料庫被 12.0 使用者開啟</td>
+<td>讀寫皆不可</td>
+</tr>
+<tr>
+<td>高</td>
+<td>套用 Optional Upgrade 後仍有 SP2 或更舊使用者</td>
+<td>不相容</td>
+</tr>
+<tr>
+<td>高</td>
+<td>MANU 資料模型改變（MBLOCK／MPANEL 作廢）</td>
+<td>舊專案需 ManuConfig 升級</td>
+</tr>
+<tr>
+<td>中</td>
+<td>單位換算</td>
+<td>資料正確性（數字與單位）</td>
+</tr>
+<tr>
+<td>中</td>
+<td>自訂 PML（Status、命名、Collection、模組改名）</td>
+<td>行為改變</td>
+</tr>
+<tr>
+<td>中</td>
+<td>Global WCF 設定檔與服務名稱</td>
+<td>沿用舊設定檔會連不上</td>
+</tr>
+<tr>
+<td>中</td>
+<td>SP5 起 Diagrams、Engineering、Administration 為獨立產品</td>
+<td>安裝與授權要另外規劃</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 上表風險排序是依公告敘述做的判斷〔一般實務〕，不是官方分級。</p>
+</blockquote>
+<h2 id="4710">47.10 術語與縮寫重點</h2>
+<h3 id="47101-terminology">47.10.1 Terminology（官方詞彙表重點）</h3>
+<p>官方詞彙表以 Outfitting 為語境，另有 Macro、Batch Mode、Plotfile、Level 等一般詞條，此處不列。</p>
+<table>
+<thead>
+<tr>
+<th>詞條</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Element／Attribute</td>
+<td>資料庫中的離散資料項，由編號或名稱識別，由屬性定義</td>
+</tr>
+<tr>
+<td>Database／MDB</td>
+<td>階層式資料庫；MDB 是為特定目的行政上連結的一組資料庫，使用者要有包含該資料庫之 MDB 的存取權</td>
+</tr>
+<tr>
+<td>Team／Member</td>
+<td>Team 是共享資料庫存取權的使用者行政分組</td>
+</tr>
+<tr>
+<td>WORLD</td>
+<td>任何資料庫的最高層元素，名稱固定為 <code>/*</code></td>
+</tr>
+<tr>
+<td>Owner／Member／Parent／Offspring</td>
+<td>Owner 是直接上層，Parent 是任意上層；Member 是直接下層，Offspring 是任意下層；GROUP 成員只是間接連結</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>使用者指派的識別字，以 <code>/</code> 開頭；永遠另有系統自動指派的參考號</td>
+</tr>
+<tr>
+<td>Current Element (CE)</td>
+<td>使用者在資料庫導覽中目前所處的元素</td>
+</tr>
+<tr>
+<td>P-point／P-line</td>
+<td>想像的位置與方向，用於操作與連接元素；P-line 是朝特定方向擠出的 P-point</td>
+</tr>
+<tr>
+<td>Primitive</td>
+<td>構成物理實體的基本形狀（box、cylinder 等）</td>
+</tr>
+<tr>
+<td>PIPE／BRANCH</td>
+<td>PIPE 是 BRANCH 的集合，意義可能與一般工程用法不同；Head 是 BRANCH 輸入端，Tail 是輸出端</td>
+</tr>
+<tr>
+<td>Appware</td>
+<td>為特定設計任務（如管路設計）設計的一組 forms 與 macros</td>
+</tr>
+<tr>
+<td>Form／Docking</td>
+<td>Form 即對話框；可停靠（dockable）的表單與工具列</td>
+</tr>
+<tr>
+<td>User-Defined Attribute</td>
+<td>名稱與內容類型由使用者定義的屬性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="47102-abbreviationsmarine">47.10.2 Abbreviations（Marine 專用縮寫）</h3>
+<table>
+<thead>
+<tr>
+<th>縮寫</th>
+<th>全名</th>
+<th>縮寫</th>
+<th>全名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP</td>
+<td>Assembly Planning</td>
+<td>PIM</td>
+<td>Product Information Model</td>
+</tr>
+<tr>
+<td>APL</td>
+<td>Assembly Parts List</td>
+<td>PLCM</td>
+<td>Panel Line Control Module</td>
+</tr>
+<tr>
+<td>AWR</td>
+<td>Assembly Weld Report</td>
+<td>PM</td>
+<td>Production Manager</td>
+</tr>
+<tr>
+<td>CAT</td>
+<td>Curve and Table</td>
+<td>PPI</td>
+<td>Production Program Interface</td>
+</tr>
+<tr>
+<td>CVBA</td>
+<td>Continuously Varying Bevel Angle</td>
+<td>RSO</td>
+<td>Reference Surface Object</td>
+</tr>
+<tr>
+<td>DM</td>
+<td>Design Manager</td>
+<td>RWS</td>
+<td>Read, Write and Change Status</td>
+</tr>
+<tr>
+<td>FD</td>
+<td>Functional Description</td>
+<td>TDM</td>
+<td>Data Management</td>
+</tr>
+<tr>
+<td>GPP</td>
+<td>Generic Postprocessor</td>
+<td>TDT</td>
+<td>Developer's Toolkit</td>
+</tr>
+<tr>
+<td>GSD</td>
+<td>Gütesicherungsdreiecke（品質保證三角）</td>
+<td>TID</td>
+<td>Initial Design</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>Information to the Program</td>
+<td>TIL</td>
+<td>Interpretative Language</td>
+</tr>
+<tr>
+<td>WOP</td>
+<td>Work Preparation</td>
+<td>TJL</td>
+<td>Job Launcher</td>
+</tr>
+<tr>
+<td>WP</td>
+<td>Weld Planning</td>
+<td>TRI</td>
+<td>Robot Interface</td>
+</tr>
+</tbody>
+</table>
+<p>官方說明：這張表只收 AVEVA Marine 特有的縮寫，<strong>不含</strong>造船或資訊領域通用縮寫，也不含變數、databank 名稱、互動函數名稱、輸入檔指令等（這些在一般使用者文件中說明）。</p>
+<h2 id="4711">47.11 本章小結</h2>
+<ol>
+<li>Release Bulletin 是「版本差異」的主要依據；用 SP 標記與 Compatibility Constraints 抽出對自己有影響的項目。</li>
+<li>12.1 的升級是「Part Upgrade＋升級編號＋版本控管」；舊版軟體不做檢查，是最大的混用風險。</li>
+<li>Optional Upgrade（12010301、12010401）是單向門；套用前確認全員版本與 Global Server 版本。</li>
+<li>升級流程的關鍵：鎖定、DICE、備份、Extract 處理、再 DICE；Working Extract 必須 flush。</li>
+<li>Unicode 與單位是資料表示法變更，要分別針對資料庫與自訂 PML 驗證。</li>
+<li>SP5 把 Administration、Diagrams、Engineering 拆成獨立產品，並終止 Tribon 移轉；安裝與授權規劃要跟著改。</li>
+<li>領域新功能中，「行為變更」（MANU 資料模型、模組改名、命名規則、Status handler、PML Collection）比「新功能」更影響升級。</li>
+</ol>
+<h2 id="4712">47.12 練習題／自我檢核</h2>
+<ol>
+<li>一個專案資料庫的升級編號是 12.1.1，用 12.1 前的軟體開啟會發生什麼事？用未來的 12.2 軟體開啟呢？</li>
+<li>為什麼 Working Extract 在升級前必須 flush，而一般 Extract 不必？</li>
+<li>你的公司有 12.1.SP2 與 12.1.SP3 使用者要共用一個專案，條件是什麼？</li>
+<li>列出把 UDA 的壓力屬性改用新單位的步驟（依資料存放現況）。</li>
+<li>說明 Unicode 編碼的資料庫為何不能放回 12.0 使用者的專案。</li>
+<li>為何「Compatibility Constraints：None」不等於可以略過測試？</li>
+<li>練習：從公告裡挑三個你們專案常用的功能，找出其版本標記與 Affected Programs，整理成一頁升級風險表。</li>
+</ol>
+<p><strong>自我檢核</strong></p>
+<ul>
+<li>[ ] 我能解釋 R/W、R、X 矩陣。</li>
+<li>[ ] 我能說出 Optional Upgrade 的代價。</li>
+<li>[ ] 我能依官方順序寫出升級流程。</li>
+<li>[ ] 我能分辨公告中 SP5 與舊版遺留的環境需求。</li>
+<li>[ ] 我能列出升級前後各自該檢查的項目。</li>
+</ul>
+<h2 id="4713">47.13 〔待核對〕項目與取材覆蓋</h2>
+<h3 id="_1">待核對</h3>
+<ol>
+<li><strong>環境需求矛盾</strong>：SP5 作業環境表寫 .NET Framework 4.6.1，另一頁寫需要 .NET 3.5；IE 7/8、Office 2007/2010、Windows XP 等敘述疑為舊版遺留，實際以 AVEVA 支援網站與《Minimum System Requirements Marine》為準。</li>
+<li><strong>Windows Server 與虛擬化／Citrix</strong>：ALS「利於 Citrix 支援」的實際條件，以及不再支援 thin client 後的部署方式。</li>
+<li><strong>About this Bulletin</strong> 同時出現「自 12.1.SP4 以來的變更」與「自 12.0 以來的變更」兩種描述，推測為多版本文字並存。</li>
+<li><strong>ASL</strong>：SP4 一頁說已移除並由 Vantage Marine 11.6 的 primitive 型能力取代；「Future Considerations」一頁說將改稱 SLH，兩頁的先後與現況待核對。</li>
+<li><strong>Optional Upgrade 12010401</strong> 官方稱僅含項目 93792「一般資料庫變更」，內容細節未說明。</li>
+<li><strong>MANU 資料模型升級</strong>的 ManuConfig 具體步驟，在《12.0 to 12.1 Upgrade》手冊，不在本文件。</li>
+<li><strong>Windows 專案路徑空白</strong>問題在 SP5 之後是否已解決。</li>
+<li><strong>「Known Issues」的 SP5 General Issues</strong> 只指向外部發行文件，未提供清單。</li>
+</ol>
+<h3 id="_2">取材覆蓋</h3>
+<ul>
+<li><strong>已取得</strong>：<em>Hull and Outfitting</em> [1224159] 下全部 587 頁（含根頁）皆已轉出純文字並掃描標題。其中<strong>逐字讀完</strong>的約 140 頁：About、Software Distribution and Installation、Test Projects、Upgrading from Previous Releases 全部、Configuration、General System Changes、Database changes、User Interface、Administration、Global 與 Catalogue 部分頁面、Known Issues 與少數 Hull 生產資料頁面。<strong>只讀開頭（約 280–700 字元）</strong>的約 440 頁：各領域新功能（Initial Design、Hull General、Surface Manager、Space Management、Structural Design、Hull Detailed Design、Weld Planning、Assembly Planning、Marine Drafting、Outfitting Draft、Diagrams、Engineering、Outfitting Module 與 Design Applications）。這些頁只擷取 Description 與標題，Benefits、For More Information、Compatibility Constraints 的細節大多未完整讀，因此 47.8 的彙整表是「代表項目」而非完整清單。</li>
+<li>另讀：<em>What's New in AVEVA Marine?</em> [1105760]、<em>Welcome to the AVEVA Marine Documentation</em> [1526835]、<em>Terminology</em> [1225318]、<em>Abbreviations in the User Documentation</em> [1109374] 全文。</li>
+<li><strong>未讀</strong>：<em>Before you Begin</em> [1211036] 下的 Marine Getting Started 子樹（Assumptions、Database Types、Attributes、GUI 基本操作、Product Range、Glossary of Terms and Abbreviations 的 Definitions／Abbreviations、Core Filters for Explorers 等，約 50 頁，只列出清單）；以及公告中 AVEVA Licensing System [883754]、AVEVA Manufacturing [988916]、AVEVA Marine [879117] 三個夾在 Hull Detailed Design 中的頁面（只看到標題，內容未深入）。</li>
+<li>圖片共 14 張，皆經預覽確認後加入。</li>
+<li>相關章節：<a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a> 系統管理與維運、<a href="ch42_database_management_zh-TW.reading.html">第 42 章</a> 資料庫管理（Session、Extract、Global 概要）。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch46_getting_started_zh-TW.reading.html"><small>← 上一篇</small>第 46 章　Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）</a><a class="next" href="appx_a_resources_zh-TW.reading.html"><small>下一篇 →</small>附錄 A　專業資源與官方訓練地圖</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>
