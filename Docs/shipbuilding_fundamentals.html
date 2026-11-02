@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123a5c">
+<title>造船領域知識 · 給 AVEVA 開發人員的入門課</title>
+<style>
+:root{--ink:#152b3a;--muted:#65788a;--paper:#f4f7f9;--card:#fff;--line:#dbe3e9;--navy:#123a5c;--steel:#2f6f8f;--amber:#d98b2b;--soft:#eaf1f6;--code:#0f2233;--shadow:0 14px 40px #123a5c12}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.8 "Segoe UI","Microsoft JhengHei",sans-serif}
+a{color:var(--steel)}
+code{background:#e8eff4;color:#1f4f6b;padding:1px 5px;border-radius:4px;font-size:.92em}
+pre code{background:none;padding:0;color:inherit}
+.topbar{background:var(--navy);color:#fff;padding:12px max(22px,calc((100vw - 1280px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--amber);color:#2a1c05;display:grid;place-items:center;font-weight:900}
+.topmeta{font-size:11px;color:#a9c3d4;letter-spacing:.09em}
+.layout{max-width:1280px;margin:auto;padding:30px 22px 64px;display:grid;grid-template-columns:252px minmax(0,1fr);gap:34px}
+.side{position:sticky;top:82px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;padding-right:4px}
+.side-label,.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);font-weight:800}
+.side h3{font-size:12.5px;margin:18px 0 7px;letter-spacing:.06em;color:var(--ink)}
+.nav{display:grid;gap:3px}
+.nav a{display:block;font-size:13px;color:#4c6273;padding:7px 11px;border-radius:8px;text-decoration:none;border-left:2px solid transparent}
+.nav a:hover{background:#e6eef4;color:var(--navy)}
+.nav a.active{background:#e2edf4;color:var(--navy);font-weight:700;border-left-color:var(--steel)}
+.progress-card{margin-top:22px;background:var(--soft);padding:14px 15px;border-radius:12px;font-size:12px}
+.bar{height:6px;background:#cfdde7;border-radius:9px;margin:9px 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--steel);width:0;transition:width .3s;border-radius:9px}
+.hero{background:linear-gradient(135deg,#123a5c,#1d5476 55%,#2f6f8f);color:#fff;padding:40px;border-radius:18px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;right:-40px;bottom:-70px;width:260px;height:260px;border:44px solid #ffffff12;border-radius:50%;pointer-events:none}
+.hero .eyebrow{color:var(--amber)}
+.hero h1{font-size:clamp(29px,4vw,46px);line-height:1.18;letter-spacing:-.03em;margin:10px 0 14px}
+.hero p{max-width:680px;color:#d6e6ef;margin:0}
+.hero .pills{margin-top:18px}
+.pill{display:inline-block;border:1px solid #ffffff33;color:#e8f2f8;font-size:12px;padding:4px 11px;border-radius:20px;margin:0 8px 8px 0}
+.unit{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(22px,3.4vw,38px);margin-top:26px;box-shadow:var(--shadow);scroll-margin-top:88px}
+.unit-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.unit-no{font-size:11px;letter-spacing:.14em;font-weight:800;color:#fff;background:var(--navy);padding:4px 10px;border-radius:20px}
+.unit h2{font-size:clamp(22px,2.6vw,29px);margin:0;line-height:1.3;letter-spacing:-.01em}
+.unit-sub{width:100%;color:var(--muted);font-size:13.5px;margin:2px 0 0}
+.unit h3{font-size:17px;margin:26px 0 8px;padding-left:10px;border-left:3px solid var(--amber)}
+.unit h4{font-size:14px;margin:18px 0 6px;color:var(--navy)}
+.unit p{margin:9px 0}
+.unit ul,.unit ol{padding-left:22px;margin:8px 0}
+.unit li{margin:5px 0}
+.goals{background:var(--soft);border-radius:11px;padding:14px 18px;margin:0 0 6px}
+.goals strong{display:block;font-size:11.5px;letter-spacing:.1em;color:var(--steel);margin-bottom:6px}
+.goals ul{margin:0;font-size:14px}
+.goals li{margin:3px 0}
+.fig{margin:18px 0;background:#fbfcfd;border:1px solid var(--line);border-radius:12px;padding:12px}
+.fig svg{display:block;width:100%;height:auto}
+.figcap{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.6}
+.tbl-wrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#edf3f7;font-size:12px;color:var(--navy)}
+tbody tr:nth-child(even){background:#fafcfd}
+.aveva{border:1px solid #e7c99a;background:#fff8ee;border-radius:11px;padding:14px 17px;margin:18px 0;font-size:14px}
+.aveva strong{display:block;font-size:11.5px;letter-spacing:.1em;color:#9a6212;margin-bottom:6px}
+.aveva ul{margin:0;padding-left:20px}
+.myth{border-left:4px solid #cf7a63;background:#fdf2ee;border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:13.8px}
+.myth b{color:#a4422a}
+.note{border-left:4px solid #7aa8c0;background:#eef5f9;border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:13.8px}
+.track{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:14px 0}
+.track .st{position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.track .st b{display:block;font-size:12.5px;color:var(--navy)}
+.track .st span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+.track .st:after{content:"";position:absolute;right:-8px;top:50%;width:7px;height:7px;border-top:1.5px solid #b9cbd7;border-right:1.5px solid #b9cbd7;transform:translateY(-50%) rotate(45deg)}
+.track .st:last-child:after{display:none}
+.qa{border:1px solid var(--line);border-radius:9px;margin:8px 0;background:#fff}
+.qa summary{cursor:pointer;padding:10px 14px;font-size:13.5px;font-weight:600;color:var(--navy);list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:before{content:"？";display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--soft);color:var(--steel);font-size:11px;margin-right:8px;font-weight:800}
+.qa div{padding:0 14px 12px 41px;font-size:13.5px;color:#3f5566}
+.check{list-style:none;padding:0;margin:8px 0}
+.check li{padding-left:26px;position:relative;font-size:13.8px;margin:6px 0}
+.check li:before{content:"☐";position:absolute;left:0;color:var(--steel)}
+.check input{position:absolute;left:0;top:4px;width:16px;height:16px;accent-color:var(--steel);opacity:0}
+.check label{cursor:pointer}
+.check input:checked + label{color:#8395a2;text-decoration:line-through}
+.check input:focus-visible + label{outline:2px solid var(--steel);outline-offset:2px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.foot-links a{font-size:12.5px;border:1px solid var(--line);border-radius:20px;padding:4px 12px;text-decoration:none;background:#fff;color:#3f6076}
+.foot-links a:hover{border-color:var(--steel)}
+.legend{font-size:12px;color:var(--muted);margin-top:8px}
+.footer{color:var(--muted);font-size:12px;text-align:center;margin-top:34px;line-height:1.9}
+.tag-cell{white-space:nowrap;font-weight:700;color:var(--navy)}
+@media(max-width:920px){.layout{display:block;padding:16px}.side{position:static;max-height:none;margin-bottom:14px;overflow:visible}.side .nav{display:flex;flex-wrap:wrap;gap:4px}.side .nav a{border:1px solid var(--line);border-left-width:1px;padding:5px 10px;background:#fff;font-size:12px}.progress-card{display:none}.hero{padding:26px 22px}}
+@media print{.topbar,.side,.foot-links{display:none}.layout{display:block;max-width:none}.unit{break-inside:avoid;box-shadow:none}}
+</style></head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">船</span><a href="../index.html" style="color:#fff;text-decoration:none">AVEVA 學習中心　← 返回首頁</a></div>
+  <div class="topmeta">SHIPBUILDING FUNDAMENTALS　·　LEARNING PATH 02</div>
+</header>
+
+<div class="layout">
+<aside class="side">
+  <div class="side-label">課程導覽</div>
+  <h3>十個單元</h3>
+  <nav class="nav" id="nav" aria-label="課程單元">
+    <a href="#u1">01　造船業與船舶生命週期</a>
+    <a href="#u2">02　船型與主要尺寸</a>
+    <a href="#u3">03　船體幾何與性能</a>
+    <a href="#u4">04　船體結構</a>
+    <a href="#u5">05　建造流程與生產設計</a>
+    <a href="#u6">06　舾裝與系統</a>
+    <a href="#u7">07　塗裝、舾裝件與工安</a>
+    <a href="#u8">08　焊接、精度與檢驗</a>
+    <a href="#u9">09　造船術語對照</a>
+    <a href="#u10">10　接回 AVEVA 的對照</a>
+  </nav>
+  <h3>快速跳轉</h3>
+  <nav class="nav">
+    <a href="#u2">主要尺寸圖解</a>
+    <a href="#u4">中橫剖面圖解</a>
+    <a href="#u9">中英日術語表</a>
+    <a href="#u10">AVEVA 對照總表</a>
+    <a href="#sources">資料來源與界線</a>
+  </nav>
+  <div class="progress-card">
+    <strong>你的閱讀進度</strong>
+    <div class="bar"><i id="progress"></i></div>
+    <span id="progressText">0 / 8 單元完成</span>
+  </div>
+</aside>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">LEARNING PATH 02 · 領域知識</div>
+  <h1>先聽懂船廠的語言，<br>再談資料怎麼放。</h1>
+  <p>這門課補的是 AVEVA 教材最常跳過的那一段：船是怎麼被設計、拆成分段、裝上管路、焊起來、塗好、再交到船東手上。每個單元都會把領域概念對回 AVEVA 的模組、元素與屬性，讓你知道「這個欄位在現場代表什麼」。</p>
+  <div class="pills"><span class="pill">10 個單元</span><span class="pill">3 張自製圖解</span><span class="pill">中英日術語對照</span><span class="pill">每單元標示 AVEVA 對應</span></div>
+</section>
+
+<section class="unit" id="u1">
+  <div class="unit-head"><span class="unit-no">UNIT 01</span><h2>造船業與船舶生命週期</h2><p class="unit-sub">先建立「這門產業怎麼運作」的骨架，後面每個名詞才有位置放。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>說明造船業「接單後設計」的特性，以及它和量產製造業的差別。</li>
+      <li>列出船舶從需求到交船的主要階段，以及每個階段誰在做決定。</li>
+      <li>分清船東、船廠、設計公司、船級協會、法規機構各自的角色。</li>
+      <li>知道 AVEVA Marine 在這條鏈條的哪一段發揮作用、哪一段不負責。</li>
+    </ul>
+  </div>
+
+  <h3>1.1 這是一種「一件一件做」的重工業</h3>
+  <p>造船和汽車生產最大的差別，是<strong>每一艘船都是先簽約、再設計、再生產</strong>（engineer-to-order）。同一系列船可能造四到八艘，但每艘都有船東要求的差異：主機廠牌、貨艙塗裝、壓載水處理系統、船級註記。所以船廠賣的不是型錄上的標準品，而是「依照規格書與規範，把鋼板與設備組成一個能通過檢驗的空間」。</p>
+  <p>這帶來兩個對開發人員很重要的後果：</p>
+  <ul>
+    <li><strong>變更會一路傳遞。</strong>船東改一個貨艙容量，可能動到艙壁位置、壓載舱配置、管路走向、結構加強、塗裝面積，最後影響材料表與交船期。</li>
+    <li><strong>資料必須可追溯。</strong>為什麼這塊板是 12 mm？為什麼這根管走這裡？答案要能被船級協會與船東查。</li>
+  </ul>
+
+  <h3>1.2 一艘船的時間軸</h3>
+  <div class="track">
+    <div class="st"><b>市場與概念</b><span>航線需求、船型選擇、粗略尺寸與成本</span></div>
+    <div class="st"><b>基本設計</b><span>型線、總佈置、結構規範計算、主要系統</span></div>
+    <div class="st"><b>詳細設計</b><span>施工圖、船級送審、設備訂購規格</span></div>
+    <div class="st"><b>生產設計</b><span>分段劃分、套料、NC 切割、預舾裝規劃</span></div>
+    <div class="st"><b>建造</b><span>切割、組立、塗裝、塢內搭載、下水</span></div>
+    <div class="st"><b>試驗與交船</b><span>碼頭試驗、試航、缺失改善、交船</span></div>
+  </div>
+  <p>實務上這些階段會重疊。船廠常常在基本設計還沒完全凍結時就開始訂長交期設備（主機、發電機、鍋爐），因為交船期是被合約綁死的。</p>
+
+  <h3>1.3 五個角色，五種關心的事</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:16%">角色</th><th style="width:42%">在意什麼</th><th>對開發的意義</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">船東</td><td>載貨能力、油耗、交船期、營運維護成本</td><td>需求變更的來源；報表與圖面要能對船東溝通</td></tr>
+  <tr><td class="tag-cell">船廠</td><td>可建造性、工時、鋼板利用率、塢期</td><td>生產設計與分段資料的客戶；工具要配合現場流程</td></tr>
+  <tr><td class="tag-cell">設計公司</td><td>規範符合、圖面一致性、設計變更控制</td><td>AVEVA 的主要使用者；資料品質的第一道防線</td></tr>
+  <tr><td class="tag-cell">船級協會</td><td>結構強度、安全設備、材料與焊接是否符合規範</td><td>規範檢查多半在 AVEVA 之外；但送審圖與計算書要能從模型產生</td></tr>
+  <tr><td class="tag-cell">法規機構</td><td>SOLAS、MARPOL、載重線、噸位、壓載水管理</td><td>法規數值通常不是模型屬性，而是報表與證書的輸入</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>AVEVA Marine 主要覆蓋<strong>基本設計後半到生產設計</strong>：船體曲面與板架、舾裝佈置、目錄等級、圖面與生產資料。</li>
+      <li>它<strong>不是</strong>穩度、阻力、規範計算工具。那些工作通常由 NAPA、GHS、Maxsurf、船廠自建程式或船級協會軟體負責；AVEVA 提供幾何、重量重心、艙櫃定義與材料資料給它們。</li>
+      <li>因此「為什麼模型裡的數字和計算書不一樣」這個問題，答案常常是：兩邊的假設不同，不是其中一邊算錯。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「設計完成才開始建造」其實不成立。長交期設備採購、鋼板訂購、分段規劃往往在圖面還沒全部完成時就啟動，這也是為什麼版本控制與變更影響分析比程式技巧更難。</div>
+
+  <div class="qa"><summary>為什麼船廠願意花錢做「生產設計」，而不是直接拿設計圖施工？</summary><div>因為設計圖回答「這艘船長什麼樣」，生產設計回答「這艘船怎麼被做出來」：怎麼拆分段、吊車吊得動嗎、焊多少、哪裡先塗裝、管線要不要先預裝。少了這一段，現場會用大量臨時修改補救，成本更高。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c1-1"><label for="c1-1">我能說出造船業「先簽約再設計」帶來的兩個開發後果</label></li>
+    <li><input type="checkbox" id="c1-2"><label for="c1-2">我能排出六個主要階段，並說明哪兩個階段決定可建造性</label></li>
+    <li><input type="checkbox" id="c1-3"><label for="c1-3">我能說出 AVEVA 不負責哪三類計算</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch01_architecture_zh-TW.reading.html">第 1 章 產品架構</a></div>
+</section>
+
+<section class="unit" id="u2">
+  <div class="unit-head"><span class="unit-no">UNIT 02</span><h2>船型與主要尺寸</h2><p class="unit-sub">LOA、LBP、B、D、T 不是五個英文字母，而是五個會決定結構、穩度與法規的數字。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>分辨常見商船與海工船型，並說出各自的結構與舾裝重點。</li>
+      <li>正確定義 LOA、LBP、B、D、T、乾舷，並知道量到哪裡。</li>
+      <li>分清 GT、NT、排水量、載重噸（DWT）、輕載排水量。</li>
+      <li>知道船級註記與載重線在實務上代表什麼。</li>
+    </ul>
+  </div>
+
+  <h3>2.1 船型決定一切</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:20%">船型</th><th style="width:26%">典型特徵</th><th style="width:27%">結構重點</th><th>舾裝重點</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">散貨船<br>Bulk carrier</td><td>單甲板、大艙口、雙層底與頂邊艙</td><td>縱向骨架、艙口圍、貨艙腐蝕增量</td><td>壓載系統、艙蓋、貨艙塗裝</td></tr>
+  <tr><td class="tag-cell">油輪<br>Tanker</td><td>多道縱艙壁、管路集中、惰氣系統</td><td>縱向骨架、艙壁、疲勞與腐蝕</td><td>貨油管、洗艙、惰氣、消防泡沬</td></tr>
+  <tr><td class="tag-cell">貨櫃船<br>Container</td><td>大艙口、雙島或單島、甲板堆櫃</td><td>高強度艙口圍、扭轉強度、艙蓋</td><td>綁紮、冷藏箱電力、甲板通道</td></tr>
+  <tr><td class="tag-cell">滾裝船<br>RoRo</td><td>多層甲板、艏艉門、車輛跳板</td><td>甲板載重、防火分隔、車輛甲板強度</td><td>通風、消防、跳板與升降平台</td></tr>
+  <tr><td class="tag-cell">液化氣船<br>LNG／LPG</td><td>薄膜或獨立艙、低溫材料</td><td>次屏壁、低溫鋼、支撐結構</td><td>貨物處理、蒸發氣、氮氣系統</td></tr>
+  <tr><td class="tag-cell">海工支援船<br>PSV／AHTS</td><td>大甲板面積、DP 定位、拖曳設備</td><td>甲板載重、設備基座、局部加強</td><td>DP、拖纜、工作甲板、安全區</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>2.2 五個主要尺寸，量錯就全錯</h3>
+  <div class="fig">
+  <svg viewBox="0 0 720 280" role="img" aria-label="船舶側視圖，標示總長、垂線間長、模深與吃水">
+    <title>船舶側視圖與主要尺寸</title>
+    <defs><marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#2f6f8f"/></marker></defs>
+    <line x1="55" y1="212" x2="670" y2="212" stroke="#9fb4c2" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="52" y="228" fill="#65788a" font-size="10">基線 BL</text>
+
+    <path d="M110 128 L610 128 Q636 130 646 168 L640 200 Q560 208 470 206 L150 206 Q120 200 112 180 Z" fill="#dceaf3" stroke="#2f6f8f" stroke-width="2"/>
+    <path d="M110 128 Q360 120 610 128" fill="none" stroke="#2f6f8f" stroke-width="2"/>
+    <line x1="120" y1="128" x2="120" y2="206" stroke="#93a9b8" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="612" y1="128" x2="612" y2="188" stroke="#93a9b8" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="104" y="122" fill="#123a5c" font-size="10">AP 艉垂線</text>
+    <text x="596" y="122" fill="#123a5c" font-size="10">FP 艏垂線</text>
+
+    <line x1="110" y1="58" x2="646" y2="58" stroke="#2f6f8f" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <text x="352" y="50" fill="#123a5c" font-size="11" text-anchor="middle">LOA 總長</text>
+
+    <line x1="120" y1="88" x2="612" y2="88" stroke="#2f6f8f" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <text x="366" y="80" fill="#123a5c" font-size="11" text-anchor="middle">LBP 垂線間長</text>
+
+    <line x1="686" y1="128" x2="686" y2="212" stroke="#d98b2b" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <text x="700" y="174" fill="#9a6212" font-size="11" text-anchor="middle" transform="rotate(90 700 174)">D 模深</text>
+
+    <line x1="664" y1="168" x2="664" y2="212" stroke="#c25b3f" stroke-width="1.2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <line x1="612" y1="168" x2="672" y2="168" stroke="#c25b3f" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="655" y="196" fill="#a4422a" font-size="10" text-anchor="end">T 吃水</text>
+
+    <g stroke="#7d93a3" stroke-width="1">
+      <line x1="140" y1="206" x2="140" y2="201"/><line x1="180" y1="206" x2="180" y2="201"/><line x1="220" y1="206" x2="220" y2="201"/><line x1="260" y1="206" x2="260" y2="201"/><line x1="300" y1="206" x2="300" y2="201"/><line x1="340" y1="206" x2="340" y2="201"/><line x1="380" y1="206" x2="380" y2="201"/><line x1="420" y1="206" x2="420" y2="201"/><line x1="460" y1="206" x2="460" y2="201"/><line x1="500" y1="206" x2="500" y2="201"/><line x1="540" y1="206" x2="540" y2="201"/><line x1="580" y1="206" x2="580" y2="201"/>
+    </g>
+    <text x="150" y="222" fill="#65788a" font-size="10">FR 肋位（間距依船型與規範）</text>
+  </svg>
+  <div class="figcap">圖 2-1　主要尺寸只看側視圖不夠：B（模寬）與乾舷要在橫剖面看，D 與 T 都從基線量起。（本課程自繪）</div>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:14%">符號</th><th style="width:30%">中文</th><th>定義與常見誤解</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">LOA</td><td>總長</td><td>含艏艉突出物的最大長度，影響塢長、航道與碼頭。</td></tr>
+  <tr><td class="tag-cell">LBP</td><td>垂線間長</td><td>艏垂線（設計水線與艏柱交點）到艉垂線（舵桿中心線）的距離。公約與規範常用它，<strong>不等於 LOA</strong>。</td></tr>
+  <tr><td class="tag-cell">B</td><td>模寬</td><td>船體最大寬度，量到<strong>外板內緣</strong>（模線）。含外板厚度的叫總寬，兩者差幾公分，但對艙容與穩度計算是實質差異。</td></tr>
+  <tr><td class="tag-cell">D</td><td>模深</td><td>從基線到<strong>舷側甲板邊緣</strong>的垂直距離。不是到艙口圍頂，也不是到船體最高點。</td></tr>
+  <tr><td class="tag-cell">T</td><td>吃水</td><td>基線到設計水線。結構吃水（scantling draught）可能大於設計吃水，規範計算要用對的那一個。</td></tr>
+  <tr><td class="tag-cell">f</td><td>乾舷</td><td>D − T（在舷側量）。乾舷決定儲備浮力，和載重線證書直接相關。</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>2.3 噸位、排水量、載重噸：三個常被混用的數字</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:22%">名詞</th><th style="width:20%">單位</th><th>是什麼</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">GT 總噸位</td><td>無單位（容積指標）</td><td>依 ITC 69 計算的<strong>容積</strong>指標，用來算港口費、船員配置、公約適用門檻。<strong>不是重量。</strong></td></tr>
+  <tr><td class="tag-cell">NT 淨噸位</td><td>無單位</td><td>扣掉船員艙、機艙等非營運空間後的容積指標，主要用於規費。</td></tr>
+  <tr><td class="tag-cell">排水量 Δ</td><td>噸（水密度 × 體積）</td><td>整艘船排開水的重量，等於船重。空船時叫輕載排水量。</td></tr>
+  <tr><td class="tag-cell">DWT 載重噸</td><td>噸</td><td>滿載排水量 − 輕載排水量，包含貨物、燃油、淡水、壓載、船員與物料。</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「這艘船兩萬噸」到底指什麼？可能是 GT、DWT 或排水量，三者數量級接近但意義完全不同。寫報表或介面時，欄位名稱一定要寫清楚，否則現場會直接誤用。</div>
+
+  <h3>2.4 船級與法規：看不見但決定設計的邊界</h3>
+  <p>船級協會（IACS 成員如 ABS、DNV、LR、BV、NK、CCS、KR、RINA）出版規範，審查結構與機械安全；船旗國與 IMO 公約管的是人命、污染與航行安全。實務上你會遇到的三件事：</p>
+  <ul>
+    <li><strong>船級註記（class notation）</strong>：例如加強鋼級、冰級、自動化等級，會改變板厚、構件間距與設備配置。</li>
+    <li><strong>載重線（Load Line）</strong>：依乾舷與儲備浮力指派夏季、冬季、熱帶等水線，直接限制營運吃水。</li>
+    <li><strong>公約門檻</strong>：SOLAS、MARPOL、壓載水管理（BWM）、拆船公約等，常以 GT 或噸位決定適用範圍。</li>
+  </ul>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>主要尺寸通常寫在<strong>專案設定與圖框</strong>，不是某個元素的屬性；跨工具傳遞時要自己建立對照。</li>
+      <li>肋位（FR）與縱向位置（LP）是船體定位的基準（第 4 章）；分段、板架、開孔都用它描述位置。</li>
+      <li>船級註記與載重線<strong>不會自動變成模型屬性</strong>；需要時用 UDA 或外部表單管理，並在報表中標明來源。</li>
+      <li>噸位與穩度計算不在 AVEVA 內；開發時若要做「噸位估算」，必須先確認沿用哪一套公式與版本。</li>
+    </ul>
+  </div>
+
+  <div class="qa"><summary>為什麼 LBP 要用「舵桿中心線」當艉垂線，而不是船尾最末端？</summary><div>因為 LBP 是規範與水動力計算的基準長度，舵桿中心線是舵與推進系統的實質參考點，比船尾外型更穩定、也更能對應航行時的流場。船尾突出物（如艉軸架）不列入 LBP。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c2-1"><label for="c2-1">我能在圖上指出 LOA、LBP、D、T 分別量到哪裡</label></li>
+    <li><input type="checkbox" id="c2-2"><label for="c2-2">我能用一句話解釋 GT 為什麼不是重量</label></li>
+    <li><input type="checkbox" id="c2-3"><label for="c2-3">我能說明乾舷與載重線的關係</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章 座標與肋位</a><a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章 屬性</a></div>
+</section>
+
+<section class="unit" id="u3">
+  <div class="unit-head"><span class="unit-no">UNIT 03</span><h2>船體幾何與性能</h2><p class="unit-sub">型線圖是船體的「原始碼」，後面的板架、艙櫃、塗裝面積都是從它長出來的。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>看懂型線圖的三組曲線，並說明各自投影方向。</li>
+      <li>使用船體座標與肋位描述任意位置。</li>
+      <li>說明排水量、浮心、穩度與船體係數的關係。</li>
+      <li>知道哪些性能資料可以從模型取得、哪些必須外部計算。</li>
+    </ul>
+  </div>
+
+  <h3>3.1 型線圖：三組曲線描述同一個曲面</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:22%">曲線</th><th style="width:26%">怎麼切</th><th>看得出什麼</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">橫剖線<br>Body plan</td><td>用垂直於縱向的平面切</td><td>各肋位的橫剖面形狀，左右舷通常疊在一起畫</td></tr>
+  <tr><td class="tag-cell">水線<br>Waterlines</td><td>用水平面切</td><td>不同吃水下的水線形狀，決定水線面積與儲備浮力</td></tr>
+  <tr><td class="tag-cell">縱剖線<br>Buttocks</td><td>用平行於中線面的平面切</td><td>艏艉縱向輪廓，檢查平順度與外飄</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>3.2 船體座標與肋位</h3>
+  <div class="fig">
+  <svg viewBox="0 0 560 240" role="img" aria-label="船體座標示意：X 縱向、Y 橫向、Z 垂直，以及肋位方向">
+    <title>船體座標與肋位方向</title>
+    <defs><marker id="ar2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#2f6f8f"/></marker></defs>
+    <line x1="90" y1="170" x2="430" y2="170" stroke="#2f6f8f" stroke-width="2" marker-end="url(#ar2)"/>
+    <text x="438" y="174" fill="#123a5c" font-size="12">X　艏向</text>
+    <line x1="90" y1="170" x2="90" y2="42" stroke="#2f6f8f" stroke-width="2" marker-end="url(#ar2)"/>
+    <text x="78" y="34" fill="#123a5c" font-size="12">Z　上</text>
+    <line x1="90" y1="170" x2="205" y2="225" stroke="#2f6f8f" stroke-width="2" marker-end="url(#ar2)"/>
+    <text x="210" y="234" fill="#123a5c" font-size="12">Y　右舷</text>
+    <circle cx="90" cy="170" r="3.5" fill="#123a5c"/>
+    <text x="66" y="188" fill="#65788a" font-size="10">原點</text>
+
+    <line x1="240" y1="96" x2="240" y2="196" stroke="#d98b2b" stroke-width="1.4"/>
+    <line x1="300" y1="96" x2="300" y2="196" stroke="#d98b2b" stroke-width="1.4"/>
+    <line x1="360" y1="96" x2="360" y2="196" stroke="#d98b2b" stroke-width="1.4"/>
+    <text x="238" y="90" fill="#9a6212" font-size="10">FR 240</text>
+    <text x="298" y="90" fill="#9a6212" font-size="10">FR 241</text>
+    <text x="358" y="90" fill="#9a6212" font-size="10">FR 242</text>
+    <text x="236" y="212" fill="#65788a" font-size="10">肋距（frame spacing）</text>
+  </svg>
+  <div class="figcap">圖 3-1　船體座標與肋位。不同船廠可能採「艉部為原點、向艏遞增」或「以艏垂線起算」，使用前務必確認專案約定。（本課程自繪）</div>
+  </div>
+
+  <h3>3.3 排水量與浮心</h3>
+  <p>排水量等於水密度乘上水下體積。船浮著的時候，重力（船重）與浮力相等，而且<strong>重心與浮心必須在同一條鉛垂線上</strong>，否則船會傾斜。這也是為什麼加裝設備不是「找個空位放」就好：重量增加會改變重心，進而改變吃水與俯仰。</p>
+
+  <h3>3.4 穩度：GM 與 GZ</h3>
+  <ul>
+    <li><strong>KB</strong>：浮心到龍骨的距離。</li>
+    <li><strong>BM</strong>：水線慣性矩除以排水體積，和水線寬度關係很大。</li>
+    <li><strong>GM = KB + BM − KG</strong>：初穩度指標。GM 太小容易橫搖遲緩甚至傾覆，太大則橫搖劇烈、人員不適。</li>
+    <li><strong>GZ 曲線</strong>：大角度穩度，配合 IMO 完整穩度準則（IS Code）檢查。</li>
+    <li><strong>自由液面效應</strong>：艙櫃未裝滿時液面晃動會降低有效 GM，這是壓載與燃油配置的常見陷阱。</li>
+  </ul>
+
+  <h3>3.5 阻力與推進</h3>
+  <p>船速與所需功率不是線性關係。阻力大致分成摩擦阻力、形狀阻力與興波阻力；低速時摩擦為主，高速時興波快速上升。常用 <strong>Froude number</strong>（Fr = V / √(gL)）判斷興波的重要性。螺槳效率、伴流、推力減少也會影響實際所需馬力。</p>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>AVEVA 提供<strong>幾何</strong>：曲面、板架、艙櫃邊界、開口；這些是性能計算的輸入。</li>
+      <li><strong>穩度與阻力計算要在外部工具做</strong>（NAPA、GHS、Maxsurf、Shipflow 等）。AVEVA 可以輸出重量重心、艙櫃容積表，但不做 GM 或 GZ 曲線。</li>
+      <li>如果你要寫「自動算艙容」的工具，記得先確認用的是<strong>模線容積</strong>還是含構件扣除的<strong>淨容積</strong>，兩者差幾個百分點，對穩度影響很大。</li>
+      <li>船體座標與肋位在 AVEVA 中是定位基礎（第 4 章）；寫查詢時不要假設原點固定在艉垂線。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>吃水增加一倍，排水量不會增加一倍。水線面積隨吃水變化，體積是逐層累加的；這也是為什麼艙容表要用積分而不是乘法。</div>
+
+  <div class="qa"><summary>為什麼同一艘船在淡水與海水中的吃水不同？</summary><div>因為水密度不同（淡水約 1.000、海水約 1.025）。船重不變時，排開的體積要變大才能在淡水獲得相同浮力，所以吃水會增加。載重線標誌上會標示淡水、熱帶淡水等對應水線。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c3-1"><label for="c3-1">我能說明型線圖三組曲線的投影方向</label></li>
+    <li><input type="checkbox" id="c3-2"><label for="c3-2">我能用 FR 與 LP 描述一個位置</label></li>
+    <li><input type="checkbox" id="c3-3"><label for="c3-3">我能解釋 GM 太小與太大各自的問題</label></li>
+    <li><input type="checkbox" id="c3-4"><label for="c3-4">我知道 AVEVA 不做穩度與阻力計算</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章 座標與幾何</a><a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章 船體建模</a></div>
+</section>
+
+<section class="unit" id="u4">
+  <div class="unit-head"><span class="unit-no">UNIT 04</span><h2>船體結構</h2><p class="unit-sub">板、骨材、艙壁與肘板不是裝飾，它們決定這艘船能不能承受海浪與載重。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>認出中橫剖面上的主要構件，並說出各自的作用。</li>
+      <li>分辨橫向式、縱向式與混合式骨架，知道為什麼大型船多用縱向。</li>
+      <li>理解腐蝕增量、淨尺寸與規範的關係。</li>
+      <li>把構件名稱對到 AVEVA 的板架元素型別。</li>
+    </ul>
+  </div>
+
+  <h3>4.1 中橫剖面：一張圖看懂船體</h3>
+  <div class="fig">
+  <svg viewBox="0 0 700 360" role="img" aria-label="船體中橫剖面示意，標示甲板、外板、內底、雙層底、艙口圍、縱骨、強肋骨與肘板">
+    <title>船體中橫剖面構件示意</title>
+    <rect x="90" y="60" width="520" height="230" rx="8" fill="#e8f2f8" stroke="#2f6f8f" stroke-width="2"/>
+    <rect x="120" y="250" width="460" height="40" fill="#d3e6f1" stroke="#2f6f8f" stroke-width="1.6"/>
+    <path d="M90 290 Q90 306 106 306 L594 306 Q610 306 610 290" fill="none" stroke="#2f6f8f" stroke-width="2"/>
+    <rect x="200" y="44" width="120" height="18" fill="#f4e3c8" stroke="#b8791d" stroke-width="1.6"/>
+    <rect x="380" y="44" width="120" height="18" fill="#f4e3c8" stroke="#b8791d" stroke-width="1.6"/>
+
+    <g stroke="#7aa8c0" stroke-width="1.4">
+      <line x1="140" y1="60" x2="140" y2="250"/><line x1="180" y1="60" x2="180" y2="250"/><line x1="220" y1="60" x2="220" y2="250"/><line x1="260" y1="60" x2="260" y2="250"/><line x1="300" y1="60" x2="300" y2="250"/><line x1="340" y1="60" x2="340" y2="250"/><line x1="380" y1="60" x2="380" y2="250"/><line x1="420" y1="60" x2="420" y2="250"/><line x1="460" y1="60" x2="460" y2="250"/><line x1="500" y1="60" x2="500" y2="250"/><line x1="540" y1="60" x2="540" y2="250"/><line x1="580" y1="60" x2="580" y2="250"/>
+    </g>
+    <g stroke="#a9c2d2" stroke-width="1">
+      <line x1="122" y1="262" x2="122" y2="288"/><line x1="152" y1="262" x2="152" y2="288"/><line x1="182" y1="262" x2="182" y2="288"/><line x1="212" y1="262" x2="212" y2="288"/><line x1="242" y1="262" x2="242" y2="288"/><line x1="272" y1="262" x2="272" y2="288"/><line x1="302" y1="262" x2="302" y2="288"/><line x1="332" y1="262" x2="332" y2="288"/><line x1="362" y1="262" x2="362" y2="288"/><line x1="392" y1="262" x2="392" y2="288"/><line x1="422" y1="262" x2="422" y2="288"/><line x1="452" y1="262" x2="452" y2="288"/><line x1="482" y1="262" x2="482" y2="288"/><line x1="512" y1="262" x2="512" y2="288"/><line x1="542" y1="262" x2="542" y2="288"/><line x1="572" y1="262" x2="572" y2="288"/>
+    </g>
+    <line x1="350" y1="60" x2="350" y2="306" stroke="#c25b3f" stroke-width="2.4"/>
+    <rect x="336" y="150" width="28" height="3" fill="#fff" stroke="#c25b3f"/>
+    <path d="M210 250 L230 250 L230 268 L210 268 Z" fill="none" stroke="#b8791d" stroke-width="1.4"/>
+    <path d="M300 250 L320 250 L320 268 L300 268 Z" fill="none" stroke="#b8791d" stroke-width="1.4"/>
+
+    <g fill="#152b3a" font-size="11">
+      <text x="200" y="38">艙口圍 Hatch coaming</text>
+      <text x="620" y="66">甲板 Deck</text>
+      <text x="620" y="150">舷側外板</text>
+      <text x="620" y="164">Side shell</text>
+      <text x="620" y="245">內底 Inner bottom</text>
+      <text x="440" y="336">雙層底 Double bottom</text>
+      <text x="352" y="326">中線縱艙壁 CL</text>
+      <text x="112" y="200">縱骨</text>
+      <text x="352" y="120">強肋骨 Web frame</text>
+      <text x="216" y="290">肘板 Bracket</text>
+    </g>
+    <g stroke="#152b3a" stroke-width="1">
+      <line x1="620" y1="62" x2="600" y2="66"/><line x1="620" y1="146" x2="604" y2="150"/><line x1="620" y1="241" x2="604" y2="246"/>
+      <line x1="352" y1="126" x2="360" y2="150"/>
+      <line x1="120" y1="196" x2="138" y2="200"/>
+      <line x1="216" y1="284" x2="222" y2="268"/>
+    </g>
+  </svg>
+  <div class="figcap">圖 4-1　中橫剖面示意（非特定船型）。實際構件配置依船型、船級規範與 CSR 而定。（本課程自繪）</div>
+  </div>
+
+  <h3>4.2 構件與作用</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:20%">構件</th><th style="width:26%">作用</th><th>開發時要注意</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">外板 Shell</td><td>水密、承受水壓與總縱彎矩</td><td>板厚與材質常隨位置變化；同一塊板可能有不同等級</td></tr>
+  <tr><td class="tag-cell">甲板 Deck</td><td>水平分隔、承受甲板載重、參與總縱強度</td><td>主甲板與艙口圍是不同元素，別混為一談</td></tr>
+  <tr><td class="tag-cell">艙壁 Bulkhead</td><td>分隔艙區、水密、防火、抗傾</td><td>有水密與非水密之分；開孔需補強</td></tr>
+  <tr><td class="tag-cell">內底 Inner bottom</td><td>貨艙地板、雙層底頂板</td><td>與外底板之間是壓載艙，需留人孔與通氣</td></tr>
+  <tr><td class="tag-cell">縱骨／縱桁</td><td>縱向連續，分擔總縱彎矩</td><td>連續性比單一板厚更重要；中斷處要漸變</td></tr>
+  <tr><td class="tag-cell">強肋骨 Web frame</td><td>橫向支撐，傳遞側向壓力</td><td>與縱骨相交處的開孔與補強是檢查重點</td></tr>
+  <tr><td class="tag-cell">肘板 Bracket</td><td>降低應力集中、連接構件</td><td>形狀與尺寸受規範約束，不能只看外觀</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>4.3 橫向式、縱向式、混合式</h3>
+  <ul>
+    <li><strong>橫向式</strong>：肋骨沿橫向排列，施工簡單，適合小船或局部區域。</li>
+    <li><strong>縱向式</strong>：縱骨沿船長排列，能有效分擔總縱彎矩，大型散貨船與油輪的甲板、內底常用。</li>
+    <li><strong>混合式</strong>：甲板與內底縱向、舷側橫向，兼顧強度與施工。</li>
+  </ul>
+
+  <h3>4.4 腐蝕增量與淨尺寸</h3>
+  <p>規範不是要求「原始板厚」，而是要求<strong>扣除腐蝕增量後仍足夠</strong>。所以圖上的板厚 = 淨厚度 + 腐蝕增量。不同艙區（壓載艙、貨艙、乾舷區）增量不同，這也是為什麼同一艘船的板厚表看起來很複雜。</p>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>船體構件在 AVEVA Marine 中主要落在 <code>HPANEL</code>（板架）、<code>HPLATE</code>（板）、<code>HSTIFF</code>（加強材）、<code>HBRCKT</code>（肘板）等型別（第 5 章）。</li>
+      <li>「設計板架」表達拓撲與參考關係，「生產板架」才是可以被切割與装配的具體零件；兩者不要混用。</li>
+      <li><code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code> 是舾裝端的鐵舾裝結構（第 7 章），和船體板架是不同資料來源。</li>
+      <li>板厚、材質、腐蝕增量通常是屬性；寫工具時要確認讀的是<strong>淨尺寸還是含增量</strong>，否則材料表會偏差。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「板越厚越安全」不對。設計看的是構件連續性、支撐間距與應力集中；一塊孤立加厚的板，效果往往不如把肘板做對。</div>
+
+  <div class="qa"><summary>為什麼貨艙與壓載艙的腐蝕增量不一樣？</summary><div>因為腐蝕環境不同：壓載艙長期處於海水與潮濕交替、塗裝維護困難；貨艙則依貨種（煤炭、礦砂、穀物）有不同磨耗與酸性。規範對不同艙區給不同增量，反映的是實際使用條件。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c4-1"><label for="c4-1">我能在剖面圖上指出甲板、外板、內底、艙壁與肘板</label></li>
+    <li><input type="checkbox" id="c4-2"><label for="c4-2">我能說明縱向骨架為什麼適合大型船</label></li>
+    <li><input type="checkbox" id="c4-3"><label for="c4-3">我能解釋「板厚 = 淨厚度 + 腐蝕增量」</label></li>
+    <li><input type="checkbox" id="c4-4"><label for="c4-4">我能把四個船體構件對到 AVEVA 元素型別</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章 船體建模</a><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a></div>
+</section>
+
+<section class="unit" id="u5">
+  <div class="unit-head"><span class="unit-no">UNIT 05</span><h2>建造流程與生產設計</h2><p class="unit-sub">模型完成只代表「設計得出來」，生產設計才回答「做不出來怎麼辦」。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>說明從鋼板到交船的主要工序與先後關係。</li>
+      <li>理解分段劃分的四個限制條件。</li>
+      <li>分清單元、分段、總組、搭載三種預舾裝層級。</li>
+      <li>知道生產資料為什麼是「快照」，以及一致性風險。</li>
+    </ul>
+  </div>
+
+  <h3>5.1 從鋼板到船</h3>
+  <div class="track">
+    <div class="st"><b>鋼材進料</b><span>噴砂、底漆、切割</span></div>
+    <div class="st"><b>零件與小組合</b><span>板件、型材、加勁</span></div>
+    <div class="st"><b>分段組立</b><span>胎架上組焊、精度量測</span></div>
+    <div class="st"><b>塗裝</b><span>分段塗裝、乾燥</span></div>
+    <div class="st"><b>塢內搭載</b><span>吊裝、對接、焊接</span></div>
+    <div class="st"><b>下水與試驗</b><span>碼頭、試航、交船</span></div>
+  </div>
+
+  <h3>5.2 分段劃分：四個不能妥協的限制</h3>
+  <ol>
+    <li><strong>吊車能力</strong>：分段重量與尺寸必須在塢區吊車的負荷曲線內。</li>
+    <li><strong>運輸與場地</strong>：能不能從組立廠運到船塢，路上有沒有淨空限制。</li>
+    <li><strong>塗裝與預舾裝</strong>：分段越大，能預先裝的東西越多，但塗裝破損與修改也更難。</li>
+    <li><strong>焊接量與變形</strong>：接縫位置會影響收縮補償與精度，通常要避開高應力區與重要開口。</li>
+  </ol>
+
+  <h3>5.3 預舾裝的三個層級</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:18%">層級</th><th style="width:28%">在哪裡做</th><th>優點與風險</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">單元預裝<br>Unit</td><td>車間內的管線／設備單元</td><td>品質最好、施工條件佳；需要精確的介面尺寸</td></tr>
+  <tr><td class="tag-cell">分段預裝<br>Block</td><td>分段組立完成後、塗裝前後</td><td>減少塢內工作量；分段吊裝時要保護管線與設備</td></tr>
+  <tr><td class="tag-cell">船上安裝<br>Onboard</td><td>塢內或碼頭</td><td>彈性最大、成本最高；通常留給介面複雜或易損件</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>5.4 生產資料是快照，不是即時鏡像</h3>
+  <p>套料圖、切割資料、装配樹、焊接計畫，都是從某一版模型「抽」出來的。模型之後再改，生產資料不會自動跟著變。這就是為什麼船廠一定要有<strong>版本凍結</strong>與<strong>變更單</strong>：現場拿到的圖與資料，必須對應一個明確的模型版本。</p>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>生產設計主要用 Hull Detailed Design 的 Planar／Curved／Production 流程，加上 Nesting（套料）、Assembly Planning（組立）、Weld Planning（焊接）。</li>
+      <li>抽出的零件與生產資料存在 Databank，供後續 NC 與現場使用；它和設計模型是<strong>兩份資料</strong>。</li>
+      <li>寫批次工具時，第一個問題永遠是：「這次要處理的是設計模型還是生產資料？」兩者的元素型別與屬性不同。</li>
+      <li>分段與組立樹的命名慣例通常由船廠自訂，沒有通用標準；工具要能設定前綴與層級規則。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「模型改完，現場就會自動更新」在造船廠幾乎不成立。沒有凍結版本與變更通知，現場會照舊圖施工，最後變成兩套事實。</div>
+
+  <div class="qa"><summary>為什麼不把整艘船做成一個超大分段，減少塢內焊接？</summary><div>因為吊車吊不動、場地放不下、運輸過不去，而且一個超大分段的塗裝與修改風險更高。分段劃分本質上是在「減少現場工作量」與「可製造性」之間取平衡。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c5-1"><label for="c5-1">我能排出六個主要工序並說明先後邏輯</label></li>
+    <li><input type="checkbox" id="c5-2"><label for="c5-2">我能說出分段劃分的四個限制</label></li>
+    <li><input type="checkbox" id="c5-3"><label for="c5-3">我能區分單元、分段、船上三種預裝層級</label></li>
+    <li><input type="checkbox" id="c5-4"><label for="c5-4">我能解釋生產資料為什麼不會自動同步</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch18_case_studies_zh-TW.reading.html">第 18 章 實戰案例</a></div>
+</section>
+<section class="unit" id="u6">
+  <div class="unit-head"><span class="unit-no">UNIT 06</span><h2>舾裝與系統</h2><p class="unit-sub">船殼只是容器；真正讓船能航行、裝貨、住人的，是塞在裡面的系統。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>說出舾裝的五大分類與各自的設計重點。</li>
+      <li>理解管路不是「畫線」，而是元件序列加上連接關係。</li>
+      <li>說明 P&amp;ID、系統編號、管段與 ISO 圖在流程中的位置。</li>
+      <li>把艙櫃、壓載、消防、通風對到法規與 AVEVA 元素。</li>
+    </ul>
+  </div>
+
+  <h3>6.1 舾裝的五個世界</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:18%">分類</th><th style="width:40%">內容</th><th>設計重點</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">機艙舾裝</td><td>主機、發電機、泵、鍋爐、換熱器、管路</td><td>維修空間、吊裝路徑、熱膨脹、振動</td></tr>
+  <tr><td class="tag-cell">甲板舾裝</td><td>錨機、纜機、艙蓋、吊車、救生設備</td><td>甲板載重、操作視野、腐蝕</td></tr>
+  <tr><td class="tag-cell">貨物舾裝</td><td>貨油／貨氣系統、裝卸設備、惰氣</td><td>危險區域、防爆、貨物相容性</td></tr>
+  <tr><td class="tag-cell">住艙舾裝</td><td>艙房、防火分隔、空調、衛生、逃生</td><td>舒適度、防火等級、逃生距離</td></tr>
+  <tr><td class="tag-cell">電氣舾裝</td><td>配電、電纜、照明、通訊、導航</td><td>電磁相容、防火貫穿、備援</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>6.2 管路：從 P&amp;ID 到 ISO 圖</h3>
+  <div class="track">
+    <div class="st"><b>P&amp;ID</b><span>系統流程、設備與閥件編號</span></div>
+    <div class="st"><b>系統與管徑</b><span>流量、流速、材質、壓力等級</span></div>
+    <div class="st"><b>佈管</b><span>走勢、坡度、避免干涉</span></div>
+    <div class="st"><b>支架與貫穿</b><span>支撐間距、艙壁與甲板開孔</span></div>
+    <div class="st"><b>管段拆分</b><span>spool、法蘭、現場焊口</span></div>
+    <div class="st"><b>ISO 圖與材料表</b><span>施工、預製、採購</span></div>
+  </div>
+  <p>管路模型的核心不是管子的外形，而是<strong>元件的順序與連接</strong>：從哪個設備的哪個管嘴出發，經過哪些閥、彎頭、異徑管，最後到哪裡。管徑改變、閥件增減、流向反轉，都會影響材料表與 ISO 圖。</p>
+
+  <h3>6.3 艙櫃與系統</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:20%">艙櫃／系統</th><th style="width:34%">用途</th><th>常見關聯</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">壓載艙</td><td>調整吃水、俯仰與穩度</td><td>壓載水管理公約、塗裝、腐蝕增量</td></tr>
+  <tr><td class="tag-cell">貨艙／貨油艙</td><td>裝載貨物</td><td>艙蓋、惰氣、洗艙、貨物相容性</td></tr>
+  <tr><td class="tag-cell">燃油／滑油艙</td><td>動力系統用油</td><td>加熱、沉澱、溢流、洩漏偵測</td></tr>
+  <tr><td class="tag-cell">艙底水系統</td><td>排除艙底積水</td><td>油水分離、排放監控</td></tr>
+  <tr><td class="tag-cell">消防系統</td><td>滅火與逃生</td><td>SOLAS 防火分隔、滅火介質</td></tr>
+  <tr><td class="tag-cell">通風與空調</td><td>機艙散熱、住艙舒適、貨艙通風</td><td>風管、防火風門、危險區域</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>舾裝元素：<code>EQUI</code>（設備）、<code>PIPE</code>／<code>BRAN</code>（管路與分支）、<code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code>（鐵舾裝結構）、<code>HVAC</code>（通風）。</li>
+      <li>管徑、材質、壓力等級不是自由輸入，而是由<strong>等級（SPEC）</strong>約束，再連到<strong>目錄（CATA）</strong>的具體元件（第 8 章）。</li>
+      <li><code>BRAN</code> 的 Head／Tail 與元件順序決定流向；改順序等於改設計，不是改顯示。</li>
+      <li>貫穿件與開孔通常涉及船體與舾裝的介面，需要開孔申請流程；對應的元素型別依版本而定〔待核對〕。</li>
+      <li>ISO 圖由 Isodraft 從模型產生，圖上的尺寸與材料表跟著模型版本走。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「管路只是三維管線」忽略了連接關係。真正會讓材料表出錯的，是法蘭方向、墊片、螺栓與現場焊口的定義，不是管子的走向好不好看。</div>
+
+  <div class="qa"><summary>為什麼同一條管線要拆成很多管段（spool）？</summary><div>因為要預製、運輸、吊裝與現場安裝。管段太長進不了船艙，太重吊不動，現場焊口也要留在可施工的位置。拆段同時決定法蘭位置、支架與塗裝破損點。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c6-1"><label for="c6-1">我能說出舾裝五大分類與各自重點</label></li>
+    <li><input type="checkbox" id="c6-2"><label for="c6-2">我能排出管路從 P&amp;ID 到 ISO 圖的六個步驟</label></li>
+    <li><input type="checkbox" id="c6-3"><label for="c6-3">我能說明 BRAN 的順序為什麼等於設計</label></li>
+    <li><input type="checkbox" id="c6-4"><label for="c6-4">我知道等級與目錄如何約束管徑與材質</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch07_outfitting_zh-TW.reading.html">第 7 章 舾裝設計</a><a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章 目錄與等級</a></div>
+</section>
+
+<section class="unit" id="u7">
+  <div class="unit-head"><span class="unit-no">UNIT 07</span><h2>塗裝、舾裝件與工安</h2><p class="unit-sub">塗裝不是「上色」，是一套防腐系統；舾裝件與工安則決定人有沒有辦法安全地把船造出來。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>說明塗裝系統的四個要素與常見規格寫法。</li>
+      <li>知道陰極保護為什麼需要，以及與塗裝的搭配。</li>
+      <li>認出吊耳、臨時支撐、脚手架在建造階段的作用。</li>
+      <li>把塗裝面積與材料表對回模型抽取的邏輯。</li>
+    </ul>
+  </div>
+
+  <h3>7.1 塗裝系統的四個要素</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:20%">要素</th><th style="width:34%">內容</th><th>常見寫法</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">表面處理</td><td>除鏽、除油、清潔度與粗糙度</td><td>Sa 2.5、Sa 3（噴砂等級）</td></tr>
+  <tr><td class="tag-cell">塗層系統</td><td>底漆、中間漆、面漆，各自的功能</td><td>環氧、聚氨酯、無機鋅</td></tr>
+  <tr><td class="tag-cell">膜厚</td><td>乾膜厚度（DFT）與道數</td><td>例如 2 × 150 μm</td></tr>
+  <tr><td class="tag-cell">檢驗</td><td>膜厚量測、附著力、針孔</td><td>依塗裝規範與船東要求</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p>壓載艙、貨艙、外板水線下、甲板暴露區的塗裝系統都不同。規範（例如船級協會的塗裝性能標準）會要求特定的系統與檢驗紀錄，這也是為什麼塗裝資料通常要能追溯到<strong>艙區與面積</strong>。</p>
+
+  <h3>7.2 陰極保護</h3>
+  <p>鋼在海水中的腐蝕是電化學反應。除了塗層阻隔，還會用<strong>犧牲陽極</strong>（鋅、鋁合金）或<strong>外加電流系統（ICCP）</strong>提供保護。陽極的數量與分布要依浸水面積與塗裝狀況計算；更換週期也要能和塢修排程配合。</p>
+
+  <h3>7.3 舾裝件：讓船可以被吊、被撐、被爬</h3>
+  <ul>
+    <li><strong>吊耳（lifting lug）</strong>：分段吊裝的受力點，位置與形式要經結構計算，不能現場隨便焊。</li>
+    <li><strong>臨時支撐與加強</strong>：防止分段在吊運或放置時變形。</li>
+    <li><strong>脚手架與通道</strong>：焊接、塗裝、檢驗的作業平台；影響動線與工時。</li>
+    <li><strong>臨時開孔</strong>：設備吊入用的預留孔，之後要依規範封回並補強。</li>
+  </ul>
+
+  <h3>7.4 工安是設計條件，不是事後規定</h3>
+  <p>密閉艙作業需要通風與氣體檢測；動火作業需要動火許可與防火監視；高處作業需要安全带掛點。這些限制會回頭影響設計：人孔位置、通風口、逃生通道、吊點，都必須在模型裡先想清楚。</p>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>塗裝面積與材料表可以從模型的板面與艙區<strong>抽取</strong>，但塗裝規格本身通常不在 AVEVA 內，而是在塗裝規範或 ERP／塗裝管理系統。</li>
+      <li>吊耳、臨時支撐多半用自訂元件或 <code>EQUI</code> 表達，沒有通用標準型別；工具要能區分「永久」與「臨時」。</li>
+      <li>艙區與塗裝系統的對應，建議用一致的分類碼（例如壓載艙、貨艙、空艙），否則面積統計會重複或漏算。</li>
+      <li>寫面積報表時要確認：算的是<strong>單面</strong>還是<strong>雙面</strong>、有沒有扣除開孔與構件遮蔽。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「塗裝只是外觀」在造船廠是最貴的誤解之一。塗裝不良導致的塢修與艙櫃重做，成本遠高於當初多花的那一道漆。</div>
+
+  <div class="qa"><summary>為什麼壓載艙的塗裝特別嚴格？</summary><div>因為壓載艙長期處於海水與潮濕空氣交替的環境，且內部結構複雜、維護困難。一旦塗層失效，腐蝕會快速進行，影響結構安全與塢修成本，所以規範對表面處理、膜厚與檢驗都有較高要求。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c7-1"><label for="c7-1">我能說出塗裝系統的四個要素</label></li>
+    <li><input type="checkbox" id="c7-2"><label for="c7-2">我能解釋犧牲陽極與 ICCP 的差別</label></li>
+    <li><input type="checkbox" id="c7-3"><label for="c7-3">我能說明吊耳為什麼不能隨便焊</label></li>
+    <li><input type="checkbox" id="c7-4"><label for="c7-4">我知道塗裝面積報表要確認單面或雙面</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch16_reports_integration_zh-TW.reading.html">第 16 章 報表</a></div>
+</section>
+
+<section class="unit" id="u8">
+  <div class="unit-head"><span class="unit-no">UNIT 08</span><h2>焊接、精度與檢驗</h2><p class="unit-sub">船是被焊起來的；焊接帶來的變形，則是精度管理的起點。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>分辨對接焊、角焊與全焊透，並知道坡口的用途。</li>
+      <li>說明焊接變形與收縮補償為什麼會出現在生產設計。</li>
+      <li>認出常見非破壞檢驗方法與適用場合。</li>
+      <li>知道精度量測資料與模型補償量的關係。</li>
+    </ul>
+  </div>
+
+  <h3>8.1 接頭與焊道</h3>
+  <ul>
+    <li><strong>對接焊（butt weld）</strong>：兩塊板端對端，通常需要開坡口，要求全焊透的場合會做背面清根或墊板。</li>
+    <li><strong>角焊（fillet weld）</strong>：板與板成 T 型或 L 型，焊腳尺寸（leg length）是檢查重點。</li>
+    <li><strong>全焊透（full penetration）</strong>：重要結構與水密接頭常見，檢驗要求較高。</li>
+    <li><strong>坡口（groove）</strong>：讓電弧能深入板厚，形式有 V、X、U 等，依板厚與焊接方法選擇。</li>
+  </ul>
+
+  <h3>8.2 變形與收縮補償</h3>
+  <p>焊接會局部加熱與冷卻，造成<strong>收縮</strong>與<strong>角變形</strong>。船廠會在生產設計階段預留補償量：分段接縫預留、板件加放、角度預偏。補償量不是固定值，和板厚、焊接量、施工順序、拘束條件都有關，通常靠歷史資料與量測回饋調整。</p>
+
+  <h3>8.3 檢驗方法</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:18%">方法</th><th style="width:26%">找什麼</th><th>常見場合</th></tr></thead>
+  <tbody>
+  <tr><td class="tag-cell">RT 射線</td><td>內部缺陷（氣孔、夾渣、未熔合）</td><td>重要對接焊、管線焊道</td></tr>
+  <tr><td class="tag-cell">UT 超音波</td><td>內部缺陷與板厚</td><td>厚板、全焊透接頭</td></tr>
+  <tr><td class="tag-cell">MT 磁粉</td><td>表面與近表面裂紋（鐵磁性材料）</td><td>焊道表面、熱影響區</td></tr>
+  <tr><td class="tag-cell">PT 滲透</td><td>表面開口缺陷（非鐵磁性亦可）</td><td>不鏽鋼、鋁合金</td></tr>
+  <tr><td class="tag-cell">水壓／氣密</td><td>艙櫃與管系的洩漏</td><td>艙壁、艙櫃、管路系統</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>8.4 精度管理</h3>
+  <p>精度管理的目標不是「做到零誤差」，而是<strong>讓誤差在可以補救的範圍內</strong>。量測點（分段尺寸、對角線、平整度）會和標準值比對，超出容許值就要在下一階段補正。這也是為什麼分段接縫的補償量、吊裝後的調整量，都要留下紀錄。</p>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>焊道與焊接規劃可以在 Weld Planning 中定義；焊縫屬性與檢驗要求通常要對應公司的焊接程序書（WPS）。</li>
+      <li>收縮補償量若寫進模型，必須清楚標示「這是補償後的尺寸」，否則量測比對會混亂。</li>
+      <li>精度量測資料通常存在外部系統；模型只保留設計值與補償規則，不建議把每次量測值塞進模型屬性。</li>
+      <li>寫檢驗清單工具時，關鍵是<strong>焊道編號的可追溯性</strong>：圖面、焊道、檢驗報告要能互相對應。</li>
+    </ul>
+  </div>
+
+  <div class="myth"><b>常見誤解：</b>「焊接品質只看師傅技術」忽略了設計與順序。接頭形式、坡口、焊接順序、拘束條件，往往比個人技術更決定變形與缺陷。</div>
+
+  <div class="qa"><summary>為什麼不把所有焊道都做 100% 射線檢測？</summary><div>因為成本高、工期長，而且不是所有接頭都承受同樣的風險。規範會依接頭重要性、位置與材料決定檢測比例；重要結構與水密接頭比例較高，次要區域則以抽樣為主。</div></div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c8-1"><label for="c8-1">我能分辨對接焊、角焊與全焊透</label></li>
+    <li><input type="checkbox" id="c8-2"><label for="c8-2">我能說明收縮補償量為什麼不是固定值</label></li>
+    <li><input type="checkbox" id="c8-3"><label for="c8-3">我能說出 RT、UT、MT、PT 各自找什麼缺陷</label></li>
+    <li><input type="checkbox" id="c8-4"><label for="c8-4">我知道精度量測資料通常不存放在模型裡</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章 測試與部署</a></div>
+</section>
+
+<section class="unit" id="u9">
+  <div class="unit-head"><span class="unit-no">UNIT 09</span><h2>造船術語對照</h2><p class="unit-sub">同一艘船，船東說英文、船廠說日文、圖上寫縮寫、系統裡又是元素型別。這張表是翻譯層。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>用中英日三種語言指認主要構件與流程。</li>
+      <li>把術語對到 AVEVA 的元素型別或模組。</li>
+      <li>知道哪些縮寫在不同船廠可能有不同定義。</li>
+    </ul>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:15%">中文</th><th style="width:24%">English</th><th style="width:21%">日本語</th><th>AVEVA 對應</th></tr></thead>
+  <tbody>
+  <tr><td>船體</td><td>Hull</td><td>船殻（せんかく）</td><td>HULL 模組／Databank</td></tr>
+  <tr><td>外板</td><td>Shell plate</td><td>外板（がいばん）</td><td><code>HPLATE</code></td></tr>
+  <tr><td>甲板</td><td>Deck</td><td>甲板（かんぱん）</td><td><code>HPLATE</code></td></tr>
+  <tr><td>艙壁</td><td>Bulkhead</td><td>隔壁（かくへき）</td><td><code>HPLATE</code>／<code>HPANEL</code></td></tr>
+  <tr><td>內底</td><td>Inner bottom</td><td>内底板（うちそこいた）</td><td><code>HPLATE</code></td></tr>
+  <tr><td>雙層底</td><td>Double bottom</td><td>二重底（にじゅうてい）</td><td><code>HPANEL</code> 組合</td></tr>
+  <tr><td>艙口圍</td><td>Hatch coaming</td><td>ハッチコーミング</td><td><code>HPLATE</code>／<code>HSTIFF</code></td></tr>
+  <tr><td>加強材</td><td>Stiffener</td><td>防撓材（ぼうとうざい）</td><td><code>HSTIFF</code></td></tr>
+  <tr><td>縱骨</td><td>Longitudinal</td><td>縦通材（じゅうつうざい）</td><td><code>HSTIFF</code></td></tr>
+  <tr><td>強肋骨</td><td>Web frame</td><td>ウェブフレーム</td><td><code>HSTIFF</code>／<code>HPLATE</code></td></tr>
+  <tr><td>肘板</td><td>Bracket</td><td>ブラケット</td><td><code>HBRCKT</code></td></tr>
+  <tr><td>板架</td><td>Panel</td><td>パネル</td><td><code>HPANEL</code></td></tr>
+  <tr><td>分段</td><td>Block</td><td>ブロック</td><td>裝配樹節點（Assembly）</td></tr>
+  <tr><td>總組</td><td>Grand block</td><td>大組立（おおぐみたて）</td><td>裝配樹上層節點</td></tr>
+  <tr><td>搭載</td><td>Erection</td><td>搭載（とうさい）</td><td>Assembly Planning</td></tr>
+  <tr><td>肋位</td><td>Frame</td><td>フレーム</td><td>FR（定位）</td></tr>
+  <tr><td>垂線間長</td><td>LBP</td><td>垂線間長（すいせんかんちょう）</td><td>專案設定／圖框</td></tr>
+  <tr><td>模寬</td><td>Moulded breadth</td><td>型幅（かたはば）</td><td>專案設定／圖框</td></tr>
+  <tr><td>模深</td><td>Moulded depth</td><td>型深（かたふか）</td><td>專案設定／圖框</td></tr>
+  <tr><td>吃水</td><td>Draught</td><td>喫水（きっすい）</td><td>專案設定／圖框</td></tr>
+  <tr><td>乾舷</td><td>Freeboard</td><td>乾舷（かんげん）</td><td>外部計算／圖框標記</td></tr>
+  <tr><td>排水量</td><td>Displacement</td><td>排水量（はいすいりょう）</td><td>外部計算</td></tr>
+  <tr><td>載重噸</td><td>Deadweight</td><td>載貨重量トン</td><td>外部計算</td></tr>
+  <tr><td>總噸位</td><td>Gross tonnage</td><td>総トン数（そうトンすう）</td><td>外部計算</td></tr>
+  <tr><td>船級</td><td>Class</td><td>船級（せんきゅう）</td><td>專案註記／UDA</td></tr>
+  <tr><td>載重線</td><td>Load line</td><td>満載喫水線</td><td>圖框標記</td></tr>
+  <tr><td>管路</td><td>Piping</td><td>配管（はいかん）</td><td><code>PIPE</code>／<code>BRAN</code></td></tr>
+  <tr><td>管段</td><td>Spool</td><td>スプール</td><td><code>BRAN</code></td></tr>
+  <tr><td>支架</td><td>Support</td><td>サポート</td><td><code>SUPPORT</code></td></tr>
+  <tr><td>貫穿件</td><td>Penetration piece</td><td>貫通金物（かんつうかなもの）</td><td>依版本〔待核對〕</td></tr>
+  <tr><td>風管</td><td>Duct</td><td>ダクト</td><td><code>HVAC</code></td></tr>
+  <tr><td>設備</td><td>Equipment</td><td>機器（きき）</td><td><code>EQUI</code></td></tr>
+  <tr><td>艙櫃</td><td>Tank</td><td>タンク</td><td><code>TANK</code>〔待核對〕</td></tr>
+  <tr><td>壓載</td><td>Ballast</td><td>バラスト</td><td>艙櫃＋管路</td></tr>
+  <tr><td>塗裝</td><td>Coating</td><td>塗装（とそう）</td><td>外部系統／報表</td></tr>
+  <tr><td>表面處理</td><td>Surface preparation</td><td>素地調整（そじちょうせい）</td><td>塗裝規範</td></tr>
+  <tr><td>陰極保護</td><td>Cathodic protection</td><td>電気防食（でんきぼうしょく）</td><td>外部系統</td></tr>
+  <tr><td>吊耳</td><td>Lifting lug</td><td>吊り金具（つりかなぐ）</td><td>自訂元件／<code>EQUI</code></td></tr>
+  <tr><td>焊接</td><td>Welding</td><td>溶接（ようせつ）</td><td>Weld Planning</td></tr>
+  <tr><td>坡口</td><td>Groove</td><td>開先（かいさき）</td><td>焊接屬性</td></tr>
+  <tr><td>非破壞檢驗</td><td>NDT</td><td>非破壊検査（ひはかいけんさ）</td><td>外部系統／檢驗紀錄</td></tr>
+  <tr><td>圖面</td><td>Drawing</td><td>図面（ずめん）</td><td>DRAFT／ISODRAFT</td></tr>
+  <tr><td>目錄</td><td>Catalogue</td><td>カタログ</td><td><code>CATA</code>／<code>SECT</code>／<code>CATE</code></td></tr>
+  <tr><td>等級</td><td>Specification</td><td>スペック</td><td><code>SPEC</code>／<code>SELE</code>／<code>SPCO</code></td></tr>
+  <tr><td>材料表</td><td>MTO</td><td>部材表（ぶざいひょう）</td><td>報表／MTO</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="note"><strong>使用提醒：</strong>縮寫在不同船廠、不同船東之間可能有不同定義（例如「MTO」有的包含塗裝面積，有的只算鋼材）。寫介面或報表時，欄位名稱要附英文全稱與定義，不要只寫縮寫。</div>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>元素型別是固定的系統詞彙，但<strong>元素名稱</strong>與<strong>屬性值</strong>是船廠自訂的；同一個概念在不同專案可能叫不同名字。</li>
+      <li>表格最後一欄的〔待核對〕代表該對應依版本或公司設定而異，寫程式前先用 <code>Q TYPE</code> 或 SCRM 查證。</li>
+      <li>建議把公司常用的中英日對照做成 UDA 或外部對照表，避免每個工具各翻一次。</li>
+    </ul>
+  </div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c9-1"><label for="c9-1">我能用中英日說出五個主要構件</label></li>
+    <li><input type="checkbox" id="c9-2"><label for="c9-2">我能把板架、加強材、肘板對到元素型別</label></li>
+    <li><input type="checkbox" id="c9-3"><label for="c9-3">我知道縮寫在不同船廠可能定義不同</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="appx_b_glossary_zh-TW.reading.html">附錄 B 術語表</a><a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章 元素型別</a></div>
+</section>
+
+<section class="unit" id="u10">
+  <div class="unit-head"><span class="unit-no">UNIT 10</span><h2>接回 AVEVA 的對照</h2><p class="unit-sub">把前面九個單元壓成一張表，再加上開發前一定要問的五個問題。</p></div>
+
+  <div class="goals"><strong>本單元學習目標</strong>
+    <ul>
+      <li>看到一個領域概念，能說出它落在哪個模組與元素。</li>
+      <li>知道哪些資料在 AVEVA 內、哪些在外部系統。</li>
+      <li>用五個問題檢查自己的工具假設。</li>
+      <li>避開三個最常見的誤用。</li>
+    </ul>
+  </div>
+
+  <h3>10.1 對照總表</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:20%">領域概念</th><th style="width:30%">AVEVA 模組／元素</th><th>開發時要注意</th></tr></thead>
+  <tbody>
+  <tr><td>型線與船體曲面</td><td>Hull Initial Design、曲面資料</td><td>曲面是參考，不是板厚；板架才是可製造的資料</td></tr>
+  <tr><td>板架與構件</td><td><code>HPANEL</code>／<code>HPLATE</code>／<code>HSTIFF</code>／<code>HBRCKT</code></td><td>設計板架與生產板架要分清</td></tr>
+  <tr><td>零件與套料</td><td>Hull Production、Nesting</td><td>生產資料是快照，不會自動跟模型同步</td></tr>
+  <tr><td>組立與搭載</td><td>Assembly Planning</td><td>命名慣例由船廠自訂，工具要可設定</td></tr>
+  <tr><td>焊接</td><td>Weld Planning</td><td>焊道編號要能與檢驗報告對應</td></tr>
+  <tr><td>設備與管路</td><td><code>EQUI</code>／<code>PIPE</code>／<code>BRAN</code>／<code>SUPPORT</code></td><td>順序與連接關係比外形重要</td></tr>
+  <tr><td>鐵舾裝結構</td><td><code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code></td><td>和船體板架是不同資料來源</td></tr>
+  <tr><td>通風與電纜</td><td><code>HVAC</code>、電氣模組</td><td>防火貫穿與危險區域要一起檢查</td></tr>
+  <tr><td>目錄與等級</td><td>Paragon（<code>CATA</code>／<code>SECT</code>／<code>CATE</code>）、Specon（<code>SPEC</code>／<code>SELE</code>／<code>SPCO</code>）</td><td>元件不是自由輸入，受等級約束</td></tr>
+  <tr><td>圖面與 ISO</td><td>Marine Drafting、Outfitting Draft、Isodraft</td><td>圖面跟著模型版本，不跟著現場進度</td></tr>
+  <tr><td>報表與材料表</td><td>報表功能、PML、.NET</td><td>先確認單位、單雙面、淨尺寸或含增量</td></tr>
+  <tr><td>穩度、阻力、噸位</td><td>外部工具（NAPA、GHS、Maxsurf 等）</td><td>AVEVA 提供幾何與重量資料，不做這些計算</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>10.2 開發前必問的五個問題</h3>
+  <ol>
+    <li><strong>這是設計模型還是生產快照？</strong>兩者的元素、屬性與更新頻率都不同。</li>
+    <li><strong>這個數值是模線、淨尺寸，還是含腐蝕增量？</strong>差一個假設，材料表就不同。</li>
+    <li><strong>這個位置用 FR／LP 還是世界座標？</strong>跨專案或跨船廠時，原點定義可能不同。</li>
+    <li><strong>這是資料庫屬性還是即時計算的偽屬性？</strong>偽屬性不能寫回，也不一定能批次查詢。</li>
+    <li><strong>這個修改會不會動到已送審的構件？</strong>會的話，需要變更流程，不是寫個迴圈就好。</li>
+  </ol>
+
+  <h3>10.3 三個最常見的誤用</h3>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th style="width:24%">誤用</th><th style="width:32%">後果</th><th>正確做法</th></tr></thead>
+  <tbody>
+  <tr><td>把 GT 當重量算吊裝</td><td>噸位是容積指標，吊車負荷嚴重低估</td><td>用實際重量（鋼材、設備、分段重量表）</td></tr>
+  <tr><td>把 FR 當絕對座標</td><td>換專案或換船廠後位置全錯</td><td>確認原點與肋距，必要時換算成世界座標</td></tr>
+  <tr><td>把設計板架當生產零件</td><td>數量、板厚、切割資料都對不上</td><td>先確認資料來源與版本，再生產報表</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <h3>10.4 建議的學習順序</h3>
+  <p>如果你完全沒有造船背景，建議這樣走：</p>
+  <ol>
+    <li>本課程 Unit 1–2，建立產業與尺寸概念。</li>
+    <li>第 3 章與第 4 章，把元素樹與座標弄熟。</li>
+    <li>本課程 Unit 3–5，理解船體與建造流程。</li>
+    <li>第 5–7 章，跟著 AVEVA 的建模流程走一遍。</li>
+    <li>本課程 Unit 6–8，補舾裝、塗裝、焊接的現場知識。</li>
+    <li>第 11–18 章，進入 PML、表單、.NET 與部署。</li>
+  </ol>
+
+  <div class="aveva"><strong>與 AVEVA 的對應</strong>
+    <ul>
+      <li>這張表不是官方對照，而是把官方文件與實務流程整理成開發人員可用的索引；遇到版本差異，以 SCRM 與公司設定為準。</li>
+      <li>真正的邊界是：<strong>AVEVA 管資料與幾何，不管性能計算與法規判定</strong>。搞清這條線，就不會寫出「用模型算 GM」這種工具。</li>
+    </ul>
+  </div>
+
+  <ul class="check">
+    <li><input type="checkbox" id="c10-1"><label for="c10-1">我能看著領域概念說出對應模組或元素</label></li>
+    <li><input type="checkbox" id="c10-2"><label for="c10-2">我能背出開發前必問的五個問題</label></li>
+    <li><input type="checkbox" id="c10-3"><label for="c10-3">我能說明 AVEVA 與外部計算工具的界線</label></li>
+  </ul>
+
+  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch12_pml_database_zh-TW.reading.html">第 12 章 資料庫操作</a></div>
+</section>
+
+<section class="unit" id="sources">
+  <div class="unit-head"><span class="unit-no">SOURCES</span><h2>資料來源與界線</h2><p class="unit-sub">這門課是導讀與整理，不是官方教材，也不取代船廠的規範與程序書。</p></div>
+  <ul>
+    <li><strong>國際公約與法規</strong>：IMO 的 SOLAS、MARPOL、載重線公約、噸位丈量公約、壓載水管理；IACS 與各船級協會的規範。這些決定門檻與檢驗要求，本課程只做概念介紹。</li>
+    <li><strong>船舶原理與結構</strong>：SNAME《Principles of Naval Architecture》《Ship Design and Construction》、Eyres《Ship Construction》等教科書的通用概念；本課程沒有引用特定頁次或數據。</li>
+    <li><strong>AVEVA 官方文件</strong>：PML Customisation User Guide、Software Customisation Reference Manual、Data Model Reference Manual、.NET Customisation User Guide（E3D 3.1 靜態頁），以及本課程第 3–9 章的整理。</li>
+    <li><strong>標準與規範編號</strong>：管路識別色碼、船舶主要尺寸術語等標準編號〔待核對〕，引用前請查現行版本。</li>
+  </ul>
+  <div class="note"><strong>授權與使用界線：</strong>本頁文字、圖解與表格為本課程自製，可在公司內部教學使用；不重製官方手冊的圖表或長段文字。所有數值、規範要求與元素型別，請以公司安裝版本與現行規範為準。</div>
+  <div class="foot-links">
+    <a href="https://www.imo.org/en/About/Conventions/Pages/International-Convention-for-the-Safety-of-Life-at-Sea-(SOLAS),-1974.aspx">IMO：SOLAS</a>
+    <a href="https://www.imo.org/en/About/Conventions/Pages/International-Convention-for-the-Prevention-of-Pollution-from-Ships-(MARPOL).aspx">IMO：MARPOL</a>
+    <a href="https://www.imo.org/en/About/Conventions/Pages/International-Convention-on-Load-Lines.aspx">IMO：Load Lines</a>
+    <a href="https://www.imo.org/en/About/Conventions/Pages/International-Convention-on-Tonnage-Measurement-of-Ships.aspx">IMO：Tonnage</a>
+    <a href="https://iacs.org.uk/">IACS</a>
+    <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DMRM/DMRM_FP.html">AVEVA DMRM</a>
+  </div>
+</section>
+
+<div class="footer">
+  造船領域知識 · 給 AVEVA 開發人員的入門課（LEARNING PATH 02）<br>
+  內容為繁中導讀與自製圖解；規範、數值與元素型別請以公司版本與現行法規為準。你的閱讀進度只保存在此瀏覽器。
+</div>
+</main>
+</div>
+
+<script>
+(function () {
+  var KEY = 'aveva-ship-course-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input'));
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+
+  var totalUnits = 8;
+  function unitDone(unit) {
+    var list = boxes.filter(function (b) { return b.closest('.unit').id === unit; });
+    return list.length > 0 && list.every(function (b) { return b.checked; });
+  }
+  function render() {
+    var n = 0;
+    for (var i = 1; i <= totalUnits; i++) { if (unitDone('u' + i)) n++; }
+    var pct = totalUnits ? Math.round(n / totalUnits * 100) : 0;
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('progressText').textContent = n + ' / ' + totalUnits + ' 單元完成';
+  }
+  boxes.forEach(function (b) {
+    if (done[b.id]) b.checked = true;
+    b.addEventListener('change', function () {
+      if (b.checked) { done[b.id] = 1; } else { delete done[b.id]; }
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      render();
+    });
+  });
+  render();
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function setActive() {
+    var pos = window.scrollY + 120;
+    var idx = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i] && sections[i].offsetTop <= pos) idx = i;
+    }
+    links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+</body>
+</html>

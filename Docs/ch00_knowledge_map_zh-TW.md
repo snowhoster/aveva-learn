@@ -23,6 +23,10 @@ AVEVA Marine 的二次開發，九成的困難不在語法，而在**資料**：
             懂得「怎麼安全地讀、寫、呈現與整合這些資料」
 ```
 
+> **沒有造船背景的讀者，建議先讀[造船領域知識](shipbuilding_fundamentals.html)。** 那是一門獨立的十單元課程，用船廠的語言說明船型尺寸、幾何性能、船體結構、建造流程、舾裝、塗裝與焊接檢驗，每個單元都會標示對應的 AVEVA 模組與元素。讀完再回來看第 5–9 章，你會發現那些元素型別突然有了現場意義。
+
+> 想練 PML 語法的人，另見 [PML 互動課程](aveva_pml_learning_guide.html)（8 個階段、6 個實作工作坊）。
+
 ## 0.2 開發人員視角的概念對照表
 
 | AVEVA Marine 概念 | 開發人員熟悉的對應概念 | 說明章節 |
@@ -88,6 +92,13 @@ AVEVA Marine 的二次開發，九成的困難不在語法，而在**資料**：
 | A | [專業資源與官方訓練地圖](appx_a_resources_zh-TW.reading.html) |
 | B | [術語表與指令速查](appx_b_glossary_zh-TW.reading.html) |
 | C | [參考文獻導讀與繁中摘要](appx_c_reading_list_zh-TW.reading.html) |
+
+### 獨立課程
+
+| 課程 | 標題 | 適合誰 |
+|---|---|---|
+| 01 | [PML 互動課程](aveva_pml_learning_guide.html) | 已讀過第 11–13 章，想動手寫語法與工作坊練習的人 |
+| 02 | [造船領域知識](shipbuilding_fundamentals.html) | 沒有造船背景、想先聽懂現場語言的開發人員 |
 
 ## 0.4 各章知識點清單
 
