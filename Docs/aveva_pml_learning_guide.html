@@ -138,6 +138,37 @@ pre code{background:none;padding:0;color:inherit}
 .flow.c .flowstep:nth-child(3){animation-delay:3.6s}
 .flow.c .flowstep:nth-child(4){animation-delay:5.4s}
 .legend{font-size:12px;color:var(--muted);margin-top:8px}
+/* 逐步實作工作坊 */
+.labcard{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-top:12px;overflow:hidden}
+.labcard[open]{box-shadow:var(--shadow)}
+.labcard summary{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;list-style:none;background:#fbfcf8}
+.labcard summary::-webkit-details-marker{display:none}
+.labcard[open] summary{border-bottom:1px solid var(--line)}
+.labcard summary:before{content:"▸";color:var(--green);font-size:12px;transition:transform .2s}
+.labcard[open] summary:before{transform:rotate(90deg)}
+.labno{font-size:10.5px;letter-spacing:.12em;color:var(--green);font-weight:800;border:1px solid #cfe0d5;background:#fff;border-radius:20px;padding:3px 9px;white-space:nowrap}
+.labtitle{font-weight:700;font-size:14.5px}
+.labtime{margin-left:auto;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.labbody{padding:16px 18px 22px}
+.labgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.labpre{background:#f5f8f3;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.labpre h4,.labbody h4{font-size:12px;letter-spacing:.08em;color:var(--green);margin:14px 0 6px}
+.labpre h4{margin:0 0 6px}
+.labpre ul{margin:0;padding-left:18px;font-size:13px}
+.labpre li{margin:3px 0}
+.steps{margin:0;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:0 0 10px 34px;font-size:13.5px;counter-increment:step}
+.steps li:before{content:counter(step);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:#e4eee5;color:var(--green);font-weight:800;font-size:11.5px;display:grid;place-items:center}
+.steps li b{color:var(--ink)}
+.steps li p{margin:2px 0 0;color:#4c5f5b}
+.labcard pre{background:var(--code);color:#dcece2;border-radius:10px;padding:14px 16px;overflow:auto;font:12.5px/1.7 Consolas,"Courier New",monospace;margin:8px 0 0;white-space:pre}
+.labcard pre.out{background:#f4f8f2;color:#1d3d37;border:1px solid var(--line)}
+.expect,.trouble,.accept{border-top:1px dashed var(--line);margin-top:16px}
+.trouble table{min-width:0;margin-top:4px}
+.trouble td,.trouble th{font-size:12.5px}
+.checklist{list-style:none;margin:0;padding:0;font-size:13.5px}
+.checklist li{padding-left:24px;position:relative;margin:5px 0}
+.checklist li:before{content:"☐";position:absolute;left:0;color:var(--green)}
 /* 範例庫 */
 .examples{display:grid;gap:16px;margin-top:16px}
 .example{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -173,9 +204,10 @@ tbody tr:nth-child(even){background:#fafbf7}
   <div class="side-label">學習導覽</div>
   <h3>本學習項目</h3>
   <nav class="nav" id="nav" aria-label="學習階段"></nav>
-  <h3>動畫與資源</h3>
+  <h3>動畫、工作坊與資源</h3>
   <nav class="nav">
     <button onclick="document.querySelector('#lab').scrollIntoView({behavior:'smooth'})">程式執行動畫</button>
+    <button onclick="document.querySelector('#workshop').scrollIntoView({behavior:'smooth'})">逐步實作工作坊</button>
     <button onclick="document.querySelector('#examples').scrollIntoView({behavior:'smooth'})">範例庫</button>
     <button onclick="document.querySelector('#official').scrollIntoView({behavior:'smooth'})">官方課程地圖</button>
     <button onclick="document.querySelector('#drills').scrollIntoView({behavior:'smooth'})">練習題</button>
@@ -192,10 +224,10 @@ tbody tr:nth-child(even){background:#fafbf7}
   <div class="eyebrow">LEARNING PATH 01 · PML 入門到整合</div>
   <h1>把每一行程式<br>變成看得見的動作。</h1>
   <p>從命令列、陣列、資料庫查詢到表單與 PML.NET。每個階段都有繁中說明、可複製的範例、小測驗，以及逐行執行的動畫，讓你看懂「程式跑到哪裡、資料變成什麼」。</p>
-  <div><span class="pill">8 個學習階段</span><span class="pill">4 組執行動畫</span><span class="pill">進度自動保存</span></div>
+  <div><span class="pill">8 個學習階段</span><span class="pill">6 個實作工作坊</span><span class="pill">4 組執行動畫</span><span class="pill">進度自動保存</span></div>
   <div class="hero-actions">
     <button class="primary" onclick="selectStage(0)">開始第一階段　→</button>
-    <button class="secondary" onclick="document.querySelector('#lab').scrollIntoView({behavior:'smooth'})">先看執行動畫</button>
+    <button class="secondary" onclick="document.querySelector('#workshop').scrollIntoView({behavior:'smooth'})">直接做工作坊</button>
   </div>
 </section>
 
@@ -279,6 +311,528 @@ tbody tr:nth-child(even){background:#fafbf7}
   </div>
 </section>
 
+<div class="section-head" id="workshop"><div><div class="eyebrow">HANDS-ON WORKSHOP</div><h2>逐步實作工作坊</h2></div><span class="muted" style="font-size:12px">6 個 lab，合計約 2 小時 45 分</span></div>
+<div class="tip" style="margin-top:0"><strong>怎麼用</strong>　每個 lab 都是「前置條件 → 編號步驟 → 完整程式 → 預期結果 → 常見錯誤 → 驗收清單」。請照順序做，通過驗收再進下一個。全部程式都是示意，請在<strong>訓練專案</strong>執行；lab 3 之後只做唯讀查詢與寫入個人暫存檔，不要直接對生產 MDB 操作。</div>
+
+<details class="labcard" id="lab1" open>
+<summary><span class="labno">LAB 01</span><span class="labtitle">環境檢查與第一個函式</span><span class="labtime">約 15 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>能開啟 AVEVA Marine 訓練專案（至少可讀）</li>
+      <li>知道自己的 <code>PMLLIB</code> 路徑（問管理員或看第 10 章）</li>
+      <li>該路徑下有一個可寫入的個人資料夾</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一個能被系統自動載入的 <code>.pmlfnc</code> 函式</li>
+      <li>看懂「檔名＝函式名」與 <code>pml rehash all</code> 的關係</li>
+      <li>知道型別錯誤長什麼樣子</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>命令列熱身。</b><p>依序輸入 <code>!name = 'P-101'</code>、<code>q var !name</code>、<code>$P 'Hello ' &amp; !name</code>。確認你看得到型別與值。</p></li>
+    <li><b>確認 PMLLIB。</b><p>問系統管理員你的 <code>PMLLIB</code> 指到哪裡，或依第 10 章自行設定。把路徑寫在筆記上，例如 <code>D:/Company/pmllib</code>。</p></li>
+    <li><b>建立前綴資料夾。</b><p>在 <code>PMLLIB</code> 下建立 <code>myco</code>。之後所有練習檔都放這裡，方便一次移除。</p></li>
+    <li><b>建立函式檔。</b><p>用純文字編輯器存成 <code>mycoarea.pmlfnc</code>。檔名必須是函式名去掉 <code>!!</code>，且前後一致。</p></li>
+  </ol>
+<pre>-- 檔案：mycoarea.pmlfnc
+define function !!mycoArea(!Length is REAL, !Width is REAL) is REAL
+    !result = !Length * !Width
+    return !result
+endfunction</pre>
+  <ol class="steps" start="5" style="counter-reset:step 4">
+    <li><b>重建索引。</b><p>在命令列執行 <code>pml rehash all</code>。沒有這一步，系統不會知道新檔案存在。</p></li>
+    <li><b>呼叫並檢查。</b><p>輸入 <code>!a = !!mycoArea(7, 6)</code>，再輸入 <code>q var !a</code>。應該看到 REAL 42。</p></li>
+    <li><b>故意犯錯。</b><p>輸入 <code>!!mycoArea('7', 6)</code>，記下錯誤訊息與錯誤碼。這是後面寫 <code>handle</code> 的材料。</p></li>
+  </ol>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">$P 'Hello ' &amp; !name    →  Hello P-101
+q var !a              →  REAL  42
+!!mycoArea('7', 6)    →  型別相關錯誤（把錯誤碼抄下來）</pre>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td>找不到 <code>MYCOAREA</code></td><td>沒 rehash，或檔案不在 <code>PMLLIB</code> 底下</td><td>確認路徑後執行 <code>pml rehash all</code></td></tr>
+  <tr><td>改了內容卻沒生效</td><td>系統用的是快取版本</td><td>再 <code>pml rehash all</code>；必要時 <code>pml reload object</code></td></tr>
+  <tr><td>函式被當成未定義</td><td>檔名與函式名不一致（含大小寫或拼字）</td><td>檔名 = 函式名，通常全小寫</td></tr>
+  <tr><td>計算結果不是預期</td><td>傳入的是字串，或引數順序顛倒</td><td>用 <code>q var</code> 檢查型別；需要時先 <code>.real()</code></td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li><code>!!mycoArea(7, 6)</code> 回傳 42，且 <code>q var</code> 顯示 REAL</li>
+    <li>能說出 <code>.pmlfnc</code> 的檔名規則</li>
+    <li>能說出什麼時候要執行 <code>pml rehash all</code></li>
+    <li>筆記裡有一組「型別錯誤」的實際錯誤碼</li>
+  </ul>
+  </div>
+</div>
+</details>
+
+<details class="labcard" id="lab2">
+<summary><span class="labno">LAB 02</span><span class="labtitle">陣列、間隙與計數</span><span class="labtime">約 20 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>完成 LAB 01，能在命令列自在輸入</li>
+      <li>知道 <code>q var</code> 會顯示型別與值</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一個含間隙的陣列，以及可預期的走訪結果</li>
+      <li>「有效元素數」為什麼要自己數</li>
+      <li>索引 0 與負索引的實際行為</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>建立空陣列。</b><p><code>!tags = ARRAY()</code>，再用 <code>q var !tags</code> 看它長什麼樣。</p></li>
+    <li><b>故意跳號。</b><p>只設索引 1、2、4，跳過 3。這是最常見的真實情況：刪資料後留下的洞。</p></li>
+    <li><b>先看洞。</b><p><code>q var !tags[3]</code>。它不會是空字串，也不是 0。</p></li>
+    <li><b>用索引迴圈走訪。</b><p>不要用最大值猜數量；每一格都檢查是否 UNSET，再決定算不算一筆。</p></li>
+  </ol>
+<pre>!tags = ARRAY()
+!tags[1] = 'HULL'
+!tags[2] = 'OUTFITTING'
+!tags[4] = 'DRAWING'
+
+!count = 0
+do !i from 1 to 4
+    if (!tags[!i].unset()) then
+        $P '[' &amp; !i &amp; '] (gap)'
+    else
+        !count = !count + 1
+        $P '[' &amp; !i &amp; '] ' &amp; !tags[!i]
+    endif
+enddo
+$P 'Valid elements: ' &amp; !count
+
+q var !tags[3]</pre>
+  <ol class="steps" start="5" style="counter-reset:step 4">
+    <li><b>換一種走訪方式。</b><p>再用 <code>do !t values !tags</code> 走一次，比較輸出順序與筆數。</p></li>
+    <li><b>測試邊界。</b><p>試 <code>q var !tags[0]</code> 與 <code>q var !tags[-1]</code>，把結果分別記下來。</p></li>
+  </ol>
+<pre>-- 比較用：values 形式
+do !t values !tags
+    $P 'value: ' &amp; !t
+enddo</pre>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">[1] HULL
+[2] OUTFITTING
+[3] (gap)
+[4] DRAWING
+Valid elements: 3
+（q var !tags[3]）UNSET</pre>
+  <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">索引 0 可用但多數陣列功能會忽略；負索引已不允許〔待核對：依公司版本確認〕。稀疏陣列用 <code>values</code> 走訪時，間隙是否被跳過依版本而異，要精確控制請用索引迴圈。</p>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td>少印一筆或多印空白</td><td>用索引最大值或 <code>.size()</code> 當有效筆數</td><td>邊走訪邊累加，或用 <code>.unset()</code> 過濾</td></tr>
+  <tr><td>第一格讀不到</td><td>沿用其他語言的 <code>[0]</code></td><td>PML 從 1 起算</td></tr>
+  <tr><td>迴圈只跑一次</td><td><code>do</code> 沒寫 <code>enddo</code>，或條件寫在錯的位置</td><td>檢查 <code>do / enddo</code> 成對</td></tr>
+  <tr><td>中間格變成 UNSET 後才發現</td><td>刪除元素留下間隙</td><td>需要連續資料時，寫入時就重建陣列</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li>輸出順序與上方預期完全一致</li>
+    <li>能解釋為什麼計數是 3 而不是 4</li>
+    <li>能說出 UNSET 與空字串的差別</li>
+    <li>筆記裡有索引 0 與負索引的實測結果</li>
+  </ul>
+  </div>
+</div>
+</details>
+
+<details class="labcard" id="lab3">
+<summary><span class="labno">LAB 03</span><span class="labtitle">元素快照與唯讀盤點</span><span class="labtime">約 20 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>訓練專案裡有可選取的 BRANCH 與其下的 VALV</li>
+      <li>知道如何在模型樹或圖形視窗選元素</li>
+      <li>本章 lab 全程唯讀，不需要寫入權限</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一份「元素快照」，不會被後續導覽影響</li>
+      <li>屬性與位置查詢的對照結果</li>
+      <li>範圍內閥門的清單與數量</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>選一個目標。</b><p>在模型樹選一個 BRANCH（管線分支）。不要選整個 ZONE，否則數量會太大。</p></li>
+    <li><b>確認 CE。</b><p><code>q var !!ce</code>，確認型別是 DBREF 且指到你選的元素。</p></li>
+    <li><b>做快照。</b><p><code>!ce = !!ce</code>。從這一行起，<code>!ce</code> 就是固定參照，不受 <code>next</code>／<code>prev</code> 影響。</p></li>
+    <li><b>印出識別資訊。</b><p>名稱與型別是最基本的兩項，先印出來再往下做。</p></li>
+  </ol>
+<pre>-- 唯讀：先做一份元素快照
+!ce = !!ce
+$P 'Name : ' &amp; !ce.dbref().name
+$P 'Type : ' &amp; !ce.type
+
+-- 對照屬性與位置（命令列指令）
+q att
+q pos wrt /*
+
+-- 收集範圍內的閥門
+var !valves collect all VALV for CE
+!n = 0
+do !v values !valves
+    !n = !n + 1
+    $P 'VALV ' &amp; !n &amp; ' : ' &amp; !v.dbref().name
+enddo
+$P 'VALV count: ' &amp; !n
+
+-- 快照測試：把 CE 移到別處
+next
+$P 'Snapshot still: ' &amp; !ce.dbref().name
+$P 'CE now        : ' &amp; !!ce.dbref().name</pre>
+  <ol class="steps" start="5" style="counter-reset:step 4">
+    <li><b>對照屬性。</b><p><code>q att</code> 的輸出貼進筆記，標出哪些是資料庫屬性、哪些是即時計算的偽屬性。</p></li>
+    <li><b>對照位置。</b><p><code>q pos wrt /*</code> 顯示相對世界座標的位置；和 SCRM 的 WRT 概念對應。</p></li>
+    <li><b>收集與計數。</b><p>觀察 <code>for CE</code> 的範圍：它包含 CE 以下的階層，不是只有直屬成員。</p></li>
+    <li><b>驗證快照。</b><p>執行 <code>next</code> 後，<code>!ce</code> 仍指向原本元素，<code>!!ce</code> 已經換人。</p></li>
+  </ol>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">Name : 100-P-01/B1
+Type : BRAN
+VALV 1 : 100-P-01/B1/V-001
+VALV 2 : 100-P-01/B1/V-002
+VALV count: 2
+Snapshot still: 100-P-01/B1
+CE now        : 100-P-01/B1/V-001</pre>
+  <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">名稱與數量依你的專案而異；重點是 <code>Snapshot still</code> 與 <code>CE now</code> 兩個值不同。</p>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td>數量是 0</td><td>CE 選錯層級（例如選到 ZONE 但底下沒有 VALV）</td><td>先 <code>q var !!ce</code> 確認，再換層級</td></tr>
+  <tr><td>數量比預期多很多</td><td><code>for CE</code> 會往子階層找，不是只找直屬成員</td><td>要只找直屬成員時，改用 <code>!ce.members()</code> 或逐層查</td></tr>
+  <tr><td>名稱後面突然變了</td><td>把 <code>!!ce</code> 當成固定值用</td><td>先 <code>!ce = !!ce</code> 做快照</td></tr>
+  <tr><td>程式說參照無效</td><td>元素已被刪除，或快照跨了資料庫重置</td><td>用 <code>badref()</code> 檢查，重新取 CE</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li>能印出目標元素的名稱與型別</li>
+    <li>能列出範圍內所有 VALV 並自行計數</li>
+    <li>能說明 <code>!ce</code> 與 <code>!!ce</code> 在 <code>next</code> 之後的差異</li>
+    <li>筆記裡有一份 <code>q att</code> 與 <code>q pos wrt</code> 的對照</li>
+  </ul>
+  </div>
+</div>
+</details>
+
+<details class="labcard" id="lab4">
+<summary><span class="labno">LAB 04</span><span class="labtitle">唯讀盤點並匯出 CSV</span><span class="labtime">約 30 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>完成 LAB 03，能穩定收集 VALV</li>
+      <li>有一個可寫入的個人資料夾，例如 <code>C:/temp</code></li>
+      <li>Excel 或記事本可開啟輸出檔</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一個可重複使用的 CSV 匯出函式</li>
+      <li>逗號與引號的跳脫寫法</li>
+      <li>開檔失敗不中斷的處理方式</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>決定欄位。</b><p>本 lab 只輸出 <code>SEQ,NAME,TYPE</code>。欄位越少，越容易驗證正確性；確認格式後再慢慢加。</p></li>
+    <li><b>先寫跳脫函式。</b><p>CSV 的規則很簡單：欄位一律用雙引號包住，內容的雙引號改成兩個雙引號。</p></li>
+    <li><b>再寫主函式。</b><p>收集 → 開檔 → 寫表頭 → 逐筆寫入 → 關檔。開檔後<strong>立刻</strong>接 <code>handle</code>。</p></li>
+  </ol>
+<pre>-- 檔案：mycocsv.pmlfnc
+define function !!mycoCsvCell(!value is STRING) is STRING
+    !v = !value.replace('"', '""')
+    return '"' &amp; !v &amp; '"'
+endfunction
+
+define function !!mycoExportValves(!path is STRING) is REAL
+    var !items collect all VALV for CE
+
+    !f = object FILE(!path)
+    !f.open('WRITE')
+    handle (160,9)
+        $P 'Cannot open: ' &amp; !path
+        return -1
+    endhandle
+
+    !f.writeRecord('SEQ,NAME,TYPE')
+
+    !n = 0
+    do !v values !items
+        !n = !n + 1
+        !f.writeRecord(!n.string() &amp; ',' &amp; !!mycoCsvCell(!v.dbref().name) &amp; ',' &amp; !!mycoCsvCell(!v.type))
+    enddo
+
+    !f.close()
+    $P 'Rows: ' &amp; !n &amp; ' -&gt; ' &amp; !path
+    return !n
+endfunction</pre>
+  <ol class="steps" start="4" style="counter-reset:step 3">
+    <li><b>重建索引。</b><p><code>pml rehash all</code>，然後在命令列呼叫。</p></li>
+    <li><b>執行匯出。</b><p>先選好 BRANCH，再呼叫函式。回傳值是筆數，負數代表失敗。</p></li>
+  </ol>
+<pre>-- 命令列：選好 BRANCH 後執行
+!rows = !!mycoExportValves('C:/temp/valves.csv')
+handle ANY
+    $P 'Export failed: ' &amp; !!error.text
+endhandle
+q var !rows</pre>
+  <ol class="steps" start="6" style="counter-reset:step 5">
+    <li><b>檢查檔案。</b><p>用記事本看原始內容，再用 Excel 開啟。兩邊都要確認欄位沒有錯位。</p></li>
+    <li><b>測試失敗路徑。</b><p>把路徑改成不存在的資料夾，確認 <code>handle</code> 有作用、巨集沒有中斷。</p></li>
+    <li><b>測試特殊字元。</b><p>找一個名稱含逗號或引號的元素（沒有的話可暫時在測試元素上加），確認匯出後欄位仍正確。</p></li>
+  </ol>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">SEQ,NAME,TYPE
+1,"V-001","VALV"
+2,"V-002","VALV"
+Rows: 2 -&gt; C:/temp/valves.csv
+（q var !rows）REAL  2</pre>
+  <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">若 Excel 打開是亂碼，先確認公司編碼約定；必要時改用「資料 → 從文字檔」指定編碼。編碼相關環境變數〔待核對〕。</p>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td>檔案被打開但沒有內容</td><td>忘記 <code>.close()</code>，緩衝沒落盤</td><td>每個成功路徑都要關檔</td></tr>
+  <tr><td>Excel 說檔案被鎖定</td><td>檔案還開在 Excel 裡</td><td>關閉 Excel 再匯出</td></tr>
+  <tr><td>欄位全部擠在一起</td><td>沒跳脫逗號或引號</td><td>一律用 <code>!!mycoCsvCell()</code> 包住</td></tr>
+  <tr><td>路徑錯誤</td><td>PML 字串中的反斜線被當成特殊字元</td><td>統一使用 <code>/</code> 或雙寫反斜線</td></tr>
+  <tr><td>中文變亂碼</td><td>寫入編碼與 Excel 預設不同</td><td>先確認公司編碼約定，再決定是否加 BOM</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li>CSV 用記事本與 Excel 開啟都正確</li>
+    <li>名稱含逗號或引號時，欄位沒有錯位</li>
+    <li>故意給錯路徑時，畫面有訊息且巨集沒中斷</li>
+    <li>能說明為什麼一定要 <code>.close()</code></li>
+  </ul>
+  </div>
+</div>
+</details>
+
+<details class="labcard" id="lab5">
+<summary><span class="labno">LAB 05</span><span class="labtitle">表單：讀取 CE → 匯出 CSV</span><span class="labtime">約 40 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>完成 LAB 04，<code>!!mycoExportValves</code> 可用</li>
+      <li>知道 <code>.pmlfrm</code> 要放在 <code>PMLLIB</code> 底下</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一個兩顆按鈕、兩個輸入框的表單</li>
+      <li>callback → method → 既有函式 的完整呼叫鏈</li>
+      <li>修改 method 後的重新載入流程</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>先規劃介面。</b><p>兩個唯讀資訊欄（目前元素、輸出路徑）、兩顆按鈕（讀取 CE、匯出 CSV）。先不要加第三顆，介面越小越容易除錯。</p></li>
+    <li><b>定義表單。</b><p>檔名 <code>mycovalve.pmlfrm</code>，表單名 <code>!!mycovalve</code>，兩者要一致。</p></li>
+    <li><b>寫 method。</b><p><code>.pick()</code> 填值，<code>.export()</code> 呼叫 LAB 04 的函式。method 內用 <code>!this</code> 存取控制項。</p></li>
+  </ol>
+<pre>-- 檔案：mycovalve.pmlfrm
+setup form !!mycovalve size 52 12
+    title '閥門清單匯出'
+    text .txtInfo '目前元素:' at x1 y1 width 46 is STRING
+    text .txtPath '輸出檔案:' at x1 y3 width 46 is STRING
+    button .btnPick   '讀取 CE' at x1 y5  width 14 callback '!this.pick()'
+    button .btnExport '匯出 CSV' at x17 y5 width 14 callback '!this.export()'
+exit
+
+define method .pick()
+    !this.txtInfo.val = !!ce.dbref().name
+    !this.txtPath.val = 'C:/temp/valves.csv'
+endmethod
+
+define method .export()
+    !path = !this.txtPath.val
+    if (!path eq '') then
+        !!alert.error('請先輸入輸出檔案路徑')
+        return
+    endif
+
+    !rows = !!mycoExportValves(!path)
+    if (!rows lt 0) then
+        return
+    endif
+    !!alert.message('已匯出 ' &amp; !rows &amp; ' 筆')
+endmethod</pre>
+  <ol class="steps" start="4" style="counter-reset:step 3">
+    <li><b>重建索引並開啟。</b><p><code>pml rehash all</code>，再 <code>show !!mycovalve</code>。</p></li>
+    <li><b>測試讀取。</b><p>在模型上選一個 BRANCH，按「讀取 CE」，確認資訊欄出現名稱。</p></li>
+    <li><b>測試匯出。</b><p>按「匯出 CSV」，確認出現筆數訊息，且檔案內容與 LAB 04 一致。</p></li>
+    <li><b>測試防呆。</b><p>清空路徑再按匯出，應該看到錯誤提示而不是當掉。</p></li>
+    <li><b>改 method 並重載。</b><p>把 <code>.pick()</code> 的預設路徑改成別的名字，存檔後執行 <code>pml reload object !!mycovalve</code>，再測一次。體會「只改 method 不必重開表單」。</p></li>
+  </ol>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">表單開啟後：
+  目前元素: 100-P-01/B1
+  輸出檔案: C:/temp/valves.csv
+按下「匯出 CSV」→ 訊息框：已匯出 2 筆
+C:/temp/valves.csv 內容與 LAB 04 相同</pre>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td><code>Form not found</code></td><td>沒 rehash，或檔名與表單名不一致</td><td>修正檔名後 <code>pml rehash all</code></td></tr>
+  <tr><td>按鈕沒反應</td><td>callback 字串的方法名與 method 不一致，或漏了 <code>!this.</code></td><td>逐字比對 <code>callback '!this.xxx()'</code> 與 <code>define method .xxx()</code></td></tr>
+  <tr><td>改了 method 沒生效</td><td>表單已載入舊版本</td><td><code>pml reload object !!mycovalve</code></td></tr>
+  <tr><td>欄位顯示不出來</td><td>控制項名稱拼錯，或 method 內用了 <code>!!txtInfo</code></td><td>一律用 <code>!this.控制項名</code></td></tr>
+  <tr><td>callback 語法錯誤</td><td>字串裡又用單引號造成巢狀</td><td>外層改用 <code>|...|</code> 包住</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li>表單可以開啟，兩顆按鈕都有效</li>
+    <li>「讀取 CE」會填入目前元素名稱</li>
+    <li>「匯出 CSV」產生的檔案與 LAB 04 相同</li>
+    <li>空路徑不會讓工具當掉</li>
+    <li>能說明 <code>pml reload object</code> 的使用時機</li>
+  </ul>
+  </div>
+</div>
+</details>
+
+<details class="labcard" id="lab6">
+<summary><span class="labno">LAB 06</span><span class="labtitle">批次外殼、除錯與交付</span><span class="labtime">約 40 分鐘</span></summary>
+<div class="labbody">
+  <div class="labgrid">
+    <div class="labpre"><h4>前置條件</h4><ul>
+      <li>完成 LAB 01–05</li>
+      <li>有一個可以「故意弄錯」的訓練元素</li>
+      <li>知道怎麼看命令列的追蹤輸出</li>
+    </ul></div>
+    <div class="labpre"><h4>你會得到</h4><ul>
+      <li>一支失敗會回報、不會中斷的批次函式</li>
+      <li>用 <code>PML TRACE</code> 找問題的流程</li>
+      <li>一份可交接的版本與回滾說明</li>
+    </ul></div>
+  </div>
+
+  <h4>步驟</h4>
+  <ol class="steps">
+    <li><b>先想失敗長什麼樣。</b><p>CE 無效、收集失敗、零筆資料，這三種要分別有訊息。不要用一個大 <code>handle</code> 全部吞掉。</p></li>
+    <li><b>每個風險步驟各自接 handle。</b><p><code>handle</code> 只保護它<strong>前面那一行</strong>；所以要寫在呼叫之後，不是把整段包起來。</p></li>
+    <li><b>寫批次函式。</b><p>回傳 BOOLEAN 讓呼叫端判斷成敗；訊息用 <code>$P</code>，不要用會阻斷的訊息框。</p></li>
+  </ol>
+<pre>-- 檔案：mycobatch.pmlfnc
+-- v1.0  2026-11-02  myco  初版
+define function !!mycoBatchRun(!label is STRING) is BOOLEAN
+    !name = !!ce.dbref().name
+    handle ANY
+        $P 'FAILED: no valid CE'
+        return FALSE
+    endhandle
+    $P 'Start: ' &amp; !label &amp; ' / ' &amp; !name
+
+    var !items collect all BRAN for CE
+    handle ANY
+        $P 'FAILED at COLLECT: ' &amp; !!error.text
+        return FALSE
+    endhandle
+
+    !n = 0
+    do !item values !items
+        !n = !n + 1
+        $P '  [' &amp; !n &amp; '] ' &amp; !item.dbref().name
+    enddo
+
+    if (!n eq 0) then
+        $P 'WARN: no BRAN under ' &amp; !name
+    endif
+    $P 'Done: ' &amp; !n
+    return TRUE
+endfunction</pre>
+  <ol class="steps" start="4" style="counter-reset:step 3">
+    <li><b>開啟追蹤。</b><p><code>pml trace on</code>（或 <code>$R100</code>），再執行函式。觀察每一行執行的順序與呼叫堆疊。</p></li>
+    <li><b>找出慢或錯的行。</b><p>資料量大時，追蹤輸出會很嚇人；先看最後失敗前的幾行，再往前找第一個異常。</p></li>
+    <li><b>關閉追蹤。</b><p><code>pml trace off</code>（或 <code>$R0</code>）。追蹤留在正式環境會拖慢速度並塞爆日誌。</p></li>
+    <li><b>測試失敗路徑。</b><p>故意把 CE 移到沒有 BRAN 的層級，確認出現 WARN；再想辦法讓收集失敗，確認回傳 FALSE。</p></li>
+    <li><b>寫交接資訊。</b><p>在檔案開頭保留版本、日期、作者、變更摘要；另外記下安裝路徑、環境變更與回滾步驟。</p></li>
+  </ol>
+<pre>-- 命令列：驗證與交付檢查
+pml rehash all
+pml trace on
+!ok = !!mycoBatchRun('nightly')
+q var !ok
+pml trace off
+
+-- 回滾：把備份檔蓋回去，再 rehash
+-- copy mycobatch.pmlfnc.bak -&gt; mycobatch.pmlfnc
+-- pml rehash all</pre>
+
+  <div class="expect"><h4>預期結果</h4>
+<pre class="out">Start: nightly / 100-P-01/B1
+  [1] 100-P-01/B1/B2
+  [2] 100-P-01/B1/B3
+Done: 2
+（q var !ok）BOOLEAN  TRUE</pre>
+  <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">CE 無效時應看到 <code>FAILED: no valid CE</code> 且回傳 FALSE；沒有子分支時看到 <code>WARN: no BRAN under …</code>。<code>!!error.text</code> 的欄位名稱依版本確認〔待核對〕，必要時先 <code>q var !!error</code> 看實際結構。</p>
+  </div>
+
+  <div class="trouble"><h4>常見錯誤</h4>
+  <table>
+  <thead><tr><th style="width:38%">症狀</th><th style="width:32%">原因</th><th>處理</th></tr></thead>
+  <tbody>
+  <tr><td>錯誤沒被接住</td><td><code>handle</code> 寫在錯誤行的上方，或離太遠</td><td>寫在可能出錯的那一行之後</td></tr>
+  <tr><td>工具「成功」但資料不對</td><td>用 <code>handle ANY</code> 吞掉錯誤且沒記錄</td><td>至少 <code>$P</code> 出 <code>!!error.text</code></td></tr>
+  <tr><td>執行變很慢</td><td>追蹤忘記關</td><td><code>pml trace off</code>／<code>$R0</code></td></tr>
+  <tr><td>改版後沒人敢動</td><td>沒有版本註解與回滾步驟</td><td>檔案開頭寫版本，交付文件寫回滾</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <div class="accept"><h4>驗收清單</h4>
+  <ul class="checklist">
+    <li>正常情況回傳 TRUE，且筆數與實際相符</li>
+    <li>CE 無效時回傳 FALSE，且有可讀訊息</li>
+    <li>零筆資料時有 WARN，不是靜靜結束</li>
+    <li>能用追蹤輸出指出「最後成功的那一行」</li>
+    <li>檔案開頭有版本註解，交接文件有回滾步驟</li>
+  </ul>
+  </div>
+</div>
+</details>
+
 <div class="section-head" id="examples"><div><div class="eyebrow">EXAMPLE LIBRARY</div><h2>可直接抄用的範例</h2></div><span class="muted" style="font-size:12px">皆為示意，先在訓練專案執行</span></div>
 <div class="examples">
   <article class="example">
@@ -358,16 +912,22 @@ endmethod</pre>
   </article>
 
   <article class="example">
-    <div class="example-h"><strong>5. 用 handle 包住整段批次工作</strong><span class="tag">部署</span></div>
+    <div class="example-h"><strong>5. 批次工具：每個風險步驟各自 handle</strong><span class="tag">部署</span></div>
 <pre>-- 示意：批次工具的外殼
-define function !!mycoBatchRun(!zone is STRING) is BOOLEAN
+define function !!mycoBatchRun(!label is STRING) is BOOLEAN
+    !name = !!ce.dbref().name
     handle any
-        $P 'FAILED: ' &amp; !!error.text
+        $P 'FAILED: no valid CE'
         return FALSE
     endhandle
 
-    $P 'Start: ' &amp; !zone
+    $P 'Start: ' &amp; !label &amp; ' / ' &amp; !name
     var !items collect all BRAN for CE
+    handle any
+        $P 'FAILED at COLLECT: ' &amp; !!error.text
+        return FALSE
+    endhandle
+
     !count = 0
     do !item values !items
         !count = !count + 1
@@ -376,7 +936,7 @@ define function !!mycoBatchRun(!zone is STRING) is BOOLEAN
     $P 'Items: ' &amp; !count
     return TRUE
 endfunction</pre>
-    <p class="note">重點：批次工具要能「失敗但不中斷」，並留下可追查的訊息。<code>!!error.text</code> 的欄位名稱依版本確認；計數請自己維護，不要依賴陣列長度。</p>
+    <p class="note">重點：<code>handle</code> 只保護它<strong>前面那一行</strong>，所以是「一行呼叫 + 一個 handle」，不是把整段包起來。批次工具要能失敗但不中斷，並留下可追查的訊息。<code>!!error.text</code> 的欄位名稱依版本確認；計數請自己維護。</p>
   </article>
 </div>
 
@@ -520,10 +1080,10 @@ endmethod`,
 !f = object FILE(!path)
 !f.open('READ')
 handle (160,9)
-    !!alert.error('找不到檔案：' & !path)
+    !!alert.error('找不到檔案：' &amp; !path)
     return
 elsehandle (41,319)
-    !!alert.error('沒有權限：' & !path)
+    !!alert.error('沒有權限：' &amp; !path)
     return
 endhandle
 
