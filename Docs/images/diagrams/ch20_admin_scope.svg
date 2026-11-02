@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" role="img" aria-label="AVEVA 系統管理的五個責任圈：專案與資料庫、帳號與權限、環境與檔案、備份與復原、監控與升級">
+  <title>AVEVA 系統管理的五個責任圈</title>
+  <defs>
+    <marker id="a20s" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 z" fill="#8aa79b"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="34" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="17" font-weight="700">系統管理不是一個動作，而是五個互相支撐的責任圈</text>
+  <text x="30" y="56" fill="#65788a" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="12">任何一圈鬆掉，最後都會以「登入失敗、資料不見、效能變差」的形式出現。</text>
+
+  <!-- center -->
+  <circle cx="470" cy="252" r="78" fill="#e8f2f8" stroke="#2f6f8f" stroke-width="2"/>
+  <text x="470" y="238" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="15" font-weight="700" text-anchor="middle">可用的</text>
+  <text x="470" y="260" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="15" font-weight="700" text-anchor="middle">設計專案</text>
+  <text x="470" y="283" fill="#5b7482" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="10.5" text-anchor="middle">能登入、能查、能改、能救回</text>
+
+  <!-- five boxes -->
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <!-- 1 project -->
+    <rect x="30" y="92" width="230" height="112" rx="12" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="46" y="118" fill="#123a5c" font-size="13.5" font-weight="700">① 專案與資料庫</text>
+    <text x="46" y="141" fill="#3f5566" font-size="11">專案代碼、DB 切分、MDB 順序</text>
+    <text x="46" y="160" fill="#3f5566" font-size="11">UPDATE／MULTIWRITE／Extract</text>
+    <text x="46" y="179" fill="#8a6a3a" font-size="10.5">症狀：看不到資料、寫入衝突</text>
+
+    <!-- 2 accounts -->
+    <rect x="680" y="92" width="230" height="112" rx="12" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="696" y="118" fill="#123a5c" font-size="13.5" font-weight="700">② 帳號與權限</text>
+    <text x="696" y="141" fill="#3f5566" font-size="11">Teams、Users、FREE／GENERAL</text>
+    <text x="696" y="160" fill="#3f5566" font-size="11">DAC、離職停用、權限審查</text>
+    <text x="696" y="179" fill="#8a6a3a" font-size="10.5">症狀：權限過大、無法追責</text>
+
+    <!-- 3 environment -->
+    <rect x="30" y="300" width="230" height="112" rx="12" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="46" y="326" fill="#123a5c" font-size="13.5" font-weight="700">③ 環境與檔案</text>
+    <text x="46" y="349" fill="#3f5566" font-size="11">evars.bat、Area、磁碟、SMB</text>
+    <text x="46" y="368" fill="#3f5566" font-size="11">防毒排除、Cache Service</text>
+    <text x="46" y="387" fill="#8a6a3a" font-size="10.5">症狀：有人進不去、效能差</text>
+
+    <!-- 4 backup -->
+    <rect x="680" y="300" width="230" height="112" rx="12" fill="#fff8ee" stroke="#b8791d" stroke-width="1.6"/>
+    <text x="696" y="326" fill="#7a5310" font-size="13.5" font-weight="700">④ 備份與復原</text>
+    <text x="696" y="349" fill="#5c4a2e" font-size="11">範圍、順序、驗證、異地保存</text>
+    <text x="696" y="368" fill="#5c4a2e" font-size="11">RPO／RTO、還原演練</text>
+    <text x="696" y="387" fill="#8a6a3a" font-size="10.5">症狀：出事才發現救不回</text>
+
+    <!-- 5 monitoring -->
+    <rect x="355" y="380" width="230" height="66" rx="12" fill="#eef5f9" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="371" y="406" fill="#123a5c" font-size="13.5" font-weight="700">⑤ 監控與升級</text>
+    <text x="371" y="428" fill="#3f5566" font-size="11">容量、授權、DICE、版本升級</text>
+  </g>
+
+  <!-- connecting arrows -->
+  <g stroke="#8aa79b" stroke-width="1.4" fill="none" stroke-dasharray="5 4">
+    <line x1="262" y1="148" x2="380" y2="200" marker-end="url(#a20s)"/>
+    <line x1="678" y1="148" x2="560" y2="200" marker-end="url(#a20s)"/>
+    <line x1="262" y1="356" x2="380" y2="304" marker-end="url(#a20s)"/>
+    <line x1="678" y1="356" x2="560" y2="304" marker-end="url(#a20s)"/>
+    <line x1="470" y1="330" x2="470" y2="372" marker-end="url(#a20s)"/>
+  </g>
+
+  <rect x="30" y="404" width="300" height="40" rx="8" fill="#f4f7f9" stroke="#dbe3e9"/>
+  <text x="42" y="429" fill="#65788a" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="10.5">三份備份、兩種媒體、一份異地，是最低標準。</text>
+</svg>

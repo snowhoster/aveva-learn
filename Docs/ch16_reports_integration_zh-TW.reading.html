@@ -51,7 +51,7 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第三部分　二次開發技術 · 17 / 23</span><h1 id="16">第 16 章　報表、檔案與外部系統整合</h1>
+</aside><article><span class="stage">第三部分　二次開發技術 · 17 / 24</span><h1 id="16">第 16 章　報表、檔案與外部系統整合</h1>
 <blockquote>
 <p>本章處理「資料離開 AVEVA」與「資料進入 AVEVA」兩個方向：用 PML 的 <code>FILE</code> 物件讀寫文字檔、處理中文編碼、輸出 CSV 與 Excel、讀取外部標準資料來驅動建模，以及與 ERP／PDM 交換資料時的架構選擇和排程批次。</p>
 <p><strong>資料可信度：</strong> <code>FILE</code> 物件的開檔模式、讀寫方法與錯誤碼，取自 AVEVA 官方 <em>PML Customisation User Guide</em> 與 <em>Software Customisation Reference Manual</em>（help.aveva.com 上的 <strong>E3D 2.1</strong> 版本，PML 語法與 Marine 12.1 相同系譜）。編碼規則中的環境變數（<code>CADC_LANG</code>、<code>CADC_LANG_NEW</code>）來自開源知識庫 aveva-marine-dev-skill 對 PDMS 12.1 使用手冊的摘錄，標為〔待核對〕。整合架構與排程是一般系統整合的工程實務，本章依 AVEVA 的限制調整；凡涉及 AVEVA 批次啟動參數的部分都標為〔待核對〕。程式碼除了來自 <code>examples/</code> 的部分外，都標示「示意」。</p>

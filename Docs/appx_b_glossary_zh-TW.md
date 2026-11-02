@@ -10,7 +10,7 @@
 - 寫程式時，先查 B.3 的指令速查找到寫法，再到第 11、12 章看完整語法。
 - 建議把 B.3 複製一份，加上公司版本的驗證結果與錯誤訊息原文，作為團隊的內部速查表。
 
-各章連結：[第 1 章](ch01_architecture_zh-TW.reading.html)、[第 2 章](ch02_project_database_zh-TW.reading.html)、[第 3 章](ch03_hierarchy_attributes_zh-TW.reading.html)、[第 4 章](ch04_coordinates_geometry_zh-TW.reading.html)、[第 5 章](ch05_hull_modelling_zh-TW.reading.html)、[第 6 章](ch06_hull_production_zh-TW.reading.html)、[第 7 章](ch07_outfitting_zh-TW.reading.html)、[第 8 章](ch08_catalogue_spec_zh-TW.reading.html)、[第 9 章](ch09_drawings_zh-TW.reading.html)、[第 10 章](ch10_dev_environment_zh-TW.reading.html)、[第 11 章](ch11_pml_language_zh-TW.reading.html)、[第 12 章](ch12_pml_database_zh-TW.reading.html)、[第 13 章](ch13_pml_forms_addins_zh-TW.reading.html)、[第 14 章](ch14_dotnet_zh-TW.reading.html)、[第 15 章](ch15_hull_vitesse_zh-TW.reading.html)、[第 16 章](ch16_reports_integration_zh-TW.reading.html)、[第 17 章](ch17_debug_deploy_zh-TW.reading.html)、[第 18 章](ch18_case_studies_zh-TW.reading.html)、[第 19 章](ch19_loading_computer_zh-TW.reading.html)。
+各章連結：[第 1 章](ch01_architecture_zh-TW.reading.html)、[第 2 章](ch02_project_database_zh-TW.reading.html)、[第 3 章](ch03_hierarchy_attributes_zh-TW.reading.html)、[第 4 章](ch04_coordinates_geometry_zh-TW.reading.html)、[第 5 章](ch05_hull_modelling_zh-TW.reading.html)、[第 6 章](ch06_hull_production_zh-TW.reading.html)、[第 7 章](ch07_outfitting_zh-TW.reading.html)、[第 8 章](ch08_catalogue_spec_zh-TW.reading.html)、[第 9 章](ch09_drawings_zh-TW.reading.html)、[第 10 章](ch10_dev_environment_zh-TW.reading.html)、[第 11 章](ch11_pml_language_zh-TW.reading.html)、[第 12 章](ch12_pml_database_zh-TW.reading.html)、[第 13 章](ch13_pml_forms_addins_zh-TW.reading.html)、[第 14 章](ch14_dotnet_zh-TW.reading.html)、[第 15 章](ch15_hull_vitesse_zh-TW.reading.html)、[第 16 章](ch16_reports_integration_zh-TW.reading.html)、[第 17 章](ch17_debug_deploy_zh-TW.reading.html)、[第 18 章](ch18_case_studies_zh-TW.reading.html)、[第 19 章](ch19_loading_computer_zh-TW.reading.html)、[第 20 章](ch20_system_administration_zh-TW.reading.html)。
 
 ## B.2 術語表
 
@@ -76,8 +76,24 @@
 | Merge Changes | 合併變更 | 管理員合併 Session 以縮小 DB | 2 |
 | Extract | 衍生資料庫 | 從 Master DB 衍生的子 DB，類似 Git 分支 | 2 |
 | Flush | 寫回 | 把 Extract 的變更寫回 Master〔命令名稱待核對〕 | 2 |
-| Global | 多地點同步 | 跨地點複製與同步 DB 的機制 | 2 |
-| Primary Location | 主要地點 | Global 環境中唯一可寫入某 DB 的地點 | 2 |
+| Global | 多地點同步 | 跨地點複製與同步 DB 的機制 | 2、20 |
+| Primary Location | 主要地點 | Global 環境中唯一可寫入某 DB 的地點 | 2、20 |
+| SYSTEM DB | 系統資料庫 | 專案唯一的行政資料庫，存使用者、Team、DB、模組定義 | 2、20 |
+| COMMS DB | 通訊資料庫 | 記錄誰在使用哪個模組、哪些 DB 是目前開啟的 | 20 |
+| MISC DB | 雜項資料庫 | 存放使用者間訊息與跨資料庫巨集 | 20 |
+| FREE User | 特權使用者 | 可進入所有模組、可更新任何 DB | 20 |
+| GENERAL User | 一般使用者 | 不能進 ADMIN／LEXICON，只能改所屬 Team 的 DB | 20 |
+| UPDATE DB | 單寫入資料庫 | 同時允許 1 個寫入者與多個讀取者 | 2、20 |
+| MULTIWRITE DB | 多寫入資料庫 | 同時允許多個寫入者，以 Claim 協調 | 2、20 |
+| CONTROLLED DB | 外部控制資料庫 | 寫入由外部 EDMSlink 系統控制認領 | 20 |
+| Area | 資料區 | 把 DB 放到不同目錄／磁碟的機制，以 `ABCnnn` 變數指定 | 20 |
+| DICE | 資料庫完整性檢查器 | 檢查階層、名稱與外部參照的結構一致性 | 20 |
+| Replicate | 複製專案 | 用 `Project > Replicate` 複製專案資料或結構 | 20 |
+| Stamp | 時間標記 | 標記重要 Session，Merge 時永久保留 | 20 |
+| Backtrack | 回溯 | 把單一 DB 回到先前 Session，之後的 Session 會消失 | 20 |
+| Cache Service | 資料庫快取服務 | 把專案資料快取到本機磁碟以加速，需 MSMQ | 20 |
+| DAC（Data Access Control） | 資料存取控制 | 以 Role、Scope、ACR 做比 Team 更細的權限控制 | 20 |
+| ACR（Access Control Right） | 存取控制權 | Role 與 Scope 的組合，指派給使用者或 Team | 20 |
 
 ### B.2.3 資料模型、元素與屬性
 

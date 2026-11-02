@@ -45,7 +45,7 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第三部分　二次開發技術 · 15 / 23</span><h1 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h1>
+</aside><article><span class="stage">第三部分　二次開發技術 · 15 / 24</span><h1 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h1>
 <blockquote>
 <p>本章說明什麼時候該從 PML 換成 C#，以及兩條 .NET 路線的寫法與部署：<strong>CAF Add-in</strong>（在模組內掛一個外掛，擁有自己的視窗、命令與工具列）與 <strong>PML.NET</strong>（把 C# 類別包成 PML 可以 <code>object</code> 出來的物件）。核心範例是 <code>examples/starter-kit-mybrowser/</code>，本章逐行解說。</p>
 <p><strong>資料可信度：</strong> PML.NET 的規則、型別對應、<code>CAF_ADDINS_PATH</code> 與 <code>CAF_UIC_PATH</code> 的行為，取自 AVEVA 官方 <em>.NET Customisation User Guide</em>（help.aveva.com 上的 <strong>AVEVA E3D 2.1</strong> 版本）。AVEVA Marine 12.1 與 E3D 2.1 同屬 PDMS 技術系譜，架構相同，但命名空間與組件版本不同（例如 E3D 2.1 文件寫 <code>Aveva.Core.*</code>，Marine 12.1 的官方範例寫 <code>Aveva.Pdms.*</code>、<code>Aveva.PDMS.PMLNet</code>）。MyBrowser 範例來自 MIT 授權的開源專案 aveva-marine-dev-skill，針對 Marine 12.1 SP4 撰寫，<strong>本課程未在實機上執行</strong>。版本相依的細節標為〔待核對〕，請以公司安裝目錄下的 <code>Samples\</code> 與說明檔核對。</p>

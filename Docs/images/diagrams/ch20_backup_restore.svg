@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" role="img" aria-label="備份與還原流程：凍結寫入、DICE 檢查、備份、驗證、還原、演練">
+  <title>AVEVA 備份與還原流程</title>
+  <defs>
+    <marker id="a20b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 z" fill="#2f6f8f"/>
+    </marker>
+    <marker id="a20r" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 z" fill="#b8791d"/>
+    </marker>
+  </defs>
+
+  <text x="28" y="32" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="17" font-weight="700">備份是一條流程，不是一個「複製」動作</text>
+  <text x="28" y="53" fill="#65788a" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="12">順序錯了，備份檔看起來存在，實際上不能還原。</text>
+
+  <!-- 6 steps top row -->
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <rect x="28" y="82" width="136" height="96" rx="10" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="96" y="107" fill="#123a5c" font-size="12.5" font-weight="700" text-anchor="middle">1 凍結寫入</text>
+    <text x="96" y="128" fill="#3f5566" font-size="10.5" text-anchor="middle">登出／離峰</text>
+    <text x="96" y="145" fill="#3f5566" font-size="10.5" text-anchor="middle">鎖定專案</text>
+    <text x="96" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">確認批次停止</text>
+
+    <rect x="184" y="82" width="136" height="96" rx="10" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="252" y="107" fill="#123a5c" font-size="12.5" font-weight="700" text-anchor="middle">2 DICE</text>
+    <text x="252" y="128" fill="#3f5566" font-size="10.5" text-anchor="middle">先 SYSTEM</text>
+    <text x="252" y="145" fill="#3f5566" font-size="10.5" text-anchor="middle">再全部 DB</text>
+    <text x="252" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">有 FATAL 先處理</text>
+
+    <rect x="340" y="82" width="136" height="96" rx="10" fill="#e8f2f8" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="408" y="107" fill="#123a5c" font-size="12.5" font-weight="700" text-anchor="middle">3 備份</text>
+    <text x="408" y="128" fill="#3f5566" font-size="10.5" text-anchor="middle">DB＋設定＋客製</text>
+    <text x="408" y="145" fill="#3f5566" font-size="10.5" text-anchor="middle">＋啟動環境</text>
+    <text x="408" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">寫入雜湊／清單</text>
+
+    <rect x="496" y="82" width="136" height="96" rx="10" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="564" y="107" fill="#123a5c" font-size="12.5" font-weight="700" text-anchor="middle">4 驗證</text>
+    <text x="564" y="128" fill="#3f5566" font-size="10.5" text-anchor="middle">檔案數與大小</text>
+    <text x="564" y="145" fill="#3f5566" font-size="10.5" text-anchor="middle">抽樣開檔</text>
+    <text x="564" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">複製到異地</text>
+
+    <rect x="652" y="82" width="136" height="96" rx="10" fill="#fff8ee" stroke="#b8791d" stroke-width="1.6"/>
+    <text x="720" y="107" fill="#7a5310" font-size="12.5" font-weight="700" text-anchor="middle">5 還原</text>
+    <text x="720" y="128" fill="#5c4a2e" font-size="10.5" text-anchor="middle">先目錄與設定</text>
+    <text x="720" y="145" fill="#5c4a2e" font-size="10.5" text-anchor="middle">再 DB 與客製</text>
+    <text x="720" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">檢查環境變數</text>
+
+    <rect x="808" y="82" width="104" height="96" rx="10" fill="#eef5f9" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="860" y="107" fill="#123a5c" font-size="12.5" font-weight="700" text-anchor="middle">6 演練</text>
+    <text x="860" y="128" fill="#3f5566" font-size="10.5" text-anchor="middle">測試機</text>
+    <text x="860" y="145" fill="#3f5566" font-size="10.5" text-anchor="middle">記錄時間</text>
+    <text x="860" y="162" fill="#8a6a3a" font-size="10" text-anchor="middle">修正文件</text>
+  </g>
+
+  <g stroke="#2f6f8f" stroke-width="1.6" fill="none">
+    <line x1="164" y1="130" x2="178" y2="130" marker-end="url(#a20b)"/>
+    <line x1="320" y1="130" x2="334" y2="130" marker-end="url(#a20b)"/>
+    <line x1="476" y1="130" x2="490" y2="130" marker-end="url(#a20b)"/>
+    <line x1="632" y1="130" x2="646" y2="130" marker-end="url(#a20b)"/>
+    <line x1="788" y1="130" x2="802" y2="130" marker-end="url(#a20b)"/>
+  </g>
+
+  <!-- backup scope -->
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <rect x="28" y="208" width="426" height="120" rx="10" fill="#fff" stroke="#dbe3e9"/>
+    <text x="44" y="234" fill="#123a5c" font-size="13" font-weight="700">備份範圍（只備份 ABC000 不夠）</text>
+    <text x="44" y="258" fill="#3f5566" font-size="11">ABC000：SYSTEM／COMMS／MISC／MODEL／CATALOGUE／PADD／ISOD</text>
+    <text x="44" y="278" fill="#3f5566" font-size="11">ABCDFLTS（字型、圖框、樣式）、ABCMAC、ABCPIC、ABCISO</text>
+    <text x="44" y="298" fill="#3f5566" font-size="11">evars.bat、PMLLIB、Add-in、授權設定、專案文件</text>
+    <text x="44" y="318" fill="#8a6a3a" font-size="10.5">Area 分散時，每一個 Area 目錄都要備份。</text>
+
+    <rect x="478" y="208" width="434" height="120" rx="10" fill="#f4f7f9" stroke="#dbe3e9"/>
+    <text x="494" y="234" fill="#123a5c" font-size="13" font-weight="700">還原後一定要做的三件事</text>
+    <text x="494" y="258" fill="#3f5566" font-size="11">① 跑 DICE（先 SYSTEM，再全部 DB）</text>
+    <text x="494" y="278" fill="#3f5566" font-size="11">② 用測試帳號登入、開圖、查已知元素</text>
+    <text x="494" y="298" fill="#3f5566" font-size="11">③ 記錄還原時間點與遺失範圍，通知使用者</text>
+    <text x="494" y="318" fill="#8a6a3a" font-size="10.5">沒有紀錄的還原，等於沒有完成。</text>
+  </g>
+
+  <!-- timeline -->
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <rect x="28" y="352" width="884" height="88" rx="10" fill="#fffefa" stroke="#dbe3e9"/>
+    <text x="44" y="376" fill="#123a5c" font-size="12.5" font-weight="700">時間軸：備份、還原與演練的關係</text>
+
+    <line x1="60" y1="410" x2="918" y2="410" stroke="#c9d6cf" stroke-width="2"/>
+    <circle cx="120" cy="410" r="5" fill="#2f6f8f"/>
+    <text x="120" y="398" fill="#3f5566" font-size="10.5" text-anchor="middle">每日備份</text>
+    <circle cx="300" cy="410" r="5" fill="#2f6f8f"/>
+    <text x="300" y="398" fill="#3f5566" font-size="10.5" text-anchor="middle">每週 DICE</text>
+    <circle cx="470" cy="410" r="5" fill="#b8791d"/>
+    <text x="470" y="398" fill="#8a6a3a" font-size="10.5" text-anchor="middle">每月異地</text>
+    <circle cx="650" cy="410" r="5" fill="#2f6f8f"/>
+    <text x="650" y="398" fill="#3f5566" font-size="10.5" text-anchor="middle">每季權限審查</text>
+    <circle cx="820" cy="410" r="5" fill="#b8791d"/>
+    <text x="820" y="398" fill="#8a6a3a" font-size="10.5" text-anchor="middle">每半年還原演練</text>
+
+    <text x="60" y="432" fill="#65788a" font-size="10.5">RPO 由備份頻率決定；RTO 由還原步驟與演練熟練度決定。</text>
+  </g>
+</svg>
