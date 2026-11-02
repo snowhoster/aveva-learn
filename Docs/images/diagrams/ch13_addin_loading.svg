@@ -69,7 +69,7 @@
     <text x="504" y="78" font-weight="bold">6. 使用者點選選單項</text>
     <text x="504" y="102">執行回呼字串 show !!mycollect</text>
     <text x="504" y="124">→ 第一次才載入 mycollect.pmlfrm</text>
-    <text x="504" y="146">→ 表單生命週期（見圖 13-1）</text>
+    <text x="504" y="146">→ 表單生命週期（見圖 34-1）</text>
     <text x="504" y="178" fill="#b91c1c">選單沒出現？先查：定義檔位置、</text>
     <text x="504" y="198" fill="#b91c1c">Object 名稱、pmlobj 是否在索引中</text>
   </g>

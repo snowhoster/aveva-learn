@@ -1,0 +1,1642 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 7 章　資料模型參考導讀：Data Model Reference Manual | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#7-data-model-reference-manual">第 7 章 資料模型參考導讀：Data Model Reference Manual</a><ul>
+<li><a href="#71">7.1 學習目標</a></li>
+<li><a href="#72">7.2 手冊的結構與查閱方法</a><ul>
+<li><a href="#721">7.2.1 一張地圖</a></li>
+<li><a href="#722">7.2.2 一個型別條目長什麼樣</a></li>
+<li><a href="#723">7.2.3 三條查閱路線</a></li>
+<li><a href="#724">7.2.4 長名稱與縮寫</a></li>
+</ul>
+</li>
+<li><a href="#73">7.3 屬性的分類與資料型別</a><ul>
+<li><a href="#731">7.3.1 一般屬性與特殊屬性</a></li>
+<li><a href="#732">7.3.2 屬性資料型別</a></li>
+<li><a href="#733">7.3.3 單位</a></li>
+</ul>
+</li>
+<li><a href="#74">7.4 各領域型別地圖與代表條目</a><ul>
+<li><a href="#741">7.4.1 怎麼讀下面的表</a></li>
+<li><a href="#742">7.4.2 管理層與設備、管路（設計庫）</a></li>
+<li><a href="#743">7.4.3 基本體</a></li>
+<li><a href="#744-structural">7.4.4 結構（Structural）</a></li>
+<li><a href="#745">7.4.5 船體相關（四個類別）</a></li>
+<li><a href="#746-catalogue">7.4.6 目錄庫（Catalogue）</a></li>
+<li><a href="#747-draft">7.4.7 Draft、系統、字典與其他庫</a></li>
+</ul>
+</li>
+<li><a href="#75">7.5 偽屬性</a><ul>
+<li><a href="#751">7.5.1 怎麼找</a></li>
+<li><a href="#752">7.5.2 實用偽屬性速查</a></li>
+</ul>
+</li>
+<li><a href="#76-uda">7.6 使用者自訂屬性（UDA）</a><ul>
+<li><a href="#761">7.6.1 命名與定義位置</a></li>
+<li><a href="#762">7.6.2 與標準屬性的差別</a></li>
+</ul>
+</li>
+<li><a href="#77-pmlnet">7.7 與 PML／.NET 取值的關係</a><ul>
+<li><a href="#771-dmrm">7.7.1 DMRM 在程式中的位置</a></li>
+<li><a href="#772">7.7.2 資料型別怎麼對應</a></li>
+<li><a href="#773">7.7.3 實務查詢範例（只讀）</a></li>
+<li><a href="#774-net">7.7.4 .NET 與其他取值路徑</a></li>
+</ul>
+</li>
+<li><a href="#78">7.8 手冊的限制與陷阱</a></li>
+<li><a href="#79">7.9 本章小結</a></li>
+<li><a href="#710">7.10 練習題／自我檢核</a></li>
+<li><a href="#711">7.11 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第一部分　入門與資料模型 · 8 / 53</span><h1 id="7-data-model-reference-manual">第 7 章　資料模型參考導讀：Data Model Reference Manual</h1>
+<blockquote>
+<p>前面各章用到的 <code>EQUIPMENT</code>、<code>BRANCH</code>、<code>SPRE</code>、<code>WVOL</code>，每個名字在官方文件裡都有一個「條目」。這些條目集中在《Data Model Reference Manual》（以下簡稱 DMRM）。它不是教學書，而是<strong>字典</strong>：你不會從頭讀到尾，而是在寫 PML、設計報表、查 UDA、判斷「某型別能不能放在某型別底下」時翻它。</p>
+<p>這一章的目標是讓你<strong>會查、查得快、看得懂</strong>：知道手冊怎麼分、一個條目長什麼樣、屬性有哪些資料型別、偽屬性與 UDA 在哪裡找、手冊的限制在哪裡。章末挑出約 50 個代表型別做成速查表。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 離線文件的 DMRM（頁面 ID 1135676 底下，約 1,110 頁）。型別描述、屬性名稱、合法擁有者／成員、資料型別皆來自實際讀到的條目；中文名為本課程翻譯。官方頁面沒有說明的行為（單位語法、限定詞語法、PML 對應寫法）標〔待核對〕，不憑印象補寫。本手冊的前言自稱寫給 MarinePlant 的使用者，內文仍沿用 PDMS 的名稱（例如 <code>USER</code> 條目寫「PDMS User Element」）。資料庫管理、SQL Direct 與 Status Control 在第 45 章，本章不重複。章末附實際閱讀範圍。</p>
+</blockquote>
+<h2 id="71">7.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 DMRM 的整體分區：各資料庫的元素型別、偽屬性、屬性簡介與屬性總表。</li>
+<li>讀懂一個元素型別條目的四個部分：描述、屬性、合法擁有者、合法成員。</li>
+<li>區分一般屬性、特殊屬性、偽屬性與 UDA，並知道各去哪一區查。</li>
+<li>說出屬性的資料型別（Name、Real、Integer、Reference、Logical、Word、String、Datetime、各種 Array、Noclaim）及其限制。</li>
+<li>理解「屬性長名稱」（條目內）與「屬性縮寫」（總表、命令列）的差別。</li>
+<li>憑型別地圖，判斷一個元素屬於哪個資料庫與哪個類別，以及設計庫的主要階層。</li>
+<li>查出常用型別（設備、管路、結構、船體、目錄、Draft、系統）的重要屬性與擁有關係。</li>
+<li>用 <code>Q LIST</code>、<code>Q OLIS</code>、<code>Q ATT</code>、<code>Q PSATTS</code>、<code>Q UDALIS</code> 等查詢確認元素的合法成員與屬性清單。</li>
+<li>把 DMRM 的資料型別對應到 PML 取值，並知道哪些對應仍需實測。</li>
+<li>說明手冊的限制：船體條目很薄、部分頁面有轉檔缺漏、版本差異，以及遇到時的處理方式。</li>
+</ol>
+<h2 id="72">7.2 手冊的結構與查閱方法</h2>
+<h3 id="721">7.2.1 一張地圖</h3>
+<p>DMRM 依「資料庫類型」切成章。每一章列出該資料庫所有元素型別，每個型別一頁。</p>
+<table>
+<thead>
+<tr>
+<th>區</th>
+<th>內容</th>
+<th>型別／頁數（依列表）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assumptions</td>
+<td>讀者假設</td>
+<td>1 頁</td>
+<td>手冊寫給需要寫批次巨集、客製 GUI 的熟練使用者</td>
+</tr>
+<tr>
+<td>Catalogue Database</td>
+<td>目錄庫元素</td>
+<td>122 型別</td>
+<td>規格、元件、點集、幾何集、資料集</td>
+</tr>
+<tr>
+<td>Communications Database</td>
+<td>通訊庫</td>
+<td>2 型別（<code>COMM</code>、<code>COMW</code>）</td>
+<td>通訊庫型別，本章未展開</td>
+</tr>
+<tr>
+<td>Elements in the Design Database</td>
+<td>設計庫元素，依 34 個類別分組</td>
+<td>約 500 型別</td>
+<td>模型主體，最大的一章</td>
+</tr>
+<tr>
+<td>Dictionary Database</td>
+<td>字典庫</td>
+<td>37 型別</td>
+<td>UDA、UDET、資料表視圖、Status 定義</td>
+</tr>
+<tr>
+<td>Draft Database</td>
+<td>繪圖庫</td>
+<td>114 型別</td>
+<td>圖面、視圖、標註、樣式、規則</td>
+</tr>
+<tr>
+<td>Global Database</td>
+<td>全域庫</td>
+<td>22 型別</td>
+<td>分散式（DB、Team、Role、Stamp）</td>
+</tr>
+<tr>
+<td>Manu Database</td>
+<td>製造庫</td>
+<td>40 型別</td>
+<td>船體製造套件、板件、型材</td>
+</tr>
+<tr>
+<td>Property Database</td>
+<td>物性庫</td>
+<td>39 型別</td>
+<td>流體、材料、應力分析載荷</td>
+</tr>
+<tr>
+<td>Schematic Database</td>
+<td>示意圖庫</td>
+<td>34 型別</td>
+<td>P&amp;ID 類（<code>SCEQUIPMENT</code> 等）</td>
+</tr>
+<tr>
+<td>Spooler Database</td>
+<td>預製庫</td>
+<td>15 型別</td>
+<td>管段、焊口、管段圖</td>
+</tr>
+<tr>
+<td>System Database</td>
+<td>系統庫</td>
+<td>48 型別</td>
+<td>USER、TEAM、DB、MDB、ACR</td>
+</tr>
+<tr>
+<td>Transaction Database</td>
+<td>交易記錄庫</td>
+<td>16 型別</td>
+<td>交易與訊息記錄（<code>TRMESSAGE</code>、<code>TRFAILURE</code> 等）</td>
+</tr>
+<tr>
+<td>Other Databases</td>
+<td>其他</td>
+<td>3 型別（<code>ENGGRP</code> 等）</td>
+<td>工程整合</td>
+</tr>
+<tr>
+<td>Pseudo Attributes</td>
+<td>偽屬性，依 67 個類別分組</td>
+<td>67 頁</td>
+<td>計算屬性查詢</td>
+</tr>
+<tr>
+<td>Introduction to Attributes</td>
+<td>屬性簡介、屬性型別、<strong>屬性總表</strong></td>
+<td>3 頁</td>
+<td>全部屬性的縮寫、型別、說明</td>
+</tr>
+<tr>
+<td>Mapping of Data Extraction Keywords</td>
+<td>船體區 Data Extraction 關鍵字與屬性對照</td>
+<td>1 頁，連到 <code>Data_Extraction_to_Attributes.xls</code></td>
+<td>把舊報表改用報表工具</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>數字依第 7 章取材時的目錄清單，型別數以各章列表項目數計，可能含少量重複出現的型別（例如 <code>WORLD</code>、<code>TEXT</code> 在多個庫各有一列，同一型別在不同庫的條目是同一頁）。</p>
+</blockquote>
+<p>設計庫的 34 個類別，依型別數排序前幾名是：Accommodation（住艙，67）、Hull Planar（33）、Structural（32）、Hull General（31）、Piping Component（29）、Hanger Component（28）、Primitive（24）、Cabling（22）、HVAC Component（22）。船體相關有四個類別：Hull Curved、Hull General、Hull Manufacturing、Hull Planar（共 88 型別）。</p>
+<h3 id="722">7.2.2 一個型別條目長什麼樣</h3>
+<p>以 <code>VALVE</code>（閥）為例，條目結構是固定的：</p>
+<table>
+<thead>
+<tr>
+<th>區塊</th>
+<th>內容</th>
+<th>開發者怎麼用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>標題</td>
+<td><code>Valve Element (VALVE)</code>：英文全名與括號中的型別代碼</td>
+<td>代碼用於命令與 <code>TYPE</code> 比對</td>
+</tr>
+<tr>
+<td>類別</td>
+<td>如「Piping Component Element」</td>
+<td>判斷屬於哪個類別</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>一兩句用途說明；許多條目是空的</td>
+<td>確認這個型別是「做什麼的」</td>
+</tr>
+<tr>
+<td>Attributes</td>
+<td>屬性長名稱＋一句說明，約 3 到 70 項</td>
+<td>看這個型別有哪些欄位</td>
+</tr>
+<tr>
+<td>Legal Owners</td>
+<td>可以擁有它的型別</td>
+<td>建立元素前，找出 CE 該放哪</td>
+</tr>
+<tr>
+<td>Legal Members</td>
+<td>它可以擁有的型別</td>
+<td>走訪樹、收集條件</td>
+</tr>
+</tbody>
+</table>
+<p><code>VALVE</code> 的 Legal Owners 只有 <code>BRANCH</code>、Legal Members 是 None：閥只能放在分支底下，自己不能再放東西。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設計庫最上層階層：WORLD 下有 SITE、AREA WORLD、GROUP WORLD；SITE 下有 ZONE、BOUNDARY、DRAWING、GROUND MODEL；ZONE 下有 STRUCTURE、PIPE、EQUIPMENT、HVAC 等</div></p>
+<p><em>圖 7-1　設計庫階層的頂層：WORLD → SITE → ZONE，再往下才是結構、管路、設備與 HVAC。星號是原圖腳註標記。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設備與管路階層：EQUIPMENT 擁有設計基本體、NOZZLE 與 SUBEQUIPMENT；PIPE 擁有 BRANCH 與管件；RESTRAINT 擁有 HANGER</div></p>
+<p><em>圖 7-2　設備與管路的階層。EQUIPMENT 底下有基本體、NOZZLE 與 SUBEQUIPMENT；PIPE → BRANCH → 管件；RESTRAINT → HANGER → 吊架元件。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>這些階層圖放在設計庫章的最前面，是整本手冊最值得先看的幾張圖。它們還包括 Structure 往下的五張子階層圖（7.4.4 節）。</p>
+<h3 id="723">7.2.3 三條查閱路線</h3>
+<table>
+<thead>
+<tr>
+<th>你的問題</th>
+<th>先去哪裡</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「這個型別有什麼欄位？」</td>
+<td>該型別的條目</td>
+<td><code>NOZZLE</code> 的 Temperature、Pressure、Catref</td>
+</tr>
+<tr>
+<td>「這個屬性是什麼型別、什麼意思？」</td>
+<td>Introduction to Attributes 的<strong>屬性總表</strong></td>
+<td><code>SPRE</code>：element，Component spec reference</td>
+</tr>
+<tr>
+<td>「這個計算值有沒有現成的？」</td>
+<td>Pseudo Attributes 的分類頁</td>
+<td>Positional 類的 <code>WVOL</code>、<code>POS</code>、<code>ORI</code></td>
+</tr>
+<tr>
+<td>「型別 A 可以放在型別 B 底下嗎？」</td>
+<td>A 條目的 Legal Owners，或命令列 <code>Q OLIS</code>／<code>Q LIST</code></td>
+<td><code>HPLATE</code> 的擁有者只有 <code>HPANEL</code></td>
+</tr>
+</tbody>
+</table>
+<p>屬性總表有 Attribute Name、Data Type、Qualifier、Description 四欄，約 3,000 列（本課程用腳本統計，Data Type 欄為 real 約 800、string 約 625、element 約 500、integer 約 470、logical 約 290、word 約 180、pos 約 100、dir 約 47、ori 6）。這是最完整的屬性字典，但<strong>不告訴你哪個型別有這個屬性</strong>，要靠型別條目對照。</p>
+<h3 id="724">7.2.4 長名稱與縮寫</h3>
+<p>型別條目裡的屬性用<strong>長名稱</strong>（如 <code>Position</code>、<code>Spref</code>、<code>Desparam</code>、<code>Ispec</code>），總表與偽屬性頁用<strong>縮寫</strong>（如 <code>POS</code>、<code>SPRE</code>、<code>DESP</code>、<code>ISPE</code>）。兩者對不上字母是常態：</p>
+<table>
+<thead>
+<tr>
+<th>條目中看到</th>
+<th>總表中的縮寫</th>
+<th>資料型別（總表）</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td><code>POS</code></td>
+<td>pos</td>
+<td>位置</td>
+</tr>
+<tr>
+<td>Orientation</td>
+<td><code>ORI</code></td>
+<td>ori</td>
+<td>方向</td>
+</tr>
+<tr>
+<td>Spref</td>
+<td><code>SPRE</code></td>
+<td>element</td>
+<td>Component spec reference</td>
+</tr>
+<tr>
+<td>Pspec</td>
+<td><code>PSPE</code></td>
+<td>element</td>
+<td>Pipe specification</td>
+</tr>
+<tr>
+<td>Desparam</td>
+<td><code>DESP</code></td>
+<td>real(100)</td>
+<td>Design parameters</td>
+</tr>
+<tr>
+<td>Built</td>
+<td><code>BUIL</code></td>
+<td>logical</td>
+<td>Built/Unbuilt flag</td>
+</tr>
+<tr>
+<td>Ispec</td>
+<td><code>ISPE</code></td>
+<td>element</td>
+<td>Insulation spec reference</td>
+</tr>
+<tr>
+<td>Stspec</td>
+<td><code>STSP</code></td>
+<td>element</td>
+<td>Structural specification</td>
+</tr>
+</tbody>
+</table>
+<p>總表以最多 4 或 6 個字元為主；本章取樣中，<code>XLEN</code>、<code>DIAM</code>、<code>HEIG</code> 等長度屬性在總表中是縮寫，但 <code>BOX</code> 條目裡寫的是 <code>Xlength</code>。因此：</p>
+<ul>
+<li>命令列與批次巨集可以用縮寫；</li>
+<li>PML 程式官方建議用完整名稱（見<a href="ch33_pml_database_zh-TW.reading.html">第 33 章</a>）；</li>
+<li>找不到對應時，用 <code>Q ATT</code> 在實際元素上驗證，不要靠猜。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 條目的長名稱與總表縮寫<strong>沒有一個統一的轉換規則</strong>。不要寫程式「自動截成前 4 字母」；如果要做屬性映射表，從實際元素用 <code>Q ATT</code> 或 <code>ATTLIST</code> 取得清單。</p>
+</blockquote>
+<p>常見錯誤：</p>
+<ul>
+<li><strong>把條目標題的型別代碼當成 <code>TYPE</code> 的回傳值。</strong> <code>TYPE</code> 的說明是「Type of the element, ignoring UDET, truncated to 4 or 6 characters」，所以型別代碼可能被截短；<code>FULLT</code> 則回傳完整型別，<code>ACTTYPE</code> 在非 UDET 時同樣截短。比對型別前先用 <code>Q TYPE</code> 實測。</li>
+<li><strong>在總表找到屬性就以為每個元素都有。</strong> 總表是全域清單，是否可用要看型別條目或實測。</li>
+</ul>
+<h2 id="73">7.3 屬性的分類與資料型別</h2>
+<h3 id="731">7.3.1 一般屬性與特殊屬性</h3>
+<p>「Introduction to Attributes」把屬性分成兩類：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>定義</th>
+<th>例子（手冊所舉）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General attributes</td>
+<td>遍及資料庫，大多數元素都有</td>
+<td><code>OWNER</code>（每個設計元素都有擁有者）、<code>POS</code>、<code>ORI</code>、<code>BUILT</code></td>
+</tr>
+<tr>
+<td>Special attributes</td>
+<td>屬於特定元素或元素類別，有特定意義</td>
+<td>Branch 的 <code>FLOWD</code>（流向）</td>
+</tr>
+</tbody>
+</table>
+<p>另有三點在簡介頁說得很清楚：</p>
+<ol>
+<li><strong>所有屬性都能查詢與設定</strong>，但很多是命令自動設定的；只有「通常需要明確設定」的屬性才完整說明，自動設定的屬性則因為「可以拿來做報表」而保留。</li>
+<li>有些屬性只被 PDMS 模組使用，手冊不列。</li>
+<li>有些特殊屬性只用於 Isodraft 或 Draft 的繪圖控制，用法在各自的參考手冊。</li>
+</ol>
+<h3 id="732">7.3.2 屬性資料型別</h3>
+<p>下表依「Attribute Types」頁整理，並補上總表常見的記法。</p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>官方說明（摘要）</th>
+<th>限制</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>以 <code>/</code> 開頭，可含多個以 <code>/</code> 分隔的名稱段</td>
+<td>頁面寫最長 51 字元；<code>$</code>、<code>@</code> 不能出現；STAR 命令啟用後 <code>*</code> 有特殊意義</td>
+<td><code>/HX42</code>、<code>/HX42/NOZ1</code></td>
+</tr>
+<tr>
+<td>Real</td>
+<td>單一實數，通常存尺寸</td>
+<td>—</td>
+<td><code>DIAM</code>、<code>XLEN</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>單一整數</td>
+<td>管件的 <code>ARRIV</code>、<code>LEAVE</code> 連接點；Primitive 的 <code>OBSTR</code></td>
+<td><code>1</code>、<code>-2</code></td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>另一元素的內部參考號（如 <code>=12/106</code>），不是名稱</td>
+<td>可限制只能指向某些型別，限制顯示在條目括號中</td>
+<td><code>SPREF</code> 只能指向 <code>SPCOM</code></td>
+</tr>
+<tr>
+<td>Logical</td>
+<td><code>TRUE</code>／<code>FALSE</code></td>
+<td>—</td>
+<td><code>BUILT</code></td>
+</tr>
+<tr>
+<td>Word</td>
+<td>最多 4 個字元</td>
+<td>與<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a>引用的 DBRM 所說 4 或 6 字元略有出入〔待核對〕</td>
+<td>流向 <code>FORW</code>、<code>BACK</code></td>
+</tr>
+<tr>
+<td>String</td>
+<td>最多 120 個英數字元</td>
+<td>以單引號或豎線 <code>|…|</code> 包住，後者便於輸入英制 <code>|4'6|</code></td>
+<td><code>'HP STEAM'</code></td>
+</tr>
+<tr>
+<td>Datetime</td>
+<td>日期時間，依目前 locale 格式</td>
+<td>—</td>
+<td>見 <code>DATE</code> 類</td>
+</tr>
+<tr>
+<td>Real Array</td>
+<td>多個實數</td>
+<td>—</td>
+<td><code>POS</code>：X、Y、Z 三值</td>
+</tr>
+<tr>
+<td>Integer Array</td>
+<td>多個整數</td>
+<td>—</td>
+<td><code>LEVEL</code> 兩個整數，控制繪圖細節範圍</td>
+</tr>
+<tr>
+<td>Reference Array</td>
+<td>多個參考</td>
+<td>—</td>
+<td><code>CRFA</code>：四通閥（<code>VFWAY</code>）與 <code>CROSS</code> 的連接</td>
+</tr>
+<tr>
+<td>Noclaim</td>
+<td>不必認領元素即可修改的屬性</td>
+<td>兩人接到同一個管嘴時<strong>沒有警告</strong>，最後 <code>savework</code> 的人勝出</td>
+<td>分支連到設備</td>
+</tr>
+</tbody>
+</table>
+<p>總表的資料型別欄另有專屬記法，這些在簡介頁沒有解釋，是從總表與偽屬性頁歸納出來的：</p>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>意思</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>real(6)</code></td>
+<td>固定長度的 Real 陣列</td>
+<td><code>WVOL</code>：包圍盒六個值</td>
+</tr>
+<tr>
+<td><code>real(100)</code></td>
+<td>最多 100 個元素的陣列</td>
+<td><code>DESP</code></td>
+</tr>
+<tr>
+<td><code>string(120)</code></td>
+<td>最長 120 字元的字串</td>
+<td><code>DESC</code>、<code>FUNC</code></td>
+</tr>
+<tr>
+<td><code>string(500)</code>、<code>string(700)</code></td>
+<td>較長字串</td>
+<td><code>NAME</code>（500）、<code>FLNN</code>（700）</td>
+</tr>
+<tr>
+<td><code>element(10000)</code></td>
+<td>元素參考陣列，上限 10,000</td>
+<td><code>MEMB</code></td>
+</tr>
+<tr>
+<td><code>word(2000)</code></td>
+<td>Word 陣列</td>
+<td><code>LIST</code>、<code>ATTLIST</code></td>
+</tr>
+<tr>
+<td><code>pos</code>、<code>dir</code>、<code>ori</code></td>
+<td>位置、方向、姿態</td>
+<td><code>POS</code>、<code>HDIR</code>、<code>ORI</code></td>
+</tr>
+<tr>
+<td>Qualifier 欄</td>
+<td>查詢時要多給的參數類型：<code>attr</code>、<code>elemtype</code>、<code>integer</code>、<code>element</code></td>
+<td><code>ELEMOD</code>（logical，qualifier 為 integer：自某 session 起是否被改過）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>資料型別的細節與前一版的差異：第 4 章引用的 E3D 2.1 DBRM 說 <code>Name</code> 型最長 51 字元，12.1 屬性總表中 <code>NAME</code> 是 <code>string(500)</code>，<code>FLNN</code> 是 <code>string(700)</code>。以實際系統行為為準〔待核對〕。</p>
+</blockquote>
+<h3 id="733">7.3.3 單位</h3>
+<p>DMRM <strong>沒有一頁專門說明單位</strong>。本次取材只在三處看到與單位有關的條目：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UDA 的 <code>Uunits</code></td>
+<td>「Units of attribute values (bore/distance/text)」：UDA 的值是 bore、distance 還是文字</td>
+</tr>
+<tr>
+<td>目錄 <code>DATA</code> 的 <code>Punits</code></td>
+<td>「Data Property Units」：資料屬性的單位</td>
+</tr>
+<tr>
+<td>Draft 的 <code>Ucode</code></td>
+<td>「Units code」：圖層／圖面的單位代碼</td>
+</tr>
+</tbody>
+</table>
+<p>也就是說，Real 屬性的單位由資料庫與目前單位設定決定，手冊本身不給換算。單位的實務請看<a href="ch05_coordinates_geometry_zh-TW.reading.html">第 5 章</a> 5.8 節與<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a> 4.8 節「屬性值的單位與格式」，以及專案單位設定。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 把 Real 屬性寫入報表或交換檔之前，一律<strong>標明單位</strong>。尺寸屬性（<code>DIAM</code>、<code>XLEN</code>、<code>HEIG</code>）與 <code>BORE</code> 的單位不一定相同，數值相同並不代表量一樣。</p>
+</blockquote>
+<h2 id="74">7.4 各領域型別地圖與代表條目</h2>
+<h3 id="741">7.4.1 怎麼讀下面的表</h3>
+<p>下面的表格欄位是：<strong>型別（手冊代碼）｜中文名｜用途｜重要屬性（條目的前幾項或與任務相關者）｜擁有者→成員</strong>。屬性取自條目中實際出現者；「前幾項」指條目順序，不代表重要性排序。擁有者與成員為條目所列的子集（成員太多時只舉代表）。</p>
+<h3 id="742">7.4.2 管理層與設備、管路（設計庫）</h3>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>中文名</th>
+<th>用途與重要屬性</th>
+<th>擁有者 → 成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WORLD</code></td>
+<td>世界根節點</td>
+<td>階層頂端，不能刪除或複製；只有 Name；由 ADMINISTRATION 模組控制</td>
+<td>無 → 各庫不同（如 <code>SITE</code>、<code>TEAMWORLD</code>）</td>
+</tr>
+<tr>
+<td><code>SITE</code></td>
+<td>場地</td>
+<td>最大的可建立、刪除、複製、搬移的單位；Function、Purpose、Number、Area、Position、Orientation、Module</td>
+<td><code>WORLD</code> → <code>ZONE</code>、<code>BOUNDARY</code>、<code>DRAWING</code>、<code>GRDMODEL</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>ZONE</code></td>
+<td>區域</td>
+<td>第三層管理元素；Pspec、Ispec、Tspec、DUnion 等；可直接擁有設備、土建、管路</td>
+<td><code>APPLDATA</code>、<code>SITE</code>、<code>ZONE</code> → <code>EQUIPMENT</code>、<code>PIPE</code>、<code>HVAC</code>、<code>CWAY</code>、<code>CABLE</code>、<code>DATUM</code>、<code>ZONE</code> 等二十多種</td>
+</tr>
+<tr>
+<td><code>TEXT</code></td>
+<td>文字</td>
+<td>通用元素，可放在多數位置，存附加資訊；Stext</td>
+<td>許多型別 → 無</td>
+</tr>
+<tr>
+<td><code>EQUIPMENT</code></td>
+<td>設備</td>
+<td>容器、泵、換熱器等；29 個屬性，含 Usrweight、Usrcogravity、Desparam、Built、Ispec</td>
+<td><code>ZONE</code> → 基本體、<code>NOZZLE</code>、<code>SUBEQUIPMENT</code>、<code>ELCONN</code>、<code>LOAPOINT</code> 等</td>
+</tr>
+<tr>
+<td><code>SUBEQUIPMENT</code></td>
+<td>子設備</td>
+<td>與設備類似，被設備擁有，且不能再擁有子設備</td>
+<td><code>EQUIPMENT</code> → 同設備</td>
+</tr>
+<tr>
+<td><code>NOZZLE</code></td>
+<td>管嘴</td>
+<td>設備與管路的連接點；Temperature、Pressure、TPressure、Cref、Catref、Height、Angle、Radius</td>
+<td><code>EQUIPMENT</code>、<code>SUBEQUIPMENT</code>、<code>TMPLATE</code> → <code>DDSE</code>、<code>DPSET</code>、<code>TMPLATE</code></td>
+</tr>
+<tr>
+<td><code>PIPE</code></td>
+<td>管</td>
+<td>一或多個雙端 <code>BRANCH</code> 的管理擁有者；Bore、Temperature、Pressure、Pspec、Ispec、Tspec、Matref</td>
+<td><code>ZONE</code> → <code>BRANCH</code>、<code>PPLIST</code>、<code>PSLIST</code>、<code>RESTRAINT</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>BRANCH</code></td>
+<td>分支</td>
+<td>所有有路徑的管路的關鍵元素，由 Head、Tail 與成員序列定義；Hposition、Tposition、Href、Tref</td>
+<td><code>PIPE</code>、<code>HVAC</code> → 管件、HVAC 元件</td>
+</tr>
+<tr>
+<td><code>HVAC</code></td>
+<td>通風</td>
+<td>與 <code>PIPE</code> 結構相似；42 個屬性，含 Bore、Pspec、Fluref</td>
+<td><code>ZONE</code> → <code>BRANCH</code>、<code>HSLIST</code>、<code>RESTRAINT</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>RESTRAINT</code></td>
+<td>支撐</td>
+<td>管理 <code>HANGER</code> 的行政元素；Hspec、StlRef</td>
+<td><code>PIPE</code>、<code>HVAC</code>、<code>ZONE</code> 等 → <code>HANGER</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>HANGER</code></td>
+<td>管吊架</td>
+<td>在分支與鋼構之間的雙端元素；Hspec、Hsrod、Htype、Nload</td>
+<td><code>RESTRAINT</code> → 吊架元件（<code>CLEVIS</code>、<code>HROD</code>、<code>PCLAMP</code> 等）</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：NOZZLE 的幾何：P0 為原點，P1 與 P2 為連接點，HEIGHT 為管嘴高度</div></p>
+<p><em>圖 7-3　NOZZLE 條目的示意圖：以 P0、P1、P2 三個連接點與 Height 描述管嘴形狀。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>管件（Piping Component Category，29 型別）</strong> 的條目格式幾乎一致。以 <code>VALVE</code> 為例，條目有約 70 個屬性；<code>FLANGE</code>（49）、<code>ELBOW</code>（50）、<code>TEE</code>（52）、<code>REDUCER</code>（46）、<code>GASKET</code>（46）、<code>INSTRUMENT</code>（51）、<code>ATTACHMENT</code>（54）的屬性前段都是下列共通欄位：</p>
+<table>
+<thead>
+<tr>
+<th>長名稱</th>
+<th>意義</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spref</td>
+<td>Component spec reference</td>
+<td>指向規格元件 <code>SPCOM</code>（外鍵，見 7.4.6）</td>
+</tr>
+<tr>
+<td>Arrive、Leave</td>
+<td>Arrive／Leave Ppoint</td>
+<td>連接點編號（Integer）</td>
+</tr>
+<tr>
+<td>Lstube</td>
+<td>Leave tube reference</td>
+<td>離開側的管子</td>
+</tr>
+<tr>
+<td>Cref</td>
+<td>Connection reference</td>
+<td>連接的對象（如管嘴）</td>
+</tr>
+<tr>
+<td>Desparam</td>
+<td>Design parameters</td>
+<td>設計參數陣列</td>
+</tr>
+<tr>
+<td>Built、Shop、Isohidden</td>
+<td>已建／車間／Iso 隱藏旗標</td>
+<td>Logical</td>
+</tr>
+<tr>
+<td>Ispec、Tspec</td>
+<td>保溫／伴熱規格參考</td>
+<td>Reference</td>
+</tr>
+<tr>
+<td>Orrf、Cmpx</td>
+<td>模板來源、比較排除</td>
+<td>見條目說明</td>
+</tr>
+<tr>
+<td>預製類（Spln、Splt、Ptno 等）</td>
+<td>舊 Spooler 的管段編號</td>
+<td>條目標為「Old spooler …」</td>
+</tr>
+</tbody>
+</table>
+<p>這些管件的 Legal Owners 只有 <code>BRANCH</code>，Legal Members 為 None。<code>ATTACHMENT</code>（<code>ATTA</code>）的條目還說明它有三種用途：給吊架接點、標記可標註的特殊點、讓應力分析施加力與力矩。</p>
+<h3 id="743">7.4.3 基本體</h3>
+<p>設備與結構的幾何由基本體組成：<code>BOX</code>、<code>CYLINDER</code>、<code>CONE</code>、<code>DISH</code>、<code>PYRAMID</code>、<code>SNOUT</code>、<code>CTORUS</code>、<code>RTORUS</code>、<code>SLCYLINDER</code>，再加 <code>POLYHEDRON</code>、<code>EXTRUSION</code>、<code>REVOLUTION</code>。每一種都有一個<strong>負體積</strong>版本（前綴 N：<code>NBOX</code>、<code>NCYLINDER</code> 等），可被正基本體擁有，用來挖空。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：BOX 的幾何：XLEN、YLEN、ZLEN 三個尺寸與 P0 到 P6 的點</div></p>
+<p><em>圖 7-4　BOX 條目示意圖：以 Xlength、Ylength、Zlength 三個尺寸與 P0～P6 連接點描述長方體。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>中文名</th>
+<th>重要屬性</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BOX</code></td>
+<td>長方體</td>
+<td>Xlength、Ylength、Zlength、Position、Orientation、Level、Obstruction</td>
+<td>擁有者含 <code>EQUIPMENT</code>、<code>STRUCTURE</code>、<code>SUBEQUIPMENT</code>、<code>TMPLATE</code> 等；成員為各負基本體</td>
+</tr>
+<tr>
+<td><code>CYLINDER</code></td>
+<td>圓柱</td>
+<td>Diameter、Height</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>NBOX</code></td>
+<td>負長方體</td>
+<td>同 BOX；條目註明 Zlength 須是穿透擁有者表面的那一維</td>
+<td>只能被正基本體擁有</td>
+</tr>
+<tr>
+<td><code>POLYHEDRON</code></td>
+<td>多面體</td>
+<td>由 <code>POLFAC</code>、<code>POLOOP</code> 等定義；11 個屬性</td>
+<td>條目有完整說明</td>
+</tr>
+</tbody>
+</table>
+<p><code>Level</code>（繪圖層級）與 <code>Obstruction</code>（阻礙等級，供干涉檢查）是基本體共通的兩個整數屬性。</p>
+<h3 id="744-structural">7.4.4 結構（Structural）</h3>
+<p>結構階層比較深，手冊用五張圖表示：STRUCTURE 最上層、SECTION 的成員、Generic Section、Primary Node 與 Panel。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：STRUCTURE 最上層：SUBSTRUCTURE、DRAWING、FRAMEWORK、POLYHEDRON、LOAD CASE DESCRIPTOR、ROUTING PLANE GROUP；FRAMEWORK 下可有選用的 SUBFRAMEWORK，再往下有 SECTION、GENERIC SECTION、PRIMARY NODE、PANEL、PANEL LINEAR JOINT</div></p>
+<p><em>圖 7-5　結構階層頂層：STRUCTURE 下有 FRAMEWORK，其下（可經 SUBFRAMEWORK）擁有 SECTION、GENERIC SECTION、PRIMARY NODE 與 PANEL。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：SECTION 底下的成員：Section Distributed Load、Section Point Load、Secondary Node、Fitting、Compound Fitting、Section Linear Joint；Secondary Node 下有 Joint、Compound Joint、Release、Nodal Displacement、Nodal Load</div></p>
+<p><em>圖 7-6　SECTION 的成員。SECTION 是型鋼，次要節點（SNODE）再擁有接頭、釋放、位移與載荷。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：GENERIC SECTION 底下：SPINE 擁有 POINSP 與 CURVE；JLDATUM 擁有 PLDATUM，再擁有 FIXING</div></p>
+<p><em>圖 7-7　Generic Section 的成員：SPINE（脊線）與 JLDATUM／PLDATUM（接頭線基準）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：PRIMARY NODE 底下：Primary Joint、Release、Nodal Load、Nodal Displacement、Primary Compound Joint、Fixing</div></p>
+<p><em>圖 7-8　Primary Node 的成員：主要接頭、釋放、載荷、位移、複合接頭與 Fixing。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：PANEL 底下：Panel Loop、Panel Linear Joint、Panel Fitting、Cofitting、Compound Panel Fitting、negative design primitives</div></p>
+<p><em>圖 7-9　Panel 的成員：板的輪廓（Loop）、線性接頭、配件與負基本體。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>中文名</th>
+<th>重要屬性</th>
+<th>擁有者 → 成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>STRUCTURE</code></td>
+<td>結構</td>
+<td>建築物、管架等；Function、Purpose、Number、Usrweight 等 22 個；不能擁有 Nozzle</td>
+<td><code>ZONE</code> → 基本體、<code>CTWALL</code>、<code>HANDRA</code>、<code>LADDER</code>、<code>SBFRAMEWORK</code>、<code>SUBSTRUCTURE</code> 等</td>
+</tr>
+<tr>
+<td><code>SBFRAMEWORK</code></td>
+<td>子框架</td>
+<td>把 <code>FRMW</code> 再細分；Stspec、Matref、Grade、Firesistance、Ptspec、Inschedule；部分屬性會往成員傳遞</td>
+<td>→ <code>SCTN</code>、<code>STWALL</code>、<code>WALL</code>、<code>SCREED</code>、<code>FIXING</code> 等</td>
+</tr>
+<tr>
+<td><code>SCTN</code></td>
+<td>型鋼斷面</td>
+<td>40 個屬性：Gtype、Bangle、Posstart、Posend、Joistart 等；<strong>長度是推導值，不存屬性</strong>；斷面由目錄 <code>PROFILE</code> 定義</td>
+<td><code>CFLOOR</code>、<code>CWALL</code>、<code>SBFRAMEWORK</code>、<code>TMPLATE</code> → <code>FITTING</code>、<code>SNODE</code>、<code>SELJOINT</code>、<code>SPLOAD</code>、<code>SDLOAD</code> 等</td>
+</tr>
+<tr>
+<td><code>SNODE</code></td>
+<td>次要節點</td>
+<td>型鋼之間的「分析」連接點；Zdistance、Fixity、Level</td>
+<td><code>SCTN</code>、<code>STWALL</code> → <code>NODISPLACEMENT</code>、<code>NOLOAD</code>、<code>SJOINT</code>、<code>SCOJOINT</code> 等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="745">7.4.5 船體相關（四個類別）</h3>
+<p>船體的條目與管路相比<strong>非常薄</strong>。例如 <code>HPANEL</code> 只列 3 個屬性（Name、Description、<code>SymmEle</code>），<code>HPLATE</code> 5 個，大多數幾何不在這些屬性裡。條目中常見的是變更計數與 Tribon 識別：</p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>中文名</th>
+<th>屬性（條目所列）</th>
+<th>擁有者 → 成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HBLWLD</code></td>
+<td>船體分段世界</td>
+<td>Name、Description</td>
+<td><code>WORLD</code> → <code>BLOCK</code></td>
+</tr>
+<tr>
+<td><code>BLOCK</code></td>
+<td>分段</td>
+<td>Function、Purpose、<code>CHNGD</code>（變更計數）、Number、<code>ExtBox</code>（含偏置的分段包圍盒）；7 個屬性</td>
+<td><code>HBLWLD</code>、<code>WORLD</code> → <code>CPANEL</code>、<code>HPANEL</code></td>
+</tr>
+<tr>
+<td><code>HPANEL</code></td>
+<td>平面板架</td>
+<td><code>SymmEle</code>（對稱側板架參考，非對稱則不設定）</td>
+<td><code>BLOCK</code> → <code>HPLATE</code>、<code>HSTIFF</code>、<code>HBRCKT</code>、<code>HSEAM</code>、<code>HHOLE</code>、<code>HNOTCH</code>、<code>HFLANG</code>、<code>HPANBO</code> 等</td>
+</tr>
+<tr>
+<td><code>HPLATE</code></td>
+<td>平面板架的板</td>
+<td><code>CHNGD</code>、<code>TBID</code>（Tribon ID）、Number</td>
+<td><code>HPANEL</code> → 無</td>
+</tr>
+<tr>
+<td><code>HSTIFF</code></td>
+<td>平面板架加強材</td>
+<td>Desparam、Spref、<code>CHNGD</code>、<code>TBID</code>、Number</td>
+<td><code>HPANEL</code> → <code>HPREND</code>、<code>HPRCUT</code>、<code>HPRHOL</code>、<code>HPRNOT</code></td>
+</tr>
+<tr>
+<td><code>HBRCKT</code></td>
+<td>肘板</td>
+<td><code>CHNGD</code>、<code>TBID</code>、Number</td>
+<td><code>HPANEL</code> → <code>HBRABO</code>、<code>HBRFLA</code>、<code>HBRSTI</code></td>
+</tr>
+<tr>
+<td><code>CPANEL</code></td>
+<td>曲面板架</td>
+<td><code>CHNGD</code>、<code>SymmEle</code></td>
+<td><code>BLOCK</code> → <code>CPANBO</code>、<code>CPNISE</code>、<code>CSTIFF</code></td>
+</tr>
+<tr>
+<td><code>CPLATE</code></td>
+<td>殼板</td>
+<td><code>SymmEle</code>、<code>HRDPRX</code>（曲面板架參考）</td>
+<td><code>CSURPX</code> → 無</td>
+</tr>
+<tr>
+<td><code>CSURF</code></td>
+<td>曲面</td>
+<td><code>CHNGD</code>、<code>TBID</code></td>
+<td><code>SSOWLD</code> → <code>CCURVE</code></td>
+</tr>
+<tr>
+<td><code>CSTIFF</code></td>
+<td>殼板加強材</td>
+<td><code>SymmEle</code>、<code>HRDPRX</code></td>
+<td><code>CPANEL</code>、<code>CPROTR</code>、<code>HICPAN</code> → <code>CPRCUT</code>、<code>CPREND</code>、<code>CPRHOL</code>、<code>CPRMRK</code>、<code>CPRNOT</code></td>
+</tr>
+<tr>
+<td><code>HIPAN</code></td>
+<td>理想化平面板架</td>
+<td>Name、Description、Purpose（FEM 理想化）</td>
+<td><code>HIBLO</code> → <code>HIBOU</code>、<code>HIBRA</code>、<code>HICUT</code>、<code>HIHOL</code>、<code>HIPLA</code> 等</td>
+</tr>
+<tr>
+<td><code>MWELD</code></td>
+<td>焊縫</td>
+<td>21 個：<code>Wlen</code>、<code>Wlegl</code>、<code>Wproc</code>、<code>WldPos</code>、<code>WnLay</code>、<code>WcAng</code> 等</td>
+<td><code>MWLDJT</code> → 無</td>
+</tr>
+<tr>
+<td><code>MPLATE</code>（Manu 庫）</td>
+<td>板件</td>
+<td>47 個：<code>BrnLen</code>、<code>BlsLen</code>、<code>Curved</code>、<code>Bent</code>、<code>Corrug</code> 等製造量值</td>
+<td><code>MPKGFL</code> → 無</td>
+</tr>
+</tbody>
+</table>
+<p>這幾頁反映一個事實：Dabacon 中的船體元素主要是<strong>識別用的外殼</strong>，詳細的板形、孔、邊界由船體系統維護，並透過偽屬性（Hull 類別，見 7.5）計算出來。想改船體，仍要走船體模組，而不是直接寫屬性。船體概念請看<a href="ch06_hull_concepts_zh-TW.reading.html">第 6 章</a>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>CHNGD</code>（變更計數）與 <code>TBID</code>（Tribon ID）是船體條目最常見的兩個屬性，適合拿來做「這塊板有沒有變過」的差異比對；但它們是系統維護的，工具不要寫入。</p>
+</blockquote>
+<h3 id="746-catalogue">7.4.6 目錄庫（Catalogue）</h3>
+<p>目錄庫的關鍵是一條「規格 → 元件 → 點／幾何／資料」的鏈：</p>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>中文名</th>
+<th>重要屬性</th>
+<th>擁有者 → 成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CATALOGUE</code></td>
+<td>目錄 DB 元素</td>
+<td>Purpose、Cstandard</td>
+<td><code>WORLD</code> → <code>BTSET</code>、<code>STSECTION</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>SPECIFICATION</code></td>
+<td>規格</td>
+<td>Matref、Fluref、Rating、Linetype、Nomreference（口徑表）、Pdareference 等 26 項</td>
+<td><code>SPWLD</code> → <code>SELEC</code>、<code>SPCOMPONENT</code></td>
+</tr>
+<tr>
+<td><code>SPCOMPONENT</code></td>
+<td>規格元件（<code>SPCOM</code>）</td>
+<td><code>Catref</code>（目錄參考）、<code>Cmpref</code>、<code>Bltref</code>、Matref、<code>Tmpref</code>、<code>Pdareference</code></td>
+<td><code>SELEC</code>、<code>SPECIFICATION</code> → 無</td>
+</tr>
+<tr>
+<td><code>SCOMPONENT</code></td>
+<td>目錄元件</td>
+<td><code>Ptref</code>（點集）、<code>Gmref</code>（幾何集）、<code>Dtref</code>（資料集）、Gtype、Param</td>
+<td><code>CATEGORY</code>、<code>BTSET</code> → 無</td>
+</tr>
+<tr>
+<td><code>PTSET</code></td>
+<td>3D 點集</td>
+<td>Gtype、Skey</td>
+<td>→ <code>PTCAR</code>、<code>PTAXIS</code>、<code>PTMIX</code>、<code>PTPOS</code></td>
+</tr>
+<tr>
+<td><code>PTCAR</code></td>
+<td>笛卡兒 Ppoint</td>
+<td>Pconnect、Pbore、Px、Py、Pz、Direction、Pskey</td>
+<td><code>PTSET</code> → 無</td>
+</tr>
+<tr>
+<td><code>GMSET</code></td>
+<td>3D 幾何集</td>
+<td>Gtype、Skey</td>
+<td>→ <code>SBOX</code>、<code>SCYLINDER</code>、<code>SCONE</code>、<code>LINE</code> 等</td>
+</tr>
+<tr>
+<td><code>DTSET</code> / <code>DATA</code></td>
+<td>資料集／資料</td>
+<td><code>Dkey</code>、<code>Ptype</code>、<code>Pproperty</code>、<code>Dproperty</code>、<code>Punits</code>、<code>Lhide</code></td>
+<td><code>DTSET</code> → <code>DATA</code></td>
+</tr>
+<tr>
+<td><code>NOMINB</code></td>
+<td>公稱口徑</td>
+<td><code>Incbore</code>、<code>MMbore</code></td>
+<td><code>NBRWLD</code> → 無</td>
+</tr>
+</tbody>
+</table>
+<p>這條鏈對應設計庫的 <code>Spref</code> → <code>SPCOM</code> → <code>Catref</code> → <code>SCOMPONENT</code> → <code>Ptref</code>／<code>Gmref</code>／<code>Dtref</code>。手冊不畫這張圖，但條目中的 Reference 屬性把它串起來，如<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a>的外鍵圖。</p>
+<h3 id="747-draft">7.4.7 Draft、系統、字典與其他庫</h3>
+<table>
+<thead>
+<tr>
+<th>型別</th>
+<th>庫</th>
+<th>中文名</th>
+<th>重要屬性</th>
+<th>擁有者 → 成員</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DRWG</code></td>
+<td>Draft</td>
+<td>圖面</td>
+<td>Date、Size、Font、Rrsf（Rep 規則集）、Hrsf（影線規則集）、Layarf、Laydrf 等 52 項</td>
+<td><code>REGISTRY</code> → <code>SHEET</code>、<code>LIBY</code>、<code>REVISION</code>、<code>TASK</code></td>
+</tr>
+<tr>
+<td><code>SHEET</code></td>
+<td>Draft</td>
+<td>圖紙</td>
+<td>Size、Bsrf（底圖）、Idlname（Drawlist）、Title 等 31 項</td>
+<td><code>DRWG</code> → <code>VIEW</code>、<code>NOTE</code>、<code>OLAYER</code>、<code>VMSUBV</code></td>
+</tr>
+<tr>
+<td><code>VIEW</code></td>
+<td>Draft</td>
+<td>視圖</td>
+<td>Direction、Vscale、Vtype、Rrsf、Hrsf、Crsf 等 42 項</td>
+<td><code>SHEET</code> 等 → <code>LAYER</code>、<code>RRULE</code>、<code>HRULE</code>、<code>VSECTION</code></td>
+</tr>
+<tr>
+<td><code>LAYER</code></td>
+<td>Draft</td>
+<td>視圖標註圖層</td>
+<td>66 項：Lvisibility、Font、Tpen、Dlpen 等</td>
+<td><code>VIEW</code> → <code>LDIMENSION</code>、<code>GLABEL</code>、<code>SLABEL</code>、<code>TAGRULE</code> 等</td>
+</tr>
+<tr>
+<td><code>LDIMENSION</code></td>
+<td>Draft</td>
+<td>線性尺寸</td>
+<td>Direction、Doffset、Dposition、Dterminator 等 48 項</td>
+<td><code>LAYER</code> → <code>DPOINT</code>、<code>DPPT</code>、<code>DPBA</code></td>
+</tr>
+<tr>
+<td><code>USER</code></td>
+<td>System</td>
+<td>使用者</td>
+<td>Password、Security、Acrli（指派的 ACR）</td>
+<td><code>USERWORLD</code> → <code>EXTLI</code>、<code>TMLI</code></td>
+</tr>
+<tr>
+<td><code>TEAM</code></td>
+<td>System</td>
+<td>團隊</td>
+<td>Teastatus</td>
+<td><code>TEAMWORLD</code> → <code>DBLI</code></td>
+</tr>
+<tr>
+<td><code>DB</code></td>
+<td>System／Global</td>
+<td>資料庫</td>
+<td>Numbdb、Fino、Accessdb、Claimdb、LCtrolled、LVariant、ExtNo、ExtOwner</td>
+<td><code>DBLI</code>、<code>EXTLI</code> → 無</td>
+</tr>
+<tr>
+<td><code>MDB</code></td>
+<td>System</td>
+<td>多資料庫</td>
+<td>Dbls（所屬 DB）、Curdbs（目前 DB）</td>
+<td><code>MDBW</code> → <code>DB</code></td>
+</tr>
+<tr>
+<td><code>UDA</code></td>
+<td>Dictionary</td>
+<td>使用者自訂屬性</td>
+<td>Ukey、Utype、Ulength、Uunits、Elelist 等 23 項</td>
+<td><code>UGROUP</code>、<code>UWRLD</code> → <code>ULIMIT</code>、<code>UVALID</code></td>
+</tr>
+<tr>
+<td><code>UDET</code></td>
+<td>Dictionary</td>
+<td>使用者自訂元素型別</td>
+<td>BaseTy、UDMList、UDOList、UDHLIS</td>
+<td><code>UDETGR</code>、<code>UDETWL</code> → 無</td>
+</tr>
+<tr>
+<td><code>ASMBLY</code></td>
+<td>Design（Assembly）</td>
+<td>組裝</td>
+<td>AsName、AsWLoc、AsBuil、AsBPan、AsEWei、AsECoG</td>
+<td><code>ASMBLY</code>、<code>ASWLD</code> → <code>ASITEM</code>、<code>ASMBLY</code></td>
+</tr>
+<tr>
+<td><code>GRIDAXIS</code></td>
+<td>Design（Grid）</td>
+<td>格線軸</td>
+<td>GRDAXE、GRDLBL</td>
+<td><code>GRIDSYSTEM</code> → <code>GRIDLN</code></td>
+</tr>
+<tr>
+<td><code>CWAY</code>／<code>CABLE</code></td>
+<td>Design（Cabling）</td>
+<td>電纜路徑／電纜</td>
+<td>Function、Purpose、Position；<code>CABLE</code> 另有 Spref、FEQDES、TEQDES 等 24 項</td>
+<td><code>ZONE</code> → <code>CWBRAN</code>；<code>CORE</code>、<code>RPATH</code> 等</td>
+</tr>
+<tr>
+<td><code>LADDER</code></td>
+<td>Design</td>
+<td>梯</td>
+<td>Matref、FireRating、ORise、OGoing、Rise、RWidth 等 25 項</td>
+<td><code>DETGRP</code>、<code>STRUCTURE</code> → <code>HANDRA</code>、<code>LDRCAGE</code>、<code>LDRRUN</code> 等</td>
+</tr>
+<tr>
+<td><code>ROOM</code></td>
+<td>Design（Accommodation）</td>
+<td>房間</td>
+<td>Heidefault、FlrHeight、ClnHeight、OccType 等 48 項</td>
+<td><code>BLEVEL</code>、<code>STRUCTURE</code> 等 → 多種</td>
+</tr>
+<tr>
+<td><code>PPIECE</code></td>
+<td>Design（Pipe Piece）</td>
+<td>管件預製片</td>
+<td>BENDMC、STOCKL 等 20 項</td>
+<td><code>PPLIST</code> → 無</td>
+</tr>
+<tr>
+<td><code>SPOOL</code></td>
+<td>Spooler</td>
+<td>管段</td>
+<td>Splprefix、Splnumber、Spltbl</td>
+<td><code>SPLDRG</code>、<code>SPLTMP</code> → 無</td>
+</tr>
+<tr>
+<td><code>SCEQUIPMENT</code></td>
+<td>Schematic</td>
+<td>示意設備</td>
+<td>Distag、Prefix、Number、Suffix、Scsysf 等 27 項</td>
+<td><code>SCGROUP</code> → <code>SCNOZZLE</code>、<code>SCSUBEQUIPMENT</code>、<code>TEXT</code></td>
+</tr>
+<tr>
+<td><code>FLUID</code></td>
+<td>Property</td>
+<td>流體材料</td>
+<td>Name、Description；成員有密度、膨脹係數、楊氏模數等表</td>
+<td><code>MATWORLD</code> → <code>TDENSITY</code>、<code>TEXPANSION</code>、<code>TYOUNG</code> 等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>DRWG</code> 擁有者是 <code>REGISTRY</code>（Draft 庫）；<code>Rrsf</code>、<code>Hrsf</code>、<code>Crsf</code> 分別指向表示規則、影線規則、變更規則集，Draft 的使用請見<a href="ch28_draft_admin_production_zh-TW.reading.html">第 28 章</a>。</p>
+</blockquote>
+<p><strong>常見錯誤：</strong> 把 <code>SPCOMPONENT</code>（規格元件，指向目錄）與 <code>SCOMPONENT</code>（目錄元件，擁有點／幾何／資料參考）搞混；兩者只差一個字母，卻在不同階層。<code>SPCOM</code> 的 <code>Catref</code> 是進入 <code>SCOMPONENT</code> 的入口。</p>
+<h2 id="75">7.5 偽屬性</h2>
+<h3 id="751">7.5.1 怎麼找</h3>
+<p>手冊的 Pseudo Attributes 章依<strong>用途分成 67 個類別</strong>，每頁是一張 Attribute Name／Data Type／Qualifier／Description 的表。</p>
+<table>
+<thead>
+<tr>
+<th>類別（頁名）</th>
+<th>代表偽屬性（取樣）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positional</td>
+<td><code>POS</code>、<code>ORI</code>、<code>WVOL</code>、<code>EVOL</code>、<code>POSX</code>、<code>POSU</code>、<code>POSN</code>、<code>GRDPOS</code></td>
+<td>位置與座標分量</td>
+</tr>
+<tr>
+<td>Name Related</td>
+<td><code>FLNN</code>、<code>FLNM</code>、<code>NAMN</code>、<code>ISNAMED</code>、<code>NAMETY</code>、<code>NAMESQ</code></td>
+<td>名稱的各種格式</td>
+</tr>
+<tr>
+<td>Element Type Related</td>
+<td><code>TYPE</code>、<code>ACTTYPE</code>、<code>FULLT</code>、<code>OSTYPE</code>、<code>TYSEQU</code>、<code>AHLIS</code></td>
+<td>型別與序號</td>
+</tr>
+<tr>
+<td>Data Model</td>
+<td><code>LIST</code>、<code>OLIS</code>、<code>HLIS</code>、<code>LLIS</code>、<code>DLIST</code></td>
+<td>合法成員、擁有者、階層內可能型別</td>
+</tr>
+<tr>
+<td>Attribute Related</td>
+<td><code>ATTLIST</code>、<code>ATTOUT</code>、<code>ATTRAW</code>、<code>PSATTS</code>、<code>UDALIS</code>、<code>UDASET</code></td>
+<td>屬性清單</td>
+</tr>
+<tr>
+<td>Database</td>
+<td><code>DBAC</code>、<code>DBCL</code>、<code>DBNA</code>、<code>DBNU</code>、<code>DBTY</code>、<code>DBREF</code>、<code>DBWRITE</code></td>
+<td>元素所在資料庫</td>
+</tr>
+<tr>
+<td>Claim Related</td>
+<td><code>LCLM</code>、<code>CLMNUM</code>、<code>CLMID</code>、<code>OKCLA</code>、<code>OKREL</code></td>
+<td>認領狀態</td>
+</tr>
+<tr>
+<td>Allowed Operation</td>
+<td><code>DACCLA</code>、<code>DACCRE</code>、<code>DACDEL</code>、<code>DACMOD</code>、<code>MODATT</code>、<code>MODERR</code></td>
+<td>能不能做某操作</td>
+</tr>
+<tr>
+<td>Change History</td>
+<td><code>ELEMOD</code>、<code>ELECRE</code>、<code>ELEDEL</code>、<code>CRDATE</code>、<code>CRUSER</code>、<code>ATTMOD</code></td>
+<td>變更與建立歷史</td>
+</tr>
+<tr>
+<td>Mass Properties</td>
+<td><code>GWEI</code>、<code>NWEI</code>、<code>GVOL</code>、<code>GCOF</code>、<code>DNST</code></td>
+<td>重量、體積、重心、慣性矩</td>
+</tr>
+<tr>
+<td>Spatial</td>
+<td><code>WVOL</code>、<code>LVOL</code>、<code>CSGBOX</code>、<code>GTAREAS</code></td>
+<td>包圍盒與所在區域</td>
+</tr>
+<tr>
+<td>Status Related</td>
+<td><code>STVNAM</code>、<code>STVNUM</code>、<code>STVLST</code>、<code>STVTRV</code></td>
+<td>Status 值與可轉換狀態</td>
+</tr>
+<tr>
+<td>Catalog Values for Design Item</td>
+<td><code>CATR</code>、<code>GMRE</code>、<code>CPAR</code>、<code>APAR</code>、<code>DTXR</code>、<code>MATR</code></td>
+<td>設計元素取得的目錄值</td>
+</tr>
+<tr>
+<td>Catalog Values for Piping Item</td>
+<td><code>ABOR</code>、<code>ACON</code>、<code>APOS</code>、<code>ADIR</code>、<code>AOD</code>、<code>ATWALL</code></td>
+<td>管件的 Arrive／Leave 端值</td>
+</tr>
+<tr>
+<td>Design Parameters</td>
+<td><code>ADESP</code>、<code>DDESP</code>、<code>ODESP</code>、<code>WDESP</code></td>
+<td>設計參數的各種版本</td>
+</tr>
+<tr>
+<td>Rules Related</td>
+<td><code>RCOU</code>、<code>NRULEE</code>、<code>RULSET</code>、<code>DEPATT</code></td>
+<td>規則數量與錯誤</td>
+</tr>
+<tr>
+<td>Hull</td>
+<td><code>BEVEL</code>、<code>CMBOX</code>、<code>CMCAT</code>、<code>CMFLW</code>、<code>ATWLEN</code> 等</td>
+<td>船體計算值（頁面很長，約 17,000 字元）</td>
+</tr>
+<tr>
+<td>Draft ×6、Schematic、SPOOLER、Stairs、Cabling…</td>
+<td>各專業計算值</td>
+<td>各專業用</td>
+</tr>
+</tbody>
+</table>
+<p>另有其他類別，如 Global、Lexicon、Link Related、Pline Related、PPoint Related、Piping Specification、Project Copy、Space Management 等，本章未逐一展開。</p>
+<p>此外，<code>Pseudo Attributes</code> 章首頁本身還列出一批未分類的屬性（<code>ALIST</code>、<code>UUID</code>、<code>UUIDREF</code>、<code>XRLIST</code> 等）。</p>
+<h3 id="752">7.5.2 實用偽屬性速查</h3>
+<table>
+<thead>
+<tr>
+<th>偽屬性</th>
+<th>型別</th>
+<th>說明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FLNN</code></td>
+<td>string(700)</td>
+<td>完整名稱（不含開頭 <code>/</code>）</td>
+<td>報表、輸出</td>
+</tr>
+<tr>
+<td><code>TYPE</code></td>
+<td>word</td>
+<td>型別，截為 4 或 6 字元</td>
+<td>型別比對</td>
+</tr>
+<tr>
+<td><code>FULLT</code></td>
+<td>string</td>
+<td>完整型別</td>
+<td>型別比對</td>
+</tr>
+<tr>
+<td><code>DBREF</code></td>
+<td>element</td>
+<td>DB reference</td>
+<td>內部識別</td>
+</tr>
+<tr>
+<td><code>LOCK</code></td>
+<td>logical</td>
+<td>元素是否鎖定</td>
+<td>檢查</td>
+</tr>
+<tr>
+<td><code>WVOL</code></td>
+<td>real(6)</td>
+<td>世界座標包圍盒</td>
+<td>空間查詢</td>
+</tr>
+<tr>
+<td><code>LIST</code></td>
+<td>word(2000)</td>
+<td>所有可能成員型別</td>
+<td>查合法成員</td>
+</tr>
+<tr>
+<td><code>OLIS</code></td>
+<td>word(2000)</td>
+<td>所有可能擁有者型別</td>
+<td>查合法擁有者</td>
+</tr>
+<tr>
+<td><code>ATTLIST</code></td>
+<td>word(2000)</td>
+<td>元素全部屬性</td>
+<td>屬性探索</td>
+</tr>
+<tr>
+<td><code>ATTOUT</code></td>
+<td>word(2000)</td>
+<td>排除隱藏屬性（即 <code>Q ATT</code> 的輸出）</td>
+<td>屬性探索</td>
+</tr>
+<tr>
+<td><code>PSATTS</code></td>
+<td>word(500)</td>
+<td>偽屬性清單</td>
+<td>偽屬性探索</td>
+</tr>
+<tr>
+<td><code>UDALIS</code></td>
+<td>word(2000)</td>
+<td>UDA 清單</td>
+<td>UDA 探索</td>
+</tr>
+<tr>
+<td><code>LCLM</code></td>
+<td>logical</td>
+<td>元素是否被認領</td>
+<td>寫入前檢查</td>
+</tr>
+<tr>
+<td><code>DACMOD</code></td>
+<td>logical，qualifier attr</td>
+<td>DAC 是否允許改某屬性</td>
+<td>權限檢查</td>
+</tr>
+<tr>
+<td><code>MODATT</code></td>
+<td>logical，qualifier attr</td>
+<td>某屬性能否被修改</td>
+<td>寫入前檢查</td>
+</tr>
+<tr>
+<td><code>MODERR</code></td>
+<td>string(120)，qualifier attr</td>
+<td>修改失敗時的錯誤文字</td>
+<td>診斷</td>
+</tr>
+<tr>
+<td><code>GWEI</code>、<code>NWEI</code></td>
+<td>real</td>
+<td>毛重、淨重</td>
+<td>重量報表</td>
+</tr>
+<tr>
+<td><code>CATR</code></td>
+<td>element</td>
+<td>目錄參考</td>
+<td>沿鏈查目錄</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>本課程在第 3、4 章提到的 <code>LASTMOD</code>，<strong>這次在 12.1 的屬性總表中搜尋不到</strong>（搜尋縮寫 <code>LAST</code> 與全名皆無）。Change History 類別提供的是 <code>ELEMOD</code>、<code>ATTMOD</code>、<code>CRDATE</code>、<code>CRUSER</code> 等。若要查「最後修改」，改用這些，並在實際系統驗證〔待核對〕。</p>
+<p><strong>專業提醒：</strong> 偽屬性的基本特性（查詢時計算、無歷史、<code>Q ATT</code> 不列出）見<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a> 4.5.2 與 4.7.3 節。重量與體積類偽屬性對大量元素計算昂貴，批次報表前先小範圍測試。</p>
+</blockquote>
+<h2 id="76-uda">7.6 使用者自訂屬性（UDA）</h2>
+<h3 id="761">7.6.1 命名與定義位置</h3>
+<p>簡介頁說明：元素除標準屬性外，可有一或多個 UDA；設定與使用方式相同，但<strong>名稱以冒號 <code>:</code> 開頭</strong>。詳細定義方式交給 Administration 的 LEXICON 文件。</p>
+<p>UDA 本身是 Dictionary 庫裡的元素。<code>UDA</code> 條目（23 個屬性）的幾個關鍵欄位：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utype</td>
+<td>Type of attribute value</td>
+<td>值的型別</td>
+</tr>
+<tr>
+<td>Ulength</td>
+<td>Length of data or text</td>
+<td>長度</td>
+</tr>
+<tr>
+<td>Uunits</td>
+<td>Units of attribute values (bore/distance/text)</td>
+<td>單位類別</td>
+</tr>
+<tr>
+<td>Elelist</td>
+<td>Types of elements (including UDETs) to which this attribute applies</td>
+<td>套用到哪些型別</td>
+</tr>
+<tr>
+<td>Reflist</td>
+<td>參考型 UDA 可指向的型別</td>
+<td>參考範圍</td>
+</tr>
+<tr>
+<td>Dflt</td>
+<td>預設值</td>
+<td></td>
+</tr>
+<tr>
+<td>Upseud</td>
+<td>設為 true 時計算值而非存入資料庫，需提供使用者程式碼</td>
+<td>「偽」UDA</td>
+</tr>
+<tr>
+<td>Uprote</td>
+<td>設為 true 則在受保護資料庫中不能檢視</td>
+<td></td>
+</tr>
+<tr>
+<td>Uhide、Uteams</td>
+<td>隱藏屬性、哪些 Team 看得到</td>
+<td></td>
+</tr>
+<tr>
+<td>Uhyper</td>
+<td>把值當成外部資源的具名連結</td>
+<td></td>
+</tr>
+<tr>
+<td>Udname</td>
+<td>使用者自訂名稱</td>
+<td>即冒號後的名稱</td>
+</tr>
+<tr>
+<td>Udpend</td>
+<td>依賴的其他屬性</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>限制值放在 <code>ULIMIT</code>（<code>Umin</code>、<code>Umax</code>），合法值清單放在 <code>UVALID</code>（<code>Uvval</code>），兩者都是 <code>UDA</code> 的成員。<code>UDET</code>（使用者自訂元素型別）用 <code>BaseTy</code> 指定基底型別，並以 <code>UDMList</code>、<code>UDOList</code> 定義允許的成員與擁有者型別。</p>
+<h3 id="762">7.6.2 與標準屬性的差別</h3>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>標準屬性</th>
+<th>UDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名稱</td>
+<td>無前綴</td>
+<td>以 <code>:</code> 開頭</td>
+</tr>
+<tr>
+<td>定義</td>
+<td>資料模型（DMRM）</td>
+<td>專案的 Dictionary 庫（LEXICON）</td>
+</tr>
+<tr>
+<td>手冊是否列出</td>
+<td>是</td>
+<td><strong>否</strong>：每個專案不同</td>
+</tr>
+<tr>
+<td>可算值</td>
+<td>偽屬性</td>
+<td><code>Upseud</code> 為 true 的 UDA</td>
+</tr>
+<tr>
+<td>查詢</td>
+<td><code>Q ATT</code></td>
+<td><code>Q UDALIS</code>、<code>Q UDASET</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> UDA 定義在專案內，<strong>DMRM 不會有你公司的 UDA</strong>。每個專案先用 <code>Q UDALIS</code> 查出實際清單，再寫程式。UDA 名稱 <code>:</code> 開頭的 PML 寫法見第 33 章，那裡標為〔寫法待核對〕。</p>
+</blockquote>
+<h2 id="77-pmlnet">7.7 與 PML／.NET 取值的關係</h2>
+<h3 id="771-dmrm">7.7.1 DMRM 在程式中的位置</h3>
+<p>DMRM 的 Assumptions 說這本書是給需要寫批次巨集或客製 GUI 的使用者；PML 語法本身在 Software Customization（手冊內明指，並說完整屬性與偽屬性清單可在該處查）。換句話說：</p>
+<ul>
+<li><strong>DMRM 回答「資料庫裡有什麼」</strong>（型別、屬性、型別、擁有關係）；</li>
+<li><strong>PML 手冊回答「怎麼取出來」</strong>；</li>
+<li>之後的<a href="ch33_pml_database_zh-TW.reading.html">第 33 章</a>會講 PML 取值的寫法，本章不重複。</li>
+</ul>
+<h3 id="772">7.7.2 資料型別怎麼對應</h3>
+<p>下表混合了手冊的資料型別與之後第 33 章會介紹的 PML 取值結果；尚未在實際程式或手冊確認的對應標為〔待核對〕。</p>
+<table>
+<thead>
+<tr>
+<th>DMRM 資料型別</th>
+<th>PML 取值（第 33 章）</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string(n)</td>
+<td><code>!e.desc</code> → STRING</td>
+<td>超長字串依屬性上限</td>
+</tr>
+<tr>
+<td>real</td>
+<td>REAL</td>
+<td>單位依專案設定</td>
+</tr>
+<tr>
+<td>integer</td>
+<td>REAL（PML 數值型別）〔待核對〕</td>
+<td></td>
+</tr>
+<tr>
+<td>logical</td>
+<td>BOOLEAN〔待核對〕</td>
+<td></td>
+</tr>
+<tr>
+<td>word</td>
+<td>STRING 或 WORD〔待核對〕</td>
+<td>寫入前驗證長度</td>
+</tr>
+<tr>
+<td>element</td>
+<td>DBREF</td>
+<td>可能是 NULREF，要先判斷</td>
+</tr>
+<tr>
+<td>pos</td>
+<td>POSITION</td>
+<td><code>!e.position</code></td>
+</tr>
+<tr>
+<td>ori</td>
+<td>ORIENTATION〔待核對〕</td>
+<td></td>
+</tr>
+<tr>
+<td>real(n)、element(n)</td>
+<td>ARRAY〔待核對〕</td>
+<td><code>!e.members</code> 回傳陣列</td>
+</tr>
+</tbody>
+</table>
+<h3 id="773">7.7.3 實務查詢範例（只讀）</h3>
+<p>以下範例的寫法都有依據：<code>Q ATT</code>、<code>Q PSATTS</code>、<code>Q UDALIS</code> 見簡介頁與偽屬性頁說明；PML 的 <code>.flnn</code>、<code>.type</code>、<code>.owner</code>、<code>.members</code> 見之後的第 33 章。命令列輸出格式依實際系統〔待核對〕。</p>
+<p><strong>範例 1：先確認元素有什麼屬性</strong></p>
+<p>依序執行 <code>Q TYPE</code>、<code>Q ATT</code>、<code>Q PSATTS</code>、<code>Q UDALIS</code>。<code>Q ATT</code> 的輸出等於偽屬性 <code>ATTOUT</code>（排除隱藏屬性）；<code>PSATTS</code> 列出偽屬性；<code>UDALIS</code> 列出 UDA。四種屬性清單的差別詳見<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a> 4.7.3 節。</p>
+<p><strong>範例 2：確認合法擁有者與成員</strong></p>
+<pre><code>Q OLIS
+Q LIST
+</code></pre>
+<p><code>OLIS</code> 是「所有可能擁有者型別」，<code>LIST</code> 是「所有可能成員型別」（Data Model 類別）。建立元素前先查它，比猜更可靠。</p>
+<p><strong>範例 3：寫入前的檢查</strong></p>
+<pre><code>Q LCLM
+Q DBWRITE
+</code></pre>
+<p><code>LCLM</code> 是「元素是否被認領」，<code>DBWRITE</code> 是「是否在可寫入的 DB」。兩個都是偽屬性（Claim Related、Database 類別）；寫入前用 <code>MODATT</code>（需給屬性名稱當 qualifier，語法〔待核對〕）再確認。</p>
+<p><strong>範例 4：PML 中讀取（寫法見之後的第 33 章）</strong></p>
+<pre><code class="language-pml">!e = !!ce
+!n   = !e.flnn
+!t   = !e.type
+!own = !e.owner
+!kids = !e.members
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> DMRM 的屬性清單可能比你所在專案實際可用的多。實務流程是<strong>先在訓練專案用 <code>Q ATT</code> 驗證，再把屬性名稱寫進程式</strong>，而且寫程式用完整名稱（見第 33 章）。</p>
+</blockquote>
+<h3 id="774-net">7.7.4 .NET 與其他取值路徑</h3>
+<p>本次取材的 DMRM 沒有 .NET 內容。.NET 與資料模型的關係應查 .NET 客製化相關章節，不在本章範圍〔待核對〕。</p>
+<h2 id="78">7.8 手冊的限制與陷阱</h2>
+<table>
+<thead>
+<tr>
+<th>現象</th>
+<th>說明</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船體條目很薄</td>
+<td><code>HPANEL</code> 只列 3 個屬性；多數船體資訊透過偽屬性計算</td>
+<td>以偽屬性 Hull 類別與船體模組為主；見第 6 章</td>
+</tr>
+<tr>
+<td>轉檔缺漏</td>
+<td>部分條目（如 <code>SBFRAMEWORK</code>、<code>NBOX</code>、<code>SCTN</code>）的擁有者／成員列中出現「Global tab」字樣，原頁面應是分頁內容未轉出</td>
+<td>用 <code>Q OLIS</code>、<code>Q LIST</code> 在系統上確認</td>
+</tr>
+<tr>
+<td>描述空白</td>
+<td>許多條目 Description 為空（如 <code>BOX</code>、<code>HPLATE</code>）</td>
+<td>看屬性與擁有關係，或查其他手冊</td>
+</tr>
+<tr>
+<td>長名稱與縮寫不一致</td>
+<td>見 7.2.4</td>
+<td>以 <code>Q ATT</code> 實測</td>
+</tr>
+<tr>
+<td>沿用 PDMS 名稱</td>
+<td><code>USER</code> 條目稱「PDMS User Element」</td>
+<td>閱讀時自行換算</td>
+</tr>
+<tr>
+<td>版本差異</td>
+<td>12.1 與 E3D 2.1／3.1 的屬性、型別字元上限可能不同；<code>LASTMOD</code> 在 12.1 總表未見</td>
+<td>以 12.1 實測為準</td>
+</tr>
+<tr>
+<td>無單位表</td>
+<td>見 7.3.3</td>
+<td>以專案單位設定為準</td>
+</tr>
+<tr>
+<td>廢止標記</td>
+<td>部分偽屬性（如 <code>OKCLA</code>、<code>OKCLH</code>）註明已廢止且恆回傳 True</td>
+<td>不要用來做權限判斷</td>
+</tr>
+</tbody>
+</table>
+<h2 id="79">7.9 本章小結</h2>
+<ol>
+<li>DMRM 是字典，不是教學書：依資料庫分章，每個型別一頁，內含描述、屬性、合法擁有者與合法成員；設計庫約 500 型別，是最大的一章。</li>
+<li>屬性分一般與特殊兩類；另有偽屬性（67 類，查詢時計算）與 UDA（冒號開頭，專案自訂，手冊不列）。</li>
+<li>屬性資料型別包括 Name、Real、Integer、Reference、Logical、Word、String、Datetime，與三種陣列、Noclaim；總表的 <code>real(6)</code>、<code>element(500)</code> 記法標示陣列上限。</li>
+<li>型別條目用長名稱，總表與命令列用縮寫，兩者沒有統一轉換規則；查詢要以 <code>Q ATT</code> 實測。</li>
+<li>階層是設計核心：WORLD → SITE → ZONE → EQUIPMENT／PIPE／STRUCTURE／HVAC；PIPE → BRANCH → 管件；EQUIPMENT → NOZZLE；STRUCTURE → FRAMEWORK → SECTION。</li>
+<li>目錄鏈：<code>Spref</code> → <code>SPCOM</code> → <code>Catref</code> → <code>SCOMPONENT</code> → 點集、幾何集、資料集。</li>
+<li>船體條目很薄，多為 <code>CHNGD</code>、<code>TBID</code> 識別與計算偽屬性；寫入走船體模組。</li>
+<li>合法成員與擁有者用 <code>Q LIST</code>、<code>Q OLIS</code> 實測最穩；寫入前查 <code>LCLM</code>、<code>DBWRITE</code>、<code>MODATT</code>。</li>
+<li>手冊不講單位，單位看專案設定。</li>
+</ol>
+<h2 id="710">7.10 練習題／自我檢核</h2>
+<p><strong>練習（訓練專案，唯讀）</strong></p>
+<ol>
+<li>選一個 <code>EQUIPMENT</code>，執行 <code>Q ATT</code>，把結果與 DMRM 的 <code>EQUIPMENT</code> 條目對照：哪些屬性條目有、命令列沒列？哪些相反？</li>
+<li>在 <code>BRANCH</code> 上執行 <code>Q LIST</code>，與條目 Legal Members 比對。</li>
+<li>找出 5 個長名稱與縮寫不同的屬性，做成對照表（如 <code>Spref</code>／<code>SPRE</code>）。</li>
+<li>對一個管件執行 <code>Q SPRE</code>，再沿 <code>Catref</code> 找到 <code>SCOMPONENT</code>，查它的 <code>Ptref</code>、<code>Gmref</code>、<code>Dtref</code>（需要目錄庫在目前 MDB 中）。</li>
+<li>在 <code>PSATTS</code> 輸出中選 3 個偽屬性，到 Pseudo Attributes 章找出它們屬於哪個類別。</li>
+<li>用 <code>Q UDALIS</code> 看專案 UDA；找到一個，查它在 Dictionary 庫中的 <code>Utype</code>、<code>Elelist</code>。</li>
+<li>對一塊板（若有）查 <code>Q ATT</code>，觀察船體條目為何屬性少（見 7.4.5）。</li>
+</ol>
+<p><strong>自我檢核</strong></p>
+<ul>
+<li>[ ] 我能說出 DMRM 的主要分區，並知道設計庫有多少個類別。</li>
+<li>[ ] 我能讀懂一個型別條目的四個部分。</li>
+<li>[ ] 我知道 Word 型屬性有長度限制，過長會截斷（見<a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章</a> 4.5.1）。</li>
+<li>[ ] 我能說明偽屬性與 UDA 的差別，並知道去哪裡查。</li>
+<li>[ ] 我知道條目長名稱與總表縮寫不能互相推導。</li>
+<li>[ ] 我知道 <code>Q LIST</code>、<code>Q OLIS</code> 可以查合法成員與擁有者。</li>
+<li>[ ] 我知道手冊沒有單位表，也知道船體條目很薄。</li>
+</ul>
+<h2 id="711">7.11 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch07">附錄 D 第 7 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch07">附錄 E 第 7 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch06_hull_concepts_zh-TW.reading.html"><small>← 上一篇</small>第 6 章　船體概念與基礎：Product Information Model、模型物件、拓撲與命名</a><a class="next" href="ch08_initial_design_zh-TW.reading.html"><small>下一篇 →</small>第 8 章　初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

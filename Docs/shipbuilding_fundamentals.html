@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c1-3"><label for="c1-3">我能說出 AVEVA 不負責哪三類計算</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch01_architecture_zh-TW.reading.html">第 1 章 產品架構</a></div>
+  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch02_architecture_zh-TW.reading.html">第 2 章 產品架構</a></div>
 </section>
 
 <section class="unit" id="u2">
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     </g>
     <text x="150" y="222" fill="#65788a" font-size="10">FR 肋位（間距依船型與規範）</text>
   </svg>
-  <div class="figcap">圖 2-1　主要尺寸只看側視圖不夠：B（模寬）與乾舷要在橫剖面看，D 與 T 都從基線量起。（本課程自繪）</div>
+  <div class="figcap">圖 3-1　主要尺寸只看側視圖不夠：B（模寬）與乾舷要在橫剖面看，D 與 T 都從基線量起。（本課程自繪）</div>
   </div>
 
   <div class="tbl-wrap">
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
     <ul>
       <li>主要尺寸通常寫在<strong>專案設定與圖框</strong>，不是某個元素的屬性；跨工具傳遞時要自己建立對照。</li>
-      <li>肋位（FR）與縱向位置（LP）是船體定位的基準（第 4 章）；分段、板架、開孔都用它描述位置。</li>
+      <li>肋位（FR）與縱向位置（LP）是船體定位的基準（第 5 章）；分段、板架、開孔都用它描述位置。</li>
       <li>船級註記與載重線<strong>不會自動變成模型屬性</strong>；需要時用 UDA 或外部表單管理，並在報表中標明來源。</li>
       <li>噸位與穩度計算不在 AVEVA 內；開發時若要做「噸位估算」，必須先確認沿用哪一套公式與版本。</li>
     </ul>
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c2-3"><label for="c2-3">我能說明乾舷與載重線的關係</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章 座標與肋位</a><a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章 屬性</a></div>
+  <div class="foot-links"><a href="ch05_coordinates_geometry_zh-TW.reading.html">第 5 章 座標與肋位</a><a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章 屬性</a></div>
 </section>
 
 <section class="unit" id="u3">
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <text x="358" y="90" fill="#9a6212" font-size="10">FR 242</text>
     <text x="236" y="212" fill="#65788a" font-size="10">肋距（frame spacing）</text>
   </svg>
-  <div class="figcap">圖 3-1　船體座標與肋位。不同船廠可能採「艉部為原點、向艏遞增」或「以艏垂線起算」，Y 的正向也可能是左舷或右舷；使用前務必確認專案約定。（本課程自繪）</div>
+  <div class="figcap">圖 4-1　船體座標與肋位。不同船廠可能採「艉部為原點、向艏遞增」或「以艏垂線起算」，Y 的正向也可能是左舷或右舷；使用前務必確認專案約定。（本課程自繪）</div>
   </div>
 
   <h3>3.3 排水量與浮心</h3>
@@ -395,9 +395,9 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
     <ul>
       <li>AVEVA 提供<strong>幾何</strong>：曲面、板架、艙櫃邊界、開口；這些是性能計算的輸入。</li>
-      <li><strong>穩度與阻力計算要在外部工具做</strong>（NAPA、GHS、Maxsurf、Shipflow 等）。AVEVA 可以輸出重量重心、艙櫃容積表，但不做 GM 或 GZ 曲線。重量與水艙資料怎麼交給載重電腦，見<a href="ch19_loading_computer_zh-TW.reading.html">第 19 章</a>。</li>
+      <li><strong>穩度與阻力計算要在外部工具做</strong>（NAPA、GHS、Maxsurf、Shipflow 等）。AVEVA 可以輸出重量重心、艙櫃容積表，但不做 GM 或 GZ 曲線。重量與水艙資料怎麼交給載重電腦，見<a href="ch42_loading_computer_zh-TW.reading.html">第 42 章</a>。</li>
       <li>如果你要寫「自動算艙容」的工具，記得先確認用的是<strong>模線容積</strong>還是含構件扣除的<strong>淨容積</strong>，兩者差幾個百分點，對穩度影響很大。</li>
-      <li>船體座標與肋位在 AVEVA 中是定位基礎（第 4 章）；寫查詢時不要假設原點固定在艉垂線。</li>
+      <li>船體座標與肋位在 AVEVA 中是定位基礎（第 5 章）；寫查詢時不要假設原點固定在艉垂線。</li>
     </ul>
   </div>
 
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c3-4"><label for="c3-4">我知道 AVEVA 不做穩度與阻力計算</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch04_coordinates_geometry_zh-TW.reading.html">第 4 章 座標與幾何</a><a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章 船體建模</a></div>
+  <div class="foot-links"><a href="ch05_coordinates_geometry_zh-TW.reading.html">第 5 章 座標與幾何</a><a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章 船體建模</a></div>
 </section>
 
 <section class="unit" id="u4">
@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
       <line x1="216" y1="284" x2="222" y2="268"/>
     </g>
   </svg>
-  <div class="figcap">圖 4-1　中橫剖面示意（非特定船型）。實際構件配置依船型、船級規範與 CSR 而定。（本課程自繪）</div>
+  <div class="figcap">圖 5-1　中橫剖面示意（非特定船型）。實際構件配置依船型、船級規範與 CSR 而定。（本課程自繪）</div>
   </div>
 
   <h3>4.2 構件與作用</h3>
@@ -498,9 +498,9 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
 
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
     <ul>
-      <li>船體構件在 AVEVA Marine 中主要落在 <code>HPANEL</code>（板架）、<code>HPLATE</code>（板）、<code>HSTIFF</code>（加強材）、<code>HBRCKT</code>（肘板）等型別（第 5 章）。</li>
+      <li>船體構件在 AVEVA Marine 中主要落在 <code>HPANEL</code>（板架）、<code>HPLATE</code>（板）、<code>HSTIFF</code>（加強材）、<code>HBRCKT</code>（肘板）等型別（第 9 章）。</li>
       <li>「設計板架」表達拓撲與參考關係，「生產板架」才是可以被切割與装配的具體零件；兩者不要混用。</li>
-      <li><code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code> 是舾裝端的鐵舾裝結構（第 7 章），和船體板架是不同資料來源。</li>
+      <li><code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code> 是舾裝端的鐵舾裝結構（第 17 章），和船體板架是不同資料來源。</li>
       <li>板厚、材質、腐蝕增量通常是屬性；寫工具時要確認讀的是<strong>淨尺寸還是含增量</strong>，否則材料表會偏差。</li>
     </ul>
   </div>
@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c4-4"><label for="c4-4">我能把四個船體構件對到 AVEVA 元素型別</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章 船體建模</a><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a></div>
+  <div class="foot-links"><a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章 船體建模</a><a href="ch15_hull_production_zh-TW.reading.html">第 15 章 生產資訊</a></div>
 </section>
 
 <section class="unit" id="u5">
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c5-4"><label for="c5-4">我能解釋生產資料為什麼不會自動同步</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch18_case_studies_zh-TW.reading.html">第 18 章 實戰案例</a></div>
+  <div class="foot-links"><a href="ch15_hull_production_zh-TW.reading.html">第 15 章 生產資訊</a><a href="ch41_case_studies_zh-TW.reading.html">第 41 章 實戰案例</a></div>
 </section>
 <section class="unit" id="u6">
   <div class="unit-head"><span class="unit-no">UNIT 06</span><h2>舾裝與系統</h2><p class="unit-sub">船殼只是容器；真正讓船能航行、裝貨、住人的，是塞在裡面的系統。</p></div>
@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
     <ul>
       <li>舾裝元素：<code>EQUI</code>（設備）、<code>PIPE</code>／<code>BRAN</code>（管路與分支）、<code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>／<code>PANE</code>（鐵舾裝結構）、<code>HVAC</code>（通風）。</li>
-      <li>管徑、材質、壓力等級不是自由輸入，而是由<strong>等級（SPEC）</strong>約束，再連到<strong>目錄（CATA）</strong>的具體元件（第 8 章）。</li>
+      <li>管徑、材質、壓力等級不是自由輸入，而是由<strong>等級（SPEC）</strong>約束，再連到<strong>目錄（CATA）</strong>的具體元件（第 25 章）。</li>
       <li><code>BRAN</code> 的 Head／Tail 與元件順序決定流向；改順序等於改設計，不是改顯示。</li>
       <li>貫穿件與開孔通常涉及船體與舾裝的介面，需要開孔申請流程；對應的元素型別依版本而定〔待核對〕。</li>
       <li>ISO 圖由 Isodraft 從模型產生，圖上的尺寸與材料表跟著模型版本走。</li>
@@ -659,7 +659,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c6-4"><label for="c6-4">我知道等級與目錄如何約束管徑與材質</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch07_outfitting_zh-TW.reading.html">第 7 章 舾裝設計</a><a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章 目錄與等級</a></div>
+  <div class="foot-links"><a href="ch17_outfitting_zh-TW.reading.html">第 17 章 舾裝設計</a><a href="ch25_catalogue_spec_zh-TW.reading.html">第 25 章 目錄與等級</a></div>
 </section>
 
 <section class="unit" id="u7">
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c7-4"><label for="c7-4">我知道塗裝面積報表要確認單面或雙面</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch16_reports_integration_zh-TW.reading.html">第 16 章 報表</a></div>
+  <div class="foot-links"><a href="ch15_hull_production_zh-TW.reading.html">第 15 章 生產資訊</a><a href="ch38_reports_integration_zh-TW.reading.html">第 38 章 報表</a></div>
 </section>
 
 <section class="unit" id="u8">
@@ -785,7 +785,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c8-4"><label for="c8-4">我知道精度量測資料通常不存放在模型裡</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a><a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章 測試與部署</a></div>
+  <div class="foot-links"><a href="ch15_hull_production_zh-TW.reading.html">第 15 章 生產資訊</a><a href="ch40_debug_deploy_zh-TW.reading.html">第 40 章 測試與部署</a></div>
 </section>
 
 <section class="unit" id="u9">
@@ -868,7 +868,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c9-3"><label for="c9-3">我知道縮寫在不同船廠可能定義不同</label></li>
   </ul>
 
-  <div class="foot-links"><a href="appx_b_glossary_zh-TW.reading.html">附錄 B 術語表</a><a href="ch03_hierarchy_attributes_zh-TW.reading.html">第 3 章 元素型別</a></div>
+  <div class="foot-links"><a href="appx_b_glossary_zh-TW.reading.html">附錄 B 術語表</a><a href="ch04_hierarchy_attributes_zh-TW.reading.html">第 4 章 元素型別</a></div>
 </section>
 
 <section class="unit" id="u10">
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <tr><td>目錄與等級</td><td>Paragon（<code>CATA</code>／<code>SECT</code>／<code>CATE</code>）、Specon（<code>SPEC</code>／<code>SELE</code>／<code>SPCO</code>）</td><td>元件不是自由輸入，受等級約束</td></tr>
   <tr><td>圖面與 ISO</td><td>Marine Drafting、Outfitting Draft、Isodraft</td><td>圖面跟著模型版本，不跟著現場進度</td></tr>
   <tr><td>報表與材料表</td><td>報表功能、PML、.NET</td><td>先確認單位、單雙面、淨尺寸或含增量</td></tr>
-  <tr><td>穩度、阻力、噸位</td><td>外部工具（NAPA、GHS、Maxsurf 等）</td><td>AVEVA 提供幾何與重量資料，不做這些計算；載重電腦的整合見<a href="ch19_loading_computer_zh-TW.reading.html">第 19 章</a></td></tr>
+  <tr><td>穩度、阻力、噸位</td><td>外部工具（NAPA、GHS、Maxsurf 等）</td><td>AVEVA 提供幾何與重量資料，不做這些計算；載重電腦的整合見<a href="ch42_loading_computer_zh-TW.reading.html">第 42 章</a></td></tr>
   </tbody>
   </table>
   </div>
@@ -929,11 +929,11 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <p>如果你完全沒有造船背景，建議這樣走：</p>
   <ol>
     <li>本課程 Unit 1–2，建立產業與尺寸概念。</li>
-    <li>第 3 章與第 4 章，把元素樹與座標弄熟。</li>
+    <li>第 4 章與第 5 章，把元素樹與座標弄熟。</li>
     <li>本課程 Unit 3–5，理解船體與建造流程。</li>
-    <li>第 5–7 章，跟著 AVEVA 的建模流程走一遍。</li>
+    <li>第 9、15、17 章，跟著 AVEVA 的建模流程走一遍。</li>
     <li>本課程 Unit 6–8，補舾裝、塗裝、焊接的現場知識。</li>
-    <li>第 11–18 章，進入 PML、表單、.NET 與部署。</li>
+    <li>第 32–36、38、40、41 章，進入 PML、表單、.NET 與部署。</li>
   </ol>
 
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
@@ -949,7 +949,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
     <li><input type="checkbox" id="c10-3"><label for="c10-3">我能說明 AVEVA 與外部計算工具的界線</label></li>
   </ul>
 
-  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch12_pml_database_zh-TW.reading.html">第 12 章 資料庫操作</a></div>
+  <div class="foot-links"><a href="ch00_knowledge_map_zh-TW.reading.html">第 0 章 知識地圖</a><a href="ch33_pml_database_zh-TW.reading.html">第 33 章 資料庫操作</a></div>
 </section>
 
 <section class="unit" id="sources">
@@ -957,7 +957,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.querySele
   <ul>
     <li><strong>國際公約與法規</strong>：IMO 的 SOLAS、MARPOL、載重線公約、噸位丈量公約、壓載水管理；IACS 與各船級協會的規範。這些決定門檻與檢驗要求，本課程只做概念介紹。</li>
     <li><strong>船舶原理與結構</strong>：SNAME《Principles of Naval Architecture》《Ship Design and Construction》、Eyres《Ship Construction》等教科書的通用概念；本課程沒有引用特定頁次或數據。</li>
-    <li><strong>AVEVA 官方文件</strong>：PML Customisation User Guide、Software Customisation Reference Manual、Data Model Reference Manual、.NET Customisation User Guide（E3D 3.1 靜態頁），以及本課程第 3–9 章的整理。</li>
+    <li><strong>AVEVA 官方文件</strong>：PML Customisation User Guide、Software Customisation Reference Manual、Data Model Reference Manual、.NET Customisation User Guide（E3D 3.1 靜態頁），以及本課程第 4、5、9、15、17、25、27 章的整理。</li>
     <li><strong>標準與規範編號</strong>：管路識別色碼、船舶主要尺寸術語等標準編號〔待核對〕，引用前請查現行版本。</li>
   </ul>
   <div class="note"><strong>授權與使用界線：</strong>本頁文字、圖解與表格為本課程自製，可在公司內部教學使用；不重製官方手冊的圖表或長段文字。所有數值、規範要求與元素型別，請以公司安裝版本與現行規範為準。</div>

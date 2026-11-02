@@ -1,0 +1,961 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 13 章　船體詳細設計（一）：設定與標準、初始化工具、平面板架建模 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#13">第 13 章 船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</a><ul>
+<li><a href="#131">13.1 學習目標</a></li>
+<li><a href="#132-hull-detailed-design">13.2 Hull Detailed Design 全貌</a><ul>
+<li><a href="#1321">13.2.1 三章分工與本章定位</a></li>
+<li><a href="#1322">13.2.2 先後順序</a></li>
+</ul>
+</li>
+<li><a href="#133-setup-customization-and-standards">13.3 Setup, Customization and Standards</a><ul>
+<li><a href="#1331">13.3.1 運作模式：控制檔、編譯、物件、環境變數</a></li>
+<li><a href="#1332-part-name">13.3.2 Part name（零件名稱）控制</a></li>
+<li><a href="#1333-functional-description-configurable-note">13.3.3 Functional Description 與 Configurable Note</a></li>
+<li><a href="#1334-bevelexcess">13.3.4 Bevel、Excess 與焊接</a></li>
+<li><a href="#1335-connection-code-endcut">13.3.5 型材、Connection code 與 Endcut</a></li>
+<li><a href="#1336-flangehole-notch">13.3.6 Flange、Hole 與 Notch</a></li>
+<li><a href="#1337-cutout-clip">13.3.7 Cutout 與 Clip</a></li>
+<li><a href="#1338-bracket">13.3.8 Bracket（肘板）標準</a></li>
+<li><a href="#1339-tapknuckleswage-shrinkage">13.3.9 Tap、Knuckle、Swage 與 Shrinkage</a></li>
+<li><a href="#13310">13.3.10 其他設定</a></li>
+</ul>
+</li>
+<li><a href="#134-initialization-utility-programinithull">13.4 Initialization Utility Program（inithull）</a><ul>
+<li><a href="#1341">13.4.1 用途與執行</a></li>
+<li><a href="#1342">13.4.2 三類功能</a></li>
+<li><a href="#1343">13.4.3 功能總表</a></li>
+<li><a href="#1344-hull-referencestructure-reference-block">13.4.4 Hull Reference、Structure Reference 與 Block</a></li>
+</ul>
+</li>
+<li><a href="#135-planar-modelling">13.5 Planar Modelling（平面板架建模）</a><ul>
+<li><a href="#1351">13.5.1 概念與資料庫</a></li>
+<li><a href="#1352-plane-panel-editor">13.5.2 Plane Panel Editor</a></li>
+<li><a href="#1353-planar">13.5.3 Planar 選單功能一覽</a></li>
+<li><a href="#1354-scheme">13.5.4 設計語言：Scheme 的基本規則</a></li>
+<li><a href="#1355-panel-boundary">13.5.5 PANEL 與 BOUNDARY</a></li>
+<li><a href="#1356-seam-plate">13.5.6 SEAM 與 PLATE</a></li>
+<li><a href="#1357-stiffenerflange-pillar">13.5.7 STIFFENER、FLANGE 與 PILLAR</a></li>
+<li><a href="#1358-holenotchcutout-clip">13.5.8 HOLE、NOTCH、CUTOUT 與 Clip</a></li>
+<li><a href="#1359-bracket">13.5.9 BRACKET（肘板）</a></li>
+<li><a href="#13510">13.5.10 其他陳述式</a></li>
+<li><a href="#13511">13.5.11 由模型衍生視圖與圖面</a></li>
+<li><a href="#13512-toggle-dividecorrugated-bulkhead-jumbo-panel">13.5.12 Toggle Divide、Corrugated Bulkhead 與 Jumbo Panel</a></li>
+<li><a href="#13513-default-file">13.5.13 預設檔（default file）</a></li>
+</ul>
+</li>
+<li><a href="#136">13.6 二次開發怎麼接</a></li>
+<li><a href="#137">13.7 常見錯誤</a></li>
+<li><a href="#138">13.8 本章小結</a></li>
+<li><a href="#139">13.9 練習題與自我檢核</a><ul>
+<li><a href="#_1">練習（只能在訓練專案）</a></li>
+<li><a href="#_2">自我檢核</a></li>
+</ul>
+</li>
+<li><a href="#1310">13.10 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船體設計 · 14 / 53</span><h1 id="13">第 13 章　船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</h1>
+<blockquote>
+<p>第 9 章講「船體資料長什麼樣子」，之後的第 15 章會講「怎麼把模型變成生產資料」，第 36 章會講「Vitesse 怎麼讀船體資料」。這一章把視角拉到<strong>詳細設計的第一個動作</strong>：在建任何一塊板之前，<strong>一個船廠的標準（part name、bevel、型材、endcut、開孔、肘板……）要先被「編譯」進資料庫</strong>，然後才輪到設計師用 Planar Modelling 一塊一塊建板架。</p>
+<p>Hull Detailed Design 整章約 2,451 頁，本課程分三章處理。<strong>本章</strong>：Setup, Customization and Standards（標準與客製化）、Initialization Utility Program（<code>inithull</code>）、Planar Modelling（平面板架建模）。曲面建模、選用功能與雜項工具見第 14 章；生產製造、舾裝鋼構與 F1 說明文字見第 16 章。</p>
+<p><strong>資料可信度：</strong> 檔案格式、陳述式語法、環境變數、物件名稱與預設值取自 AVEVA Marine 12.1 官方離線文件（Hull Detailed Design 下的三個子樹，實際讀取頁數見 附錄 E）。官方文件極少給 PML／Vitesse 程式碼，僅 Part name、Configurable Note 與 Scheme 版面三個 Vitesse hook 附有介面或範例；其餘「二次開發怎麼接」一律標〔待核對〕，待在訓練專案實測。官方機器翻譯譯名生硬，本章造船術語改用台灣慣用說法。文件原屬 TBH 時代手冊，部分頁面仍用 SB_OGDB、SJ001 等舊名稱，本章照原樣保留。</p>
+</blockquote>
+<h2 id="131">13.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Hull Detailed Design 三章的分工，以及本章三個子樹彼此的先後關係。</li>
+<li>說明標準的運作模式：文字控制檔 → <code>inithull</code> 編譯 → 資料庫物件 → 環境變數啟用。</li>
+<li>列出主要標準（part name、bevel、型材、endcut、flange、hole／notch、cutout／clip、bracket、shrinkage 等）各自對應的環境變數與控制物件。</li>
+<li>操作 <code>inithull</code>，區分 create function 與 check function，並建立 Hull Reference 與 Block。</li>
+<li>說明 panel、input scheme、statement 三層關係，以及互動模式、背景模式、separate／in view 兩種產生方式。</li>
+<li>讀懂並修改 Scheme：<code>PANEL</code>、<code>BOUNDARY</code>、<code>SEAM</code>、<code>PLATE</code>、<code>STIFFENER</code>、<code>FLANGE</code>、<code>HOLE</code>、<code>NOTCH</code>、<code>CUTOUT</code>、<code>BRACKET</code>、<code>DOUBLING</code> 等陳述式。</li>
+<li>使用 Plane Panel Editor 與 Planar 選單（Model、Panel、Scheme、View、PosNo、RSO、Select）。</li>
+<li>用 Create View 衍生符號視圖，並理解 Recreate 與模型同步的關係。</li>
+<li>設定預設檔（default file）的重要參數，並指出可供二次開發的 hook 與須實測的項目。</li>
+</ol>
+<h2 id="132-hull-detailed-design">13.2 Hull Detailed Design 全貌</h2>
+<h3 id="1321">13.2.1 三章分工與本章定位</h3>
+<table>
+<thead>
+<tr>
+<th>章節</th>
+<th>官方子樹</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>第 13 章（本章）</strong></td>
+<td>Setup, Customization and Standards／Initialization Utility Program／Planar Modelling</td>
+<td>標準編譯、<code>inithull</code>、平面板架</td>
+</tr>
+<tr>
+<td>第 14 章</td>
+<td>Hull Curved Modelling／Optional Hull Functions／Miscellaneous Utilities</td>
+<td>曲面（外板）、選用功能、雜項</td>
+</tr>
+<tr>
+<td>第 16 章</td>
+<td>Manufacturing／Production Features for Outfit Steel／F1 Help Texts</td>
+<td>零件抽出以後的生產、舾裝鋼構、說明文字</td>
+</tr>
+</tbody>
+</table>
+<p>與既有章節的分工：<a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章</a>已講板架解剖（邊界、接縫、板、加強材、拓撲參考）與 Scheme 概念，<a href="ch15_hull_production_zh-TW.reading.html">第 15 章</a>將在之後講零件抽出與收縮補償概念，<a href="ch36_hull_vitesse_zh-TW.reading.html">第 36 章</a>也將在之後講 Vitesse 三種掛載方式。本章<strong>不重講概念</strong>，只補它們沒講的：標準檔案怎麼寫、<code>inithull</code> 怎麼跑、陳述式的關鍵字與限制、預設檔參數。</p>
+<h3 id="1322">13.2.2 先後順序</h3>
+<pre><code>Hull form(曲面) ─► inithull：Hullref / Structref / Blocks / gentab
+                ─► inithull：各項標準編譯（bevel、endcut、bracket、cutout…）
+                ─► 設環境變數指向控制檔／物件
+                ─► Planar Modelling 建板架 ─► 零件抽出(第15、16章)
+</code></pre>
+<blockquote>
+<p><strong>專業提醒：</strong> 順序反了是最常見的新專案問題：標準沒編譯就建板，結果是 endcut 畫不出來、bevel 代碼不被接受、part name 報錯。官方明說：沒有 endcut table，側視圖中加強材的 endcut 不會正確繪出。</p>
+</blockquote>
+<h2 id="133-setup-customization-and-standards">13.3 Setup, Customization and Standards</h2>
+<h3 id="1331">13.3.1 運作模式：控制檔、編譯、物件、環境變數</h3>
+<p>幾乎所有標準都走同一條路：</p>
+<ol>
+<li>用文字編輯器寫控制檔（多數是 <strong>TIL</strong>，The Interpretive Language；副檔名常為 <code>.dat</code>）。</li>
+<li>在 <code>inithull</code> 以 <strong>create function</strong> 編譯；成功就把物件存進結構資料庫（<code>SB_OGDB</code>），並產生 <code>.lst</code> 回條清單（經 Job Launcher 啟動時由 Job Launcher 保存；否則放在專案的 print 目錄）。</li>
+<li>部分標準另需<strong>環境變數</strong>指向控制檔（官方稱 check function 的檔案不編譯成物件，而是由應用程式直接載入）。</li>
+<li>物件存在、或環境變數有設，功能才啟動；例如進階 bevel 處理「以該物件存在」啟動。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>標準</th>
+<th>控制檔／環境變數</th>
+<th>資料庫物件（固定名稱）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Part name</td>
+<td><code>TB_PARTNAME_CTRL</code>（檔名不含副檔名）、<code>TB_PARTNAME_LEVEL</code></td>
+<td><code>__TB_PARTNAME_CTRL__</code></td>
+</tr>
+<tr>
+<td>Functional Description</td>
+<td><code>.dat</code>（<code>DESCR</code>／<code>INTERVAL</code>）</td>
+<td><code>__FUNCTIONAL_PROPERTY__</code></td>
+</tr>
+<tr>
+<td>Bevel</td>
+<td><code>SBH_BEVEL_CTRL</code>、<code>SBH_BEVEL_SETS</code></td>
+<td><code>__SBH_BEVEL_CTRL__</code></td>
+</tr>
+<tr>
+<td>焊接 Execution Unit</td>
+<td><code>SB_WELDDB</code>（資料庫）、<code>SB_EU_ORDER</code></td>
+<td>EU 物件</td>
+</tr>
+<tr>
+<td>I／U 型材</td>
+<td><code>SBH_I_U_BARS</code></td>
+<td>（檔案直接載入）</td>
+</tr>
+<tr>
+<td>啟用型材</td>
+<td><code>SBH_PROF_CTRL</code></td>
+<td>（檔案）</td>
+</tr>
+<tr>
+<td>Connection code</td>
+<td><code>SBH_CONCODES</code></td>
+<td>（檔案）</td>
+</tr>
+<tr>
+<td>Endcut table／預設 endcut</td>
+<td><code>SB_ECUT</code>／<code>SBH_ENDCUT_CTRL</code></td>
+<td>endcut table（SB_OGDB）</td>
+</tr>
+<tr>
+<td>外部 cutout</td>
+<td><code>SBH_CUTSTDOBJ</code></td>
+<td><code>__CUTSTDOBJ__</code></td>
+</tr>
+<tr>
+<td>Cutout／clip macro</td>
+<td><code>SBH_CUTOUT_MACRO</code>、clip macro 對應檔</td>
+<td>（檔案；macro 在 <code>SBB_GEO_MACRO_BIN</code>）</td>
+</tr>
+<tr>
+<td>自動 cutout</td>
+<td><code>SBH_CUTOUT_CTRL</code></td>
+<td>（檔案）</td>
+</tr>
+<tr>
+<td>Bracket</td>
+<td>—</td>
+<td><code>__SBH_BRACKET_CTRL__</code>（範例檔 <code>sbh_bracket_ctrl.dat</code>）</td>
+</tr>
+<tr>
+<td>材質／去向／表面處理</td>
+<td>材質 Paragon 腳本；<code>SBH_DESTINATION_CTRL</code>；<code>SBH_TREATMENT_CTRL</code></td>
+<td>材質存於 Property World</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 這張表是「新專案設定檢核表」。把它的環境變數與檔案放進專案的版本控制，並記錄每次編譯的 <code>.lst</code>，是最便宜的稽核手段。</p>
+</blockquote>
+<h3 id="1332-part-name">13.3.2 Part name（零件名稱）控制</h3>
+<p>part name 是生產用名稱，<strong>不等於</strong>資料庫內部零件名；相同零件可共用 part name。長度上限 48 字元，<strong>建議 24 以內</strong>（部分應用不接受長名稱）。控制檔（TIL）有四種陳述式：<code>LEVEL</code>（命名層級如 <code>FULL</code>／<code>SHORT</code>，最多 10 個，須在規則之前）、<code>SYMMETRY</code>（<code>/PS</code>、<code>/SB</code>、<code>/CL</code> 標記，預設 <code>P</code>／<code>S</code>／<code>SP</code>）、<code>BUILT_PROFILE</code>（組合型材 <code>/TOTAL</code>、<code>/WEB</code>、<code>/FLANGE</code>）與命名規則：<code>&lt;part_type&gt; /LEVEL=… &lt;constituent&gt;｜&lt;delimiter&gt;…</code>。</p>
+<p>零件類型：<code>HGEN</code>（一般，可帶 FD 代碼，<strong>優先順序最高</strong>）、<code>HPPL</code>、<code>HSPL</code>、<code>HBPL</code>、<code>HCPL</code>、<code>HPPR</code>、<code>HSPR</code>、<code>HBPR</code>、<code>HDOU</code>。組成項如 <code>/PROJ</code>、<code>/ASS=n</code>、<code>/BLOCK</code>、<code>/SBLOCK</code>（去船字母）、<code>/POS</code>、<code>/BPOS</code>、<code>/LPOS</code>、<code>/SYM</code>、<code>/BUILT</code>、<code>/GPS1…4</code>；分隔符 <code>/DEL</code>、<code>/ZDEL</code>（後項為空時略過）。官方範例（區塊 <code>AA123</code>、position number 皆 1）：</p>
+<pre><code>HPPL /LEVEL='FULL'  /SBLOCK /DEL='-' /POS;      ! 123-1
+HBPL /LEVEL='FULL'  /SBLOCK /DEL='-B' /POS;     ! 123-B1
+HPPR,'31' /LEVEL='FULL' /BLOCK /DEL='-L-' /POS; ! AA123-L-1
+</code></pre>
+<p><strong>沒有預設規則</strong>，所有會用到的零件類型都要寫。<code>TB_PARTNAME_LEVEL</code> 檔可為特定模組指定層級（每行「模組 層級」）。<strong>Vitesse 後處理</strong>：套用規則之後，若 <code>PYTHONPATH</code> 內有 <code>_TBhook_CustPartName.py</code>，系統呼叫其 <code>getPartName(Project, Assembly, Block, Module, System, Drawing, Location, PositionName, PositionNo, BracketPositionNo, SymmetryCode, BuiltProfile, GPS1…GPS4, MarinePartName, StoringCode, RulePartName)</code>，回傳 <code>CustPartName</code>；<strong>簽名不可更動</strong>。</p>
+<h3 id="1333-functional-description-configurable-note">13.3.3 Functional Description 與 Configurable Note</h3>
+<ul>
+<li><strong>Functional Description（FD）</strong>：附在板架與零件上的描述標籤，≤ 75 字元，索引 0–32767（0 為預設）。<code>DESCR, &lt;index&gt; /VALUE='…';</code> 定義，<code>INTERVAL /&lt;part_type&gt; /MIN= /MAX=;</code> 限制 GUI 顯示區間；值內可用 <code>!X</code>／<code>!Y</code>／<code>!Z</code>（轉為 FR／LP，如 "Bottom web at FR85"）。檔案是<strong>增量合併</strong>：刪除 FD 要把字串設為空並保留索引；改索引會新增一筆而舊的仍在。FD 亦用於自動焊腳。</li>
+<li><strong>Configurable Note</strong>：純 Vitesse hook，檔名 <code>_TBhook_ConfigNote.py</code>，置於 <code>PYTHONPATH</code>。必備方法（簽名不可變）：<code>getNoteName</code>、<code>getNoteChar</code>（回 <code>(reference, placement, colour, layer, flip_angle)</code>）、<code>getNoteFilter</code>、<code>getNoteData</code>、<code>setNoteData(NoteNo, ModelType, Model, PartType, Part, SubPartType, SubPart)</code>。紀錄順序限制：第一筆必為 reference symbol 且只能一筆。</li>
+</ul>
+<h3 id="1334-bevelexcess">13.3.4 Bevel、Excess 與焊接</h3>
+<p><strong>Bevel</strong>（開槽）分<strong>對接</strong>（butt，剖面沿焊道恆定）與<strong>角接</strong>（fillet，可為固定角或隨連接角連續變化）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Bevel 剖面名詞：正側、負側、倒角、開口角、鈍邊、E 值</div></p>
+<p><em>圖 13-1　Bevel 基本名詞：positive／negative side、chamfer、opening angle、nose、E-measure。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>AVEVA 內建「基本 bevel type」（對接如 10、20、30、40、50 等；固定角接如 15、25、35；變角如 16、26、36），<strong>客戶定義 bevel code（1–999）作為其實例。系統沒有預設 bevel 標準，必須自建。</strong></p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variant</td>
+<td>0＝基本型；1／2＝厚薄不同且倒角；3／4＝厚板不倒角；9＝共中心面雙側倒角</td>
+</tr>
+<tr>
+<td>編譯與啟用</td>
+<td>定義檔編譯為 <code>__SBH_BEVEL_CTRL__</code>，<code>SBH_BEVEL_CTRL</code> 指向檔案；物件存在即啟動進階處理</td>
+</tr>
+<tr>
+<td>自動選擇</td>
+<td><code>SBH_BEVEL_SETS</code>（<code>CUTOUT_SET</code>、<code>BRACKET_SET</code>、<code>PROF_END_SET</code>、<code>PROF_TRACE_SET</code> 等）；建模給 <code>-1</code> 取消、給代碼則覆蓋</td>
+</tr>
+<tr>
+<td>常用語法</td>
+<td><code>CHAMFER</code>（預設 18 度）、<code>VARIANT /TOL= /LIM= /OPEN= /SQUARE=</code>（預設 0.5／10／3,5 mm）、<code>BEVEL, &lt;code&gt; /TYPE= /GAP= /ALPHA= /SYMBOL=…;</code>，變角用 <code>/VAR_ALPHA</code> 並搭配 <code>AUTO_SELECT</code> 等</td>
+</tr>
+</tbody>
+</table>
+<p>建模寫法：<code>[-]&lt;code&gt;[&lt;variant&gt;&lt;E 值兩位&gt;]</code>，如 <code>BEV=201107</code>；或名稱加 <code>BVA</code>、<code>BEM</code>。接縫上通常只給代碼，variant 與 E 值由系統算；<strong>使用者明給的值優先</strong>。</p>
+<p><strong>Excess 與 Compensation</strong> 須設計師明確給定（bevel gap、shrinkage 則由系統自動處理）。excess 符號放符號字型 92。</p>
+<p><strong>自動焊腳（Execution Unit，EU）</strong>：偵測到角焊且建模沒給焊腳（WLL）時，先算 weld factor，再依板厚轉 WLL。規則存於 <code>SB_WELDDB</code>；EU 類型 <code>/COMP</code>、<code>/COMP_TYPE</code>（官方註明尚未完全支援，勿用於生產）、<code>/RSO</code>、<code>/GEO</code>、<code>/PAN</code>；預設搜尋順序 <code>P_RSO_C_CT_G</code>，可用 <code>SB_EU_ORDER</code> 改。<code>RULE /ABUTTED= /ABUTTING= /WELD_FACTOR=</code> 以 FD 代碼配對；<code>DEFAULT</code> 給缺省值。</p>
+<h3 id="1335-connection-code-endcut">13.3.5 型材、Connection code 與 Endcut</h3>
+<p>AVEVA 型材以<strong>系統固定整數型別</strong>挑選（不支援 56、64、65）：10 扁鋼、20／21／23 球扁鋼、30／31 角鋼、35–38 組合角鋼、40 T 型、50–59 U／I 型、100–110 swage。<strong>限制</strong>：flange（面板）只能是 10；殼縱骨與加強材可為 10–55；柱通常 50–74。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：型材型別、斷面圖與參數代號對照表</div></p>
+<p><em>圖 13-2　型材型別代碼、斷面與參數（a、b、s、t、c、u）對照。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>控制檔</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U／I 型尺寸表</td>
+<td><code>SBH_I_U_BARS</code></td>
+<td><code>TYPE=50…</code>；每行 <code>H,B,Tw,Tf,R1[,R2]</code>；分號結尾、無空行、行寬 ≤ 80；建模取最近值</td>
+</tr>
+<tr>
+<td>專案啟用型材</td>
+<td><code>SBH_PROF_CTRL</code></td>
+<td><code>TYPE = 10 'Flat bar'</code> 後接尺寸列；行寬 ≤ 132；字串出現在互動選單</td>
+</tr>
+<tr>
+<td>Connection code</td>
+<td><code>SBH_CONCODES</code></td>
+<td>四數：<code>&lt;code 1–9999&gt; &lt;type&gt; &lt;dist&gt; &lt;offset&gt;</code>，最多 100；<code>dist</code>&gt;0 間隙、=0 相接、&lt;0 重疊；與內建碼同號即覆蓋</td>
+</tr>
+<tr>
+<td>Endcut table</td>
+<td><code>SB_ECUT</code></td>
+<td>記錄 <code>600</code>（表名）、<code>601</code>（選擇列／參數列）、<code>602</code>（自訂名）；<strong>選擇列由 AVEVA 設，客戶勿改</strong>，只增參數列</td>
+</tr>
+<tr>
+<td>預設 endcut</td>
+<td><code>SBH_ENDCUT_CTRL</code></td>
+<td><code>TYPE=</code>、<code>PROF=</code>、<code>1102 CON=5,10,12</code>：遇到該連接碼時預設用此 endcut（最多 20 個 CON）</td>
+</tr>
+</tbody>
+</table>
+<p>endcut 概念：<strong>type</strong>（10–326，AVEVA 固定）＋<strong>code</strong>（type 加兩位數，每型最多 100 個，客戶可調半徑與固定角）＋<strong>explicit parameters</strong>（最多 6 個：長度 a、b、c 與角度 a1–a3）。建模 <code>CUT = 1112, 80</code> 表示 code 1112、第一個明確參數 80；角度未給時有連接則自動算，否則 90 度。自訂 endcut 在 PARAGON 以 <code>SFIT</code>＋<code>DTSE</code>＋<code>NGMS</code> 定義，名稱須列於 endcut table 的 602 記錄。Structural Design 的 <code>SNIPE</code>／<code>TIGHT</code>／<code>OVERLAP</code> 標準連接存於 <code>__SBED_STIFF_ENDS__</code>；亦可自訂 <code>CON_NAME, MY_TIGHT /PROFILE='10' /CON=87 /CUT='1210,70,35';</code>，建模寫 <code>CON=MY_TIGHT</code>。</p>
+<h3 id="1336-flangehole-notch">13.3.6 Flange、Hole 與 Notch</h3>
+<p><strong>折邊（Folded flange）</strong>：控制檔只有兩個陳述式。<code>FLA_TYPE</code> 定義寬度與標記線位置：<code>FLA_W = W_H_FACT*H + W_RAD_FACT*R + W_T_FACT*T + W_CONST</code>（<code>MARK_D</code> 同理）；<code>FLA_END</code> 以基本端型（1、2、3、4、5、9）加參數（<code>/KN_*_FACT</code>、<code>/FLA_V</code> 預設 30 度、<code>/R1</code>、<code>/R2</code>、<code>/TOE_H</code>、<code>/TOE_L</code>、<code>/R_FILLET</code> 軟化尖角）。至少要各有一個 type 與 end；<code>/DEFAULT</code> 指定預設，否則取檔內第一個；<code>FLA_TYPE</code> 編號<strong>不可介於 200–300</strong>。</p>
+<p><strong>Hole</strong>：封閉輪廓；分 physical（3D 也開孔）與 fictitious（只標記，3D 預設不顯示，須設 <code>SBH_INPM_FICT_HOLE</code>）。標準孔以「型別 ＋ 參數用星號連接」指定，如 <code>D250</code>（直徑 250）、<code>HE250*125</code>（橢圓）；新標準孔須由 AVEVA 實作，客戶改走 <code>_TbhookCustHole</code>（輪廓用 2D 本地座標，原點是定位參考點，建議順時針）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：標準孔型選單：D、HO、HOR、HE、HSE、HER、HR、HRM、HT</div></p>
+<p><em>圖 13-3　AVEVA 標準孔型選單。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>Notch</strong>：標準缺口分三類（角／邊兩用：R、RW、KEH、KUH；角專用：KS、VU 等；邊專用：KD、KE、KO、KR 等），例 <code>R50</code>（半徑 50 圓弧）、<code>HE250*125*100</code>；省略中間的選填參數要用 0 占位（<code>NOT*&lt;a&gt;*&lt;b&gt;*0*&lt;d&gt;</code>）。部分缺口有尖角趾，可用 <code>SBH_NOTCH_TOER</code>、<code>SBH_NOTCH_TOEH</code> 軟化。任意缺口必須「開放輪廓且與零件輪廓恰有兩個交點」。視圖符號以 <code>SBH_PENETR_SYMB_CTRL</code> 檔對應：每行 <code>NOT|HOL, &lt;designation&gt;, &lt;symbol no&gt;;</code>（符號字型 94），designation 可只寫前綴當萬用字元，空 designation 是預設符號。</p>
+<h3 id="1337-cutout-clip">13.3.7 Cutout 與 Clip</h3>
+<p>穿過板的加強材開口稱 <strong>cutout</strong>，補強用小板稱 <strong>clip（collar）</strong>。cutout 有三種來源，<strong>同一 cutout 號碼可混用，優先序為 macro 最高</strong>：</p>
+<ol>
+<li>內建 cutout（寫死，不可改參數）。</li>
+<li>外部定義（External Cutout Definition）：<code>CUT, &lt;number&gt; /TYPE=&lt;main type&gt; /PROF=(…) /ARC=… /RAD=… /H_LIM=… /GAP=…;</code>，編譯為 <code>__CUTSTDOBJ__</code>；半徑 <code>R&lt;0</code> 為 KS 缺口、<code>R=0</code> 為折角、<code>R&gt;0</code> 為圓弧；可依型材高度分段給半徑（例 <code>/RAD=(-10,40,60) /H_LIM=(100,250)</code>）。</li>
+<li>幾何 macro：macro 名稱須同檔名，對應檔由 <code>SBH_CUTOUT_MACRO</code> 指定，每行 <code>&lt;cutout&gt; '&lt;macro&gt;' &lt;no_prof&gt; &lt;ptype…&gt;</code>；效能略慢於外部定義。</li>
+</ol>
+<p>另有<strong>具名 cutout</strong>（<code>CUTOUT, &lt;name&gt; /CUT_NO= /CLIP_1= /CLIP_2= /CLIP_3=;</code>，可同時綁定 clip 組合）、<strong>自動設定 cutout</strong>（<code>SBH_CUTOUT_CTRL</code>：<code>TYPE = &lt;型材&gt;</code> 下列 <code>&lt;panel data type 遮罩&gt; &lt;cutout&gt; &lt;clip&gt;</code>，遮罩可含 <code>%</code>，<strong>較特定的遮罩要放前面</strong>）與<strong>交叉 cutout 9999</strong>（雙板互嵌如蛋箱，兩片板都要各設一次，見 13.5.8）。clip 可用內建簡單 clip（三位碼 XYZ 分別表示肋骨側、非肋骨側、頂部，0 表示無）或 macro；clip 零件名為 <code>&lt;panel&gt;/C&lt;clip_no&gt;[S|P]</code>。</p>
+<h3 id="1338-bracket">13.3.8 Bracket（肘板）標準</h3>
+<p>肘板必須是<strong>單一板件、不可有孔、必屬某個 panel</strong>。分兩類：<strong>type standard bracket</strong>（以名稱登記，兩臂或三臂，臂端有 toe）與 <strong>panel bracket</strong>（以小板架建出，用於非標準肘板，或走 <code>_TBhookCustBracket</code>）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：肘板連接類型示意：Panel/Profile、Panel/Panel、Profile/Profile</div></p>
+<p><em>圖 13-4　肘板典型連接情形。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>定義檔（編譯為 <code>__SBH_BRACKET_CTRL__</code>）有階層：低階 <code>PROFILE</code>、<code>CONNECTION</code>、<code>TOE</code>、<code>NOTCH</code>、<code>CUTOUT</code>、<code>PATTERN</code>；中階 <code>STIFFENER</code>、<code>FLANGE</code>、<code>FACE_PLATE</code>；最高階 <code>BRACKET</code>；<strong>被引用的須先定義</strong>。<code>TOE</code> 以基本 toe 型別（1–4、8、9、11–15、31–37、101、102、131–136 等）加參數（<code>TOE_H</code>、<code>H_TOT</code>、<code>O_LAP</code>＋<code>O_LAP_LIM</code>、<code>R_ANG</code>、<code>TOE_L</code>＋<code>TOE_L_LIM</code>、<code>RAD</code>…）；<code>CONNECTION</code> 共 0–7 型。範例檔 <code>sbh_bracket_ctrl.dat</code>；建議刪除用不到的肘板以縮短選單。</p>
+<p><strong>Bracket instance</strong>：另一個檔，<code>BRACKET, 'B';</code> 後接多個 <code>INSTANCE, 'B10' /A=200 /B=200 /MAT=8 /NOTCH='KS10';</code>，instance 名稱須以 bracket 型別開頭；建模時 <code>BRA, B350, SYN=2</code> 等同 <code>BRA, B, MAT=9, A=350, B=350, SYN=2</code>。<strong>bracket 指定值被使用者改過就以使用者為準</strong>。</p>
+<h3 id="1339-tapknuckleswage-shrinkage">13.3.9 Tap、Knuckle、Swage 與 Shrinkage</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>要點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tap（焊接延伸片）</td>
+<td><code>TAP, &lt;type&gt; /A= /B= [/R=];</code>，每型只保留最後一筆；每次編譯<strong>取代</strong>既有 <code>__SBH_TAP_CTRL__</code></td>
+</tr>
+<tr>
+<td>Knuckled panel</td>
+<td>子板架合成主板架；knuckle 線上的孔、缺口、cutout、加強材<strong>不支援</strong>；彎曲參數在 <code>SBH_KNUCKLE_CTRL</code>（<code>TYPE</code>、<code>RADIUS</code>、<code>THICKNESS</code> 群組，板厚須遞增；預設彎曲型 9999）</td>
+</tr>
+<tr>
+<td>Swage（小波紋）</td>
+<td>型材型別 100–110；<code>SWEDGE</code>、<code>PROFILE</code>、<code>SIZE</code> 三種陳述式；零件抽出時自動補伸長量</td>
+</tr>
+<tr>
+<td>Shrinkage</td>
+<td><strong>局部法</strong>與<strong>統計法</strong>；<code>SBH_LOCAL_SHRINKAGE</code>＝<code>EDGES_AND_FILLETS</code>／<code>EDGES</code>／<code>EDGES_BUTTS</code>；使用者手動給 <code>M5</code>、<code>M6</code> 就整個切到統計法</td>
+</tr>
+<tr>
+<td>組合型材焊接補償</td>
+<td>以 5 點重建腹板中心線（端點移 M1、四分點移 <code>CONSTANT*M1</code>，預設 0.25）；腹板曲率須 &lt; 3 度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13310">13.3.10 其他設定</h3>
+<ul>
+<li><strong>GSD</strong>（組裝標記三角）：<code>SBH_GSD</code> 預設檔每行「關鍵字＝值」（如 <code>SHAPE</code>、<code>SIZE</code>、<code>TRACE_LIM</code>、<code>REDUCE_DIR_X／Y／Z</code>）；標記面由 <code>SBH_MARKING_SIDE</code>（<code>MOULDED</code> 預設）決定，單一板架可用 <code>PANEL</code> 的 <code>GMS=</code> 覆蓋。</li>
+<li><strong>型材轉板</strong>：<code>SBH_PROF_TO_PLDB</code> 決策表，<strong>不可有空行</strong>；轉成的板 data type 為 87。受限制檔、彎曲餘量等屬製造範疇，見第 16 章。</li>
+<li><strong>材質、去向、表面處理</strong>必須先登記，建模時給未登記值會報錯；材質代碼不可在專案中途更動，代碼 0 為預設材質。</li>
+<li><strong>FRP</strong>：<code>SBH_GRP=MIXED</code> 時每個 block 須指定鋼或 FRP；FRP 專案中密度大於 0.000001 kg/mm³ 的材質視為鋼，不出現在選單。</li>
+<li><strong>對話框客製</strong>：選單由「設定圖」產生（<code>__SBH_BKT_MENU__</code>、<code>__SBH_CUTOUT_TYPES__</code>、<code>__SBH_ECUT_MENU__</code>）；改了 bracket 名稱要同步改設定圖。</li>
+</ul>
+<h2 id="134-initialization-utility-programinithull">13.4 Initialization Utility Program（<code>inithull</code>）</h2>
+<h3 id="1341">13.4.1 用途與執行</h3>
+<p><code>inithull</code> 在<strong>新專案初期</strong>使用：設定預設值、初始化資料庫、編譯各項標準。<strong>環境（目錄、資料庫、專案檔）須先備妥</strong>。通常由系統或專案經理執行，一般使用者不應執行。啟動方式：Hull Log Viewer 內選 <strong>Hull &gt; Hull Init</strong>。功能以樹狀選單分組。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Initiate Hull Standards 視窗</div></p>
+<p><em>圖 13-5　Initiate Hull Standards 視窗：左側為功能樹，右側為 create function 的共通表單（物件名稱、輸入檔、Edit TIL File、Create Object）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1342">13.4.2 三類功能</h3>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>說明</th>
+<th>表單重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精靈型</td>
+<td>以 wizard 互動建物件，部分可選擇以檔案建立</td>
+<td>如 Hullref、Structref</td>
+</tr>
+<tr>
+<td><strong>Create（編譯）</strong></td>
+<td>輸入檔經編譯，成功即把標準物件存入 <code>SB_OGDB</code>，並輸出 compiler list</td>
+<td><code>Source Input File</code>（預設從 <code>SB_SHIP</code> 的 def 目錄取）、<code>Edit TIL File</code>（開 Notepad，<strong>須關閉才能繼續</strong>；改檔要用 Notepad 的 File 存檔）、<code>Create Object</code>；<code>Generate TIL</code> 多半未實作</td>
+</tr>
+<tr>
+<td><strong>Check</strong></td>
+<td>檔案不產生物件，而是由應用載入；功能只做診斷</td>
+<td><code>Environment variable</code> 欄顯示變數與值、<code>Edit</code>、<code>Check</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 官方註明第 2、3 類功能「<strong>每次啟動 <code>inithull</code> 通常只能執行一次</strong>」：第一次呼叫會設旗標、抑制後續動作。輸入檔有錯修正後，<strong>要重新啟動 <code>inithull</code></strong>，不要在同一次 session 反覆按。</p>
+</blockquote>
+<h3 id="1343">13.4.3 功能總表</h3>
+<table>
+<thead>
+<tr>
+<th>群組</th>
+<th>功能</th>
+<th>類型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initiate Hull Model</td>
+<td>Hullref、Structref、Blocks、Frame/long. positions</td>
+<td>精靈或檔案</td>
+</tr>
+<tr>
+<td>Cutouts and Clips</td>
+<td>外部 cutout 定義、macro cutout／clip 檢查、自動 cutout 選擇、具名 cutout、cutout setting</td>
+<td>create／check</td>
+</tr>
+<tr>
+<td>Profiles and Flanges</td>
+<td>專案型材、U／I 型、connection codes、endcut table、endcut selection、adjust endcuts</td>
+<td>check／create</td>
+</tr>
+<tr>
+<td>Other Standard Set-up</td>
+<td>bracket standard／instance、bevel standard、shrinkage、Execution Unit、焊接補償表、Tap</td>
+<td>create</td>
+</tr>
+<tr>
+<td>Naming</td>
+<td>autopos 設定、part name control（五步精靈）、functional properties</td>
+<td>create</td>
+</tr>
+<tr>
+<td>Production Support</td>
+<td>參考平面、型材限制、型材轉板、殼縱骨曲率、FRP</td>
+<td>create／check</td>
+</tr>
+<tr>
+<td>Release for AVEVA Everything3D</td>
+<td>把 hull 環境變數（<code>d065</code> 檔）複製進資料庫</td>
+<td>一次性動作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1344-hull-referencestructure-reference-block">13.4.4 Hull Reference、Structure Reference 與 Block</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create Hull Reference Object 表單</div></p>
+<p><em>圖 13-6　Hullref 表單：垂線 X 座標、型寬、最大座標、主曲面與甲板曲面名稱、frame／waterline／buttock 座標表名、seam 表名。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<ol>
+<li><strong>Hullref</strong>（<code>Hullref, create</code>）：開啟時以 <code>SB_HREF</code> 指向的物件預填欄位；欲看別的物件，在名稱欄鍵入後按 <code>Extract Data from DB</code>（<strong>不會警告並放棄未存修改</strong>）。<code>Maximum coordinate</code>（預設 1000000）是合理性檢查，任何船體座標超出即報錯；<code>Name of the hull form</code> 是曲面名稱，必須正確。<code>Additional Surfaces…</code> 加其他曲面（名稱、後綴、Shell 或 Deck）。建好後可在 Structural Design 切幾條曲線驗證曲面，並讓 <code>SB_HREF</code> 指向。<strong>從舊專案複製預設檔時，要移除舊的 hull reference 參照。</strong></li>
+<li><strong>Structref</strong>：與 Hullref 同樣的表單邏輯，<code>SB_SREF</code> 指向；不相關的欄位（如無橫向構件的船）留空。</li>
+<li><strong>Blocks</strong>：CSV 檔，首列為註解。欄位：<code>Type(D|P)</code>（設計／生產 block）、<code>Name</code>、<code>Nom. Aft/Stbd/Bot/For/Port/Top</code>、<code>Encl. Block</code>、<code>Offset ×6</code>、<code>Limit ×6</code>（前綴 <code>SUR/</code>、<code>RSO/</code>、<code>PLA/</code>）、<code>Sym</code>（Yes／No）、<code>Colour</code>、<code>envelope</code>。<strong>已存在的 block 只在內容真的變更時更新</strong>；<code>Type</code> 填 <code>DELETE</code> 即刪除。</li>
+<li><strong>Frame/long. positions</strong>：建立 <code>gentab</code>（主網格：肋骨號、位置與舯部縱向位置）。注意：Structural Design 也可互動建立 gentab，<strong>從檔案再跑一次會覆蓋</strong>互動結果，反向則不會回寫檔案。</li>
+</ol>
+<h2 id="135-planar-modelling">13.5 Planar Modelling（平面板架建模）</h2>
+<h3 id="1351">13.5.1 概念與資料庫</h3>
+<p>Planar Hull Modelling 涵蓋「早期設計 → 生產準備」，<strong>不含強度計算</strong>，支援英制單位。三個活動：產生模型、由模型衍生視圖、發展圖面；兩種模式：互動（正常）與背景（只能由備好的 scheme 產生板架、由輸入檔產生視圖）。</p>
+<p>資料庫：<code>SB_CGDB</code>（曲面、hull reference、seams／butts、肋骨／水線／縱剖線）、<code>SB_OGDB</code>（structure reference、blocks、板架、bracket、planes、endcut table）、<code>SBD_PICT</code>（板架圖與視圖）、<code>SB_PDB</code>（圖面）、<code>SBD_STD</code>／<code>SBD_FORM</code>（標準與圖框）、<code>SB_REFDB</code>（拓撲物件）、<code>SB_TID</code>（早期設計：主要尺度、RSO、艙室）。</p>
+<p><strong>三層結構</strong>：<strong>panel</strong>（板架）是最小可獨立儲存單位，含「平面＋封閉邊界」；panel 內有 <strong>component group</strong>（同類型零件一組，修改刪除以「組」為單位）；panel 亦可用文字 <strong>input scheme</strong> 完整描述，<strong>scheme 與 panel 物件互為等價、可互相衍生</strong>。</p>
+<h3 id="1352-plane-panel-editor">13.5.2 Plane Panel Editor</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Editor 視窗：scheme 文字與生成錯誤區</div></p>
+<p><em>圖 13-7　Hull Editor：上方為 scheme 陳述式（紅色底線者為出錯陳述式），下方為生成錯誤訊息。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>這是 <strong>modeless</strong> 對話框，可在開啟時使用其他功能（如 Planar &gt; Model &gt; Create）並讓內容更新。<strong>Planar &gt; Scheme &gt; Input／Edit、Planar &gt; Model &gt; Edit</strong> 都會開啟它。每個 scheme 描述一個 panel（名稱相同）；<strong>一組類似板架（如雙層底的肋板）可同時啟用並一起修改</strong>，編輯器顯示第一塊，修改套用到全部。knuckled panel 與含 bracket panel 時，編輯器會連同子 panel／bracket panel 的 scheme 一起顯示（<strong>bracket panel 可被多個主板架共用，改一處會影響其他主板架</strong>）。</p>
+<ul>
+<li><strong>顏色</strong>：識別行為綠色；已改未執行為紫色，執行成功後轉黑；錯誤亮紅，只有警告則暗紅；目前陳述式有底線。雙擊錯誤行會跳到出錯陳述式。</li>
+<li><strong>分號不能手動增刪</strong>：用選單新增／刪除陳述式。刪除<strong>已執行過</strong>的陳述式時，關鍵字會被改成 <code>DEL</code> 並執行以移除元件，文字仍留在編輯器。</li>
+</ul>
+<h3 id="1353-planar">13.5.3 Planar 選單功能一覽</h3>
+<p><strong>Model</strong>（作用於 component 群組，須有已啟用 panel）：<code>Create</code>／<code>Modify</code>／<code>Edit</code>（互動建立；Create 預設加入既有 panel，<strong>新建 panel 須在 indicate 提示輸入 <code>OPTIONS</code></strong>）、<code>Assembly</code>（群組內零件要分屬不同組裝，先 <code>Divide</code>）、<code>Divide</code>、<code>Split_STI</code>（支援 <code>FR24(6)60</code> 重複語法）、<code>Modify_STI_end</code>、<code>Delete</code>。</p>
+<p><strong>Panel</strong>（作用於整塊 panel）：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copy／Move</td>
+<td>位置可絕對或沿主軸相對（<code>--FR30</code> 向後 30 個肋骨，<code>+LP5</code> 向上 5 個縱向位置）；名稱可用重複語法如 <code>AB123-8&lt;12(10)32&gt;P</code>；絕對位置須保持原法向向量</td>
+</tr>
+<tr>
+<td>Split</td>
+<td>以座標、視圖中的線、相交 panel 或 RSO 分割；<strong>加強材被切時 connection code 取自 Connection Control File（panel 切用 type 4、平面切用 type 5；未定義則用 40、70）</strong></td>
+</tr>
+<tr>
+<td>Remove Seam</td>
+<td>移除接縫並合併兩側板、加強材、flange；屬性不同時彈出三欄表單逐項挑選</td>
+</tr>
+<tr>
+<td>Recreate／Topology</td>
+<td>依原定義重生（自動拓撲排序）；圖示相依物件（Defining／Dependent）</td>
+</tr>
+<tr>
+<td>Compare Panels</td>
+<td>比較大 panel 與衍生生產 panel：紅（較小或材質不同）、藍（較大同材質）、綠（相同）、白（無對應）</td>
+</tr>
+<tr>
+<td>Rename／Modify Symmetry Code／Knuckled／Jumbo Split</td>
+<td>Rename 更新所有參照；<code>Modify Symmetry Code</code> 把 SBP 板分成 P、S（須設 <code>SBH_MOD_SYM=MIRR</code> 才真分割）；官方稱多數情況 Split 優於 Jumbo Split</td>
+</tr>
+<tr>
+<td>Toggle Divide</td>
+<td>見 13.5.12</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其他群組</strong>：<code>Scheme</code>（<code>Input</code>、<code>Show</code>、<code>Edit</code>、<code>Run Mode</code>：<code>Confirm</code> 開啟時 boundary／curve 逐段顯示以查錯；<code>Gen in Background</code>，經 Job Launcher，可選 <code>.schlst</code> 清單；<code>Create Lists</code>）。<code>View</code>（<code>Create</code>、<code>Detail</code>、<code>Recreate</code>、<code>Modify</code>、<code>Select</code>、<code>Edit</code>、<code>Properties</code>）。<code>PosNo</code>（<code>Scope</code> 設作用範圍、<code>Set</code>、<code>Change</code>、<code>Copy</code> 只複製「最終」號碼〔<code>POSNO_PREFIX</code>／<code>SUFFIX</code> 判定〕、<code>Auto</code> 啟動 autopos）。<code>RSO</code>（<code>Create RSO</code>：<strong>RSO 參照比 panel 參照穩定，jumbo 之後再細分也不會斷</strong>）。<code>Select</code>：<strong>修改前必須 <code>Activate</code></strong>（讀出並鎖定；外框 <code>S</code>＝已存、<code>M</code>＝已修改）、<code>Store</code>、<code>Skip</code>、<code>Store and Skip</code>、<code>List Activated</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：右鍵快顯功能表：Activate、Deactivate、Stiffener &gt; Symmetry、Generate Parts</div></p>
+<p><em>圖 13-8　對 panel 元件按右鍵：啟用／取消啟用、修改元件對稱性、直接 Generate Parts。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>Hull Tools</strong>：<code>Note</code>（Position Number、Assembly、Bevel、Config Set／Move）、<code>Curve &gt; Create Curve</code>（多條曲線名稱格式 <code>&lt;prefix&gt;&lt;start&gt;(&lt;step&gt;)&lt;end&gt;</code>，如 <code>SBX34()46</code>）與 <code>Store Curve</code>、<code>Functional Description</code>、<code>Shrinkage Info</code>（顯示主收縮方向與各板係數，mm/m）、<code>Re Init</code>、<code>Painting Areas</code>、<code>Part Checking</code>、<code>Vitesse</code>（列出 <code>SB_PYTHON</code> 目錄的腳本供執行）。</p>
+<h3 id="1354-scheme">13.5.4 設計語言：Scheme 的基本規則</h3>
+<p><strong>結構</strong>：scheme 第一行是 identifier（不含關鍵字、不需分號，只看前 72 欄，前 12 字元會印在繪圖上）；之後是 <code>PANEL</code>（必為識別行之後的第一個陳述式，或先放 <code>ONLY</code> 以容納前置註解）、<code>BOUNDARY</code>，再接各 component 陳述式。陳述式以分號結尾（scheme 檔行寬不可超過 72 字元），關鍵字超過三字元可縮寫為前三字元（<code>PAN</code>、<code>BOU</code>、<code>STI</code>）。</p>
+<table>
+<thead>
+<tr>
+<th>規則</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重複語法</td>
+<td><code>start(step)end</code> 或 <code>start-step-end</code>：<code>10-15</code>、<code>6(2)14</code>、<code>1.5(0.3)2.1</code>；一個陳述式最多處理 25 個元件</td>
+</tr>
+<tr>
+<td>值個數規則</td>
+<td>每個關鍵字給的值個數須是 0（用預設）、1（全部共用）或 n（逐一對應）；違反通常報錯</td>
+</tr>
+<tr>
+<td>座標</td>
+<td>本地 <code>U</code>、<code>V</code> 或全域 <code>X</code>、<code>Y</code>、<code>Z</code>；<strong>可用 <code>FR</code>（肋骨）與 <code>LP</code>（縱向位置）項</strong>，如 <code>FR123.5</code>、<code>FR123(5)133+500</code>、<code>LP-15</code>（負值表示另一舷）</td>
+</tr>
+<tr>
+<td>拓撲點</td>
+<td><code>P5</code>、<code>P5()7+100</code>；<code>UV=P5</code>、<code>XYZ=P1()2</code></td>
+</tr>
+<tr>
+<td>數值變數</td>
+<td><code>N1</code>–<code>N99</code>（負號取反），以 <code>NUM</code> 陳述式給值，<strong>一旦給值不可重定義</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1355-panel-boundary">13.5.5 PANEL 與 BOUNDARY</h3>
+<pre><code>PAN, 'AA334-6', Y=6503, DT=104;                                  ! 一般板架，位置由主軸座標定義
+PAN, 'AA999-9', ORI=FR111,1000,0,333, UAX=FR113,1100,0, VAX=FR111,2000,100, DT=999;
+PAN, 'PANEL_BKT', BRA;                                           ! bracket panel
+</code></pre>
+<ul>
+<li><strong>命名</strong>：只能用字母、數字、<code>-</code>、<code>_</code>；建議 <code>'&lt;block&gt;-&lt;pan&gt;'</code>，block 預設取自名稱。</li>
+<li><strong>有效側（<code>pan_loc</code>）</strong>：<code>SBP</code>（左右舷各一、互為鏡像）、<code>S</code>、<code>P</code>、<code>SP</code>（跨或位於 CL，須依實際位置描述，不可鏡射）。<strong>跨板參照時要記得：參照永遠是對「該板儲存的位置」</strong>——例如描述在左舷的右舷肋板，邊界參照右舷縱桁時要加 <code>REF</code>。</li>
+<li><strong>Data type（DT）</strong>：整數，使用者分類用；<strong>jumbo 為 800–899，957 bracket panel、958 knuckled 子板、959 舾裝鋼構轉入的專用板</strong>；第二位數 9 表水密艙壁、8 非水密、0–7 其他（影響隱藏相交 panel 的線型）。Structural Design 的設計板固定為 1600，水密改用 <code>WT</code>。可由 <code>SBH_PANEL_DT</code>／<code>SBH_PANEL_GT</code> 檔限制可選值；檔案不存在則預設 101。</li>
+<li>其他：<code>GT</code>（幾何型別，預設 101，90 為可轉型材的 panel profile、958 為 knuckled 主板）、<code>MAR</code>、<code>WOR</code>、<code>LIS</code>、<code>AS1</code>–<code>AS4</code>、<code>AR</code>／<code>ARP</code>／<code>ARS</code>（組裝參照）、<code>GMS</code>（標記面）、<code>BUI</code>（建造號；預設檔 <code>CHECK_BUILD</code> 0／1／2 控制檢查）、<code>WT</code>／<code>NOWT</code>、<code>STO=PS|SB</code>。</li>
+<li><strong>Knuckled 主板</strong>：<code>PAN,'TB123-1',SBP,DT=343, SUB='TB123-SUB1':'TB123-SUB2';</code> 或 <code>SUB='TB123-*'</code>；子板以 <code>PAN,'…',SUB,Z=15000;</code> 宣告，boundary 以 <code>CON</code>（預設彎曲型 9999）標示彎折線。</li>
+</ul>
+<p><strong>BOUNDARY</strong>：最多 12 條邊界，<strong>逆時針</strong>、以 <code>/</code> 分隔，每條方向可任意（系統自動轉）。邊界種類：</p>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>範例</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>曲線參照</td>
+<td><code>FR105</code>、<code>WL2</code>、<code>BT0</code></td>
+<td>只能在第一條；<code>SYM</code> 反射接成跨 CL 邊界</td>
+</tr>
+<tr>
+<td>直線</td>
+<td><code>U=…</code>、<code>V=…</code>、<code>X=FR75</code></td>
+<td>有限制線與無限制線</td>
+</tr>
+<tr>
+<td>曲面</td>
+<td><code>SURF='…'</code> 搭配 <code>XMIN</code>…<code>ZMAX</code>、<code>SID</code></td>
+<td>預設 <code>YMIN=0</code>；反射曲面要用負值限制</td>
+</tr>
+<tr>
+<td>相交 plane／panel／RSO</td>
+<td><code>'BULKH', SID=PS</code>、<code>'_RSO_DECK1', SID=BOT, COR=750</code></td>
+<td><code>COR</code> 平行位移；兩側板厚差由 <code>CHAMFER_ADJUST</code> 控制；自動加 hook 延伸（可用 <code>REDUCE_HOOKS</code> 縮減）</td>
+</tr>
+<tr>
+<td>同平面 panel</td>
+<td><code>'NAME', LIM=…</code></td>
+<td>取其某一邊或 flange</td>
+</tr>
+<tr>
+<td>型材斷面</td>
+<td><code>CROSS, L140, COR=50</code>、<code>'AA124', SL14, SHORT</code></td>
+<td>取型材與本板平面的相交</td>
+</tr>
+<tr>
+<td>沿型材邊</td>
+<td><code>ALONG, L470, X=FR117, COR=50</code></td>
+<td>正值重疊、負值留間隙；延伸 500（殼板縱骨）或 1000 mm</td>
+</tr>
+<tr>
+<td>重疊型材端</td>
+<td><code>OVERLAP, L320, SID=FOR, 'PANA', R, M1=-50</code></td>
+<td>參數 <code>R</code>（凸耳）、<code>M1</code>–<code>M4</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>BOUNDARY</code> 是最容易引發連鎖錯誤的陳述式。官方指出 <code>PANEL</code>、<code>BOUNDARY</code> 或 <code>SAVE</code> 之前的陳述式出錯，常導致後續陳述式一起出錯；除錯時先開 <code>Run Mode &gt; Confirm</code>，逐段檢查邊界。</p>
+</blockquote>
+<h3 id="1356-seam-plate">13.5.6 SEAM 與 PLATE</h3>
+<ul>
+<li><strong>SEAM</strong>：把 panel 切成板。<code>SEAM[,BEV=|LBEV=|RBEV=][,SID=][,EXC=|LEXC=|REXC=][,GRI=][,WEL=] &lt;定義&gt;</code>。定義方式：沿線（<code>Z=1500</code>、兩點）、與既有 seam／limit 平行（<code>LIM=</code>／<code>SEAM=</code>＋<code>M1</code>、<code>M2</code>、<code>NUMB</code>）、垂直於 limit（<code>LIM=</code>）、為相交 panel 產生（<code>'PANEL'</code>，兩側各一條）、沿曲線。<code>FROM</code>／<code>TO</code> 指定起止於哪條 seam。</li>
+<li><strong>PLATE</strong>：<code>PLATE[, &lt;point&gt;] , MAT=&lt;厚&gt;[, MSIDE=][, QUAL=][, DEST=][, SURF=][, RAW=][, POS=][, AS1…][, COLOUR=]</code>。每塊板用一點定位（只有一塊時可省略）。<code>MAT</code> 的值是<strong>沿 panel 法向的座標</strong>：一值表示一面與 mould plane 重合（正負決定板在哪一側），兩值是兩面的座標；同一陳述式有多塊板時，每塊給一個 <code>MAT</code> 值（<strong>不是</strong>兩面座標）。材質預設為軟鋼；<code>QUAL</code> 可用代碼或已登記字串。</li>
+</ul>
+<pre><code>PLA, MAT=14;                              ! 整塊 panel 一塊板
+PLA, X=FR75(2)77, Z=1500, MAT=15, MSIDE=PS;
+</code></pre>
+<h3 id="1357-stiffenerflange-pillar">13.5.7 STIFFENER、FLANGE 與 PILLAR</h3>
+<p><strong>STIFFENER</strong>（含 swedging）：四種子語法——</p>
+<table>
+<thead>
+<tr>
+<th>子語法</th>
+<th>做法</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mould line first</td>
+<td>先定義 mould line（直接給線，或平行於 limit／線：<code>LIM=</code>、<code>M1</code>、<code>M2</code>、<code>NUMB</code>），再逐端定義終止方式</td>
+<td><code>STI, SID=AFT, LIM=-3, PRO=10,200,12, NUMB=3, M1=900, M2=750, V1=5000/CON=14;</code></td>
+</tr>
+<tr>
+<td>End points first</td>
+<td>先定義兩端；一端可同時定義方向（接縱桁），也可用 <code>T=</code> 明給方向</td>
+<td><code>STI, L300-320, CUT=1100, CON=4/ 'LSK1', SL30-32, CUT=1100, CON=4;</code></td>
+</tr>
+<tr>
+<td>Connection stiffener</td>
+<td>高度自動化：type 4（一端接加強材／flange／外輪廓，另一端自由）與 type 5（兩端皆接，預設 <code>PRO=10,200,12</code>、<code>CUT=1220,100 / 1120</code>）；方向自動選</td>
+<td><code>STI, 4, SID=AFT, L190-250;</code></td>
+</tr>
+<tr>
+<td>Curved stiffener</td>
+<td>用 <code>CURVED</code>，平行於 limit、孔或沿曲線</td>
+<td><code>STI, CUR, LIM=3, M1=20, CON=14/CON=14;</code></td>
+</tr>
+</tbody>
+</table>
+<p>重點：<code>PRO=&lt;type&gt;,&lt;param…&gt;</code>、<code>CON=</code>（連接碼）、<code>CUT=</code>（endcut code＋參數）；<strong>斜線 <code>/</code> 前為第一端、後為第二端</strong>；加強材腹板位於 mould line <strong>左側</strong>；一個陳述式可產生最多 25 支。型材終止於外輪廓時，視連接碼類型當成對相切線或相切面的 flange 處理（前者 endcut 角通常 90 度，後者可為任意角）。</p>
+<ul>
+<li><strong>FLANGE</strong>：兩類——<strong>焊接 flange</strong>（扁鋼或圓棒／管，沿 limit 或孔，<code>LIM=</code>／<code>CNO=</code>，<code>UNSYM=</code> 偏置）；<strong>折邊 flange</strong>（僅能沿外輪廓直線段，<code>SID</code>、<code>LIM</code>、<code>TYPE</code>、<code>H</code>＝名義高、端點 <code>CUT</code>、<code>M1</code>，須先設 <code>SBH_FLANGE_CTRL</code> 才用客戶定義，否則用內建標準、角度預設 30 度）。加折邊會改變外輪廓，常需重跑 <code>BOUNDARY</code>；反之重跑 <code>BOUNDARY</code> 也要重跑 <code>FLANGE</code>。非扁鋼或不垂直板面的「flange」要用 <code>STIFFENER</code> 建。</li>
+<li><strong>PILLAR</strong>：自由柱，兩端連接；位置用「線＋端點限制」或明給端點；方向三種：沿船主方向、<code>T=</code>角度（僅限描述線沿 w 軸）或給額外點；<strong>不對稱型材須用 <code>SID</code> 指定翼板方向</strong>。官方註明柱的連接碼「不用於計算」。</li>
+</ul>
+<h3 id="1358-holenotchcutout-clip">13.5.8 HOLE、NOTCH、CUTOUT 與 Clip</h3>
+<p><strong>HOLE</strong>（板）：<code>HOLE, &lt;標準孔|物件&gt;, &lt;位置&gt;…[, FIC][, PIL=][, M1=][, P|S][, CRO][, SPC=…][, BEV=][, BRI…][, HOO…]</code>。位置可用點（加 <code>T=</code> 角度或 <code>XT/YT/ZT</code> 第二點）或「沿 limit」（<code>LIM=</code>、<code>M1</code>、<code>ALONG</code>、<code>PARALLEL</code>、<code>INC</code>）。重點：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FIC</code>（fictitious）</td>
+<td>不當孔分割，只作標記輪廓</td>
+</tr>
+<tr>
+<td>穿越物件</td>
+<td>參照穿越的 panel（<code>PIL=</code> 柱號）或物件，系統自動依物件幾何開孔；<code>M1</code> 為相對斷面輪廓的平行位移</td>
+</tr>
+<tr>
+<td>Bridge／Hook 孔</td>
+<td>接縫穿過孔時：<code>BRI</code>（橋，<code>BRW</code> 寬、<code>BRR</code> 角半徑；預設 <code>BRIDGE_WIDTH</code>＝100、<code>BRIDGE_RADIUS</code>＝15）、<code>HOO</code>（鉤，<code>HGP</code> 間隙、<code>HRA</code> 半徑、<code>HTY</code> 型別 0–3；預設 <code>HOOK_GAP</code>＝25、<code>HOOK_RADIUS</code>＝15）</td>
+</tr>
+</tbody>
+</table>
+<p>加強材上的孔以 <code>D=&lt;距端點&gt;</code> 或 <code>U|V|X|Y|Z=</code> 相交位置、<code>M1</code>（孔心到板面距離）、<code>INC</code> 與 <code>S-ref</code> 指定；<strong>加強材與其孔分屬不同陳述式時，可能需整批重跑，否則系統只警告並盡量處理。</strong></p>
+<p><strong>NOTCH</strong>（板）：位置有「角」（<code>COR=</code>，不對稱缺口要再用 <code>LIM=</code> 指定落在哪條邊）、「沿 limit」（<code>LIM=</code>＋<code>U|V|X|Y|Z=</code>＋<code>ALONG</code>）、「為接縫」（<code>SEAM=</code>，可帶相鄰板名或曲面名）。範例：<code>NOT, VUF200*75*50, COR=1, LIM=3;</code>、<code>NOT, R50, LIM=1, Y=10000(400)12000;</code>。預設檔 <code>CORNER_NOTCH_CHECK</code>、<code>SEAM_NOTCH_CHECK</code> 可檢查重複定義。加強材缺口則有「接縫處」、「距端點距離」、「與線相交處」三種位置。</p>
+<p><strong>CUTOUT</strong>（為穿過的加強材）：<code>CUTOUT, [TYPE=]&lt;code&gt; [,P|S] , &lt;ext_prof_ref&gt;｜&lt;inters_pan&gt; [,REF][,C=][,M1=][,CLIP=|CT1/CT2/CT3=][,CL1…][,MAT=][,WELD=…][,BWEB=…][,NABU][,NABI]…</code>。重點關鍵字：</p>
+<table>
+<thead>
+<tr>
+<th>關鍵字</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLIP=XYZ</code></td>
+<td>內建 clip 三位碼；與 <code>CT1</code>／<code>CT2</code>／<code>CT3</code>（客戶 clip 型別）<strong>不可併用</strong></td>
+</tr>
+<tr>
+<td><code>WELD</code>／<code>WCLIP</code>／<code>WPROF</code>／<code>WSHELL</code></td>
+<td>焊腳；<code>BCLIP</code>、<code>BWEB</code>、<code>BFLA</code>、<code>BSHELL</code>（含 <code>BC…</code> 版）為各處 bevel</td>
+</tr>
+</tbody>
+</table>
+<p>範例：<code>CUT, TYP=53, CLI=012, AREA=60, L110-230;</code>；客戶 clip：<code>CUT, TYP=10, CT1=101, CT2=102, L120(1)5, SID=FOR, MAT=8;</code>。<strong>加強材上的 cutout 只能為同 panel 的其他加強材設，不可帶 clip</strong>，語法 <code>CUT, 5, SL1-10/ SF105(3)111;</code>（被穿者在斜線前，最多 300 組）。互動模式（Planar &gt; Model &gt; Create &gt; Cutout）可逐一點選，也可沿某邊或所有邊<strong>自動設定</strong>。</p>
+<p><strong>交叉 cutout 9999</strong>（蛋箱式互嵌）：兩片 panel 都要各設一次，且 panel B 須先建好再設 panel A 的 cutout。<code>CUTOUT, 9999, 'B', DIR=BOT, R1=50, R2=100 [, M1…M4]</code>；<code>R1&lt;0</code> 為 KS 缺口（預設 −10）。三個環境變數控制自由空間：<code>SBH_INTERCROSS_CUTOUT_TOPDIST</code>（5 mm，兩側平分）、<code>…_SIDEDIST</code>（1.5 mm）、<code>…_TOPRADIUS</code>（3 mm）；兩 panel 在至少一條 limit 上要有共同點。分割時若另一側未設或方向不對，系統會發警告。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：蛋箱式交叉 cutout 控制參數 TD、SD、TR、R1、R2、M1–M4</div></p>
+<p><em>圖 13-9　交叉 cutout（9999）的控制參數。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1359-bracket">13.5.9 BRACKET（肘板）</h3>
+<p><strong>BRACKET 陳述式</strong>四種主語法：(1) 由周邊結構產生的 type standard bracket，共七種子語法（對應連接情形）；(2) 明給參數；(3) 掛接 bracket panel 或零件；(4) 複製既有 bracket。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：七種子語法對應的典型肘板連接情形</div></p>
+<p><em>圖 13-10　Bracket 子語法 1–6 的典型佈置（子語法 7 另有圖）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>子語法</th>
+<th>連接情形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>panel／profile：一臂終止於相交型材，其他可為 panel 面</td>
+</tr>
+<tr>
+<td>2</td>
+<td>同 1，但兩臂完全自由；可做三臂肘板</td>
+</tr>
+<tr>
+<td>3</td>
+<td>panel／panel：肘板與兩 panel 共平面</td>
+</tr>
+<tr>
+<td>4</td>
+<td>profile／profile：兩型材約共平面</td>
+</tr>
+<tr>
+<td>5</td>
+<td>panel／profile，如 2 但型材端被重疊</td>
+</tr>
+<tr>
+<td>6</td>
+<td>profile／profile，至少一端重疊</td>
+</tr>
+<tr>
+<td>7</td>
+<td>周圍結構任意，肘板平面由使用者指定（二臂或三臂）</td>
+</tr>
+</tbody>
+</table>
+<p>共通關鍵字：<code>BRA, &lt;型別&gt;[,COR=][,MIRR][,SYN=]</code>、<code>MAT=</code>（板厚）、<code>R</code>／<code>RA</code>／<code>RB</code>（半徑）、<code>TOLA</code>／<code>TOLB</code>（趾長）、<code>NOT／NOA／NOB／NOC</code>（角缺口，給 <code>-1</code> 為取消、負號為對角平分線鏡射）、<code>SID</code>（相對 panel 的位置）、<code>PSID</code>（加強材側）、<code>PRA…PRE</code>（肘板上加強材尺寸，<code>p_type=-1</code> 刪除）、<code>WELD</code>（二臂最多 4 值：<code>w_a, w_b, w_toea, w_toeb</code>）、<code>BEV</code>、<code>VAR</code>（1–8）、<code>SEP</code>／<code>BEL</code>、<code>BRPAN</code>、<code>BHO</code>（肘板上的孔，一個肘板一種孔型）。<strong>3 臂肘板可用「深度」控制尺寸（子語法 2、3、7）</strong>。肘板名稱格式為 <code>&lt;型別&gt;&lt;A臂 cm&gt;/&lt;B臂 cm&gt;-&lt;x&gt;&lt;y&gt;&lt;z&gt;</code>，例如 <code>BS50/50-200</code>（標準）、<code>EA80/75-209</code>（個別）；z＝0 標準、9 個別、1–8 使用者變體。</p>
+<pre><code>BRA, A, COR=5, SID=AFT, PSIDE=SB, MAT=12, L160/S1;          ! 子語法 1，斜線前為「外來」元件
+BRA, 'BRA_PAN', MOVE, X=0(700)2800;                         ! 掛接 bracket panel 並複製 4 份
+BRA, COPY= 'AA171-7', FCNO=5;                               ! 複製他板的肘板
+</code></pre>
+<h3 id="13510">13.5.10 其他陳述式</h3>
+<table>
+<thead>
+<tr>
+<th>陳述式</th>
+<th>要點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EXCESS</code></td>
+<td><code>EXC, LIM=&lt;n&gt;, M1=&lt;量&gt;[, TYP=&lt;名&gt;];</code> 沿 limit 加 excess；一條邊最多 5 種；只存於 panel，<strong>不存入板零件</strong></td>
+</tr>
+<tr>
+<td><code>DOUBLING</code></td>
+<td>疊板：<code>DOU, CNO=2, M1=250, M2=15, MAT=12, SID=AFT, POS=8;</code>，位置由孔（<code>CNO</code>）、缺口（<code>NOT</code>）或曲線（<code>CUR</code>）決定；<code>CLO</code> 全蓋、<code>M2</code> 為內緣間距</td>
+</tr>
+<tr>
+<td><code>CMP</code></td>
+<td>楔形補償：<code>CMP, TYPE=1\|2, LIM=, M1=[, M2=, COR=]</code>；<code>M1&gt;0</code> 向外</td>
+</tr>
+<tr>
+<td><code>SHRINKAGE</code></td>
+<td><code>SHR[,&lt;line&gt;][,M1…M6]</code>；<code>SHR,;</code> 全自動，須有 shrinkage 物件；補償在零件產生時進行</td>
+</tr>
+<tr>
+<td><code>WELD</code></td>
+<td>沿 limit 分區間指定 bevel 與焊腳：<code>WELD, LIM=1, TO=1, BEV=2, WELD=6.5;</code>；<code>AUTO</code>、<code>EQUAL</code>、<code>KNA</code>／<code>KNP</code></td>
+</tr>
+<tr>
+<td><code>CURVE</code>／<code>POINT</code>／<code>PLN</code></td>
+<td>臨時曲線、拓撲點、臨時平面（不存資料庫）；<code>PLN,'X-PLANE',X=FR175+100;</code></td>
+</tr>
+<tr>
+<td><code>MARKING</code>／<code>TAP</code>／<code>SWAGE</code></td>
+<td>GSD 與標記線；seam 與孔／缺口／cutout 交點加延伸片（<code>TAP, TYP=2, SEA=1, LIM=2;</code>）；小波紋（<code>SWA, TYP=101, SID=FOR, U=500, M2=1200;</code>）</td>
+</tr>
+</tbody>
+</table>
+<p>FRP 專案時，多數元件陳述式有 FRP 版本，另有 <code>BEAD</code> 與 <code>LAMINATE_*</code>。</p>
+<h3 id="13511">13.5.11 由模型衍生視圖與圖面</h3>
+<p>視圖來源有三：互動 <code>View &gt; Create</code>／<code>Detail</code>、背景 <code>Hull Model Drawings</code>（<code>SJ002</code>）、在 view 內生成 panel 時逐步長出的圖。<strong>符號視圖</strong>把 panel 畫成外輪廓、seam＋bevel 符號、加強材（mould line＋endcut 符號＋材料側符號）、肘板、flange、clip，視 panel 與繪圖平面夾角採「投影」或「相交」。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create View 對話框：Plane、Limits、Select、Outfit、Misc 五個頁籤</div></p>
+<p><em>圖 13-11　Create View：Plane 頁籤選擇切面（X／Y／Z、3 points、Panel、Curve、RSO）、Looking 方向與比例。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>五個頁籤：<strong>Plane</strong>（切面可由座標、三點、panel〔含 bracket、加強材、flange 腹板〕、曲線、RSO〔可指定 face〕定義）、<strong>Limits</strong>（盒子與深度）、<strong>Select</strong>（<code>Design View</code> 或 <code>Assembly View</code>；<code>Automatic selection</code>；Block／Panel 包含與排除）、<strong>Outfit</strong>（舾裝以 3D 切片呈現，但 <code>Wireline</code>、<code>Wireline Hidden Line</code> <strong>不切片</strong>，完整顯示）、<strong>Misc</strong>（座標軸、剖面符號）。<code>Detail</code> 預設比例為當前視圖的兩倍。<strong><code>Recreate</code></strong> 依原資料重生並<strong>加入範圍內新 panel</strong>（<code>OPTIONS</code> 可抑制），已加的量測保留；預設檔 <code>UPDATE_NOTE</code> 可更新 note。</p>
+<p>背景視圖輸入語言（目錄 <code>SB_SHIPDATA</code>）：<code>NAME,'&lt;view&gt;'[/SCALE=]; PLANE …; LOOKING,…; DEPTH, d1, d2; LIMITS,…; SELECT /AUTOSELECT /PANEL= …; RECREATE,'&lt;d&gt;';</code>；<code>PLANE</code> 可用三點、<code>CL</code>／<code>BL</code>／<code>FR&lt;n&gt;</code>、<code>X:=</code>、<code>/PANEL=</code>、<code>/CURVE=</code> 等；<code>DEPTH</code> 預設 100；結果存 <code>SBD_PICT</code>，清單 <code>SB&lt;jobno&gt;.LST</code>。</p>
+<p><strong>生成方式與一致性</strong>：板架可 <strong>separate</strong>（空白畫面）或 <strong>in view</strong>（有開啟圖面時）生成；in view 時每個 <code>PANEL</code> 範圍只處理一個 panel。<strong>同一 panel 以不同方式生成，圖與模型可能不一致</strong>；解法是 <code>View &gt; Recreate</code>／<code>Modify</code> 或背景 <code>TBHMDWG</code>。<strong>Envelope</strong>（以最小外框代替視圖）可加速重繪，並避免資訊加到錯誤子圖。</p>
+<h3 id="13512-toggle-dividecorrugated-bulkhead-jumbo-panel">13.5.12 Toggle Divide、Corrugated Bulkhead 與 Jumbo Panel</h3>
+<p><strong>Toggle Divide</strong>：<strong>改變相交 panel 的優先順序</strong>（誰連續、誰被切）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Toggle Divide 對話框</div></p>
+<p><em>圖 13-12　Toggle Divide：選擇連續 panel、被相交 panel，並可 Check 或 Merge and Split。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>路徑 Planar Hull &gt; Panel &gt; Toggle divide。選「連續 panel」（兩塊相容 panel，或一塊帶 seam 者）與「被相交 panel」；<code>Check</code> 預覽新 scheme；<code>Merge and Split</code> 合併連續 panel、為被相交者加 seam、合併連續者的加強材、切斷被相交者的加強材並<strong>加 cutout</strong>。<strong>限制</strong>：儲存碼須相容；多視圖專案<strong>只能合併設計 panel</strong>；混合對稱與非對稱 panel 時，系統自動先分舷，之後須在另一舷再執行一次。</p>
+<p><strong>Corrugated Bulkhead</strong>（View &gt; Addins）：四個頁籤——General Information（以參數、RSO 或既有 2D 幾何建立；參數有 Radius、Height、Width、Breadth、Start Length、Start Position）、Boundary Limits、Seam Position（橫艙壁填 Y 值、縱艙壁填 X 值）、General Purpose String（<code>Weld &amp; Excess</code> 設主板與子板的焊接屬性）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Corrugated Bulkhead 附加功能對話框</div></p>
+<p><em>圖 13-13　Corrugated Bulkhead：板架資訊、方向（Transverse／Longitudinal）與波紋參數。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>Jumbo panel</strong>：早期設計把整片甲板、艙壁當一塊（技術上與一般 panel 相同，須單平面、不可 knuckle），日後再細分。<strong>data type 保留 800–899</strong>；建議集中放在自己的 block。</p>
+<h3 id="13513-default-file">13.5.13 預設檔（default file）</h3>
+<p>純文字 <code>參數=值</code>；未寫者用系統預設；<code>SJ001</code>（互動）、<code>SJ011</code>（背景產生）、<code>SJ002</code>（背景視圖）各有預設檔。重要參數：</p>
+<table>
+<thead>
+<tr>
+<th>群組</th>
+<th>參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基礎</td>
+<td><code>NEW_BKT</code>（<strong>啟用延伸肘板處理，通常應設</strong>）、<code>KNUCKLED_STIFFENERS</code>、<code>MAX_KNUCKLED_ANGLE</code>（30）、<code>SURFACES</code>、<code>SURFACE_REFERENCE</code>（<code>EXISTING</code>／<code>CUT</code>）、<code>FR_TERM_OUT</code>、<code>LP_TERM_OUT</code></td>
+</tr>
+<tr>
+<td>編輯</td>
+<td><code>SCH_CREATE</code>、<code>SCH_DELETE</code>、<code>SBH_OPEN_DLG</code>（<code>KEYIN</code> 預設，目錄檔案多時建議）、<code>STORE_FR</code>／<code>STORE_LP</code>（儲存肋骨號而非數值，使 panel 跟著肋骨表變動）</td>
+</tr>
+<tr>
+<td>建模</td>
+<td><code>CHAMFER_ADJUST</code>（99＝依 bevel 設定，<strong>有 bevel 定義檔時強烈建議</strong>）、<code>CHAMFER_STEP</code>（3 mm）、<code>CHECK_BUILD</code>、<code>EARLY_DESIGN</code>、<code>BRIDGE_*</code>、<code>HOOK_*</code>、<code>POSNO_PREFIX</code>／<code>SUFFIX</code>、<code>SPIGOT</code>、<code>STD_CLIP_TCODE</code>、<code>USER_TAG_UNIQUE</code>、<code>SHRINK_OBJ</code></td>
+</tr>
+<tr>
+<td>視圖</td>
+<td><code>DRAWINGSCALE</code>（100）、<code>DRAW_EXCESS</code>（0–3）、<code>DRAW_PAN</code>、<code>EXC_TYPE_1…5</code>、<code>BEVEL_COLOUR_OS／TS</code>、<code>CURR_BLOCK</code>、<code>ABUT_PROF_DIST</code>（30 mm）</td>
+</tr>
+</tbody>
+</table>
+<p>背景產生（Job Launcher）<strong>只能處理備好的 scheme、且只能 separate 生成</strong>；同名 panel 已存在則<strong>整個取代</strong>；各陳述式獨立處理，但 <code>PANEL</code>、<code>BOUNDARY</code> 或 <code>SAVE</code> 前的錯誤會連帶；警告元件仍產生，<strong>錯誤則通常不產生</strong>。</p>
+<h2 id="136">13.6 二次開發怎麼接</h2>
+<table>
+<thead>
+<tr>
+<th>目標</th>
+<th>可用接點</th>
+<th>依據</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客製 part name</td>
+<td><code>_TBhook_CustPartName.py::getPartName(...)</code>，簽名固定</td>
+<td>官方有完整參數清單與範例</td>
+<td>語法有依據；<strong>Python 版本與環境</strong>〔待核對〕</td>
+</tr>
+<tr>
+<td>可設定 note</td>
+<td><code>_TBhook_ConfigNote.py</code> 五個方法</td>
+<td>官方有介面與範例</td>
+<td>有依據</td>
+</tr>
+<tr>
+<td>首次建 boundary 後動作</td>
+<td>PML 函式 <code>!!pHullTriggerPostBoundaryCreation()</code></td>
+<td>官方有範例（預設被註解）</td>
+<td>有依據；改後須回歸測試</td>
+</tr>
+<tr>
+<td>Scheme 版面、孔／缺口／肘板 hook</td>
+<td><code>_TBhook_PPanScheme</code>（<code>SplitIntoLines</code>、<code>FormatLine</code>）；<code>_TbhookCustHole</code>、<code>_TbhookCustNotch</code>、<code>_TBhookCustBracket</code></td>
+<td>前者官方有說明；後三者僅說明存在</td>
+<td>後三者介面〔待核對〕</td>
+</tr>
+<tr>
+<td>批次視圖與資料讀取</td>
+<td>背景視圖語言（13.5.11）；Data Extraction／Vitesse（第 36 章）、PML（第 33 章）</td>
+<td>官方語法完整；屬性對照無</td>
+<td>屬性對照〔待核對〕</td>
+</tr>
+<tr>
+<td>產生 scheme</td>
+<td>直接寫 <code>.sch</code> 文字（行寬 ≤ 72、分號結尾），經 <code>Gen in Background</code> 或 Job Launcher 批次生成</td>
+<td>官方描述 scheme 與 panel 等價、背景模式</td>
+<td>語法有依據；自動產生的<strong>驗證流程與 CLI 啟動方式〔待核對〕</strong></td>
+</tr>
+<tr>
+<td>標準檔案產生器</td>
+<td>以腳本產生 TIL 檔，再用 <code>inithull</code> 編譯</td>
+<td>官方檔案格式完整</td>
+<td>格式有依據；<code>inithull</code> 是否可無人值守執行〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 不要用程式直接改資料庫內的標準物件；標準物件只能由 <code>inithull</code> 編譯產生。批次產生 scheme 前，先確認該標準已編譯、環境變數已設（見 13.3.1）。</p>
+</blockquote>
+<h2 id="137">13.7 常見錯誤</h2>
+<table>
+<thead>
+<tr>
+<th>錯誤</th>
+<th>後果與對策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>標準未編譯就建板</td>
+<td>bevel 不被接受、endcut 不顯示、part name 失敗；依 13.2.2 順序並檢查 <code>.lst</code></td>
+</tr>
+<tr>
+<td><code>inithull</code> 同一次 session 反覆執行</td>
+<td>第二次起動作被抑制；改檔後重啟</td>
+</tr>
+<tr>
+<td>沒有 part name 規則或規則不全</td>
+<td>官方沒有預設規則</td>
+</tr>
+<tr>
+<td><code>FLA_TYPE</code> 編號落在 200–300；改 endcut 選擇列</td>
+<td>不被接受／破壞標準；只增參數列</td>
+</tr>
+<tr>
+<td>蛋箱 cutout 只設一側</td>
+<td>分割時警告；兩 panel 各設一次且方向相反</td>
+</tr>
+<tr>
+<td>改了 Boundary 沒重跑 Flange</td>
+<td>折邊與輪廓不一致；兩者互相重跑</td>
+</tr>
+<tr>
+<td>對稱 panel 的參照少加 <code>REF</code></td>
+<td>參照落在錯舷；依「儲存位置」寫</td>
+</tr>
+<tr>
+<td>用數值座標而非 FR／LP／拓撲點</td>
+<td>變更時不連動（第 9 章）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="138">13.8 本章小結</h2>
+<ol>
+<li><strong>標準先於建模</strong>：控制檔 → <code>inithull</code> 編譯 → <code>SB_OGDB</code> 物件 → 環境變數啟用；part name 與 bevel 沒有預設標準，必須自建。</li>
+<li><strong><code>inithull</code> 是一次性初始化工具</strong>，同一次 session 通常只能執行一次，應由系統或專案經理操作。</li>
+<li><strong>panel 是最小單位，scheme 與 panel 等價</strong>；陳述式順序 <code>PANEL → BOUNDARY → 各元件</code>，盡量用 FR／LP 與拓撲參照。</li>
+<li>加強材、孔、cutout、肘板都有多種子語法，要記的是各自的限制。</li>
+<li>視圖與模型可能不同步，用 Recreate 同步；<strong>Toggle Divide</strong> 處理相交 panel 的優先順序。</li>
+<li>官方文件只對少數 hook 給出介面，其餘二次開發項目須實測。</li>
+</ol>
+<h2 id="139">13.9 練習題與自我檢核</h2>
+<h3 id="_1">練習（只能在訓練專案）</h3>
+<ol>
+<li><strong>標準盤點</strong>：依 13.3.1 的表，列出專案已設環境變數與對應檔案，找出缺漏。</li>
+<li><strong>part name</strong>：寫含 <code>FULL</code>／<code>SHORT</code> 兩層、涵蓋 <code>HPPL</code>、<code>HPPR</code>、<code>HBPL</code> 的控制檔，用 <code>inithull</code> 編譯並對照 <code>.lst</code>。</li>
+<li><strong>讀 Scheme</strong>：開啟一塊既有雙層底肋板，說出每個陳述式的作用並指出拓撲參照。</li>
+<li><strong>BOUNDARY 除錯</strong>：故意把邊界順序寫反，用 <code>Run Mode &gt; Confirm</code> 觀察。</li>
+<li><strong>Toggle Divide</strong>：選一對相交 panel，先 <code>Check</code> 再決定是否 <code>Merge and Split</code>。</li>
+</ol>
+<h3 id="_2">自我檢核</h3>
+<ul>
+<li>[ ] 我能說明標準編譯與環境變數啟用流程，並知道 <code>inithull</code> 為何要重啟。</li>
+<li>[ ] 我知道 part name 與 bevel 沒有預設標準。</li>
+<li>[ ] 我能區分 endcut type、code 與 explicit parameters。</li>
+<li>[ ] 我能說出 flange、肘板、cutout 各自的限制。</li>
+<li>[ ] 我能說明 <code>PANEL</code>、<code>BOUNDARY</code> 順序與 <code>FR</code>／<code>LP</code>／拓撲點寫法。</li>
+<li>[ ] 我知道 panel 必須先 Activate 才能修改，以及視圖與模型為何不同步。</li>
+</ul>
+<h2 id="1310">13.10 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch13">附錄 D 第 13 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch13">附錄 E 第 13 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch12_space_fem_zh-TW.reading.html"><small>← 上一篇</small>第 12 章　空間管理與有限元素模型：Space Management 與 Finite Element Model</a><a class="next" href="ch14_hull_detail_curved_zh-TW.reading.html"><small>下一篇 →</small>第 14 章　船體詳細設計（二）：曲面板架建模、選用功能與雜項工具</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

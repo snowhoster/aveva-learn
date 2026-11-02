@@ -86,5 +86,5 @@
   <!-- bottom -->
   <rect x="16" y="456" width="868" height="52" rx="8" fill="#fff7ed" stroke="#c2410c"/>
   <text x="30" y="478" font-size="13" fill="#1f2937">參照屬性存的是對方的 DBREF（例如 =12345/678），可以跨 DB。被參照的 DB 不在 MDB 中時，參照無法解析。</text>
-  <text x="30" y="498" font-size="13" fill="#1f2937">寫工具時：讀 SPRE 就能沿著外鍵追到等級與目錄，取得口徑、材質等資訊（第 8 章詳述）。</text>
+  <text x="30" y="498" font-size="13" fill="#1f2937">寫工具時：讀 SPRE 就能沿著外鍵追到等級與目錄，取得口徑、材質等資訊（第 25 章詳述）。</text>
 </svg>

@@ -1,6 +1,6 @@
 # 第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更
 
-> [第 20 章](ch20_system_administration_zh-TW.reading.html)講了升級的基本觀念（Part Upgrade、all-or-nothing、升級後不能 Backtrack）。這一章換成**規劃者與維運者的視角**：手上拿到一份 12.1 的版本公告（Release Bulletin），要怎麼讀它、從中抽出「會影響我們專案的變更」、排出升級順序，並在升級前後知道該檢查什麼。
+> [第 43 章](ch43_system_administration_zh-TW.reading.html)講了升級的基本觀念（Part Upgrade、all-or-nothing、升級後不能 Backtrack）。這一章換成**規劃者與維運者的視角**：手上拿到一份 12.1 的版本公告（Release Bulletin），要怎麼讀它、從中抽出「會影響我們專案的變更」、排出升級順序，並在升級前後知道該檢查什麼。
 >
 > 官方文件裡名為「Hull and Outfitting」的那一大塊，其實不是操作手冊，而是 **AVEVA Hull and Outfitting 12.1／12.1.SP5 的 User Bulletin**（約 587 個子頁）。它的價值在於：每個功能都標了哪一個 Service Pack 加進來，也標了相容性限制。本章把它整理成「版本差異與升級風險」表。
 >
@@ -93,7 +93,7 @@ DVD 提供 `MAR` 範例專案與 `MAS`（Catalogue）專案。`MAR` 的 MDB 包�
 
 ### 47.4.1 Part Upgrade 與升級框架
 
-升級概述的核心概念（第 20 章已介紹，這裡只列公告新增的細節）：
+升級概述的核心概念（第 43 章已介紹，這裡只列公告新增的細節）：
 
 - 12.1 的許多增強需要資料庫升級，每一項個別變更稱為 **Part Upgrade**；多數設計成「可選」，未升級的資料庫軟體仍能用，但**只能唯讀**，部分新功能不可用（graceful degradation）。
 - 這讓客戶可以繼續與**外來資料庫（Foreign DB）**共用，例如與 12.0 專案共用的公司層級 Catalogue DB。
@@ -437,8 +437,8 @@ SP5 的 General Issues 只寫「請見發行文件的更新清單」，離線文
 | 升級前 | 非外部 DB 遷到其 master 的 Primary 地點；確認無 Transient DB | 官方 |
 | 升級 | `lock` → `dbupgrade project to latest` → 可選合併 Session 與 Reconfigure → DICE → Extract 遷回 → 非框架升級 → `unlock` | 官方 |
 | 升級後 | 確認沒有「以唯讀開啟」警告；舊版軟體使用者全數汰除 | 官方（舊版不做檢查） |
-| 升級後 | 跑報表對照、單位數字對照、圖紙更新、批次工具回歸（見 [第 17 章](ch17_debug_deploy_zh-TW.reading.html) 的 SP 回歸清單） | 一般實務 |
-| 回復 | 官方：升級後無法 backtrack 到升級前的 Session（詳見 [第 20 章](ch20_system_administration_zh-TW.reading.html)）；回復只能靠升級前備份 | 官方＋一般實務 |
+| 升級後 | 跑報表對照、單位數字對照、圖紙更新、批次工具回歸（見 [第 40 章](ch40_debug_deploy_zh-TW.reading.html) 的 SP 回歸清單） | 一般實務 |
+| 回復 | 官方：升級後無法 backtrack 到升級前的 Session（詳見 [第 43 章](ch43_system_administration_zh-TW.reading.html)）；回復只能靠升級前備份 | 官方＋一般實務 |
 
 ### 47.9.1 版本差異與升級風險排序
 
@@ -524,23 +524,6 @@ SP5 的 General Issues 只寫「請見發行文件的更新清單」，離線文
 - [ ] 我能分辨公告中 SP5 與舊版遺留的環境需求。
 - [ ] 我能列出升級前後各自該檢查的項目。
 
-## 47.13 〔待核對〕項目與取材覆蓋
+## 47.13 待核對項目與取材覆蓋
 
-### 待核對
-
-1. **環境需求矛盾**：SP5 作業環境表寫 .NET Framework 4.6.1，另一頁寫需要 .NET 3.5；IE 7/8、Office 2007/2010、Windows XP 等敘述疑為舊版遺留，實際以 AVEVA 支援網站與《Minimum System Requirements Marine》為準。
-2. **Windows Server 與虛擬化／Citrix**：ALS「利於 Citrix 支援」的實際條件，以及不再支援 thin client 後的部署方式。
-3. **About this Bulletin** 同時出現「自 12.1.SP4 以來的變更」與「自 12.0 以來的變更」兩種描述，推測為多版本文字並存。
-4. **ASL**：SP4 一頁說已移除並由 Vantage Marine 11.6 的 primitive 型能力取代；「Future Considerations」一頁說將改稱 SLH，兩頁的先後與現況待核對。
-5. **Optional Upgrade 12010401** 官方稱僅含項目 93792「一般資料庫變更」，內容細節未說明。
-6. **MANU 資料模型升級**的 ManuConfig 具體步驟，在《12.0 to 12.1 Upgrade》手冊，不在本文件。
-7. **Windows 專案路徑空白**問題在 SP5 之後是否已解決。
-8. **「Known Issues」的 SP5 General Issues** 只指向外部發行文件，未提供清單。
-
-### 取材覆蓋
-
-- **已取得**：*Hull and Outfitting* [1224159] 下全部 587 頁（含根頁）皆已轉出純文字並掃描標題。其中**逐字讀完**的約 140 頁：About、Software Distribution and Installation、Test Projects、Upgrading from Previous Releases 全部、Configuration、General System Changes、Database changes、User Interface、Administration、Global 與 Catalogue 部分頁面、Known Issues 與少數 Hull 生產資料頁面。**只讀開頭（約 280–700 字元）**的約 440 頁：各領域新功能（Initial Design、Hull General、Surface Manager、Space Management、Structural Design、Hull Detailed Design、Weld Planning、Assembly Planning、Marine Drafting、Outfitting Draft、Diagrams、Engineering、Outfitting Module 與 Design Applications）。這些頁只擷取 Description 與標題，Benefits、For More Information、Compatibility Constraints 的細節大多未完整讀，因此 47.8 的彙整表是「代表項目」而非完整清單。
-- 另讀：*What's New in AVEVA Marine?* [1105760]、*Welcome to the AVEVA Marine Documentation* [1526835]、*Terminology* [1225318]、*Abbreviations in the User Documentation* [1109374] 全文。
-- **未讀**：*Before you Begin* [1211036] 下的 Marine Getting Started 子樹（Assumptions、Database Types、Attributes、GUI 基本操作、Product Range、Glossary of Terms and Abbreviations 的 Definitions／Abbreviations、Core Filters for Explorers 等，約 50 頁，只列出清單）；以及公告中 AVEVA Licensing System [883754]、AVEVA Manufacturing [988916]、AVEVA Marine [879117] 三個夾在 Hull Detailed Design 中的頁面（只看到標題，內容未深入）。
-- 圖片共 14 張，皆經預覽確認後加入。
-- 相關章節：[第 20 章](ch20_system_administration_zh-TW.reading.html) 系統管理與維運、[第 42 章](ch42_database_management_zh-TW.reading.html) 資料庫管理（Session、Extract、Global 概要）。
+> 〔待核對〕項目彙整：見[附錄 D 第 47 章](appx_d_verification_zh-TW.reading.html#ch47)；取材覆蓋與未讀範圍：見[附錄 E 第 47 章](appx_e_coverage_zh-TW.reading.html#ch47)。

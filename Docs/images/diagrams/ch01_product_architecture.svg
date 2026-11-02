@@ -53,10 +53,10 @@
   <rect x="20" y="542" width="400" height="80" rx="8" fill="#fefce8" stroke="#a16207"/>
   <text x="220" y="568" font-size="14" font-weight="bold" text-anchor="middle" fill="#713f12">船體客製化</text>
   <text x="220" y="592" font-size="13" text-anchor="middle" fill="#1f2937">Vitesse（Python 2.6）、資料抽取</text>
-  <text x="220" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 15 章</text>
+  <text x="220" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 36 章</text>
 
   <rect x="480" y="542" width="400" height="80" rx="8" fill="#fefce8" stroke="#a16207"/>
   <text x="680" y="568" font-size="14" font-weight="bold" text-anchor="middle" fill="#713f12">舾裝與共用客製化</text>
   <text x="680" y="592" font-size="13" text-anchor="middle" fill="#1f2937">PML、PML2 表單、PML.NET、.NET CAF Add-in</text>
-  <text x="680" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 10–14 章</text>
+  <text x="680" y="610" font-size="12" text-anchor="middle" fill="#6b7280">第 31–35 章</text>
 </svg>

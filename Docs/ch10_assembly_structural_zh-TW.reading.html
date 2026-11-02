@@ -1,0 +1,1223 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 10 章　裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#10-assembly-planning-hull-structural-design">第 10 章 裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</a><ul>
+<li><a href="#101">10.1 學習目標</a></li>
+<li><a href="#102">10.2 兩個模組在整體流程中的位置</a></li>
+</ul>
+</li>
+<li><a href="#assembly-planning">第一部分 Assembly Planning</a><ul>
+<li><a href="#103-assembly-planning">10.3 Assembly Planning 是什麼</a></li>
+<li><a href="#104">10.4 資料模型</a><ul>
+<li><a href="#1041-asmbly">10.4.1 ASMBLY 的主要屬性</a></li>
+<li><a href="#1042-pseudo-attribute">10.4.2 代理與擬似屬性（pseudo attribute）</a></li>
+</ul>
+</li>
+<li><a href="#105">10.5 啟動與介面</a><ul>
+<li><a href="#1051">10.5.1 啟動</a></li>
+<li><a href="#1052">10.5.2 工具列功能</a></li>
+</ul>
+</li>
+<li><a href="#106">10.6 建立與維護組立樹</a><ul>
+<li><a href="#1061">10.6.1 收集規則的關鍵限制</a></li>
+<li><a href="#1062">10.6.2 組立方向設定</a></li>
+<li><a href="#1063">10.6.3 命令列介面</a></li>
+<li><a href="#1064">10.6.4 常見錯誤</a></li>
+</ul>
+</li>
+<li><a href="#107-assembly-planning-adminassembly-adp">10.7 Assembly Planning Admin：Assembly ADP 的建置</a><ul>
+<li><a href="#1071">10.7.1 新專案安裝清單</a></li>
+<li><a href="#1072">10.7.2 函式庫內容</a></li>
+<li><a href="#1073-drawing-template">10.7.3 Drawing Template 結構</a></li>
+<li><a href="#1074-backing-sheet">10.7.4 Backing Sheet 與保留區</a></li>
+<li><a href="#1075-task">10.7.5 Task：樣板內的自動化</a></li>
+<li><a href="#1076-parts-list-template">10.7.6 Parts List Template 與其他函式庫</a></li>
+<li><a href="#1077">10.7.7 組態設定</a></li>
+<li><a href="#1078-pml">10.7.8 使用者 PML 函式</a></li>
+<li><a href="#1079">10.7.9 常見錯誤</a></li>
+</ul>
+</li>
+<li><a href="#108-assembly-drawing">10.8 Assembly Drawing：產生組立圖與零件表</a><ul>
+<li><a href="#1081">10.8.1 工具列</a></li>
+<li><a href="#1082">10.8.2 三種出圖方式</a></li>
+<li><a href="#1083">10.8.3 多選出圖流程</a></li>
+<li><a href="#1084">10.8.4 批次出圖</a></li>
+<li><a href="#1085">10.8.5 輸出與零件表</a></li>
+<li><a href="#1086">10.8.6 搜尋、修改與維護</a></li>
+</ul>
+</li>
+<li><a href="#109">10.9 報表與二次開發入口</a><ul>
+<li><a href="#1091">10.9.1 報表</a></li>
+<li><a href="#1092">10.9.2 二次開發怎麼接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#hull-structural-design">第二部分 Hull Structural Design</a><ul>
+<li><a href="#1010-structural-design">10.10 Structural Design 的定位</a><ul>
+<li><a href="#10101">10.10.1 快速建模的兩個工具</a></li>
+<li><a href="#10102">10.10.2 早期分析與估算</a></li>
+<li><a href="#10103">10.10.3 出圖</a></li>
+<li><a href="#10104">10.10.4 轉入詳細設計</a></li>
+</ul>
+</li>
+<li><a href="#1011">10.11 設計情境與專案設定</a><ul>
+<li><a href="#10111">10.11.1 兩種情境</a></li>
+<li><a href="#10112">10.11.2 專案設定</a></li>
+</ul>
+</li>
+<li><a href="#1012">10.12 功能選單總覽</a><ul>
+<li><a href="#10121-project">10.12.1 Project 選單</a></li>
+<li><a href="#10122-functional-structure-rso">10.12.2 Functional Structure 選單：RSO 的一生</a></li>
+<li><a href="#10123-xml">10.12.3 XML 選單</a></li>
+<li><a href="#10124-analysis">10.12.4 Analysis 選單</a></li>
+<li><a href="#10125">10.12.5 一條典型工作流</a></li>
+<li><a href="#10126-planar-curved-1314">10.12.6 Planar 與 Curved 選單摘要（只讀用途，詳見第 13、14 章）</a></li>
+</ul>
+</li>
+<li><a href="#1013">10.13 預設檔與批次工具</a><ul>
+<li><a href="#10131-sj700sbd">10.13.1 預設檔 sj700.sbd</a></li>
+<li><a href="#10132">10.13.2 批次工具</a></li>
+<li><a href="#10133">10.13.3 二次開發怎麼接</a></li>
+</ul>
+</li>
+<li><a href="#1014">10.14 本章小結</a></li>
+<li><a href="#1015">10.15 練習題與自我檢核</a></li>
+<li><a href="#1016">10.16 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船體設計 · 11 / 53</span><h1 id="10-assembly-planning-hull-structural-design">第 10 章　裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</h1>
+<blockquote>
+<p>前面的章節把船體模型建出來了，這一章處理兩件「模型之外」的事：<strong>第一，把設計模型重新整理成生產用的組立樹，並自動產出組立圖與零件表（Assembly Planning）；第二，在尚未進入詳細設計之前，用最少的資料快速建出主結構，估算鋼料、重量與焊接量，並平順交給詳細設計（Hull Structural Design）。</strong></p>
+<p>兩者剛好位於設計流程的兩端：Structural Design 在前端，決定「大概長什麼樣、夠不夠強」；Assembly Planning 在後端，決定「怎麼分、怎麼組、先裝哪個」。從資料庫角度看，前者建立的是設計物件（RSO、Panel、Block），後者在旁邊另建一棵只用代理（proxy）指向設計物件的樹。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件的 Assembly Planning（含 Admin、Assembly Drawing、Assembly Planning 三部分）與 Hull Structural Design 各功能選單頁。Planar／Curved 選單因與<a href="ch13_hull_detail_planar_zh-TW.reading.html">第 13 章</a>與第 14 章重疊，只讀各功能的用途摘要，未逐頁讀操作細節。文中所有屬性名、指令、檔名、環境變數均出自官方頁面；官方頁面沒有寫的行為（例如組立樹與 Weld Planning 的實際資料交換欄位）標〔待核對〕。版本為 12.1，部分畫面為舊版介面截圖。章末列出實際閱讀範圍。</p>
+</blockquote>
+<h2 id="101">10.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Assembly Planning 要解決的問題，以及組立樹（production breakdown structure）與設計樹的差別。</li>
+<li>說出 <code>ASWL</code>、<code>ASMBLY</code>、<code>ASITEM</code> 三種元件的關係，並解釋為什麼零件只能屬於一個組立。</li>
+<li>使用 Assembly Planning 視窗建立組立樹、收集（collect）零件、設定組立方向（<code>ASORI</code>）並播放裝配順序。</li>
+<li>描述 Assembly ADP 的資料結構：Drawing Template、Backing Sheet、Task、Parts List Template 與組態檔 <code>assydrwg.cfg</code>。</li>
+<li>以 Assembly Drawing 工具列產生單張、整棵樹、多選與批次的組立圖及零件表。</li>
+<li>說明 Hull Structural Design 的四大目標：快速建模、早期分析與估算、出圖、平順轉入詳細設計。</li>
+<li>說明 RSO（Reference Surface Object）如何變成 Functional Structure，再自動產生 Functional Panel。</li>
+<li>列出 Project、Functional Structure、XML、Analysis 四個選單的主要功能與使用順序。</li>
+<li>使用 Block CSV、<code>sj701</code>～<code>sj706</code> 批次程式處理分區與 RSO 資料，並知道 <code>sj700.sbd</code> 預設檔可調的參數。</li>
+<li>辨別哪些介面有官方依據可做二次開發（PML、PMLNet、<code>.uic</code>），哪些仍須〔待核對〕。</li>
+</ol>
+<h2 id="102">10.2 兩個模組在整體流程中的位置</h2>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>模組</th>
+<th>主要輸出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初步設計</td>
+<td>Hull Structural Design</td>
+<td>Functional Panel、重量重心、鋼料表、焊接長度、油漆面積、分級社圖面</td>
+</tr>
+<tr>
+<td>詳細設計</td>
+<td>Hull Detailed Design（<a href="ch13_hull_detail_planar_zh-TW.reading.html">第 13 章</a>、第 14 章）</td>
+<td>完整平面板架與曲面殼板</td>
+</tr>
+<tr>
+<td>生產規劃</td>
+<td>Assembly Planning</td>
+<td>組立樹、組立圖、組立零件表</td>
+</tr>
+</tbody>
+</table>
+<p><a href="ch15_hull_production_zh-TW.reading.html">第 15 章</a>會概念性介紹組立與焊接規劃，Weld Planning 在<a href="ch30_other_modules_zh-TW.reading.html">第 30 章</a>；分區、Multi-View 與有限元素會在<a href="ch11_surface_block_zh-TW.reading.html">第 11、12 章</a>深入說明，本章只在銜接處交代。</p>
+<hr />
+<h1 id="assembly-planning">第一部分　Assembly Planning</h1>
+<h2 id="103-assembly-planning">10.3 Assembly Planning 是什麼</h2>
+<p>官方定義：Assembly Planning 提供管理船舶<strong>生產分解結構</strong>的功能，支援建造策略的定義與組立生產資料的產生。這棵樹與設計與建模<strong>並行</strong>建立：專案早期先定粗略的建造策略，隨模型細化再細化；模型零件一旦存在，就可以收集到樹上的節點。因此組立視角從設計一開始就存在，不必等到設計完成。</p>
+<p>重點有三：</p>
+<ul>
+<li><strong>範圍不限船體。</strong> 生產階層含船體、設備、機械、電氣、風管與艤裝鋼構的安裝。</li>
+<li><strong>組立不一定是實體鋼構。</strong> 也可對應一個空間（艙室、房間），把要裝進去的預製單元、材料與元件收在一起。</li>
+<li><strong>主要功能：</strong> 組立樹編修、零件收集、自動組立圖與零件表、包圍盒與投影資料計算。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Assembly Planning 作業畫面：左為 Design Explorer，右上為 3D 視圖，下方為組立樹與清單</div></p>
+<p><em>圖 10-1　Assembly Planning 作業畫面。左側 Design Explorer、右側 3D Viewer，下方為 Assembly Tree 與 Assembly List。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 組立樹與設計樹是「同一批零件的兩種分法」。設計樹依構件，組立樹依建造順序（同一板架的零件可能分屬不同小組立）。類比為同一張資料表依另一欄位 group by。</p>
+</blockquote>
+<h2 id="104">10.4 資料模型</h2>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>角色</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ASWL</code></td>
+<td>Assembly World</td>
+<td>組立結構的最上層</td>
+</tr>
+<tr>
+<td><code>ASMBLY</code></td>
+<td>組立節點</td>
+<td>可擁有子組立與代理</td>
+</tr>
+<tr>
+<td><code>ASITEM</code></td>
+<td>代理（proxy）</td>
+<td>使用者看不到，負責指向設計零件</td>
+</tr>
+<tr>
+<td>設計零件</td>
+<td>板、扁鋼、設備、管……</td>
+<td>透過 <code>ASITEM</code> 被收集，本身不被複製</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：組立資料模型：Assembly 透過看不見的 Proxy 參考設計零件</div></p>
+<p><em>圖 10-2　組立資料模型。左邊是設計階層（HBLO 到 HPAN 到零件），右邊的 Assembly 經由虛線 Proxy 指到零件。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1041-asmbly">10.4.1 <code>ASMBLY</code> 的主要屬性</h3>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+<th>型別</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NAME</code></td>
+<td>組立完整路徑名</td>
+<td>文字</td>
+</tr>
+<tr>
+<td><code>ASNAME</code></td>
+<td>本節點名稱</td>
+<td>文字</td>
+</tr>
+<tr>
+<td><code>DESC</code>、<code>ASWLOC</code>、<code>ASDEST</code>、<code>ASBUIL</code></td>
+<td>說明、作業位置、目的地、建造策略</td>
+<td>文字</td>
+</tr>
+<tr>
+<td><code>ASORI</code></td>
+<td>預設組立方向</td>
+<td>整數</td>
+</tr>
+<tr>
+<td><code>ORI</code>、<code>POS</code></td>
+<td>方向與位置</td>
+<td>實數陣列</td>
+</tr>
+<tr>
+<td><code>ASBPAN</code></td>
+<td>基準板架（<code>ASORI</code> 為 7 或 8 時使用）</td>
+<td>參考</td>
+</tr>
+<tr>
+<td><code>ASEWEI</code>、<code>ASECOG</code></td>
+<td>預估重量、預估重心</td>
+<td>實數、實數陣列</td>
+</tr>
+</tbody>
+</table>
+<p><code>ASORI</code> 的預設值：1 = 正放（upright）、2 = 倒置、3 = 艏朝下、4 = 艉朝下、5 = 左舷朝下、6 = 右舷朝下、7 = 指定板架（specific panel）、8 = 自動、9 = 手動。官方強調：<strong>組立方向永遠相對於世界座標，而不是相對於母組立。</strong></p>
+<h3 id="1042-pseudo-attribute">10.4.2 代理與擬似屬性（pseudo attribute）</h3>
+<p><code>ASITEM</code> 有 <code>ASIQUA</code>（數量）與 <code>ASMREF</code>（指向設計零件）。<code>ASMBLY</code> 的擬似屬性有 <code>SMEMB</code>（直接成員）、<code>SEXPND</code>（整棵子樹下被參考的零件）、<code>ASORIS</code>、<code>ASSEQ</code>（順序號）、<code>ASNORM</code>／<code>ASVDIR</code>（組立平面法向量／視線方向）。任何可被收集的元件則多出 <code>ASIOWN</code>、<code>ASMOWN</code>（所屬組立）、<code>ASMBLD</code>（是否已組立）、<code>ASMBLS</code>（<code>'A'</code> 或 <code>'NA'</code>）、<code>ASMBLB</code>（此類型能否被收集）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 擬似屬性是二次開發最實用的入口，例如用 <code>ASMBLD</code> 找出尚未收集的零件。官方只列屬性名，沒有範例查詢語法，具體寫法〔待核對〕。</p>
+</blockquote>
+<h2 id="105">10.5 啟動與介面</h2>
+<h3 id="1051">10.5.1 啟動</h3>
+<p>Assembly Planning 是<strong>附加元件（add-in）</strong>，可在任何設計模組（例如 Hull Design）中以 <code>View &gt; Addins &gt; Assembly Planning</code> 啟動。官方列出的交付檔：<code>Aveva.Marine.AssemblyPlanning.dll</code>、<code>AssemblyPlanningAddin.dll</code>、<code>Aveva.Marine.AssemblyPlanning.Utilities.dll</code>、<code>AssemblyPlanningAddin.uic</code>。</p>
+<p>視窗由四塊組成：Design Explorer、3D Viewer、Assembly Tree 與 Assembly List；樹與清單之間支援拖放，清單支援多選。Design Explorer 的零件節點會加註 <code>A</code>（已組立）或 <code>NA</code>（未組立）。</p>
+<h3 id="1052">10.5.2 工具列功能</h3>
+<p>Filter（依使用者定義元件類型 UDET 過濾）、Sort Tree（依名稱或組立順序；依順序排時 <code>Parts</code> 資料夾消失）、On Level Up、Edit Sequence（開啟後可在清單拖放改順序）、Collect Rules（勾選收集時考慮的元件類型）、Visuals（已收集與未收集零件在 3D 的顯示差異）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Collect Rules 對話框：勾選哪些類型可直接被收集</div></p>
+<p><em>圖 10-3　Collect Rules。勾選的類型可直接收集；不勾選則改收集其下的子孫或其上的祖先。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h2 id="106">10.6 建立與維護組立樹</h2>
+<p>右鍵選單的內容依選取節點類型而不同。主要功能：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明與注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New Assembly</td>
+<td>在選取節點下建子組立。從樹操作時新節點被選取，從清單操作時母節點維持選取，這決定了連續建同階層還是逐層建立</td>
+</tr>
+<tr>
+<td>Insert Assembly</td>
+<td>在現有節點之間插入一層，進入功能前選取的零件、組立或 Parts 資料夾會被放入新組立</td>
+</tr>
+<tr>
+<td>Remove</td>
+<td>移除組立及其子結構，零件的收集關係解除（零件本身不刪）；對零件則是取消收集</td>
+</tr>
+<tr>
+<td>Rename、Cut/Copy/Paste、拖放</td>
+<td>搬移或複製；UDET 子型別可限制哪種組立可放在哪種之下，複製與搬移也受此限制</td>
+</tr>
+<tr>
+<td>Copy Hull Symmetrical Parts</td>
+<td>一般複製<strong>不包含</strong>已收集零件；此功能會把對稱船體零件的對應件指派給複製出的組立</td>
+</tr>
+<tr>
+<td>Collect / Decollect</td>
+<td>由 Design Explorer 拖放到組立，或用 Collect Graphical Selection 在 3D 視圖選取後收集</td>
+</tr>
+<tr>
+<td>Verify Naming、Make Selection</td>
+<td>前者回報目前 MDB 內重名的組立；後者把樹中選取內容在 3D 視圖選起來（Make Hierarchy Selection 含所有子組立的零件）</td>
+</tr>
+<tr>
+<td>Show Sequence</td>
+<td>在 3D 中依順序逐一由透明漸顯，可播放、暫停、重新開始，Settings 調速度</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>編輯屬性、換 UDET 型別；自動支援 UDA 與 USDA（限定值會變成下拉選單）</td>
+</tr>
+<tr>
+<td>Set as root、User Columns Setup</td>
+<td>暫時縮小大樹；為清單增加自訂欄位</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>Hull Material Summary、Parts List（見 10.9）</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Show Sequence：依序播放組立成員，Seq 欄標示已顯示的項目</div></p>
+<p><em>圖 10-4　Show Sequence 動畫控制。播放時組立樹隱藏，清單變成播放控制台。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1061">10.6.1 收集規則的關鍵限制</h3>
+<ol>
+<li><strong>一個設計零件只能屬於一個組立。</strong> 若已屬於他處，系統會詢問是否改派到新組立。</li>
+<li>臨時性、不屬於設計的物品（例如吊環螺栓）可用目錄的 <code>GPART</code> 通用零件收集，且 <strong><code>GPART</code> 可同時收集到多個組立</strong>。無法顯示的 <code>GPART</code> 收集時會跳出「not a usable item」，官方說可忽略。</li>
+<li>收集哪些類型，由 Collect Rules 決定；選錯層級是「樹上看不到零件」的常見原因。</li>
+</ol>
+<h3 id="1062">10.6.2 組立方向設定</h3>
+<p><code>ASORI</code> 決定製造時的擺放方向，<strong>也決定自動組立圖的視線方向</strong>。設為指定板架或自動時必須指定基準板：指定模式由使用者選；自動模式取面積最大的板架，並轉成平面圖、讓多數零件在上側。若材料在下側，須相應修改 material side。指定板架可選平面或曲面板架，但曲面板架需事先完成支撐胎架（jig）計算。</p>
+<h3 id="1063">10.6.3 命令列介面</h3>
+<p>可用一般 <code>NEW</code>、<code>DELETE</code> 建立與刪除組立節點，用 <code>AADD</code>、<code>AREMOVE</code> 改變組立內容。這兩個指令的完整語法官方頁面未列，細節〔待核對〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 建議先在 UDET 與 USDA 定義「哪種組立（分段、大組立、小組立、艤裝單元）能放在哪種之下」及屬性允許值，再開始建樹；事後補規則只能靠人工檢查。</p>
+</blockquote>
+<h3 id="1064">10.6.4 常見錯誤</h3>
+<p>拖放零件沒反應，多半是 Collect Rules 沒勾該類型；零件突然從舊組立消失，是重新收集時確認了「改派」；複製組立後零件是空的，因一般複製不含收集內容；組立圖視角不對，檢查 <code>ASORI</code> 與 <code>ASBPAN</code>；重名組立請跑 Verify Naming。</p>
+<hr />
+<h2 id="107-assembly-planning-adminassembly-adp">10.7 Assembly Planning Admin：Assembly ADP 的建置</h2>
+<p>Assembly Drawing 與零件表由 <strong>Assembly ADP（Automatic Drawing Production）</strong> 產生，它使用 Marine PML 語言搭配 PDMS Draw 策略，並有一組預設圖面版型與支援函式庫。標準範例專案已載入完成；<strong>新專案則需自行完成以下四件事。</strong></p>
+<h3 id="1071">10.7.1 新專案安裝清單</h3>
+<ol>
+<li>專案要定義 <strong>True-Type Font 6</strong>（官方圖面以 Lucida 系字型間距為基準；改字型要檢查背圖與標籤是否文字重疊）。</li>
+<li>載入 Assembly ADP 資料庫函式庫到要出圖的 MDB：Outfitting Draft 會多出 <code>Create &gt; Assembly ADP Library...</code> 選單；Marine Drafting 沒有選單，須在命令視窗輸入 <code>show !!assyDbs</code>，工具列也要從 AutoADP 選單初始化。</li>
+<li>在繪圖資料庫建立 <code>DEPT</code> 與 <code>REGI</code>，其 <code>SPPURP</code> 為 <code>ASMBLY</code>、<code>FONT</code> 設為 True-Type。</li>
+<li>若用 Marine Drafting 輸出 PDF，須定義 PDF Print Driver；僅用 Outfitting Drafting 則使用產品內建 PDF 函式庫，不需要。</li>
+</ol>
+<p>升級提醒：12.1.SP2 新增相同零件合併計數的版型 <code>AD-001-SUM</code> 與 <code>PL-001-SUM</code>；舊版載入的專案須在命令視窗執行 <code>$M /\PMLLIB\assembly\data\assembly_adp_library_acc.txt</code>（公制，英制另有 <code>_imperial_acc.txt</code>）補上。</p>
+<h3 id="1072">10.7.2 函式庫內容</h3>
+<p>Drawing Template、Backing Sheet、Task 定義、Parts List 設定、Labels 與 Symbols、Representation Rules，共六類。</p>
+<h3 id="1073-drawing-template">10.7.3 Drawing Template 結構</h3>
+<p>製圖時使用者選一個 <code>DRTMPL</code>，系統建立 <code>DRWG</code> 並做 <strong>copy-like</strong>；<code>DRWG</code> 以 <code>LINKREF</code> 指回來源樣板，之後樣板修改後可據此找出需要更新的圖。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：DRTMPL 與 DRWG 的資料庫階層：DEPT、REGI、DRWG、SHEE 與 DRTMLB、DRTMPL、SHTMPL</div></p>
+<p><em>圖 10-5　Drawing Template 階層。右邊為樣板庫，經 COPY LIKE 產生左邊的實際圖面。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>必要屬性與意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DRTMLB</code></td>
+<td><code>SpPurp ASTMPL</code>（讓程式找到）、<code>Function</code>（主表單的 Drawing Type 下拉文字）、<code>Ntext</code>（範例縮圖檔，如 <code>001.png</code>）</td>
+</tr>
+<tr>
+<td><code>DRTMPL</code></td>
+<td><code>Size 420 297</code>（尺寸選單）、<code>Bsrf</code>（背圖參考）、<code>SpPurp ASTMPL</code></td>
+</tr>
+<tr>
+<td><code>SHTMPL</code></td>
+<td><code>Size</code>、<code>Bsrf</code>、<code>Title</code>、<code>SpPurpose ASTMPL</code>；範例樣板每個含一張圖紙、兩個視圖（主視圖通常等角、次視圖正交）</td>
+</tr>
+<tr>
+<td><code>VIEW</code></td>
+<td>每個視圖內只放一個組立元件；視圖下的圖層須符合 Outfitting Draft 的圖層方法</td>
+</tr>
+<tr>
+<td><code>TASK</code></td>
+<td>在製圖過程中呼叫 PML 函式（10.7.5）</td>
+</tr>
+</tbody>
+</table>
+<p>搜尋規則由組態檔 <code>libraryRule</code> 決定，範例為 <code>"WITH SPPURPOSE EQ 'ASTMPL'"</code>；<code>descAttribute</code> 決定用哪個屬性當選單文字。</p>
+<h3 id="1074-backing-sheet">10.7.4 Backing Sheet 與保留區</h3>
+<p>Backing Sheet 是不可操作的固定層，內含 Frame（外框線）、Title Block（含 <code>#DRWGN</code> 這類智慧文字 hash code）與 <strong>Reserved Area（保留區）</strong>。保留區是 <code>BACK</code> 下 <code>NOTE</code> 內的 <code>TABL</code> 元件，預設不可見（<code>LVIS</code> 設 <code>TRUE</code> 可顯示），以 <code>spPurp</code> 區分：<code>ASMBLY</code> 為組立屬性表，<code>PARTSL</code> 為零件表。表格另有 <code>Nrows</code>（最大列數，與列高、符號標籤高度要吻合）、<code>Filldirection</code>（如 <code>DOWN</code>）、<code>Origin Topleft</code>（原點位置，<strong>必須與填表用符號標籤的原點一致</strong>）。讀取背圖的 PML 物件是 <code>ASSYBACKSHEET</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：保留區示意：A 為組立屬性表區域，B 為零件表區域</div></p>
+<p><em>圖 10-6　Backing Sheet 的兩個保留區。A 為 Assembly Properties 表，B 為 Parts List 表。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1075-task">10.7.5 Task：樣板內的自動化</h3>
+<p><code>TASK</code> 的三個關鍵屬性：<code>SpPurp STASK</code>（D = 圖、S = 圖紙、V = 視圖）、<code>Function</code>（說明文字）、<code>PMLFunction</code>（如 <code>'!!assyProperties(!array)'</code>）。引數存在其下的 <code>TPVAL</code> 元件，所以同一函式可在不同樣板用不同參數；執行時由應用程式把引數塞進 <code>!array</code>。</p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>PML 函式</th>
+<th>作用與主要參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drawing</td>
+<td><code>!!assyDrwgNo</code></td>
+<td>產生圖號寫入 <code>DRWGN</code>；參數含是否用 Name Sequence 資料庫、前綴、後綴、起始號、分隔字元</td>
+</tr>
+<tr>
+<td>Sheet</td>
+<td><code>!!assyProperties</code></td>
+<td>建立組立屬性表（<code>PROPVW</code> 視圖、<code>ASPROP</code> 圖層）；以 <code>SLAB</code> 參考 <code>SYTM</code>，hash code 直接從 <code>ASMBLY</code> 取值</td>
+</tr>
+<tr>
+<td>Sheet</td>
+<td><code>!!assyPartsList</code></td>
+<td>建立零件表（<code>PARTVW</code>、<code>PRTLST</code>）；用 Title、Header、Row、Overflow、Cell 五種符號樣板，末參數 <code>ACCUMULATE</code> 可合併相同零件</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>!!assyTagParts</code></td>
+<td>為每個合適零件建立零件編號標籤（<code>PRTTAG</code> 圖層）；更新時只為未標示者補標</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>!!assyArrange</code></td>
+<td>沿視圖四邊排列標籤；參數為各邊開關、邊距、最小間距</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>!!assyCrAxes</code></td>
+<td>建立軸符號 <code>AXESYM</code>，並讓視圖反映組立方向</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>!!assyBoundBox</code></td>
+<td>繪出 WORLD 或 LOCAL 包圍盒與尺寸字</td>
+</tr>
+</tbody>
+</table>
+<p>三個細節很容易被忽略：</p>
+<ol>
+<li><strong>圖號索引的效能。</strong> 預設做法會掃描 MDB 內所有圖找下一個未用編號，圖數多時會嚴重變慢；官方建議改用 Name Sequence 資料庫（NSEQ），引數 1 設 <code>YES</code>、引數 5 設如 <code>0</code>，識別字 <code>'ASSEMBLYADP'</code> 在 PML 函式中有兩處。</li>
+<li><strong>更新時不重跑的任務。</strong> 把 <code>SPPURPOSE</code> 設為 <code>DTASKX</code>、<code>STASKX</code>、<code>VTASKX</code>（圖、圖紙、視圖），任務只在建立時執行；樣板改了之後，已產生圖內的同名任務要手動同步。</li>
+<li><strong>合併相同零件。</strong> 判定條件由 <code>%PMLLIB%\assembly\userfunctions</code> 內的 <code>assyPartCompareAttsForAccumulation</code>、<code>assyPartsIdenticalForAccumulation</code>、<code>assyPartValidForAccumulation</code>（<code>.pmlfnc</code>）決定，可改寫。</li>
+</ol>
+<h3 id="1076-parts-list-template">10.7.6 Parts List Template 與其他函式庫</h3>
+<p>零件表樣板以 <code>LALB</code> 的 <code>SpPurp ASPLST</code> 被找到，<code>Function</code> 為「Parts List Type」下拉文字，其下 <code>SYTM</code> 決定組立屬性與零件清單的儲存格資料。符號庫 <code>SYLB</code>、標籤庫 <code>LALB</code>（零件編號標籤 <code>/Assembly-Planning/PartNo</code>）與表示規則庫 <code>RPLB</code>（<code>RRST /Assembly/General/All</code> 依管、設備、<code>PANEL</code>、<code>GENSEC</code>、鋼構、風管、電氣等類型指定顏色與線型）皆可依公司標準改寫。</p>
+<h3 id="1077">10.7.7 組態設定</h3>
+<p>組態檔為 <code>%PDMSDFLTS%\assembly\assydrwg.cfg</code>。以管理員身分進入繪圖模組時，工具列多一個 <strong>Modify Settings</strong> 按鈕，開啟 Assembly Drawing Configuration Editor；每一項設定對應 <code>ASSYDRWGCONFIG</code> 物件的同名方法（例如 <code>createDrawing = YES</code> 對應 <code>.createDrawing</code>），表單為 <code>!!assyDrwgConfig</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Assembly Drawing Configuration Editor：Department &amp; Registry、Drawing、Parts List、Administration 四區</div></p>
+<p><em>圖 10-7　組態編輯器。四個區段分別控制出圖位置、圖面輸出、獨立零件表與檔案管理。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>區段</th>
+<th>主要設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Department &amp; Registry</td>
+<td>搜尋與建立用的 <code>SpPurpose</code>（預設 <code>ASMBLY</code>）、新建 Department 的根名稱</td>
+</tr>
+<tr>
+<td>Drawing</td>
+<td>是否出圖、<code>DRTMLB</code> 搜尋規則、說明屬性、預設類型與尺寸、圖號屬性（須與背圖 hash code 一致）、是否輸出 PDF 與路徑</td>
+</tr>
+<tr>
+<td>Parts List</td>
+<td>是否輸出獨立零件表、<code>LALB</code> 規則、屬性與零件兩個 <code>SYTM</code> 搜尋規則、輸出格式 <code>.txt</code>／<code>.csv</code>／<code>.xls</code>、輸出資料夾</td>
+</tr>
+<tr>
+<td>Administration</td>
+<td>記錄檔資料夾（預設 <code>%PDMSUSER%\Assembly-Logs</code>）、批次檔資料夾、文件連結資料夾（Link Folder）規則</td>
+</tr>
+</tbody>
+</table>
+<p>出圖後系統以 <code>!!assyDocLink</code> 為每個組立建立連結資料夾，把圖、PDF 與零件表連回來源 <code>ASMBLY</code>；<strong>該 Link Folder 必須事先存在，否則連結建不起來。</strong> 重新更新或再生圖時會重用既有連結。</p>
+<h3 id="1078-pml">10.7.8 使用者 PML 函式</h3>
+<p>位於 <code>%PMLLIB%\assembly\userFunctions</code> 共 17 個 <code>.pmlfnc</code>，如 <code>assycog</code>、<code>assyweight</code>、<code>assyqty</code>、<code>assydrwgno</code>、<code>assydoclink</code>、<code>assyexpandsubparts</code>。</p>
+<h3 id="1079">10.7.9 常見錯誤</h3>
+<table>
+<thead>
+<tr>
+<th>症狀</th>
+<th>常見原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>零件表錯位或溢出</td>
+<td>保留區 <code>Nrows</code>、<code>Origin</code> 與符號標籤列高不一致</td>
+</tr>
+<tr>
+<td>圖號不出現、大量出圖越來越慢</td>
+<td>圖號屬性與 hash code 不一致；仍用掃描 MDB 算圖號</td>
+</tr>
+<tr>
+<td>文件連結失敗、改了樣板舊圖沒變</td>
+<td>Link Folder 規則找不到；圖是 copy 出來的，須同步舊圖內元件</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="108-assembly-drawing">10.8 Assembly Drawing：產生組立圖與零件表</h2>
+<h3 id="1081">10.8.1 工具列</h3>
+<p>Assembly ADP 使用兩條工具列（在主表單右鍵選單打開）；Design Draft 內還須先進入 <code>Draft &gt; Auto Drawing Production</code>。</p>
+<ul>
+<li><strong>Assembly Department 工具列</strong>：指定圖要建在哪個 Department／Registry；若沒有 Assembly Department，系統會在第一個可用資料庫建一個。可用 Create Assembly Hierarchy 表單新建 <code>DEPT</code>（含自動 <code>REGIS</code>）或在既有 Department 下加 <code>REGIS</code>。</li>
+<li><strong>Assembly Drafting 工具列</strong>：產生圖、多張圖、搜尋圖、列印、看記錄檔、修改偏好（僅管理員）、列印目前圖紙。</li>
+</ul>
+<h3 id="1082">10.8.2 三種出圖方式</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draw This Assembly</td>
+<td>只畫 Design Explorer 中目前選取的組立</td>
+</tr>
+<tr>
+<td>Draw All Assemblies</td>
+<td>畫目前組立及其下所有子組立，完成後以 Assembly Drawings 表單瀏覽</td>
+</tr>
+<tr>
+<td>Multiple Drawings</td>
+<td>由 Assembly Planning Deliverables 表單搜尋後多選</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Assembly Planning Deliverables 表單：搜尋範圍、過濾條件、結果表、位置與處理按鈕</div></p>
+<p><em>圖 10-8　Assembly Planning Deliverables 表單。A 搜尋範圍，B 過濾，C 結果表，D、E 圖面存放位置，F Batch，G Now，H 零件表選項，N 圖面選項。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1083">10.8.3 多選出圖流程</h3>
+<ol>
+<li>設搜尋範圍（預設 <code>*</code> 為整個 MDB；可點 CE 改為目前元件之下）。</li>
+<li>選過濾條件：<strong>Those not drawn</strong>（尚未出圖）、<strong>Those drawn</strong>、<strong>Those drawn by me</strong>、<strong>Bad Drawing Reference</strong>（連到未知圖）、<strong>All Assemblies</strong>。</li>
+<li>按 Search，結果表顯示組立名稱、是否有有效內容、是否已出圖、目前使用者能否修改相關圖，以及處理模式（Create；已有圖則為 Update 或 Regenerate）。</li>
+<li>Ctrl 多選，必要時把模式由預設的 Update 改為 Recreate。</li>
+<li>展開 Drawing 與 Parts List 區設定出圖與否、樣板類型與紙張、PDF、獨立零件表類型與格式、輸出位置。</li>
+<li>按 <strong>Now</strong>（立即處理）或 <strong>Batch</strong>（產生批次巨集稍後處理）。</li>
+</ol>
+<p>右鍵選單可全選、取消、移除項目、設為目前元件、顯示相關圖（Display Drawing）與顯示 3D 組立（Display Assembly，開啟 Assembly Model View）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Update 會盡量保留圖面並重新整理圖形、表格與註解；Regenerate 則刪除圖面內容重建。人工在圖上做過的調整，只有 Update 有機會保留，所以排程批次時預設選 Update，且先確認沒有 <code>…TASKX</code> 任務被誤重跑。</p>
+</blockquote>
+<h3 id="1084">10.8.4 批次出圖</h3>
+<p>立即處理會鎖住繪圖模組。改按 Batch 會開啟 Assembly Drawing Batch Macro 表單，設定輸出資料夾、執行批次的使用者與密碼，以及將執行的巨集命令，按 Apply 後產生三類檔案：Marine 進入與離開批次檔、設定環境變數的批次檔、實際出圖的 Marine 巨集。<strong>之後需自行以作業系統工作排程器執行進入批次檔。</strong></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Assembly Drawing Batch Macro 表單：資料夾、Run As User、巨集內容預覽</div></p>
+<p><em>圖 10-9　Assembly Drawing Batch Macro。顯示將產生的巨集內容（含 <code>!!assyCallMacro</code> 載入筆色與線型設定、建立 <code>ASSYDRWGAPPLICATION</code> 物件）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 此表單要輸入使用者名稱與密碼（官方以 <code>SYSTEM</code> 示範）；實務上應為批次作業另建專用帳號並限制權限（見<a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）。巨集是否明文寫入密碼，官方未說明，〔待核對〕。</p>
+</blockquote>
+<h3 id="1085">10.8.5 輸出與零件表</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>圖</td>
+<td>可列印或輸出 PDF</td>
+</tr>
+<tr>
+<td>零件表</td>
+<td>可印在圖上，或輸出 <code>.txt</code>／<code>.csv</code>／<code>.xls</code> 的獨立檔案</td>
+</tr>
+<tr>
+<td>內容</td>
+<td>組立屬性（專案名、組立路徑、說明、目的地、作業位置、方向、建造策略、預估與計算重量與重心、包圍盒、基準板等）加零件清單（名稱、類型、說明、數量、尺寸等）</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：組立零件表輸出：Notepad 文字檔、CSV 與 Excel 三種格式</div></p>
+<p><em>圖 10-10　獨立零件表的輸出範例。含組立屬性區與零件清單，可為 txt、csv、xls。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1086">10.8.6 搜尋、修改與維護</h3>
+<ul>
+<li><strong>Assembly Drawings 表單</strong>：以 All Drawings、Those drawn by me、Those drawn by me today、Bad Drawing Reference 搜尋；結果顯示圖號、對應組立、作者、日期、使用樣板、紙張大小與修改權限；多張圖紙可前後切換；可匯出 Excel、批次列印（份數、逐份、縮放至紙張、彩色或黑白）。</li>
+<li><strong>更新參照</strong>：圖與組立的內部參照失效時，結果表出現警告符號。右鍵 Go to Drawing，在命令視窗輸入 <code>UPDATE REFS</code>，仍失敗則 Update 重新產生。</li>
+<li><strong>Change Projection</strong>：結果表右鍵選取，從下拉選視圖並按方向按鈕（如 Iso-2）。Marine Drafting 的 <code>Tools &gt; Model view &gt; Change projection</code> 可選擇性重生標籤與包圍盒，由 PML 函式 <code>mdraupdatetasks</code> 負責，客製過 Assembly ADP 時須同步客製。</li>
+<li><strong>Rerun Arrange Label</strong>：視圖縮放後，Update Annotation 會讓標籤錯亂，此選項重跑排列任務。記錄檔預設在 <code>%PDMSUSER%\Assembly-Logs</code>。</li>
+<li><strong>使用限制</strong>：以 <code>AXESYM</code>（<code>AsmblR</code> 指向組立、<code>Axstype MARINE</code>、<code>AXSsize</code>）讓視圖反映組立方向後，該視圖的 Drawlist <strong>不可</strong>設為 <code>IDLI</code>（必須直接指向組立），也<strong>不可</strong>用來建剖面平面（須改用以世界座標為方向的標準視圖）。</li>
+</ul>
+<hr />
+<h2 id="109">10.9 報表與二次開發入口</h2>
+<h3 id="1091">10.9.1 報表</h3>
+<table>
+<thead>
+<tr>
+<th>報表</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hull Material Summary</td>
+<td>只列出組立中的船體元件；PML 表單，可從命令列用 <code>show !!hullreport</code> 開啟</td>
+</tr>
+<tr>
+<td>Parts List</td>
+<td>組立資料加完整零件表，四種範圍：僅本組立擁有、含下層全部零件、各子組立各出一份等；可從命令列 <code>show !!assypartsreport</code> 開啟</td>
+</tr>
+<tr>
+<td>Weld</td>
+<td>見<a href="ch30_other_modules_zh-TW.reading.html">第 30 章</a> Weld Planning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1092">10.9.2 二次開發怎麼接</h3>
+<table>
+<thead>
+<tr>
+<th>入口</th>
+<th>官方依據</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AssemblyPlanningAddin.uic</code></td>
+<td>官方：可附加使用者函式至右鍵選單；出廠時已含 Hull Material Summary 與 Parts List</td>
+<td>編輯 <code>.uic</code>（參考官方 .NET Customization 文件，語法〔待核對〕）</td>
+</tr>
+<tr>
+<td><code>AssemblySelection</code> 物件</td>
+<td>PMLNet 物件，匯入 <code>Aveva.Marine.AssemblyPlanning.Utilities</code></td>
+<td>方法 <code>Assemblies</code>、<code>Parts</code>、<code>AddEventHandler</code>、<code>RemoveEventHandler</code>、<code>Remove</code>，事件名 <code>AssemblySelectionEvent</code></td>
+</tr>
+<tr>
+<td><code>!!assy…</code> PML 函式與 <code>.pmlfnc</code></td>
+<td>10.7.8 清單</td>
+<td>改寫既有函式、仿照寫新任務</td>
+</tr>
+<tr>
+<td><code>ASSYDRWGCONFIG</code> 物件</td>
+<td>組態方法與 <code>.cfg</code> 同名</td>
+<td>以 PML 讀寫組態</td>
+</tr>
+<tr>
+<td>擬似屬性 <code>ASMBLD</code>、<code>SEXPND</code> 等</td>
+<td>10.4.2</td>
+<td>查詢與報表</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例用 <code>!o = object AssemblySelection('MyObjectName')</code> 建物件，以 <code>!o.addeventhandler('AssemblySelectionEvent', !this, 'myHandler')</code> 註冊事件，在 <code>define method .myHandler(!array is ARRAY)</code> 內以 <code>!o.assemblies()</code>、<code>!o.parts()</code> 取得選取的陣列（元素用 <code>.dbref()</code> 轉成資料庫參照），關閉表單前須 <code>removeeventhandler</code> 並 <code>remove()</code>。官方範例本身有一處變數名不一致（<code>!a.addeventhandler</code> 應為 <code>!o</code>），且 <code>!o</code> 在方法內是否可見取決於物件存放位置，實作時請改為表單成員變數，〔待核對〕。</p>
+<hr />
+<h1 id="hull-structural-design">第二部分　Hull Structural Design</h1>
+<h2 id="1010-structural-design">10.10 Structural Design 的定位</h2>
+<p>官方說明：初步設計比詳細設計省資源，但詳細設計的工作量高度取決於初步設計做到什麼程度；造價的大部分在設計初期就已決定。Structural Design 的目標是<strong>初步階段做的定義，直接被詳細設計與生產資訊重用，不必重做</strong>，並因此能比較更多方案、更早取得驗船機構（classification society）核可。四大面向：</p>
+<table>
+<thead>
+<tr>
+<th>面向</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fast Modelling</td>
+<td>由 RSO 定義 Functional Structure 後自動產生 Functional Panel；用 Vitesse 技術寫 Quick Panel</td>
+</tr>
+<tr>
+<td>Early Analysis and Estimates</td>
+<td>內建工具（如斷面模數）與 XML 介面連到外部軟體（如驗船機構）</td>
+</tr>
+<tr>
+<td>Generation of Drawings</td>
+<td>建模與製圖完全整合，可在任何製圖視圖上建模</td>
+</tr>
+<tr>
+<td>Smooth Transition to Detail Design</td>
+<td>Functional Panel 即一般板架；依分區切出生產板架</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10101">10.10.1 快速建模的兩個工具</h3>
+<ul>
+<li><strong>Functional Structures。</strong> 在 Surface/Compartments 模組定義艙室時，艙室界限就是主要 RSO，構成 Functional Structure 的基礎；Structural Design 另可在主平面額外定義 RSO。為 RSO 設定材料、端部連接等屬性，就把 RSO 變成 Functional Structure，進而<strong>自動產生內部結構的 Functional Panel</strong>。</li>
+<li><strong>Quick Panels。</strong> Quick Panel 是客製化的 <strong>Vitesse 腳本</strong>，用來產生特定型態的船體結構。系統提供數種主要內部結構型式的範例函式，目的是作為客戶改寫的範本，可依船廠習慣或船型修改。Vitesse 的語法與函式庫在本章讀到的頁面都沒有說明，〔待核對〕。</li>
+</ul>
+<h3 id="10102">10.10.2 早期分析與估算</h3>
+<p>可輸出四類報表：<strong>重量與重心</strong>、<strong>鋼料明細</strong>、<strong>焊接長度估算</strong>、<strong>油漆面積計算</strong>。分析工具在有 Functional Panel 後即可使用。</p>
+<h3 id="10103">10.10.3 出圖</h3>
+<p>視圖功能在 Planar 與 Curved 的 View 選單中，可產出總布置（General Arrangement）、橫剖面（Body Plan）、外板展開（Shell Expansion）、舯剖面（Midship Section）、立面與縱剖、典型剖面。模型圖與設計圖同時產生，不需額外程序。</p>
+<h3 id="10104">10.10.4 轉入詳細設計</h3>
+<p>目前版本的 Functional Panel 可視為一般板架（同時有結構設計與詳細設計兩種視角屬後續版本）。切成生產用 Production Panel 則用 Block Division（見<a href="ch11_surface_block_zh-TW.reading.html">第 11 章</a>）。</p>
+<h2 id="1011">10.11 設計情境與專案設定</h2>
+<h3 id="10111">10.11.1 兩種情境</h3>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>起點</th>
+<th>步驟概要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>情境 1：從零開始（典型商船）</td>
+<td>最終船殼面尚未提供，先建只描述平行舯體的粗略曲面與主 RSO</td>
+<td>先建縱向主要構件（外板、縱骨、甲板、縱艙壁、桁材、縱桁）→ 以板架自動產生或 Quick Panel 建內部結構 → <strong>檢查斷面模數，不足就調整縱骨材料反覆迭代</strong> → 再建橫向構件（橫艙壁、肋板、底肋板）→ 取得驗船機構舯剖面首次核可 → 匯入初步或最終全船曲面，延伸到艏艉</td>
+</tr>
+<tr>
+<td>情境 2：既有初步設計資料（郵輪）</td>
+<td>船殼面與艙室劃分已定</td>
+<td>由 RSO 建甲板與艙壁 → 定義加強筋與縱骨並檢查斷面模數 → 建典型橫艙壁、肋板與底肋板</td>
+</tr>
+</tbody>
+</table>
+<p>兩者之後的共同工作：主要設備的定義與放置、估算、出圖、把鋼構切成主要建造分區。</p>
+<h3 id="10112">10.11.2 專案設定</h3>
+<ul>
+<li>安裝附帶<strong>範本專案（Template Project）</strong>，位於 AVEVA Marine 根目錄下，內含預設設定與標準；官方建議客戶<strong>依船型建立自己的範本專案</strong>，避免每次重做專案設定。</li>
+<li><strong>Surface。</strong> 要存取已釋出曲面的交線與曲線資料，專案內須建立 <strong>Hull Reference Object</strong>（定義可存取的曲面與其類型，設定細節在 Hull 使用手冊的 Surface Setup）。建立後以 <code>Project &gt; Surfaces</code> 登記其他曲面。</li>
+<li><strong>Standards。</strong> 包含船廠與專案專屬標準；範本專案通常含特定船型的船廠標準，專案專屬部分必須在每個新專案設定。</li>
+</ul>
+<h2 id="1012">10.12 功能選單總覽</h2>
+<p>Structural Design 的功能是「Structural Design 專屬功能」加「所有船體模組共通的船體功能」，再加完整的 Drafting 功能。官方文件主要詳述專屬功能。</p>
+<table>
+<thead>
+<tr>
+<th>選單</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project</td>
+<td>整個專案的設定：肋骨與縱骨位置、Block、舯體曲面、Envelope、模型檢查</td>
+</tr>
+<tr>
+<td>Functional Structure</td>
+<td>處理 RSO、定義屬性成為 Functional Structure、產生板架、合併板架、分區</td>
+</tr>
+<tr>
+<td>Planar</td>
+<td>平面板架的建模、板架整體操作、Scheme、Editor、View、PosNo、Select</td>
+</tr>
+<tr>
+<td>Curved</td>
+<td>曲面殼板、殼縱骨、特徵、幾何、預設值、視圖、選取</td>
+</tr>
+<tr>
+<td>XML</td>
+<td>以 XML 匯入匯出模型資料</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>斷面模數、焊接、重量重心、材料表、油漆、FE 模型</td>
+</tr>
+</tbody>
+</table>
+<p>Planar 與 Curved 的功能與詳細設計相同，細節請見<a href="ch13_hull_detail_planar_zh-TW.reading.html">第 13 章</a>與第 14 章；本章只在 10.12.6 摘要。</p>
+<h3 id="10121-project">10.12.1 Project 選單</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Surfaces</td>
+<td><code>Register Surfaces</code> 對話框列出已釋出曲面。欄位：Registered（核取後登記，數字為 <code>SURFACES</code> 預設參數的編號）、Name、Suffix（建縱骨、橫肋、殼縱骨與殼縱骨軌跡曲線時的後綴；主船殼不用，其餘曲面須唯一）、Type（Main Hull、Main Deck、Shell、Deck；Main Hull 與 Main Deck 各只能有一個）、Source、Design。登記結果存入 Hull Reference Object</td>
+</tr>
+<tr>
+<td>FR/LP Positions</td>
+<td>肋位與縱向位置以起點、間隔、終點輸入；可定義多組位置表（例如鋼製下半部與鋁製上半部），但尺寸標註一律使用預設表</td>
+</tr>
+<tr>
+<td>Block &gt; Edit</td>
+<td>以樹狀對話框建立、修改、重建、複製、刪除 Design Block 與 Production Block；可修改名義界限與偏移，並指定界限物件（Stored Plane、RSO、Surface）取得精確外形；變更須按 Save Block Data</td>
+</tr>
+<tr>
+<td>Block &gt; Recreate</td>
+<td>在目前圖面挑選要重建的 Block</td>
+</tr>
+<tr>
+<td>Block &gt; Create from CSV</td>
+<td>由 CSV 建立或更新 Block（格式見下）</td>
+</tr>
+<tr>
+<td>Block &gt; Extract to CSV</td>
+<td>把目前 Block 結構輸出為 CSV 到 <code>SB_SHIPDATA</code>，從 Log Viewer 取得</td>
+</tr>
+<tr>
+<td>Midbody Surface</td>
+<td>快速建立平行舯體曲面：艉艏端、船寬、型深、底升高、平龍骨、舭型（None／Flat／Circular）與舭點等；存入資料庫並登記到 <code>hullref</code></td>
+</tr>
+<tr>
+<td>Envelope</td>
+<td>以多個曲面與 RSO 組成封閉體積，作為建立或修改 RSO 的外邊界；右鍵 New／Add／Remove／Delete 或 Pick in Dwg，按 Save Envelope 儲存</td>
+</tr>
+<tr>
+<td>Verify Model</td>
+<td>使用 Block Splitting 前檢查所有拓樸相依性，結果顯示在 Log Viewer</td>
+</tr>
+<tr>
+<td>Recreate Limit Tables</td>
+<td>重建縫、縱骨、橫肋的界限表（每個曲面一份，用於提升效能）</td>
+</tr>
+<tr>
+<td>Project Information</td>
+<td>檢視或修改自 AVEVA Initial Design 釋出的專案與主要尺度，供報表標頭與計算使用</td>
+</tr>
+<tr>
+<td>Change View Mode</td>
+<td>在 Design View 與 Production View 之間切換；僅 Multi-View 專案可切，單視圖專案兩者皆灰色</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Block CSV 格式：</strong> 每列依序為 Type（<code>D</code> Design 或 <code>P</code> Production）、Name、六個名義座標（Aft、Stbd、Bot、For、Port、Top，可用肋位與縱向位置）、Encl. Block（建 Production Block 且專案有 Design Block 時才需要）、六個偏移（mm）、六個界限物件（前綴 <code>SUR/</code>、<code>RSO/</code>、<code>PLA/</code>）、Sym（Yes／No）與 Colour（整數）。第一列視為註解；已存在的 Block 只有內容改變才會更新。</p>
+<p><strong>Verify Model 的警告範例：</strong> 板架名稱過長（建議上限 17 字元，因為會加前後綴，超過 19 字元風險更高，應改名）；邊界參照的物件不存在（檢查 CGDB 與是否被刪除）；外輪廓無法連同缺口與開孔重建；肘板或翼板參照在拓樸物件中缺漏或失效（重新產生並儲存板架）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Verify Model 是「轉入詳細設計」的必經檢查。板架名稱長度是最常被忽略、卻在分區後才爆發的問題；建議在設計階段就定好命名規則並限制在 17 字元內。</p>
+</blockquote>
+<h3 id="10122-functional-structure-rso">10.12.2 Functional Structure 選單：RSO 的一生</h3>
+<p>RSO 的用途：作為空間、Block 或艙室的邊界；作為鋼模型參照的底層結構；把 2D 背景圖（backdrop）以 3D 呈現。類型有五種：Compartment Limits、General Inner Structure、Block Limits、General Limits、Backdrops。<strong>鋼模型只能放在 Compartment Limit 與 General Inner Structure 兩類 RSO 上。</strong></p>
+<table>
+<thead>
+<tr>
+<th>RSO 功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key In</td>
+<td>以輸入位置並選平面與界限物件建立，結果為受 Envelope 與界限限制的平面</td>
+</tr>
+<tr>
+<td>Sketch 2D</td>
+<td>在 Symbolic Planar View 或 Backdrop View 上用 Draw（折線，可配 Grid）、Select、Trim、Panel（挑板架，依其平面建 RSO 並讓板架改為參照該 RSO）建立；自動以平面座標命名（<code>-</code> 換 <code>N</code>、<code>+</code> 換 <code>P</code>）；類型預設 General Inner Structure；選項有 Grid、Mirror Copy、Verify Name and Limits</td>
+</tr>
+<tr>
+<td>From Backdrop</td>
+<td>以位於主平面的 Backdrop 視圖建立 Backdrop 型 RSO，視圖幾何存為標記；X、Y 主平面的 RSO 以船殼與上甲板（名為 <code>WEATHER</code> 的 RSO，沒有則自動建立）為界</td>
+</tr>
+<tr>
+<td>From Panel</td>
+<td>由既有板架建立或更新 RSO。優點：之後即使 RSO 內的巨大板架被細分成詳細設計用板架，對 RSO 的參照仍穩定</td>
+</tr>
+<tr>
+<td>Recreate</td>
+<td>界限物件或 Envelope 改變後重建 RSO 幾何</td>
+</tr>
+<tr>
+<td>Edit Shape</td>
+<td>以剖面表格修改外形；核心要求是各面不折角，提供 Keep profile parallel（自動調整前一線或後一線）、Single cell edit 加 Iron（修正其餘剖面使之合規）與 Profile history（類似 Undo 但不清除後續步驟）</td>
+</tr>
+<tr>
+<td>Copy</td>
+<td>複製，位置可為相對或絕對；Position 欄可用重複語法 <code>&lt;Start value&gt;[(Step)&lt;End value][+-Offset]</code>，名稱 <code>XXX10(10)</code> 會得 <code>XXX10, XXX20, XXX30...</code>；Block Limit 類可勾 Keep Connection</td>
+</tr>
+<tr>
+<td>Move、Rename、Change Envelope</td>
+<td>移動並重建；改名會更新其上的板架與拓樸相依的 RSO，<strong>其他相依（如以該 RSO 為界限的船體板架）須手動更新</strong>；Change Envelope 把 RSO 移到另一個 Envelope</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>為 SB_TID 資料庫的 RSO 加入建模屬性（功能描述、材料、型材資料、端部切割），以供自動產鋼</td>
+</tr>
+<tr>
+<td>Disconnect、Delete</td>
+<td>解除或刪除 RSO，並把參照它的板架位置轉成主軸位置或三點定位；板架邊界內對該 RSO 的參照<strong>不會</strong>自動轉換</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：RSO 2D Definition 對話框：Grid、Mirror copy、Verify Name and Limits 與 Trim、Select、Draw、Panel 按鈕</div></p>
+<p><em>圖 10-11　RSO Sketch 2D 對話框。右側選 RSO Type 與 Envelope，下方按鈕對應繪製、選取、修剪與由板架建立。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：RSO 外形編輯：Limits、Envelope、Profile 表格與 Iron 按鈕</div></p>
+<p><em>圖 10-12　Edit Shape 對話框。以剖面表格調整 RSO 形狀，Iron 修正折角。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>Properties 的釋出前置條件：</strong> 從 Surface/Compartment 釋出到 PIM（<code>File / Release / Design</code>）時須定義並釋出 Main Deck，RSO 參照的外殼面名稱依 Envelope、barehull、Hull Form（dml）的順序判定，都沒有則為 <code>HULL_NOT_KNOWN</code>；這些曲面須以 <code>Project / Surfaces</code> 或 Initiate Hull Standards 登記。</p>
+<p><strong>Generate Panels：自動產鋼的規則</strong></p>
+<p>先處理甲板，再處理其他。每塊板架放入第一個幾何上完全包住它的 Block，找不到就放入預設的 <code>JUMBO</code> Block；板架命名為 <code>&lt;block_name&gt;-&gt;&lt;RSO name without prefix&gt;_&lt;face number&gt;</code>。內容依 RSO 的功能描述（functional description）碼決定：</p>
+<table>
+<thead>
+<tr>
+<th>功能碼範圍</th>
+<th>類型</th>
+<th>產生內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9000–9099</td>
+<td>甲板</td>
+<td>板材加水平縱向位置的加強筋；與縱艙壁 RSO 相交處不放加強筋</td>
+</tr>
+<tr>
+<td>9100–9199</td>
+<td>縱艙壁</td>
+<td>板材加垂直縱向位置的加強筋；與甲板相交處不放</td>
+</tr>
+<tr>
+<td>9200–9299</td>
+<td>橫艙壁</td>
+<td>板材與加強筋；若以甲板為界，連接到甲板加強筋，並可依需求建肘板</td>
+</tr>
+<tr>
+<td>9400</td>
+<td>一般肋板構件</td>
+<td>依相交 RSO 判斷：與內底、雙層底、艙頂板（9010–9012）相交者建底肋板，再依 Hopper Tank Sloping（9104）建 Hopper 橫肋，再依內側板（9102）建垂直肋板</td>
+</tr>
+<tr>
+<td>其他</td>
+<td></td>
+<td>只產生板材</td>
+</tr>
+</tbody>
+</table>
+<p>所有板架型式都會依「自動設定開孔（Automatic Setting of Cutouts）」的設定加開孔；FRP（玻璃纖維）選項須指定邏輯變數 <code>SBH_GRP_LAM</code> 為預設積層碼。結果會存入並顯示在現有視圖；沒有視圖則在目前圖面新建。</p>
+<p><strong>Merge Panels 與分區：</strong></p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>條件與結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merge Panels</td>
+<td>須共用一個界限、周圍定義相同、同一平面、對稱碼相容；可勾 Only check if panels can be merged 先試算；多塊時遞迴比較，最後只能剩一塊。Multi-View 專案只能合併 Design Panel（已有 Production Panel 則建 Block Seam 取代）；Production Panel 須用 Planar &gt; Panel &gt; Remove Seam 兩兩處理</td>
+</tr>
+<tr>
+<td>Pending updates</td>
+<td>僅 Multi-View 專案：當對應板架被修改時，更新 Design 或 Production 板架</td>
+</tr>
+<tr>
+<td>Divide into Blocks</td>
+<td>Multi-View 專案：由 Design Panel 建 Production Panel，或把 Design Block 細分；單視圖專案：把 Block 細分成更小單元。細節見<a href="ch11_surface_block_zh-TW.reading.html">第 11 章</a>的 Block Division</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10123-xml">10.12.3 XML 選單</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>格式與前置</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structural Design Import</td>
+<td>TXHBD；需有連到 <code>SB_TID</code> 的資料庫</td>
+<td>只匯入 Ship Parameter 資料</td>
+</tr>
+<tr>
+<td>Hull Steel Import</td>
+<td>TXHSTL-M；連到 <code>SB_OGDB</code></td>
+<td>只匯入材料資料</td>
+</tr>
+<tr>
+<td>2D Import</td>
+<td>TXHBD；連到 <code>SB_OGDB</code>、<code>SB_CGDB</code>、<code>SB_TID</code></td>
+<td>自動建平行舯體曲面、殼結構、RSO 與平面板架。須有 <code>MainParticulars</code> 段，功能屬性須符合預先定義的 Functional Descriptions；GL Poseidon 子集可用文字檔加環境變數 <code>GL_ENABLED YES</code>、<code>GL_FUNCTIONAL_PROPERTIES</code> 啟用。可勾覆寫 General Particulars 與 FR/LP positions；同名物件會被取代</td>
+</tr>
+<tr>
+<td>RSO Import</td>
+<td>使用者指定檔案</td>
+<td>匯入 RSO；XML 內參照的所有 Envelope 必須事先存在</td>
+</tr>
+<tr>
+<td>Surface Export</td>
+<td>TXSUR；<code>SB_TID</code></td>
+<td>選 MainSurface、曲線方向 X 或 Z、間隔 <code>[Start],[Step],[Stop]</code> 與 ReferenceSurface（可用萬用字元）</td>
+</tr>
+<tr>
+<td>Structural Design Export</td>
+<td>TXHBD；<code>SB_TID</code>、<code>SB_OGDB</code></td>
+<td>勾選類別，輸入空間、艙室名稱（可萬用字元）與要切出的肋位（<code>FR 25</code>、<code>FR25-200</code> 或絕對座標 <code>27500</code>）</td>
+</tr>
+<tr>
+<td>Hull Steel Export</td>
+<td>TXHSTL-R；<code>SB_OGDB</code> 與 <code>SB_CGDB</code></td>
+<td>從樹狀視圖挑 Block 或板架；第二頁可啟用 Idealization、設 snap 距離與 Joint Lines</td>
+</tr>
+<tr>
+<td>RSO Export</td>
+<td>使用者指定檔案</td>
+<td>匯出所有現有 RSO</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：2D XML Import 設定對話框</div></p>
+<p><em>圖 10-13　2D XML Import Settings 對話框。設定平行舯體曲面名稱與前後端位置、板架放入的 Block 名稱，以及是否覆寫 General Particulars 與 FR/LP 位置。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> XML 是與驗船機構與外部分析軟體交換資料的主要通道，但「哪個驗船機構接受哪個格式」官方此處只提到 GL Poseidon 範例，其他社的對應〔待核對〕。</p>
+</blockquote>
+<h3 id="10124-analysis">10.12.4 Analysis 選單</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>輸入</th>
+<th>結果與重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Section Modulus</td>
+<td>目標位置的橫剖面視圖</td>
+<td>計算總面積、中和軸高度、慣性矩、龍骨與甲板處的斷面模數；個別項目可設折減係數（存在視圖內，下次沿用）。輸出 <code>SEC_MOD_&lt;X-position&gt;_&lt;running number&gt;.csv</code>（如 <code>SEC_MOD_FR54_1.csv</code>）到 <code>SB_SHIPPRINT</code>；<code>SBH_SECMOD_FD</code> 改以功能描述顯示，<code>SBH_SECMOD_NAMES</code> 指定的檔案可控制全域流水號</td>
+</tr>
+<tr>
+<td>Weld Calculation</td>
+<td>選一個或多個 Block</td>
+<td>列出所有連接的焊接型式與長度（CSV）</td>
+</tr>
+<tr>
+<td>Block Preliminary WCOG</td>
+<td>逗號分隔的輸入檔（三種格式：完整 Block 格式、Block Create from CSV 格式、單純 Block 名稱清單）</td>
+<td>以多個軸對齊盒子虛擬切分船體，計算各盒內鋼料重量與重心，結果附加到輸入檔每列尾端；固定密度 <code>7.84E-6</code>（不考慮實際材料），不計 Design Block；可反覆重跑，格式 2 被接受後可直接用同一檔建 Production Block</td>
+</tr>
+<tr>
+<td>WCOG</td>
+<td>選船體板架</td>
+<td>重量與重心；兩階段：存入板架時（不含斜角間隙、餘量、加強筋缺口與開孔）以及切成生產零件時</td>
+</tr>
+<tr>
+<td>Material List</td>
+<td>選船體板架</td>
+<td>板與型材的材料估算，與生產零件是否存在無關；輸出 CSV，可在 <code>applications.xml</code> 改副檔名為固定格式；內容同 Material Ordering of Bars 與 Plates</td>
+</tr>
+<tr>
+<td>Painting Areas</td>
+<td>樹狀對話框中的 Painting Rooms</td>
+<td>可由 TID Compartments 加界限定義；不含塗裝定義，只做面積分析</td>
+</tr>
+<tr>
+<td>Idealize Model</td>
+<td>需有 <code>FEMWLD</code> 元件與含板架的 Block</td>
+<td>建立理想化板架 Block（可用限制盒切出局部），可存四組分析參數</td>
+</tr>
+<tr>
+<td>Create FE Model</td>
+<td>理想化 Block</td>
+<td>Recreate FE geometry、Divide／Combine shell elements、Connect FE model、Remove transition step、Unwarp shell elements；影像物件前綴 <code>_FGS</code>、<code>_FGB</code>、<code>_FGT</code>、<code>_FGA</code></td>
+</tr>
+<tr>
+<td>Export FE Model to ANSYS APDL</td>
+<td>理想化 Block 加 FE 模型</td>
+<td>產生 <code>apdl</code> 檔；建議用新元素型式</td>
+</tr>
+<tr>
+<td>Export FE Model to Patran PCL</td>
+<td>同上</td>
+<td>產生 <code>ses</code> 檔</td>
+</tr>
+</tbody>
+</table>
+<p>在 2D 畫面對 RSO 或 Block 按右鍵，也會出現依物件類型而不同的分析選單。FE 模型的詳細操作請見<a href="ch12_space_fem_zh-TW.reading.html">第 12 章</a>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Block Preliminary WCOG 用固定密度估算，只適合在分區策略階段比較方案，<strong>不可</strong>拿去當重量報告。要正式重量重心，請在板架切成生產零件之後用 WCOG。</p>
+</blockquote>
+<h3 id="10125">10.12.5 一條典型工作流</h3>
+<p>設定專案（範本專案、Hull Reference Object、<code>Project &gt; Surfaces</code>、<code>FR/LP Positions</code>）→ 無最終曲面時用 <code>Midbody Surface</code> → 定義 Envelope 與 RSO → <code>Properties</code> 加功能描述、材料、型材與端部連接並勾選自動產鋼 → <code>Generate Panels</code> 或 Quick Panel 與 Planar 功能細修 → <code>Section Modulus</code> 檢查並迭代 → <code>Weld Calculation</code>、<code>Material List</code>、<code>WCOG</code>、<code>Painting Areas</code> 出估算 → <code>Block &gt; Create from CSV</code> 建分區並以 <code>Block Preliminary WCOG</code> 比較 → <code>Verify Model</code> 無警告後 <code>Divide into Blocks</code> 轉入詳細設計。</p>
+<h3 id="10126-planar-curved-1314">10.12.6 Planar 與 Curved 選單摘要（只讀用途，詳見第 13、14 章）</h3>
+<ul>
+<li><strong>Planar：</strong> Model（建立、修改、切分加強筋等）、Panel（Copy、Move、Rename、Split、Remove Seam、Modify Symm、Topology、Compare、Knuckled）、Scheme 與 Editor（以 scheme 文字檔建板架）、View、PosNo、Select。</li>
+<li><strong>Curved：</strong> Model（Seam/Butt、Shell Plate、Shell Profile、Shell Stiffener、Feature、Curved Panel、Hull Curve、Storable Plane/Point）、Geometry（點、平面、Shell Curve）、Default、View、Select。</li>
+</ul>
+<h2 id="1013">10.13 預設檔與批次工具</h2>
+<h3 id="10131-sj700sbd">10.13.1 預設檔 <code>sj700.sbd</code></h3>
+<p>Structural Design 的預設參數定義在 <code>sj700.sbd</code>；Planar 與 Curved 建模的預設參數對它也有效。一般互動式 Marine 模組的預設檔由環境變數 <code>SBD_DEF1</code> 指定；若 <code>SBGD</code> 目錄下存在 <code>SBD_ED.DEF</code>，則改用它。</p>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>意義</th>
+<th>預設</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROD_PAN_VIEW</code></td>
+<td>僅 Multi-View 專案有意義；設定後以 production view 模式啟動，否則以 design view</td>
+<td>未設</td>
+</tr>
+<tr>
+<td><code>MIN_PLA_WIDTH = &lt;width&gt;</code></td>
+<td>切板架時板條最小寬度，切後更窄就不切</td>
+<td>50 mm</td>
+</tr>
+<tr>
+<td><code>MIN_STI_LENGTH = &lt;length&gt;</code></td>
+<td>切板架時加強筋最小長度，更短就不分割</td>
+<td>100 mm</td>
+</tr>
+<tr>
+<td><code>PAN_SPLIT_ECUT_*</code></td>
+<td>Block Division 定義加強筋偏移時額外可用的端切類型</td>
+<td></td>
+</tr>
+<tr>
+<td><code>BLOCK_DIV_SSTI_OVER = &lt;dist&gt;</code></td>
+<td>曲面板架分區時殼加強筋重疊量（移動切割平面使其距板架邊緣一段距離切斷）</td>
+<td>-50 mm</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10132">10.13.2 批次工具</h3>
+<p>批次程式透過 Log Viewer（JL）啟動，以邏輯變數（<code>SB_INPUT1</code>、<code>SB_OUTPUT1</code>）傳遞輸入輸出檔。</p>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>JL 名稱</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sj701</code></td>
+<td>Hull Block Division</td>
+<td>批次分區。輸入檔 <code>.dat</code>、輸出記錄 <code>.log</code></td>
+</tr>
+<tr>
+<td><code>sj703</code></td>
+<td>Extract RSOs to CSV</td>
+<td>輸出每個 RSO 的屬性，<strong>每個 RSO 兩列</strong>（第二列放 Envelope 名稱與邊界）；可手動編輯</td>
+</tr>
+<tr>
+<td><code>sj704</code></td>
+<td>Update RSOs from CSV file</td>
+<td>讀回編輯後的 CSV 更新 RSO 屬性，或新建 RSO（<strong>僅限主平面且單一面</strong>；複雜 RSO 須用互動工具建立）</td>
+</tr>
+<tr>
+<td><code>sj705</code></td>
+<td>Generate Steel from RSO</td>
+<td>依 RSO 屬性批次產生簡單板架，規則同 Generate Panels</td>
+</tr>
+<tr>
+<td><code>sj706</code></td>
+<td>Create Design Project / Remove Design Project</td>
+<td>建立或移除 Design Block 與板架；<strong>Remove 選項須由系統管理員在 Log Viewer 控制檔啟用</strong>，建議先備份 OGDB</td>
+</tr>
+</tbody>
+</table>
+<p><code>sj703</code> 與 <code>sj704</code> 也可不經 JL，直接以命令列傳 CSV 檔名，例如 <code>sj703 c:\temp\rso.csv</code>。</p>
+<p><strong><code>sj701</code> 輸入檔語法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>敘述</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MAIN_BLOCK, &lt;block_name&gt;;</code></td>
+<td>要切分的主 Block（只能出現一次）</td>
+</tr>
+<tr>
+<td><code>FORCE { /MAIN \| /CURRENT };</code></td>
+<td>被界限切到的板架放哪：留在原 Block，或放到目前處理的 Block（預設 CURRENT）</td>
+</tr>
+<tr>
+<td><code>KEEP { /YES \| /NO };</code></td>
+<td>是否保留原板架；保留者失去所有拓樸資料，不能再用於生產或修改（預設 NO）</td>
+</tr>
+<tr>
+<td><code>PLANE, X=FR58+400;</code></td>
+<td>切割平面，可重複</td>
+</tr>
+<tr>
+<td><code>MODEL_TYPE { /ALL \| /PLANE_PANELS \| /CURVED_PANELS };</code></td>
+<td>處理平面、曲面或兩者</td>
+</tr>
+<tr>
+<td><code>SEAM, &lt;seam_name&gt;;</code>、<code>RSO, &lt;RSO_name&gt;;</code>、<code>STORED_PLANE, &lt;plane_name&gt;;</code></td>
+<td>以現有 Block Seam、RSO 或 Stored Plane 作為切割體</td>
+</tr>
+<tr>
+<td><code>FUNCTIONAL_BLOCK_SEAM { /CREATE \| /CREATE_ONLY \| /USE };</code></td>
+<td>Design Panel 上 Block Seam 的處理：建立、只建 Seam 不建新板架、或用作切割體</td>
+</tr>
+<tr>
+<td><code>PROFILE_END /CUTTER=… /PANEL=… /DIRECTION=… /SHIFT=… /SLANT=… /FLANGE_SHIFT=… /NOTCH=…;</code></td>
+<td>切口兩側加強筋的端部細節（SHIFT、SLANT 單位 mm；<code>FLANGE_*</code> 僅適用組合型材）</td>
+</tr>
+<tr>
+<td><code>BLOCK, &lt;res_block&gt;;</code></td>
+<td>接收切分後板架的 Block，可重複</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例：</p>
+<pre><code>MAIN_BLOCK, 'BLOCK1';
+FORCE /MAIN;
+KEEP /NO;
+PLANE, X=FR58+400;
+PLANE, X=FR72-200;
+SEAM, AAS44;
+BLOCK, AABLOCK1;
+BLOCK, AABLOCK2;
+BLOCK, AABLOCK3;
+</code></pre>
+<p><strong><code>sj703</code> 的 CSV 欄位：</strong> Function（功能描述碼）、Tight、Name、Face、Principle Plane、Coord.、Auto Gen.、Mtrl Side／Th.／Qual.、Auto Stiffeners、Stiffener Side、Profile Type、Profile Dim.（如 <code>220*12</code>），以及重複的 Limits/Stiff. Ends（第一列為界限，第二列為端部連接，肘板以 <code>/</code> 接在後，如 <code>SNIPE/B16</code>）。</p>
+<h3 id="10133">10.13.3 二次開發怎麼接</h3>
+<p>最穩定的外部整合點是 <strong>CSV 往返</strong>（<code>sj703</code> 匯出、<code>sj704</code> 寫回）與 Block CSV、<code>sj701</code> 輸入檔，語法官方皆完整，可由 Python 或 C# 產生後經 JL 執行。Quick Panel（Vitesse API）、XML schema、<code>applications.xml</code> 自訂作業語法本章依據不足，〔待核對〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 先用 <code>sj703</code> 匯出 CSV，用 Excel 或 Python 找出尚未設定 Auto Gen.、材質或型材的 RSO，比逐一開 Properties 快得多；批次改完用 <code>sj705</code> 一次產鋼，最後記得 <code>Verify Model</code>。</p>
+</blockquote>
+<h2 id="1014">10.14 本章小結</h2>
+<ul>
+<li>Assembly Planning 以 <code>ASWL</code>、<code>ASMBLY</code>、<code>ASITEM</code> 三層把設計零件重組成生產樹；零件經看不見的代理被參照，一件只能屬於一個組立（<code>GPART</code> 除外）。<code>ASORI</code> 決定製造擺放方向，也決定組立圖視角。</li>
+<li>Assembly ADP 的核心是 Drawing Template、Backing Sheet 保留區、Task 與 PML 函式、Parts List Template 與 <code>assydrwg.cfg</code>；可靠度關鍵在 Update 路徑、圖號索引與 Link Folder。</li>
+<li>Structural Design 主線：RSO、Properties、Generate Panels、分析估算、Verify Model、Divide into Blocks。</li>
+<li>可靠的程式整合點是 Assembly 擬似屬性與 <code>AssemblySelection</code>、Structural Design 的 CSV 往返與 Block CSV；Vitesse 與 XML schema 本章依據不足。</li>
+</ul>
+<h2 id="1015">10.15 練習題與自我檢核</h2>
+<ol>
+<li>畫出 <code>ASWL</code>、<code>ASMBLY</code>、<code>ASITEM</code>、設計零件的關係，並說明為何刪除組立不會刪除零件。</li>
+<li>一塊板架已屬於組立 A，拖進組立 B 會怎樣？若要讓吊環同時出現在兩個組立，該用什麼？</li>
+<li><code>ASORI = 8</code> 時系統如何選基準板？</li>
+<li>保留區的 <code>Nrows</code>、<code>Origin Topleft</code> 為什麼要與符號標籤一致？</li>
+<li>圖號用 MDB 掃描方式在 5,000 張圖後會怎樣？如何改用 NSEQ？</li>
+<li>設計每晚為「Those not drawn」組立出圖的批次作業，需要哪些檔案、帳號與排程？</li>
+<li>某 RSO 功能碼為 9200，Generate Panels 會產生什麼？</li>
+<li>用 <code>sj703</code> 與 <code>sj704</code> 設計流程，把 100 個 RSO 的板厚統一改為 12 mm。</li>
+</ol>
+<p>自我檢核：我能列出 <code>ASORI</code> 九個值；分辨 Update 與 Regenerate；說出新專案四件事與 Generate Panels 的功能碼範圍；指出哪些二次開發介面有官方依據。</p>
+<h2 id="1016">10.16 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch10">附錄 D 第 10 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch10">附錄 E 第 10 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch09_hull_modelling_zh-TW.reading.html"><small>← 上一篇</small>第 9 章　船體建模：曲面、板架與拓撲</a><a class="next" href="ch11_surface_block_zh-TW.reading.html"><small>下一篇 →</small>第 11 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

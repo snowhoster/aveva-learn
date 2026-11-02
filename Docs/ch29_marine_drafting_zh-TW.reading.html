@@ -1,0 +1,646 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 29 章　Marine Drafting 與 Design Draft：船體與舾裝的圖面製作 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#29-marine-drafting-design-draft">第 29 章 Marine Drafting 與 Design Draft：船體與舾裝的圖面製作</a><ul>
+<li><a href="#291">29.1 學習目標</a></li>
+<li><a href="#292-marine-drafting">29.2 Marine Drafting：概念與資料結構</a><ul>
+<li><a href="#2921">29.2.1 它是什麼</a></li>
+<li><a href="#2922">29.2.2 圖面的「雙重儲存」與三個重要規則</a></li>
+<li><a href="#2923">29.2.3 圖面類型與落點</a></li>
+<li><a href="#2924-drawing-reference">29.2.4 三層子圖、圖層與 Drawing Reference</a></li>
+<li><a href="#2925">29.2.5 圖面表單與動態文字規則</a></li>
+</ul>
+</li>
+<li><a href="#293-marine-drafting">29.3 Marine Drafting 的操作</a><ul>
+<li><a href="#2931">29.3.1 日常工作流程</a></li>
+<li><a href="#2932-insert-model">29.3.2 放入模型：Insert Model 與拖放</a></li>
+<li><a href="#2933">29.3.3 尺寸與註記</a></li>
+<li><a href="#2934">29.3.4 選取、修改與常用輔助功能</a></li>
+<li><a href="#2935">29.3.5 匯入匯出</a></li>
+</ul>
+</li>
+<li><a href="#294-marine-drafting">29.4 Marine Drafting 的維運與二次開發切入點</a><ul>
+<li><a href="#2941">29.4.1 預設檔與批次公用程式</a></li>
+<li><a href="#2942">29.4.2 二次開發者怎麼接</a></li>
+</ul>
+</li>
+<li><a href="#295-design-draft">29.5 Design Draft：資料庫與圖面建立</a><ul>
+<li><a href="#2951-design-draft">29.5.1 Design Draft 是什麼</a></li>
+<li><a href="#2952">29.5.2 建立圖面骨架與產生圖形</a></li>
+<li><a href="#2953-id-list">29.5.3 Id List 與視圖屬性</a></li>
+<li><a href="#2954-bpm">29.5.4 背景處理管理員（BPM）</a></li>
+</ul>
+</li>
+<li><a href="#296-design-draft">29.6 Design Draft：表現規則、填充與剖面</a><ul>
+<li><a href="#2961">29.6.1 表現規則與樣式</a></li>
+<li><a href="#2962-automatic-hatching">29.6.2 自動填充（Automatic Hatching）</a></li>
+<li><a href="#2963-section-planes">29.6.3 剖面（Section Planes）</a></li>
+<li><a href="#2964">29.6.4 游標、輸出與顏色樣式</a></li>
+</ul>
+</li>
+<li><a href="#297-design-draft">29.7 Design Draft：註記、標籤與改版標示</a><ul>
+<li><a href="#2971">29.7.1 註記的資料模型</a></li>
+<li><a href="#2972">29.7.2 尺寸</a></li>
+<li><a href="#2973-autotagging">29.7.3 標籤、Autotagging 與遮蔽</a></li>
+<li><a href="#2974-change-highlighting">29.7.4 報告、傳閱清單、修訂與 Change Highlighting</a></li>
+</ul>
+</li>
+<li><a href="#298-marine-drafting-application-menus">29.8 Marine Drafting Application Menus：選單地圖與功能對照</a></li>
+<li><a href="#299">29.9 常見錯誤與文件陷阱</a></li>
+<li><a href="#2910">29.10 練習（只在訓練專案）</a></li>
+<li><a href="#2911">29.11 本章小結</a></li>
+<li><a href="#2912">29.12 自我檢核</a></li>
+<li><a href="#2913">29.13 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第四部分　目錄與圖面 · 30 / 53</span><h1 id="29-marine-drafting-design-draft">第 29 章　Marine Drafting 與 Design Draft：船體與舾裝的圖面製作</h1>
+<blockquote>
+<p>第 27 章已經用一個概觀告訴你：AVEVA Marine 有兩套圖面工具，一套給船體（Marine Drafting），一套給舾裝（Draft）。那一章回答「圖面是什麼、為什麼能更新」；這一章回答「<strong>圖面到底怎麼做出來</strong>」：Marine Drafting 的圖面怎麼存、子圖怎麼分層、尺寸與註記怎麼下；Design Draft 的 <code>DRWG → SHEE → VIEW</code> 怎麼建、Id List 與表現規則怎麼決定畫什麼、剖面與標籤怎麼配合；最後把 Marine Drafting 的選單逐一對應到功能。</p>
+<p>兩套工具思路相反：Marine Drafting 像互動式 2D 繪圖軟體，幾何真的存在圖面裡；Design Draft 把圖面當成資料庫查詢，只記「畫哪些元素、怎麼畫」，線條在更新時即時算出。弄懂這個差異，才知道哪些修改會在模型改版後存活。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件的 <em>Marine Drafting</em>、<em>Design Draft</em>（Draft 資料庫指令層級手冊）與 <em>Marine Drafting Application Menus</em> 三塊。選單功能多半只讀到各頁的「用途／操作／結果」摘要；Design Draft 的指令語法與屬性名稱照文件原文保留。文件本身有幾處自相矛盾（見 附錄 D）。Draft 管理（Draft Administrator）、AutoDRAFT、Drawing Production 與 PLOT 另見<a href="ch28_draft_admin_production_zh-TW.reading.html">第 28 章</a>；ISO 圖與報表見<a href="ch27_drawings_zh-TW.reading.html">第 27 章</a>。<strong>課堂練習只可在訓練專案進行。</strong></p>
+</blockquote>
+<h2 id="291">29.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Marine Drafting 的兩個目的，以及它與 Draft（Design Draft）的分工。</li>
+<li>說明 Marine Drafting 圖面的「雙重儲存」：PADD 資料庫與 <code>.SDB</code> 檔，並解釋 <code>Save Work</code> 為何不存目前圖面。</li>
+<li>依圖面類型（Drawing Type）判斷圖面落在哪個 <code>DEPT／REGI</code>，並設定使用者自訂類型。</li>
+<li>說明三層子圖（Subpicture）、圖層（Layer）、Drawing Reference、Envelope 的用途。</li>
+<li>用 Insert Model、拖放、Tools &gt; Model View 系列功能，把模型放進圖面並更新。</li>
+<li>區分 Linear／Angle／Radius／Diameter／Coordinate／Curve Length／Area 尺寸，並用 Hull 專用註記標示船體零件。</li>
+<li>在 Design Draft 建立 <code>DEPT → REGI → DRWG → SHEE → VIEW</code>，用 <code>AUTOSCALE</code>／<code>AUTOSIZE</code>、Id List 與 <code>UPDATE DESIGN</code> 產生圖形。</li>
+<li>設定 <code>VIEW</code> 屬性（<code>VSCA</code>、<code>DIR</code>、<code>VTYP</code>、<code>RRSF</code>）、表現規則、自動填充與剖面（<code>PPLA</code>／<code>FPLA</code>／<code>SPLA</code>）。</li>
+<li>說明 Dimension、Label、Autotagging 的資料模型，以及 Change Highlighting 如何標出改版。</li>
+<li>讀懂 Marine Drafting 十四個功能表的結構，並指出哪些功能是 PML／Vitesse 的客製化切入點。</li>
+</ol>
+<h2 id="292-marine-drafting">29.2 Marine Drafting：概念與資料結構</h2>
+<h3 id="2921">29.2.1 它是什麼</h3>
+<p>官方文件給 Marine Drafting 兩個目的：一是提供自動、半自動與手動的繪圖工具，建立造船過程中<strong>任何類型</strong>的圖；二是作為 Hull 建模活動的<strong>介面</strong>：圖面是在模型被定義的同時產生的。系統涵蓋三件事：</p>
+<p>系統涵蓋三件事：檢視模型資訊（船體、管路、設備、電纜托架、組件）並投影剖切成去除隱藏線的 2D 圖；一般 2D 繪圖（也常用來替模型視圖加尺寸與標籤）；圖面上的模型投影連回模型物件，模型改了可重建、註記可自動更新。</p>
+<p>文件還說明，Draft 的多數功能可經由「自動圖面產生（ADP）」讓 Marine Drafting 使用者取得。ADP 涵蓋一般圖、組裝圖、管路草圖、HVAC 草圖與鋼構細部圖，各自用 PML 客製化（見第 28 章）。已知差異：Marine Drafting 內的 General ADP 與 Draft 版本長相不完全相同，因為刻意讓成果<strong>與手動建立的圖相容</strong>，尤其是尺寸，這樣才能再用 Marine Drafting 的尺寸功能修改；另已知限制是不支援尺寸中的引線文字（Leader line text）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Hull Drafting 主視窗：左側 Design Explorer 與 Draft Explorer，中央 2D Canvas，下方 Messages 與工具列</div></p>
+<p><em>圖 29-1　Marine Drafting（視窗標題為 Hull Drafting）主視窗：選單列、左側 Explorer、中央畫布、下方訊息窗與兩列工具列。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2922">29.2.2 圖面的「雙重儲存」與三個重要規則</h3>
+<p>一張 Marine Drafting 圖面由兩部分組成：<strong>資料庫部分</strong>與<strong>另存成檔案的部分</strong>。儲存圖面時做兩次儲存：一次進 PADD 資料庫，一次存成個別 <code>.SDB</code> 檔。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PADD 資料庫</td>
+<td>圖面依部門（<code>DEPT</code>）與登錄冊（<code>REGI</code>）組織；Draft 的元素樹見 29.5</td>
+</tr>
+<tr>
+<td><code>.SDB</code> 檔</td>
+<td>放在 <code>&lt;專案名&gt;drg</code> 資料夾下的子資料夾；每次儲存產生新版本，預設刪掉舊版</td>
+</tr>
+<tr>
+<td><code>KEEP_SESSION_FILES</code></td>
+<td>預設關鍵字設為 <code>YES</code> 才保留舊版，可做 DABACON 的 roll back，但檔案會膨脹</td>
+</tr>
+<tr>
+<td>清除過期 <code>.SDB</code></td>
+<td>可用管理員的 Merge Session 指令，或 PML 表單 <code>show !!RemoveObsoleteSDB</code>（需 FREE 權限、無其他使用者連線）</td>
+</tr>
+</tbody>
+</table>
+<p>三個重要規則，每個都會影響工作流程：</p>
+<ol>
+<li><strong>只有「已持久化」的圖面才能做模型更新。</strong> 從 Command Window 下的指令不保證圖面被持久化；文件的態度是：除非某指令明文標示給 Marine Drafting 使用者，否則不要用 Command Window（View 選單的 Command Window 頁也註明「不建議在 Marine Drafting 使用」）。</li>
+<li><strong><code>Save Work</code> 不存目前圖面。</strong> Marine Drafting 以「目前圖面」為工作單位，它放在排除清單中，不受 <code>Save Work</code> 影響；要用 <code>Save Drawing</code> 或 <code>Save Drawing As</code>。反過來，<code>Save Work</code> 用來存「圖面中建模」所產生的<strong>模型物件</strong>。</li>
+<li><strong>圖面擁有權：存進 Marine Drafting 就是 Marine Drafting 的圖。</strong> 無論是手繪、ADP、開啟 Draft 做的圖或匯入，只要存進 Marine Drafting，就視為它的圖，<strong>不應再回 Draft 更新</strong>。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 規則 2 是新手最常踩的坑：改了船體模型（Save Work）以為圖也存了，結果關閉後圖面沒變；或存了圖卻忘了存模型。養成固定順序：<code>Save Work</code>（模型）→ <code>Save Drawing</code>（圖面）。</p>
+</blockquote>
+<h3 id="2923">29.2.3 圖面類型與落點</h3>
+<p>圖面存放的 <code>DEPT／REGI</code> 由圖面類型決定：優先用 <code>DEPT</code> 的 <code>PADDXP</code> 屬性（編譯過的 PML 運算式，如 <code>set PADDXP (marpty eq 1)</code>）找部門；找不到就取 <code>d065</code> 檔的環境變數（如 <code>SB_PDB_PADD = General;MarDwg</code>，分號前為 <code>DEPT</code>、後為 <code>REGI</code>；<code>REGI</code> 永遠由環境變數取得）；都沒有就用內建名稱，元素不存在會自動建立。自 12.1SP4 起，環境變數中的 <code>&lt;DEPT&gt;</code> 只在沒有符合的 <code>PADDXP</code> 時才作備援。每個類型還要有一個「值等於自己名稱」的環境變數（如 <code>SP_PDB</code> 設成 <code>SP_PDB</code>）。</p>
+<p>系統類型約 30 種，例如：1 General Drawing（<code>SB_PDB</code>）、3 General Subpicture、4 Assembly Drawing、7 Pipe Sketch、8–16 與 17–20、26、27 的各種 Hull 圖（重量重心、零件表、型材草圖、套料、治具、彎曲樣板、平面／曲面零件、驗收、標記文字）、21 Settings、22 Drawing Form、23 Standard Subpicture，以及 28–33 的各類 ADP 圖（Assembly、HVAC、Isometric、Steelwork Detailing、Area-Based、Multi-Discipline）。完整對照見官方 Drawing Types 附錄。</p>
+<p><strong>自訂類型：</strong> 準備文字檔，每行 <code>&lt;類型號&gt;,&lt;描述&gt;</code>（類型號 1001–1999，例 <code>1001,ClassDwg</code>），用環境變數 <code>SB_DRAWINGTYPE_LIST</code> 指向它；落點同樣由 <code>PADDXP</code> 或 <code>SB_PDB001_PADD = EarlyDesign;ClassDwg</code> 控制。</p>
+<h3 id="2924-drawing-reference">29.2.4 三層子圖、圖層與 Drawing Reference</h3>
+<p>圖面是三層<strong>子圖（Subpicture）</strong>的階層：第 1 層（View）、第 2 層（Sub-view）、第 3 層（Component），所有幾何都在第 3 層之下。三層永遠存在，可用 Create、Split、Regroup 自由重組，用來整組移動、刪除、換色。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：圖面階層：Drawing 之下為第 1 層 View、第 2 層 Sub-view，最底層為 Geometry</div></p>
+<p><em>圖 29-2　三層子圖階層。所有幾何（G）都在最底的第 3 層之下。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>模型投影加進圖面時，每個投影視圖（第 1 層）自動依固定結構建立第 2 層子視圖：<strong>Hull parts、Curved panels、Hull surfaces、Fairing curves、Draft、Assemblies</strong>。使用者加的 2D 資訊放進「目前選取的子圖」或「最近的子圖」：選在第 1 層，每個新實體都會建立新的第 2、3 層；選在第 2 層，只建立第 3 層。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>說明</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>圖層（Layer）</td>
+<td>以數字識別的圖元群組，可隱藏或顯示；用 Layer Alias 檔（<code>SB_LAYER_ALIAS</code>）加文字描述</td>
+<td>系統圖層為<strong>負數</strong>，使用者圖層為<strong>正數</strong></td>
+</tr>
+<tr>
+<td>Layer Class</td>
+<td>外部檔（<code>SBD_LAYER_CLASS</code>）定義，把尺寸、註記、位置編號、填充、2D 幾何、文字、符號各指到某圖層</td>
+<td>類別未涵蓋的項目，其圖層為「未定義」</td>
+</tr>
+<tr>
+<td>系統圖層</td>
+<td><code>-1</code> 尺寸、<code>-2</code> 位置編號、<code>-3</code> 註記、<code>-4</code> 構造線、<code>-6</code> 隱藏線、<code>-9</code> Markup、<code>-11</code> 標籤、<code>-202</code> 填充、<code>-212</code> Cloud</td>
+<td>圖面表單為 <code>-300</code> 系列；投影為 <code>-1001</code>～<code>-1006</code>，船體零件有 <code>-1101</code> 起的專屬層</td>
+</tr>
+<tr>
+<td>Drawing Reference</td>
+<td>在目前圖面「引用」另一張圖（常當底圖）；可 Collapse（只存引用）／Expand</td>
+<td>儲存時自動 Collapse；列印一定會印出被引用的圖；被引用的圖受保護不可改；<strong>不能引用已有引用或子圖的圖</strong></td>
+</tr>
+<tr>
+<td>Envelope</td>
+<td>暫時把某個子圖換成同大小的外框符號，加快大圖操作</td>
+<td>圖面大小不變、資料保留</td>
+</tr>
+<tr>
+<td>標準細節</td>
+<td>任何子圖可存為 Standard Detail（<code>SB_STD</code>），使用者填充樣式也存此處</td>
+<td><code>Tools &gt; Subpicture &gt; Save as std detail</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2925">29.2.5 圖面表單與動態文字規則</h3>
+<p>圖面表單分「Modelling drawing form」（含投影配置，如 CV4）與當背景的一般表單。動態文字用規則：<code>$2000</code> 這類單項規則（<code>$</code> 加整數）會被取代為圖名，<code>@600</code> 這類表格規則（最多 20 列）用於版次表；取代時沿用原文字的位置、高度與旋轉。規則編號只在同一張表單內有意義。建立流程：<code>File &gt; New</code> 畫版面（規則文字以 <code>$</code>／<code>@</code> 開頭）→ <code>Tools &gt; Drawing Form &gt; Save</code>；改舊表單用 <code>Tools &gt; Drawing Form &gt; Open</code>（以 <code>F_&lt;表單名&gt;</code> 開啟）。批次填文字用 <code>SY006</code>，自訂規則建議從 10000 起算以免衝突。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：圖面表單的欄位與規則編號對照：圖號 $2000、標題 $2101、繪製者 $2102、日期 $2104、比例 $2108、版次 $2112 等</div></p>
+<p><em>圖 29-3　圖面表單的欄位與規則編號對照（例：Drawing no 為 $2000）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h2 id="293-marine-drafting">29.3 Marine Drafting 的操作</h2>
+<h3 id="2931">29.3.1 日常工作流程</h3>
+<p><code>File &gt; New Drawing</code>（預設名 <code>UNTITLED1</code>，不改名視為「系統命名」，之後 <code>Save Drawing</code> 會跳出另存對話框）→ <code>Insert &gt; Drawing Form</code>（插入後自動 AutoScale）→ <code>Insert &gt; Model</code> 或拖放放入模型 → <code>Tools &gt; Model View</code> 調整視圖 → <code>Dimension</code>、<code>Annotate</code> 標註 → 模型改版後用 <code>Tools &gt; Model View &gt; Update Design／Annotations／All</code> 更新 → <code>Validate</code> 檢查（以<strong>時間戳</strong>判斷）→ <code>Save Work</code>（模型）加 <code>Save Drawing</code>（圖面）。</p>
+<h3 id="2932-insert-model">29.3.2 放入模型：Insert Model 與拖放</h3>
+<p><code>Insert &gt; Model</code> 開啟 Model Selection 對話框：反覆選型別、輸入名稱（可用逗號分隔、可含萬用字元）與模組來收集模型，空白名稱或模組代表「符合任何」。拖放則等價於 Insert Model：圖面必須以讀寫模式開啟；左鍵從 Design Explorer 拖到 2D Canvas，<strong>沒有視圖會要求選投影；落在某視圖內只更新該視圖；落在視圖外則更新或插入所有視圖</strong>；右鍵拖放則詢問 <code>New view…</code>／<code>Selected view</code>／<code>All views</code>。選投影的方式有：Same As View、Point Vector、Three Points、Two Cursor Positions、3D Rotate、預設投影（系統可預先定義 5 個標準投影，並有 <code>-1001</code>～<code>-1005</code> 對應圖層）。</p>
+<h3 id="2933">29.3.3 尺寸與註記</h3>
+<p>尺寸分七類：<strong>Linear、Angle、Radius、Diameter、Coordinate、Curve Length、Area</strong>。版面參數由預設檔初始化（前綴 <code>DIM_LIN_</code>、<code>DIM_ANG_</code>、<code>DIM_RAD_</code>、<code>DIM_DIA_</code>，如 <code>DIM_LIN_DEC</code> 小數位、<code>DIM_LIN_ARROW</code> 箭頭、<code>DIM_LIN_TEXTH</code> 文字高度），可在功能內或 <code>Format &gt; Defaults</code> 修改。</p>
+<ul>
+<li><strong>2D Linear 三型：</strong> Normal（連續點之間，同一尺寸線）、Chain（基準點到各點）、Staircase（同方向、不同尺寸線）；3D Linear 永遠是 Normal。</li>
+<li><strong>Radius／Diameter：</strong> 各有 straight、knuckled、cross 三型；Linear／Angle／Diameter／Radius 可加對稱或不對稱公差。</li>
+<li><strong>3D 專用：</strong> Weight and COG、Shell Profile Mounting Angle（邊別由 <code>DIM_ANG_SHELL_PROF_SIDE</code> 控制）、Distance to RSO。</li>
+<li><strong>Hull Mould Line：</strong> 從模線量測，箭頭標示材料側，<strong>只能用在符號化船體視圖</strong>，箭頭線長由 <code>MOULD_LINE_ARROW_LENGTH</code> 控制。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Dimensioning : Linear 2D 對話框：方向、型式、公差、文字與箭頭版面、Blank out 與 Margin</div></p>
+<p><em>圖 29-4　Dimensioning: Linear 2D 對話框。可選方向、型式（Normal／Chain／Staircase）、公差與遮蔽。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><code>Annotate</code> 分<strong>通用註記</strong>（General Note、Position Number、Label、Autotagging、Markup、Ruler、Cloud…）與<strong>船體專用 Hull Note</strong>：Pos No、Assembly（所屬組件）、Bevel、Grinding（孔磨平符號）、Hole Dimension（Panel 孔的標記與尺寸，在 Hull View 中是關聯式的，View 重建時更新）。</p>
+<p><strong>Config Note（可設定註記）</strong> 由 Vitesse hook 設定：檔名固定為 <code>_TBhook_ConfigNote.py</code>，放在 <code>PYTHONPATH</code> 指的目錄，必須有五個固定方法：<code>getNoteName (&lt;NoteInd&gt;)</code>、<code>getNoteChar (&lt;NoteInd&gt;)</code>、<code>getNoteFilter (&lt;NoteInd&gt;, &lt;FilterInd&gt;)</code>、<code>getNoteData (&lt;ItemNo&gt;)</code>、<code>setNoteData (&lt;NoteNo&gt;, &lt;ModelType&gt;, &lt;Model&gt;, &lt;PartType&gt;, &lt;Part&gt;, &lt;SubPartType&gt;, &lt;SubPart&gt;)</code>，<strong>輸入參數與回傳值不可更動</strong>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 註記符號必須先存在：Note 符號用標準符號字型 #21 的 31–60 號，位置編號符號用 61–80 號；要更多就用 #41 字型並以 <code>NOTE_SYMB_EXTENDED_RANGE</code>、<code>POSNO_SYMB_EXTENDED_RANGE</code> 啟用。</p>
+</blockquote>
+<h3 id="2934">29.3.4 選取、修改與常用輔助功能</h3>
+<p><strong>Multiple Select（多重選取）：</strong> 在 Choose function 模式下，Ctrl＋左鍵加入或移除（來自 Drawing Reference View 的資訊不能加入）；Ctrl＋右鍵開選項選單：<code>Box</code>、<code>Polygon</code>、<code>Inside</code>、<code>Crossing</code>、層級過濾（Comp／Subview／View）、幾何過濾（Contour／Text／Symbol）與 <code>Advanced filter…</code>（顏色、線型、字型、文字高度、圖層等，<strong>多個條件須全部符合</strong>）。可多選的功能：Trim、Extend、Transform、Copy、Delete、Change Properties。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：多重選取的彈出選單：Comp／Subview／View、Contour／Text／Symbol、Box／Polygon／Inside／Crossing、Advanced filter</div></p>
+<p><em>圖 29-5　Multiple Select 彈出選單。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 設了 <code>Advanced filter</code> 後，<strong>所有操作都作用在「過濾後」清單，而不是畫面上高亮的「選取」清單</strong>（可用 Show selected／filtered elements 切換）。Delete 時尤其危險。Copy 是否排除模型資訊，由預設關鍵字 <code>MODEL_SUBPICTURE_2DREGROUP_ALLOW</code> 決定。</p>
+</blockquote>
+<p><strong>Trim／Extend：</strong> 單一輪廓不必先選，在輪廓附近按右鍵即可；找到兩個交點就挖出缺口，只找到一個就修掉靠近點擊位置的那端。<strong>其他：</strong> 3D 點定義有鎖定（LOCK U／V／X／Y／Z／XY…）、<code>Add (3D) Offset</code>、<code>Verify</code>；點、線、弧的定義是遞迴的；字串輸入框可用 <code>!CANCEL</code>、<code>!OC</code>、<code>!GRAPHIC</code> 等指令；列印時可用 <code>SBD_LSFILE</code> 改輸出線型而不改圖面。</p>
+<h3 id="2935">29.3.5 匯入匯出</h3>
+<p>2D DXF／IGES 只處理 2D：DXF 匯出時符號與註記被炸開、Chain 與 Staircase 尺寸拆成單一尺寸，預設全在圖層 0，可用五欄的圖層控制檔（模型類型、圖層名、顏色、線型、線寬）分層；DXF 匯入以 R12 為基礎，複雜線型只會畫成實線。3D DXF 只匯出<strong>船體模型</strong>（舾裝模型需另購的 Explant-A 或 Mechanical Equipment Interface），檔案很大，帶孔 Panel 約為無孔的 3 倍。</p>
+<h2 id="294-marine-drafting">29.4 Marine Drafting 的維運與二次開發切入點</h2>
+<h3 id="2941">29.4.1 預設檔與批次公用程式</h3>
+<p>Drafting 的預設值存在<strong>預設檔</strong>，由環境變數 <code>SBD_DEF1</code> 指定，啟動時讀入；每行「關鍵字 冒號或等號 值」，順序無關。其他設定檔：圖層別名檔 <code>SB_LAYER_ALIAS</code>、圖層類別檔 <code>SBD_LAYER_CLASS</code>、軟度別名檔 <code>SB_MTRL_ALIAS</code>。線型顯示由 <code>SB_LINETYPE_THIN_WIDTH</code>（0.125 mm）、<code>WIDE</code>（0.25）、<code>XWIDE</code>（0.5）等一組環境變數控制，應集中維護，同時影響螢幕與列印。</p>
+<table>
+<thead>
+<tr>
+<th>公用程式</th>
+<th>用途</th>
+<th>重點（照文件）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SY013</code></td>
+<td>把 Tribon M3 輸出的 <code>.SDB</code> 遷入 PADD</td>
+<td><code>sy013 &lt;登入資訊&gt; -name &lt;物件&gt; -dwgtype &lt;類型號&gt; [-list] [-onlyfromfiles]</code>；舊 <code>TBSystemFont</code> 需用 <code>TB_SYSTEMFONT_MAP</code> 對應到 TrueType</td>
+</tr>
+<tr>
+<td><code>SY015</code></td>
+<td>批次複製圖面</td>
+<td><code>sy015 -from &lt;SHEE／DRWG／REGI／DEPT&gt; -to &lt;REGI／DEPT&gt;</code>，可加前後綴與 <code>-logfile</code></td>
+</tr>
+<tr>
+<td><code>SY007</code></td>
+<td>舊版圖面一次驗證</td>
+<td>圖面版本為 8，低於 8 不支援</td>
+</tr>
+<tr>
+<td><code>SY010</code></td>
+<td>檢查並修復損毀圖面</td>
+<td><code>sy010 [-name] [-sourcedb] [-report｜-repair] [-logdir] [-targetdb]</code>；嚴重度 Fatal／Error／Warning／Informational</td>
+</tr>
+<tr>
+<td><code>SB028</code>、<code>TBGENPREVIEW</code></td>
+<td>管理標準資料庫頁面；產生開啟對話框的預覽圖</td>
+<td><code>SB028</code> 需要名為 <code>STDFORM</code> 的表單</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> <code>SY010</code> 預設把修復結果存回原資料庫、<strong>覆蓋原圖</strong>。一律先加 <code>-report</code> 看診斷，要修再用 <code>-targetdb</code> 存到別處；Fatal 等級可能無法復原。</p>
+</blockquote>
+<p><strong>備份與還原：</strong> 圖面檔可隨 Datal 一起備份：先 <code>OUTPUTDRAWINGS "資料夾"</code> 開啟（預設關閉），只支援完整清單，備份時<strong>一定要用 <code>SAMEREF</code></strong>。還原時先確認元素不在資料庫、導航到擁有者、執行 DB 清單巨集（內含 <code>LOADDRAWINGS</code>）後 <code>SAVEWORK</code>；還原元素的 <code>PVNO</code> 要大於歷史值，預設只往回掃 100 個 Session，可用 <code>AVEVA_RESTORE_MAXSESSIONS</code> 加大。還原後的圖面可能與目前 Design 不一致，需驗證，或把 MDB 以 Backtrack 退回指定 Stamp（見<a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）。</p>
+<h3 id="2942">29.4.2 二次開發者怎麼接</h3>
+<p>只列文件有明確依據的切入點，其餘標〔待核對〕。</p>
+<table>
+<thead>
+<tr>
+<th>切入點</th>
+<th>文件依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Config Note hook</td>
+<td>Vitesse（Python）檔 <code>_TBhook_ConfigNote.py</code>，五個固定方法（29.3.3）；資料形態與回傳型別細節未讀〔待核對〕</td>
+</tr>
+<tr>
+<td>Model Info 客製</td>
+<td>PML pre-trigger <code>trig_draft_model_info</code> 與 <code>ModelInfo</code> 物件，方法：<code>DBREFGET()</code>、<code>ADDPROPERTY(STRING, STRING)</code>、<code>REMOVEPROPERTY(REAL)</code>、<code>MODELINFOPROPERTIES()</code>、<code>PROPERTYTITLE(REAL)</code>、<code>PROPERTYVALUE(REAL)</code>、<code>EDITPROPERTYTITLE(REAL, STRING)</code>、<code>EDITPROPERTYVALUE(REAL, STRING)</code>；標題必須唯一</td>
+</tr>
+<tr>
+<td>Vitesse 腳本</td>
+<td><code>Tools &gt; Vitesse &gt; Run Script</code>，位置由 <code>SB_PYTHON</code> 定義；可用的 Marine Drafting API 未讀〔待核對〕，見<a href="ch36_hull_vitesse_zh-TW.reading.html">第 36 章</a></td>
+</tr>
+<tr>
+<td>批次</td>
+<td><code>SY013</code>、<code>SY015</code>、<code>SY010</code>、<code>SY006</code>，都需附專案登入（<code>-proj=MAR -user=SYSTEM -pass=… -mdb=/ALL_NO_MDS</code>）</td>
+</tr>
+<tr>
+<td>ADP 與預設檔</td>
+<td><code>AutoDP</code> 表單以 PML 客製（第 28 章）；<code>SBD_DEF1</code> 可統一發佈</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> Marine Drafting 圖面不能用 Command Window 隨意改（29.2.2）。想程式化改圖，走上表的 hook、批次與 Vitesse，不要把 Design Draft 的指令（29.5 起）直接用在 Marine Drafting 圖面上。</p>
+</blockquote>
+<h2 id="295-design-draft">29.5 Design Draft：資料庫與圖面建立</h2>
+<h3 id="2951-design-draft">29.5.1 Design Draft 是什麼</h3>
+<p>Design Draft 產出完整註記、按比例的圖，內容取自 Design 模型並與其完全整合；可從任意方向看模型，隱藏線自動移除或改線型，一張圖可同時有平面、立面與等角視圖。圖由三種圖形構成：代表 3D 模型的圖形、多張圖共用的底圖與覆蓋圖（backing／overlay sheets）、註記（尺寸、文字、引線與標籤框）。</p>
+<p><strong>Draft 資料庫不存幾何</strong>，只描述圖形該如何呈現；圖面由它加上 Design 與 Catalogue 資料庫即時產生，反映當下設計狀態。本文件是<strong>指令層級</strong>手冊，寫給要自訂圖形介面的人；GUI 操作見第 28 章。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Draft 資料庫階層全貌：WORLD 之下有 LIBY、DEPT、REGI、REPO、DRWG、SHEE、VIEW 與 LAYE 底下的註記元素</div></p>
+<p><em>圖 29-6　Draft 資料庫階層（Basic Hierarchy，已省略自動建立的系統元素）。圖面元素由 <code>DEPT → REGI → DRWG → SHEE → VIEW → LAYE</code> 向下，右側 <code>LIBY</code> 放圖庫。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DRWG</code>／<code>SHEE</code></td>
+<td>圖面（相當紙本圖）／圖紙（「第 1 張，共 3 張」），可顯示於視圖的最高層元素</td>
+</tr>
+<tr>
+<td><code>VIEW</code></td>
+<td>3D 模型某部分的投影，屬性含視線方向、通過點、比例、紙上大小與位置，並參照 Id List 決定畫什麼</td>
+</tr>
+<tr>
+<td><code>LAYE</code></td>
+<td>圖層，擁有尺寸、標籤與視圖註記；<code>PURP</code> 決定可擁有的元素，<code>LVIS</code> 控制顯示，共用屬性由圖層向下串接</td>
+</tr>
+<tr>
+<td><code>LIBY</code>／<code>DLLB</code>／<code>IDLI</code></td>
+<td>圖庫、Drawing List Library、Id List</td>
+</tr>
+<tr>
+<td><code>RPLB</code>／<code>RRST</code>／<code>RRUL</code>／<code>STYL</code></td>
+<td>表現規則庫、規則集、規則、樣式（29.6）</td>
+</tr>
+<tr>
+<td><code>PLLB</code>／<code>PPLA</code>／<code>FPLA</code>／<code>SPLA</code>／<code>VSEC</code></td>
+<td>剖面庫、三種剖面、視圖剖面（29.6）</td>
+</tr>
+<tr>
+<td><code>SHLB</code>／<code>BACK</code>／<code>OVER</code></td>
+<td>圖紙庫、底圖樣板（當圖框）、覆蓋圖樣板（疊關鍵位置圖）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2952">29.5.2 建立圖面骨架與產生圖形</h3>
+<p>從 World 開始，用指令建立階層：</p>
+<pre><code>NEW DEPT /PIPES
+NEW REGI /PIPREG
+NEW DRWG /PD101
+NEW SHEET /SHEET1
+NEW VIEW /PLAN
+</code></pre>
+<p>若只有一個部門、一個登錄冊與一張圖紙，<strong>除 <code>NEW DRWG</code> 與 <code>NEW VIEW</code> 外都可省略</strong>；缺少的管理元素會自動建立。決定 <code>VIEW</code> 內容有兩法：直接參照單一 Design 元素（小到一個 <code>BRANCH</code>、大到整個 <code>SITE</code>），或間接參照 <strong>Id List</strong>（<code>IDLI</code>）。</p>
+<p><strong><code>AUTOSCALE</code> 與 <code>AUTOSIZE</code></strong> 是兩個「自動」指令，一次設好三項關鍵屬性：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>設定的屬性</th>
+<th>使用現有的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AUTOSCALE [元素或 IdList]</code></td>
+<td><code>IDLN</code>（若尚未設定）、<code>THPO</code>（通過點）、<code>VSCA</code>（比例，使內容剛好放進視圖框）</td>
+<td><code>DIR</code> 與 <code>SIZE</code></td>
+</tr>
+<tr>
+<td><code>AUTOSIZE [元素或 IdList]</code></td>
+<td><code>IDLN</code>（若尚未設定）、<code>THPO</code>、<code>SIZE</code>（視圖框大小）</td>
+<td><code>DIR</code> 與 <code>VSCA</code></td>
+</tr>
+</tbody>
+</table>
+<p>也可用 <code>AUTOSCALE LIMITS OF /idlist</code> 或 <code>AUTOSIZE FROM position TO position</code> 以範圍而非設計項目計算。注意：<code>IDLN</code> 只在<strong>尚未設定時</strong>才被改，第二次執行不會換清單。</p>
+<p>屬性設好後，<strong><code>UPDATE DESIGN</code></strong> 在記憶體的 Central Picture Store（CPS）建立視圖圖形，<strong><code>SAVEWORK</code></strong> 把圖形存成 Picture File，下次工作階段不必重新更新。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 以 <code>QUIT</code> 離開 Draft，CPS 中的圖形<strong>不會存</strong>；切換到另一個模組則隱含 <code>SAVEWORK</code>。</p>
+</blockquote>
+<h3 id="2953-id-list">29.5.3 Id List 與視圖屬性</h3>
+<p>Id List 放在 Drawing List Library（<code>DLLB</code>），用 <code>ADD</code>／<code>REMOVE</code> 建立（系統自動產生 <code>ADDE</code>／<code>REME</code>）：</p>
+<pre><code>NEW LIBY /LIB1
+NEW DLLB /DLB1
+NEW IDLI /ID1
+ADD /ZONE.PIPES2-1
+REMOVE /PIPE2-1-12
+</code></pre>
+<ul>
+<li><strong>順序很重要：</strong> 被移除的項目必須先被（隱含地）加入，<code>REMOVE</code> 不應是第一筆；用另一個清單移除一批分支時，那個清單要用 <code>ADD /BRAN1, /BRAN2</code> 定義，<strong>不要</strong>寫成 <code>REM</code>。</li>
+<li><strong>選取語法：</strong> <code>ADD ALL EQUI FOR /SITE/99</code> 是<strong>展開後</strong>存入，清單可能很長；加 <code>RULE</code>（<code>ADD RULE ALL ZONE WITH ( FUNC EQ 'PIPING')</code>）則把條件存在 <code>CRIT</code>，到 <code>UPDATE DESIGN</code> 才展開。</li>
+<li><strong>空間範圍：</strong> <code>ADD ... WITHIN E5000 N5000 U5000 TO W1000 S1000 U0</code> 用 Marine 空間地圖；地圖不是最新，結果會錯。較穩定的做法是設 <code>IDLI</code> 的 <code>LIMI</code>（<code>LIMITS</code> 指令）並只加入相關 <code>SITE</code>／<code>ZONE</code>。</li>
+<li><strong>清理與查詢：</strong> <code>DELETE NULL IDLIstmembers</code>；<code>Q IDLN DESC</code>、<code>Q VOLUME</code>、<code>Q WINDOW</code>。網格系統（<code>GRIDSY</code>／<code>GRIDAX</code>）可加進清單但不能是唯一成員。</li>
+</ul>
+<p>主要 <code>VIEW</code> 屬性（改了視線、通過點、旋轉或透視後，圖形即過期，需 <code>UPDATE DESIGN</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>屬性／指令</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LFRA</code>、<code>SIZE</code>、<code>VREGION</code></td>
+<td>視圖框是否顯示（預設 OFF）、紙上大小、用游標框選大小</td>
+</tr>
+<tr>
+<td><code>XYPS</code>、<code>ONPOS</code></td>
+<td>視圖中心在圖紙上的位置；內容中心相對視圖中心的偏移</td>
+</tr>
+<tr>
+<td><code>VSCA</code>、<code>VRAT</code></td>
+<td>比例（值越大圖形越大）；<code>VRAT 1 TO 75</code> 以比值設定，直接設 <code>VSCA</code> 會使 <code>VRAT</code> 失效</td>
+</tr>
+<tr>
+<td><code>ADEG</code>／<code>TURN</code>、<code>RCOD</code>、<code>PERS</code></td>
+<td>內容旋轉（相對 0，不是相對上次）、連視圖一起旋轉、透視（預設 0 為平行投影）</td>
+</tr>
+<tr>
+<td><code>DIR</code>、<code>THPO</code>、<code>FRPO</code></td>
+<td>視線由方向、通過點、起點任兩項決定，如 <code>LOOK N45W</code>、<code>ISO3</code>、<code>PLAN</code></td>
+</tr>
+<tr>
+<td><code>RRSF</code>、<code>HRSF</code>、<code>CRSF</code></td>
+<td>參照表現規則集、填充規則集、變更規則集</td>
+</tr>
+<tr>
+<td><code>ATOL</code>、<code>VGAP</code>、<code>NOCLIP</code>、<code>IGNDUN</code></td>
+<td>弧容許誤差、視圖線缺口（預設 1.5 mm）、不裁切、忽略 <code>DUNION</code></td>
+</tr>
+<tr>
+<td><code>VTYP</code></td>
+<td>隱藏線表現，見下</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>VTYP</code> 六種等級</strong>（精確度與運算成本遞增）：<code>WIRE</code>（線框，預設）→ <code>MWIR</code>（modelled wireline）→ <code>WIREHL</code>（僅對各重要元素移除自身隱藏線）→ <code>LOCAL</code> → <code>GLOBAL</code>（全域移除隱藏線）→ <code>UNIV</code>（Universal：全域，並補上互相穿透之重要元素的交線）。初稿用低等級，定稿才用高等級。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Wireline 視圖：所有邊線可見，含隱藏線</div></p>
+<p><em>圖 29-7　<code>VTYP WIRE</code>：傳統線框圖，所有邊都畫出。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Universal HLine 視圖：全域移除隱藏線，並補上穿透交線（紅圈處）</div></p>
+<p><em>圖 29-8　<code>VTYP UNIV</code>：移除全部隱藏線，並產生衝突元素之間的交線（紅圈為補上的交線）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>2D 符號化與查詢：</strong> 在 2D 視圖中，設計元素可用符號代替或附加於幾何；符號由符號樣板（<code>SYTM</code>）與文字標籤樣板（<code>TXTM</code>）產生，<strong>用哪個樣板記在 Catalogue 資料庫</strong>，故同一元素可依視圖方向與分類有不同表現。符號以 <code>DESSYM</code> 放進 <code>DSLAYE</code>，由 Draft 自動建立與刪除。<code>Q VSCAN</code>、<code>Q FIND gid IN view</code>（回答 <code>FOUND</code>／<code>MISSING</code>／<code>INVALID ELEMENT</code>）可查某元素是否出現在視圖；可見性是掃描<strong>圖形資料</strong>而非 Id List，被隱藏線移除的元素找不到，只擁有別的重要元素而無可見圖元的 <code>EQUI</code>、<code>STRU</code>、<code>FRMW</code> 也找不到。</p>
+<h3 id="2954-bpm">29.5.4 背景處理管理員（BPM）</h3>
+<p>更新很費時時，可用 Background Process Manager 在背景更新，前景可繼續做別的視圖；前景與 BPM 不必同時運作（可夜間跑），一次只跑一個工作。前置條件是環境變數 <code>PDMSEXE</code>、<code>PDMSWK</code> 與專案的 <code>XXX000</code>、<code>XXXISO</code>、<code>XXXMAC</code>、<code>XXXPIC</code>，並用 <code>BPM.bat</code> 啟動。</p>
+<p>流程：在 Draft 導航到 <code>VIEW</code>（或 <code>SHEET</code>、<code>DRAWING</code>）→ <code>SAVEWORK</code> → <code>UPDATE Design NOWAIT</code> 加入佇列 → BPM 表單點 <code>Start manager</code>（背景用隱藏 Draft 工作階段，每個視圖產生前綴 <code>X</code> 的中間視圖檔 IVF）→ 完成後回前景用 <code>UPDATE REFRESH</code> 取回，滿意才 <code>SAVEWORK</code>，不滿意則<strong>不要存</strong>，重新選取圖紙載回舊內容。log 存於 <code>PDMSWK</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Background Process Manager 表單：工作清單、Manager status、Start manager、Manager log</div></p>
+<p><em>圖 29-9　Background Process Manager 表單：上方為工作清單與狀態，下方為 Manager log。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 重新整理某視圖前，先存好同圖紙其他視圖尚未儲存的變更，否則重新載回圖紙會一併捨棄。另：Design 資料庫刪除重建後，可用 <code>UPDATE 元素 REFS</code> 依系統文字屬性 <code>DDNX</code>、<code>IDLX</code>、<code>IDNX</code> 恢復參照，前提是被參照元素都有名稱。</p>
+</blockquote>
+<h2 id="296-design-draft">29.6 Design Draft：表現規則、填充與剖面</h2>
+<h3 id="2961">29.6.1 表現規則與樣式</h3>
+<p>表現規則（<code>RRUL</code>）決定每種設計元素怎麼畫並參照樣式（<code>STYL</code>）；規則存在規則集（<code>RRST</code>），規則集與樣式存在表現規則庫（<code>RPLB</code>）。<code>VIEW</code> 以 <code>RRSF</code> 參照規則集，或直接擁有<strong>本地規則</strong>，本地規則優先於庫規則。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：表現規則階層：Library、RPLB、RRST、RRUL、STYL，與 VIEW 的 RRSF 及 RRUL 的 STYF 參照</div></p>
+<p><em>圖 29-10　表現規則的資料庫階層：<code>VIEW</code> 以 <code>RRSF</code> 指向 <code>RRST</code>，<code>RRUL</code> 以 <code>STYF</code> 指向 <code>STYL</code>。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>樣式屬性包括：旗標 <code>TUBEF</code>、<code>CLIN</code>、<code>PSYM</code>、<code>OBSTF</code>、<code>INSU</code>、<code>PRFG</code>、<code>PLFG</code>，以及成對的樣式與顏色：<code>FFSTYLE</code>（正面邊，預設 SOLID／1）、<code>CLSTYLE</code>（中心線，預設 CHAIN／1）、<code>BFSTYLE</code>（背面邊，預設 OFF）、<code>OBSTYLE</code>（被擋住的正面邊，Global 隱藏線視圖用，預設 OFF）、<code>PLNSTYLE</code>（P-line）、<code>MLNSTYLE</code>（構件中心線）、<code>PINSSTYLE</code>（保溫，<code>INSU</code> 為真才畫）。</p>
+<pre><code>NEW RRST /RSET1
+NEW RRUL /R11
+USE /S2 FOR ALL EQUIP
+OMIT ALL BRAN WITH ( HBORE LE 80 AND TBORE LT 30 )
+</code></pre>
+<p>Draft 由上往下掃規則清單，<strong>第一個符合的規則生效</strong>；沒有符合者就用預設樣式。因此<strong>特定規則放前面</strong>：先寫小口徑規則，再寫 <code>USE /ST2 FOR ALL BRAN</code>。<code>OMIT</code> 設定 <code>OMITFG</code> 並取消該規則的 <code>STYF</code>。指定具名元素（<code>USE /S2 FOR /PUMP1-1</code>）時<strong>元素必須有名稱</strong>，<code>CE</code>、<code>FIRST EQUI</code> 不行。條件用 PML 運算式（<code>EQ</code>、<code>NE</code>、<code>LT</code>、<code>LE</code>、<code>GE</code>、<code>GT</code>、<code>AND</code>、<code>OR</code>、<code>NOT</code>）；一次套用多類別要加括號：<code>USE /ST1 FOR (ALL BRAN ALL SUBS) WI (…)</code>，否則條件只作用在最後一類。2D 符號化用 <code>USE SYMBOLOGY FOR crit</code>。網格線若要不被隱藏線處理遮擋，規則要套在 <code>GRIDSY</code>／<code>GRIDAX</code>（並把 <code>RRUL</code> 的 <code>NoHLRFlag</code> 設為真），<strong>不要套在 <code>GRIDLN</code></strong>。</p>
+<h3 id="2962-automatic-hatching">29.6.2 自動填充（Automatic Hatching）</h3>
+<p>被剖面切出的面與指定圖元表面，可由填充規則自動畫填充，屬 <code>UPDATE DESIGN</code> 的一部分。結構與表現規則平行：<code>HRUL</code>（規則）→ <code>HSTYL</code>（樣式）→ <code>HRST</code>（規則集）→ <code>RPLB</code>，<code>VIEW</code> 以 <code>HRSF</code> 參照或直接擁有本地 <code>HRUL</code>。</p>
+<ul>
+<li><strong>規則屬性：</strong> <code>HSTYF</code>、<code>FCODE</code>（<code>SECTionedfaces</code>／<code>PRIMitivefaces</code>）、<code>DCODE</code>（All／Perpendicular／Specified 方向）、<code>NORM</code>、<code>CRIT</code>。</li>
+<li><strong>對象與限制：</strong> 剖面填充要選<strong>重要元素</strong>（<code>BRAN</code>、<code>EQUI</code>、<code>SUBS</code>、<code>FRMW</code>…），選 <code>BOX</code>、<code>VALV</code> 不會有填充；一條規則只能二擇一（剖面面或圖元表面）；一個設計元素只套用<strong>一條</strong>規則。</li>
+<li><strong>樣式：</strong> <code>OLSTYLE</code>（外框，預設 Off）、<code>FSTYLE</code>（預設 <code>SYSTEM PATTERN 1</code>）、<code>PIPESYM</code>（預設 TRUE，切到圓或矩形管時畫典型剖面符號，關掉才改用一般填充）；填充角度與間距是絕對值，不受比例影響。</li>
+</ul>
+<h3 id="2963-section-planes">29.6.3 剖面（Section Planes）</h3>
+<p>文件指出 GUI 有大量剖面功能（見第 28 章），本節是資料庫層。三種元素構成四種剖面：</p>
+<table>
+<thead>
+<tr>
+<th>剖面</th>
+<th>元素</th>
+<th>定義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>垂直平面</td>
+<td><code>PPLA</code></td>
+<td>只有 <code>POS</code>，永遠垂直於視圖方向；不能反轉動作</td>
+</tr>
+<tr>
+<td>平面</td>
+<td><code>FPLA</code></td>
+<td><code>POS</code> 加 <code>NORM</code>（法向量，如 <code>N45W</code>、<code>ISO2</code>）</td>
+</tr>
+<tr>
+<td>階梯平面</td>
+<td><code>SPLA</code>（<code>GTYP OPEN</code>）</td>
+<td>由 <code>WPOS</code> 點序列構成折疊平面，沿 <code>DIR</code> 無限延伸</td>
+</tr>
+<tr>
+<td>封閉平面</td>
+<td><code>SPLA</code>（<code>GTYP CLOSED</code>）</td>
+<td>首尾點重合，形成無限長的管</td>
+</tr>
+</tbody>
+</table>
+<p>平面存放在平面庫（<code>PLLB</code>），可供多個視圖使用，且<strong>只能用在 modelled 視圖</strong>（<code>VTYP</code> 為 <code>MWIR</code> 以上），不能用在基本線框視圖。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：階梯平面：一列點定義的折疊平面，兩端延伸至無限遠</div></p>
+<p><em>圖 29-11　階梯平面（Stepped Plane）：十字為定義平面的點，箭頭表示延伸到無限遠。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>視圖要用剖面，需在 <code>VIEW</code> 下建 <code>VSEC</code>：<code>PLRF</code>（平面）、<code>IDLN</code>（要剖的清單，預設整個 World）、<code>PMOD</code>（<code>STANDARD</code>／<code>REVERSE</code> 反轉保留側／<code>OFF</code>）、<code>CLMO</code>（設為 OFF 則管路元件的線元素不被剖，管件被切掉仍留中心線）。視圖屬性 <code>SMOD</code> 設為 <code>OMIT FRACtional PCOMponents</code> 時，原點落在前後剖面外的管件整個省略。階梯平面用 <code>NEW SPLA</code>、<code>DIR U</code>、<code>GTYP OPEN</code>、<code>STEP @ @ @ @</code> 建立（一次最多四點，可追加）；系統會檢查並回報 <code>Splane /name is satisfactory</code>，自身重疊則需調整點序或改成封閉型。<code>CHANGE ACTION</code> 反轉平面本身的保留側（不同於改 <code>VSEC</code> 的 <code>PMOD</code>，後者只影響該視圖）；<code>SKETCH PLANE</code> 在視圖畫出平面當繪圖輔助。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：同一設備以不同階梯剖面切開的結果：上下兩組各為平面視圖與等角視圖</div></p>
+<p><em>圖 29-12　階梯剖面的使用結果：同一設備以不同折疊剖面切開，斜線為剖面填充。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2964">29.6.4 游標、輸出與顏色樣式</h3>
+<ul>
+<li><strong>游標辨識：</strong> <code>ID @</code> 選最底層元素；<code>ID DESEL／PADEL／DRAEL @</code> 限制只選 Design 或 Draft 元素；<code>IDP @</code>、<code>IDPL @</code>、<code>IDPE/ND @</code> 取 P-point 與 P-line，例：<code>NEW GLAB ON IDPE @</code>。</li>
+<li><strong>2D 與 3D 座標互查：</strong> <code>Q ENUPOSITION OF 紙上位置</code>、<code>Q SHPOSITION OF 位置</code>；視圖必須是<strong>非透視的軸測圖</strong>且位置在視圖框內。</li>
+<li><strong>輸出：</strong> <code>PLOT /SHEET1 /SH1.PLT A3 OVER</code>；延伸格式有 <code>PDF</code>、<code>IMAGE</code>、<code>METAFILE</code>、<code>PRINT</code> 與 DXF／DWG（<code>LIEXEC /Draft_DXF_LI 'DXFOUT' ConfigData '…'</code>）。已知限制：智慧遮蔽圖元不輸出、許多自訂線型被轉成固定虛線。PLOT 與各格式設定見第 28 章。</li>
+</ul>
+<h2 id="297-design-draft">29.7 Design Draft：註記、標籤與改版標示</h2>
+<h3 id="2971">29.7.1 註記的資料模型</h3>
+<p>註記元素包括尺寸、標籤與 2D 繪圖元素。<strong>尺寸與標籤由圖層（<code>LAYE</code>）擁有</strong>；其他文字、符號、圖形由 <code>NOTE</code>（圖紙註記）或 <code>VNOT</code>（視圖註記）擁有。圖層的 <code>PURP</code> 決定可以放什麼，<code>LVIS</code> 控制整層顯示。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：註記元素階層：SHEE 之下有 NOTE 與 VIEW，VIEW 之下 LAYE 擁有 VNOT、尺寸（ADIM、LDIM、PDIM、RDIM）與標籤（SLAB、GLAB），另有 DSLAYE 與 DESSYM</div></p>
+<p><em>圖 29-13　註記元素階層：2D 繪圖元素（<code>TEXP</code>、<code>SYMB</code>、<code>CIRC</code>…）、尺寸元素與標籤元素各歸其類。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2972">29.7.2 尺寸</h3>
+<p><code>LDIM</code>（線性，擁有 Dimension Point）、<code>RDIM</code>（半徑，由元素加屬性定義，如 <code>CYLI</code> 的 <code>DIAM</code>）、<code>PDIM</code>（節圓）、<code>ADIM</code>（角度）。尺寸由游標快速建立，許多屬性由所屬 <code>LAYE</code> 串接，且掛在設計元素上，所以設計改變後 <code>UPDATE</code> 會重算。注意這與 Marine Drafting 的關聯尺寸是不同機制，不要混用經驗。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：線性尺寸的組成：Dimension Line、Dimension Text、Projection Lines、Dimension Point</div></p>
+<p><em>圖 29-14　線性尺寸的組成：尺寸線、尺寸文字、延伸線與尺寸點。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2973-autotagging">29.7.3 標籤、Autotagging 與遮蔽</h3>
+<p>標籤有 <strong>General Label（<code>GLAB</code>）</strong> 與 <strong>Special Label（<code>SLAB</code>）</strong>，後者的外觀與文字由標籤樣板（文字樣板 <code>TXTM</code>、符號樣板 <code>SYTM</code>，放在 <code>LALB</code>）決定。最小例子：</p>
+<pre><code>NEW GLAB
+DDNM ID @
+</code></pre>
+<p>預設文字 <code>#NAME</code> 是附著點處元素的名稱（無名稱則顯示錯誤文字，由 <code>LAYE</code> 的 <code>NTEXT</code> 自訂）。附著點可用 <code>NPPT</code>、<code>PKEY</code>（如 <code>TOS</code>、<code>MEML</code>）、<code>PKDI</code> 變化，或 <code>ON IDP @</code> 一次設定；標籤原點預設距附著點 x25 mm、y25 mm，<code>AT</code> 的座標永遠被當絕對座標；<code>BTEX 'NOZZLE 2#/#NAME'</code> 混用明文與智慧文字（<code>#/</code> 換行）。</p>
+<p><strong>Autotagging（自動標籤）</strong> 由規則批次產生標籤：<code>NEW TRLB</code>、<code>NEW TRST</code>、<code>NEW TAGR /TR1</code> → <code>TMRF /LAB1</code>（外觀，指向 <code>GLAB</code>、<code>SLAB</code>、<code>SYTM</code> 或 <code>TXTM</code>）→ <code>IDLN</code>（範圍，預設視圖自己的 Id List）→ <code>TAG ALL NOZZ</code>（條件，語法同 <code>USE … FOR</code>）→ <code>UPDATE TAGGING</code>。每個標籤的 <code>SORF</code> 指回 <code>TAGR</code>。再次更新（不加 <code>OVERWRITE</code>）時，既有標籤更新位置、新元素補標、已刪除或不符條件者被刪；加 <code>OVERWRITE</code> 則重建，<strong>手動編輯過的標籤會被丟掉</strong>。不在 Id List、落在視圖框外或被剖面排除的元素不產生標籤，但被別的元素擋住的仍會產生（可設 <code>LVIS FALSE</code>）。Datal 輸出無法重現 <code>TAGR</code> 與標籤的連結，資料庫間轉移要用 <code>RECONFIGURER</code>。搭配 Tab 碼（<code>#NAME#15#P1BOR#25#CREF</code>）、等寬字型與 PML 可在圖面上產生明細表。</p>
+<p><strong>標籤擺放與遮蔽：</strong> <code>SPREAD LOCAL</code> 把標籤擺在重要元素周圍，避免重疊與引線交叉；<code>SPREAD REMOTE</code> 排到視圖邊框外圍（可設 <code>MARGIN</code>、<code>GAP</code>、<code>OMIT TOP</code>），所有選項要寫同一行，不會記住前次參數。<code>AUTOBLANKING ON/OFF</code> 讓尺寸、標籤與註記底下的 3D 圖形留空（<code>BLNK</code>、<code>BMAR</code>）；關閉時螢幕不遮蔽但 <strong>plotfile 一律產生</strong>。</p>
+<h3 id="2974-change-highlighting">29.7.4 報告、傳閱清單、修訂與 Change Highlighting</h3>
+<p><code>REPO</code>（報告）、<code>CLLB</code>／<code>CIRL</code>／<code>RECI</code>（傳閱清單庫、清單、收件人，圖面以 <code>CLRF</code> 參照）與 <code>REVI</code>（修訂，可屬於 <code>DRWG</code> 或 <code>SHEE</code>：<code>RVSN</code>、<code>RVDT</code>、<code>RVAU</code> 建立時自動設定，另有 <code>APPR</code>、<code>APDT</code>、<code>STEXT</code>）。偽屬性 <code>SREVAY</code>、<code>DREVAY</code> 回傳所有 <code>REVI</code>（最多 50），可搭配智慧文字 <code>#RVSN</code> 等產生修訂表。</p>
+<p><strong>Change Highlighting（變更標示）</strong> 比較「現在」與「比較日期」兩個時間點，把改過的設計與註記畫成不同樣式：</p>
+<ol>
+<li>建 <code>CRST</code>，內含 <code>DCRULE</code>（設計）與 <code>ACRULE</code>（註記），分別參照 <code>DCSTYL</code>、<code>ACSTYL</code>；<strong>沒有本地變更規則</strong>。</li>
+<li><code>DCRULE</code> 的 <code>CRIT</code> 用 <code>CREATED()</code>、<code>MODIFIED()</code>，如 <code>CRIT ALL BRAN MEM WITH (MODIFIED (GEOM))</code>；已刪除元素不畫在圖上，所以 <code>DELETED()</code> 無意義。</li>
+<li>樣式：<code>DCSTYL</code> 預設為粗線、顏色 8；<code>ACSTYL</code> 可改字型、加括號或底線；<code>UNChanged</code> 表示沿用原樣式。</li>
+<li>視圖 <code>CRSF</code> 指向規則集（未設則用預設規則）。</li>
+<li><code>SETCOMPDATE 31 March 2002</code> 或 <code>SETCOMPDATE STAMP /Prelim-Milestone</code>（Stamp 由 Marine Administrator 建立）。</li>
+<li><code>UPDATE DESIGN／ANNOTATION／ALL … SHOW CHANGES</code>，只在 <code>VIEW</code> 以上有效。</li>
+</ol>
+<p>註記只比對<strong>展開後的文字字串</strong>：<code>#NAME</code> 的標籤因元素移動而移位不算變更，<code>#NAME at #POS</code> 則算。常見錯誤：<code>64,446</code>（沒有 Comparison Date 或 Stamp）、<code>64,445</code>（規則集內無規則）。在 Marine Drafting 中，船體項目<strong>只能在 Global 或 Universal Hidden Line 視圖中標示</strong>，且<strong>只檢查標籤（<code>GLABEL</code>）</strong>。</p>
+<h2 id="298-marine-drafting-application-menus">29.8 Marine Drafting Application Menus：選單地圖與功能對照</h2>
+<p>選單列為 <code>File</code>、<code>Edit</code>、<code>View</code>、<code>Insert</code>、<code>Format</code>、<code>Zap</code>、<code>Tools</code>、<code>Dimension</code>、<code>Annotate</code>、<code>Modify</code>、<code>Project</code>、<code>AutoDP</code>、<code>Window</code>、<code>Help</code>（見圖 29-1）。</p>
+<table>
+<thead>
+<tr>
+<th>選單</th>
+<th>主要功能</th>
+<th>重點與提醒</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>File</code></td>
+<td><code>Save and Unclaim</code>、<code>Save Work</code>、<code>Get Work</code>、<code>Extract Control</code>；<code>New／Open／Close／Save／Save As Drawing</code>；<code>Print Preview</code>、<code>Print</code>；<code>Drawing Reference</code>（Define／Collapse／Expand／Exchange／Dissolve／Show）；<code>Transfer</code>；<code>Import</code>／<code>Export</code>（DXF、DWG、IGES、SDB 等）；<code>Data Bank</code>（List／Delete／Copy Drawings）；<code>Properties</code>；<code>Modules</code>；<code>Exit</code></td>
+<td><code>Save Work</code> 存模型、<code>Save Drawing</code> 存圖；<code>Save As</code> 可改圖面類型與 <code>REGI</code>；<code>Transfer</code> 把選取資訊複製到另一張圖（不存在則建立）；<code>Properties</code> 要求圖面含表單；<code>Modules</code> 可切到 Monitor、Hull Design、Outfitting Draft、Spooler、Isodraft 等</td>
+</tr>
+<tr>
+<td><code>Edit</code></td>
+<td><code>Delete</code> 的各類實體（Geometry、Dimension、Note、Label、Hatch Pattern、Cloud、Symbol、Text、By Layer、By Area、Last Entity…）</td>
+<td><code>Last Entity</code> 可撤銷剛建立的實體</td>
+</tr>
+<tr>
+<td><code>View</code></td>
+<td><code>Repaint</code>、<code>Zoom</code>、<code>Pan</code>、<code>Layer</code>、<code>Grid</code>、<code>Envelope</code>、<code>2D Restrictions</code>、<code>New／Shaded Viewport</code>、<code>Shading</code>、<code>Explorers</code>（Design／Manufacturing／Draft／Drawing）、<code>Addins</code>、<code>Command Window</code>、<code>Link Documents</code></td>
+<td><code>Layer</code> 有 hide／show 兩種模式；<code>Shaded Viewport</code> 對模型視圖開著色視窗；Command Window <strong>不建議使用</strong></td>
+</tr>
+<tr>
+<td><code>Insert</code></td>
+<td><code>Model</code>、<code>Point／Line／Arc／Polyline／Spline／Conic／Rectangle…</code>、<code>Hatch Pattern</code>、<code>Construction Lines</code>、<code>Text</code>、<code>Symbol</code>、<code>Subpicture</code>、<code>Standard Detail</code>、<code>Plate Part</code>、<code>Drawing Form</code></td>
+<td><code>Construction Lines</code> 模式下幾何成為白色、短虛線、圖層 <code>-4</code>；<code>Plate Part</code> 從 <code>SB_PLDB</code> 取入零件作子圖</td>
+</tr>
+<tr>
+<td><code>Format</code></td>
+<td><code>Colour</code>、<code>Line Type</code>、<code>Layer</code>、<code>Hatch Pattern</code>、<code>Defaults</code>、<code>Local Origin</code>、<code>Geometry Mode</code>（2D／3D 點、線、弧、Conic、Polyline 的定義方式）</td>
+<td>格式變更<strong>不回溯</strong>；未指定圖層時為圖層 0</td>
+</tr>
+<tr>
+<td><code>Zap</code></td>
+<td><code>Operation Complete</code>、<code>Quit</code>、<code>Cancel</code>、<code>Options</code>、<code>All</code>、<code>Subpicture Level</code></td>
+<td>互動流程控制</td>
+</tr>
+<tr>
+<td><code>Tools</code></td>
+<td><code>Model</code>、<code>Model View</code>、<code>Backdrop</code>、<code>Subpicture</code>、<code>Vitesse</code>、<code>Inquiry</code>、<code>Drawing Form</code>、<code>Symbol</code>、<code>Inspect Drawing</code>、<code>Clean Workspace</code>、<code>Claim Lists</code>、<code>DB Listing</code>、<code>Settings</code>、<code>Preferences</code></td>
+<td>見下</td>
+</tr>
+<tr>
+<td><code>Dimension</code></td>
+<td><code>Linear</code>、<code>Radius</code>、<code>Diameter</code>、<code>Angle</code>、<code>Curved</code>、<code>Area</code>、<code>Distance</code>、<code>3D</code>（Linear、Coordinate、Weight and COG、Shell Profile Mounting Angle、Distance to RSO／Plane…）</td>
+<td>見 29.3.3</td>
+</tr>
+<tr>
+<td><code>Annotate</code></td>
+<td><code>General Note</code>、<code>Position Number</code>、<code>Config Note</code>、<code>Hull Note</code>、<code>Label</code>、<code>Autotagging</code>、<code>Markup</code>、<code>Ruler</code>、<code>Position Ruler</code>、<code>Coordinate Axis</code>、<code>Cloud</code> 等</td>
+<td><code>Position Ruler</code> 可建 Base Line、Center Line、Frame Ruler、Longitudinal Ruler；Markup 在圖層 <code>-9</code>、Label 在 <code>-11</code></td>
+</tr>
+<tr>
+<td><code>Modify</code></td>
+<td><code>Move</code>、<code>Copy</code>、<code>Transform</code>、<code>Trim</code>（To Entity／By Length／Gap／Cutout／Fillet）、<code>Stretch</code>、<code>Chain</code>、<code>Properties</code>、<code>Dimension</code>、<code>Label Placement</code>、<code>Colour</code>、<code>Line Type</code>、<code>Fill Style</code>、<code>Layer</code>、<code>General</code></td>
+<td><code>General</code>：把符合「搜尋屬性」的所有幾何改為「新屬性」（例：所有紅色設為不可見）；<code>Label Placement</code> 是 <code>SPREAD</code> 的 GUI（圖 29-15）</td>
+</tr>
+<tr>
+<td><code>Project</code>／<code>AutoDP</code></td>
+<td><code>Change View Mode</code>（design／production view mode）；<code>Assembly Deliverables</code>、<code>HVAC Sketches</code>、<code>Pipe Sketches</code></td>
+<td>單視圖專案無法切換；AutoDP 開自動出圖表單，見第 28 章</td>
+</tr>
+<tr>
+<td><code>Window</code>／<code>Help</code></td>
+<td>視窗排列、<code>Main Viewport</code>；<code>Contents</code>、<code>Index</code>、<code>About</code></td>
+<td>視窗管理與說明</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>Tools &gt; Model View</code></strong> 是改版更新的核心：<code>Update Design／Annotations／All</code> 更新所選視圖；<code>AutoScale</code> 貼合表單預設的視圖大小；<code>Change Projection</code>；<code>2D Restriction</code> 設視圖框與裁切；<code>Slice</code> 以兩個切面呈現切片；<code>Split</code>、<code>Clear</code>；<code>Explode</code> 爆炸拆開 Panel、Longitudinal、Transversal；<code>Hull Symmetry</code> 切換 P／S／雙側；<code>Validate</code> 找出「過期」模型，但只比<strong>時間戳</strong>，重畫結果相同也可能被判過期。<code>Tools &gt; Model</code> 另有 <code>Present</code>（剖切僅限船體）、<code>Cross Section</code>（需兩個正交視圖）、<code>Panel Intersect</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Intelligent Label Placement 對話框：Remote／Local 模式與選取標籤的按鈕</div></p>
+<p><em>圖 29-15　Intelligent Label Placement 對話框（<code>Modify &gt; Label Placement</code>）：Remote／Local 模式，以及 Identify labels、Select region 等選取方式。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 文件指出，在 Marine Drafting 使用 <code>Autotagging</code> 時，<strong>所有要標籤的模型都必須落在視圖範圍內</strong>；但 Marine Drafting 的視圖範圍不明顯，除非用 <code>Tools &gt; Model View &gt; 2D Restriction</code> 明確設定，因此建議先設 2D Restriction。</p>
+</blockquote>
+<h2 id="299">29.9 常見錯誤與文件陷阱</h2>
+<ul>
+<li>模型改了、圖面沒存：<code>Save Work</code> 不存圖面，要另做 <code>Save Drawing</code>。</li>
+<li>從 Command Window 改圖後無法更新模型：圖面未持久化。</li>
+<li>設了 <code>Advanced filter</code> 卻刪錯：操作作用在過濾後的清單。</li>
+<li><code>SY010</code> 修復後原圖被覆蓋：未指定 <code>-targetdb</code>，先用 <code>-report</code>。</li>
+<li>Id List 的 <code>REMOVE</code> 無效：順序錯。</li>
+<li>Autotagging 重跑後手動編輯消失：用了 <code>OVERWRITE</code>。</li>
+</ul>
+<h2 id="2910">29.10 練習（只在訓練專案）</h2>
+<ol>
+<li><strong>圖面落點：</strong> 新建一張 General Drawing 與一張自訂類型（<code>1001,ClassDwg</code>）的圖，到 Draft Explorer 找出各自的 <code>DEPT／REGI</code>，說明由 <code>PADDXP</code> 或哪個環境變數決定。</li>
+<li><strong>Save Work 與 Save Drawing：</strong> 放入一個 Panel，只做 <code>Save Work</code>，關閉重開觀察；再做 <code>Save Drawing</code>，寫下兩者各存了什麼。</li>
+<li><strong>Id List 與 AUTOSCALE：</strong> 依 29.5.2 建立 <code>DRWG→SHEE→VIEW</code>，Id List 加一個 <code>ZONE</code>、移除一條分支，<code>AUTOSCALE</code>、<code>UPDATE DESIGN</code>、<code>SAVEWORK</code>，再比較 <code>VTYP GLOBAL</code> 與 <code>UNIV</code>。</li>
+<li><strong>規則順序與剖面：</strong> 建兩條 <code>RRUL</code>（小口徑不畫、其餘用 <code>/S2</code>）再對調順序；建 <code>SPLA</code> 與 <code>VSEC</code>，用 <code>PMOD REVERSE</code> 切換保留側。</li>
+<li><strong>自動標籤與改版：</strong> 建 <code>TAGR</code>（<code>TAG ALL NOZZ</code>）並 <code>UPDATE TAGGING</code>，移動設備後分別以不加與加 <code>OVERWRITE</code> 更新；設 <code>SETCOMPDATE</code> 後用 <code>UPDATE ALL SHOW CHANGES</code>。</li>
+</ol>
+<h2 id="2911">29.11 本章小結</h2>
+<ul>
+<li>Marine Drafting 是互動式 2D 繪圖加模型介面，圖面雙重儲存（PADD＋<code>.SDB</code>）；<code>Save Work</code> 存模型、<code>Save Drawing</code> 存圖；存入後即歸 Marine Drafting。</li>
+<li>圖面由三層子圖與圖層組織，類型決定 <code>DEPT／REGI</code>；尺寸七類，船體另有 Hull Note 與 Mould Line；可程式化切入點只有文件列出的 hook、批次公用程式與 Vitesse。</li>
+<li>Design Draft 的 <code>VIEW</code> 不存幾何：Id List 決定內容、<code>VTYP</code> 決定隱藏線等級、規則與 <code>VSEC</code> 決定外觀，<code>UPDATE DESIGN</code> 產生圖形、<code>SAVEWORK</code> 存 Picture File。</li>
+<li>規則順序決定結果；Autotagging 的 <code>OVERWRITE</code> 會丟掉手動編輯；Change Highlighting 靠 Comparison Date 與 <code>CREATED()</code>／<code>MODIFIED()</code>。</li>
+</ul>
+<h2 id="2912">29.12 自我檢核</h2>
+<ul>
+<li>[ ] 說出圖面的兩個儲存位置，以及 <code>Save Work</code> 與 <code>Save Drawing</code> 的差別。</li>
+<li>[ ] 說明圖面類型如何決定 <code>DEPT／REGI</code>，並設定自訂類型。</li>
+<li>[ ] 說出尺寸七類與 Hull Note 五種，以及三層子圖與圖層正負號。</li>
+<li>[ ] 寫出 <code>DRWG→SHEE→VIEW</code> 與 <code>AUTOSCALE</code>、<code>UPDATE DESIGN</code>、<code>SAVEWORK</code> 的指令序列。</li>
+<li>[ ] 解釋 Id List 順序、<code>VTYP</code> 六等級、規則「先符合者生效」與三種剖面元素。</li>
+<li>[ ] 說明 Autotagging 兩次更新的差別與 Change Highlighting 的步驟，並指出可擴充的切入點。</li>
+</ul>
+<h2 id="2913">29.13 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch29">附錄 D 第 29 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch29">附錄 E 第 29 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch28_draft_admin_production_zh-TW.reading.html"><small>← 上一篇</small>第 28 章　Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT</a><a class="next" href="ch30_other_modules_zh-TW.reading.html"><small>下一篇 →</small>第 30 章　其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

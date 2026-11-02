@@ -1,0 +1,1352 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 12 章　空間管理與有限元素模型：Space Management 與 Finite Element Model | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#12-space-management-finite-element-model">第 12 章 空間管理與有限元素模型：Space Management 與 Finite Element Model</a><ul>
+<li><a href="#121">12.1 學習目標</a></li>
+<li><a href="#122">12.2 兩個模組在整體中的位置</a></li>
+</ul>
+</li>
+<li><a href="#space-management">第一部分 Space Management</a><ul>
+<li><a href="#123">12.3 基本概念</a><ul>
+<li><a href="#1231">12.3.1 空間是「切」出來的，不是「畫」出來的</a></li>
+<li><a href="#1232-space-worldarrangement-space">12.3.2 Space World、Arrangement 與 Space</a></li>
+<li><a href="#1233-void">12.3.3 幾何運算與 Void</a></li>
+</ul>
+</li>
+<li><a href="#124">12.4 專案設定</a><ul>
+<li><a href="#1241-space-world">12.4.1 建立 Space World</a></li>
+<li><a href="#1242">12.4.2 圖面中的絕緣圖形（控制檔）</a></li>
+<li><a href="#1243-space-purpose">12.4.3 空間用途（Space Purpose）與控制檔</a></li>
+<li><a href="#1244">12.4.4 塗裝區設定</a></li>
+</ul>
+</li>
+<li><a href="#125-project-functional-structure">12.5 共同參考模型：Project 與 Functional Structure 選單</a><ul>
+<li><a href="#1251-project">12.5.1 Project 選單（整個專案層級的設定）</a></li>
+<li><a href="#1252-blockcsv">12.5.2 Block：CSV 批次建立</a></li>
+<li><a href="#1253-functional-structure-rso">12.5.3 Functional Structure 選單：RSO 與曲面</a><ul>
+<li><a href="#edit-shape">Edit Shape：剖面驅動的形狀編輯</a></li>
+<li><a href="#properties-generate-panels">Properties 與 Generate Panels：自動產生第一版鋼結構</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#126">12.6 建立與管理空間</a><ul>
+<li><a href="#1261-space">12.6.1 Space 選單總覽</a></li>
+<li><a href="#1262-select-and-create">12.6.2 Select and Create：建立或修改一個佈置</a></li>
+<li><a href="#1263-void">12.6.3 合併、改名、清理與 Void</a></li>
+<li><a href="#1264">12.6.4 設定空間的屬性</a></li>
+<li><a href="#1265">12.6.5 圖面表現</a></li>
+</ul>
+</li>
+<li><a href="#127">12.7 空間與艙室、分區、設備的關係</a><ul>
+<li><a href="#1271">12.7.1 官方文件明確給出的關係</a></li>
+<li><a href="#1272-42">12.7.2 與載重電腦／水艙資料（第 42 章）的分工</a></li>
+<li><a href="#1273">12.7.3 官方的三個設計情境</a></li>
+</ul>
+</li>
+<li><a href="#128">12.8 從空間取結構、算量與報表</a><ul>
+<li><a href="#1281">12.8.1 工作流程</a></li>
+<li><a href="#1282">12.8.2 計算與結果去向</a></li>
+<li><a href="#1283-planning-mass-properties-spm">12.8.3 Planning Mass Properties 與 SPM* 屬性</a></li>
+<li><a href="#1284">12.8.4 報表</a></li>
+</ul>
+</li>
+<li><a href="#129-space-management">12.9 二次開發者怎麼接（Space Management）</a><ul>
+<li><a href="#1291">12.9.1 空間模組常見錯誤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#finite-element-model">第二部分 Finite Element Model</a><ul>
+<li><a href="#1210">12.10 用途與整體流程</a><ul>
+<li><a href="#12101-femwld">12.10.1 前置：FEMWLD</a></li>
+</ul>
+</li>
+<li><a href="#1211-idealization">12.11 第一步：理想化（Idealization）</a><ul>
+<li><a href="#12111">12.11.1 理想化做了什麼</a></li>
+<li><a href="#12112">12.11.2 選取模型</a></li>
+<li><a href="#12113-idealisation-settings">12.11.3 理想化設定（Idealisation Settings）</a></li>
+<li><a href="#12114-holes">12.11.4 孔洞（Holes）規則</a></li>
+<li><a href="#12115">12.11.5 執行理想化</a></li>
+</ul>
+</li>
+<li><a href="#1212-fe">12.12 第二步：建立 FE 模型</a><ul>
+<li><a href="#12121">12.12.1 先決：模型要有封閉邊界</a></li>
+<li><a href="#12122-fe-model-options">12.12.2 FE Model Options</a></li>
+</ul>
+</li>
+<li><a href="#1213-fe-imagestatisticscheck">12.13 檢查：FE Image、Statistics、Check</a></li>
+<li><a href="#1214">12.14 輸出與外部軟體交換</a><ul>
+<li><a href="#12141">12.14.1 五種輸出方式</a></li>
+<li><a href="#12142-ansys-patran">12.14.2 ANSYS 與 Patran 的細節</a></li>
+<li><a href="#12143">12.14.3 材料資料</a></li>
+</ul>
+</li>
+<li><a href="#1215-fe-model">12.15 二次開發者怎麼接（FE Model）</a><ul>
+<li><a href="#12151-fe">12.15.1 FE 模型常見錯誤</a></li>
+</ul>
+</li>
+<li><a href="#1216">12.16 本章小結</a></li>
+<li><a href="#1217">12.17 練習題與自我檢核</a></li>
+<li><a href="#1218">12.18 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船體設計 · 13 / 53</span><h1 id="12-space-management-finite-element-model">第 12 章　空間管理與有限元素模型：Space Management 與 Finite Element Model</h1>
+<blockquote>
+<p>前面談船體建模（<a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章</a>）時，模型的主角是「鋼板與加強材」（生產資料則在之後的<a href="ch15_hull_production_zh-TW.reading.html">第 15 章</a>）。這一章換兩個視角：<strong>把船切成「空間」來管理</strong>（艙室、區域、分段、塗裝區），以及<strong>把鋼結構簡化成「有限元素模型」交給外部結構分析軟體</strong>。</p>
+<p>兩者看似無關，其實共用同一條脈絡：它們都吃 Structural Design 的共同參考模型（Common Reference Model），都在艙室、分段或板架的「邊界」上做文章，也都把結果丟給下游——前者丟給水動力計算、載重電腦、生產計畫與塗裝估算，後者丟給 ANSYS、Patran、Nastran、Sesam 與 MAESTRO。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件的 <strong>Space Management</strong> 與 <strong>Finite Element Model</strong> 兩個模組（頁面含英文原文與機器中文對照，本章以自己的話重組並以英文原文為準）。官方文件對「空間」只描述功能與屬性，<strong>沒有給出資料庫元素的完整型別階層</strong>，也沒有說明 FE 模型的載重與邊界條件如何設定，這些在文中標為〔待核對〕。檔案格式只寫文件有給出者（Block CSV、Space 目的控制檔、材料 XML、Hull Steel XML 的存在）；沒有依據的「二次開發接點」一律標〔待核對〕，不編造指令。圖片取自官方文件，僅供內部教學。</p>
+</blockquote>
+<h2 id="121">12.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明「空間」不是逐一建模，而是由「封閉邊界（Envelope）」被「分割限制（Dividing Boundary）」自動切出來的。</li>
+<li>區分 Space World（空間世界）、Arrangement（空間佈置）與 Space（空間），以及六種佈置類型各自的用途與預設顏色。</li>
+<li>說明 Reference Surface Object（RSO）、Envelope、Block 與 Surface 在共同參考模型中的角色，並知道哪些功能放在 Project 與 Functional Structure 選單。</li>
+<li>依序完成「建 Space World → 設 Envelope → 分割 → 布林運算 → Apply」並用 Merge、Rename、Purge、Void 整理成果。</li>
+<li>設定空間用途（Space Purpose）與絕緣圖形控制檔，並說明它們對計算與圖面的影響。</li>
+<li>用 Get Structure within 取出空間內的鋼結構，計算塗裝面積、重量重心、材料清單與焊接長度，並讀懂 <code>SPM*</code> 屬性。</li>
+<li>說明空間如何轉成艙室（Compartment）、生產分段（Block），以及如何輸出給水靜力計算模組。</li>
+<li>說明 FE 模型兩階段流程：Idealization（理想化）→ FE Model（網格前處理），以及每階段的主要參數。</li>
+<li>解讀 Holes、Stiffeners、Swages 等處理規則，並用 FE Image 與 Statistics 檢查網格品質。</li>
+<li>列出五種 FE 輸出方式與材料資料來源，並說明二次開發者目前有依據的串接點與待核對項目。</li>
+</ol>
+<h2 id="122">12.2 兩個模組在整體中的位置</h2>
+<p>兩個模組都在 Structural Design（Hull）環境中，板架與曲面來自第 9 章。差異如下：</p>
+<ul>
+<li><strong>Space Management</strong>：輸入是曲面、RSO、Envelope 與既有空間；產物是 Space World／Arrangement／Space；輸出是艙室、生產分段、水靜力 XML、Excel 報表與 CSV。艙室輸出接 <a href="ch42_loading_computer_zh-TW.reading.html">第 42 章</a>。</li>
+<li><strong>Finite Element Model</strong>：輸入是 Block 或 Panel、曲面與接縫、材料資料；產物是理想化區塊與 FE 幾何；輸出是 ANSYS APDL、Patran PCL、Nastran BDF、Sesam FEM、MAESTRO MNF 與 Hull Steel XML。功能所在選單〔待核對〕。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 這兩個模組處理的都是「<strong>簡化後的幾何</strong>」。空間是以邊界切出來的體積，FE 模型是理想化的中面。它們都不是施工圖，也不是原始模型本身；改了原始板架或曲面，必須重新產生（Recreate／重新理想化），否則下游拿到的是舊資料。</p>
+</blockquote>
+<hr />
+<h1 id="space-management">第一部分　Space Management</h1>
+<h2 id="123">12.3 基本概念</h2>
+<h3 id="1231">12.3.1 空間是「切」出來的，不是「畫」出來的</h3>
+<p>官方文件強調：<strong>個別空間不是逐一建模的</strong>。流程是：</p>
+<ol>
+<li>使用者定義一個<strong>封閉體積</strong>作為外框，稱為 <strong>Envelope（包絡）</strong>。它可以由曲面與 RSO 圍成，也可以直接選用另一個佈置中已存在的某個空間（此時會形成空間階層）。</li>
+<li>用雕塑曲面（sculptured surface）與 RSO 當作<strong>分割限制（Dividing Boundary）</strong>。</li>
+<li>分割是全自動的；只要切出封閉體積，就在 Arrangement 裡產生 Space。</li>
+</ol>
+<p>好處是：艙壁改位置，只要重做分割，空間就跟著變，不用手工重畫每個艙。</p>
+<h3 id="1232-space-worldarrangement-space">12.3.2 Space World、Arrangement 與 Space</h3>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>說明</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Space World</td>
+<td>空間世界，建立時就指定「類型」</td>
+<td>其下所有佈置都是同一類型；類型決定屬性集合與預設顏色、透明度</td>
+</tr>
+<tr>
+<td>Arrangement</td>
+<td>空間佈置，同一目的下的一整套切分方案</td>
+<td>同一個 World 可有多套 Arrangement，方便比較方案</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>單一空間（封閉體積）</td>
+<td>預設名稱形式為 <code>&lt;佈置名&gt;_&lt;空間名&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>六種預設類型如下（官方文件以顏色名稱與透明度列出）：</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>用途</th>
+<th>預設顏色</th>
+<th>透明度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generic</td>
+<td>其他類型都不適用時使用</td>
+<td>Salmon</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Compartment</td>
+<td>適合水靜力與水動力計算</td>
+<td>Brightred</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>一般佈置工作；可規劃、儲存並追蹤質量屬性</td>
+<td>Pink</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Painting Areas</td>
+<td>塗裝面積計算</td>
+<td>Deeppink</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Production Blocks</td>
+<td>定義生產分段結構</td>
+<td>Maroon</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Zones</td>
+<td>定義船體結構的區域</td>
+<td>Orangered</td>
+<td>50%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>重要：</strong> 某些功能只能用在特定類型。例如「生產分段」只能由 Production Blocks 類型的佈置產生；塗裝面積只能存在 Layout 或 Painting Areas 的空間；重量重心只能存在 Layout 或 Production Blocks 的空間。建立 World 時選錯類型，後面就改不了（類型下拉選單在 World 建立後會反灰）。</p>
+</blockquote>
+<h3 id="1233-void">12.3.3 幾何運算與 Void</h3>
+<p>任何封閉體積（雕塑曲面，或另一個佈置的空間）都能被<strong>加入（Add）</strong>或<strong>減去（Subtract）</strong>於佈置，兩個相鄰空間也能<strong>合併（Merge）</strong>成一個。對不感興趣的空間，可設為 <strong>Void（空）</strong>，它就不顯示、不參與運算與計算。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Void 不是刪除。空間仍在資料中，只是被排除。需要「不計入重量」或「不顯示」時用 Void；真正不要時才用 Purge（見 12.6.3）。</p>
+</blockquote>
+<h2 id="124">12.4 專案設定</h2>
+<p>官方文件把 Project Set-up 分成四件事：Space World、圖面表現（絕緣）、Space Purpose、塗裝區設定。</p>
+<h3 id="1241-space-world">12.4.1 建立 Space World</h3>
+<p>建立 World 與其底下所有佈置時，<strong>預設使用第一個可寫入的資料庫</strong>。若要存放在指定資料庫，需從命令列明確建立 World 元素，官方給出的語法是：</p>
+<pre><code class="language-text">NEW SPMSW /&lt;name&gt; DB &lt;team&gt;/&lt;dbname&gt;
+</code></pre>
+<p>這裡的 <code>&lt;team&gt;/&lt;dbname&gt;</code> 即第 43 章談過的「團隊名／資料庫名」命名（見 <a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 空間資料量不大，但<strong>資料庫歸屬</strong>很重要：它決定誰能寫、備份跟著哪個 DB、分散式專案是否要 Extract。多人同時規劃不同佈置時，建議事先規劃專屬的 DB 與 Team，而不是任由系統挑「第一個可寫 DB」。</p>
+</blockquote>
+<h3 id="1242">12.4.2 圖面中的絕緣圖形（控制檔）</h3>
+<p>絕緣元件本身<strong>不含</strong>在圖面如何表現的資訊，要另外定義。流程：寫一份控制檔，由 <strong>Inithull</strong> 程式編譯，產生控制物件 <code>__SPACE_INSULATION__</code>。重點：<strong>絕緣元件名稱與控制檔中 <code>INS</code> 敘述的名稱必須完全相同。</strong></p>
+<p><code>INS</code> 敘述的結構（依官方語法整理）：</p>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INS,&lt;絕緣元件名&gt;</code></td>
+<td>要定義圖形表現的絕緣元件</td>
+</tr>
+<tr>
+<td><code>/LT_SECTION</code>、<code>/COL_SECTION</code></td>
+<td>剖面圖的線型與顏色</td>
+</tr>
+<tr>
+<td><code>/LT_PLANE</code>、<code>/COL_PLANE</code></td>
+<td>平面圖的線型與顏色</td>
+</tr>
+<tr>
+<td><code>/HATCH_ANGLE</code></td>
+<td>平面圖剖面線角度（度）</td>
+</tr>
+<tr>
+<td><code>/HATCH_DIST</code></td>
+<td>剖面線間距（mm）</td>
+</tr>
+</tbody>
+</table>
+<p>顏色與線型名稱請查 Marine Drafting User Guide 的 Color Tables 與 Line Types。絕緣元件本身在 Paragon 的 Steelwork Application 中定義（見第 25 章目錄與規格）。</p>
+<h3 id="1243-space-purpose">12.4.3 空間用途（Space Purpose）與控制檔</h3>
+<p><strong>Layout、Compartment、Zones</strong> 類型的空間是為特定用途而設計，需帶有計算與下游設計要用的屬性。為了簡化指定，官方提供「<strong>先定義所有可能性質，再組合成用途</strong>」的機制。可預先定義六類性質，各以「代碼＋說明」建立：</p>
+<ul>
+<li>內容類型 <code>TYPE_SEL</code>：儲物、居住、機艙、空、乾貨、液貨、使用者定義（<code>TYPE_UD1</code>～<code>TYPE_UD50</code>）。</li>
+<li>密性 <code>TIGHT_SEL</code>：氣密、非密、油密、水密、風雨密、使用者定義。</li>
+<li>噪音類別 <code>NOISE_SEL</code>、進出 <code>ACCESS_SEL</code>（僅船員、僅高級船員、受限、不受限）、安全 <code>SAFETY_SEL</code>（Class A／B／C）、保全 <code>SECURITY_SEL</code>（機密、祕密、非機密），皆可再加使用者定義。</li>
+</ul>
+<p>然後以 <code>PURP</code> 敘述把這些性質與三個數值組合成「用途」：</p>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>意義</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/DENS</code></td>
+<td>密度（kg/m³）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>/STRUC</code></td>
+<td>結構裕度</td>
+<td>0 到 1</td>
+</tr>
+<tr>
+<td><code>/PERM</code></td>
+<td>滲透率</td>
+<td>0 到 1</td>
+</tr>
+</tbody>
+</table>
+<p>控制檔另有 <code>MODE</code> 敘述（<code>/NEW</code> 新建並可能覆蓋舊物件、<code>/UPDATE</code> 更新既有物件）與 <code>LIST</code> 敘述（列出現有內容；若無物件則列出預設）。編譯成功後，系統存入控制物件 <code>__COMP_PURP__</code>。第一次使用 Attributes 功能時，系統會自動產生預設物件，可先 <code>LIST</code> 當作客製化的起點。</p>
+<blockquote>
+<p><strong>專業提醒（接載重電腦）：</strong> 把空間輸出到水靜力計算（見 12.7）時，內容類型是否被正確解讀，取決於用途所關聯的<strong>類型定義</strong>。類型定義要自訂並給唯一 ID，說明必須是 Liquid、Solid、Grain 或 Untrimmed 其中之一，其關聯密度會用在該空間上。所以 <code>/DENS</code> 不是隨便填的註解，而是會進計算的數值。</p>
+</blockquote>
+<h3 id="1244">12.4.4 塗裝區設定</h3>
+<p>文件這一節只指向「Surface Treatment Selection Tables」（見第 25 章目錄與規格）。塗裝區面碼（Face Code）的設定來源與格式，本章〔待核對〕，僅知 Face Code 功能依賴它（見 12.6.5）。</p>
+<h2 id="125-project-functional-structure">12.5 共同參考模型：Project 與 Functional Structure 選單</h2>
+<p>空間要靠曲面與 RSO 當邊界，而它們都屬於「共同參考模型」。官方把相關功能分在兩個選單。理解它們，才知道空間的邊界從哪裡來。</p>
+<h3 id="1251-project">12.5.1 Project 選單（整個專案層級的設定）</h3>
+<ul>
+<li><strong>Surfaces</strong>：登錄主船殼、甲板與附加曲面（需先由 Lines 或 Surface/Compartment 釋出）；除主船殼外後綴必須唯一；只能有一個 Main Hull、一個 Main Deck。</li>
+<li><strong>FR/LP Positions</strong>：肋骨與縱向位置，以 start／step／end 表示；可定義多組位置表（例如鋼製下半＋鋁製上半）。</li>
+<li><strong>Block</strong>：建立與維護 Design／Production Block（Edit、Recreate、Create from CSV、Extract to CSV）。</li>
+<li><strong>Midbody Surface</strong>：快速建立平行中體曲面。</li>
+<li><strong>Envelope</strong>：以曲面與 RSO 組成封閉體積，作為 RSO 的外邊界；需 Save Envelope。</li>
+<li><strong>Verify Model</strong>：檢查板架與分段的拓撲相依性，透過 Job Launcher 執行。</li>
+<li><strong>Recreate Limit Tables</strong>：重建接縫、縱材、橫材的限制表（為了效能，每個曲面一組）。</li>
+<li><strong>Project Information</strong>、<strong>Change View Mode</strong>：專案主尺度，以及 Design／Production 檢視模式切換（多視圖專案才可切換）。</li>
+</ul>
+<p><strong>Verify Model</strong> 值得多說一句：它是從結構設計進到細部設計（Block Splitting）前的「體檢」。官方列出的警告例子包含板架名稱太長（建議最長 17 字元，超過 19 就應改名）、邊界引用的曲線或板架不存在、輪廓無法重建缺口、拓撲物件不存在或與板架不一致等。多數處理方式是「重新產生並儲存板架以更新拓撲物件」，拓撲資料庫不一致時則需用公用程式更新（文件提及 <code>sj903</code>）。</p>
+<h3 id="1252-blockcsv">12.5.2 Block：CSV 批次建立</h3>
+<p>Block 的 CSV 是本章<strong>少數有明確欄位定義的檔案格式</strong>，對二次開發最有用。檔案規則（依官方整理）：</p>
+<ul>
+<li>第一列視為註解，不處理。</li>
+<li>每一列一個分段，欄位依序為：類型（<code>D</code> 設計分段或 <code>P</code> 生產分段）、名稱、六個名義限制（Aft、Stbd、Bot、For、Port、Top）、所屬分段（Encl. Block，只在建生產分段且專案同時有設計分段時需要）、六個偏移值（mm）、六個限制物件、對稱（Yes／No）、顏色（整數）。</li>
+<li>名義座標可用 X／Y／Z，也可用肋骨與 LP 位置。</li>
+<li>限制物件以前綴指定類型：<code>SUR/</code> 曲面、<code>RSO/</code> 參考面物件、<code>PLA/</code> 儲存平面。</li>
+<li>區塊已存在且資料有變，才會更新；沒變就不動。</li>
+</ul>
+<p>反向的 <strong>Extract to CSV</strong> 會把目前的分段結構輸出成同格式檔案，放在 <code>SB_SHIPDATA</code>，並透過 Job Launcher 取用。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Create from CSV 與 Extract to CSV 同格式，所以可做出「抽出 → 在試算表調整 → 再匯入」的迴圈。每次調整後建議先在測試專案跑一次，再套到正式專案；欄位順序一旦錯一格，名義限制與偏移值會對錯位置。</p>
+</blockquote>
+<h3 id="1253-functional-structure-rso">12.5.3 Functional Structure 選單：RSO 與曲面</h3>
+<p><strong>RSO（Reference Surface Object，參考面物件）</strong> 是一個有邊界的平面（或由多片子平面組成），用來代表艙壁、甲板、桁材等「結構面」。它既是 Envelope 與空間的分割限制，也可讓板架引用它的位置——引用 RSO 的好處是：即使 RSO 最初含有巨大的 jumbo 板架，之後再細分成細部設計用的板架，引用仍然穩定。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key In</td>
+<td>以輸入位置並選取限制物件建立 RSO</td>
+</tr>
+<tr>
+<td>Sketch 2D</td>
+<td>在 Symbolic Planar View 或 Backdrop View 以 2D 工具畫折線，建立 RSO；有 Draw／Select／Trim；可開 Grid、Mirror Copy</td>
+</tr>
+<tr>
+<td>From Backdrop</td>
+<td>由 Backdrop 視圖建立 RSO（Backdrop 須在主平面），視圖內所有幾何存為 RSO 上的 marking</td>
+</tr>
+<tr>
+<td>From Panel</td>
+<td>由既有板架建立或更新 RSO，可選擇讓板架改為依賴 RSO 定位</td>
+</tr>
+<tr>
+<td>Recreate</td>
+<td>限制物件或 Envelope 改變後重建幾何</td>
+</tr>
+<tr>
+<td>Edit Shape</td>
+<td>以剖面表格修改形狀（見下）</td>
+</tr>
+<tr>
+<td>Copy／Move／Rename</td>
+<td>複製（可用重複語法一次多份）、移動、改名</td>
+</tr>
+<tr>
+<td>Change Envelope</td>
+<td>把 RSO 移到另一個 Envelope</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>為 RSO 加建模屬性，以便自動產生鋼結構</td>
+</tr>
+<tr>
+<td>Generate Panels</td>
+<td>依 RSO 自動產生第一版鋼板架</td>
+</tr>
+<tr>
+<td>Disconnect／Delete</td>
+<td>解除或刪除 RSO，並把引用它的板架改為以主軸位置或三點定位</td>
+</tr>
+<tr>
+<td>Create Curved Surface</td>
+<td>建立參數曲面：Cylinder、Cone、Fillet 三類</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rename 的限制</strong>：改名會更新位於該 RSO 內的板架與拓撲相依的 RSO 邊界，但<strong>其他拓撲相依不會自動更新</strong>，例如以該 RSO 為邊界限制的船體板架需手動更新。</p>
+<h4 id="edit-shape">Edit Shape：剖面驅動的形狀編輯</h4>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：RSO 的 Edit Shape 對話框：上方限制與 Envelope，下方以剖面（Profile）與剖面點表格定義形狀</div></p>
+<p><em>圖 12-1　RSO 的 Edit Shape 對話框。形狀由數個剖面（Cross-section）及相同數量的定義點組成。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>要點：所有剖面的定義點數量必須相同；RSO 的<strong>四邊形面不得有折角（knuckle）</strong>。「Keep profile parallel」自動調整相關值避免折角；「Single cell edit」關閉這套演算法，改完後選一個不動的剖面按 <strong>Iron</strong> 讓其餘剖面重新符合。編輯歷史與 Undo/Redo 不同：往回走後再修改是<strong>新增</strong>一筆歷史。「Show absolute coordinates」勾選時，輸入也被當成絕對值，<strong>輸入前先確認勾選狀態</strong>。</p>
+<h4 id="properties-generate-panels">Properties 與 Generate Panels：自動產生第一版鋼結構</h4>
+<p>Properties 的前置條件之一，是從 Surface/Compartment 釋出時，Main Deck 與 Envelope 的限制要正確標記，否則限制可能被命名為 <code>HULL_NOT_KNOWN</code>，且曲面需另外在 Project &gt; Surfaces 登錄。</p>
+<p>Generate Panels 只處理已標記要自動產生鋼結構、且有功能描述（Functional Description）的 RSO。流程是先甲板、再其他板架，全部放進名為 <code>JUMBO</code> 的 Block（不存在就自動建立）；板架名稱形式為 <code>JUMBO-&gt;&lt;RSO 名去前綴&gt;_&lt;面編號&gt;</code>。依功能描述碼產生的內容：</p>
+<p>依功能描述碼產生：甲板（9000–9099）為板材加橫向縱材位置的加強材；縱艙壁（9100–9199）為板材加垂直縱材；橫艙壁（9200–9299）為板材加加強材，可依要求加肘板；一般肋板構件（9400）依相交的 RSO 產生肋板、斗櫃橫向腹板與垂直腹板；其他功能描述只產生板材。加強材與其他 RSO（例如縱艙壁與甲板）相交處不放。</p>
+<p>所有板架類型都會加切口（Cutout），定義取決於自動切口設定。使用 FRP（玻璃纖維）選項時，需指定預設積層代碼的邏輯變數 <code>SBH_GRP_LAM</code>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Generate Panels 產生的是「<strong>第一次嘗試</strong>」，不是最終板架。官方自己的措辭就是 first attempt。它的價值在早期設計階段快速得到可用於量化的 jumbo 板架，之後仍要細分、補強材與細部設計。</p>
+</blockquote>
+<h2 id="126">12.6 建立與管理空間</h2>
+<h3 id="1261-space">12.6.1 Space 選單總覽</h3>
+<p>Space Management 選單的功能大致分六組：建立與整理（Space XML Input、Select and Create、Merge two spaces、Rename、Purge、Void State）；絕緣（Insulation、Legend、Report）；取出結構與計算（Get Structure within、Add Extract as View、Hide/Unhide、PaintArea、WCOG、Material List、Weld）；顯示與屬性（View Property、Face Code、Attributes、Copy Attributes、Distributed Attributes、Planning Mass Prop.）；CE and Draw；以及產生下游資料的 Generate 子選單。</p>
+<h3 id="1262-select-and-create">12.6.2 Select and Create：建立或修改一個佈置</h3>
+<p>這是整個模組的核心對話框：</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Space Arrangement 對話框：World、Arrangement、Type，Envelope、Dividing Boundaries 與 Boolean Operations 三區</div></p>
+<p><em>圖 12-2　Select and Create 的 Space Arrangement 對話框。左側為可用的 Surfaces 與 RSO，中間為 Envelope 邊界與分割邊界，右下為布林運算。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>操作步驟：</p>
+<ol>
+<li><strong>選或鍵入</strong> World 與 Arrangement 名稱。新 World 必須指定 Type（建立後鎖定）；選已存在的佈置，會帶出它的 Envelope、分割邊界與布林運算。</li>
+<li><strong>定義 Envelope</strong>。二選一：從 Surfaces／RSO 清單選取，用 <code>A&gt;&gt;</code> 或右鍵加入 Boundaries 清單；或選「Select Space」，以 Pick in Dwg 在圖上點選，或鍵入佈置名與空間名。若選到的是 Envelope（而非單純曲面），會沿用其定義資料。</li>
+<li><strong>分割</strong>：同樣用 <code>A&gt;&gt;</code> 或右鍵把曲面與 RSO 加入 Dividing Boundaries；<code>&lt;&lt;R</code> 移除選取項目。</li>
+<li><strong>布林運算</strong>：曲面在 Surface 清單選，空間用 Pick in Dwg 或右鍵選單，指定加入或減去。</li>
+<li>按 <strong>Apply</strong> 建立（或重建）。結果會畫在 3D Canvas。</li>
+</ol>
+<p><strong>Space XML Input</strong> 則是另一條路：選一個 XML 檔，系統依檔內指定的內容建立佈置。官方沒有給出 XML 的結構。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 重新 Apply 同一個佈置時，原有空間不會立刻消失；「重建後殘留的舊空間」會被保留，可用來複製屬性（Copy Attributes 的 Option 就能看到這些 obsolete 空間）。這既是便利，也是日後 Purge 的原因。</p>
+</blockquote>
+<h3 id="1263-void">12.6.3 合併、改名、清理與 Void</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>做什麼</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merge two spaces</td>
+<td>在 2D Canvas 點選兩個相鄰空間合併</td>
+<td>新空間的屬性取自<strong>先選</strong>的那一個；要拿到另一個的屬性，請用 Copy Attributes</td>
+</tr>
+<tr>
+<td>Rename</td>
+<td>在圖面點選空間改名</td>
+<td>語法 <code>新名稱&lt;數字&gt;(&lt;步進&gt;)</code> 可連續編號；Cancel 可還原最後一次改名；系統預設命名 <code>&lt;佈置名&gt;_&lt;空間名&gt;</code>，只需給空間名，格式會保留</td>
+</tr>
+<tr>
+<td>Purge</td>
+<td>刪除佈置內因重建或合併而殘留的過時空間</td>
+<td>執行後無法再從它們複製屬性</td>
+</tr>
+<tr>
+<td>Void State</td>
+<td>設為空（不顯示、不參與運算），或取消</td>
+<td>先指定顯示狀態（顯示 void 或 non-void），再點選空間切換</td>
+</tr>
+<tr>
+<td>CE and Draw</td>
+<td>把點選的空間設為 CE（Current Element）並畫在 3D Canvas</td>
+<td>方便用其他功能或 PML 繼續操作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1264">12.6.4 設定空間的屬性</h3>
+<p>空間本身只是幾何，工程資料要靠屬性。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Attributes</td>
+<td>依 Space Purpose 設定基本屬性；僅適用 Layout、Compartment、Zones；與類型無關的欄位會反灰；說明文字會成為符號視圖上的標註</td>
+</tr>
+<tr>
+<td>Copy Attributes</td>
+<td>把全部或選取屬性從一個空間複製到另一個；可顯示過時空間作為來源</td>
+</tr>
+<tr>
+<td>Distributed Attributes</td>
+<td>設定「分佈式屬性」：先在設定階段建立 bound attribute 組合，再於格狀對話框填值</td>
+</tr>
+<tr>
+<td>Face Code</td>
+<td>為 Painting Area 佈置中的空間指定面碼</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Space Purpose 對話框：Purpose、Type、Description 與密性、噪音、進出、安全、保全等欄位</div></p>
+<p><em>圖 12-3　Attributes 功能的 Space Purpose 對話框。欄位內容來自 12.4.3 的用途控制檔。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 「分佈式屬性」的設定細節，官方在 Space Management 模組中只說「set-up of attributes must have been made」，沒有說在哪裡設定。本章〔待核對〕；建議向熟悉專案設定的管理員確認，不要自行假設。</p>
+</blockquote>
+<h3 id="1265">12.6.5 圖面表現</h3>
+<p><strong>View Property</strong> 設定符號視圖（Symbolic View）中每個空間要顯示什麼：空間名、說明、體積、面碼（塗裝區佈置）、絕緣，以及分佈式屬性。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：符號視圖中的空間標註：空間名稱、說明（Pump room、Access trunk）與體積（m3）</div></p>
+<p><em>圖 12-4　View Property 控制下的空間標註範例：名稱、說明與體積。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h2 id="127">12.7 空間與艙室、分區、設備的關係</h2>
+<h3 id="1271">12.7.1 官方文件明確給出的關係</h3>
+<table>
+<thead>
+<tr>
+<th>關係</th>
+<th>說明</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空間 → 艙室（Compartment）</td>
+<td>Compartment 類型佈置可轉成 Surface and Compartment 模組可用的艙室</td>
+<td>Generate &gt; Blocks and Compartments</td>
+</tr>
+<tr>
+<td>空間 → 生產分段</td>
+<td>Production Blocks 類型佈置可轉成生產分段</td>
+<td>同一對話框，含建資料庫與頂層元素的前置工作</td>
+</tr>
+<tr>
+<td>空間 → 水靜力計算</td>
+<td>Compartment 佈置與 Zone 限制可輸出給計算模組</td>
+<td>Generate &gt; Calculation Geometry，產出可被 calc 讀取的 XML</td>
+</tr>
+<tr>
+<td>空間 → 圖面</td>
+<td>空間在符號視圖中以標註呈現</td>
+<td>View Property、Legend</td>
+</tr>
+<tr>
+<td>空間 → 結構資料</td>
+<td>取出空間內鋼結構，量化後寫回空間屬性</td>
+<td>Get Structure within 與其後續功能</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Blocks and Compartments 產生生產分段的流程</strong>（官方描述）：</p>
+<ol>
+<li>先用 <strong>Admin Data</strong> 產生一份 Excel，內含「每個分段一個資料庫」的資料，且全部使用 <code>HULL</code> 團隊；它是<strong>範本</strong>，可編輯後，在 Admin 模組以 Utilities &gt; Import 匯入。<strong>Team 必須先在 Admin 手動建好。</strong></li>
+<li>用 <strong>Top Element Data</strong> 產生一個 PML 函式檔，執行後會在這些資料庫建立頂層元素；同樣是可編輯的範本。</li>
+<li>最後 <strong>Generate Blocks</strong> 由空間建立 Block 物件；若空間名為 <code>&lt;佈置名&gt;_&lt;空間名&gt;</code> 形式，只取空間名作為 Block 名。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 這一流程橫跨三個地方：空間模組、Admin 模組（見 <a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）與 PML。分段數量多時，建議先在測試專案演練一次，確認 Admin 匯入權限、資料庫數量與命名後再套正式專案。</p>
+</blockquote>
+<h3 id="1272-42">12.7.2 與載重電腦／水艙資料（第 42 章）的分工</h3>
+<p><a href="ch42_loading_computer_zh-TW.reading.html">第 42 章</a> 討論的是「<strong>載重電腦需要什麼資料</strong>」：水艙特性表、測深、自由液面、重量重心。本章的 Space Management 是其中<strong>艙室幾何與內容類型的上游來源之一</strong>。分工如下：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>本章 Space Management</th>
+<th>第 42 章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>艙室邊界與體積</td>
+<td>由 Envelope 與分割產生</td>
+<td>不重複</td>
+</tr>
+<tr>
+<td>內容類型與密度</td>
+<td>由 Purpose／類型定義提供，<code>Liquid／Solid／Grain／Untrimmed</code></td>
+<td>說明如何對應水艙表</td>
+</tr>
+<tr>
+<td>輸出介面</td>
+<td>Calculation Geometry → XML 給 calc 模組</td>
+<td>載重電腦端如何接收與對帳</td>
+</tr>
+<tr>
+<td>水艙特性表（測深、容積、LCG、自由液面）</td>
+<td><strong>官方文件未涵蓋</strong>〔待核對〕</td>
+<td>完整說明</td>
+</tr>
+</tbody>
+</table>
+<p>「<strong>設備與管路</strong>」與空間的關係，官方 Space Management 章節沒有提及設備位置判定、設備掛到空間之類的功能，本章不推測〔待核對〕。若要判斷某設備落在哪個艙室，可能需要自行用位置與空間邊界比對，屬於二次開發題目，見 12.9。</p>
+<h3 id="1273">12.7.3 官方的三個設計情境</h3>
+<p>官方以生產規劃（Production Blocks）、塗裝區規劃（Painting Areas）、穩度計算（Compartment）三個情境說明為何需要多種佈置，三者共通模式是<strong>先估算（Estimated）、再計算（Calculated）、最後比對</strong>，這正是 12.8 中 <code>SPME*</code> 與 <code>SPMC*</code> 屬性成對出現的原因。</p>
+<h2 id="128">12.8 從空間取結構、算量與報表</h2>
+<h3 id="1281">12.8.1 工作流程</h3>
+<p>空間量化的順序可以用下面這條線記住（依 12.8.2 的官方功能說明整理，非官方圖）：</p>
+<pre><code class="language-text">Select and Create（建佈置）
+  -&gt; Get Structure within（取出空間內的暫時結構，同一 session）
+  -&gt; [Hide/Unhide 排除不計入的板架]
+  -&gt; PaintArea / WCOG / Material List / Weld（計算）
+  -&gt; 結果寫回空間屬性 SPMCAS / SPMCWS / SPMCOS，或輸出 CSV
+  -&gt; Planning Mass Prop. 與 Report（Excel 報表）
+</code></pre>
+<p><strong>Get Structure within</strong> 取出位於空間內或邊界上的所有船體鋼結構，並產生一個「<strong>在空間邊界處精確切斷</strong>」的<strong>暫時性模型</strong>。重點：</p>
+<ul>
+<li>這個暫時模型<strong>不會</strong>在 Save Work 時永久存入資料庫。</li>
+<li>結果放在自動命名為 <code>_D&lt;流水號&gt;</code> 的 Block 中。</li>
+<li>位於空間邊界上的板架，應位於對應的 RSO 內，否則會有公差問題。</li>
+<li>之後的 Paint Area、Weight and Center of Gravity、Material List、Weld <strong>必須在同一個工作階段（session）內</strong>接著做，因為取出的模型不會被保存。</li>
+</ul>
+<p>相關功能：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add Extract as View</td>
+<td>把暫時 Block 加為圖面中的新視圖</td>
+</tr>
+<tr>
+<td>Hide/Unhide</td>
+<td>隱藏取出的板架，使其不參與計算；隱藏者以薄表示，不畫加強材與肘板</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1282">12.8.2 計算與結果去向</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>結果去向</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PaintArea</td>
+<td>Log Viewer；塗裝面積存於屬性 <code>SPMCAS</code></td>
+<td>只能存在 Layout 或 Painting Areas 空間；面碼會進報表</td>
+</tr>
+<tr>
+<td>WCOG（重量與重心）</td>
+<td>Log Viewer；重量存 <code>SPMCWS</code>，重心存 <code>SPMCOS</code></td>
+<td>只能存在 Layout 或 Production Blocks 空間</td>
+</tr>
+<tr>
+<td>Material List</td>
+<td>Log Viewer</td>
+<td>板材與型材的材料清單</td>
+</tr>
+<tr>
+<td>Weld</td>
+<td>專案 list 目錄下的 CSV，檔名 <code>ed_weld_&lt;流水號&gt;.csv</code></td>
+<td>焊接報告</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1283-planning-mass-properties-spm">12.8.3 Planning Mass Properties 與 <code>SPM*</code> 屬性</h3>
+<p>這個功能以格狀對話框管理質量屬性（重量、面積、焊長），欄位對應空間屬性。以 Layout 佈置為例：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>屬性</th>
+<th>欄位</th>
+<th>屬性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estimated Steel Weight</td>
+<td><code>SPMEWS</code></td>
+<td>Calculated Steel Weight</td>
+<td><code>SPMCWS</code></td>
+</tr>
+<tr>
+<td>Calculated Center of Steel</td>
+<td><code>SPMCOS</code></td>
+<td>Estimated Steel Area</td>
+<td><code>SPMEAS</code></td>
+</tr>
+<tr>
+<td>Calculated Steel Area</td>
+<td><code>SPMCAS</code></td>
+<td>Estimated Weight of Space Content</td>
+<td><code>SPMEWC</code></td>
+</tr>
+<tr>
+<td>Calculated Weight of Space Content</td>
+<td><code>SPMCWC</code></td>
+<td>Estimated Fillet Weld Length</td>
+<td><code>SPMEWL</code></td>
+</tr>
+<tr>
+<td>Calculated Fillet Weld Length</td>
+<td><code>SPMCWL</code></td>
+<td>Estimated Butt Weld Length</td>
+<td><code>SPMEWB</code></td>
+</tr>
+<tr>
+<td>Calculated Butt Weld Length</td>
+<td><code>SPMCWB</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Production Blocks 佈置只有鋼重（<code>SPMEWS</code>、<code>SPMCWS</code>）、鋼重心（<code>SPMCOS</code>）與鋼面積（<code>SPMEAS</code>、<code>SPMCAS</code>）；Painting Areas 佈置只有鋼面積（<code>SPMEAS</code>、<code>SPMCAS</code>）。<strong>估算值可由使用者填寫</strong>，按 OK 後寫入屬性；<strong>計算值由 PaintArea、WCOG、Weld 功能算出</strong>。官方註明「Calculated Weight of Space Content」<strong>尚未實作</strong>。</p>
+<h3 id="1284">12.8.4 報表</h3>
+<table>
+<thead>
+<tr>
+<th>報表</th>
+<th>產生者</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insulation Report</td>
+<td>PML 函式 <code>insulationReport.pmlfnc</code>（安裝目錄 <code>PMLLIB\design\functions</code>）</td>
+<td>Excel：空間名、面號、面積（m²）、絕緣元件、總厚度、密度（kg/m³）、體積（m³）、重量（kg）、價格參考</td>
+</tr>
+<tr>
+<td>Mass Properties Report</td>
+<td>PML 函式 <code>massPropReport.pmlfnc</code>（同目錄）</td>
+<td>Excel：空間名、估算重量（噸）、計算重量（噸）、鋼重心（m）</td>
+</tr>
+<tr>
+<td>Weld Report</td>
+<td>Weld 功能</td>
+<td>CSV <code>ed_weld_&lt;n&gt;.csv</code></td>
+</tr>
+<tr>
+<td>Legend</td>
+<td>Legend 功能</td>
+<td>圖面上的絕緣表（符號、說明、各層厚度與類型、總厚度、固定方式）</td>
+</tr>
+</tbody>
+</table>
+<p>官方明講兩支 PML 函式使用者可以修改，使報表<strong>完全客製</strong>——這是二次開發最直接、有依據的切入點。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 修改 <code>insulationReport.pmlfnc</code> 或 <code>massPropReport.pmlfnc</code> 時，請<strong>複製到自己的 PMLLIB 路徑</strong>，不要直接改安裝目錄下的原檔，以免升級時被覆蓋（路徑搜尋與部署見第 31、40 章）。</p>
+</blockquote>
+<h2 id="129-space-management">12.9 二次開發者怎麼接（Space Management）</h2>
+<p>下表只列官方文件有依據的接點；沒有依據者標〔待核對〕。</p>
+<table>
+<thead>
+<tr>
+<th>接點</th>
+<th>依據</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block CSV（輸入／輸出）</td>
+<td>官方給出欄位格式</td>
+<td>用腳本產生或解析，批次建立／更新設計與生產分段；Extract 檔放於 <code>SB_SHIPDATA</code></td>
+</tr>
+<tr>
+<td>Space XML Input</td>
+<td>官方只說可從 XML 建立佈置</td>
+<td>XML 結構〔待核對〕</td>
+</tr>
+<tr>
+<td>建立 Space World 的命令</td>
+<td>官方給出 <code>NEW SPMSW /&lt;name&gt; DB &lt;team&gt;/&lt;dbname&gt;</code></td>
+<td>可放進 PML 或命令檔批次建立</td>
+</tr>
+<tr>
+<td>用途控制檔</td>
+<td>官方給出 <code>MODE</code>／<code>TYPE_SEL</code>／<code>PURP</code> 等語法</td>
+<td>可由公司標準自動產生，再由 Inithull 編譯</td>
+</tr>
+<tr>
+<td>絕緣圖形控制檔</td>
+<td>官方給出 <code>INS</code> 語法</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>報表 PML 函式</td>
+<td>官方指出兩支 <code>.pmlfnc</code> 可修改</td>
+<td>客製欄位、單位、價格</td>
+</tr>
+<tr>
+<td><code>SPM*</code> 屬性</td>
+<td>官方列出屬性名</td>
+<td>可由 PML 或 .NET 讀取空間上的值（讀取語法見第 33 章；屬性是否可由 .NET 直接讀取〔待核對〕）</td>
+</tr>
+<tr>
+<td>Weld CSV</td>
+<td>官方給出檔名規則</td>
+<td>後處理工具直接讀</td>
+</tr>
+<tr>
+<td>計算模組 XML</td>
+<td>官方說明輸出可被 calc 讀取</td>
+<td>XML 結構〔待核對〕</td>
+</tr>
+<tr>
+<td>空間與設備位置比對</td>
+<td>官方未涵蓋</td>
+<td>若自行開發：取空間幾何與設備座標比對〔待核對，屬推論〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 空間的類型、命名與屬性（特別是 <code>Purpose</code> 代碼與 <code>/DENS</code>）一旦被下游工具依賴，就等於成為<strong>介面契約</strong>。改名或重新編譯用途控制檔（<code>/NEW</code>）前，先查有哪些報表、腳本與計算在使用。</p>
+</blockquote>
+<h3 id="1291">12.9.1 空間模組常見錯誤</h3>
+<ul>
+<li><strong>World 類型選錯</strong>：類型鎖定後不能改，之後無法產生分段或存重量；建立前先確認用途。</li>
+<li><strong>Envelope 未封閉</strong>：分割後沒有切出空間；確認曲面與 RSO 構成封閉體積。</li>
+<li><strong>取出結構後換了工作階段</strong>：PaintArea、WCOG 找不到取出的模型；取出後同一 session 立即計算。</li>
+<li><strong>邊界板架不在 RSO 內</strong>：取出結構有公差缺漏。</li>
+<li><strong>類型不符</strong>：塗裝面積只能存 Layout／Painting Areas，重量只能存 Layout／Production Blocks。</li>
+<li><strong>Merge 後屬性遺失</strong>：先用 Copy Attributes 補，再 Purge。</li>
+<li><strong>絕緣名稱與 <code>INS</code> 名稱不一致</strong>：圖面不再顯示絕緣圖形。</li>
+</ul>
+<hr />
+<h1 id="finite-element-model">第二部分　Finite Element Model</h1>
+<h2 id="1210">12.10 用途與整體流程</h2>
+<p><strong>有限元素分析（FEA）</strong> 要的不是細部設計模型，而是簡化後的<strong>中面（moulded plane）</strong>幾何、用 shell／beam／truss 表示的元素，以及材料與元素屬性。AVEVA Marine 的 FE Model 模組負責「<strong>預網格（pre-mesh）</strong>」：從 Hull 板架模型產生一份接近最終網格的 FE 幾何，再輸出給外部軟體做最後網格、載重與求解。</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>官方名稱</th>
+<th>做什麼</th>
+<th>產物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. 前置</td>
+<td>Prerequisites</td>
+<td>建立 <code>FEMWLD</code> 元素</td>
+<td>FE 世界元素</td>
+</tr>
+<tr>
+<td>1. 理想化</td>
+<td>Idealized Model</td>
+<td>選 Block／Panel、可選邊界盒、設定理想化參數</td>
+<td>理想化區塊（Idealized Block）</td>
+</tr>
+<tr>
+<td>2. FE 建模</td>
+<td>FE Model Creation</td>
+<td>由理想化區塊產生 shell／beam／truss，並整理網格</td>
+<td>FE 幾何</td>
+</tr>
+<tr>
+<td>3. 檢查</td>
+<td>FE Image、Statistics、Check</td>
+<td>視覺化與統計檢查</td>
+<td>FE 影像物件、統計</td>
+</tr>
+<tr>
+<td>4. 輸出</td>
+<td>FE Model Output</td>
+<td>匯出給外部軟體</td>
+<td>APDL、PCL、BDF、FEM、MNF、Hull Steel XML</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong> 官方文件沒有提供「載重」與「邊界條件」如何設定的說明；材料性質以外的分析定義，本章推論是在外部 FE 軟體中完成（輸出說明都寫「for further meshing and analysis」）。〔待核對：是否有任何載重或邊界條件資料隨輸出傳遞〕</p>
+</blockquote>
+<h3 id="12101-femwld">12.10.1 前置：FEMWLD</h3>
+<p>執行任何理想化前，必須先有 <code>FEMWLD</code> 元素；否則會出現訊息 <em>A FEMWLD element needs to be created before this function can be used</em>。建立方式有二：在 DbPrompt 設定專案時建立，或在 Hull Structural Design 的命令視窗輸入：</p>
+<pre><code class="language-text">NEW FEMWLD /FEMWLDNAME DB DBNAME
+</code></pre>
+<p><code>FEMWLDNAME</code> 是要建立的世界元素名，<code>DBNAME</code> 是既有的設計資料庫。這同樣牽涉資料庫歸屬（見第 43 章）。</p>
+<h2 id="1211-idealization">12.11 第一步：理想化（Idealization）</h2>
+<h3 id="12111">12.11.1 理想化做了什麼</h3>
+<p>選取一部分模型（Block 或 Panel，可跨多個 Block，可選邊界盒），結果是一種新的區塊，內含<strong>理想化板架</strong>。理想化會：</p>
+<ul>
+<li>移除不重要的零件；</li>
+<li>幾何以<strong>中面</strong>表示，彷彿板沒有厚度、加強材沒有斷面；</li>
+<li>邊界盒外的部分被裁掉（部分在盒內的平面板架會被裁切；完全在盒外者忽略）；</li>
+<li>板面以半透明、加強材與折邊以輪廓顯示，與一般板架區隔，也可用 Scheme Editor 調整。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：一般板架（Ordinary panels）：完整的板與加強材，綠色板面與紅色加強材</div></p>
+<p><em>圖 12-5　理想化前的一般板架。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：理想化後的板架：半透明板面與輪廓加強材</div></p>
+<p><em>圖 12-6　理想化後的板架。不重要的零件已被移除，板以半透明面、加強材以輪廓表示。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>曲面板架（Curved panel）處理方式不同</strong>：它只用來取得曲面上開孔的幾何，以及在未指定邊界盒（或盒超出板架範圍）時計算 FE 模型的邊界盒。建 FE 模型<strong>不一定要有</strong>曲面板架，因為要建模的曲面部分是由平面板架與曲面相交的軌跡曲線決定。</p>
+<h3 id="12112">12.11.2 選取模型</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Finite Element Idealiser 對話框的 Selection 頁籤：Model objects 樹、Selected model objects、邊界盒與區塊設定</div></p>
+<p><em>圖 12-7　Finite Element Idealiser 的 Selection 頁籤。左為模型樹，下方為邊界盒與區塊選項。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>操作：</p>
+<ol>
+<li>在 Model objects 樹選取 Block 或 Panel，按 <strong>Add</strong>。</li>
+<li>需要時設定邊界盒（Xmin／Xmax 等，預設 <code>NO_LIMIT</code>）。</li>
+<li>指定理想化區塊名稱。區塊不存在時，套用 Idealisation Settings 頁籤的設定；已存在時，可勾選 <strong>Get idealisation settings from block</strong> 沿用區塊內存的設定。</li>
+<li>可選 <strong>Add to existing block</strong> 把板架加到既有區塊；此時請確定被選的板架在該區塊內<strong>尚無</strong>理想化版本。</li>
+</ol>
+<h3 id="12113-idealisation-settings">12.11.3 理想化設定（Idealisation Settings）</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Idealisation Settings 頁籤：分析類型、預期元素尺寸與各零件頁籤</div></p>
+<p><em>圖 12-8　Idealisation Settings 頁籤：Global／Local／Detailed／Fine 分析與預期元素尺寸（示例 400×400），下方是各零件的忽略規則與 Girder 元素型式。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>設定完可直接按 OK，或先 <strong>Save Settings</strong> 存入資料庫物件；<strong>Default Settings</strong> 可還原預設。主要參數整理：</p>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>作用</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type of Analysis</td>
+<td>Global、Local、Detailed、Fine</td>
+<td>決定網格粗細、使用不同參數集；部分過小的板架會被略過，系統產生清單檔列出被略過者</td>
+</tr>
+<tr>
+<td>Intended Element Size</td>
+<td>預期元素尺寸</td>
+<td>同時控制曲面、孔洞與板架邊界以直線逼近的程度；預網格元素邊長不一定等於此值</td>
+</tr>
+<tr>
+<td>Ignore Panel Components</td>
+<td>依面積或平均邊長忽略零件</td>
+<td>各零件頁籤（Panel、Pillar、Stiffener、Flange、Hole、Notch、Cutout、Doubling、Bracket、Swage、Seam）</td>
+</tr>
+<tr>
+<td>Finite Element Type</td>
+<td>決定 shell／beam／truss 使用</td>
+<td>官方提醒：全域模型中肋板可建為 beam，細部模型可能需要腹板與面板都用 shell；元素型式對 FEA 的規模與時間影響很大</td>
+</tr>
+<tr>
+<td>Stiffeners</td>
+<td>Lumped beams、Beam、Shell and truss</td>
+<td>Beam 可為 offset 或 hybrid；Shell and truss 是腹板用 shell、面板用 truss</td>
+</tr>
+<tr>
+<td>Effective Width Factor</td>
+<td>帶板有效寬度，預設 40（倍腹板厚）</td>
+<td>只在 <strong>Hybrid beams</strong> 時有效；<strong>Offset beams</strong> 時自動設 0 且不可改</td>
+</tr>
+<tr>
+<td>Lumped Beams</td>
+<td>在主要構件相接處把加強材集中</td>
+<td>太小的加強材在理想化就被排除，其餘在 FE 建模時 lump；用於全域模型保持粗網格</td>
+</tr>
+<tr>
+<td>Swages</td>
+<td>波紋</td>
+<td>全域模型不建出波紋，板以<strong>正交異向</strong>材料的 shell 表示；局部模型用 shell 加 beam；細部分析需照實建模</td>
+</tr>
+<tr>
+<td>Holes</td>
+<td>孔洞</td>
+<td>見 12.11.4</td>
+</tr>
+<tr>
+<td>Unit System</td>
+<td>單位換算</td>
+<td>換算係數與理想化區塊一起存放，並寫入 APDL 檔供使用者知悉；ANSYS 本身不再做換算</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Connect Ends Along/perp</strong>：理想化時，加強材端點若離「與其他零件交點」小於容許值，就吸附到交點。Along 沿加強材定義線交截；perp 則以端點垂直於加強材的線交截。超出容許值者不在理想化處理，而在 FE 建模階段延伸加強材並<strong>切分</strong>所屬 shell 元素。</p>
+<p><strong>功能描述碼（Functional Codes）</strong>：板架建立時的功能描述有特殊意義，會決定套用的理想化選項。</p>
+<table>
+<thead>
+<tr>
+<th>代碼</th>
+<th>意義</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9901</td>
+<td>Bracket</td>
+<td></td>
+</tr>
+<tr>
+<td>9902</td>
+<td>Flange</td>
+<td></td>
+</tr>
+<tr>
+<td>9905</td>
+<td>Girder／Web frame</td>
+<td>板形需接近矩形且單一限制上有單一折邊；其餘限制（除與折邊相鄰的兩個之外）形成 beam 軌跡</td>
+</tr>
+<tr>
+<td>9906</td>
+<td>Transition girder（拱形甲板）</td>
+<td></td>
+</tr>
+<tr>
+<td>9907</td>
+<td>Stiffener</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>沒使用這些功能描述，例如兩片板組成的肋板會被當作一般板架，兩片都理想化成 shell，<strong>不會</strong>套用 girder 專用選項。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 在板架建立階段就決定好功能描述，比事後補救容易。若你們公司另有板架命名或功能描述規範，需與上述特殊代碼協調，否則 girder 會被當一般板處理，分析結果偏離設計意圖。</p>
+</blockquote>
+<h3 id="12114-holes">12.11.4 孔洞（Holes）規則</h3>
+<p>孔洞依大小分流處理：</p>
+<ol>
+<li>夠小的孔在理想化步驟就被移除。</li>
+<li>面積大於預期元素尺寸，或與接縫相交的孔，會作為<strong>自由邊（free edge）</strong>併入板中。</li>
+<li>其餘的孔會造成所在 shell 元素的<strong>厚度折減</strong>，有兩個控制參數：絕對最小厚度與剩餘材料最小百分比。折減後低於任一值，該 shell 元素就<strong>從模型移除</strong>。</li>
+</ol>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：孔洞與 shell 元素的尺寸示例：元素 1000×500，孔 600×400</div></p>
+<p><em>圖 12-9　孔洞折減範例。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>官方的算例：在孔的主方向，元素寬 1000、孔 600，剩 400，比例 0.4，高於預設 0.25；但垂直方向元素寬 500、孔 400，剩 100，比例 0.2，低於下限，所以該元素被移除。<strong>任一方向過弱就移除。</strong></p>
+<p>孔的圓角在 FE 模型中一律變成直線段；元素尺寸夠小時看起來像圓，放大才看得到線段。理想化板架中則保留圓角。</p>
+<h3 id="12115">12.11.5 執行理想化</h3>
+<p>按 OK 執行。若過程有錯誤會通知，官方要求<strong>仔細查證</strong>，因為錯誤的幾何可能導致後續 FE 建模產生不可預期的結果。<strong>重新理想化同一區塊前，必須先刪除舊模型</strong>：到 FE geometry 對話框 Analysis &gt; Create FE Model，在樹中選區塊，右鍵 Delete，確認。</p>
+<h2 id="1212-fe">12.12 第二步：建立 FE 模型</h2>
+<p>理想化區塊完成後才能建 FE 模型。轉換規則：</p>
+<table>
+<thead>
+<tr>
+<th>理想化後的零件</th>
+<th>FE 元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>板面（板、肘板）</td>
+<td>Shell 元素</td>
+</tr>
+<tr>
+<td>加強材、支柱</td>
+<td>Beam 元素</td>
+</tr>
+<tr>
+<td>折邊</td>
+<td>Truss 元素</td>
+</tr>
+</tbody>
+</table>
+<p>理想的 shell 元素：<strong>拓撲上相連、盡量四邊形、角度在限制內、扭曲（warping）在限制內</strong>。曲面上常需要三角形元素。</p>
+<h3 id="12121">12.12.1 先決：模型要有封閉邊界</h3>
+<p>平面板架與船殼、甲板等曲面的拓撲連接，決定了曲面哪些部分納入 FE 模型。FE Modeller 會計算這些板架軌跡曲線的邊界盒，用主平面切出交線，形成邊界多邊形，再以殼縱材、接縫等曲線細分。因為曲面形狀變化大，自動找邊界不一定成功，官方建議：</p>
+<ul>
+<li>至少準備一個視圖，建立或選取接縫或殼曲線，形成封閉邊界多邊形；</li>
+<li>曲線交點與 FE 模型邊界盒的距離<strong>不得超過 5 倍元素尺寸</strong>；</li>
+<li>左舷與右舷分開處理，模型跨過中心線時，中心線附近也需要一條曲線。</li>
+</ul>
+<h3 id="12122-fe-model-options">12.12.2 FE Model Options</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：FE Model 對話框：選取區塊、Mode、各項前處理選項與影像選項</div></p>
+<p><em>圖 12-10　FE Model 對話框。Mode 選擇建立或修改，下方為整理網格的選項與 FE 影像輸出。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>說明</th>
+<th>預設（圖中值）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create from Idealized Model</td>
+<td>區塊中尚無 FE 幾何時必選；已有時可用不同設定整個重建</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Modify Existing</td>
+<td>區塊已有 FE 幾何時，不重建、只套用下列選項調整</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Remove Transition Steps Smaller than</td>
+<td>處理斜板與平板的連接處（如拱形甲板）；小於容許值的階差忽略；否則於元素邊用 truss 理想化，過渡處的 girder 須有特殊功能碼</td>
+<td>100 mm</td>
+</tr>
+<tr>
+<td>Connect Adjacent Geometry</td>
+<td>合併容許值內的重合點與線：點對點、點對線吸附、線與線相交或合併、面與面連接</td>
+<td>容許 0.5 mm</td>
+</tr>
+<tr>
+<td>Combine Shell Elements</td>
+<td>避免小元素：短於「Max Distance Factor × 元素尺寸」的線被刪除並合併端點</td>
+<td>0.3 倍</td>
+</tr>
+<tr>
+<td>Divide Shell Elements</td>
+<td>精煉過程，為滿足 FEA 軟體限制（點數、角度等），作用於<strong>所有</strong> shell 元素</td>
+<td>見下</td>
+</tr>
+<tr>
+<td>Unwarp Shell Elements</td>
+<td>控制板面扭曲，沿連接邊界點的線分割扭曲元素</td>
+<td>由 Divide 參數控制</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Combine 與 Divide 的互相約束</strong>：Max Distance Factor 必須小於 Min Line Length Factor，否則精煉階段產生的線可能被刪除。</p>
+<p><strong>Divide Shell Elements 的準則</strong>（圖中值）：</p>
+<table>
+<thead>
+<tr>
+<th>準則</th>
+<th>意義</th>
+<th>圖中值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Max number of Edges</td>
+<td>一個面最多邊數；一般偏好四邊形</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Max Face Warping Factor</td>
+<td>邊高度偏差 ÷ 面積平方根</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td>Max Thickness Warping Factor</td>
+<td>邊高度偏差 ÷ 平均元素厚度</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Min Line Length Factor</td>
+<td>精煉時新線不短於此倍元素尺寸</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>Max Angle Deviation</td>
+<td>相鄰線與直角的偏差</td>
+<td>45 度</td>
+</tr>
+</tbody>
+</table>
+<p>準則互有取捨：消除扭曲的要求<strong>強於</strong>角度準則（扭曲的元素無法使用，尖角只是不理想），所以結果可能仍有元素的邊數超過 Max number of Edges。官方特別提醒：<strong>ANSYS Mechanical APDL 一個面最多 18 個點</strong>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 這些係數官方稱為「第一次猜測值」，可調整。實務上建議用<strong>一個代表性區塊</strong>反覆調整（Modify Existing 不必整個重來），穩定後存為公司標準，再套用到其他區塊。</p>
+</blockquote>
+<h2 id="1213-fe-imagestatisticscheck">12.13 檢查：FE Image、Statistics、Check</h2>
+<p>FE 模型可在 AVEVA Marine 內先檢查再輸出。<strong>FE Image</strong> 是把結果以折線畫出的物件，可從 Design Explorer 拖放顯示，或插入模型時勾選 FE Image 準則。命名規則：</p>
+<ul>
+<li><code>_FGS&lt;區塊名&gt;</code>：Shell Element Image，所有 shell 多邊形（無著色）。</li>
+<li><code>_FGB&lt;區塊名&gt;</code>、<code>_FGT&lt;區塊名&gt;</code>：beam 與 truss 折線。以上三種在 FE Model 選項中勾選。</li>
+<li>以下由理想化區塊右鍵選單建立：<code>_FGA</code> Angle Image（角度偏差小於設定值處）、<code>_FGF</code> Free Edge Image（只屬於一個面的線）、<code>_FGL</code> Line Image（全部的線）、<code>_FGP</code> Point Image（全部的點，與輸出一致）；Element Image 則一次建立 shell、beam、truss。</li>
+</ul>
+<p>沒有對應元素時，該物件不會被建立（例如模型沒有 truss 就沒有 <code>_FGT...</code>）。<strong>所有影像不需重建整個 FE 幾何即可建立。</strong></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Shell 影像範例：以簡單封閉折線畫出的 shell 元素網格</div></p>
+<p><em>圖 12-11　Shell Element Image 範例。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>Free Edge Image 特別好用：自由邊本來就會出現在板架邊界未連到其他物件處或孔洞處，<strong>但出現在別的地方，可能代表模型零件之間漏了連接</strong>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Free Edge Image 範例：自由邊以橘色線疊在 shell 影像上</div></p>
+<p><em>圖 12-12　Free Edge Image 疊加在 shell 影像上，橘色線為只屬於一個面的邊。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>Angle Image 則標示出過小角度處；曲面部分難以完全避免，因為要用三角形把扭曲的元素拆開。</p>
+<p>右鍵選單的其他功能：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Statistics</td>
+<td>顯示預網格資料量</td>
+</tr>
+<tr>
+<td>Check</td>
+<td>檢查 FE 模型錯誤（如相交或重合的線），偏進階除錯</td>
+</tr>
+<tr>
+<td>Dump</td>
+<td>把所選項目的詳細資訊寫到主控台，視層級可為單一多邊形或整個板架／區塊的幾何與屬性</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>刪除所選理想化區塊與所有相關物件</td>
+</tr>
+<tr>
+<td>Delete Images</td>
+<td>只刪除該區塊的影像</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：FE Model Statistics：Hull Log 視窗列出分析類型、元素尺寸與各元素數量</div></p>
+<p><em>圖 12-13　Statistics 範例：Local 分析、元素尺寸 400，約 9,234 個 surface 元素、467 個 beam、487 個 truss、10,503 個點。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>Statistics 會列出邊界盒、分析類型與元素尺寸、物件數、折線數（含大量只用來構成曲面的殼曲線與軌跡曲線）、surface／beam／truss 元素數，以及線與點總數（輸出時一併寫出）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 輸出前，用 Statistics 的元素數粗略判斷模型規模是否適合外部軟體與授權限制。元素數比預期大一個數量級，多半是元素尺寸設太小或沒有忽略小零件。</p>
+</blockquote>
+<h2 id="1214">12.14 輸出與外部軟體交換</h2>
+<h3 id="12141">12.14.1 五種輸出方式</h3>
+<table>
+<thead>
+<tr>
+<th>輸出</th>
+<th>格式</th>
+<th>官方給出的重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ANSYS APDL</td>
+<td>ANSYS 命令檔</td>
+<td>可在 ANSYS Mechanical APDL（Classic）處理，建立幾何或節點與元素、屬性、材料</td>
+</tr>
+<tr>
+<td>Patran PCL</td>
+<td>Patran session 檔</td>
+<td>宜在 Patran 以 batch 模式播放，產生資料庫檔</td>
+</tr>
+<tr>
+<td>Nastran BDF</td>
+<td>Nastran Bulk Data 檔</td>
+<td>Beam 屬性可輸出為 <code>PBEAML</code>（尺寸）或 <code>PBEAM</code>（積分特性）</td>
+</tr>
+<tr>
+<td>Sesam FEM</td>
+<td>Sesam Input Interface 檔</td>
+<td>含節點、元素、材料與元素屬性</td>
+</tr>
+<tr>
+<td>MAESTRO MNF</td>
+<td>MNF 檔</td>
+<td>供 MAESTRO 使用</td>
+</tr>
+</tbody>
+</table>
+<p>另外，<strong>Hull Steel XML Export</strong> 可選擇理想化區塊匯出，加選項時一併匯出對應的 FE 模型：包含節點、shell／beam／truss 元素與屬性，以及<strong>對原船模型板架的參考</strong>。</p>
+<h3 id="12142-ansys-patran">12.14.2 ANSYS 與 Patran 的細節</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create ANSYS Input File 對話框：選區塊、Geometry 或 Mesh、元素型別</div></p>
+<p><em>圖 12-14　匯出 ANSYS APDL 的對話框：選含 FE 幾何的區塊，選 Geometry 或 Mesh 與 ANSYS 元素型別。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>元素型別（官方給出）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>預設（New Types，不含中間節點）</td>
+<td><code>SHELL181</code>、<code>BEAM188</code>、<code>LINK180</code></td>
+</tr>
+<tr>
+<td>New Types 含中間節點</td>
+<td><code>SHELL281</code>、<code>BEAM189</code>、<code>LINK180</code></td>
+</tr>
+<tr>
+<td>Old Types</td>
+<td><code>SHELL63</code>、<code>BEAM44</code>、<code>LINK8</code>，<strong>不建議</strong>，因為 ANSYS 已不再文件化</td>
+</tr>
+</tbody>
+</table>
+<p>平面與曲面部分可選不同型別，但會影響在 ANSYS 內的網格順序（詳見 ANSYS 說明）。Patran 輸出的設定為：分析碼 <code>MSC.Nastran</code>、分析類型 Structural，元素為 Shell（Thin、Homogenous、Standard Formulation）、Beam（General Section，CBEAM）、Rod（General Section、Standard Formulation）。</p>
+<h3 id="12143">12.14.3 材料資料</h3>
+<p><strong>AVEVA Marine 不明確管理材料等級，但 FEA 一定需要。</strong> 做法：把材料性質寫在 XML 檔，在 Structural Design 選單用 <strong>XML &gt; Import &gt; Hull Steel Import</strong> 匯入，建立一個材料物件，之後輸出時就用它提供外部軟體材料資料。官方範例（節錄）：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Ship xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+      xsi:noNamespaceSchemaLocation=&quot;M:\xml\schema\Export\HullPanel.xsd&quot; Version=&quot;1.3&quot;&gt;
+  &lt;Material Grade=&quot;A&quot; Density=&quot;7840&quot; YoungsModulus=&quot;206E3&quot; PoissonRatio=&quot;0.3&quot;
+            YieldStress=&quot;220&quot; UltimateStress=&quot;360&quot;/&gt;
+  &lt;Material Grade=&quot;A32&quot; Density=&quot;7790&quot; YoungsModulus=&quot;205E3&quot; PoissonRatio=&quot;0.3&quot;
+            YieldStress=&quot;320&quot; UltimateStress=&quot;510&quot; ThermalExpansionCoefficient=&quot;0.011&quot;/&gt;
+&lt;/Ship&gt;
+</code></pre>
+<p>欄位為 <code>Grade</code>、<code>Density</code>、<code>YoungsModulus</code>、<code>PoissonRatio</code>、<code>YieldStress</code>、<code>UltimateStress</code>，以及選用的 <code>ThermalExpansionCoefficient</code>。單位未在官方頁面說明〔待核對：從數值（<code>YoungsModulus="206E3"</code>、<code>Density="7840"</code>）看，疑為 MPa 與 kg/m³，但請以所用 schema 為準〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 材料等級要和板架上的材料等級名稱<strong>逐字相符</strong>，否則輸出時找不到性質。建議由公司材料表產生這份 XML，而非手工維護，並隨船級規則版本管控。</p>
+</blockquote>
+<h2 id="1215-fe-model">12.15 二次開發者怎麼接（FE Model）</h2>
+<table>
+<thead>
+<tr>
+<th>接點</th>
+<th>依據</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>材料 XML 匯入</td>
+<td>官方給出欄位與匯入選單</td>
+<td>用腳本由材料資料庫產生；schema 路徑 <code>...\xml\schema\Export\HullPanel.xsd</code> 為官方範例</td>
+</tr>
+<tr>
+<td>命令建立 <code>FEMWLD</code></td>
+<td>官方給出 <code>NEW FEMWLD /&lt;name&gt; DB &lt;dbname&gt;</code></td>
+<td>納入專案初始化腳本</td>
+</tr>
+<tr>
+<td>五種輸出檔</td>
+<td>官方列出格式與主要設定</td>
+<td>以腳本接 ANSYS／Nastran 等批次流程；APDL 與 PCL 由外部軟體批次執行</td>
+</tr>
+<tr>
+<td>Hull Steel XML（含 FE 模型）</td>
+<td>官方說明內容概要與可參照原模型板架</td>
+<td>結構細節〔待核對：官方頁面未給 XML 元素名稱〕</td>
+</tr>
+<tr>
+<td>FE Image 物件名稱</td>
+<td>官方列出 <code>_FGS</code>、<code>_FGB</code> 等命名</td>
+<td>可用 PML 依命名規則尋找並檢查</td>
+</tr>
+<tr>
+<td>以命令列／PML 驅動理想化與輸出</td>
+<td>官方未給命令</td>
+<td>〔待核對〕；目前有依據的操作皆為圖形介面</td>
+</tr>
+<tr>
+<td>批次化大量區塊</td>
+<td>官方未涵蓋</td>
+<td>若要自動化，建議先確認有無對應 PML 物件或命令，再評估外部自動化方式〔待核對〕</td>
+</tr>
+<tr>
+<td>外部分析結果回寫</td>
+<td>官方未涵蓋</td>
+<td>本章不推測</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12151-fe">12.15.1 FE 模型常見錯誤</h3>
+<ul>
+<li><strong>沒建 <code>FEMWLD</code></strong>：無法執行理想化。</li>
+<li><strong>重理想化前沒刪舊區塊</strong>，或把板架加入已有其理想化版本的區塊：重複或衝突。</li>
+<li><strong>功能描述碼缺失</strong>：girder 被當一般板處理。</li>
+<li><strong>曲面邊界不封閉</strong>：曲面部分建不起來；需建視圖並建立接縫或殼曲線。</li>
+<li><strong>元素尺寸太小</strong>：模型過大、計算極慢；先用 Statistics 評估。</li>
+<li><strong>單位不一致或材料名稱對不上</strong>：外部結果量級錯、屬性缺漏；設定 Unit System，材料 XML 與板架材料逐字相符。</li>
+<li><strong>忽略非預期的自由邊</strong>：外部軟體出現不連續；用 Free Edge Image 檢查。</li>
+</ul>
+<h2 id="1216">12.16 本章小結</h2>
+<ol>
+<li><strong>空間由邊界切出</strong>：Envelope + Dividing Boundary + 布林運算；World 類型鎖定並決定屬性與可用功能。</li>
+<li><strong>用途控制檔是介面契約</strong>：<code>PURP</code>、<code>TYPE_SEL</code> 與 <code>/DENS</code> 會進計算。</li>
+<li><strong>取結構要即時算</strong>：Get Structure within 的暫時模型不存檔，PaintArea、WCOG、Weld 要在同一 session 完成；估算（<code>SPME*</code>）與計算（<code>SPMC*</code>）成對比較。</li>
+<li><strong>報表可客製</strong>：兩支 <code>.pmlfnc</code> 官方明講可修改，是最有依據的二次開發接點。</li>
+<li><strong>FE 分兩步</strong>：先理想化（中面、簡化），再建 FE（shell／beam／truss）並整理網格；孔洞與加強材有明確規則。</li>
+<li><strong>先檢查再輸出</strong>：FE Image、Free Edge、Statistics。</li>
+<li><strong>官方未涵蓋處標〔待核對〕</strong>：載重、邊界條件、XML 細節與自動化命令，不要憑印象寫進工具。</li>
+</ol>
+<h2 id="1217">12.17 練習題與自我檢核</h2>
+<p><strong>練習題</strong></p>
+<ol>
+<li>建立一個 Compartment 類型的 World，用兩道橫艙壁與一道縱艙壁切分一個 Envelope。切完後把兩個相鄰艙合併，檢查新空間取得哪個空間的屬性，並用 Copy Attributes 補齊。</li>
+<li>寫一份用途控制檔，定義兩種水密液貨用途（密度各自不同）與一種機艙用途；編譯後在 Attributes 中指定給空間，並確認對話框顯示的值。</li>
+<li>對一個 Layout 佈置執行 Get Structure within，依序做 WCOG 與 PaintArea，說明為何不能先結束 session 再算。</li>
+<li>依 12.11.4 的算例，自編一組孔與元素尺寸，判斷該元素是否被移除。</li>
+<li>為 Local 分析選擇元素尺寸，建立理想化區塊與 FE 模型，用 Statistics 記錄元素數，再把尺寸減半重做，觀察元素數成長。</li>
+<li>用 Free Edge Image 檢查一個板架模型，列出哪些自由邊屬正常（邊界、孔），哪些可能代表遺漏連接；再寫一份材料 XML 並說明 <code>PBEAML</code> 與 <code>PBEAM</code> 的差別。</li>
+</ol>
+<p><strong>自我檢核</strong>：我能說出六種佈置類型與各自可儲存的計算結果；知道 Get Structure within 的結果不永久儲存；知道 <code>NEW SPMSW</code> 與 <code>NEW FEMWLD</code> 的用途；能解釋孔洞為何讓 shell 元素被移除；清楚哪些二次開發接點有官方依據、哪些待核對。</p>
+<h2 id="1218">12.18 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch12">附錄 D 第 12 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch12">附錄 E 第 12 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch11_surface_block_zh-TW.reading.html"><small>← 上一篇</small>第 11 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案</a><a class="next" href="ch13_hull_detail_planar_zh-TW.reading.html"><small>下一篇 →</small>第 13 章　船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

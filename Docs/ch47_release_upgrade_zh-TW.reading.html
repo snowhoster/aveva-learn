@@ -64,18 +64,14 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 </li>
 <li><a href="#4711">47.11 本章小結</a></li>
 <li><a href="#4712">47.12 練習題／自我檢核</a></li>
-<li><a href="#4713">47.13 〔待核對〕項目與取材覆蓋</a><ul>
-<li><a href="#_1">待核對</a></li>
-<li><a href="#_2">取材覆蓋</a></li>
-</ul>
-</li>
+<li><a href="#4713">47.13 待核對項目與取材覆蓋</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第六部分　官方文件深入 · 48 / 51</span><h1 id="47-121-release-bulletin">第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</h1>
+</aside><article><span class="stage">第六部分　系統管理與維運 · 48 / 53</span><h1 id="47-121-release-bulletin">第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</h1>
 <blockquote>
-<p><a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>講了升級的基本觀念（Part Upgrade、all-or-nothing、升級後不能 Backtrack）。這一章換成<strong>規劃者與維運者的視角</strong>：手上拿到一份 12.1 的版本公告（Release Bulletin），要怎麼讀它、從中抽出「會影響我們專案的變更」、排出升級順序，並在升級前後知道該檢查什麼。</p>
+<p><a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>講了升級的基本觀念（Part Upgrade、all-or-nothing、升級後不能 Backtrack）。這一章換成<strong>規劃者與維運者的視角</strong>：手上拿到一份 12.1 的版本公告（Release Bulletin），要怎麼讀它、從中抽出「會影響我們專案的變更」、排出升級順序，並在升級前後知道該檢查什麼。</p>
 <p>官方文件裡名為「Hull and Outfitting」的那一大塊，其實不是操作手冊，而是 <strong>AVEVA Hull and Outfitting 12.1／12.1.SP5 的 User Bulletin</strong>（約 587 個子頁）。它的價值在於：每個功能都標了哪一個 Service Pack 加進來，也標了相容性限制。本章把它整理成「版本差異與升級風險」表。</p>
 <p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件：<em>Hull and Outfitting</em>（Release Bulletin，12.1.SP5 版）、<em>What's New in AVEVA Marine?</em>、<em>Welcome to the AVEVA Marine Documentation</em>、<em>Terminology</em>、<em>Abbreviations in the User Documentation</em>。<strong>公告本身是 SP5 時期的舊文件，部分內容為 12.0 或更早版本遺留（例如 Windows XP、IE 7/8、.NET 3.5 的敘述），與 SP5 的需求表互相矛盾處，本章標〔待核對〕。</strong>官方沒有給「升級耗時」「硬體規格數字」，本章不編造。「升級檢查清單」中，標〔官方〕者來自公告，標〔一般實務〕者是常見 IT 維運做法，不代表 AVEVA 的要求。完整的 12.0→12.1 步驟在另一份官方《12.0 to 12.1 Upgrade》手冊，不在本文件範圍。</p>
 </blockquote>
@@ -248,7 +244,7 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 <p><strong>常見錯誤：</strong> 把 12.1 裝在 <code>C:\Program Files</code> 下、或把專案放在有空白的路徑，結果某些功能（Global 檢查、批次工具）出現難以解釋的失敗。</p>
 <h2 id="474-optional-upgrade">47.4 升級框架：版本控管、Optional Upgrade 與流程</h2>
 <h3 id="4741-part-upgrade">47.4.1 Part Upgrade 與升級框架</h3>
-<p>升級概述的核心概念（第 20 章已介紹，這裡只列公告新增的細節）：</p>
+<p>升級概述的核心概念（第 43 章已介紹，這裡只列公告新增的細節）：</p>
 <ul>
 <li>12.1 的許多增強需要資料庫升級，每一項個別變更稱為 <strong>Part Upgrade</strong>；多數設計成「可選」，未升級的資料庫軟體仍能用，但<strong>只能唯讀</strong>，部分新功能不可用（graceful degradation）。</li>
 <li>這讓客戶可以繼續與<strong>外來資料庫（Foreign DB）</strong>共用，例如與 12.0 專案共用的公司層級 Catalogue DB。</li>
@@ -1173,12 +1169,12 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 </tr>
 <tr>
 <td>升級後</td>
-<td>跑報表對照、單位數字對照、圖紙更新、批次工具回歸（見 <a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章</a> 的 SP 回歸清單）</td>
+<td>跑報表對照、單位數字對照、圖紙更新、批次工具回歸（見 <a href="ch40_debug_deploy_zh-TW.reading.html">第 40 章</a> 的 SP 回歸清單）</td>
 <td>一般實務</td>
 </tr>
 <tr>
 <td>回復</td>
-<td>官方：升級後無法 backtrack 到升級前的 Session（詳見 <a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a>）；回復只能靠升級前備份</td>
+<td>官方：升級後無法 backtrack 到升級前的 Session（詳見 <a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）；回復只能靠升級前備份</td>
 <td>官方＋一般實務</td>
 </tr>
 </tbody>
@@ -1417,23 +1413,7 @@ html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0
 <li>[ ] 我能分辨公告中 SP5 與舊版遺留的環境需求。</li>
 <li>[ ] 我能列出升級前後各自該檢查的項目。</li>
 </ul>
-<h2 id="4713">47.13 〔待核對〕項目與取材覆蓋</h2>
-<h3 id="_1">待核對</h3>
-<ol>
-<li><strong>環境需求矛盾</strong>：SP5 作業環境表寫 .NET Framework 4.6.1，另一頁寫需要 .NET 3.5；IE 7/8、Office 2007/2010、Windows XP 等敘述疑為舊版遺留，實際以 AVEVA 支援網站與《Minimum System Requirements Marine》為準。</li>
-<li><strong>Windows Server 與虛擬化／Citrix</strong>：ALS「利於 Citrix 支援」的實際條件，以及不再支援 thin client 後的部署方式。</li>
-<li><strong>About this Bulletin</strong> 同時出現「自 12.1.SP4 以來的變更」與「自 12.0 以來的變更」兩種描述，推測為多版本文字並存。</li>
-<li><strong>ASL</strong>：SP4 一頁說已移除並由 Vantage Marine 11.6 的 primitive 型能力取代；「Future Considerations」一頁說將改稱 SLH，兩頁的先後與現況待核對。</li>
-<li><strong>Optional Upgrade 12010401</strong> 官方稱僅含項目 93792「一般資料庫變更」，內容細節未說明。</li>
-<li><strong>MANU 資料模型升級</strong>的 ManuConfig 具體步驟，在《12.0 to 12.1 Upgrade》手冊，不在本文件。</li>
-<li><strong>Windows 專案路徑空白</strong>問題在 SP5 之後是否已解決。</li>
-<li><strong>「Known Issues」的 SP5 General Issues</strong> 只指向外部發行文件，未提供清單。</li>
-</ol>
-<h3 id="_2">取材覆蓋</h3>
-<ul>
-<li><strong>已取得</strong>：<em>Hull and Outfitting</em> [1224159] 下全部 587 頁（含根頁）皆已轉出純文字並掃描標題。其中<strong>逐字讀完</strong>的約 140 頁：About、Software Distribution and Installation、Test Projects、Upgrading from Previous Releases 全部、Configuration、General System Changes、Database changes、User Interface、Administration、Global 與 Catalogue 部分頁面、Known Issues 與少數 Hull 生產資料頁面。<strong>只讀開頭（約 280–700 字元）</strong>的約 440 頁：各領域新功能（Initial Design、Hull General、Surface Manager、Space Management、Structural Design、Hull Detailed Design、Weld Planning、Assembly Planning、Marine Drafting、Outfitting Draft、Diagrams、Engineering、Outfitting Module 與 Design Applications）。這些頁只擷取 Description 與標題，Benefits、For More Information、Compatibility Constraints 的細節大多未完整讀，因此 47.8 的彙整表是「代表項目」而非完整清單。</li>
-<li>另讀：<em>What's New in AVEVA Marine?</em> [1105760]、<em>Welcome to the AVEVA Marine Documentation</em> [1526835]、<em>Terminology</em> [1225318]、<em>Abbreviations in the User Documentation</em> [1109374] 全文。</li>
-<li><strong>未讀</strong>：<em>Before you Begin</em> [1211036] 下的 Marine Getting Started 子樹（Assumptions、Database Types、Attributes、GUI 基本操作、Product Range、Glossary of Terms and Abbreviations 的 Definitions／Abbreviations、Core Filters for Explorers 等，約 50 頁，只列出清單）；以及公告中 AVEVA Licensing System [883754]、AVEVA Manufacturing [988916]、AVEVA Marine [879117] 三個夾在 Hull Detailed Design 中的頁面（只看到標題，內容未深入）。</li>
-<li>圖片共 14 張，皆經預覽確認後加入。</li>
-<li>相關章節：<a href="ch20_system_administration_zh-TW.reading.html">第 20 章</a> 系統管理與維運、<a href="ch42_database_management_zh-TW.reading.html">第 42 章</a> 資料庫管理（Session、Extract、Global 概要）。</li>
-</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch46_getting_started_zh-TW.reading.html"><small>← 上一篇</small>第 46 章　Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）</a><a class="next" href="appx_a_resources_zh-TW.reading.html"><small>下一篇 →</small>附錄 A　專業資源與官方訓練地圖</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>
+<h2 id="4713">47.13 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch47">附錄 D 第 47 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch47">附錄 E 第 47 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch46_dabacon_global_zh-TW.reading.html"><small>← 上一篇</small>第 46 章　船體資料庫與分散式專案：Hull Dabacon 與 Global</a><a class="next" href="appx_a_resources_zh-TW.reading.html"><small>下一篇 →</small>附錄 A　專業資源與官方訓練地圖</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

@@ -39,7 +39,7 @@
     <text x="292" y="298" font-size="12">1. 目前 MDB 中該 DB 是否可寫；使用者所屬 Team 是否擁有該 DB</text>
     <text x="292" y="318" font-size="12">2. 元素是否已被其他使用者 Claim；需要時先 claim 再修改</text>
     <text x="292" y="338" font-size="12">3. 是否在 Extract 或唯讀專案中；是否在 Global 的非主控地點</text>
-    <text x="292" y="358" font-size="12">4. 工具是否應該先做「預覽」而不是直接寫入（見第 12 章安全模式）</text>
+    <text x="292" y="358" font-size="12">4. 工具是否應該先做「預覽」而不是直接寫入（見第 33 章安全模式）</text>
 
     <!-- row 4 -->
     <rect x="20" y="388" width="230" height="96" rx="6" fill="#ecfdf5" stroke="#047857"/>

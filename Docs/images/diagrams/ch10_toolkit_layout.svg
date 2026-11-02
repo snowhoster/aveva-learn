@@ -20,8 +20,8 @@
     <circle cx="95" cy="232" r="2.5" fill="#6b7280"/><text x="104" y="236" font-family="Consolas, monospace">data\</text><text x="250" y="236">設定檔、對照表</text>
     <circle cx="43" cy="262" r="2.5" fill="#6b7280"/><text x="52" y="266" font-family="Consolas, monospace">pdmsui\</text>
     <circle cx="69" cy="284" r="2.5" fill="#6b7280"/><text x="78" y="288" font-family="Consolas, monospace">DES\DFLTS\ADDINS\MYCOLLECT</text>
-    <circle cx="43" cy="314" r="2.5" fill="#6b7280"/><text x="52" y="318" font-family="Consolas, monospace">dotnet\</text><text x="250" y="318">C# 方案（第 14 章）</text>
-    <circle cx="43" cy="336" r="2.5" fill="#6b7280"/><text x="52" y="340" font-family="Consolas, monospace">vitesse\</text><text x="250" y="340">船體腳本（第 15 章）</text>
+    <circle cx="43" cy="314" r="2.5" fill="#6b7280"/><text x="52" y="318" font-family="Consolas, monospace">dotnet\</text><text x="250" y="318">C# 方案（第 35 章）</text>
+    <circle cx="43" cy="336" r="2.5" fill="#6b7280"/><text x="52" y="340" font-family="Consolas, monospace">vitesse\</text><text x="250" y="340">船體腳本（第 36 章）</text>
     <circle cx="43" cy="366" r="2.5" fill="#6b7280"/><text x="52" y="370" font-family="Consolas, monospace">deploy\</text>
     <circle cx="69" cy="388" r="2.5" fill="#6b7280"/><text x="78" y="392" font-family="Consolas, monospace">install.cmd</text>
     <circle cx="69" cy="410" r="2.5" fill="#6b7280"/><text x="78" y="414" font-family="Consolas, monospace">uninstall.cmd</text>

@@ -82,7 +82,7 @@
     <text x="614" y="342" font-size="14" font-weight="bold" fill="#374151">組成元素（成員）</text>
     <text x="614" y="364">BOX、NOZZ、BRAN、ELBO、SCTN</text>
     <text x="614" y="384">HPLATE、HSTIFF…</text>
-    <text x="614" y="404">位置相對於擁有者（第 4 章）</text>
+    <text x="614" y="404">位置相對於擁有者（第 5 章）</text>
     <text x="614" y="424">BRAN 的成員順序有工程意義</text>
 
     <rect x="600" y="466" width="285" height="96" rx="6" fill="#fff7ed" stroke="#c2410c"/>

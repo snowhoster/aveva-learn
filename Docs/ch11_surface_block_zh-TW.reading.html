@@ -1,0 +1,1316 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 11 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#11-surface-managerblock-division">第 11 章 曲面管理與分區：Surface Manager、Block Division 與多視圖專案</a><ul>
+<li><a href="#111">11.1 學習目標</a></li>
+<li><a href="#112">11.2 全章地圖</a></li>
+<li><a href="#113-surface-manager">11.3 Surface Manager：曲面的健檢中心</a><ul>
+<li><a href="#1131">11.3.1 為什麼需要它</a></li>
+<li><a href="#1132">11.3.2 介面元件</a></li>
+<li><a href="#1133-hull-surfaces-primitive-assemblies">11.3.3 模型樹：Hull Surfaces 與 Primitive Assemblies</a></li>
+<li><a href="#1134-workspace-scene">11.3.4 Workspace 與 Scene</a></li>
+<li><a href="#1135">11.3.5 顯示與導覽</a></li>
+<li><a href="#1136">11.3.6 匯入、釋放與匯出</a></li>
+<li><a href="#1137-primitive">11.3.7 曲面與 Primitive 的操作</a></li>
+<li><a href="#1138-sample-points">11.3.8 附錄：取樣點檔（Sample Points）</a></li>
+</ul>
+</li>
+<li><a href="#114-surface-manager">11.4 二次開發者怎麼接：Surface Manager 的整合點</a></li>
+<li><a href="#115-block-division">11.5 Block Division：把早期模型切成生產分段</a><ul>
+<li><a href="#1151">11.5.1 它是什麼、用在哪裡</a></li>
+<li><a href="#1152">11.5.2 切割與排序的規則</a></li>
+<li><a href="#1153">11.5.3 邊界產生、特殊形狀與元件處理</a></li>
+<li><a href="#1154">11.5.4 驗證結果與反覆分段</a></li>
+</ul>
+</li>
+<li><a href="#116-block-division">11.6 Block Division 的操作</a><ul>
+<li><a href="#1161">11.6.1 目標分段與切割器：先把「盒子」規劃好</a></li>
+<li><a href="#1162-block-division">11.6.2 介面：Block Division 視窗與樹狀流程</a></li>
+<li><a href="#1163-job">11.6.3 Job：建立與設定</a></li>
+<li><a href="#1164">11.6.4 各節點的功能</a></li>
+<li><a href="#1165-job">11.6.5 一個典型 Job 的操作順序</a></li>
+<li><a href="#1166-block-division">11.6.6 二次開發者怎麼接：Block Division</a></li>
+</ul>
+</li>
+<li><a href="#117-multi-view-project">11.7 Multi-View Project：同一模型的兩個視圖</a><ul>
+<li><a href="#1171">11.7.1 為什麼需要兩個視圖</a></li>
+<li><a href="#1172">11.7.2 設計面板與生產面板、設計分段與生產分段</a></li>
+<li><a href="#1173-multi-view">11.7.3 建立 Multi-View 專案</a></li>
+<li><a href="#1174">11.7.4 設計與生產的連接細節</a></li>
+<li><a href="#1175-multi-view">11.7.5 二次開發者怎麼接：Multi-View</a></li>
+</ul>
+</li>
+<li><a href="#118">11.8 把三個模組串起來：一個完整的情境</a></li>
+<li><a href="#119">11.9 本章小結</a></li>
+<li><a href="#1110">11.10 練習題與自我檢核</a><ul>
+<li><a href="#_1">練習（只在訓練專案或測試用工作區進行）</a></li>
+<li><a href="#_2">自我檢核</a></li>
+</ul>
+</li>
+<li><a href="#1111">11.11 待核對項目與取材覆蓋</a></li>
+<li><a href="#_3">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第二部分　船體設計 · 12 / 53</span><h1 id="11-surface-managerblock-division">第 11 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案</h1>
+<blockquote>
+<p>船殼、艏側推器隧道、錨管這類曲面，是船體模型的「地基」；而把早期的大模型切成能生產的分段，則是從設計走向生產的「分水嶺」。這一章把兩件看似不相干的事放在一起談：<strong>曲面進得來、檢查過、放得出去（Surface Manager）</strong>，以及<strong>模型切得下去、放進正確的分段、設計與生產兩個視圖不脫節（Block Division 與 Multi-View Project）</strong>。</p>
+<p>兩者的共同點是「拓撲正確性」：曲面有縫、板架邊界對不上，下游的交線、體積、套料全部會出問題。很多團隊的麻煩不在建模技巧，而在匯入的曲面沒有先檢查、分段切完才發現偏移量設錯、或不了解設計視圖與生產視圖其實是同一個模型的兩種看法。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件的三個模組：<em>Surface Manager</em>（約 22 頁）、<em>Block Division</em>（約 22 頁）與 <em>Multi-View Project</em>（約 10 頁）。操作名稱、選單、參數與限制以官方原文為準，內容以自己的話重組成教學順序。官方文件沒有寫的部分（版本差異、實際檔案格式細節、批次指令語法、授權與模組啟用條件、效能數字）一律標為〔待核對〕，未編造任何指令或檔案格式。官方圖片均為文件截圖，僅供內部教學；部分截圖畫面風格較舊，介面細節以你實際安裝的版本為準。第 9 章（船體建模）已介紹過分段劃分的概念與設計／詳細設計視角，之後的第 15 章（生產資訊）將談零件抽出與套料，本章聚焦「操作層」，不重複那兩章的內容。</p>
+</blockquote>
+<h2 id="111">11.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Surface Manager 在曲面流程中的位置，以及為什麼曲面需要先檢查再使用。</li>
+<li>認得 Surface Manager 的視窗元件，並說明 Hull Surfaces 與 Primitive Assemblies 兩個區域的差別。</li>
+<li>區分 Workspace（<code>.tbw</code>）與 Scene 的用途，並使用 Scene Template 重複使用顯示設定。</li>
+<li>說明 Import from File、Import from Project、Release Surface、Export to File 與 Export to BLines File 的資料流向與限制。</li>
+<li>依用途選擇 Analyze、Combine、Sew、Optimize、Restrict、Mirror、Intersect Surface 與 Compare Surfaces 等操作。</li>
+<li>說明 Block Division 的三種用途，以及來源面板、切割器（Cutter）與目標分段（Target Block）三項輸入。</li>
+<li>依步驟完成一個 Block Divide Job：建立、選面板、Verify、套用切割器、Divide、排序（Sort）、檢查結果。</li>
+<li>設定目標分段的標稱框與偏移量，避免面板落入錯誤分段或同時被兩個分段包含。</li>
+<li>說明 Design View／Production View、Design Block／Production Block 的關係與建立專案的規則。</li>
+<li>說明二次開發者可以在哪些地方接上這些流程，以及哪些部分文件沒有提供依據。</li>
+</ol>
+<h2 id="112">11.2 全章地圖</h2>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>解決的問題</th>
+<th>輸入</th>
+<th>輸出</th>
+<th>本章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Surface Manager</td>
+<td>外部曲面不乾淨、不能直接建模</td>
+<td>STEP／SAT／IGES／DML 或 Marine 專案曲面</td>
+<td>檢查、修補過的 Hull Surface，釋放到設計專案</td>
+<td>11.3–11.4</td>
+</tr>
+<tr>
+<td>Block Division</td>
+<td>早期模型要切成生產分段</td>
+<td>來源面板、切割器、目標分段</td>
+<td>新的生產面板、排進正確分段</td>
+<td>11.5–11.6</td>
+</tr>
+<tr>
+<td>Multi-View Project</td>
+<td>設計與生產對模型的需求不同</td>
+<td>Design Block／Panel</td>
+<td>同一模型的兩個視圖與其連接</td>
+<td>11.7</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 三個模組的前後關係是「曲面（船殼）進得來 → 結構以船殼為邊界建模 → 在設計視圖完成大板架 → Block Divide 產生生產面板」。曲面的品質問題，會一路傳到分段切割之後；所以曲面檢查要在最前面做，而不是等 Block Divide 出錯才回頭。</p>
+</blockquote>
+<h2 id="113-surface-manager">11.3 Surface Manager：曲面的健檢中心</h2>
+<h3 id="1131">11.3.1 為什麼需要它</h3>
+<p>官方的說法是：AVEVA Marine 對雕刻曲面（sculptured surface）做的是數學運算，例如求交線與產生體積。這類運算要求曲面「拓撲正確」，才能在設計與生產得到正確結果。Surface Manager 提供匯入、檢查、驗證，以及某些情況下修復曲面的工具，且不論曲面從哪個系統來。</p>
+<p>它的內部模型是 <strong>Brep（Boundary Representation，邊界表示）</strong>：幾何由一組修剪過的 NURBS 曲面（trimmed NURBS surfaces）組成，並以邊界彼此相連。跨系統傳遞複雜形狀時，最常見的問題包含針狀小面（needle face）、退化面（degenerated face）與過大的間隙，會讓匯入的模型不適合繼續建模。</p>
+<p>官方也點出三個實務用途，可以當作導入這個工具的理由：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>檢查與修復匯入曲面</td>
+<td>偵測缺陷，能修的就修，降低之後建模工具失敗的風險</td>
+</tr>
+<tr>
+<td>只分享需要的部分</td>
+<td>船殼曲面可能含有造船廠想保留的細節，要給分包商時可只輸出相關區域</td>
+</tr>
+<tr>
+<td>減少平坦區域的補片</td>
+<td>外部系統常在平坦區產生大量補片，影響求交等運算效能，可合併以提升整體效能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1132">11.3.2 介面元件</h3>
+<p>Surface Manager 啟動後是一個整合式應用程式視窗：</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Surface Manager 預設視窗：左側 Workspace Explorer 的模型樹、中間圖形視窗、右側導覽工具列、底部訊息視窗</div></p>
+<p><em>圖 11-1　Surface Manager 的預設版面。左為模型樹，中為圖形視窗，右為導覽工具列，底部是顯示 Complexity 統計的訊息視窗。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application Frame（應用程式框架）</td>
+<td>把所有視窗收在同一個框架內，可自由拖曳排列</td>
+</tr>
+<tr>
+<td>Graphics Window（圖形視窗）</td>
+<td>顯示目前 Scene 的內容；導覽工具在右側工具列</td>
+</tr>
+<tr>
+<td>Workspace Explorer（工作區總管）</td>
+<td>兩個頁籤式樹狀檢視：Models（匯入的模型）與 Scenes（場景），預設停靠左側</td>
+</tr>
+<tr>
+<td>Model View（模型視圖）</td>
+<td>檢視匯入的模型及其結構；可選取後拖曳到圖形視窗，或以右鍵選單呼叫功能</td>
+</tr>
+<tr>
+<td>Scenes View（場景視圖）</td>
+<td>檢視已建立的場景及其中的 model drop；右鍵可新增、設為目前、刪除、改屬性</td>
+</tr>
+<tr>
+<td>Message Window（訊息視窗）</td>
+<td>位於底部，顯示工具輸出與錯誤／資訊訊息</td>
+</tr>
+<tr>
+<td>Auxiliary Model View（輔助模型視圖）</td>
+<td>在樹的任一節點分出第二棵樹，一邊看細節一邊保留總覽</td>
+</tr>
+</tbody>
+</table>
+<p>圖形視窗中的邊線顏色是判讀曲面品質的第一線索，值得記住：</p>
+<ul>
+<li>面（face）以著色曲面顯示。</li>
+<li>剛好被兩個面共用的邊畫成<strong>黃色</strong>；其餘的邊畫成<strong>藍色</strong>。</li>
+<li>曲面內部出現藍色邊，表示相鄰的面沒有連起來。常見原因是來源檔案中它們本來就沒連接，或間隙太大。</li>
+<li>小黑點是頂點位置。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：一個船艏／艏樓風格的曲面，黃色線為共用邊、藍色線為外邊界，黑點為頂點</div></p>
+<p><em>圖 11-2　Brep 曲面的邊線表示法。黃色為正好連接兩個面的邊，藍色為邊界邊（位於曲面內部時代表有未連接的接縫）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>沒連起來的邊可以縫合（Sew）：間隙小時直接連接；間隙稍大時，先略為放大內部公差再連接。</p>
+<h3 id="1133-hull-surfaces-primitive-assemblies">11.3.3 模型樹：Hull Surfaces 與 Primitive Assemblies</h3>
+<p>模型樹分成兩個主要區域，用法類似，但目的不同：</p>
+<table>
+<thead>
+<tr>
+<th>區域</th>
+<th>適合</th>
+<th>匯入時的樹結構</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hull Surfaces</td>
+<td>準備釋放（Release）到設計專案的船殼曲面</td>
+<td>組裝樹被<strong>壓平</strong></td>
+</tr>
+<tr>
+<td>Primitive Assemblies</td>
+<td>較一般的模型（例如外購設備、參考幾何）</td>
+<td>組裝樹<strong>保留</strong></td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：模型樹：Hull Surfaces 下有 HULL 與 Prim001；Primitive Assemblies 下保留多層組裝與面清單</div></p>
+<p><em>圖 11-3　模型樹範例。Hull Surfaces 區是一條船殼曲面（內含 Primitive），Primitive Assemblies 區保留匯入檔案的組裝階層，往下可展開到個別 Face。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>階層從上到下是：曲面（Hull Surface）→ Primitive → Faces（面）。後面所有操作對象，都在這個階層裡選。</p>
+<h3 id="1134-workspace-scene">11.3.4 Workspace 與 Scene</h3>
+<p><strong>Workspace（工作區）</strong> 是一次作業中「匯入的模型加上建立的 Scene」的集合，存檔後就像目前作業的快照。</p>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新增</td>
+<td>工具列 New，或 <code>File &gt; New</code></td>
+</tr>
+<tr>
+<td>開啟</td>
+<td>Open Workspace 圖示或 <code>File &gt; Open Workspace</code>（目前的工作區會關閉，以所開啟的內容建立新的）</td>
+</tr>
+<tr>
+<td>儲存</td>
+<td>Save Workspace 圖示或 <code>File &gt; Save Workspace</code>，存成 <code>&lt;workspace name&gt;.tbw</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scene（場景）</strong> 是一組模型物件，加上你選擇的顯示方式（旋轉、角度、透視視點）。永遠有一個 Scene 是目前的（current），也就是圖形視窗所顯示的那個。系統預設兩個 Scene：</p>
+<table>
+<thead>
+<tr>
+<th>Scene</th>
+<th>設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browse0</td>
+<td>Browse 型：新模型加入前，先移除場景中所有模型</td>
+</tr>
+<tr>
+<td>Normal0</td>
+<td>一般型</td>
+</tr>
+</tbody>
+</table>
+<p>Scene 的屬性以屬性頁（property pages）呈現，Box Filter 除外（它是獨立指令與對話框）。幾個重點：</p>
+<ul>
+<li><strong>Model Type Filter：</strong> 限制只顯示某些型別的模型。注意必須先選到父模型，才看得到子模型。設定在 Type Filter 屬性頁。</li>
+<li><strong>Scene Template：</strong> 把一個設定好的 Scene 另存成範本，之後新建場景時套用。每個 Scene 都以某個範本為基礎，系統有兩個預設範本。範本只含基本屬性（場景型別、呈現選項、篩選設定），不含暫時性的內容（模型選取、限制框、已存的相機位置）。</li>
+<li>範本預設存放位置依作業系統而定，官方列出的 Vista／Windows 7 路徑為 <code>%AppData%\AVEVA\SurfaceManager\SceneTemplates.dat</code>（官方原文寫成 <code>[Drive]:\Users\&lt;user&gt;\AppData\Roaming\AVEVA\SurfaceManager\SceneTemplates.dat</code>）。較新的 Windows 版本路徑是否相同〔待核對〕。</li>
+</ul>
+<p>Scene 工具列的常用工具：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New Scene</td>
+<td>以預設範本快速建立 Scene；從 Scenes 的右鍵選單選 New 可改用其他範本</td>
+</tr>
+<tr>
+<td>Previous／Next Scene</td>
+<td>切換到上一個／下一個 Scene</td>
+</tr>
+<tr>
+<td>Box Selection Filter</td>
+<td>定義選取框，只有框內或部分在框內的模型才會被加入 Scene</td>
+</tr>
+<tr>
+<td>Save as Scene Template</td>
+<td>在 Scene 右鍵選單中，把該 Scene 存成範本（要填名稱與說明）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 曲面檢查常常要反覆「只看這一小塊」。與其每次手動隱藏，不如建立一個 Browse 型 Scene 加 Box Filter，再存成範本，之後同類曲面直接套用。</p>
+</blockquote>
+<h3 id="1135">11.3.5 顯示與導覽</h3>
+<p>顯示模型的方式很單純：從模型樹把一個或多個項目<strong>拖曳</strong>到圖形視窗。一般以 Primitive 為單位加入；若要在畫面上單獨選取某些面，可改拖曳 Primitive 底下的 <code>Faces</code> 節點，變成逐面加入。</p>
+<p>導覽工具集中在右側工具列。操作規則：選一個工具後，游標變成該工具的形狀，直到你選別的工具為止；移動時，方向與速度由「按下位置」與「目前游標位置」的距離決定，放開按鍵就停。無論目前工具為何，滑鼠滾輪永遠可縮放。</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>工具</th>
+<th>操作重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選取</td>
+<td>Select</td>
+<td>單擊或框選；按住 Ctrl 加選；選取的模型會高亮</td>
+</tr>
+<tr>
+<td>縮放</td>
+<td>Auto Scale、Zoom Window、Zoom and Pan</td>
+<td>Auto Scale 讓模型適配視窗且不改變目前工具；Zoom Window 按右鍵拖曳框；Zoom and Pan 上下為縮放、左右為平移</td>
+</tr>
+<tr>
+<td>移動</td>
+<td>Slide、Spin、Walk、Tilt</td>
+<td>Spin 的旋轉中心是按下當下游標下最近的模型點；Walk 只能搭配透視相機；Tilt 繞視圖中心旋轉</td>
+</tr>
+<tr>
+<td>相機</td>
+<td>Save／Restore Camera、Perspective Camera</td>
+<td>存取視角；在透視與平行相機之間切換</td>
+</tr>
+<tr>
+<td>標準視角</td>
+<td>Top、Frame（看 AFT／FOR）、Side（看左舷）、Isometric（看 AFT／FOR）</td>
+<td>一鍵適配並切換到標準方向</td>
+</tr>
+<tr>
+<td>量測</td>
+<td>Simple Measuring</td>
+<td>點選模型顯示座標；按住拖曳到另一點顯示兩點距離</td>
+</tr>
+</tbody>
+</table>
+<p>快速鍵（官方表格；官方把 Save Camera 誤寫成 <code>Cltr+S</code>，應為 Ctrl+S，此處依合理推測更正，建議實機確認〔待核對〕）：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>快速鍵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auto Scale</td>
+<td>Ctrl+A</td>
+</tr>
+<tr>
+<td>Zoom to Model</td>
+<td>Ctrl+B</td>
+</tr>
+<tr>
+<td>Restore Camera</td>
+<td>Ctrl+E</td>
+</tr>
+<tr>
+<td>Zoom Window</td>
+<td>Ctrl+I</td>
+</tr>
+<tr>
+<td>Walk</td>
+<td>Ctrl+M</td>
+</tr>
+<tr>
+<td>Spin</td>
+<td>Ctrl+R</td>
+</tr>
+<tr>
+<td>Save Camera</td>
+<td>Ctrl+S</td>
+</tr>
+<tr>
+<td>Slide</td>
+<td>Ctrl+T</td>
+</tr>
+<tr>
+<td>切換到下一個／上一個視窗</td>
+<td>F6／Shift+F6</td>
+</tr>
+<tr>
+<td>全螢幕與一般模式切換</td>
+<td>F11</td>
+</tr>
+</tbody>
+</table>
+<p>多數模型項目共用一組<strong>通用指令</strong>（在樹或圖形視窗選取後按右鍵）：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New Window from Here</td>
+<td>把右鍵點到的節點設為輔助樹的新根；<code>View &gt; Auxiliary Tree</code> 可切換顯示</td>
+</tr>
+<tr>
+<td>Hide／Unhide</td>
+<td>在圖形視圖隱藏或再顯示項目</td>
+</tr>
+<tr>
+<td>Select in View</td>
+<td>快速縮放到選取的項目（即使該項目目前不在圖形視窗內）</td>
+</tr>
+<tr>
+<td>Rename</td>
+<td>改項目名稱（模型項目或 Scene 皆可）</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>刪除模型項目（船殼曲面、Primitive、Face、Scene 或 Scene 內容）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1136">11.3.6 匯入、釋放與匯出</h3>
+<p>這是 Surface Manager 與外界的界面，也是二次開發者最關心的部分，所以獨立整理成一張流向表。</p>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th>來源 → 目的</th>
+<th>支援格式／限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Import from File</td>
+<td>檔案 → Hull Surfaces 或 Primitive Assemblies</td>
+<td>STEP 203、SAT、IGES、DML（Initial Design Hull Forms 的原生格式）；可一次選多檔，也可從 Windows 檔案總管拖曳檔案到樹節點</td>
+</tr>
+<tr>
+<td>Import from Project</td>
+<td>Marine 專案中的船殼曲面 → Surface Manager</td>
+<td>第一次使用匯入／釋放功能時要選專案；<strong>本次作業內專案不能更換</strong></td>
+</tr>
+<tr>
+<td>Release Surface</td>
+<td>Hull Surfaces 中的曲面（含所屬曲線）→ Marine 設計專案</td>
+<td>只能從 Hull Surfaces 區直接釋放</td>
+</tr>
+<tr>
+<td>Release Surface as Symmetric</td>
+<td>同上，但在資料庫中標記為對稱</td>
+<td>對稱曲面<strong>不得跨越中心線</strong></td>
+</tr>
+<tr>
+<td>Export to File</td>
+<td>單一曲面／Primitive 或整個階層 → 單一檔案</td>
+<td>STEP、IGES 或 SAT</td>
+</tr>
+<tr>
+<td>Export to BLines File</td>
+<td>曲面與曲線資料 → Lines／PACE 可接續編修的 blines 檔</td>
+<td>含完整曲線資訊與資料點；資料點以近似方式產生，與原曲線誤差在固定 0.5 mm 容差內</td>
+</tr>
+</tbody>
+</table>
+<p>三個容易踩到的規則：</p>
+<ol>
+<li><strong>從專案匯入、再釋放到另一個專案：</strong> 因為專案在一次作業內固定，官方給的步驟是：先從專案 A 匯入船殼曲面 → 儲存 Workspace → 重啟 Surface Manager 並開啟剛存的 Workspace → 釋放到專案 B。</li>
+<li><strong>Primitive Assemblies 區的 Primitive 不能直接釋放。</strong> 做法是把它拖到 Hull Surfaces 節點建立新曲面，用 Rename 取好名字，再釋放。</li>
+<li><strong>曲面含多個 Primitive 時只釋放第一個。</strong> 釋放前須先用 Combine 把它們併成單一 Primitive（見下一節）。</li>
+</ol>
+<h3 id="1137-primitive">11.3.7 曲面與 Primitive 的操作</h3>
+<p>官方把這些工具定位為「找出並（可選地）修復匯入幾何的缺陷或弱點」。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>用途</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analyze</td>
+<td>報告相連曲面網格中的幾何間隙</td>
+<td>超過整體模型容差的間隙記為「曲面事件（surface incident）」並加到被分析的 Primitive；稍大於曲面容差者為 warning，更大者為 error</td>
+</tr>
+<tr>
+<td>Combine</td>
+<td>把屬於同一 Hull Surface 的所有 Primitive 併成單一 Primitive</td>
+<td>釋放前必做（若有多個 Primitive）</td>
+</tr>
+<tr>
+<td>Intersect Surface</td>
+<td>以一個或多個平面切曲面，產生曲線</td>
+<td>曲線與被切模型存在一起，名稱由 prefix、曲線型別與主座標值組成</td>
+</tr>
+<tr>
+<td>Mirror</td>
+<td>把原模型與其對中心線的鏡像合併成新模型</td>
+<td>原模型不得跨越中心線</td>
+</tr>
+<tr>
+<td>Optimize</td>
+<td>提高模型品質</td>
+<td>合併平面面，並把部分退化曲面換成較不易出問題的曲面</td>
+</tr>
+<tr>
+<td>Restrict</td>
+<td>移除落在指定軸向對齊方盒（axis-aligned box）之外的部分</td>
+<td>可用來只取要分享或要檢查的區域</td>
+</tr>
+<tr>
+<td>Sew</td>
+<td>把拓撲分離但幾何相鄰的面縫合</td>
+<td>縫合時整體 Primitive 容差可能會放大</td>
+</tr>
+<tr>
+<td>Compare Surfaces</td>
+<td>以取樣點計算曲面與另一曲面（或外部取樣點）的距離</td>
+<td>偏差超過相交容差（通常 0.5 mm）的點進入新資料夾與報告</td>
+</tr>
+<tr>
+<td>Combine Curves（選單）</td>
+<td>合併端點距離小於 10 mm 的曲線</td>
+<td>大於 10 mm 則操作失敗</td>
+</tr>
+<tr>
+<td>Connect Curves（工具列）</td>
+<td>為 Lines／PACE 準備：以直線段連接曲線端點</td>
+<td>結果有多條分支時，連接最靠近的端點；有歧義時連接靠近選取點的端點</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Intersect Surface 的欄位：</strong></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Intersect by Plane 對話框：Curve prefix、Starting point、Direction and distance、Ending point</div></p>
+<p><em>圖 11-4　Intersect Surface 對話框。Curve prefix 為曲線名稱前綴；Direction and distance 的向量方向是切割平面法向、長度是相鄰平面的間距；只要 Ending point 仍在目前切割平面「前方」就持續產生曲線。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve prefix</td>
+<td>曲線名稱的前半段</td>
+</tr>
+<tr>
+<td>Starting point</td>
+<td>第一個切割平面上的一點</td>
+</tr>
+<tr>
+<td>Direction and distance</td>
+<td>切割平面的法向量；向量長度就是連續切割平面之間的距離</td>
+</tr>
+<tr>
+<td>Ending point</td>
+<td>只要終點還在目前切割平面前方，就繼續產生新的交線</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compare Surfaces 的兩種模式：</strong></p>
+<ul>
+<li><strong>曲面對曲面：</strong> 在 Hull Surfaces 中選兩個曲面，右鍵選 Compare Surface；對話框可調整比較區域與取樣點密度。取樣點取自「先選的那個」，拿去和「後選的那個」比。</li>
+<li><strong>曲面對外部取樣點：</strong> 選單一曲面，右鍵選 Surface Compare，讀入外部取樣點檔。把產生的偏差資料夾拖進圖形視圖，每個偏差以「取樣點、曲面上最近點、連線」表示，線長與距離成正比，顏色代表偏差範圍。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> Compare 是「曲面搬家有沒有走樣」的驗收工具。例如從別的船體系統搬進 AVEVA 後，用取樣點確認偏差都在 0.5 mm 容差內，再開始建模，比建完才發現船殼偏掉便宜得多。</p>
+</blockquote>
+<h3 id="1138-sample-points">11.3.8 附錄：取樣點檔（Sample Points）</h3>
+<p>官方附錄描述一個從 TRIBON M3 環境產生取樣點檔的外部程式（程式名稱 <code>sj708</code>）：它以 surface server 對原生曲面或 NAPA 曲面切出剖面與水線，對切出的曲線擬合雙圓弧（bi-arc），取雙圓弧的起訖點當取樣點，輸出檔供 Surface Manager 的 Compare Surface 讀取。官方註明：此程式不含在標準安裝內，需洽原廠本地支援取得。</p>
+<p>執行 <code>sj708</code> 時需提供的資料：</p>
+<table>
+<thead>
+<tr>
+<th>提示項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>輸出檔完整路徑與檔名</td>
+<td>取樣點檔的存放位置</td>
+</tr>
+<tr>
+<td>曲面檔所在資料夾（dml 或 dms）</td>
+<td>若專案已設 <code>SB_NAVARCH</code>，或使用 NAPA 曲面則不會詢問</td>
+</tr>
+<tr>
+<td>曲面名稱</td>
+<td>要取樣的曲面</td>
+</tr>
+<tr>
+<td>剖面與水線的範圍</td>
+<td>AFT、FWD、下限、上限</td>
+</tr>
+<tr>
+<td>切割間距</td>
+<td>相鄰切割的距離</td>
+</tr>
+</tbody>
+</table>
+<p>雙圓弧擬合使用曲面求交的預設容差（通常為 0.5 mm）。官方範例檔的欄位排列如下，這是目前文件中<strong>唯一</strong>有依據的檔案格式描述，可供二次開發者讀寫（欄位含義依官方註解，編碼與換行格式〔待核對〕）：</p>
+<table>
+<thead>
+<tr>
+<th>行（依序）</th>
+<th>含義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>曲面名稱（範例 <code>SPHULL</code>）</td>
+<td>Surface name</td>
+</tr>
+<tr>
+<td>容差（範例 <code>0.500</code>）</td>
+<td>Intersection tolerance</td>
+</tr>
+<tr>
+<td>平面型別（範例 <code>1</code>）</td>
+<td>官方註解為「Plane x=1, y=2, z=3」，即 1 表示 x 平面</td>
+</tr>
+<tr>
+<td>平面座標（範例 <code>-3997.767</code>）</td>
+<td>Plane coordinate</td>
+</tr>
+<tr>
+<td>切割產生的輪廓數</td>
+<td>Number of contours resulting from cut</td>
+</tr>
+<tr>
+<td>輪廓內取樣點數（範例 <code>23</code>）</td>
+<td>Number of sample points in contour</td>
+</tr>
+<tr>
+<td>其後每行三個數值</td>
+<td>取樣點座標（x、y、z）；範例中相鄰兩點在輪廓連接處會重複出現，原因官方未說明〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>常見錯誤（Surface Manager）：</strong>
+1. 匯入後直接釋放，沒有 Analyze：曲面事件留到建模才爆發。
+2. 曲面含多個 Primitive 卻沒有 Combine：只有第一個 Primitive 進設計專案，其餘無聲消失。
+3. 對稱曲面跨過中心線卻選了 Release Surface as Symmetric。
+4. 想直接從 Primitive Assemblies 釋放。
+5. 在同一次作業中想換專案：必須存檔、重啟、再開啟 Workspace。
+6. 以為 Sew 沒有代價：縫合可能放大整體 Primitive 容差，之後要再用 Analyze 確認。</p>
+</blockquote>
+<h2 id="114-surface-manager">11.4 二次開發者怎麼接：Surface Manager 的整合點</h2>
+<p>官方 Surface Manager 文件<strong>只描述互動式 GUI</strong>，沒有提供 PML 指令、.NET API 或命令列參數。以下依「文件有依據」與「需要自行核對」分開寫：</p>
+<table>
+<thead>
+<tr>
+<th>整合點</th>
+<th>依據</th>
+<th>做法／限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>曲面檔（STEP 203、SAT、IGES、DML）進出</td>
+<td>文件明列</td>
+<td>外部系統（CAD、NAPA 等）以這些標準格式交換；對外輸出只想給局部時，先 Restrict 再 Export to File</td>
+</tr>
+<tr>
+<td>blines 檔</td>
+<td>文件明列 Export to BLines File</td>
+<td>供 Lines／PACE 續編；格式細節文件未提供〔待核對〕</td>
+</tr>
+<tr>
+<td>取樣點檔</td>
+<td>文件有範例（11.3.8）</td>
+<td>格式簡單，可由自家程式產生；用於 Compare Surface 驗收</td>
+</tr>
+<tr>
+<td>Workspace（<code>.tbw</code>）</td>
+<td>文件明列副檔名</td>
+<td>內部格式文件未提供；不建議自行解析〔待核對〕</td>
+</tr>
+<tr>
+<td>Scene Template（<code>SceneTemplates.dat</code>）</td>
+<td>文件明列路徑</td>
+<td>內部格式未提供；可整檔複製分發給團隊，作為標準顯示設定</td>
+</tr>
+<tr>
+<td>自動化／批次操作</td>
+<td>文件<strong>未提及</strong></td>
+<td>是否有腳本介面、命令列或 API〔待核對〕；不要假設可用</td>
+</tr>
+<tr>
+<td>與 Marine 專案的連接</td>
+<td>Import from Project／Release</td>
+<td>以專案資料庫為界面；釋放後在 Marine 內的物件結構請參考第 9 章與你的專案設定</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 沒有官方 API 的情況下，最穩當的自動化切入點是「檔案介面」：用程式驗證輸入檔（副檔名、大小、必要欄位）、規範檔案命名、整理交付清單，並把 Surface Manager 的 Analyze 結果截圖或訊息視窗輸出存檔，作為品質紀錄。不要試圖自行解析專有二進位檔。</p>
+</blockquote>
+<h2 id="115-block-division">11.5 Block Division：把早期模型切成生產分段</h2>
+<h3 id="1151">11.5.1 它是什麼、用在哪裡</h3>
+<p>Block Division（Block Divide）是結構設計的重要功能，主要用途是把早期模型細分成面向生產的模型。主要輸入有三類：<strong>來源面板（Source Panels）、切割器（Cutters）、目標分段（Target Blocks）</strong>。第 9 章已介紹「分段是造船廠的建造單位」這個概念，本章只講如何操作。</p>
+<p>官方列出三種用途：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>說明</th>
+<th>原面板的下場</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>把一個分段分成兩個或更多分段</td>
+<td>從原分段的面板產生新面板</td>
+<td>原面板刪除，原分段變空</td>
+</tr>
+<tr>
+<td>由設計模型產生生產模型</td>
+<td>來源為 Design Block、目標為 Production Block，以切割器從設計面板切出生產面板</td>
+<td>設計面板<strong>保持完整</strong></td>
+</tr>
+<tr>
+<td>把面板分類進分段</td>
+<td>以上兩種的特例，<strong>不使用切割器</strong></td>
+<td>只搬移（可能改名）</td>
+</tr>
+</tbody>
+</table>
+<p>主要活動是三件事：<strong>面板選取（Panel Selection）→ 切割（Cutting）→ 排序（Sorting）</strong>。</p>
+<h3 id="1152">11.5.2 切割與排序的規則</h3>
+<p><strong>面板選取：</strong> 來源面板通常透過分段選取，但一般面板選取工具的選項都可使用，平面與曲面面板皆可。前提是所選面板必須能無錯誤地通過 <code>Verify</code>，否則不能參與流程。</p>
+<p><strong>切割：</strong> 可定義多個切割器，每個切割器與所有選定面板比對，相交者被切成兩塊。切割器類型：</p>
+<table>
+<thead>
+<tr>
+<th>切割器類型</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Principal planes（主平面）</td>
+<td>任意 X、Y、Z 平面</td>
+</tr>
+<tr>
+<td>RSO</td>
+<td>取得多平面或有限範圍平面的方式</td>
+</tr>
+<tr>
+<td>Shell Block Seams</td>
+<td>標為 Block Seam 的平面殼縫</td>
+</tr>
+<tr>
+<td>Stored planes</td>
+<td>資料庫中已儲存的命名平面</td>
+</tr>
+<tr>
+<td>Design Panel Block Seams</td>
+<td>設計面板上預先定義的 Block Seam，當生產面板由設計面板產生時使用；幾何可任意，包含圓弧半徑</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：<strong>曲面面板只能使用平面切割器。</strong> 此時切割器先建立一條 Shell Block Seam，再以它切曲面面板的殼板與殼加強材。</p>
+</blockquote>
+<p><strong>排序：</strong> 把面板從選定面板搬到目標分段，處理兩種面板：切割產生的新面板，以及剛好落在切割器之間的面板。規則：</p>
+<ul>
+<li>若分段名稱是面板名稱的一部分，排序時面板會依目標分段改名。</li>
+<li>面板<strong>完全位於</strong>某個目標分段內，才會被搬進去；不在任何目標分段內者，留在來源分段。</li>
+<li>設計分段切成生產分段時，設計面板留在設計分段，並與生產面板建立連接（見 11.7）。</li>
+<li>由設計面板產生、卻不在任何指定生產分段內的生產面板，無法放回來源設計分段，會落入系統自動建立的<strong>預設生產分段</strong>，名稱為來源分段名前加 <code>_P</code>。</li>
+</ul>
+<h3 id="1153">11.5.3 邊界產生、特殊形狀與元件處理</h3>
+<p>面板被切割器切開時，兩個新邊界由原邊界與切割器定義推導而成。這並不簡單，因為切割器與周圍邊界的相交方式，可能不同於原邊界各界限彼此相交的方式。必要時系統會自動為平面面板的新邊界補上額外的限制方盒值（例如 <code>XMAX</code>、<code>YMIN</code>）。</p>
+<p>兩個特殊情況：</p>
+<ul>
+<li><strong>大開孔：</strong> 一個含大開孔的平面面板被兩個平行切割器橫跨開孔切過時，中間的面板會有兩塊分離的板區，系統會在孔內自動加一條縫。</li>
+<li><strong>U 形面板：</strong> 一般平面面板要能被分割，切割器與面板邊界必須恰好兩個交點；但水平切割 U 形面板的情形有特別處理，結果是<strong>三塊</strong>面板，而不是兩塊。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：U 形面板被水平切開，產生三塊面板</div></p>
+<p><em>圖 11-5　U 形面板的特殊情形。切割器水平切過 U 形，結果是三塊面板（開口兩側各一塊與底部一塊），而非常規的兩塊。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>面板內的元件在切割時依型別分四類處理，這是理解「切完之後少了什麼、多了什麼」的關鍵：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>元件</th>
+<th>處理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atomic（原子）</td>
+<td>Bracket、Pillar、Doubling plate、Tap</td>
+<td>為實體零件，必須完整地出現在其中一塊新面板；跨過切割器時只放進其中一塊</td>
+</tr>
+<tr>
+<td>Sharable（可共用）</td>
+<td>Hole、Notch、Cutout、Excess、Compensation、Shrinkage</td>
+<td>屬於特徵或屬性，可加到單一或多塊新面板（跨過切割器時）</td>
+</tr>
+<tr>
+<td>Cuttable（可切割）</td>
+<td>Seam、Plate、Stiffener、Flange、Welding、Marking</td>
+<td>完整落在某塊就原樣加入；跨過切割器就切成兩半並修改定義後保存</td>
+</tr>
+<tr>
+<td>Referred（被引用）</td>
+<td>Topological point、Curve、Plane</td>
+<td>只有被其他元件引用時才加到某塊新面板</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Block Seam 的特性：</strong> Block Seam 只存在於沒有生產資料的設計面板上，但可以拿來「傳遞生產資料」到生產面板的邊界：在 Block Divide 之前先於 Block Seam 設定 bevel（坡口）與 excess（餘裕），這些值就會在分割過程套用到生產面板的邊界。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 切割後最容易被誤解的是 Atomic 與 Cuttable 的差別：肘板（Bracket）不會被切成兩半，而是整個放進其中一塊；加強材（Stiffener）則會被切斷，並另受「最小加強材長度」與端部處理（11.6.4）的規則影響。檢查時別把「肘板在邊界上」當成錯誤。</p>
+</blockquote>
+<h3 id="1154">11.5.4 驗證結果與反覆分段</h3>
+<p>結果主要看來源與目標分段的內容：</p>
+<ul>
+<li>兩者<strong>同型</strong>（同為設計或同為生產），且目標分段吻合切割器並涵蓋來源分段的體積，成功後來源分段應該是<strong>空的</strong>。</li>
+<li>來源是設計分段、目標是生產分段時，設計面板會保留；每個設計面板都會得到一個或多個對應生產面板。若目標分段沒涵蓋整個來源體積，剩下的生產面板放入預設生產分段。</li>
+<li>新面板名稱依內建規則由原面板推導；若分段名稱是面板名稱的一部分，會被換成目標分段名稱。</li>
+<li>最後仍應以 <code>Verify</code> 功能確認新面板沒問題。</li>
+</ul>
+<p><strong>反覆分段（Iterative Block Division）：</strong> 可把來源分段當成「信箱」使用。設計分段已被切成生產分段後，仍可往設計分段加新的設計面板；用<strong>相同輸入</strong>再跑一次 Block Divide，只有新加的設計面板會被處理。同型分段之間也一樣：往已清空的來源分段加入新面板再跑一次，這些面板會被切並加到目標分段。</p>
+<h2 id="116-block-division">11.6 Block Division 的操作</h2>
+<h3 id="1161">11.6.1 目標分段與切割器：先把「盒子」規劃好</h3>
+<p>官方一再強調：目標分段與切割器的定義是<strong>分開</strong>的，系統不檢查兩者是否一致。因此你要自己確保：切割器與目標分段吻合、目標分段涵蓋所選面板的範圍、相鄰分段之間有合理的重疊。</p>
+<p>定義分段時，可給一個<strong>標稱方盒（nominal box）</strong>與六個面的偏移量（offset）；特殊情況可對任一面另指定限制物件。官方建議：相鄰分段的標稱方盒面「相接」，然後在每一面加偏移；標稱方盒也要對應 Block Divide 用的切割器。</p>
+<p>偏移量的取捨：要大到足以收納例如延伸到面板板緣之外的加強材，又要小到不讓任何面板完全落入多個目標分段。兩個典型案例：</p>
+<p><strong>案例一：切割平面落在肋骨平面，切過甲板面板。</strong> 偏移必須包住延伸到面板外的加強材：後方分段的前緣要包住加強材（通常幾百 mm），前方分段的後緣偏移可較小。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：肋骨平面切割示意：紅線為切割平面，虛線為含偏移的分段盒</div></p>
+<p><em>圖 11-6　切割平面在肋骨平面時的分段盒偏移。紅線是切割器，不同顏色的虛線代表相鄰兩個分段含偏移後的範圍。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>案例二：切割平面就在甲板平面上，且甲板要歸下方分段。</strong> 偏移必須更小：上方分段的下限不得包住整個甲板，但仍要包住站在甲板上的面板（通常要大於板厚、小於型材高度）；下方分段的上限要包住甲板，偏移略大於最大板厚即可，不必更多。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：切割平面在甲板平面時的分段盒偏移</div></p>
+<p><em>圖 11-7　切割平面在甲板平面時的偏移設定。上方分段的下限只略低於甲板，避免把甲板整塊包進去。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>官方給的規則：</p>
+<ul>
+<li>兩種案例的偏移<strong>都不得小於</strong> Block Divide 中設定的最小加強材長度（minimum stiffener length）。</li>
+<li>更複雜的情況，通則是考慮最小板寬、最小加強材長度與加強材延伸到面板外的量，去決定偏移。</li>
+<li>仍有面板進錯分段時，可用 Rename 功能（可同時設定面板名稱與分段）把它搬到另一分段。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>設定項</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>標稱方盒</td>
+<td>相鄰分段的面相接，並與切割器位置一致</td>
+</tr>
+<tr>
+<td>偏移</td>
+<td>大於加強材外延與板厚的需要，但不使面板完全落在兩個分段內</td>
+</tr>
+<tr>
+<td>重疊</td>
+<td>要「明確」：每個面板只能唯一歸屬一個分段</td>
+</tr>
+<tr>
+<td>驗證</td>
+<td>目標分段要用 Verify 確認可存取且可修改</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1162-block-division">11.6.2 介面：Block Division 視窗與樹狀流程</h3>
+<p>按選單中的 <code>Block Divide...</code> 按鈕，會出現 Block Division 視窗（若尚未存在），內有樹狀檢視。所有功能都透過右鍵彈出選單，在視窗空白處或樹節點上呼叫。</p>
+<p>樹狀檢視的設計理念是把流程分步驟，用節點狀態顯示進度；使用者可在每一步檢查結果，也可在過程中增刪面板、切割器與目標分段。</p>
+<p>重要規則：</p>
+<ul>
+<li>所有放進流程的模型物件<strong>都必須先通過 Verify</strong> 才能繼續。</li>
+<li>任何修改模型物件的操作，都會自動寫入資料庫。因此流程進行中仍可修改模型物件，但樹中已記錄的物件<strong>不應被刪除</strong>。</li>
+<li>官方建議：開始 Block Divide 之前先執行 <code>Save Work</code>，建立模型物件的基準點（baseline）。</li>
+<li>面板可從樹拖到圖形畫布檢視：逐一拖，或拖父節點成組（例如全部選定面板、某切割器節點下的全部面板）。</li>
+</ul>
+<h3 id="1163-job">11.6.3 Job：建立與設定</h3>
+<p>視窗為空時唯一可用的功能是 <code>New Job</code>，會開啟 <code>Create Job</code> 表單，內有自動產生、可修改的作業名稱，之後在多視圖專案中可設定所處理的面板型別（單視圖專案此區塊呈灰色不可選），最後選擇是否加入 Cutters 與／或 Target Blocks 節點。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create Job 表單：Name、Job Type（Production Panels to Production Panels／Design Panels to Design Panels）、Add Cutters、Add Target Blocks</div></p>
+<p><em>圖 11-8　Create Job 表單。Job Type 有「生產面板到生產面板」與「設計面板到設計面板」兩種，單視圖專案此區為灰階；Configuration 勾選是否加入 Cutters 與 Target Blocks 節點。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>接受設定後，樹中出現 Job 節點與子節點，子節點的順序固定，對應典型流程；但文件說明使用者仍可用別的順序操作，某些情況可藉此得到不同結果。節點上的綠色圖示表示目前沒問題。<strong>Selected Objects 與 Logs 為必要節點；Cutters 與 Target Blocks 視作業而定為選用。</strong></p>
+<p>Job 節點的右鍵選單有 <code>Add</code>（補加 Cutters／Target Blocks 節點）、<code>Setup</code>（整體控制參數）、<code>Delete</code>（刪除整個 Job）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Job Setup 對話框：Minimum plate width、Minimum stiffener length、Allow symmetrical Panels in Block pairs、Include warnings in Verify Log</div></p>
+<p><em>圖 11-9　Job Setup。畫面上的預設值為最小板寬 50、最小加強材長度 100（單位依官方畫面，文件未明說，視為 mm〔待核對〕）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum plate width</td>
+<td>能形成新面板的最小板條；切割後若有一塊板窄於此值，<strong>該次切割被忽略</strong></td>
+</tr>
+<tr>
+<td>Minimum stiffener length</td>
+<td>加強材切割後若有一段短於此值，<strong>加強材不被切</strong>，整根歸於其中一塊面板</td>
+</tr>
+<tr>
+<td>Allow symmetrical Panels in Block pairs</td>
+<td>即使排進左右舷兩個分段，也維持面板對稱。兩個分段須以共同字根命名，左舷尾加 <code>P</code>、右舷尾加 <code>S</code>，且不得存在名稱等於該共同字根的分段</td>
+</tr>
+<tr>
+<td>Include warnings in Verify Log</td>
+<td>警告也寫入 Verify 紀錄；但此時警告必須修正後，面板才能繼續在 Block Divide 中處理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1164">11.6.4 各節點的功能</h3>
+<p><strong>Selected Objects（選取物件）：</strong> 右鍵功能為 <code>Add</code>、<code>Verify</code>、<code>Remove</code>。</p>
+<ul>
+<li><code>Add</code>：用一般面板選取工具挑面板，重複使用會累加；<code>Remove</code> 一次清除所有已選面板。</li>
+<li>選取後圖示變為藍色問號（未驗證）；執行 <code>Verify</code> 後，通過者變綠色勾，失敗者為紅色驚嘆號。</li>
+<li>失敗原因列在 <code>Logs</code> 節點下。處理方式二擇一：修正模型錯誤，或把該面板排除。樹中多數節點（包含每個面板節點）都有 <code>Delete</code>；問題解決、驗證通過後，圖示轉為綠勾。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Block Division 樹狀視窗：Selected Objects 下 BDR4-1 驗證失敗、BDR4-2 通過；Logs 下列出失敗訊息</div></p>
+<p><em>圖 11-10　驗證失敗的 Job。Selected Objects 中的 BDR4-1 為紅色驚嘆號，原因列在 Logs 的 Verify Selected Objects 下（例如缺少拓撲物件、指定標記的加強材不存在）。重新執行 Verify 並修正後，紀錄會被清除。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>Cutters（切割器）：</strong> 節點右鍵有 <code>Add</code>、<code>Offset</code>、<code>Delete</code>。切割器共四種來源（官方此頁列「Principal planes、RSO、shell block seams、stored panels」，與前述「Stored planes」可能是用詞差異，以實機畫面為準〔待核對〕），皆從清單挑選。</p>
+<p>定義後的切割器有自己的右鍵選單：</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Cutter 右鍵選單：Find Panels、Apply、Offset...、Divide、Delete</div></p>
+<p><em>圖 11-11　切割器節點的右鍵選單。典型順序是 Find Panels、Apply、Divide；Offset 為選用。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Find Panels</td>
+<td>檢查所有選定面板，與切割器相交者加到該切割器節點下</td>
+</tr>
+<tr>
+<td>Apply</td>
+<td>在找到的平面面板上建立暫時縫、在曲面面板上建立殼縫（由切割器與面板的交線而來）；套用後面板以簡化方式繪製、暫時縫被強調，節點旁出現藍色 Tag 符號</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>設定加強材端部偏移（可對所有切割器、單一切割器，甚至切割器下的單一面板）</td>
+</tr>
+<tr>
+<td>Divide</td>
+<td>真正把面板切成兩塊；切割器節點下不再有面板，Selected Objects 持有全部結果面板</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>刪除切割器；若其下仍有已 Apply 的面板則<strong>不能刪</strong></td>
+</tr>
+</tbody>
+</table>
+<p>使用時要記住：</p>
+<ul>
+<li>套用前可決定「不對稱方式被切到的對稱面板」要保持對稱還是拆成左右各一。例如已有 Y=8000 的切割器、又會定義 Y=-8000 的切割器時，保持對稱可能較有利。</li>
+<li>可定義多個切割器，但一個切割器 Apply 之後，必須先 Divide，才能對另一個切割器重複同樣步驟。</li>
+</ul>
+<p><strong>加強材端部（Offset 功能）：</strong> 被切斷的加強材端部可指定 shift（位移）、slant（斜切）與 notch（缺口）；組合型材（built profile）另可設 flange shift 與 flange notch。shift 與 slant 以 mm 為單位，notch 取自 endcut 表中的缺口。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：加強材端部示意：Shift、Slant、Notch、Flange notch、Flange shift 的位置關係</div></p>
+<p><em>圖 11-12　加強材切斷端的各項參數。Shift 與 Slant 為端部位置與斜切量，Notch 為腹板側缺口，Flange shift 與 Flange notch 只適用於組合型材。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>這些對話框的值會轉換成一組連接碼（connection code）與端切碼（endcut code，可帶參數）：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>官方說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可用的 shift 值</td>
+<td>由環境變數 <code>SBH_CONCODES</code> 所指向的檔案控制；必須定義配對碼，一個為正 shift、一個為負 shift（間隙）</td>
+</tr>
+<tr>
+<td>預設端切型別</td>
+<td>11、21、31</td>
+</tr>
+<tr>
+<td>需要額外端切型別時</td>
+<td>用預設關鍵字 <code>PAN_SPLIT_ECUT_FLATBAR</code>、<code>PAN_SPLIT_ECUT_BULB_LBAR</code>、<code>PAN_SPLIT_ECUT_TBAR</code>、<code>PAN_SPLIT_ECUT_BUILT_TBAR</code> 設定</td>
+</tr>
+</tbody>
+</table>
+<p>官方給的設定範例（逐字保留，因為是設定值，不是說明文字）：</p>
+<pre><code class="language-text">PAN_SPLIT_ECUT_FLATBAR    = 11,12
+PAN_SPLIT_ECUT_BULB_LBAR  = 21,22
+PAN_SPLIT_ECUT_TBAR       = 31,32
+PAN_SPLIT_ECUT_BUILT_TBAR = 130,131,140,141
+</code></pre>
+<p>這些關鍵字寫在哪個設定檔、檔案位置與載入方式，官方這一頁沒有說明〔待核對〕；請與你的系統管理員（參考<a href="ch43_system_administration_zh-TW.reading.html">第 43 章</a>）確認。</p>
+<p><strong>Target Blocks（目標分段）：</strong> 收集切割後面板要放入的分段。<strong>若不給目標分段，面板留在原分段。</strong> 右鍵有 <code>Add</code>（從清單挑分段）、<code>Verify</code>（確認分段可存取且可修改）、<code>Sort</code>、<code>Delete</code>。</p>
+<ul>
+<li><code>Sort</code>：比對 Selected Objects 下的全部面板與目標分段，<strong>只要面板完全在某目標分段內就搬過去</strong>。排序前先出現對稱處理確認表單：第一個勾選項與 Job Setup 相同；第二個控制「左右舷面板各落在兩個不成對的不同分段時，是否拆開對稱」。</li>
+<li>切割器與目標分段盒不吻合時，「先切還是先排」會得到兩種不同結果：<strong>先排序再切</strong>，完全落在某目標分段的面板已被移出 Selected Objects 子節點，所以不會被切；<strong>先全部切再排序</strong>，凡與切割器相交的選定面板都會被切。也可以混合，以得到想要的結果。</li>
+<li><code>Delete</code> 會移除 Target Blocks 節點，但<strong>不會還原</strong>已完成的排序。</li>
+</ul>
+<p><strong>Logs：</strong> 放驗證面板或分段時的錯誤訊息；排除問題後重新執行 Verify，紀錄會被清掉。</p>
+<h3 id="1165-job">11.6.5 一個典型 Job 的操作順序</h3>
+<p>下列步驟是依官方各節點描述整理出的<strong>標準流程</strong>；其中並非每一步都是強制順序（官方說明可自由調整順序）：</p>
+<ol>
+<li>在 Block Divide 前先執行 <code>Save Work</code>，建立基準點。</li>
+<li>按 <code>Block Divide...</code>，於空視窗右鍵選 <code>New Job</code>，確認名稱、Job Type 與是否加入 Cutters／Target Blocks。</li>
+<li>對 Job 節點選 <code>Setup</code>，設定最小板寬、最小加強材長度與對稱選項。</li>
+<li>在 Selected Objects 選 <code>Add</code> 選取來源面板（通常經由分段），再執行 <code>Verify</code>；處理 Logs 中的失敗項。</li>
+<li>在 Cutters 選 <code>Add</code> 挑選切割器；若需要，用 <code>Offset</code> 設定加強材端部。</li>
+<li>對每個切割器依序：<code>Find Panels</code> → <code>Apply</code> → 拖到圖形視窗檢查暫時縫 → <code>Divide</code>。</li>
+<li>在 Target Blocks 選 <code>Add</code> 挑選目標分段，<code>Verify</code>，再 <code>Sort</code>。</li>
+<li>檢查結果：來源分段是否清空（同型分段）、設計面板是否都有對應生產面板、預設生產分段（<code>_P</code>）是否出現意外面板、新面板用 <code>Verify</code> 確認。</li>
+<li>有誤放的面板，用 Rename 同時改面板名稱與分段。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 切割與排序的順序會影響結果。若目標分段盒與切割器對得很齊，兩種順序結果相同；一旦不齊，順序就成為「參數」。團隊內應先約定標準順序並寫進作業指引，而不是由每位使用者憑感覺決定。</p>
+<p><strong>常見錯誤（Block Division）：</strong>
+1. 目標分段沒涵蓋來源面板的全部範圍：剩餘面板落入 <code>_P</code> 預設生產分段（設計到生產的情況）或留在來源分段。
+2. 偏移量小於最小加強材長度，或大到讓面板同時完全落入兩個分段。
+3. 在樹中已登錄的物件被刪除，導致節點與資料庫不一致。
+4. 沒先 Save Work，切壞了沒有基準可回。
+5. 對曲面面板使用非平面切割器：曲面面板只能用平面切割器。
+6. 忘了切割器 Apply 後要先 Divide 才能處理下一條切割器。
+7. 對稱分段命名不符規則（字根加 <code>P</code>／<code>S</code>），或存在與字根同名的分段。
+8. 把 Verify 失敗的面板當成沒事，繼續往下。</p>
+</blockquote>
+<h3 id="1166-block-division">11.6.6 二次開發者怎麼接：Block Division</h3>
+<table>
+<thead>
+<tr>
+<th>整合點</th>
+<th>依據</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>背景（批次）執行</td>
+<td>官方一句話：Block Division 可在 batch process 執行，詳見 <em>Batch Utilities</em></td>
+<td>本章資料來源未包含 Batch Utilities 頁面，指令語法與輸入檔格式〔待核對〕；請先讀該章，不要自行推測</td>
+</tr>
+<tr>
+<td>環境變數 <code>SBH_CONCODES</code></td>
+<td>文件明列</td>
+<td>指向連接碼檔，控制可用的 shift 值；與部署／設定管理相關</td>
+</tr>
+<tr>
+<td>預設關鍵字 <code>PAN_SPLIT_ECUT_*</code></td>
+<td>文件明列四個</td>
+<td>可由設定管理或部署工具統一發布</td>
+</tr>
+<tr>
+<td>結果驗證</td>
+<td>文件描述的檢查準則</td>
+<td>可寫成檢查腳本：來源分段應為空、每個設計面板應有對應生產面板、預設生產分段應為空等；實際查詢資料庫的方法請見<a href="ch33_pml_database_zh-TW.reading.html">第 33 章</a>，並在訓練專案驗證</td>
+</tr>
+<tr>
+<td>作業紀錄</td>
+<td>Logs 節點</td>
+<td>圖形介面上的驗證紀錄；是否可匯出成檔案〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 文件沒有提供「用 PML 或 .NET 直接呼叫 Block Divide」的依據。若想做自動化，現階段較有把握的是：（1）批次執行（待依 Batch Utilities 確認）；（2）事前驗證（面板能否通過 Verify、目標分段是否存在且可寫）；（3）事後檢查（上述準則）。不要編造 PML 指令。</p>
+</blockquote>
+<h2 id="117-multi-view-project">11.7 Multi-View Project：同一模型的兩個視圖</h2>
+<h3 id="1171">11.7.1 為什麼需要兩個視圖</h3>
+<p>早期設計階段的重點是把模型定義到足以滿足強度等功能需求，並能以可接受的精度算出鋼重與焊接長度。後期則要提供製造零件與組合裝配所需的全部資訊。兩個階段對「船體模型的視圖」要求不同，於是有了 Multi-View Project：</p>
+<table>
+<thead>
+<tr>
+<th>視圖</th>
+<th>面板特性</th>
+<th>分段特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design View（設計視圖）</td>
+<td>大面板、<strong>沒有</strong>生產細節</td>
+<td>少數幾個分段</td>
+</tr>
+<tr>
+<td>Production View（生產視圖）</td>
+<td>完整生產細節</td>
+<td>依製造需求組織的分段</td>
+</tr>
+</tbody>
+</table>
+<p>Multi-View 是一個<strong>選項</strong>；一般的單視圖（Single View）環境仍可使用。設計視圖與生產視圖是「同一個船體產品模型的兩個視圖」，兩者同時存在，使用者選擇由哪個視圖進入模型。在完整建立的模型中，設計視圖的分段或面板，在生產視圖中有對應的分段或面板。（官方註明：除非另有說明，本章所稱面板皆指平面面板。）</p>
+<p>切換視圖用一個模式開關：設計視圖只顯示設計分段與設計面板，生產視圖只顯示生產分段與生產面板；所有圖形檢視與分段／面板清單都遵守這個規則。<strong>Hull Detail Design 永遠使用並看到生產視圖；Outfitting 可自由選擇顯示與參照哪個視圖。</strong>（Outfitting 參見<a href="ch17_outfitting_zh-TW.reading.html">第 17 章</a>。）</p>
+<h3 id="1172">11.7.2 設計面板與生產面板、設計分段與生產分段</h3>
+<table>
+<thead>
+<tr>
+<th>關係</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生產面板 → 設計面板</td>
+<td>每個生產面板<strong>連到單一</strong>設計面板</td>
+</tr>
+<tr>
+<td>設計面板 → 生產面板</td>
+<td>一個設計面板可以由<strong>多個</strong>生產面板表示（專案進展到該階段後）</td>
+</tr>
+<tr>
+<td>生產分段 → 設計分段</td>
+<td>每個生產分段連到單一設計分段，且該設計分段必須<strong>包住</strong>它</td>
+</tr>
+<tr>
+<td>設計分段 → 生產分段</td>
+<td>一個設計分段可以參照多個生產分段</td>
+</tr>
+</tbody>
+</table>
+<p>設計面板與生產面板其實是<strong>各自獨立的物件</strong>，只是系統自動維護兩者的連接。設計面板的修改會反映到其生產面板，反之亦然：這是自動的，但受使用者控制。例如設計面板修改並提交（commit）後，連接的生產面板被啟用時會提示使用者是否接受更新。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：設計面板（左）與其三塊生產面板（右）的雙向連接</div></p>
+<p><em>圖 11-13　設計面板與生產面板的對應。左側為一塊大的設計面板，右側為它被分割後的三塊生產面板，雙向箭頭代表系統維護的連接；設計面板上的紅色加強材會在生產面板上對應。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>設計與生產的連接也代表<strong>空間上的一致</strong>：設計分段參照涵蓋同一空間的生產分段，生產分段參照包住它的設計分段；設計面板被切成生產面板後，兩者佔據同一空間並代表產品模型的同一部分。設計面板內的元件，依型別與位置，在生產面板中可能由「某一塊的一個元件」或「多塊的多個元件」表示（對照 11.5.3 的四類元件）。</p>
+<h3 id="1173-multi-view">11.7.3 建立 Multi-View 專案</h3>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>判定</td>
+<td>專案含<strong>至少一個</strong> Design Block 即為 Multi-View；若存在的分段都不是設計分段，就是一般專案</td>
+</tr>
+<tr>
+<td>新專案</td>
+<td>由<strong>第一個建立的分段</strong>決定型態：先建 Design Block 則成為 Multi-View；先建 Production Block（一般分段）則成為一般專案</td>
+</tr>
+<tr>
+<td>初期內容</td>
+<td>新的 Multi-View 專案先只有設計分段與設計面板</td>
+</tr>
+<tr>
+<td>進入生產階段</td>
+<td>模型在某區域準備好後，建立生產分段，並用 Block Divide 產生生產面板（見 11.5–11.6）</td>
+</tr>
+<tr>
+<td>建立限制</td>
+<td>Design Block／Panel 只能建在 Multi-View 專案；Multi-View 內的生產分段／面板都必須連到設計分段／面板</td>
+</tr>
+<tr>
+<td>直接建立生產面板</td>
+<td>在 Multi-View 專案中建立生產面板時，系統自動在連接的設計分段內建立一份複製的設計面板當作對應</td>
+</tr>
+</tbody>
+</table>
+<p><strong>轉換既有專案：</strong> 官方提供特殊工具（文件指向 <em>Create/Remove Design Blocks and Panels</em>，本章來源未涵蓋，指令與步驟〔待核對〕），可把一般專案轉成 Multi-View，或轉回單視圖。轉換時：建立設計分段，把既有分段連到這些設計分段而成為真正的生產分段，並為每個（生產）面板建立設計面板複製；之後使用者可把設計面板複製合併，產生較大的設計面板，例如甲板與縱向艙壁。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：左：許多小塊的生產面板；右：合併後的大設計面板</div></p>
+<p><em>圖 11-14　轉換既有專案。左為既有的許多小面板（成為生產面板，每個複製成設計面板），右為合併後的大設計面板，適合早期設計階段使用。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="1174">11.7.4 設計與生產的連接細節</h3>
+<p><strong>Block Seam：</strong> 只出現在設計面板的特殊元件，代表「設計面板如何被分成生產面板」。它在用於從設計視圖產生生產視圖的 Block Division 之前或過程中建立。修改一條已有連接生產面板的 Block Seam 時，比一般縫多了限制：</p>
+<ul>
+<li>不可移動到越過另一條 Block Seam。</li>
+<li>與其他 Block Seam 的<strong>相交數量必須保持</strong>：不能有原有相交消失，也不能出現新的相交（相交位置當然可以移動）。</li>
+<li>刪除 Block Seam 只能用 <code>Remove Seam</code> 功能，受影響的生產面板會<strong>兩兩自動合併</strong>。</li>
+</ul>
+<p><strong>面板邊界：</strong> 設計面板分割成生產面板時，生產面板的邊界完全由設計面板邊界與其 Block Seam 決定。因此生產面板的邊界被所連的設計面板完全約束：每個邊界界限不是對應設計面板的邊界界限，就是對應某條 Block Seam（該縫可能被多個生產面板的邊界界限引用）。所以<strong>生產面板的邊界定義不能修改</strong>；例外是 Multi-View 專案中直接建立的生產面板（設計面板是一對一的複製），其邊界可修改，並讓設計面板配合調整。</p>
+<p><strong>生產資料：</strong> 設計面板<strong>不帶</strong>生產資料，由生產面板持有。設計面板被細分之後再修改設計面板，更新生產面板時不會破壞已加在生產面板上的生產資料。例如透過設計面板改某些加強材的斷面，其對應生產面板上加強材已定義的 bevel 會被保留。官方列為生產資料的包括：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>項目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工藝加工</td>
+<td>bevel（坡口）、weld（焊接）、excess（餘裕）、marking（打標）、taps、grinding（研磨）、surface treatment（表面處理）、shrinkage compensation（收縮補償）</td>
+</tr>
+<tr>
+<td>識別與管理</td>
+<td>position numbers（位置編號）、general purpose strings（通用字串）、workshop destination（車間去向）、raw plate name（原板名）</td>
+</tr>
+</tbody>
+</table>
+<p>這與<a href="ch15_hull_production_zh-TW.reading.html">第 15 章</a>談的零件生產資訊互相呼應：生產資料不放在設計視圖，是為了讓早期設計能隨意改動而不污染已投入的生產設定。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 把 Multi-View 想成「設計面板是藍圖、生產面板是施工單」。藍圖改了要通知施工單，但施工單上的加工資料（坡口、餘裕）不能因藍圖改了就被洗掉；這正是官方設計成「更新不破壞生產資料」的原因。</p>
+<p><strong>常見錯誤（Multi-View）：</strong>
+1. 以為設計面板可以帶生產資料：它不帶，生產資料只在生產面板。
+2. 在 Multi-View 專案內想修改由設計面板切出的生產面板邊界：不允許，要改設計面板或 Block Seam。
+3. 在已有連接的 Block Seam 上做「越過另一條縫」或「改變相交數量」的修改。
+4. 在一般專案內想建立 Design Block：只有 Multi-View 專案能建。
+5. 第一個建立的分段型別選錯，專案型態就此決定（要改需用轉換工具）。
+6. Hull Detail Design 使用者以為可以切回設計視圖：它永遠使用生產視圖。</p>
+</blockquote>
+<h3 id="1175-multi-view">11.7.5 二次開發者怎麼接：Multi-View</h3>
+<p>文件對 Multi-View 的描述是概念與限制，<strong>沒有提供</strong>可程式化的屬性名稱或指令。可以確定的事實有：判定規則（至少一個 Design Block）、視圖開關是模式開關、轉換用特殊工具、更新連接時會提示使用者接受。下列則〔待核對〕：</p>
+<ul>
+<li>設計／生產分段與面板在資料庫中的型別名稱與連接屬性。</li>
+<li>視圖切換在 PML 或 .NET 中是否有對應物件／指令。</li>
+<li>轉換工具是否有批次執行方式。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 在還不知道屬性名稱前，不要寫依賴猜測欄位的程式。建議先在訓練專案用 Hull Detail Design 或你的瀏覽工具觀察 Design 與 Production 分段的屬性差異，再把觀察到的結果寫成內部文件，並標註版本。</p>
+</blockquote>
+<h2 id="118">11.8 把三個模組串起來：一個完整的情境</h2>
+<p>假設一個外購曲面船殼要進入專案，並完成到生產分段：</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>動作</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 取得曲面</td>
+<td>以 STEP／IGES／SAT 從外部系統匯入 Surface Manager</td>
+<td>11.3.6</td>
+</tr>
+<tr>
+<td>2. 健檢</td>
+<td>Analyze、Sew、Optimize；視需要 Combine、Restrict</td>
+<td>11.3.7</td>
+</tr>
+<tr>
+<td>3. 驗收</td>
+<td>Compare Surfaces（對原系統取樣點）；Intersect Surface 取關鍵剖面曲線</td>
+<td>11.3.7–11.3.8</td>
+</tr>
+<tr>
+<td>4. 釋放</td>
+<td>Release Surface（或 as Symmetric）到設計專案</td>
+<td>11.3.6</td>
+</tr>
+<tr>
+<td>5. 設計建模</td>
+<td>在 Multi-View 專案的設計視圖建大面板（見<a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章</a>）</td>
+<td>11.7</td>
+</tr>
+<tr>
+<td>6. 規劃分段</td>
+<td>定義切割器、目標分段標稱盒與偏移</td>
+<td>11.6.1</td>
+</tr>
+<tr>
+<td>7. 切割與排序</td>
+<td>建 Job → Verify → Apply／Divide → Sort</td>
+<td>11.6.3–11.6.5</td>
+</tr>
+<tr>
+<td>8. 驗證</td>
+<td>來源分段、<code>_P</code> 預設分段、Verify</td>
+<td>11.5.4</td>
+</tr>
+<tr>
+<td>9. 後續</td>
+<td>在生產視圖補生產資料，之後接零件抽出與套料（見<a href="ch15_hull_production_zh-TW.reading.html">第 15 章</a>）</td>
+<td>11.7.4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="119">11.9 本章小結</h2>
+<ul>
+<li>Surface Manager 是曲面進入 Marine 的「檢疫站」：匯入、Analyze、修補、驗收、釋放。關鍵規則是 Hull Surface 才能直接釋放、多 Primitive 要先 Combine、對稱曲面不得跨中心線、專案在一次作業中固定。</li>
+<li>Block Division 以「來源面板、切割器、目標分段」三項輸入驅動：選取 → Verify → Apply → Divide → Sort。目標分段的盒子與偏移由使用者自己負責，系統不檢查與切割器是否一致；最小板寬與最小加強材長度決定切割是否被忽略。</li>
+<li>切割時元件分成 Atomic、Sharable、Cuttable、Referred 四類，各有處理規則；設計到生產的分割保留設計面板，沒涵蓋的部分進入 <code>_P</code> 預設生產分段。</li>
+<li>Multi-View Project 是同一模型的兩個視圖：設計面板是大塊、無生產資料的「藍圖」，生產面板帶完整生產資料；Block Seam 是兩者的橋梁，生產面板的邊界完全由設計面板與 Block Seam 決定。</li>
+<li>對二次開發者，文件有依據的整合點主要在「檔案」層（STEP／SAT／IGES／DML、blines、取樣點檔）與「設定」層（<code>SBH_CONCODES</code>、<code>PAN_SPLIT_ECUT_*</code>）；Block Division 的批次執行與 Multi-View 的資料庫屬性需補讀其他官方章節〔待核對〕。</li>
+</ul>
+<h2 id="1110">11.10 練習題與自我檢核</h2>
+<h3 id="_1">練習（只在訓練專案或測試用工作區進行）</h3>
+<p><strong>練習 11-1　曲面健檢。</strong> 匯入一個測試用 STEP 或 IGES 曲面，記錄圖形視窗中藍色邊的位置；執行 Analyze，整理 warning 與 error 數量；執行 Sew，再 Analyze 一次，比較前後差異。</p>
+<p><strong>練習 11-2　切剖面。</strong> 用 Intersect Surface 以 X 方向每 1000 mm 切一組剖面曲線，說明 Direction and distance 與 Ending point 如何決定產生的曲線數量。</p>
+<p><strong>練習 11-3　Scene Template。</strong> 建立一個含 Box Filter 的 Browse 型 Scene，另存成 Scene Template，再用它建立新 Scene，確認哪些屬性有被帶走、哪些沒有。</p>
+<p><strong>練習 11-4　偏移量推演。</strong> 假設在肋骨平面切割甲板面板，加強材延伸到面板外 250 mm，最小加強材長度 100 mm。請分別為前方分段與後方分段提出偏移建議，並說明理由。（答案方向：後方分段的前緣至少需包住加強材外延且不小於最小加強材長度；前方分段的後緣可較小，但仍不得小於最小加強材長度。實際數字依專案規則。）</p>
+<p><strong>練習 11-5　Job 順序。</strong> 在測試分段上建立一個 Job，分別試「先 Sort 再 Divide」與「先全部 Divide 再 Sort」（用複本或 Save Work 基準），記錄哪些面板的結果不同。</p>
+<p><strong>練習 11-6　Multi-View 判定。</strong> 對下列情況判斷專案型態並說明理由：（a）空專案先建立 Design Block；（b）空專案先建立一般分段；（c）一般專案中想建立 Design Block。</p>
+<h3 id="_2">自我檢核</h3>
+<ol>
+<li>Hull Surfaces 與 Primitive Assemblies 兩區在匯入時，對組裝樹的處理有什麼不同？</li>
+<li>為什麼釋放含多個 Primitive 的曲面前必須 Combine？</li>
+<li>在 Surface Manager 一次作業中，如何把曲面從專案 A 匯入、再釋放到專案 B？</li>
+<li>Analyze 的 warning 與 error 如何區分？</li>
+<li>Block Division 的三種用途是什麼？哪一種不用切割器？</li>
+<li>曲面面板可以使用哪種切割器？為什麼要先建立 Shell Block Seam？</li>
+<li>Atomic、Sharable、Cuttable、Referred 四類元件各舉兩個例子，並說明跨過切割器時各自如何處理。</li>
+<li>設計分段切成生產分段後，設計面板留在哪裡？不在任何生產分段內的生產面板去哪裡？</li>
+<li>最小板寬與最小加強材長度分別在什麼情況下使切割「被忽略」？</li>
+<li>設計面板與生產面板中，哪一個帶生產資料？更新時為何不會洗掉生產資料？</li>
+<li>為什麼生產面板的邊界定義不能修改？有什麼例外？</li>
+<li>Hull Detail Design 與 Outfitting 對視圖的選擇有何不同？</li>
+</ol>
+<h2 id="1111">11.11 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch11">附錄 D 第 11 章</a>。</p>
+</blockquote>
+<h2 id="_3">資料來源</h2>
+<ul>
+<li>AVEVA Marine 12.1 官方離線文件：<em>Surface Manager</em>（含 Overview、Interface Components、Tools and Functions、Keyboard Shortcuts、Appendices）、<em>Block Division</em>（Purpose、Panel Selection、Cutting、Sorting、Target Blocks and Cutters、Boundary Creation、Components、Block Seam Properties、Verification of the Result、Iterative Block Division、The Interactive Interface）、<em>Multi-View Project</em>（Design View - Production View、Creating a Multi-View Project、Design - Production Connections、Production Data）。</li>
+<li>本課程延伸：<a href="ch09_hull_modelling_zh-TW.reading.html">第 9 章 船體建模</a>、<a href="ch15_hull_production_zh-TW.reading.html">第 15 章 船體生產資訊、套料與裝配</a>、<a href="ch17_outfitting_zh-TW.reading.html">第 17 章 舾裝設計</a>、<a href="ch33_pml_database_zh-TW.reading.html">第 33 章 PML 資料庫操作</a>、<a href="ch43_system_administration_zh-TW.reading.html">第 43 章 系統管理與維運</a>。</li>
+</ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch10_assembly_structural_zh-TW.reading.html"><small>← 上一篇</small>第 10 章　裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</a><a class="next" href="ch12_space_fem_zh-TW.reading.html"><small>下一篇 →</small>第 12 章　空間管理與有限元素模型：Space Management 與 Finite Element Model</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

@@ -1,0 +1,1226 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 20 章　管路等角圖：Isodraft | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#20-isodraft">第 20 章 管路等角圖：Isodraft</a><ul>
+<li><a href="#201">20.1 學習目標</a></li>
+<li><a href="#202-isodraft">20.2 Isodraft 在管路出圖流程的位置</a><ul>
+<li><a href="#2021">20.2.1 它做什麼</a></li>
+<li><a href="#2022">20.2.2 與其他章節的分工</a></li>
+<li><a href="#2023-iso">20.2.3 四種 ISO 圖</a></li>
+</ul>
+</li>
+<li><a href="#203-iso">20.3 如何產生 Iso 圖（工作流程）</a><ul>
+<li><a href="#2031">20.3.1 整體流程</a></li>
+<li><a href="#2032-gui">20.3.2 GUI 操作步驟</a></li>
+<li><a href="#2033">20.3.3 命令列操作</a></li>
+<li><a href="#2034-detail">20.3.4 DETAIL 的進階形式</a></li>
+<li><a href="#2035-mark">20.3.5 完成旗標：MARK</a></li>
+</ul>
+</li>
+<li><a href="#204">20.4 選項檔與設定</a><ul>
+<li><a href="#2041">20.4.1 選項檔是什麼</a></li>
+<li><a href="#2042">20.4.2 單位的陷阱</a></li>
+<li><a href="#2043">20.4.3 選項類別總覽</a></li>
+<li><a href="#2044-atext">20.4.4 替代文字（ATEXT）</a></li>
+<li><a href="#2045-change-highlighting">20.4.5 變更標示（Change Highlighting）</a></li>
+</ul>
+</li>
+<li><a href="#205">20.5 符號與標註</a><ul>
+<li><a href="#2051-isodraft">20.5.1 Isodraft 對目錄的要求</a></li>
+<li><a href="#2052-skey-p-point">20.5.2 符號鍵（SKEY）與 P-point</a></li>
+<li><a href="#2053-shop">20.5.3 SHOP 旗標與材料表分區</a></li>
+<li><a href="#2054">20.5.4 元件如何標註</a></li>
+<li><a href="#2055">20.5.5 尺寸、彎管、歪斜與落差</a></li>
+<li><a href="#2056">20.5.6 自訂符號</a></li>
+</ul>
+</li>
+<li><a href="#206">20.6 材料清單與報表</a><ul>
+<li><a href="#2061">20.6.1 材料清單的結構</a></li>
+<li><a href="#2062">20.6.2 品項代碼與零件編號</a></li>
+<li><a href="#2063">20.6.3 螺栓</a></li>
+<li><a href="#2064">20.6.4 切管清單與其他報表</a></li>
+<li><a href="#2065-compipe">20.6.5 材料控制檔與 COMPIPE 介面</a></li>
+</ul>
+</li>
+<li><a href="#207">20.7 輸出格式與繪圖</a><ul>
+<li><a href="#2071-file">20.7.1 FILE 指令與輸出格式</a></li>
+<li><a href="#2072">20.7.2 圖紙版面</a></li>
+<li><a href="#2073">20.7.3 傳輸檔與處理指令</a></li>
+<li><a href="#2074-microstation">20.7.4 匯入 MicroStation</a></li>
+</ul>
+</li>
+<li><a href="#208-spool-isometric">20.8 Spool 與 Isometric 圖</a><ul>
+<li><a href="#2081-spooler-isodraft">20.8.1 SPOOLER 與 Isodraft 的分工</a></li>
+<li><a href="#2082-atta">20.8.2 附著點元素（ATTA）</a></li>
+<li><a href="#2083">20.8.3 分頁與可重複性</a></li>
+<li><a href="#2084">20.8.4 系統等角圖與設備組件圖</a></li>
+</ul>
+</li>
+<li><a href="#209">20.9 二次開發者怎麼接</a></li>
+<li><a href="#2010">20.10 疑難排解</a></li>
+<li><a href="#2011">20.11 本章小結</a></li>
+<li><a href="#2012">20.12 練習題／自我檢核</a></li>
+<li><a href="#2013">20.13 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　舾裝設計 · 21 / 53</span><h1 id="20-isodraft">第 20 章　管路等角圖：Isodraft</h1>
+<blockquote>
+<p>第 19 章談到管路設計的最後一步是 Spooling、Pipe Sketch 與 Isometric；之後的第 27 章也會用一節帶過 Isodraft 的概念。這一章把 <strong>Isodraft（等角圖產生器）</strong> 當成一個獨立的產品來看：它如何從資料庫「自動」算出一張帶尺寸、帶材料表、可以直接交給預製廠與現場的 ISO 圖，以及你要在哪裡動手腳，圖才會長成公司要的樣子。</p>
+<p>最重要的一句話先說：<strong>Isodraft 不是繪圖軟體，而是「資料庫 → 圖面」的轉換器。</strong> 圖面好不好，七成取決於 Design、Catalogue（目錄）與 Spooling 的資料品質，三成取決於選項檔（Options file）。ISO 圖出錯時，先查模型與目錄，再查選項。</p>
+<p><strong>資料可信度：</strong> 本章取自 AVEVA Marine 12.1 官方離線文件的 <em>Isodraft</em>（使用指南）與 <em>ISODRAFT Reference</em>（指令參考）兩大塊，共約 402 頁；實際讀過的範圍與未讀子樹列於 附錄 E。文件是 PDMS 時代的手冊，12.1 沿用，所以內文仍出現 PDMS、PARAGON、SPOOLER、COMPIPE 等舊名稱，本章照原樣保留。文件的指令語法（如 <code>DETAIL</code>、<code>ISOTYPE</code>、<code>MATERIALLIST</code>）有完整語法圖，可信度高；<strong>但它不含 PML 程式範例或 .NET API</strong>，因此「二次開發者怎麼接」一節只寫文件有依據的指令、屬性與檔案格式，其餘一律標〔待核對〕。官方機器翻譯的譯名生硬，本章改用台灣慣用說法。</p>
+</blockquote>
+<h2 id="201">20.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Isodraft 的輸入（Design、Catalogue、Fabrication 資料庫）、輸出（PLOT 檔、材料清單、各類報表）與它在管路出圖流程中的位置。</li>
+<li>區分四種 ISO 圖：合併式（Combined）、僅預製（Fabrication）、僅安裝（Erection）、Spool 圖，並指出各自的內容差異。</li>
+<li>用 GUI 與命令列兩種方式產生 ISO 圖，並說明 <code>CHECK</code> 與 <code>DETAIL</code> 的差別。</li>
+<li>說明選項檔（Options file）的三種存放區（Project／Company／Local）與主要選項類別。</li>
+<li>說明符號鍵（SKEY）、P-point、DTEXT／MTEXT 與 SHOP 旗標如何決定元件在圖上怎麼畫、列在材料表的哪一區。</li>
+<li>說明尺寸標註的三種型式（String、Composite、Overall）、歪斜與落差管線的表示法。</li>
+<li>設定材料清單、切管清單（Cut pipe list）、螺栓報表與損耗係數，並知道各報表檔如何輸出。</li>
+<li>說明輸出格式（PLOT、DXF、PDF、影像、EMF）與傳輸檔（Transfer file）的用途。</li>
+<li>說明 SPOOLER 產生的編號與 Isodraft 的關係，以及分頁、可重複性（Repeatability）、系統等角圖與設備組件（Equipment trim）。</li>
+<li>依錯誤訊息編號與常見症狀，判斷問題在模型、目錄還是選項。</li>
+</ol>
+<h2 id="202-isodraft">20.2 Isodraft 在管路出圖流程的位置</h2>
+<h3 id="2021">20.2.1 它做什麼</h3>
+<p>官方定義：Isodraft 從 <strong>Design 或 Fabrication 資料庫</strong>，依你要求的標準，為管線與管網產生等角圖的繪圖檔，主要用於管路預製，也可用於現場安裝。它會一併產生你要求的材料清單（管路元件、螺栓、切管長度），資料取自專案的 <strong>Design、Catalogue 與 Fabrication</strong> 三種資料庫。</p>
+<p>可處理的元素有 Zone、Pipe、Branch、Spool Drawing（SPLDRG）或混合；另外可畫<strong>系統等角圖</strong>（整個管網）與<strong>設備組件圖</strong>（Equipment trim）。</p>
+<blockquote>
+<p>限制：<strong>Design 與 Fabrication 的元素不能混在同一張圖</strong>，即使是系統等角圖也一樣。</p>
+</blockquote>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：標準 Isodraft 圖紙配置：左側材料清單、中央等角圖、右下角標題欄、左下切管清單與管線用途摘要</div></p>
+<p><em>圖 20-1　Isodraft 輸出圖紙的一般配置：左側材料清單、右上視角箭頭與等角圖區、底部為切管清單、管線摘要與標題欄。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2022">20.2.2 與其他章節的分工</h3>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>在哪一章</th>
+<th>本章做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管路建模、Spooling、Production Checks</td>
+<td><a href="ch19_pipework_zh-TW.reading.html">第 19 章</a></td>
+<td>只引用結果（SPLDRG、焊口編號），不重講建立步驟</td>
+</tr>
+<tr>
+<td>目錄、Spec、SPCOM</td>
+<td><a href="ch25_catalogue_spec_zh-TW.reading.html">第 25 章</a></td>
+<td>只講「Isodraft 要求目錄長什麼樣」</td>
+</tr>
+<tr>
+<td>圖面與報表總覽、Isodraft 簡介</td>
+<td><a href="ch27_drawings_zh-TW.reading.html">第 27 章</a></td>
+<td>本章深入選項、符號、材料表與輸出</td>
+</tr>
+<tr>
+<td>Draft 管理、2D 出圖、符號編輯</td>
+<td><a href="ch28_draft_admin_production_zh-TW.reading.html">第 28 章</a></td>
+<td>自訂符號與詳圖（Detail plot）在 Draft 做，本章只講如何掛接</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2023-iso">20.2.3 四種 ISO 圖</h3>
+<table>
+<thead>
+<tr>
+<th>類型（<code>ISOTYPE</code>）</th>
+<th>內容</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Combined（預設）</td>
+<td>完整尺寸與註記，材料清單含所有元件與螺栓，預製與安裝分區</td>
+<td>一張圖兩用</td>
+</tr>
+<tr>
+<td>Fabrication</td>
+<td>少了工廠座標、安裝材料、「接至／續於」註記</td>
+<td>預製廠</td>
+</tr>
+<tr>
+<td>Erection</td>
+<td>材料表除了鬆套法蘭（Loose flange），不含預製材料</td>
+<td>現場</td>
+</tr>
+<tr>
+<td>Spool</td>
+<td>只含預製資訊，每個管段（Spool）一張；標題欄管線編號後附 <code>SPL[n]</code></td>
+<td>管段預製</td>
+</tr>
+</tbody>
+</table>
+<p>也可以讓圖面區留白、只出材料清單；<code>ISOTYPE NONE</code> 則完全不出圖，只出文字報表。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 要正確配置 Spool 分界，<strong>所有元件（含直管 Tube）的 SHOP 旗標都必須是 TRUE</strong>。Tube 的預設是 FALSE，隱含的直管會被漏算而讓 Spool 尺寸錯誤。詳見 20.5.3。</p>
+</blockquote>
+<h2 id="203-iso">20.3 如何產生 Iso 圖（工作流程）</h2>
+<h3 id="2031">20.3.1 整體流程</h3>
+<pre><code>資料一致性檢查 ─► 選 ISO 類型與選項檔 ─► 選元素(CE 或 Detail List)
+      │                                          │
+      ▼                                          ▼
+ 修正 Design / Catalogue ◄── 讀訊息檔 ◄── CHECK / DETAIL ─► PLOT 檔 + 材料清單
+                                                     │
+                                       DXF / PDF / 影像 / 列印 / 報表檔
+</code></pre>
+<p>官方反覆強調：<strong>在跑 Isodraft 前，先在 Design（或 INTREPID）對管線做資料一致性檢查（Data consistency check）</strong>，批次模式尤其重要。許多 Isodraft 訊息其實來自設計或目錄錯誤，而不是操作錯誤。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：範例資料庫階層：World PIPING/AREA-A 之下有 Site、Zone、Pipe 與 Branch</div></p>
+<p><em>圖 20-2　官方命令列範例使用的資料庫階層：可從 Zone、Pipe 或 Branch 層級下 <code>DETAIL</code>。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2032-gui">20.3.2 GUI 操作步驟</h3>
+<p>啟動 Isodraft 的方式有兩種：啟動時選 Isodraft 模組，或從其他模組切換到 Isometric Generator (Isodraft)。進入後會看到 Application Window 與 Isodraft Explorer；要用命令列，從主選單 <code>Display &gt; Command Window</code> 開啟 Isodraft Command Input &amp; Output 視窗。</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>操作</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>Isometrics &gt; Standard</code></td>
+<td>開啟 Standard Isometrics 表單；系統／設備組件圖則選 System/Trim</td>
+</tr>
+<tr>
+<td>2</td>
+<td>在 Options 下拉選 Project、Company 或 Local，再點選項檔</td>
+<td>官方附 BASIC.MET、ADVANCED.MET（公制）與 BASIC.IMP、ADVANCED.IMP（英制）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>在 Isodraft Explorer 或 Members 清單選 Pipe（Design）或 Spool Drawing（Fabrication），按 CE 按鈕</td>
+<td>換了 CE 後必須再按一次 CE，否則處理的還是舊元素</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Detail 下拉選 Current Element 或 Detail List</td>
+<td>Detail List 可跨區、跨資料庫一次處理多個元素</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Produce 下拉選 Isometrics、Transfer file、Batch macro 或 Bolt report</td>
+<td>輸出種類</td>
+</tr>
+<tr>
+<td>6</td>
+<td>按 Apply</td>
+<td>依選項檔指定的目錄建立 PLOT 檔；若啟用則同時建立材料清單檔</td>
+</tr>
+</tbody>
+</table>
+<p>完成後會顯示 Display Isometric 視窗，並跳出 Isodraft Message 與 Display List 兩個表單（後者列出所有可用的圖）。若 CE 是 Zone、Group 或 ISOREG，會處理其下所屬的 Pipe 或 Spool Drawing。Detail List 只接受 Zone、Group、Pipe、Branch、ISOREG、Spool Drawing。</p>
+<h3 id="2033">20.3.3 命令列操作</h3>
+<p>命令列流程固定：<strong>設輸出檔 → 設訊息檔 → 設選項 → 組 Detail List → DETAIL</strong>。沒有指定輸出裝置與訊息檔，任何管線都無法處理。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE /ISOFILE SINGLE</code></td>
+<td>指定輸出 PLOT 檔名</td>
+<td>自動附 001、002…；每個 <code>DETAIL</code> 產生一個檔；<code>MULTIPLE 值</code> 可限制紙卷長度</td>
+</tr>
+<tr>
+<td><code>MESSAGEFILENAME /ISOMESS</code></td>
+<td>指定訊息檔</td>
+<td>記錄已處理、被拒絕（含原因）的管線、警告與輸出檔名</td>
+</tr>
+<tr>
+<td><code>ADD gid…</code> ／ <code>REMOVE gid…</code></td>
+<td>組 Detail List</td>
+<td>Add 與 Remove 清單各最多 100 筆；某管線在 Remove 出現過一次就不處理</td>
+</tr>
+<tr>
+<td><code>CHECK</code></td>
+<td>擷取資料但不出圖</td>
+<td>用於批次前預檢，或只產生傳輸檔</td>
+</tr>
+<tr>
+<td><code>DETAIL</code></td>
+<td>處理並出圖</td>
+<td><code>DETAIL CE</code>、<code>DETAIL ALL</code>、<code>DETAIL /PIPE1 /PIPE2</code></td>
+</tr>
+<tr>
+<td><code>QUERY OPTIONS</code> ／ <code>Q 設定名</code></td>
+<td>查詢目前選項</td>
+<td>例如 <code>Q SIZE</code>、<code>Q WASTAGE</code></td>
+</tr>
+<tr>
+<td><code>OPTIONS DEFAULT</code></td>
+<td>全部選項還原預設</td>
+<td>還原後需重設輸出裝置與訊息檔</td>
+</tr>
+<tr>
+<td><code>RECREATE OPTIONS</code> ／ <code>RECREATE DETAILLIST</code></td>
+<td>存成巨集檔</td>
+<td>日後重新讀入還原</td>
+</tr>
+<tr>
+<td><code>SAVEWORK</code> ／ <code>GETWORK</code></td>
+<td>存檔／取得他人在 multi-write 模式下的變更</td>
+<td>官方建議常用 SAVEWORK</td>
+</tr>
+</tbody>
+</table>
+<p>官方範例：</p>
+<pre><code>CHECK /PIPE-Y /PIPE-Z          -- 在 Design 先做一致性檢查
+FILE /ISOFILE SINGLE           -- 兩管各一個檔：/ISOFILE001、/ISOFILE002
+MESSAGEFILENAME /ISOMESS
+QUERY OPTIONS
+ADD /ZONE-1
+REMOVE /PIPE-X
+DETAIL ALL                     -- 或直接 DETAIL /PIPE-Y /PIPE-Z
+</code></pre>
+<p><code>DETAIL</code> 與 <code>CHECK</code> 能處理的最低層級是 Branch（Design）或 Spool／Field（Fabrication）。Pipe 以上（Site、Zone、Group、GPWLD）會展開成所有 Pipe；元素中的 Equipment 與 Structure 一律忽略。單一指令最多 100 個元素識別碼。</p>
+<h3 id="2034-detail">20.3.4 <code>DETAIL</code> 的進階形式</h3>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DETAIL CE AS 'System Name'</code></td>
+<td>把相連的多條管線畫成一張<strong>系統等角圖</strong></td>
+</tr>
+<tr>
+<td><code>DETAIL ... AS EQUIPMENT 文字</code></td>
+<td>設備組件圖（見 20.8.4）</td>
+</tr>
+<tr>
+<td><code>DETAIL SHEETN 2 /PIPE-2</code></td>
+<td>重畫某一張圖（需先用 Repeatability 存過分頁點）</td>
+</tr>
+<tr>
+<td><code>DETAIL SHEETN SING /PIPE2</code></td>
+<td>強制單張圖</td>
+</tr>
+<tr>
+<td><code>DETAIL PSPOOL2 OF PSLIST1 OF PIPE /…</code></td>
+<td>畫單一 PSPOOL；PSPOOL／PSLIST 由 Design 的 Pipe Production Checks 建立</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2035-mark">20.3.5 完成旗標：<code>MARK</code></h3>
+<p>預設 Isodraft 處理完不改資料庫。<code>MARK DETAIL ON</code> 在成功後把各 Branch 的 <code>DETA</code> 屬性設為 TRUE；<code>MARK REVISION ON</code> 把 Pipe 的 <code>REV</code> 加一（顯示於標題欄 <code>ISS: n</code>，文字可由 ATEXT 254 改成 <code>REV: n</code>）。<strong>Isodraft 不直接寫資料庫</strong>，而是產生一個 inter-DB 巨集（放在專案的 XXXMAC 目錄），在模組切換或 <code>SAVEWORK</code> 時才建立，回 Design 執行後才生效。只要有一個 Branch 的 <code>DETA</code> 為 TRUE，該管線預設就不會再被處理，除非 <code>MARK IGNORE ON</code>。</p>
+<blockquote>
+<p><strong>常見錯誤：</strong> 重畫時報「沒東西可畫」，其實是上次 <code>MARK DETAIL ON</code> 已把 <code>DETA</code> 設為 TRUE；或重畫後版次沒變，是因為 inter-DB 巨集還沒在 Design 執行。</p>
+</blockquote>
+<h2 id="204">20.4 選項檔與設定</h2>
+<h3 id="2041">20.4.1 選項檔是什麼</h3>
+<p>圖面上顯示什麼、怎麼顯示，<strong>由選項檔決定</strong>。選項檔本質上是一份巨集：每次產生 ISO 圖時被當成巨集執行。存放區：</p>
+<table>
+<thead>
+<tr>
+<th>存放區</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project</td>
+<td>目前專案的標準設定</td>
+</tr>
+<tr>
+<td>Company</td>
+<td>公司標準（官方附 BASIC／ADVANCED 的 .MET／.IMP）</td>
+</tr>
+<tr>
+<td>Local</td>
+<td>目前目錄下的檔案</td>
+</tr>
+</tbody>
+</table>
+<p>要建立或修改選項檔，必須是 <strong>ISOADMIN 團隊</strong>成員才看得到相關表單；使用 <code>Options &gt; Modify</code>（建立用 Create）選檔後，進入各分類表單（如 Dimensioning Options、Annotation Options、Change Highlighting）。實務上，使用者選現成選項檔，管理員維護並以巨集批次出圖。</p>
+<h3 id="2042">20.4.2 單位的陷阱</h3>
+<p>Isodraft 載入進入模組時的目前單位，但自己對孔徑與距離有一套單位，寫在選項檔中。重量、壓力、溫度的輸出單位則以目前單位解讀再轉換（例如壓力內部是 Pa，圖上要 bar，就必須在選項檔末端加上單位設定區塊）。修改選項檔時（<code>Options &gt; Modify &gt; Dimensioning &gt; Other Unit Settings</code>，視窗 Current Session Units）會把目前單位附加進該選項檔。</p>
+<table>
+<thead>
+<tr>
+<th>注意事項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UDA 不做單位轉換</td>
+<td>以資料庫單位直接輸出</td>
+</tr>
+<tr>
+<td>輸入單位與輸出單位分開</td>
+<td>輸入用 <code>BORES</code>、<code>DISTANCES</code>；輸出用 <code>UNITS</code></td>
+</tr>
+<tr>
+<td>預設輸出</td>
+<td>長度公制、孔徑英制（<code>UNITS METIMP</code>）；可改 <code>METRIC</code>、<code>IMPERIAL [FT] [BOMDEC]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2043">20.4.3 選項類別總覽</h3>
+<p>指令參考共有約 120 個設定指令。依用途分類如下（括號內為文件所述預設或要點）：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>代表指令</th>
+<th>要點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設定與流程</td>
+<td><code>FILE</code>、<code>MESSAGEFILENAME</code>、<code>ADD</code>、<code>REMOVE</code>、<code>CHECK</code>、<code>DETAIL</code>、<code>OPTIONS</code>、<code>QUERY</code>、<code>RECREATE</code>、<code>INSTALL SETUP</code>、<code>MARK</code></td>
+<td>20.3</td>
+</tr>
+<tr>
+<td>圖紙版面</td>
+<td><code>SIZE</code>（預設 A2）、<code>MARGIN</code>（預設 5 mm）、<code>RESERVE</code>、<code>FRAME</code>、<code>CUTMARKS</code>（預設 OFF）、<code>PLOTTINGSCALE</code>、<code>STACKINGARRANGEMENT</code>、<code>UNDERLAYPLOTNAME</code>（最多 8 個底圖）</td>
+<td>20.7</td>
+</tr>
+<tr>
+<td>圖面文字</td>
+<td><code>ATEXT</code>、<code>TITLEBLOCK</code>、<code>PROJECTNUMBER</code>、<code>DATE</code>、<code>POSITION</code>、<code>CHARHEIGHT</code>、<code>TTFONT</code></td>
+<td>20.4.4</td>
+</tr>
+<tr>
+<td>尺寸與座標</td>
+<td><code>DIMENSIONS</code>、<code>DIMDIST</code>、<code>SUPPORTS</code>、<code>BENDRADIUS</code>、<code>TRUNCATE</code>、<code>COORDINATES</code>、<code>COFORMAT</code>、<code>COUNITS</code>、<code>AXES</code>、<code>ELEVATION</code>、<code>TOLERANCE</code></td>
+<td>20.5.5</td>
+</tr>
+<tr>
+<td>歪斜與落差</td>
+<td><code>SKEWBOX</code>、<code>FALLINGLINES</code>、<code>FALLSKEWS</code>、<code>OVERALLSKEWS</code>、<code>ZEROLENGTHSKEWS</code></td>
+<td>20.5.5</td>
+</tr>
+<tr>
+<td>焊口、標籤</td>
+<td><code>WELDTYPE</code>、<code>WELDNUMBERS</code>、<code>WELDID</code>、<code>TAGGING</code>、<code>ITEMCODE</code>、<code>OUTCOM</code>、<code>FLOWARROWS</code></td>
+<td>20.5.4</td>
+</tr>
+<tr>
+<td>材料與報表</td>
+<td><code>MATERIALLIST</code>、<code>MATLISTFILENAME</code>、<code>CUTTINGLIST</code>、<code>CUTPIPELISTFILE</code>、<code>CLLENGTHFILE</code>、<code>SUPPORTFILENAME</code>、<code>BOLTING</code>、<code>BOLTREPORT</code>、<code>WASTAGE AREA</code>、<code>CUTBACK</code>、<code>LOOSEFLANGEALLOWANCE</code></td>
+<td>20.6</td>
+</tr>
+<tr>
+<td>Spool 與分頁</td>
+<td><code>ISOTYPE</code>、<code>SPOOLNUMBERS</code>、<code>SPLIT</code>、<code>REPEATABILITY</code>、<code>TUBESPLITS</code>、<code>CONTNOTES</code>、<code>CONTSHEETS</code>、<code>CONTWELDS</code></td>
+<td>20.8</td>
+</tr>
+<tr>
+<td>變更標示</td>
+<td><code>CHANGE HIGHLIGHTING</code>、<code>SETCOMPDATE</code></td>
+<td>20.4.5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2044-atext">20.4.4 替代文字（ATEXT）</h3>
+<p>圖上所有標準文字（材料清單標題、<code>CONN. TO</code>、<code>CONT. ON</code>、<code>BATCH REF</code>、<code>PIPING SPEC</code>…）都有唯一的 <strong>ATEXT 編號</strong>。<code>ATEXT 編號 '文字'</code> 取代標準字句；<code>ATEXT 編號 ''</code> 刪除；單打 <code>ATEXT 編號</code> 還原。可改的編號範圍為 201–500；文字只能用 A–Z、a–z、0–9、空白與 <code>+ - * . , [ ] ( ) : # ' = |</code>。範例：<code>ATEXT 15 'STRAIGHT TUBE'</code>、<code>ATEXT 410 ''</code>（刪除管線摘要註記）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Alternative Texts 表單，下拉選單選擇區域，下方列出編號與預設文字</div></p>
+<p><em>圖 20-3　Alternative Texts 表單：先選區域（如 Drawing Area），再選編號與編輯文字。座標標示的 E、N、EL 即 ATEXT 201–206。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>官方將 ATEXT 分為九個區域：等角圖區、標題欄、繪製的材料清單、管線摘要區、列印的材料清單、焊口摘要、彎管表、動態詳圖區、螺栓報表。<strong>做繁體中文化圖面時，ATEXT 是首選入口</strong>，但要注意字元集限制（含中文的處理方式〔待核對〕）。</p>
+<h3 id="2045-change-highlighting">20.4.5 變更標示（Change Highlighting）</h3>
+<p>可把「自比較日期以來有變更」的項目用指定顏色畫出：</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>開關與顏色</td>
+<td>Change Highlighting 表單的 Show Change Highlighting 核取方塊與 Colour 按鈕</td>
+</tr>
+<tr>
+<td>規則</td>
+<td>以 Create／Delete／Clear 管理；For 選元件類型，With 加條件，如 <code>MODIFIED(POS)</code>、<code>CREATED()</code></td>
+</tr>
+<tr>
+<td>比較日期</td>
+<td><code>SETCOMPDATE</code>，可指定實際時間，或引用 <strong>Stamp</strong>（在 Admin 建立）；<strong>未設定時會報錯並中止出圖</strong></td>
+</tr>
+<tr>
+<td>限制</td>
+<td>沒有規則就不上色；選了 ALL 又沒條件則全部上色；<strong>刪除的項目無法標示</strong>；每次執行的選項必須相同；成組標籤（如 <code>F8 L9 G10 B11</code>）無法單獨標出哪個變了，螺栓與墊片只以標籤出現，需看材料表</td>
+</tr>
+</tbody>
+</table>
+<h2 id="205">20.5 符號與標註</h2>
+<h3 id="2051-isodraft">20.5.1 Isodraft 對目錄的要求</h3>
+<p>Isodraft 的參考資料大多在 Catalogue DB：元件品項代碼與描述、每種元件的 2D 符號（SKEY）、特殊端部型式、法蘭螺栓需求。<strong>目錄沒設好，Isodraft 就無法正確運作。</strong></p>
+<p>元件描述拆成兩到三段：</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：目錄階層 WORLD、CATA、SECT、CATE 下方的 DTEXT 與 MTEXT 元素及其屬性 RTEX、STEX、TTEX、SKEY、XTEX、YTEX、ZTEX</div></p>
+<p><em>圖 20-4　目錄中的描述文字：DTEXT（ADTE～SDTE）提供幾何描述與符號鍵，MTEXT（AMTE～SMTE）提供材質描述。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>來源</th>
+<th>預設屬性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>幾何描述</td>
+<td>DTEXT</td>
+<td><code>RTEX</code>（另有 <code>STEX</code>、<code>TTEX</code>，可用 <code>DTEXTS</code> 指令切換，例如做多語言）</td>
+</tr>
+<tr>
+<td>材質描述</td>
+<td>MTEXT</td>
+<td><code>XTEX</code>（另有 <code>YTEX</code>、<code>ZTEX</code>，用 <code>MTEXTS</code>）</td>
+</tr>
+<tr>
+<td>附加文字</td>
+<td><code>ATTEXTS 運算式 ON 選擇規則</code></td>
+<td>可用 UDA 或屬性運算式，附加在符合 GTYP 條件的元件描述後</td>
+</tr>
+</tbody>
+</table>
+<p>最終描述 = RTEX + XTEX + ATTEXT。<code>DTEXT IGNORE</code>／<code>MTEXT IGNORE</code> 可整段略過。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：管路元件經由 SPREF 指向規格元件 SPCOM，再由 DETAIL 指向 DTEXT、MATXT 指向 MTEXT</div></p>
+<p><em>圖 20-5　元件與描述文字的關係：Pipe component 的 SPREF → SPCOM，DETAIL 指向 DTEXT（RTEX、SKEY），MATXT 指向 MTEXT（XTEX）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2052-skey-p-point">20.5.2 符號鍵（SKEY）與 P-point</h3>
+<p>每種元件在圖上的 2D 符號由 DTEXT 的 <strong><code>SKEY</code></strong> 屬性（如 <code>SKEY 'KABW'</code>）指定。同一通用型別（GTYPE）可選多個鍵，例如 CAP 可用 KABW、KACP、KASC、KASW。<strong>SKEY 錯誤時，圖上只會在元件位置畫一個預設矩形。</strong> 標準符號庫涵蓋 CAP、CLOS、COUP、CROS、ELBO／BEND、FBLI、FILT、FLAN、FTUB、INST、LJSE、PCOM、REDU、SHU、TEE／OLET、TRAP、UNIO、VALV、VENT、VFWA、VTWA、WELD、樓板貫穿 ATTA 與焊接吊耳等；每個符號都標明所需的 P-point 配置，<strong>目錄元件必須遵守</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>P-point 規則</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>自動設定，為元件原點</td>
+</tr>
+<tr>
+<td>兩通元件</td>
+<td>到達與離開為 P1、P2；兩通閥門的閥桿方向用 P3</td>
+</tr>
+<tr>
+<td>三通元件</td>
+<td>支路為 P3；三通閥閥桿用大於 P3 且孔徑未設的 P-point</td>
+</tr>
+<tr>
+<td>四通元件</td>
+<td>兩個直通流向為 P1/P2、P3/P4；閥桿用大於 P4 的 P-point</td>
+</tr>
+<tr>
+<td>偏心異徑管</td>
+<td>無接口：P3 指示平面側；有接口：P3 為接口、P9（孔徑未設）指示平面側</td>
+</tr>
+<tr>
+<td>U 型彎管（超過 135 度）</td>
+<td>依各符號圖示設定</td>
+</tr>
+</tbody>
+</table>
+<p><strong>端部型式：</strong> 預設每個 SKEY 有一種標準端部；可對 BEND、CROS、ELBO、FILT、FLAN、INST、OLET、PCOM、REDU、SHU、TEE、TRAP、VALV、VFWA、VTWA 個別設定。做法是在 Paragon 把 P-point（PTAXI、PTCAR、PTMIX）的 <code>PSKEY</code> 設為下表代碼；設為 NULL 即回到預設。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：六種端部型式與代碼：BW 對焊、CP 壓接、FL 法蘭、SC 螺紋、SW 承插焊、PL 平口</div></p>
+<p><em>圖 20-6　可表示的端部型式：BW（Butt Weld）、CP（Compression）、FL（Flanged）、SC（Screwed）、SW（Socket Weld）、PL（Plain）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2053-shop">20.5.3 SHOP 旗標與材料表分區</h3>
+<p>Isodraft 以元件的 <code>SHOP</code> 旗標把材料表分成<strong>預製（TRUE）</strong>與<strong>安裝（FALSE）</strong>兩區；未設時預設 FALSE。常見做法是在 Spec 設 SHOP 欄，選用時自動帶入；個案以 <code>NEW FLAN SEL WITH SHOP FALS</code> 覆蓋。</p>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般慣例</td>
+<td>螺栓、墊片、閥門等為安裝品；其餘為預製品</td>
+</tr>
+<tr>
+<td>同一元件兩種 SHOP</td>
+<td>Spec 建兩個 SPCOM，名稱只差<strong>後綴分隔符號</strong>（預設冒號），如 <code>*/FL100:T</code>、<code>*/FL100:F</code>；Isodraft 忽略後綴，材料表仍顯示同一品項代碼並合計</td>
+</tr>
+<tr>
+<td>直管（Tube）</td>
+<td>SHOP 取自 Spec；小口徑常設 FALSE、大口徑 TRUE，需兩條 TUBE SPCOM；選擇用 <code>SEL TUBE WITH SHOP FALS</code></td>
+</tr>
+<tr>
+<td>Spool 圖</td>
+<td>直管必須 SHOP TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>建議把小口徑的 FALSE 行排在前面、大口徑 TRUE 行排前面，避免預設選錯。</p>
+<h3 id="2054">20.5.4 元件如何標註</h3>
+<p>官方「Piping Components in Isodraft」一章用圖例說明各元件的標註規則，歸納如下：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>圖上表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般直通元件、閥</td>
+<td>方框內為材料表編號；旁有流向箭頭（可用 <code>FLOWARROWS</code> 關閉）；閥桿方向正確，歪斜者畫到最近的主方向並加註實際方向</td>
+</tr>
+<tr>
+<td>閥門名稱</td>
+<td>名稱存在 Design 時，<code>TAGGING</code> 開啟後顯示在編號方框下</td>
+</tr>
+<tr>
+<td>法蘭</td>
+<td>同組法蘭＋墊片＋螺栓編號一起標，例如 <code>F3 G8 B10</code></td>
+</tr>
+<tr>
+<td>成對相同法蘭</td>
+<td>兩個符號，編號只標一次，墊片與螺栓只算一組</td>
+</tr>
+<tr>
+<td>夾式（Wafer）元件</td>
+<td>兩片法蘭夾一個蝶閥或孔板，共用加長螺栓，兩個墊片</td>
+</tr>
+<tr>
+<td>三通、OLET</td>
+<td>主管與支管口徑用訊息連到交叉點；補強式支管加 <code>REINFORCED</code></td>
+</tr>
+<tr>
+<td>異徑管</td>
+<td>顯示 <code>大 x 小 NS</code>；偏心者畫出平面側並標偏移量；<code>FLAT DOWN</code> 之類文字需用 ATEXT 另加</td>
+</tr>
+<tr>
+<td>彎頭與彎管</td>
+<td>對焊、承插焊、螺紋彎頭在兩側加記號；彎製管（Pulled bend）視為直管的一部分，長度沿中心線計入；非直角者標銳角度數</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：閥門符號：兩側法蘭、閥桿方向與材料表編號 3，下方標註 SPINDLE U 30.00 N</div></p>
+<p><em>圖 20-7　閥門標註範例：方框內為材料表編號，旁有流向箭頭，歪斜的閥桿以註記標明實際方向（SPINDLE U 30.00 N）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：法蘭符號與標籤 F3 G8 B10：法蘭、墊片、螺栓編號並列</div></p>
+<p><em>圖 20-8　法蘭、墊片與螺栓以一組標籤標示。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：兩種三通符號：標註 6 X 3 NS 的對焊三通，與標註 6 X 1 NS 的 set-on 支管</div></p>
+<p><em>圖 20-9　三通與 set-on 支管：主管與支管口徑以訊息標示（6 X 3 NS、6 X 1 NS）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>管端與接續：</strong></p>
+<ul>
+<li>管線起點、離線 Branch 終點與管線終點會標座標（E/W、N/S、EL）。</li>
+<li>連到其他管線的管端前綴 <code>CONT. ON</code>；接設備噴嘴為 <code>CONN. TO</code>；跨圖為 <code>CONT. ON</code>／<code>CONT. FROM</code> 加圖號。</li>
+<li>Branch 端 <code>OPEN</code>、<code>CLOS</code> 不另加文字，只標座標；要加訊息用 ATEXT。</li>
+<li><code>COORDINATES</code> 控制何時標座標，可關閉噴嘴、續接管、OPEN／CLOS／VENT／DRAN 端；<code>COFORMAT</code> 可選 USER、ENU、XYZ、SHIP（船舶肋位坐標，如 <code>FR41-396</code>）、NUMBERS 五種格式。船舶專案要用肋位座標時，這是對應入口；實際可用性〔待核對〕。</li>
+<li><code>CONTINUATIONSYMBOLS</code> 在合併式與安裝式 ISO 圖的設備連接處畫虛線噴嘴；<code>CONTNOTES</code> 與 <code>CONTWELDS</code> 加續接註記與臨時焊口編號。</li>
+</ul>
+<p><strong>預設座標系為 World</strong>；<code>AXES</code> 可改用任何有原點的元素（Site、Zone 等）的座標系。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：World、Site、Zone 三層座標軸，同一元件在三者下有不同的 E、N 值</div></p>
+<p><em>圖 20-10　各層級有自己的座標原點，同一元件在 World、Site、Zone 下座標不同；以 <code>AXES</code> 選擇圖上採用的座標系。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><strong>現場補焊與鬆套法蘭：</strong> 現場需加工，因此以訊息標在管端（如 <code>FFW</code>、<code>LEFT LOOSE</code>）。啟用切管清單（<code>CUTPIPELISTFILE</code>）時，Isodraft 會對屬性 <code>LOOSE</code> 為 TRUE 的法蘭，以及 SKEY 為 <code>WF</code> 的現場焊口，自動加上現場配合裕量：優先取該焊口或法蘭的 <code>ALLO</code> 屬性，沒設或為零則預設 <strong>150 mm</strong>，可用 <code>LOOSEFLANGEALLOWANCE</code> 改。Tube 中的現場焊口，裕量加在焊口前的直管；要加到後一段，需在 Design 把焊口翻轉使 P-arrive 為 P2。圖上顯示的仍是設計尺寸。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：現場補焊 FFW 與標註 229，以及鬆套法蘭 LEFT LOOSE 的標籤 F2 G3 B4</div></p>
+<p><em>圖 20-11　現場補焊（Field-fit Weld）與鬆套法蘭（Loose Flange）的標註。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h3 id="2055">20.5.5 尺寸、彎管、歪斜與落差</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：三種尺寸標註：(a) String、(b) Composite、(c) Overall</div></p>
+<p><em>圖 20-12　尺寸標註方式：String（逐段）、Composite（合併直接相連的元件）、Overall（整段）。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>型式</th>
+<th>說明與預設</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>預設。從 Branch 起點、轉向點、元件接點（法蘭、焊口、螺紋、壓接，不含墊片）逐點量測；細節最多</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>忽略預製廠無法控制的單一元件尺寸，直接相連的非法蘭元件視為一個整體；法蘭仍是斷點；三通處一律斷開</td>
+</tr>
+<tr>
+<td>Overall</td>
+<td>起點到第一轉向、轉向到轉向、末轉向到終點、落差盒、Branch 接點之間；預設標示距離 16 mm</td>
+</tr>
+<tr>
+<td>Critical</td>
+<td><code>DIME OVER CRIT</code>：量到關鍵元件，適用於採購交給當地廠商、元件尺寸尚未定的情況</td>
+</tr>
+</tbody>
+</table>
+<p>常用寫法：<code>DIME OFF</code>（不標尺寸）、<code>DIME COMP ON</code>、<code>DIME OVER ON ACR</code>（跨 Branch 接點）、<code>DIME OVER CEN</code>（量到閥中心線）、<code>DIME DEFAULT</code>。預設是 String 開、Overall 關、支架尺寸開、閥中心線關。標示距離（Standout）預設 String／Composite 為 11 mm、Overall 為 16 mm、支架為 6 mm，三者不可設為同值（<code>DIMDIST</code>）。</p>
+<p>標註的取整：所有尺寸四捨五入到 1 mm 或 1/16 吋，<strong>預設把餘數帶到下一個尺寸</strong>以減少累積誤差，代價是相同管件可能差 1 mm；要關閉用 <code>TRUNCATE</code>。彎製管預設標半徑（SKEY 以 PB 開頭），<code>BENDRADIUS</code> 可改為孔徑倍數、設標準半徑，或關閉。孔徑可選標稱或實際（<code>PRECISION BORES</code>）。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：支架尺寸標示位置：(a) 預設與其他尺寸同側，(b) 支架尺寸置於相反側，含 6 mm、11 mm、16 mm 標示距離</div></p>
+<p><em>圖 20-13　支架尺寸可與 String 同側（預設）或置於相反側（<code>DIMENSIONS HANGERS</code>）；各線標示距離不同。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>歪斜管（Skewed）</td>
+<td>以歪斜盒（Skewbox）表示，<code>SKEWBOX</code> 選完整盒或三角形，三角形可加剖面線（預設間距 3 mm）、擺動角、H／V 註記</td>
+</tr>
+<tr>
+<td>落差管（Falling）</td>
+<td>落差小於限值（預設 5 度）時改用落差箭頭＋ <code>FALL</code> 與角度；<code>FALLINGLINES</code> 改限值</td>
+</tr>
+<tr>
+<td>歪斜且落差</td>
+<td>預設用 3D 歪斜盒；<code>FALLSKEWS</code> 可改成箭頭加單一 2D 盒</td>
+</tr>
+<tr>
+<td>圖面易讀性</td>
+<td><code>CHARHEIGHT</code>（註記字高；文件另有 <code>CHARSIZE</code> 寫法〔待核對〕）、<code>PICTURESCALE</code>（只縮放符號與註記對管長的比例，不縮放材料表）、<code>MESSAGEACCURACY</code>（引線搜尋精度 1～3 與迭代次數；先從 1 開始，高精度犧牲效能）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>保溫與伴熱：</strong> 管線的 <code>ISPEC</code>／<code>TSPEC</code> 有設時可在圖上標示；保溫起訖點可用 <code>INPP</code> 型 ATTA 標示；保溫規格註記標在起點，伴熱規格名稱標在標題欄。以 <code>INSULATIONCONTROL</code>、<code>TRACINGCONTROL</code> 控制只畫直管或含元件。</p>
+<p><strong>規格變更：</strong> 以箭頭訊息同時標出原規格與新規格，預設元件層級，<code>SPECBREAK</code> 可改 Branch 層級；同一點最多 10 項變更。</p>
+<p><strong>焊口：</strong> 符號代碼 <code>WS</code>（現場焊）、<code>WF</code>（現場配合焊）、<code>WW</code>（工廠焊）；<code>WELDTYPE</code> 可限只顯示工廠焊、現場焊、全不顯示或全部視為工廠焊。<code>WELDNUMBERS FROMDB</code> 取用 SPOOLER 產生的編號（若發現未編號焊口會顯示錯誤並<strong>中止出圖</strong>）；不用 SPOOLER 時 Isodraft 可自行編號，但<strong>版次之間不保證維持</strong>；附加焊口（AWELD）可用 <code>BALLOON 數量</code> 控制為個別圓框或合併橢圓。<code>DIMENSIONS OFF</code> 配 <code>WELDNUMBERS</code> 可產生無尺寸、有焊口編號的圖，用於記錄射線檢測結果。</p>
+<p><strong>自訂標籤：</strong> <code>OUTCOM</code> 把元件屬性與 UDA 以六種外框（含無框、空白手寫框）標在圖面。</p>
+<h3 id="2056">20.5.6 自訂符號</h3>
+<p>標準符號庫的符號可在 Draft 或其他 2D 繪圖程式重新定義（建立方法見 <a href="ch28_draft_admin_production_zh-TW.reading.html">第 28 章</a> 與 Draft 官方文件）。要點：</p>
+<ul>
+<li>新符號必須衍生自「具所需特性」的既有符號；彎頭、彎管、三通、十字是以管段畫的，<strong>不可重新定義</strong>；儀表錶盤 IDFL、IDPL 不應重定義。</li>
+<li>同時存在的自訂符號最多 <strong>300</strong> 個。</li>
+<li>符號屬性（在 Draft 設定）：<code>SCale</code>（100 為原大）、<code>ORIentation</code>（NONE、FLOW、REDUcer、FLANge）、<code>FLWA</code>（流向箭頭）、<code>DIMEnsion</code>、<code>Fill</code>。ORI FLAN／REDU 的符號會自動依管線元件順序翻轉；ORI FLOW 依流向翻轉。</li>
+<li>閥桿 SKEY：<code>SPINdle ON/OFF/skey</code>。若符號本無閥桿，可把軸向 P-point（PTAX）的 <code>PURP</code> 設為 <code>SPIN</code>。</li>
+<li><strong>通用符號 <code>UNIV</code></strong>：給 PCOM 的「幽靈」符號——一個圓（預設半徑 10 mm，<code>SKeyScale</code> 以百分比調整）加連到各接點的線；不表示實際幾何，需用詳圖或 Draft 圖補充；端部型式由各 P-point 的 <code>PSKEY</code> 設定（BW、CP、SW、FL、SC、PL，未設視為 PL）；接點旁輸出 P-point 編號（前綴為 ATEXT 388，預設 <code>P</code>，設空白則不輸出）。非標準品項多的專案（如食品、製藥）特別有用。</li>
+</ul>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：12 種標準閥桿符號 01SP 至 13SP（缺 04SP）</div></p>
+<p><em>圖 20-14　官方提供的標準閥桿 SKEY，可用 <code>SPINDLE skey</code> 替換原閥桿形狀。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<h2 id="206">20.6 材料清單與報表</h2>
+<h3 id="2061">20.6.1 材料清單的結構</h3>
+<p>預設材料清單畫在圖紙<strong>左側</strong>，中等字高；合併圖中預製與安裝分開，每區依「管、管件與法蘭、墊片、螺栓、閥／管內元件、儀表、支架」分組。每筆有流水號（與圖面編號對應）、描述、公稱尺寸、品項代碼與數量。<strong>每張分頁各有一份材料清單，流水號每頁從 1 重新開始</strong>；溢出的行預設接在一張空白的「假」圖上。</p>
+<p><code>MATERIALLIST</code> 控制：是否畫出、單檔或每圖一檔、預製區是否依 Spool 排序、排除品項、位置、字大小（小／中／大）、行距、品項代碼欄寬（預設 8、最大 29 字元，不含開頭 <code>/</code>）、是否含描述、溢出處理、頁碼樣式、<strong>是否加重量欄</strong>與預製／安裝／合計重量。欄位可選標準欄（編號、描述、品項代碼、公稱尺寸、數量、備註）或其他元件／Spec 屬性與 UDA，重量欄找不到時顯示 <code>--</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Material List Column Definitions 視窗：欄位標題、Fill、From、Width</div></p>
+<p><em>圖 20-15　Material List Column Definitions 視窗：每欄可設定標題（兩行）、填入內容（如 BORE、PARTNUMBER、ITEMCODE）、來源與欄寬。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<blockquote>
+<p><strong>專業提醒：</strong> 此視窗預設載入 ATEXT 標題，但<strong>編輯欄標題不會回寫 ATEXT</strong>，而是存於選項檔的欄位定義；欄位留白會得到空白標題。</p>
+</blockquote>
+<h3 id="2062">20.6.2 品項代碼與零件編號</h3>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>預設品項代碼</td>
+<td>SPCOM 名稱去掉 Spec 名稱與開頭 <code>/</code>，如 <code>RF300/100CRMM</code> → <code>100CRMM</code></td>
+</tr>
+<tr>
+<td>完整名稱</td>
+<td><code>ITEMCODE LENGTH</code>；同時要加寬 <code>MATERIALLIST CODE</code></td>
+</tr>
+<tr>
+<td>替代品項代碼</td>
+<td>在 SPCOM 建 UDA（如 <code>:clienta</code>），以 <code>ITEMCODE</code> 指定來源；螺栓的 UDA 建在 DTAB；支架可取自 ATTA 自身屬性。<strong>UDA 中分隔符號之後的文字會被截掉</strong></td>
+</tr>
+<tr>
+<td>後綴合計</td>
+<td>名稱或 SPREF 不能重複，故以後綴區別；Isodraft 辨識分隔字元（預設 <code>:</code>）後移除並合計；<code>ITEMCODE SEPARATE</code> 讓描述不同者分列；<code>DELIMITER</code> 可改分隔符號</td>
+</tr>
+<tr>
+<td>儀表</td>
+<td>名稱併入描述（品項代碼欄留白），或以 <code>INSTNAME</code> 改用 SPREF；其他可標籤類型要用 <code>KEYS</code> 賦予鍵編號才視同儀表</td>
+</tr>
+<tr>
+<td>零件編號</td>
+<td><code>PARTNUMBERS FROMDB</code> 取用 SPOOLER 所定（跨版次保持）；<code>GENERATED</code> 由 Isodraft 產生（<strong>不跨版次保持</strong>）</td>
+</tr>
+<tr>
+<td>排除品項</td>
+<td>用屬性 <code>MTOC</code>／<code>MTOT</code>（Branch 成員與離管）、<code>MTOH</code>（首段管）：<code>ON</code>、<code>OFF</code>（不列表但照畫）、<code>DOTD</code>（不列表、虛線並標尺寸）、<code>DOTU</code>（虛線不標）</td>
+</tr>
+<tr>
+<td>額外品項</td>
+<td>元件的參考陣列 <code>MTOR</code> 最多指向 20 個額外 SPREF（如法蘭頂開螺絲、閥手輪鏈、試壓用盲板），長度或數量由 <code>MTOL</code>、<code>MTOQ</code> 設定，列於 Miscellaneous items</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2063">20.6.3 螺栓</h3>
+<p>螺栓需求存於目錄：<strong>Bolt Set（BTSE）</strong>及其下的 Bolt Point（BLTP），與 <strong>Bolt Table（BLTAB）</strong>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：目錄中螺栓資料的階層：CATA 下 SECT、BTSE、BLTP；BLTAB 下 BLIST、SBOLT 與 LTAB、DTAB</div></p>
+<p><em>圖 20-16　螺栓資料的目錄階層：BTSE／BLTP 存螺栓孔與規格，BLTAB 下的 BLIST／SBOLT 與 LTAB／DTAB 存螺栓種類與可用長度。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>元素／屬性</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BTSE</code>：<code>NOFF</code>、<code>BDIA</code>、<code>BTHK</code>、<code>BTYPE</code></td>
+<td>標準螺栓孔數、直徑、通過法蘭的長度、螺栓類型</td>
+</tr>
+<tr>
+<td><code>BLTP</code>：<code>NUMB</code>、<code>BDIA</code>、<code>BTHK</code>、<code>BTYPE</code></td>
+<td>非標準孔、頂開螺栓（NUMB 為 0）；孔須沿螺栓圈依序編號，使兩個相同法蘭反轉後仍可對接</td>
+</tr>
+<tr>
+<td>元件的 <code>BLRF</code></td>
+<td>指向一個或多個 Bolt Set</td>
+</tr>
+<tr>
+<td><code>DTAB</code>：<code>BLEN</code></td>
+<td>某直徑與材質可用的所有螺栓長度；Isodraft 計算後取 <strong>大於等於需求</strong> 的最小長度</td>
+</tr>
+<tr>
+<td>Spec 的 <code>BSPEC</code></td>
+<td>螺栓規格；未設則取法蘭元件所在的管路規格</td>
+</tr>
+<tr>
+<td>螺栓類型 <code>BTYP</code></td>
+<td><code>MACH</code>（機械螺栓）、<code>STU</code>（雙頭螺栓）、<code>CAP</code>、<code>JACK</code>、<code>TAP</code>；<code>BOLT</code> 表示用 Spec DEFAULT 欄的預設型式</td>
+</tr>
+<tr>
+<td>選擇規則</td>
+<td>兩側皆 BOLT 取預設；一側 BOLT 另一側非 BOLT 取後者；兩側相同且非 BOLT 取該型；不同且皆非 BOLT 取起點側</td>
+</tr>
+</tbody>
+</table>
+<p>供應商一併供應螺栓者（如孔板法蘭組），把 <code>BLTREF</code> 或 <code>CATREF</code> 設為空即不輸出該接頭的螺栓。螺栓的 SHOP 規則與直管相同（兩個 SPCOM 加後綴）。</p>
+<p><code>BOLTING</code> 控制長度顯示位置（預設：描述欄顯示、品項代碼尾端附加；<code>INSERT AT 'Here'</code> 可取代指定字串；<code>BOLTING OFF</code> 全關），並設定材料控制檔的單位旗標。<code>BOLTREPORT</code> 另出螺栓報表（ASCII，頁長可設；可附法蘭中心線座標），與 <code>DETAIL</code> 同樣掃描，但只報與螺栓有關的診斷，不要求整條管線幾何完全正確，<strong>但連接關係必須正確</strong>。螺栓長度的詳細計算（法蘭－墊片－法蘭、夾式、混合需求、噴嘴、額外螺帽墊圈）在官方指南的 Bolting 章，本章未逐頁細讀（見 附錄 E）。</p>
+<h3 id="2064">20.6.4 切管清單與其他報表</h3>
+<table>
+<thead>
+<tr>
+<th>報表</th>
+<th>指令</th>
+<th>內容與說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切管清單（圖上）</td>
+<td><code>CUTTINGLIST ON</code>（預設 OFF）</td>
+<td>每段切管：尖括號切片編號 <code>&lt;1&gt;</code>、長度、孔徑、備註；可加品項代碼與端部加工（<code>PE</code> 平、<code>BE</code> 斜口、<code>TH</code> 螺紋、<code>SC</code>、<code>SA</code> 鞍口，皆為可改的 ATEXT）；<code>PERDRAWING</code> 讓編號每圖重排</td>
+</tr>
+<tr>
+<td>切管報表檔</td>
+<td><code>CUTPIPELISTFILE</code></td>
+<td>品項代碼、描述、孔徑、切割長度、計算長度（不含端部加工裕量）、特殊需求、切片編號、批次參考（Zone 名）</td>
+</tr>
+<tr>
+<td>完整材料清單檔</td>
+<td><code>MATLISTFILENAME</code></td>
+<td>文字檔，每圖一檔或全部一檔；僅輸出檔時圖上仍有編號</td>
+</tr>
+<tr>
+<td>支架明細</td>
+<td><code>SUPPORTFILENAME</code></td>
+<td><strong>系統等角圖不寫入</strong></td>
+</tr>
+<tr>
+<td>管長摘要</td>
+<td><code>CLLENGTHFILE</code></td>
+<td>管中心線長度摘要，或含保溫；兩者擇一，不能同時產生</td>
+</tr>
+<tr>
+<td>彎管表</td>
+<td><code>POSITION BENDTABLE</code></td>
+<td>彎管示意圖加長度、半徑、角度；可輸出 ASCII 供彎管機</td>
+</tr>
+<tr>
+<td>焊口表／修訂表／系統表</td>
+<td><code>POSITION WELDTABLE</code>／<code>REVISIONTABLE</code>／<code>SYSTEMTABLE</code></td>
+<td>焊口表需 <code>WELDNUMBERS FROMDB</code>；修訂表只能用 UDA（最多 10 個版次）；系統表列管線屬性與 UDA</td>
+</tr>
+<tr>
+<td>詳圖（Detail plot）</td>
+<td><code>POSITION DETAILPLOTS</code></td>
+<td>元件的 <code>DPFN</code> 指定詳圖 PLOT 檔，最多 20 個；用 <code>DPGRID</code> 的 3×3 格號定位時最多 9 個；手動與疊排不能混用；<code>PLOTDETAILDATA</code> 可附屬性值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>損耗與加工裕量：</strong></p>
+<ul>
+<li><code>WASTAGE AREA n 係數</code>：全廠最多 10 個損耗區（0–9），區 0 固定為 1。Branch 的 <code>EREC</code> 屬性設區號（<code>EREC=10</code> 視為區 0，11 為區 1…）；Spec 直管的 <code>PWAS</code> 為百分比。官方例：管長 1000 mm、<code>PWAS</code>=10、區 3 係數 1.2，損耗為 1000 x 10% x 1.2 = 120 mm，圖上切管長 1120 mm。</li>
+<li><code>CUTBACK</code>：確保彎管機與螺紋機有足夠夾持長度，不足就在切管長度加長，事後切除；規則逐條比對，<strong>第一條成立者生效，順序很重要</strong>；備註顯示 ATEXT 186（CUT START）、187（CUT END）。例：<code>CUTB 200 ON ALL BEND</code> 作為最後的收尾規則。</li>
+</ul>
+<h3 id="2065-compipe">20.6.5 材料控制檔與 COMPIPE 介面</h3>
+<p><strong>Material Control File</strong> 是 ASCII 檔，記錄圖中所有材料，供外部材料管制程式讀取；每筆記錄最多 14 個字、每字 5 位整數，依記錄編號區分直管（100）、管件（200）、法蘭（300）、墊片（400）、螺栓（500）、閥（600）、儀表（700）、支架（800）等。欄位格式為圖片，本章未逐欄整理。</p>
+<p><strong>COMPIPE 介面</strong>（輸出給 COMPIPE 模組）：<code>COMPIPEFile /前綴</code> 啟動，產生 <code>前綴.LINE001</code>（Linelist）與 <code>前綴.MTO001</code>（MTO）；<code>COMPIPEFile OFF</code> 關閉。選項可串接：<code>COMPIPE MTO DRWG|PIPE</code>、<code>ITEMcodes User|Client</code>、<code>DESCriptions Short|Long</code>、<code>SUPPorts ON|OFF</code>，預設為 <code>MTO DRWG ITEMcodes User DESCriptions Short SUPPorts ON</code>；MTO DRWG 要求材料表溢出選項不是預設的 DUMMY。管線需有 <code>CARE</code>（必填，4 字元）、<code>CNUM</code>、<code>CDRG</code> 等屬性，DTEXT 需有 <code>SCOD</code>（必填，3 字元；標準組件用 <code>SAN</code>）；缺短碼的元件會使整條管線不產生 COMPIPE 檔。限制包含含 <code>/</code> 的品項代碼、系統與 Spool 圖等。此介面是否仍用於你們的流程〔待核對〕。</p>
+<h2 id="207">20.7 輸出格式與繪圖</h2>
+<h3 id="2071-file">20.7.1 FILE 指令與輸出格式</h3>
+<p><code>FILE</code> 同時指定 PLOT 檔名與其他格式。Isodraft 在檔名後自動加三位序號，並跳過已存在的號碼；DXF、PDF、影像、EMF 會再加 <code>.dxf</code>、<code>.pdf</code>、<code>.tif／.bmp／.jpg／.png／.dif</code>、<code>.emf</code>。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>語法與選項</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLOT（原生）</td>
+<td><code>FILE /名稱 [SINGLE｜MULTIPLE [紙長 mm]]</code>；預設行為在官方文字中有兩種說法，以實測為準〔待核對〕</td>
+</tr>
+<tr>
+<td>DXF</td>
+<td><code>FILE DXF /名稱</code>；日文環境可加 <code>SHIFTJIS</code> 或 <code>EUC</code></td>
+</tr>
+<tr>
+<td>PDF</td>
+<td><code>FILE SET PDF [VIEW｜NOVIEW] [COMP｜NOCOMP] …</code>：是否自動以 Adobe Reader 開啟、壓縮</td>
+</tr>
+<tr>
+<td>直接列印</td>
+<td><code>FILE SET PRINT [NOFIT｜REDUCETOFIT｜EXPANDTOFIT｜ALLFIT] [DIALOG｜NODIALOG｜ONEDIALOG]</code></td>
+</tr>
+<tr>
+<td>影像</td>
+<td><code>FILE SET IMAGE [TIF｜TIFLZW｜TIFGFOUR｜JPG｜BMP｜GIF｜PNG] [REDUCE 0.01–0.99]</code></td>
+</tr>
+<tr>
+<td>EMF</td>
+<td><code>FILE SET EMF …</code></td>
+</tr>
+<tr>
+<td>共通</td>
+<td>色彩模式 <code>STANDARD</code>、<code>BW</code>、<code>GRAYSCALE</code>、<code>COLOURPLUS</code>（把近黑近白的灰全轉黑白，對比最大）；<code>MINLINEWIDTH 0.01–9.99 mm</code>；<code>BINDPAGES</code>（全部頁合成一檔）或 <code>NOBINDPAGES</code>（每頁一檔）</td>
+</tr>
+</tbody>
+</table>
+<p>範例：<code>FILE AND DXF PDF PRINT IMAGE EMF "plot" SINGLE</code> 一次輸出所有格式並列印；<code>FILE SET PDF Noview Nocomp Colourplus Bindpages</code>。查詢用 <code>Q OUTPUT</code>、<code>Q OUTPUT PDF</code> 等。<strong>TrueType 字型只能用在 DXF、PDF、影像、EMF 輸出</strong>（<code>TTFONT</code>）。文件提到 PDMS 的繪圖尺寸上限為「3275mm2」，單位表達疑有誤，原文照錄〔待核對〕。</p>
+<p>多張圖排在同一紙卷用 <code>STACKINGARRANGEMENT</code>（單檔模式不可疊排）。底圖用 <code>UNDERLAYPLOTNAME</code>（最多 8 個；必須與 Isodraft 輸出圖紙尺寸相同），適合預印圖框；此時可用 <code>FRAME</code> 關掉自繪圖框。</p>
+<h3 id="2072">20.7.2 圖紙版面</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>指令與預設</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>紙張</td>
+<td><code>SIZE A3</code>（ISO A0–A4）、<code>SIZE AA</code>（美規 A–E）、<code>SIZE H 300 W 400</code>；預設 A2</td>
+</tr>
+<tr>
+<td>實際出圖尺寸</td>
+<td>預設同設計尺寸；<code>PLOTTINGSCALE</code> 可更小</td>
+</tr>
+<tr>
+<td>邊界與保留區</td>
+<td><code>MARGIN</code>；<code>RESERVE</code> 在圖面區頂部／底部或材料表底部留空（供標準註記、預印資料、詳圖）</td>
+</tr>
+<tr>
+<td>剪裁記號</td>
+<td><code>CUTMARKS</code>（預設 OFF）</td>
+</tr>
+<tr>
+<td>視角</td>
+<td><code>ISO</code> 設北向箭頭位置：預設左上，可改右上、右下；<code>BOX</code> 在箭頭外加框</td>
+</tr>
+<tr>
+<td>標題欄</td>
+<td><code>TITLEBLOCK</code> 加行（最多 25 行，可用底線與直線畫框）；<code>PROJECTNUMBER</code>；<code>DATE</code>（預設英式，可改歐式、美式或關閉）；把文字用 <code>POSITION</code> 放到 0,0 可抑制</td>
+</tr>
+<tr>
+<td>使用者定位文字</td>
+<td><code>POSITION</code> 可定位北向箭頭、Spool 編號、頁碼、專案編號、彎管半徑、系統名稱、日期，並可加入最多 100 個管線屬性（含 UDA）；<strong>不檢查位置，請放在邊界</strong>；<code>POSITION 文字 OFF</code> 取消</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2073">20.7.3 傳輸檔與處理指令</h3>
+<p>Isodraft 先從 Design 與 Catalogue 處理資料，產生<strong>中間資料檔（IDF，Transfer file）</strong>，再由 ISODRAW 轉成 PLOT 檔。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRANSFERFILENAME 檔名</code></td>
+<td>另存 ASCII 傳輸檔；<code>OFF</code> 取消；預設傳輸檔 <code>/trans</code> 每次 <code>DETAIL</code>／<code>CHECK</code> 都會覆寫</td>
+</tr>
+<tr>
+<td><code>PROCESS TRANSFERFILENAME 檔名</code></td>
+<td>以傳輸檔直接產生 PLOT 檔，不再讀資料庫</td>
+</tr>
+<tr>
+<td><code>PREPROCESS</code>、<code>POSTPROCESS</code></td>
+<td>各可定義最多五個系統指令（以整數編號），在傳輸檔寫完之後、ISODRAW 呼叫前後執行</td>
+</tr>
+</tbody>
+</table>
+<p>10.3 版以前的傳輸檔是二進位，無法用 <code>PROCESS</code> 處理。傳輸檔也是向 AVEVA 支援回報問題（PUR）時常用的附件。這給二次開發者一個「不碰資料庫就能重現或後處理」的切入點，見 20.9。</p>
+<h3 id="2074-microstation">20.7.4 匯入 MicroStation</h3>
+<p>官方有一份 MicroStation/J 的建議：DXF 沒有顯式顏色，<strong>以圖層名 <code>GT_n</code> 對應 Marine 顏色 n</strong>，直接匯入會全白無法出圖；需在 <code>dwglevel.tbl</code> 加上 <code>GT_1</code>→層 1 等對照，並另行安裝字型。細節本章未細讀。</p>
+<h2 id="208-spool-isometric">20.8 Spool 與 Isometric 圖</h2>
+<h3 id="2081-spooler-isodraft">20.8.1 SPOOLER 與 Isodraft 的分工</h3>
+<p>SPOOLER 做的事（資料在 <strong>Fabrication 資料庫</strong>，交叉參照 Design）：定義獨立於 Pipe／Branch 階層的 Spool Drawing（SPLDRG）、互動加入 Spool 分界、建立焊口、彎製管、零件、Spool 與接頭編號。一個 SPLDRG 通常對應 Isodraft 的一張等角圖（可跨多頁），內含若干 Spool（預製組件）與 Field（安裝件）。SHOP 旗標變化處自動分出 Spool 與 Field；也可強制 Spool Break、加現場焊；<code>SFLimit</code>（BRAN、PIPE、ZONE、SITE、WORLD，預設 WORLD）則強制在指定層級的元素變更處分界。詳細建立步驟見 <a href="ch19_pipework_zh-TW.reading.html">第 19 章</a>。</p>
+<p>要把 SPOOLER 的編號畫到圖上，需開啟對應指令：</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>Isodraft 指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spool</td>
+<td><code>SPOOLNUMBERS FROMDB</code></td>
+</tr>
+<tr>
+<td>零件</td>
+<td><code>MATERIALLIST PARTNUMBERS FROMDB</code></td>
+</tr>
+<tr>
+<td>焊口</td>
+<td><code>WELDNUMBERS FROMDB</code></td>
+</tr>
+<tr>
+<td>接頭</td>
+<td><code>JOINTNUMBERS ON</code></td>
+</tr>
+<tr>
+<td>彎製管</td>
+<td><code>PBENDNUMBERS ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>不用 <code>FROMDB</code> 而只開 <code>SPOOLNUMBERS ON</code>，則由 Isodraft 自行編號，從管線起點依序，遇三通先走離線再回主線，<strong>編號不跨 session 保持</strong>；Spool 編號以方括號標在首段（如 <code>[8]</code>）並列於材料表尾；<code>PERDRAWING</code> 每頁重排；<code>PREFIX</code> 可帶 Design 的 <code>SPLP</code> 屬性或使用者文字，並以 <code>*</code> 通配符插入圖號與 Spool 號。</p>
+<h3 id="2082-atta">20.8.2 附著點元素（ATTA）</h3>
+<p>Isodraft 利用 Design 中的 ATTA 標示支架位置、附註與流向，依 <code>ATTY</code> 屬性分類：</p>
+<table>
+<thead>
+<tr>
+<th>ATTY</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未設（Unset）</td>
+<td>預設的支架 ATTA，標在中心線上；在管內時顯示在前一元件的 P-leave 或 Branch 起點，可能使後續支架尺寸漏標</td>
+</tr>
+<tr>
+<td><code>Hang</code>／<code>Weld</code></td>
+<td>Hangers &amp; Supports 用；Weld 型以 P3 使符號畫在前一元件內固定距離處</td>
+</tr>
+<tr>
+<td><code>CCCC</code></td>
+<td>帶指引線的註記（例如樓板貫穿），未標尺寸處會補標</td>
+</tr>
+<tr>
+<td><code>CCNN</code></td>
+<td>同上，但不標尺寸（例如油漆顏色）</td>
+</tr>
+<tr>
+<td><code>FLOW</code></td>
+<td>管中的流向箭頭；需 <code>FLOWARROWS INLINE</code> 才會繪出；比例對應 3D 位置</td>
+</tr>
+<tr>
+<td><code>XXXX</code></td>
+<td>一般等角圖的分頁點</td>
+</tr>
+<tr>
+<td><code>SSSS</code></td>
+<td>系統等角圖或設備組件圖的分頁點；一般 XXXX 在系統圖會被忽略</td>
+</tr>
+<tr>
+<td><code>INPP</code></td>
+<td>保溫起訖</td>
+</tr>
+</tbody>
+</table>
+<p>檢查：Support ATTA 位置或方向不對時，一致性檢查會報錯，除非 <code>ATTACHECK OFF</code>。<strong>不要把 ATTA 放在法蘭或帶法蘭元件之間</strong>，否則可能破壞材料清單輸出。<code>ATTANAME</code> 決定是否顯示支架名稱與品項代碼來源。</p>
+<h3 id="2083">20.8.3 分頁與可重複性</h3>
+<p>管線太長或太複雜時 Isodraft 自動分頁，圖號標 <code>DRG 1 OF …</code>，管端標 <code>CONT. ON</code>／<code>CONT. FROM</code>。</p>
+<table>
+<thead>
+<tr>
+<th>控制</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SPLIT 3 DRwgs</code>、<code>SPLIT 75 PERCENT</code></td>
+<td>指定張數或複雜度係數（預設 100；大於 100 每張更複雜）；只有單一管線能指定固定張數</td>
+</tr>
+<tr>
+<td>Split ATTA（<code>XXXX</code>）</td>
+<td>使用者在 Design 指定分頁點時，Isodraft <strong>一律採用，不自行計算</strong></td>
+</tr>
+<tr>
+<td><code>TUBESPLITS</code></td>
+<td>管中分頁時可輸出 <code>UNACCEPTABLE SPLIT POINT</code> 訊息，或乾脆不出圖</td>
+</tr>
+<tr>
+<td><code>REPEATABILITY ON</code></td>
+<td>把自動分頁點寫回 Design（以 inter-DB 巨集建立 <code>XXXX</code> ATTA），設計變更後仍在同位置分頁，可只重畫受影響的頁</td>
+</tr>
+</tbody>
+</table>
+<p>Repeatability 的限制：已有分頁 ATTA 時不再自動建立；<strong>重排 Branch 會破壞資料完整性</strong>；大改設計時應先清除（SPOOLER 有清除功能）再重建；不適用系統圖與設備組件圖。有此資料後，可把單頁或單一 Spool 加進 Detail List。</p>
+<h3 id="2084">20.8.4 系統等角圖與設備組件圖</h3>
+<table>
+<thead>
+<tr>
+<th>型式</th>
+<th>要點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系統等角圖</td>
+<td><code>DETAIL … AS '名稱'</code>；系統名稱畫在管線參考框；個別管線名稱與規格在變更處標示；材料表是整個系統的，<strong>不會有各管線分項</strong>；支架檔不寫入</td>
+</tr>
+<tr>
+<td>設備組件圖</td>
+<td><code>DETAIL … AS EQUIPMENT</code>；只含圖框、使用者定位文字與材料表，適合材料估算，圖形部分另以 Draft 底圖補上；建模時每個噴嘴（或相連的噴嘴群）一條 Pipe；材料表標題如 <code>NOZZLE REF - A</code>，編號預設每噴嘴重排，<code>EQUIPMENTNUMBERING</code> 可連續；<strong>不能出切管清單</strong>；分頁用 <code>SSSS</code> ATTA 放在兩組噴嘴之間</td>
+</tr>
+</tbody>
+</table>
+<h2 id="209">20.9 二次開發者怎麼接</h2>
+<p>官方 Isodraft 文件沒有 PML 函式庫或 .NET API，但它的設計本身提供了幾個可批次化、可擴充的接點。以下僅列文件有依據者。</p>
+<table>
+<thead>
+<tr>
+<th>接點</th>
+<th>文件依據</th>
+<th>用法</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>選項檔（巨集）</td>
+<td>選項檔每次執行時當巨集執行；<code>RECREATE OPTIONS</code> 產生巨集</td>
+<td>以程式產生或修改選項檔，依專案／客戶切換</td>
+<td>選項檔內容由 GUI 維護最安全；直接改文字檔語法細節〔待核對〕</td>
+</tr>
+<tr>
+<td>命令列批次</td>
+<td><code>FILE</code>、<code>MESSAGEFILENAME</code>、<code>ADD</code>、<code>DETAIL ALL</code>、<code>RECREATE DETAILLIST</code></td>
+<td>用巨集依管線清單批次出圖，事後解析訊息檔判斷成敗</td>
+<td>單次指令最多 100 元素；訊息檔格式為文字，編號（33:xxx）可當解析依據</td>
+</tr>
+<tr>
+<td>預檢</td>
+<td><code>CHECK</code>、Design 一致性檢查</td>
+<td>批次前先跑，失敗者不進 <code>DETAIL</code></td>
+<td>一致性檢查指令在 Design 模組</td>
+</tr>
+<tr>
+<td>傳輸檔</td>
+<td><code>TRANSFERFILENAME</code>、<code>PROCESS</code>、<code>PREPROCESS</code>／<code>POSTPROCESS</code></td>
+<td>擷取一次、後處理或重繪；在 ISODRAW 前後掛自訂系統指令</td>
+<td>10.3 以前為二進位；格式文件未公開，不要自行解析〔待核對〕</td>
+</tr>
+<tr>
+<td>輸出檔</td>
+<td>DXF／PDF／影像、材料清單檔、切管報表、螺栓報表、支架明細、管長摘要、Material Control File</td>
+<td>以檔案為介面餵 ERP／MTO／NC；Material Control File 有記錄編號與字寬可解析</td>
+<td>材料清單檔與 PLOT 檔的欄位定位以實際輸出為準</td>
+</tr>
+<tr>
+<td>資料來源屬性</td>
+<td><code>SHOP</code>、<code>SPREF</code>、<code>DETA</code>、<code>REV</code>、<code>EREC</code>、<code>PWAS</code>、<code>MTOC</code>／<code>MTOT</code>／<code>MTOH</code>／<code>MTOR</code>、<code>ATTY</code>、<code>SFLimit</code>、<code>LOOSE</code>、<code>ALLO</code>、<code>DPFN</code> 等</td>
+<td>在二次開發的檢查工具中，先驗證這些屬性是否齊備，再呼叫 Isodraft</td>
+<td>屬性名稱以文件為準；PML 的讀取語法見第 32、33 章</td>
+</tr>
+</tbody>
+</table>
+<p>PML 巨集如何呼叫 Isodraft 指令、如何從 PML 取回 <code>QUERY</code> 結果、.NET 端是否有 Isodraft 專屬物件，官方 Isodraft 文件未說明〔待核對〕。另見<a href="ch38_reports_integration_zh-TW.reading.html">第 38 章</a>。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 與其寫工具去「修 Isodraft 的輸出」，不如寫工具在出圖<strong>之前</strong>檢查資料：SHOP 旗標、SKEY 與 P-point、焊口編號是否齊、ATTA 位置、Spec 中 Tube 的 SHOP 設定。官方已明說多數訊息來自設計或目錄錯誤。</p>
+</blockquote>
+<h2 id="2010">20.10 疑難排解</h2>
+<p>Isodraft 自己產生的訊息編號以 <strong>33</strong> 開頭；內部繪圖模組 ISODRAW 的訊息以 <strong>35</strong> 開頭，多半是達到程式上限，請洽 AVEVA 支援。</p>
+<table>
+<thead>
+<tr>
+<th>症狀或訊息</th>
+<th>可能原因</th>
+<th>處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(33:149) SYSTEM ERROR Unable to scan pipe network</code></td>
+<td>設計不一致；或合法但 Isodraft 無法掃描的組態</td>
+<td>跑一致性檢查、看 Branch 接點流向；常可將管線<strong>拆成較多 Branch</strong> 解決</td>
+</tr>
+<tr>
+<td><code>(33:168) Cannot find FLANGE to match PPOINT n</code></td>
+<td>閥或元件的 P-point 沒有配對的法蘭</td>
+<td>檢查設計與目錄 P-point 設定</td>
+</tr>
+<tr>
+<td><code>(33:155) The DETAIL list is empty</code></td>
+<td>Add 沒有項目，或被 Remove 全部抵銷</td>
+<td>檢查 Add／Remove</td>
+</tr>
+<tr>
+<td><code>(33:156) PLOT FILE NAME/PREFIX or TERM have not been specified</code></td>
+<td>未指定輸出檔</td>
+<td>先下 <code>FILE</code></td>
+</tr>
+<tr>
+<td>元件被畫成預設矩形</td>
+<td>SKEY 錯誤</td>
+<td>修正 DTEXT 的 <code>SKEY</code></td>
+</tr>
+<tr>
+<td>焊口編號導致中止出圖</td>
+<td><code>WELDNUMBERS FROMDB</code> 遇到未編號焊口</td>
+<td>回 SPOOLER 重新編號，或暫用 Isodraft 自行編號</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>常見錯誤清單：</strong> (1) 沒做一致性檢查就批次出圖；(2) 換了 CE 沒按 CE 按鈕；(3) 目錄元件沒遵守 SKEY 的 P-point 配置；(4) 把 ATTA 放在兩片法蘭之間；(5) 把 Design 與 Fabrication 元素混在同一張系統圖。</p>
+</blockquote>
+<h2 id="2011">20.11 本章小結</h2>
+<ol>
+<li>Isodraft 是資料庫到圖面的轉換器，輸入 Design、Catalogue、Fabrication，輸出 PLOT 檔、材料清單與各類報表；Design 與 Fabrication 不可混在同一張圖。</li>
+<li>流程固定：一致性檢查 → 選 ISO 類型與選項檔 → 選元素 → <code>CHECK</code>／<code>DETAIL</code> → 讀訊息檔。圖面差異主要由<strong>選項檔</strong>控制，維護者需為 ISOADMIN 成員。</li>
+<li>元件怎麼畫由目錄決定：SKEY、P-point、PSKEY 端部型式、DTEXT／MTEXT 描述、SHOP 旗標、BLTAB／BTSE 螺栓資料。目錄錯，圖就錯。</li>
+<li>材料清單、切管清單、螺栓報表、焊口表、彎管表等是同一次處理的不同輸出，用各自的指令開關與檔名設定。</li>
+<li>Spool 圖依賴 SPOOLER 產生的編號與分界；<code>FROMDB</code> 才能讓編號跨版次保持；Repeatability 讓分頁位置穩定。</li>
+<li>二次開發最有價值的位置是出圖前的資料檢查、批次呼叫與訊息檔解析、以及輸出檔的下游整合。</li>
+</ol>
+<h2 id="2012">20.12 練習題／自我檢核</h2>
+<ol>
+<li>請說明 <code>CHECK</code> 與 <code>DETAIL</code> 的差別，以及什麼情況下你會先跑 <code>CHECK</code>。</li>
+<li>一份 ISO 圖的某個閥門被畫成預設矩形。依本章，你會依序檢查哪幾個地方？</li>
+<li>為什麼 Spool 圖要求直管的 SHOP 旗標為 TRUE？若 Spec 只有一條 SHOP FALSE 的 TUBE SPCOM，你要怎麼補？</li>
+<li>某管線的焊口編號用 <code>WELDNUMBERS FROMDB</code> 時中止出圖，可能原因為何？退而求其次有什麼做法，代價是什麼？</li>
+<li>比較 String、Composite、Overall 三種尺寸；若採購由當地廠商負責、元件尺寸尚未定，建議哪一種？</li>
+<li>某管線的切管長度為何比量得的距離多 120 mm？請用損耗區 <code>EREC</code>、<code>PWAS</code> 與係數說明計算方式。</li>
+<li>設計變更後重畫圖，分頁位置跟舊圖不同。請說明原因與預防做法，並指出 Repeatability 的限制。</li>
+<li>設計一支批次出圖巨集的流程（只寫步驟，不寫程式）：從管線清單到訊息檔檢查，要用到哪些指令與哪些檢查？</li>
+</ol>
+<h2 id="2013">20.13 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch20">附錄 D 第 20 章</a>；取材覆蓋與未讀範圍：見<a href="appx_e_coverage_zh-TW.reading.html#ch20">附錄 E 第 20 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch19_pipework_zh-TW.reading.html"><small>← 上一篇</small>第 19 章　管路設計（Pipework）：從 PIPE／BRAN 到 Spool、Isometric 與管支架</a><a class="next" href="ch21_structures_zh-TW.reading.html"><small>下一篇 →</small>第 21 章　結構設計（Structures）：Frame、型鋼、板、接頭與平台樓梯</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

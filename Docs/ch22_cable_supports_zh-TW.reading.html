@@ -1,0 +1,983 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 22 章　電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#22-cable-design-multi-discipline-supports">第 22 章 電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</a><ul>
+<li><a href="#221">22.1 學習目標</a></li>
+<li><a href="#222">22.2 全貌與前置條件</a><ul>
+<li><a href="#2221">22.2.1 兩個應用程式的分工</a></li>
+</ul>
+</li>
+<li><a href="#223-cable-design">22.3 Cable Design：概念與資料階層</a><ul>
+<li><a href="#2231">22.3.1 三個部分與流程</a></li>
+<li><a href="#2232">22.3.2 元素階層</a></li>
+<li><a href="#2233-cabling-application-defaults">22.3.3 Cabling Application Defaults</a></li>
+<li><a href="#2234-cabling-system-toolbar">22.3.4 Cabling System Toolbar</a></li>
+</ul>
+</li>
+<li><a href="#224-cableway-cableway-branch">22.4 Cableway 與 Cableway Branch</a><ul>
+<li><a href="#2241-cableway">22.4.1 建立 Cableway</a></li>
+<li><a href="#2242-cableway-branch">22.4.2 建立 Cableway Branch</a></li>
+<li><a href="#2243">22.4.3 修改與整理</a></li>
+</ul>
+</li>
+<li><a href="#225-dressing">22.5 橋架材料與鋪設（Dressing）</a><ul>
+<li><a href="#2251-ctmrl">22.5.1 CTMRL 與橋架元件</a></li>
+<li><a href="#2252">22.5.2 三種鋪設方式</a></li>
+<li><a href="#2253-cable-tray-volume">22.5.3 Cable Tray Volume：從既有橋架反推通道</a></li>
+</ul>
+</li>
+<li><a href="#226">22.6 電纜建立與佈線</a><ul>
+<li><a href="#2261">22.6.1 建立電纜</a></li>
+<li><a href="#2262">22.6.2 五種佈線方式</a></li>
+<li><a href="#2263">22.6.3 複製、匯入、匯出與批次佈線</a></li>
+</ul>
+</li>
+<li><a href="#227">22.7 填充率檢查與資料檢查</a></li>
+<li><a href="#228">22.8 報表與出圖：官方範圍</a></li>
+<li><a href="#229-multi-discipline-supports">22.9 Multi-Discipline Supports：概念</a><ul>
+<li><a href="#2291-mds">22.9.1 MDS 是什麼</a></li>
+<li><a href="#2292">22.9.2 資料與管理員角色</a></li>
+</ul>
+</li>
+<li><a href="#2210-mds">22.10 MDS 設計流程</a><ul>
+<li><a href="#22101">22.10.1 官方的十個步驟</a></li>
+<li><a href="#22102">22.10.2 建立表單</a></li>
+<li><a href="#22103">22.10.3 三種建立方式</a></li>
+<li><a href="#22104-integrity-checker">22.10.4 完成檢查（Integrity Checker）</a></li>
+<li><a href="#22105">22.10.5 複製與重複</a></li>
+</ul>
+</li>
+<li><a href="#2211">22.11 與管路、通風、電纜、結構的關係</a><ul>
+<li><a href="#22111">22.11.1 對應表</a></li>
+<li><a href="#22112-structural-associations">22.11.2 結構關聯（Structural Associations）</a></li>
+</ul>
+</li>
+<li><a href="#2212">22.12 標準支撐類型與客製</a><ul>
+<li><a href="#22121">22.12.1 類型一覽</a></li>
+<li><a href="#22122-hanger">22.12.2 Hanger 的建立</a></li>
+<li><a href="#22123">22.12.3 客製與出圖</a></li>
+</ul>
+</li>
+<li><a href="#2213">22.13 報表、控制與健康檢查</a><ul>
+<li><a href="#22131-mds-reports">22.13.1 MDS Reports</a></li>
+<li><a href="#22132-mds-health-check-utilityhcu">22.13.2 MDS Health Check Utility（HCU）</a></li>
+</ul>
+</li>
+<li><a href="#2214">22.14 二次開發者怎麼接</a></li>
+<li><a href="#2215">22.15 常見錯誤</a></li>
+<li><a href="#2216">22.16 本章小結</a></li>
+<li><a href="#2217">22.17 練習題／自我檢核</a></li>
+<li><a href="#2218">22.18 待核對項目與取材覆蓋</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　舾裝設計 · 23 / 53</span><h1 id="22-cable-design-multi-discipline-supports">第 22 章　電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</h1>
+<blockquote>
+<p>管路、通風與結構之外，船上還有一大類「看不到卻處處要走」的系統：電纜。電纜要沿著預留好的通道走，通道要有橋架（Cable Tray）承載，橋架、管路與風管又都需要支撐（Support）固定在鋼構上。<strong>這一章把兩件事放在一起看：先在 Cable Design 預留空間、鋪橋架、為電纜佈線；再用 Multi-Discipline Supports（MDS）為管路、橋架與風管設計共用的支撐。</strong></p>
+<p>對二次開發者而言，電纜與支撐是典型的「跨專業資料」：電纜長度、填充率、橋架材料表、支撐清單與健康檢查報表，都需要同時讀到電氣、管路與結構的資料，也最容易在設計尚未收斂時讀到過期結果。</p>
+<p><strong>資料可信度：</strong> 本章操作流程、視窗與選單名稱、元素型別（如 <code>CWAY</code>、<code>CWBRAN</code>、<code>CTMRL</code>、<code>RNODE</code>、<code>RATTA</code>、<code>POINTR</code>、<code>STRU</code>、<code>SCTN</code>）與預設檔名，取自 AVEVA Marine 12.1 官方離線文件的 <em>Cable Design</em> 與 <em>Multi-Discipline Supports</em> 兩大章節；後者含管理員、自動出圖、客製與使用者四本手冊，本章以使用者手冊為主，其餘僅取概要。文件原為 PDMS／E3D 時代的使用者指南，部分頁面保留舊名，本章照原樣保留。官方文件是操作手冊，<strong>幾乎沒有 PML 指令或程式範例</strong>，因此「二次開發者怎麼接」只在文件提到屬性、元素或檔案名稱時才寫，其餘標〔待核對〕，需在你們的版本與訓練專案實測。Cable Design 原文以 Cabling System 稱呼，其「Cableway」官方機器翻譯為「索道」，本章統稱「電纜通道」。</p>
+</blockquote>
+<h2 id="221">22.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 Cabling System 的三大部分（Cableway、Cable、Cable Tray Material）與先後順序。</li>
+<li>畫出電纜資料階層 <code>ZONE → CWAY → CWBRAN → CTMRL → 橋架元件</code>，並說明 <code>CNODE</code>、<code>RNODE</code>、<code>RATTA</code>、<code>POINTR</code> 的角色。</li>
+<li>設定 Cabling Application Defaults，說明規格如何向下層層繼承（cascade），以及 Storage Area 為何要求 Zone 的 Purpose 為 <code>CABL</code>。</li>
+<li>依步驟建立 Cableway 與 Cableway Branch，並說明 Head／Tail 的定位方式與 Orthogonal Route。</li>
+<li>說明橋架材料的建立與鋪設（Dressing）：Preliminary、Template、Explicit 三種方式。</li>
+<li>建立電纜並以 Automatic、Define Route、PRP、Manual、Free Route 五種方式佈線，並解讀 Routing Status。</li>
+<li>使用 Fill Level Check 判讀綠／黃／紅，並說明 Fill Check Utility Allowance 的作用。</li>
+<li>說明 MDS 支撐的設計流程、三種建立方式（Cursor／Clearance／Dimensions）與 Integrity Checker。</li>
+<li>區分 MDS 的標準框架（Framework）、Ancillary、Hanger、Trunnion、Special、Preliminary Support，並知道哪些需要管理員客製。</li>
+<li>說明 MDS Reports 與 Health Check Utility 在交付前的用途，並指出各階段二次開發者可接的資料。</li>
+</ol>
+<h2 id="222">22.2 全貌與前置條件</h2>
+<h3 id="2221">22.2.1 兩個應用程式的分工</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Cable Design（Cabling System）</th>
+<th>Multi-Discipline Supports（MDS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所屬</td>
+<td>AVEVA Outfitting 套件中的模組</td>
+<td>Design 內以 <code>Design &gt; Multi Discipline Supports</code> 進入</td>
+</tr>
+<tr>
+<td>服務對象</td>
+<td>電纜、電纜通道、橋架</td>
+<td>管路、橋架（含管路型橋架 <code>BRAN</code> 與 Cabling System 的 <code>CTRAY</code>）、風管</td>
+</tr>
+<tr>
+<td>核心資料</td>
+<td><code>CWAY</code>／<code>CWBRAN</code>／<code>CTMRL</code>／電纜</td>
+<td><code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>、Ancillary（<code>ATTA</code>）</td>
+</tr>
+<tr>
+<td>典型輸出</td>
+<td>電纜長度、填充率、橋架材料</td>
+<td>支撐清單、Isometric 材料項、支撐圖</td>
+</tr>
+<tr>
+<td>常見使用者</td>
+<td>電氣設計</td>
+<td>管路、結構、通風設計與支撐管理員</td>
+</tr>
+</tbody>
+</table>
+<p>整體順序是：<strong>先預留通道，再放橋架與電纜，最後為所有專業統一設計支撐。</strong> 舾裝總覽見 <a href="ch17_outfitting_zh-TW.reading.html">第 17 章</a>；管路中的管支架（<code>REST</code>／<code>HANG</code>）見 <a href="ch19_pipework_zh-TW.reading.html">第 19 章</a>；支撐所依附的鋼構見 <a href="ch21_structures_zh-TW.reading.html">第 21 章</a>。本章不重複這些內容，只談電纜與 MDS 新增的部分。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 官方明說電纜設計使用者指南是為「熟悉電纜設計實務」的使用者而寫。本課程不教電氣設計（負載、壓降、線徑選擇），只教軟體如何承載這些決定。</p>
+</blockquote>
+<h2 id="223-cable-design">22.3 Cable Design：概念與資料階層</h2>
+<h3 id="2231">22.3.1 三個部分與流程</h3>
+<p>官方把應用程式分成 Cableways、Cables、Cable Tray Material 三部分：</p>
+<ol>
+<li><strong>Cableway</strong> 在 3D 建模早期建立，用來在模型中預留空間，供電纜與橋架使用。</li>
+<li><strong>Cable</strong> 從目錄（Catalogue）選取，可選擇性連接設備，再沿 Cableway 佈線。</li>
+<li><strong>Cable Tray Material</strong> 自動或手動加到 Cableway 上；也可以先做初步鋪設（Preliminary Dressing）。</li>
+</ol>
+<p>電纜也可以來自電氣系統的電纜圖（cable diagrams）；與 AVEVA Instrumentation and Electrical 的整合，官方在 Import Cables 下僅提到 <code>Display &gt; Compare/Update</code> 這個應用，細節請見該產品手冊〔待核對〕。</p>
+<h3 id="2232">22.3.2 元素階層</h3>
+<p>與所有專業相同，元素必須依嚴格順序建立，共用的是 <code>WORLD</code>、<code>SITE</code>、<code>ZONE</code>。電纜專屬元素如下：</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>角色</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CWAY</code></td>
+<td>Cableway，預留一段空間</td>
+<td>建立後預設不顯示於 3D 視圖</td>
+</tr>
+<tr>
+<td><code>CWBRAN</code></td>
+<td>Cableway Branch，所有其他佈線元素的起點</td>
+<td>必須在 <code>CWAY</code> 之下；有 Head／Tail</td>
+</tr>
+<tr>
+<td><code>CNODE</code></td>
+<td>Control Node，空間中的一個點，作為早期佈線輔助</td>
+<td>可位於 <code>ZONE</code> 或 <code>CWAY</code> 之下</td>
+</tr>
+<tr>
+<td><code>RNODE</code>／<code>RATTA</code>／<code>POINTR</code></td>
+<td>路徑節點、路徑附著點、路徑點</td>
+<td>官方描述電纜的 <code>POINTR</code> 構成路徑（<code>RPATH</code>）</td>
+</tr>
+<tr>
+<td><code>CTMRL</code></td>
+<td>橋架材料主元素</td>
+<td>每個 <code>CWBRAN</code> 只能有一個</td>
+</tr>
+<tr>
+<td>橋架元件</td>
+<td>Straight、Bend、Riser、Tee、Cross、Reducer</td>
+<td>在 <code>CTMRL</code> 之下</td>
+</tr>
+<tr>
+<td>電纜</td>
+<td>參照電纜規格，含 Start／End 參照</td>
+<td>預設存於 Purpose 為 <code>CABL</code> 的 Zone</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 若工具列按鈕全部灰掉，或出現錯誤訊息，多半是目前位置不在正確階層（例如不在適當的 Zone 之下），不是軟體壞了。</p>
+</blockquote>
+<h3 id="2233-cabling-application-defaults">22.3.3 Cabling Application Defaults</h3>
+<p>進入應用程式時會自動顯示 <code>Cabling Application Defaults</code>，之後可從 <code>Settings &gt; Cabling Defaults</code> 再開。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Cabling Application Defaults 視窗，含儲存區、電纜資料、規格與電纜通道尺寸</div></p>
+<p><em>圖 22-1　Cabling Application Defaults：儲存區、超長、近接距離、填充檢查與自動佈線準則。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>區塊／欄位</th>
+<th>官方描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storage Areas</td>
+<td>決定 <code>CableWay</code> 與 <code>Cable</code> 元素存放的位置；清單只列出 Purpose 為 <code>CABL</code> 的 Zone，沒有就請系統管理員處理</td>
+</tr>
+<tr>
+<td>Cable Data</td>
+<td>Excess Lengths（Head／Tail 的超長）與 Proximity Distance（距起點多遠開始尋找通道入口）</td>
+</tr>
+<tr>
+<td>Fill Check</td>
+<td>勾選則自動檢查填充率</td>
+</tr>
+<tr>
+<td>Specifications</td>
+<td>規格決定目錄中哪些元素可用；可設在 Cableway 或 Branch 層級，下層自動沿用，除非更改</td>
+</tr>
+<tr>
+<td>Cableway Data</td>
+<td>通道尺寸；<code>Create Ends RNODEs</code> 可在 Branch 兩端自動建立 <code>RNODE</code></td>
+</tr>
+<tr>
+<td>Fill Check Utility Allowance</td>
+<td>填充檢查換色的門檻，必須大於 1</td>
+</tr>
+<tr>
+<td>Auto Routing Criteria</td>
+<td><code>minimize Free Route</code> 取最近的進出點；<code>minimize Total Length</code> 在 <code>RANEQUIP</code> 範圍內找總長最短（不一定用最近點）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2234-cabling-system-toolbar">22.3.4 Cabling System Toolbar</h3>
+<p>進入後左上角自動出現 Cabling System 工具列，按鈕包括：Create Cableway、Create Cableway Branch、Modify Cableway Branch、Create Cable、Modify Cable、Create Cableway Material、Modify Cableway Material、Copy Cable、Copy Cableway Element。多數操作會再開出「Tasks」視窗當作任務中樞（task hub），引導下一步。</p>
+<h2 id="224-cableway-cableway-branch">22.4 Cableway 與 Cableway Branch</h2>
+<h3 id="2241-cableway">22.4.1 建立 Cableway</h3>
+<ol>
+<li>在 Design Explorer 選取適當的 Zone，按 Create Cableway，開啟 <code>CableWay Create Tasks</code>。</li>
+<li>輸入 Cableway Name（可按 Autonaming 圖示）、Description、Function、Purpose。</li>
+<li>按 Create CableWay，Design Explorer 出現新元素，並接著顯示 <code>CableWay Branch Create Tasks</code>。</li>
+</ol>
+<p>選用的 <code>Control Node</code>（<code>Create &gt; Control Node</code>）可先在空間放點，用座標或 Pick Position 定位，日後讓 Route Node 連到它，當作早期佈線的輔助。</p>
+<h3 id="2242-cableway-branch">22.4.2 建立 Cableway Branch</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：CableWay Branch Create Tasks 視窗，含 Volume Size、Branch Head／Tail 與 Orthogonal Route 設定</div></p>
+<p><em>圖 22-2　CableWay Branch Create Tasks：Attributes、體積尺寸、Head／Tail 連接與直交路徑。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>此視窗為所有 Branch 任務的中樞。Attributes 區的欄位：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Beta Angle</td>
+<td>通道的旋轉角</td>
+</tr>
+<tr>
+<td>Bend Radius</td>
+<td>鋪設橋架後套用的彎曲半徑</td>
+</tr>
+<tr>
+<td>Open Direction</td>
+<td>鋪設後開口側方向</td>
+</tr>
+<tr>
+<td>Justification</td>
+<td>對齊方式，下拉選取</td>
+</tr>
+<tr>
+<td>Cable Excess (%)</td>
+<td>電纜在通道上下垂所需的裕度</td>
+</tr>
+<tr>
+<td>Maximum Fill (%)</td>
+<td>最大填充率，軟體依橫斷面積自動計算；若設得低於目前填充率會出現警告</td>
+</tr>
+<tr>
+<td>Current Fill Level (%)</td>
+<td>目前填充率（唯讀）</td>
+</tr>
+<tr>
+<td>Interference／Standard Iclass</td>
+<td>干涉等級；可 <code>Load</code> 資料庫的干涉值</td>
+</tr>
+<tr>
+<td>Cable Route Rule</td>
+<td>控制哪種電纜可走此通道，例如 <code>IClass EQ POWER</code></td>
+</tr>
+</tbody>
+</table>
+<p>Select Volume Size 區選 Rectangular 或 Circular 並輸入寬高。<strong>Head／Tail 的位置</strong>由 <code>Connect From</code> 決定：</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>行為</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X0 Y0 Z0（預設）</td>
+<td>相對世界原點以座標與偏移（Offset By）定位</td>
+</tr>
+<tr>
+<td>Head／Tail of Cableway Branch</td>
+<td>接在既有 Branch 的 Head 或 Tail，需 Pick <code>CWBRAN</code></td>
+</tr>
+<tr>
+<td>Branch Off</td>
+<td>從既有 Branch 的某線段岔出</td>
+</tr>
+<tr>
+<td>Route Attachment Point</td>
+<td>接到某個 <code>RTTA</code>（路徑附著點）</td>
+</tr>
+<tr>
+<td>Copy Tail／Pick Head Position</td>
+<td>複製尾端座標／以 3D 視圖點選</td>
+</tr>
+</tbody>
+</table>
+<p>可勾選 Lock 鎖定座標；勾選 Create Orthogonal Route 並選 Direction Sequence（如 E-N-U），建立後 Branch 會沿直交路徑連接 Head 與 Tail。官方提醒：<strong>Direction Sequence 與 Open Direction 必須相容</strong>（例如 Open Direction 為 U，搭配 U-N-E 或 U-E-N 可能無效）。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Cableway 的定位是「預留空間」。越早建立，結構與管路專業越能避開；但此時尚無橋架，尺寸要用預估值，後面可由 Fill Level 回頭修正。</p>
+</blockquote>
+<h3 id="2243">22.4.3 修改與整理</h3>
+<table>
+<thead>
+<tr>
+<th>作業</th>
+<th>入口</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modify CableWay</td>
+<td><code>Modify &gt; Cableway</code></td>
+<td>可改 Description／Function／Purpose；更細的改動回 Branch 視窗；可 Delete Cableway</td>
+</tr>
+<tr>
+<td>Modify Cableway Branch</td>
+<td>工具列</td>
+<td>同建立視窗；<code>List Associated Cables</code> 看有哪些電纜走過</td>
+</tr>
+<tr>
+<td>Modify Branch Elements</td>
+<td>選 Route Point／Route Node／Route Attachment Point</td>
+<td>可改屬性依元素而異</td>
+</tr>
+<tr>
+<td>Move Cableway Segment</td>
+<td><code>Modify &gt; Cableway Segment</code></td>
+<td>以 Offset／Increment／Align 移動線段；可勾 Re-route Cables、Re-dress Materials、Display Hole Manager；<code>Show Issues</code> 列出受影響的附著點</td>
+</tr>
+<tr>
+<td>Copy Cableway Elements</td>
+<td><code>Create &gt; Copy &gt; Cableway Elements</code></td>
+<td>可複製 Zone、Cableway、Branch、含電纜的 Cableway；複製連接電纜時，新電纜不會與設備建立關聯</td>
+</tr>
+<tr>
+<td>Split／Merge／Connect Branches</td>
+<td><code>Utilities</code> 選單</td>
+<td>在點上或平面上分割；Merge 與 Connect 需依提示依序選兩條 Branch 並確認</td>
+</tr>
+<tr>
+<td>Data Checker</td>
+<td><code>Utilities &gt; Data Checker</code></td>
+<td>檢查 Cableways、Trays、Penetrations；細節見 Data Checker Utility User Guide〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<h2 id="225-dressing">22.5 橋架材料與鋪設（Dressing）</h2>
+<h3 id="2251-ctmrl">22.5.1 CTMRL 與橋架元件</h3>
+<p>佈好的 Cableway Branch（不論有無電纜）可以鋪上橋架材料。預設規格決定用於預留空間的橫斷面，也就決定橋架材料。流程如下：</p>
+<ol>
+<li>選取目標 Branch 為 CE。</li>
+<li><code>Create &gt; Material &gt; Main</code>，開啟 <code>Create Material</code>，輸入名稱與規格，建立 <code>CTMRL</code>（<strong>每個 <code>CWBRAN</code> 只能一個</strong>）。</li>
+<li>設定 First Gap（每個元件之前的間隙）、Intermediate Gap（相鄰直段間）、Last Gap（元件之後）、Tier Heights（層高），寬高預設取通道尺寸。</li>
+</ol>
+<p>單一元件（Straight、Bend、Riser、Tee、Cross、Reducer）以 <code>Create &gt; Material &gt; Elements</code> 建立；<code>Create</code> 視窗兼具建立與修改，官方只詳述預設的 Create Straight，其他元件比照。</p>
+<h3 id="2252">22.5.2 三種鋪設方式</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Dress using Templates 視窗，含 Dimension Options、整段／部分鋪設與 Remove Dressing</div></p>
+<p><em>圖 22-3　Dress using Templates：自樣板 Zone 載入尺寸，整段或部分鋪設橋架。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>入口（Modify Material）</th>
+<th>適用情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preliminary：使用者定義尺寸</td>
+<td>Dimensions defined by user</td>
+<td>設計初期快速鋪設，尺寸自訂</td>
+</tr>
+<tr>
+<td>Preliminary：依 Branch 填充率</td>
+<td>Dimensions based on branch fill levels</td>
+<td>讓橋架寬度反映實際電纜量</td>
+</tr>
+<tr>
+<td>Dress using Templates</td>
+<td>Other Dressing options</td>
+<td>自 <code>Load From Template Zone</code> 載入樣板；可指定直管長度、<code>Dress Backwards</code>；可整條或部分（Picked Point、Straights between Picked Components 等）鋪設</td>
+</tr>
+<tr>
+<td>Explicit Dressing</td>
+<td>Other Dressing options</td>
+<td>逐一建立元件</td>
+</tr>
+</tbody>
+</table>
+<p>要移除時用 <code>Remove Dressing</code>：From Branch、From Segment、From Point，或僅移除 All Straights。</p>
+<h3 id="2253-cable-tray-volume">22.5.3 Cable Tray Volume：從既有橋架反推通道</h3>
+<p>若橋架已存在（例如由管路型橋架 <code>BRAN</code> 建立），可用 <code>Utilities &gt; Cable Trays Volumes</code> 反向建立 Cableway 體積。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Cable Tray Volumes 視窗，Cable Tray List 頁籤列出橋架及其 Head／Tail 連接</div></p>
+<p><em>圖 22-4　Cable Tray Volumes：自橋架建立對應的 CWAY／CWBRAN 體積。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>官方描述的邏輯：先檢查橋架寬度變化與 Tee／Cross 處的方向變化（這些處需要新 Branch）；每個橋架新建一組 <code>CWAY</code>／<code>CWBRAN</code>；每個彎頭（BEND／ELBOW）在 Branch 的 <code>RPATH</code> 加一個 <code>POINTR</code>；每個 Tee 或 Cross 在 Branch 的 <code>CONSEQ</code> 之下建一個 <code>RATTA</code>；新 Branch 的 <code>VWidth</code> 取自第一個元件的 <code>ABORE</code> 屬性。</p>
+<p>使用前須在目前位置位於 Zone 或其下，且<strong>必須已有 Purpose 設為 <code>TBAS</code> 的 Association Group</strong>，用來存放舊橋架與新橋架元素的關聯；不存在時系統會提示並開啟 Organize Association Store 供建立。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> 這是少數「由現成幾何反推資料」的功能。反推出的體積不等於設計意圖，使用後仍須檢查填充率與連接。</p>
+</blockquote>
+<h2 id="226">22.6 電纜建立與佈線</h2>
+<h3 id="2261">22.6.1 建立電纜</h3>
+<p><code>Create &gt; Cable</code> 開啟 <code>Create Cable</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Create Cable 視窗，含 Basic Data、Specification、Start 與 End 區塊</div></p>
+<p><em>圖 22-5　Create Cable：名稱、Excess Lengths、規格、起訖設備。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name／Primary System</td>
+<td>唯一名稱（可 Autonaming）；可指派所屬系統</td>
+</tr>
+<tr>
+<td>Fill Check</td>
+<td>On／Off，預設 Off</td>
+</tr>
+<tr>
+<td>Excess Lengths (mm)</td>
+<td>依序輸入 Head、Head extra、Tail、Tail extra，用於計算電纜切割長度</td>
+</tr>
+<tr>
+<td>Proximity Distance</td>
+<td>距 Head 多遠內開始尋找通道入口</td>
+</tr>
+<tr>
+<td>Routing Status</td>
+<td>0 Un-routed、1 Routed、2 Routing Failed、3 Partially Routed、4 Partially failed、5 Manually Routed</td>
+</tr>
+<tr>
+<td>Cable Length／Cable Free Length</td>
+<td>總長（含超長）／在通道外自由佈線的長度</td>
+</tr>
+<tr>
+<td>Choose Cable</td>
+<td>開啟 Choose Cable，從 Table 下拉選電纜種類，可看 Properties 與 Plot File</td>
+</tr>
+<tr>
+<td>Start／End</td>
+<td>以 <code>Pick</code> 選設備、閥或接點（Equi／Valve／Pcom／Elconn），或用 <code>List Equipment</code>、直接輸入 Reference</td>
+</tr>
+</tbody>
+</table>
+<p><strong>若未選電纜規格，填充率計算會不準確</strong>，建立時會跳出警告。電纜建立後不會立即顯示於 3D，佈線後才出現。</p>
+<h3 id="2262">22.6.2 五種佈線方式</h3>
+<p><code>Modify Cable</code> 視窗兼作佈線入口：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>前提／行為</th>
+<th>何時用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Automatic Routing</td>
+<td>起訖已知；沿所選 Zone 內相連的通道走最短路徑，並直交接到最近的附著點；以 <code>AutoRoute Cable</code> 執行</td>
+<td>絕大多數電纜</td>
+</tr>
+<tr>
+<td>Define Route</td>
+<td>指定 Cableway Branch 的進入點與離開點，<code>AutoRoute from Entry to Exit Point</code>；可勾 <code>Auto Head/Tail Free Route</code></td>
+<td>需控制走哪條通道</td>
+</tr>
+<tr>
+<td>Define Route Through PRPs</td>
+<td>設定必須經過的 Preliminary Route Points</td>
+<td>必經某處（例如貫穿點）</td>
+</tr>
+<tr>
+<td>Manual Route Cable</td>
+<td>逐段指定同一 Branch 上的進出點，以 Append／Insert（Before／After）／Modify 增修電纜段</td>
+<td>自動失敗或需精確控制</td>
+</tr>
+<tr>
+<td>Free Route</td>
+<td>在通道外用 Pick 定點，產生 <code>POINTR</code></td>
+<td>通道端到設備的最後一段</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Route Through PRPs 視窗，可調整必經路徑點順序</div></p>
+<p><em>圖 22-6　Route Through PRPs：以清單排序控制電纜必須通過的路徑點。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Manual Route Cable 視窗，含 Existing Cable Segments 與 Free Route 工作</div></p>
+<p><em>圖 22-7　Manual Route Cable：逐段建立、插入、修改與刪除電纜段，並處理 Head／Tail Free Route。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>要點：</p>
+<ul>
+<li><strong>Define Specific Cableway Zones</strong>：未指定時，系統會使用 <code>WORLD</code> 下所有 Zone 的通道，大型專案會非常慢，官方明確提醒。</li>
+<li>起點位置若與進入點不符，電纜只會「部分佈線」，需以 Head Free Route／Tail Free Route 補完；<code>Delete Free Routes</code> 可移除兩端的自由段。</li>
+<li><code>Modify Routing Status</code> 可在佈線後手動改狀態，改前會有確認視窗；<code>UnRoute Cable</code> 取消佈線並從 3D 移除；<code>Delete Cable</code> 刪除電纜。</li>
+</ul>
+<h3 id="2263">22.6.3 複製、匯入、匯出與批次佈線</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>入口</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copy Cable</td>
+<td><code>Create &gt; Copy &gt; Cable Elements</code></td>
+<td>可選是否複製 Spec Ref、Start Ref、End Ref 與 Route Path；<code>Head Free Route</code>／<code>Tail Free Route</code> 讓某一端重新自由佈線；複製數大於 1 時不能指定單一新名稱；可 <code>Edit &gt; Undo</code></td>
+</tr>
+<tr>
+<td>Import Cables</td>
+<td><code>Utilities &gt; Import Cables</code></td>
+<td>讀取電纜參照集資料檔，經 Spreadsheet Import 視窗載入；<code>Load All Data</code> 或 <code>Load New Data</code></td>
+</tr>
+<tr>
+<td>Export Cables</td>
+<td><code>Utilities &gt; Export Cables</code></td>
+<td>匯出到 Excel；須在 Site 或 Zone 層級選取電纜</td>
+</tr>
+<tr>
+<td>Cable Data</td>
+<td><code>Utilities &gt; Cable Data</code></td>
+<td>依 Zone 載入全部或僅未佈線電纜，一次對多條電纜 <code>Route Selected Cable(s)</code> 或 <code>Unroute Selected Cable(s)</code>；另有 Cableway Zones、Route Information 頁籤</td>
+</tr>
+</tbody>
+</table>
+<h2 id="227">22.7 填充率檢查與資料檢查</h2>
+<p><code>Utilities &gt; Fill Level Check</code> 以格子顯示每個 Branch Point（HEAD 到 TAIL）的填充率。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Fill Level Check 視窗，Branch Points 格子以綠黃紅標示各點填充率</div></p>
+<p><em>圖 22-8　Fill Level Check：Load From 選範圍，格子顏色對應 Fill Check Utility Allowance。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<table>
+<thead>
+<tr>
+<th>顏色</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>綠</td>
+<td>Branch 最大填充率大於該點填充率</td>
+</tr>
+<tr>
+<td>黃</td>
+<td>該點填充率已進入「最大填充率減 Allowance」的警戒區</td>
+</tr>
+<tr>
+<td>紅</td>
+<td>該點填充率超過 Branch 最大填充率</td>
+</tr>
+</tbody>
+</table>
+<p>舉例：最大填充 75%、Allowance 為 5，當某點進入 5 之內即提示。右鍵可 Navigate to、List of Cables、Export to Excel；<code>Explain Fill Levels</code> 開啟說明視窗；<code>Connections</code> 窗格顯示該點是否有有效連接。</p>
+<p><strong>判讀順序建議：</strong> 先看紅格，用 List of Cables 找出走過該點的電纜，再決定是改走別的通道、加寬橋架，或調整 Maximum Fill。</p>
+<h2 id="228">22.8 報表與出圖：官方範圍</h2>
+<p>Cable Design 章節本身<strong>沒有獨立的報表與出圖小節</strong>。從文件能確認的輸出是：各種清單視窗的 <code>Export to Excel</code>／<code>Print Preview</code>、Cable Export、Fill Level Check 匯出，以及橋架材料元素本身（可由目錄與材料表機制取得，細節見 <a href="ch25_catalogue_spec_zh-TW.reading.html">第 25 章</a>〔待核對〕）。電纜清單、電纜表（cable schedule）與出圖模板是否有預設版本，需在你們的版本實測；一般報表與圖面原理見 <a href="ch38_reports_integration_zh-TW.reading.html">第 38 章</a> 與 <a href="ch27_drawings_zh-TW.reading.html">第 27 章</a>。</p>
+<h2 id="229-multi-discipline-supports">22.9 Multi-Discipline Supports：概念</h2>
+<h3 id="2291-mds">22.9.1 MDS 是什麼</h3>
+<p>MDS 讓使用者為管路、電纜橋架與風管建立支撐。它高度互動，並由管理員配置專案預設值與可用元件範圍。官方描述的兩大類：</p>
+<ul>
+<li><strong>標準框架（Framework）</strong>：以結構型鋼組成、由樣板（template）驅動；預設樣板基於英國標準型鋼，可改配置為他國標準。</li>
+<li><strong>Ancillary</strong>：附在管上的元件，如 U 型螺栓、焊接式滑座（Shoe）、錨定（Anchor）、滑動單元（Slip Unit）。橋架與風管的固定件（fixings）官方明說視為承包商責任，<strong>不在 MDS 處理範圍</strong>。</li>
+</ul>
+<p>若標準樣板不合，要請管理員配置，或建為 Special（例如要在樣板外加一根構件），再以標準的 Beams and Columns 應用程式補上。</p>
+<h3 id="2292">22.9.2 資料與管理員角色</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>官方描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目錄與規格</td>
+<td>專案附 MDS 目錄；<code>/MDS</code> 規格含所有 Ancillary，<code>/MDF</code> 含標準框架的 <code>SREF</code> 附件，<code>/MDP</code> 含 Preliminary Support，<code>/RPAD-MDS-PLATE-MATERIAL</code> 含補強墊材料。<strong>目錄與規格不得修改</strong></td>
+</tr>
+<tr>
+<td>使用者自訂 Ancillary</td>
+<td>另有 USER DEFINED 目錄（MDU 專案），僅 <code>PTSE</code>、<code>GMSE</code> 的部分元件可改</td>
+</tr>
+<tr>
+<td>預設值</td>
+<td>管理員在 PARAGON 資料庫的 DATASETS、預設檔與 Design 樣板資料庫設定；<code>MDS Admin Data</code> 表單修改 <code>/MDS/OPTION/DEFAULTS</code>，須 <code>Apply</code> 後再 <code>Save Work</code></td>
+</tr>
+<tr>
+<td>結構樣板</td>
+<td>Site <code>/MDS/TEMPLATES</code>，每種標準支撐一個 Zone，其下最多 8 個結構樣板</td>
+</tr>
+<tr>
+<td>吊架樣板</td>
+<td>Site <code>/MDS/HANGERS</code>，每種配置一個 Zone，每種尺寸以 <code>REST</code> 元件表示；附兩家供應商（GRINNELL、PSL）樣板，另三套廠商介面見 22.12</td>
+</tr>
+<tr>
+<td>命名</td>
+<td>預設用 <code>DES-SUPP-NAMES</code> 自動命名檔，可改用同前綴的其他檔</td>
+</tr>
+<tr>
+<td>報表定義</td>
+<td><code>MDS-REPORT-DEFS</code> 與 <code>MDS-REPORT-HEADINGS</code> 兩檔搭配，標題編號須一致</td>
+</tr>
+</tbody>
+</table>
+<p>進入應用程式時，系統會測試 <code>/MDS/TEMPLATES</code> 樣板資料庫與 <code>/MDS</code>、<code>/MDF</code> 規格；缺少就無法進入，須請管理員把所屬資料庫加入你的 MDB。支撐宜存放在 Purpose 設為 <code>SUPP</code> 的 Zone（預設值），可建立多個 Support Zone 與 Hanger Zone。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> MDS 的標準支撐是「管理員先配置、設計者後使用」的模式。多數問題（找不到支撐類型、尺寸不對、命名不合）應先找管理員，而不是改目錄。</p>
+</blockquote>
+<h2 id="2210-mds">22.10 MDS 設計流程</h2>
+<h3 id="22101">22.10.1 官方的十個步驟</h3>
+<p>官方列出每個支撐的建立流程：選支撐類型；輸入名稱；建立基準附著點（datum atta）並選 Ancillary 類型；設定距離或位置；從清單選鋼構尺寸；以所需方式建立；選雜項選項；必要時選墊塊（packing）；完成（此時 Integrity Checker 自動執行）；最後執行 MDS Health Check Utility 做全面檢查。</p>
+<h3 id="22102">22.10.2 建立表單</h3>
+<p><code>Create &gt; Multi Discipline Frame</code> 開啟 <code>Multi Discipline Frameworks</code>，依群組列出類型（L Brackets、Cantilevers/Posts、Pedestals、Frames、Braced Brackets、T Posts、Miscellaneous），分組由管理員在 MDS Structure Defaults 設定。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Multi Discipline Frameworks 表單，列出 L Brackets 群組的框架類型（XFT03 等）</div></p>
+<p><em>圖 22-9　Multi Discipline Frameworks：依群組選擇框架，名稱可自動產生，View 可預覽工程圖。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>名稱可手動輸入或按 AutoName 圖示；<code>View</code> 顯示該類型的工程圖。表單也可由既有 Preliminary Support 轉換建立。</p>
+<h3 id="22103">22.10.3 三種建立方式</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>需要的資料</th>
+<th>特點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create by Cursor</td>
+<td>在 3D 點選兩根與管路平行的鋼構</td>
+<td>以兩者位置算出尺寸，並自動連接外部鋼構，尺寸存回供日後修改</td>
+</tr>
+<tr>
+<td>Create by Clearance</td>
+<td>只需點選一根構件（垂直於管路且在其上方）</td>
+<td>依預設淨空值計算；淨空取自各 Ancillary 標準的 PARAGON 預設，未設則取 <code>MDS Application Defaults</code>；<code>:MDSBUILDSTYL</code> UDA 決定框架 <code>INSIDE</code>（預設）或 <code>OUTSIDE</code></td>
+</tr>
+<tr>
+<td>Create by Dimensions</td>
+<td>手動輸入尺寸（如 Dimension 1 至 4）</td>
+<td>鋼構尚未建模時使用，可繼續工作；<strong>不會</strong>自動建立結構關聯</td>
+</tr>
+</tbody>
+</table>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：以 Create by Cursor 建立的支撐立面，標示基準管與三個附著點</div></p>
+<p><em>圖 22-10　Create by Cursor 的結果示意：依兩側鋼構位置決定框架尺寸，並可再加橫桿。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>建立後可用工具列圖示修改：Add pipe／Add HVAC／Add rack（把另一條管、風管、橋架加入同一框架）、Add cross bar、Mirror framework、Align support，以及 Compensating Plates（補償板，適用 XFT03、04、07、08、09、10、11、13、14、15、17、24）、Reference Supports（把另一管上的既有 Ancillary 加入框架）、Add Packer、Create／Modify Connections。</p>
+<h3 id="22104-integrity-checker">22.10.4 完成檢查（Integrity Checker）</h3>
+<p>按 <code>OK</code> 完成時會自動執行：</p>
+<table>
+<thead>
+<tr>
+<th>結果</th>
+<th>條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>訊息</td>
+<td>墊塊間距大於 2 mm 但未超過容許值；Special 提示需建立鋼構</td>
+</tr>
+<tr>
+<td>警告</td>
+<td>鋼構超過樣板資料庫中為各構件設定的最大長度</td>
+</tr>
+<tr>
+<td>錯誤（OK 失效，須修正）</td>
+<td>超過應用程式預設的最大墊塊距離；支撐附著點與橫桿重疊超過 <code>MDS Application Defaults</code> 的最大重疊值；Ancillary 尺寸（如 Shoe）超出 <code>MDS Ancillary Defaults</code> 的值；MDS 內使用的參照（如底板參照）已不存在</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22105">22.10.5 複製與重複</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copy a Support</td>
+<td><code>Create &gt; Support... &gt; Copy</code>；<strong>每個複製品都必須改名</strong>，可指定份數與距離</td>
+</tr>
+<tr>
+<td>Repeat a Support</td>
+<td>把支撐從一條管重複到另一條；只適用獨立 Ancillary 與支撐框架，<strong>不適用 Trunnion 與 Hanger</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2211">22.11 與管路、通風、電纜、結構的關係</h2>
+<h3 id="22111">22.11.1 對應表</h3>
+<table>
+<thead>
+<tr>
+<th>專業</th>
+<th>MDS 如何接</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管路</td>
+<td>以基準附著點掛在管（tube）上，Ancillary 檢查管徑、材料、保溫厚度、溫度、高程是否仍適用</td>
+<td>管路改規格後，健康檢查會報告「Ancillary 對管不再有效」</td>
+</tr>
+<tr>
+<td>電纜橋架</td>
+<td>同時支援管路型橋架（<code>BRAN</code>）與 Cabling System 的 <code>CTRAY</code>；框架可用 Add rack 加入橋架</td>
+<td>固定件不在 MDS 範圍</td>
+</tr>
+<tr>
+<td>風管</td>
+<td>以 Add HVAC 加入框架；Special 可為 HVAC 類型</td>
+<td>風管 Special 的接頭與 <code>SCTN</code> 修改另有專頁〔待核對〕</td>
+</tr>
+<tr>
+<td>結構</td>
+<td>支撐的鋼構為 <code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>；以 <code>SNOD</code>／<code>SJOI</code> 連接外部鋼構</td>
+<td>須對外部鋼構有寫入權限；可能連到錯的 Pline，可用 Force Connect 指定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22112-structural-associations">22.11.2 結構關聯（Structural Associations）</h3>
+<p>此功能完全仰賴標準 AVEVA 關聯資料庫 <code>MASTER/ASSOCDEFN</code>，必須存在於目前 MDB，官方建議自標準 MAS 專案以 FOREIGN 資料庫方式引入。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Design Explorer 顯示 MDS 支撐與 ASSOWL 下的關聯群組階層</div></p>
+<p><em>圖 22-11　MDS 支撐 <code>STRU</code>／<code>SCTN</code> 與 <code>ASSOWL</code> 下 <code>ASSOGP</code>／<code>ASSOC</code> 的對應階層。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<ul>
+<li>以 Cursor 或 Clearance 建立並點選主結構時，<strong>自動</strong>在名為 <code>&lt;sitename&gt;-MDS-ASSOWL</code> 的 <code>ASSOWL</code> 下產生關聯。</li>
+<li>以 Dimensions 建立時，既有 <code>ASSOC</code> 會被刪除（保留 <code>ASSOGP</code>），須以 <code>Create &gt; MDS SCTN Association</code> 手動建立：先點 MDS 的 <code>SCTN</code>，再點主結構元素。</li>
+<li>這使結構專業改梁時，有機會知道哪些支撐受影響；關聯管理另可用標準 Associations Manager 表單。結構面見 <a href="ch21_structures_zh-TW.reading.html">第 21 章</a>。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 要能追蹤「結構改了，支撐要不要跟著改」，就不能只用 Dimensions 建立而不補關聯。</p>
+</blockquote>
+<h2 id="2212">22.12 標準支撐類型與客製</h2>
+<h3 id="22121">22.12.1 類型一覽</h3>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>入口與重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>標準框架</td>
+<td>見 22.10；以樣板驅動</td>
+</tr>
+<tr>
+<td>Hanger（固定／可變）</td>
+<td>以供應商吊架元件目錄為基礎、樣板驅動；類型名含 T（Top）、M（Middle）、B（Bottom）前綴，如 T1 M2 B4</td>
+</tr>
+<tr>
+<td>Trunnion</td>
+<td>以標準設計，可附補強墊（如 XAT05，由彎頭切取，在 Isometric 列為額外材料）；為取得最佳顯示，官方建議 Holes On、Arctol = 1</td>
+</tr>
+<tr>
+<td>Branch Reinforcement</td>
+<td>如 XBR01，以一連串提示選取來定位</td>
+</tr>
+<tr>
+<td>Preliminary Support</td>
+<td>18 種，可轉換為框架、Ancillary、Anchor、Hanger、Guide、Stop、Slip Unit、Special、Spring、Trunnion、Vessel、Branch Reinforcement</td>
+</tr>
+<tr>
+<td>Lighting Support</td>
+<td>專頁，可建立與修改〔待核對細節〕</td>
+</tr>
+<tr>
+<td>Special</td>
+<td>不符標準時建立；可為 Multi Discipline、Cable racking、HVAC 類型，不自動建立鋼構；編號是否唯一由 <code>MDS Admin Data</code> 控制</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22122-hanger">22.12.2 Hanger 的建立</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：Fixed Hangers using MDS Interface 表單，列出 FH T1 M1 B1 等可用類型與篩選按鈕</div></p>
+<p><em>圖 22-12　Fixed Hangers 表單：可用類型清單與依型態篩選的按鈕列。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>吊架表單有三種建立模式：<strong>Create and Modify</strong>（預設，建立後可修改、接受或取消）、<strong>Create Once</strong>（以最少按鍵連續建多個，可不同配置）、<strong>Multi Create</strong>（連續建立同配置，依管理員命名規則自動命名）。另提供三家廠商介面：Witch Hanger（Carpenter &amp; Paterson）、PSDesigner（Pipe Supports Ltd.）、LICAD（Lisega）；使用標準樣板時，PARAGON 預設資料庫的 <code>MDSHANGIF</code> 關鍵字須設為 <code>Standard MDS</code>。</p>
+<h3 id="22123">22.12.3 客製與出圖</h3>
+<p>客製屬管理員工作：框架樣板管理（Framework Template Administration）、專案設定、自動出圖（MDS Automatic Drawing Production）、MDS Support Standards、<code>MDS Structure Defaults</code> 等表單；這些由 <em>Customization</em>、<em>Automatic Drawing Production</em> 兩本手冊涵蓋，本章只確認其存在與入口，細節為〔待核對〕。自動出圖使用 Area Based ADP，一般 Draft 使用者只能利用管理員預先定義的 Template 與 Task 出圖；出圖原理見 <a href="ch27_drawings_zh-TW.reading.html">第 27 章</a>。</p>
+<h2 id="2213">22.13 報表、控制與健康檢查</h2>
+<h3 id="22131-mds-reports">22.13.1 MDS Reports</h3>
+<p><code>Utilities &gt; MDS Reports</code> 開啟 <code>MDS Reports Menu</code>。</p>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：MDS Reports Menu 表單，含 Output Format、Filter、報表清單與 Sorting and Totalling</div></p>
+<p><em>圖 22-13　MDS Reports Menu：選報表、輸出格式、過濾運算式與排序合計。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<ul>
+<li>預設對整個 MDB 產生；按 <code>CE</code> 限定目前元素。</li>
+<li>輸出格式有 screen、text、csv；後兩者寫入 <code>%MDSREPORTS%</code> 環境路徑。</li>
+<li>報表清單由 <code>MDS-REPORT-DEFS</code> 決定，如 MDS Summary、Overall Index、Area、Bedplate Index、Trimmer Report、Data 等；管理員可增修。</li>
+<li>Extended Report 可加 Extra Run-time Filter Expressions（在 Filter 欄輸入有效運算式，例如圖中以 <code>spref</code>、<code>MDSsupptype</code> 篩選）、自訂標題、排序與合計。</li>
+</ul>
+<p>另外，<code>Isometric Material List Control</code> 可決定哪些 Ancillary 或支撐框架排除於管路 Isometric 的材料表（可設為 Off，也可選擇以虛線繪出、有無標註）；<code>Data Access Control</code> 須專案啟用後，才依 Role、Scope、ACR 控制可操作的範圍。</p>
+<h3 id="22132-mds-health-check-utilityhcu">22.13.2 MDS Health Check Utility（HCU）</h3>
+<p><div style="margin:20px 0;padding:18px 20px;border:1px dashed #9fb8ab;border-radius:14px;background:#f3f7f2;color:#49635a;font-size:14px;line-height:1.7"><strong>公開版未收錄此圖</strong>：AVEVA 官方產品截圖（版權屬 AVEVA），僅內部版提供。<br>圖片內容：MDS Health Check Utility 視窗，含輸出格式與 Supports 清單</div></p>
+<p><em>圖 22-14　MDS Health Check Utility：載入支撐後產生檢查報表。（AVEVA 官方文件截圖，僅供內部教學）</em></p>
+<p>因為 MDS 橫跨結構、管路、電氣、風管四個專業，其中任一專業都可能不小心破壞支撐；HCU 就是用來找出這類問題。檢查項目包括：</p>
+<ul>
+<li><strong>Ancillary</strong>：對管路是否仍有效（Bore、Material、Insulation thickness、Temperature、Elevation），<code>SPREF</code>、Guide 等參照是否有效，是否有未知參照。</li>
+<li><strong>Supports</strong>：支撐類型是否存在、<code>SREF</code> 與 DATUM 是否存在、<code>SPREF</code> 是否有效；另分別檢查 Hanger、Trunnion 與群組。</li>
+</ul>
+<p>操作：<code>Utilities &gt; MDS Support Health Check</code>，以 <code>Add</code> 的 All 或 CE and Below 載入支撐（群組算一個支撐），選 text file／csv file／screen 輸出。無法載入的支撐會寫入暫存的 load list 檔（位於 <code>%pdmswk%</code>），可用 <code>Load Errors Only</code> 檢視；文字報表預設目錄為 <code>%projcodeinfo%</code>，若不存在則用 <code>%pdmswk%</code>。</p>
+<h2 id="2214">22.14 二次開發者怎麼接</h2>
+<p>下表彙整本章可確認的接點。官方文件幾乎沒有 PML 範例，因此欄位只寫文件出現過的名稱，其餘為〔待核對〕。</p>
+<table>
+<thead>
+<tr>
+<th>目標</th>
+<th>文件有依據的接點</th>
+<th>待驗證</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>讀電纜通道與填充率</td>
+<td>元素 <code>CWAY</code>、<code>CWBRAN</code>；Branch 屬性畫面有 Maximum Fill、Current Fill Level；填充檢查結果有 <code>FLEVEL</code> 欄名</td>
+<td>對應的 PML 屬性名稱、取值方式〔待核對〕</td>
+</tr>
+<tr>
+<td>讀電纜佈線狀態與長度</td>
+<td>Routing Status 0 至 5、Cable Length、Cable Free Length；路徑由 <code>RPATH</code> 下的 <code>POINTR</code> 組成</td>
+<td>屬性縮寫、<code>EXTGEO</code> 內容〔待核對〕</td>
+</tr>
+<tr>
+<td>批次佈線</td>
+<td>Cable Data 視窗支援多條電纜 <code>Route Selected Cable(s)</code></td>
+<td>是否有 PML 物件或指令可呼叫〔待核對〕</td>
+</tr>
+<tr>
+<td>電纜資料交換</td>
+<td>Import Cables（Spreadsheet Import，每欄對應一個屬性）、Export Cables 輸出 Excel</td>
+<td>檔案欄位規格〔待核對〕</td>
+</tr>
+<tr>
+<td>橋架材料量</td>
+<td><code>CTMRL</code> 與元件元素；各清單 <code>Export to Excel</code></td>
+<td>材料表報表範本〔待核對〕</td>
+</tr>
+<tr>
+<td>讀 MDS 支撐</td>
+<td>元素 <code>STRU</code>／<code>FRMW</code>／<code>SCTN</code>、<code>SREF</code>、<code>SPREF</code>；UDA <code>:MDSBUILDSTYL</code>；Site <code>/MDS/TEMPLATES</code>、<code>/MDS/HANGERS</code>；<code>REST</code></td>
+<td>UDA 完整清單與型別〔待核對〕</td>
+</tr>
+<tr>
+<td>讀結構關聯</td>
+<td><code>ASSOWL</code>／<code>ASSOGP</code>／<code>ASSOC</code>，命名 <code>&lt;sitename&gt;-MDS-ASSOWL</code></td>
+<td>關聯屬性存取〔待核對〕</td>
+</tr>
+<tr>
+<td>批次報表／檢查</td>
+<td><code>MDS-REPORT-DEFS</code>、<code>MDS-REPORT-HEADINGS</code>；輸出到 <code>%MDSREPORTS%</code>、<code>%pdmswk%</code>、<code>%projcodeinfo%</code></td>
+<td>無人值守執行方式〔待核對〕</td>
+</tr>
+</tbody>
+</table>
+<p><strong>開發建議：</strong></p>
+<ol>
+<li><strong>只讀、不改</strong>。MDS 目錄與規格不得修改；支撐資料牽涉自動關聯與 Integrity Checker，貿然用腳本改尺寸，可能繞過檢查。</li>
+<li><strong>先看狀態再取數</strong>。電纜要看 Routing Status；支撐要先過 HCU，再匯出清單。</li>
+<li><strong>以 csv 輸出為整合介面</strong>，報表與健康檢查都可寫 csv，比抓畫面可靠。</li>
+</ol>
+<h2 id="2215">22.15 常見錯誤</h2>
+<table>
+<thead>
+<tr>
+<th>現象</th>
+<th>常見原因</th>
+<th>處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工具列全灰或建立失敗</td>
+<td>目前階層不對，或缺必要上層元素</td>
+<td>回到適當 Zone，確認階層</td>
+</tr>
+<tr>
+<td>儲存區清單空白</td>
+<td>沒有 Purpose 為 <code>CABL</code> 的 Zone</td>
+<td>建立或請管理員處理</td>
+</tr>
+<tr>
+<td>佈線很慢</td>
+<td>未指定 Cableway Zones，掃描整個 <code>WORLD</code></td>
+<td>指定範圍</td>
+</tr>
+<tr>
+<td>電纜只「部分佈線」</td>
+<td>起點與入口位置不符</td>
+<td>Head／Tail Free Route</td>
+</tr>
+<tr>
+<td>填充率不準</td>
+<td>電纜未選規格</td>
+<td>補選電纜規格</td>
+</tr>
+<tr>
+<td>建立 Tray Volume 失敗</td>
+<td>缺少 Purpose 為 <code>TBAS</code> 的 Association Group</td>
+<td>依提示建立</td>
+</tr>
+<tr>
+<td>Branch 建立後路徑怪異</td>
+<td>Direction Sequence 與 Open Direction 不相容</td>
+<td>調整其一</td>
+</tr>
+<tr>
+<td>無法進入 MDS</td>
+<td>MDB 缺 <code>/MDS/TEMPLATES</code> 或 <code>/MDS</code>、<code>/MDF</code> 規格</td>
+<td>請管理員加入資料庫</td>
+</tr>
+<tr>
+<td>結構改了支撐沒跟著找到</td>
+<td>以 Dimensions 建立，未手動建關聯</td>
+<td><code>Create &gt; MDS SCTN Association</code></td>
+</tr>
+<tr>
+<td>想直接改 MDS 目錄</td>
+<td>誤以為可改</td>
+<td>官方明禁；改用 Special 或由管理員配置樣板</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2216">22.16 本章小結</h2>
+<ol>
+<li>Cable Design 的順序是 Cableway（預留空間）、Cable（選型與佈線）、Cable Tray Material（鋪橋架）；元素階層為 <code>CWAY → CWBRAN → CTMRL → 元件</code>。</li>
+<li>規格可設在 Cableway 或 Branch 層級，自動向下沿用；儲存區只認 Purpose 為 <code>CABL</code> 的 Zone。</li>
+<li>電纜有五種佈線方式與六種 Routing Status；Fill Level Check 的綠黃紅對應最大填充率與 Allowance。</li>
+<li>MDS 以管理員配置的樣板與預設值驅動標準支撐，涵蓋管路、橋架、風管；目錄不得修改，不合用就做 Special。</li>
+<li>Cursor、Clearance、Dimensions 三種建立方式各有前提；只有前兩者自動建立結構關聯。</li>
+<li>完成時有 Integrity Checker，交付前再跑 HCU；報表可輸出 csv，適合作為整合介面。</li>
+<li>官方幾乎無 PML 範例；本章所有程式介面細節均須實測。</li>
+</ol>
+<h2 id="2217">22.17 練習題／自我檢核</h2>
+<ol>
+<li>為什麼 Cabling Application Defaults 的 Storage Areas 清單可能是空的？</li>
+<li>說明 <code>minimize Free Route</code> 與 <code>minimize Total Length</code> 的差異，並舉一個後者不選最近點的情況。</li>
+<li>一個 Branch 最大填充率 75%、Allowance 設 5，某點填充率 71%，格子會是什麼顏色？</li>
+<li>比較 Automatic Routing、Define Route、PRP 與 Manual Route 的適用情境。</li>
+<li>為何以 Create by Dimensions 建的支撐，結構專業改梁時難以追蹤？應如何補救？</li>
+<li>列舉 Integrity Checker 的三種結果等級與各一個觸發條件。</li>
+<li>設計一個報表流程：電纜佈線完成後，如何用本章功能輸出填充率異常的 Branch 清單？哪些步驟需要〔待核對〕？</li>
+</ol>
+<h2 id="2218">22.18 待核對項目與取材覆蓋</h2>
+<blockquote>
+<p>〔待核對〕項目彙整：見<a href="appx_d_verification_zh-TW.reading.html#ch22">附錄 D 第 22 章</a>。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch21_structures_zh-TW.reading.html"><small>← 上一篇</small>第 21 章　結構設計（Structures）：Frame、型鋼、板、接頭與平台樓梯</a><a class="next" href="ch23_room_schematics_zh-TW.reading.html"><small>下一篇 →</small>第 23 章　艙室設計與原理圖：Room Design 與 Schematics</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

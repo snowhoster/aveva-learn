@@ -62,7 +62,7 @@
     <text x="446" y="370" font-size="14" font-weight="bold" fill="#4c1d95">開發人員的檢查點</text>
     <text x="446" y="394">工具沒出現：先 q evar PMLLIB，再 pml rehash all</text>
     <text x="446" y="416">.NET 外掛沒載入：檢查 Addins.xml 與 CAF_ADDINS_PATH</text>
-    <text x="446" y="438">讀得到但寫不進：檢查 Team、MDB、Claim（第 2 章）</text>
+    <text x="446" y="438">讀得到但寫不進：檢查 Team、MDB、Claim（第 3 章）</text>
     <text x="446" y="460">同一台電腦切換專案：環境變數是啟動當下決定的，</text>
     <text x="446" y="480">修改 .bat 後必須重新啟動程式才生效</text>
     <line x1="370" y1="420" x2="428" y2="420" stroke="#6d28d9" stroke-dasharray="4,3"/>

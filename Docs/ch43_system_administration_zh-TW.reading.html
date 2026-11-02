@@ -1,0 +1,1563 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 43 章　系統管理與維運：安裝、資料庫、帳號、備份與檔案管理 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#43">第 43 章 系統管理與維運：安裝、資料庫、帳號、備份與檔案管理</a><ul>
+<li><a href="#431">43.1 學習目標</a></li>
+<li><a href="#432">43.2 系統管理員在做什麼</a><ul>
+<li><a href="#4321">43.2.1 三種角色不要混在一起</a></li>
+<li><a href="#4322">43.2.2 哪些事不要自己來</a></li>
+</ul>
+</li>
+<li><a href="#433">43.3 安裝需求與環境</a><ul>
+<li><a href="#4331">43.3.1 先破除一個常見誤解</a></li>
+<li><a href="#4332">43.3.2 安裝需求檢查表</a></li>
+<li><a href="#4333">43.3.3 單機、檔案伺服器與多站</a></li>
+</ul>
+</li>
+<li><a href="#434-area">43.4 專案結構、資料庫檔案與 Area</a><ul>
+<li><a href="#4341">43.4.1 專案目錄</a></li>
+<li><a href="#4342">43.4.2 資料庫檔案命名</a></li>
+<li><a href="#4343-area">43.4.3 Area：把資料庫放到不同磁碟</a></li>
+</ul>
+</li>
+<li><a href="#435">43.5 建立專案與環境變數</a><ul>
+<li><a href="#4351">43.5.1 建立順序</a></li>
+<li><a href="#4352-system">43.5.2 SYSTEM 帳號與首次登入</a></li>
+<li><a href="#4353">43.5.3 專案資訊與模組定義</a></li>
+</ul>
+</li>
+<li><a href="#436">43.6 複製專案：為什麼不能直接複製目錄</a></li>
+<li><a href="#437-teams">43.7 帳號、Teams 與使用者特權</a><ul>
+<li><a href="#4371">43.7.1 三個基本元素</a></li>
+<li><a href="#4372-free-general">43.7.2 FREE 與 GENERAL</a></li>
+<li><a href="#4373">43.7.3 帳號生命週期</a></li>
+<li><a href="#4374-nt">43.7.4 NT 驗證</a></li>
+</ul>
+</li>
+<li><a href="#438-mdbdb-extract">43.8 MDB、DB 模式與 Extract</a><ul>
+<li><a href="#4381-mdb">43.8.1 MDB 是「這次連線的資料庫組合」</a></li>
+<li><a href="#4382-update-multiwrite">43.8.2 UPDATE 與 MULTIWRITE</a></li>
+<li><a href="#4383-controlled">43.8.3 CONTROLLED：外部系統控制寫入</a></li>
+<li><a href="#4384-extract-db">43.8.4 Extract：從主 DB 衍生工作區</a></li>
+<li><a href="#4385">43.8.5 幽靈使用者與殘留認領</a></li>
+</ul>
+</li>
+<li><a href="#439-dac-team">43.9 DAC：比 Team 更細的權限</a></li>
+<li><a href="#4310-sessionstampmerge-backtrack">43.10 Session、Stamp、Merge 與 Backtrack</a><ul>
+<li><a href="#43101-session">43.10.1 Session 是什麼</a></li>
+<li><a href="#43102">43.10.2 資料是附加的</a></li>
+<li><a href="#43103-stamp">43.10.3 Stamp</a></li>
+<li><a href="#43104-backtrack">43.10.4 Backtrack 不是備份</a></li>
+</ul>
+</li>
+<li><a href="#4311">43.11 備份與還原</a><ul>
+<li><a href="#43111">43.11.1 備份範圍</a></li>
+<li><a href="#43112">43.11.2 備份前：先讓資料庫靜止</a></li>
+<li><a href="#43113">43.11.3 三種備份方式</a></li>
+<li><a href="#43114-3-2-1">43.11.4 備份策略：3-2-1 與保留期</a></li>
+<li><a href="#43115">43.11.5 還原順序</a></li>
+<li><a href="#43116">43.11.6 還原演練</a></li>
+<li><a href="#43117-rpo-rto">43.11.7 RPO 與 RTO</a></li>
+</ul>
+</li>
+<li><a href="#4312">43.12 檔案、磁碟與環境變數管理</a><ul>
+<li><a href="#43121">43.12.1 磁碟配置原則</a></li>
+<li><a href="#43122">43.12.2 網路與防毒</a></li>
+<li><a href="#43123-cache-service">43.12.3 Cache Service</a></li>
+<li><a href="#43124">43.12.4 環境變數清單要版本化</a></li>
+</ul>
+</li>
+<li><a href="#4313">43.13 監控、授權與容量</a><ul>
+<li><a href="#43131">43.13.1 每日／每週檢查</a></li>
+<li><a href="#43132">43.13.2 容量規劃</a></li>
+<li><a href="#43133">43.13.3 授權</a></li>
+</ul>
+</li>
+<li><a href="#4314-dice">43.14 DICE：資料庫完整性檢查</a><ul>
+<li><a href="#43141-dice">43.14.1 DICE 檢查什麼</a></li>
+<li><a href="#43142">43.14.2 常見損毀原因</a></li>
+<li><a href="#43143">43.14.3 執行與選項</a></li>
+<li><a href="#43144-patch">43.14.4 Patch 的界線</a></li>
+<li><a href="#43145-dice">43.14.5 DICE 排程建議</a></li>
+</ul>
+</li>
+<li><a href="#4315">43.15 升級與災難復原</a><ul>
+<li><a href="#43151">43.15.1 升級不是「換程式」</a></li>
+<li><a href="#43152">43.15.2 升級檢查表</a></li>
+<li><a href="#43153">43.15.3 災難類型與對策</a></li>
+<li><a href="#43154">43.15.4 回復計畫的最小內容</a></li>
+</ul>
+</li>
+<li><a href="#4316">43.16 常見錯誤</a></li>
+<li><a href="#4317">43.17 練習（只能在訓練專案）</a></li>
+<li><a href="#4318">43.18 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第六部分　系統管理與維運 · 44 / 53</span><h1 id="43">第 43 章　系統管理與維運：安裝、資料庫、帳號、備份與檔案管理</h1>
+<blockquote>
+<p>前面十九章談的是「怎麼用 AVEVA 做設計、寫工具」。這一章換一個位置：<strong>站在系統管理員的位置，讓整套系統能被安裝、授權、備份、還原、升級與稽核。</strong></p>
+<p>很多團隊的 AVEVA 問題不是模型做錯，而是系統面沒有負責人：專案目錄放在個人電腦、備份只複製一半的資料庫、離職員工的帳號還留著、升級前沒有備份、磁碟滿了才發現。這些問題一旦發生，重做模型事小，資料救不回來才是大事。</p>
+<p><strong>資料可信度：</strong> 資料庫型別、<code>teamName/databaseName</code> 命名、FREE／GENERAL 使用者、UPDATE／MULTIWRITE／CONTROLLED、Session、DICE、Replicate、Cache Service、資料庫升級與分散式資料庫，取自 AVEVA E3D 1.1 <em>Administrator User Guide</em>（AUGA，help.aveva.com 靜態頁）。安裝硬體需求、授權型式與作業系統支援矩陣，依版本與合約而異，文中標為〔待核對〕。備份、還原、監控與災難復原屬於一般 IT 維運實務，本章依 AVEVA 的檔案式資料庫特性調整；實際排程請以公司政策與 AVEVA 支援建議為準。</p>
+</blockquote>
+<h2 id="431">43.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明 AVEVA 系統管理員的責任邊界，以及哪些事必須由 AVEVA 原廠或授權夥伴處理。</li>
+<li>列出 AVEVA Marine／E3D 的安裝需求項目，並說明「模型資料不走 SQL Server」這件事的意義。</li>
+<li>說明專案目錄、資料庫檔案命名、Area 環境變數與磁碟配置的關係。</li>
+<li>建立專案、設定環境變數，並用 ADMIN 建立 Teams、Users、DBs 與 MDBs。</li>
+<li>區分 FREE／GENERAL 使用者、UPDATE／MULTIWRITE／CONTROLLED 資料庫與 Extract 的存取行為。</li>
+<li>規劃帳號生命週期、權限審查與 DAC 的使用時機。</li>
+<li>執行 DICE 完整性檢查，讀懂常見錯誤，並知道 Patch 與 Reconfigure 的界線。</li>
+<li>設計一套可還原的備份策略，包含備份範圍、順序、驗證與還原演練。</li>
+<li>管理 Session、Stamp、Merge 與 Backtrack，避免把歷史紀錄當成備份。</li>
+<li>規劃磁碟、網路、防毒排除、環境變數與監控，並知道升級與災難復原的檢查點。</li>
+</ol>
+<h2 id="432">43.2 系統管理員在做什麼</h2>
+<p>系統管理不是「安裝完就走」。它是一組持續的責任，可以分成五個圈：</p>
+<p><img alt="AVEVA 系統管理範圍：專案與資料庫、帳號與權限、環境與檔案、備份與復原、監控與升級" src="images/diagrams/ch20_admin_scope.svg" /></p>
+<p><em>圖 43-1　系統管理的五個責任圈。中間是「可用的專案」，外圈是讓它持續可用的工作。（本課程自繪）</em></p>
+<table>
+<thead>
+<tr>
+<th>責任圈</th>
+<th>具體工作</th>
+<th>沒有做好的症狀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專案與資料庫</td>
+<td>建專案、切 DB、設 MDB、控管 DB 模式、Extract</td>
+<td>使用者看不到資料、寫入衝突、DB 膨脹</td>
+</tr>
+<tr>
+<td>帳號與權限</td>
+<td>Teams、Users、密碼、FREE／GENERAL、DAC、離職停用</td>
+<td>權限過大、無法追責、前任帳號仍可寫入</td>
+</tr>
+<tr>
+<td>環境與檔案</td>
+<td>環境變數、目錄配置、磁碟、網路分享、防毒排除</td>
+<td>登入失敗、效能差、檔案損毀</td>
+</tr>
+<tr>
+<td>備份與復原</td>
+<td>備份排程、離線副本、還原演練、異地保存</td>
+<td>出事才發現備份不完整</td>
+</tr>
+<tr>
+<td>監控與升級</td>
+<td>容量、Session、DICE、授權、版本升級</td>
+<td>磁碟滿、授權不足、升級失敗</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4321">43.2.1 三種角色不要混在一起</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>負責</th>
+<th>不負責</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVEVA 系統管理員</td>
+<td>專案結構、帳號、DB 模式、備份、DICE、升級執行</td>
+<td>船舶設計正確性、PML 工具功能</td>
+</tr>
+<tr>
+<td>設計部門主管</td>
+<td>誰該有什麼權限、哪個 Team 負責哪個區域</td>
+<td>資料庫檔案與伺服器</td>
+</tr>
+<tr>
+<td>IT 基礎設施</td>
+<td>伺服器、儲存、網路、作業系統、防毒、網域帳號</td>
+<td>AVEVA 專案內部結構</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 最常見的災難是「三個人各做一部分，但沒有人對整份備份負責」。請明確指定一位 AVEVA 系統管理員，並把備份還原的演練列入他的年度工作。</p>
+</blockquote>
+<h3 id="4322">43.2.2 哪些事不要自己來</h3>
+<ul>
+<li><strong>資料庫檔案損毀的深層修復。</strong> DICE 的 Patch 只能處理部分結構問題；修不好時應開 AVEVA 支援案件，不要用十六進位編輯器改 DB 檔。</li>
+<li><strong>未經確認的版本升級。</strong> 升級涉及資料模型變更與 all-or-nothing 的 Part Upgrade，必須先備份、先在測試專案驗證。</li>
+<li><strong>修改 SYSTEM 資料庫的內部結構。</strong> 它只能透過 ADMIN 模組維護。</li>
+<li><strong>把正式專案目錄直接複製成另一個專案。</strong> 專案名稱存在 DB 內部，必須用 <code>Project &gt; Replicate</code>（見 43.6）。</li>
+</ul>
+<h2 id="433">43.3 安裝需求與環境</h2>
+<h3 id="4331">43.3.1 先破除一個常見誤解</h3>
+<p>AVEVA Marine／E3D 的模型資料主要存在<strong>一組專案目錄下的專屬資料庫檔案</strong>（Dabacon 格式），不是存在 SQL Server 的資料表裡。因此：</p>
+<ul>
+<li>系統管理員要管的是<strong>檔案伺服器、網路分享、NTFS 權限、磁碟空間與檔案鎖定</strong>，不是 SQL 資料庫的 <code>BACKUP DATABASE</code>。</li>
+<li>SQL Server／Oracle 只在某些周邊產品或整合情境出現（例如 AVEVA Engineering、AVEVA NET、部分儀控或報表元件）。〔待核對：依你們購買的模組與版本為準。〕</li>
+<li>把「備份 AVEVA」想成「備份 SQL」是錯的；真正要備份的是整個專案目錄與相關設定。</li>
+</ul>
+<h3 id="4332">43.3.2 安裝需求檢查表</h3>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>需求</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>作業系統</td>
+<td>Windows 專業版／伺服器版，版本依 AVEVA 支援矩陣</td>
+<td>〔待核對〕不要用家用版或已終止支援的版本</td>
+</tr>
+<tr>
+<td>處理器</td>
+<td>多核心，時脈與快取影響建模與批次</td>
+<td>大型模型與出圖需要較高單核效能</td>
+</tr>
+<tr>
+<td>記憶體</td>
+<td>依模型規模與模組</td>
+<td>大型專案建議 32 GB 以上〔待核對〕</td>
+</tr>
+<tr>
+<td>磁碟</td>
+<td>系統碟與專案碟分開；專案碟用本機或低延遲儲存</td>
+<td>不要把 DB 放在 USB 隨身碟、OneDrive 或壓縮磁碟</td>
+</tr>
+<tr>
+<td>網路</td>
+<td>穩定、低延遲的 SMB 分享；伺服器與用戶端時間同步</td>
+<td>網路錯誤是 DB 損毀的常見原因</td>
+</tr>
+<tr>
+<td>顯示</td>
+<td>支援 OpenGL 的繪圖卡與正確驅動</td>
+<td>驅動不穩會造成當機與資料未存</td>
+</tr>
+<tr>
+<td>元件</td>
+<td>.NET Framework／.NET、MSMQ（若用 Cache Service）、Visual C++ 執行檔</td>
+<td>依安裝程式指示</td>
+</tr>
+<tr>
+<td>權限</td>
+<td>安裝帳號需本機系統管理員</td>
+<td>安裝與 MSMQ 啟用都需要</td>
+</tr>
+<tr>
+<td>授權</td>
+<td>AVEVA 授權伺服器可連線，或本機授權檔</td>
+<td>〔待核對〕授權型式與埠號依合約</td>
+</tr>
+<tr>
+<td>目錄</td>
+<td>專案、MAC、PIC、ISO、DFLTS、PMLLIB 各自獨立</td>
+<td>見 43.5 與 43.12</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>開發人員須知：</strong> 如果你的工具會啟動第二個 AVEVA 程序或呼叫外部程式，請確認它在<strong>使用者權限</strong>下可執行，而不是只在管理員帳號測試過。很多「只有某些人會失敗」的問題，來源是環境變數與權限，不是程式。</p>
+</blockquote>
+<h3 id="4333">43.3.3 單機、檔案伺服器與多站</h3>
+<table>
+<thead>
+<tr>
+<th>佈署型態</th>
+<th>適合</th>
+<th>優點</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單機</td>
+<td>訓練、示範、小型專案</td>
+<td>簡單、無網路延遲</td>
+<td>沒有集中備份；電腦壞就全沒</td>
+</tr>
+<tr>
+<td>檔案伺服器</td>
+<td>一般設計團隊</td>
+<td>集中管理、集中備份</td>
+<td>網路與伺服器成為單點</td>
+</tr>
+<tr>
+<td>分散式（Area）</td>
+<td>大型專案、多磁碟</td>
+<td>分攤 I/O、隔離部門</td>
+<td>環境變數多，容易設錯</td>
+</tr>
+<tr>
+<td>Global 多站</td>
+<td>跨地點協作</td>
+<td>各地有本地副本</td>
+<td>設定複雜、同步問題難排</td>
+</tr>
+</tbody>
+</table>
+<p>Global 專案一旦建立就<strong>無法用 AVEVA 指令回復</strong>，建立前必須完整備份。Global 的建立、分配與恢復細節見<a href="ch46_dabacon_global_zh-TW.reading.html">第 46 章</a>。</p>
+<h2 id="434-area">43.4 專案結構、資料庫檔案與 Area</h2>
+<h3 id="4341">43.4.1 專案目錄</h3>
+<p>一個專案由三個字元的專案代碼識別（例如 <code>ABC</code>；也支援 8 字元長專案識別碼〔待核對〕）。專案目錄由環境變數 <code>ABC000</code> 指向：</p>
+<pre><code class="language-text">ABC000        專案目錄，內含 DB 檔
+  ABCSYS      SYSTEM 資料庫
+  ABCCOM      COMMS 資料庫
+  ABCMIS      MISC 資料庫
+  ABC001 ~ ABCnnnn   模型與其他資料庫
+ABCMAC        跨資料庫連線巨集（inter-DB macros）
+ABCPIC        DRAFT 產生的圖片檔
+ABCISO        ISODRAFT 需要的檔案
+ABCDFLTS      專案預設檔（字型、圖框、樣式等）
+ABCMAR        Marine 相關目錄〔待核對：依版本與模組〕
+</code></pre>
+<p>實際目錄名稱可以自訂，只要環境變數指對；<strong>檔名不能自訂</strong>，一定是 <code>prjnnnn</code> 格式。</p>
+<h3 id="4342">43.4.2 資料庫檔案命名</h3>
+<p>AUGA 說明的檔名格式是：</p>
+<pre><code class="language-text">xxxnnnn_mmmm
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>意義</th>
+<th>範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>xxx</code></td>
+<td>專案代碼</td>
+<td>例如 <code>abc</code></td>
+</tr>
+<tr>
+<td><code>nnnn</code></td>
+<td>資料庫編號</td>
+<td>1–6999（7001–10000、250001–255000 保留給 AVEVA）</td>
+</tr>
+<tr>
+<td><code>_mmmm</code></td>
+<td>Extract 編號</td>
+<td>衍生資料庫才會有</td>
+</tr>
+</tbody>
+</table>
+<p>也就是說，<strong>資料庫編號是有限資源</strong>。一直建 DB、刪 DB、再建 DB，會把編號用掉；大型專案要一開始就規劃編號區段（例如船體 100–199、管路 200–299、目錄 900–999）。</p>
+<h3 id="4343-area">43.4.3 Area：把資料庫放到不同磁碟</h3>
+<p>資料庫不一定要全部放在 <code>ABC000</code>。AUGA 提供 Area 機制：建立另一個目錄，設定環境變數 <code>ABCnnn</code>（<code>nnn</code> 是 1–999 的 Area 編號），建立或移動 DB 時指定 Area。</p>
+<pre><code class="language-bat">rem 示意：把 Area 500 指向 D 磁碟
+set ABC500=D:\aveva_areas\area500
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>好處</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依部門分 Area</td>
+<td>I/O 分散、權限較好管</td>
+<td>環境變數要同步到所有工作站</td>
+</tr>
+<tr>
+<td>依專案階段分 Area</td>
+<td>舊資料可降到較慢的儲存</td>
+<td>不要隨便改 Area，參照會失效</td>
+</tr>
+<tr>
+<td>單一 Area</td>
+<td>簡單</td>
+<td>大型專案容易成為 I/O 瓶頸</td>
+</tr>
+</tbody>
+</table>
+<p>可用 <code>LIST AREA</code> 指令列出某個 Area 的資料庫〔指令語法待核對〕。</p>
+<blockquote>
+<p><strong>專業提醒：</strong> Area 環境變數必須用<strong>大寫</strong>，且每一台工作站都要有相同設定。只在管理員電腦設定，會造成「有人進得去、有人進不去」的經典問題。</p>
+</blockquote>
+<h2 id="435">43.5 建立專案與環境變數</h2>
+<h3 id="4351">43.5.1 建立順序</h3>
+<p>AUGA 的建立流程可以整理成五步：</p>
+<ol>
+<li><strong>規劃。</strong> 決定專案代碼、DB 切分、Team、MDB、Area、磁碟與備份策略。</li>
+<li><strong>建目錄。</strong> 建立 <code>ABC000</code>、<code>ABCMAC</code>、<code>ABCPIC</code>、<code>ABCISO</code>、<code>ABCDFLTS</code> 等目錄。</li>
+<li><strong>設環境變數。</strong> 編輯 <code>evars.bat</code>，設定 <code>ABC000</code>、<code>ABCMAC</code>、<code>ABCPIC</code>、<code>ABCISO</code>、<code>ABCDFLTS</code>（Marine 另加 <code>ABCMAR</code>）。</li>
+<li><strong>執行產品附的腳本與巨集。</strong> 建立初始資料庫與專案檔。</li>
+<li><strong>以 SYSTEM 進入 ADMIN。</strong> 建立 Teams、Users、DBs、MDBs。</li>
+</ol>
+<pre><code class="language-bat">rem 示意：evars.bat 的專案段落，路徑依公司配置
+set ABC000=\\filesrv\aveva\ABC\ABC000
+set ABCMAC=\\filesrv\aveva\ABC\ABCMAC
+set ABCPIC=\\filesrv\aveva\ABC\ABCPIC
+set ABCISO=\\filesrv\aveva\ABC\ABCISO
+set ABCDFLTS=\\filesrv\aveva\ABC\ABCDFLTS
+set ABCMAR=\\filesrv\aveva\ABC\ABCMAR
+</code></pre>
+<blockquote>
+<p><strong>開發人員須知：</strong> 不要把專案路徑寫死在 PML 或 .NET 程式裡。用環境變數或公司設定檔取得，否則換伺服器就要重編譯。</p>
+</blockquote>
+<h3 id="4352-system">43.5.2 SYSTEM 帳號與首次登入</h3>
+<p>第一次進入 ADMIN 使用 <code>SYSTEM</code> 帳號。這個帳號是專案的萬用管理者，應該：</p>
+<ul>
+<li>只在建立專案與緊急維修時使用。</li>
+<li>密碼由兩人保管或放在公司的機密保管庫。</li>
+<li>平日使用具 ADMIN 權限的個人帳號，不要共用 <code>SYSTEM</code>。</li>
+</ul>
+<h3 id="4353">43.5.3 專案資訊與模組定義</h3>
+<p>ADMIN 的 <code>Project</code> 選單還有幾個系統管理員會用到的項目：</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>用途</th>
+<th>風險</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Information</td>
+<td>專案名稱、描述、訊息、編號（每次登入顯示）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Font Families／TrueType Fonts</td>
+<td>設定 MODEL 與 DRAFT 字型</td>
+<td>設錯會讓圖面字型跑掉</td>
+</tr>
+<tr>
+<td>Module Definitions</td>
+<td>調整模組定義</td>
+<td>可能讓使用者進錯模組</td>
+</tr>
+<tr>
+<td>Replicate</td>
+<td>複製專案資料或結構</td>
+<td>見 43.6</td>
+</tr>
+<tr>
+<td>Expunge</td>
+<td>清除幽靈使用者與釋放認領</td>
+<td>誤清可能影響正在執行的程序</td>
+</tr>
+<tr>
+<td>NT Authentication</td>
+<td>切換網域驗證</td>
+<td>切換前要先確認所有帳號對應</td>
+</tr>
+<tr>
+<td>Data Access Control</td>
+<td>切換 DAC</td>
+<td>開啟後權限規則沒設好會鎖死</td>
+</tr>
+<tr>
+<td>Lock</td>
+<td>鎖定專案資料庫</td>
+<td>鎖定時所有人無法寫入</td>
+</tr>
+</tbody>
+</table>
+<h2 id="436">43.6 複製專案：為什麼不能直接複製目錄</h2>
+<p>AUGA 明確警告：<strong>不可用「複製整個專案目錄」的方式在 AVEVA 外複製專案</strong>，因為專案名稱等資訊存在資料庫檔案內部。</p>
+<p>正確做法是 <code>Project &gt; Replicate</code>：</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>作用</th>
+<th>使用時機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Data</td>
+<td>複製整個專案（含資料）到新專案</td>
+<td>建立新船專案的起點、複製訓練環境</td>
+</tr>
+<tr>
+<td>Project Structure</td>
+<td>只產生複製結構的巨集</td>
+<td>建立同結構但空資料的新專案</td>
+</tr>
+</tbody>
+</table>
+<p>操作前必須：</p>
+<ol>
+<li>先建立新專案的目錄。</li>
+<li>先設定新專案的環境變數。</li>
+<li>在 Replicate 表單輸入新專案代碼。</li>
+<li>執行後<strong>重設使用者密碼</strong>——AUGA 說明密碼不會寫入 Replicate 輸出，複製後的使用者必須由新專案管理員設定密碼才能登入。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 用 Replicate 複製出來的專案，資料庫編號可能與來源相同。若兩個專案會同時掛載（例如共用目錄），要特別小心參照與 MDB 設定。</p>
+</blockquote>
+<h2 id="437-teams">43.7 帳號、Teams 與使用者特權</h2>
+<h3 id="4371">43.7.1 三個基本元素</h3>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td>有識別碼與密碼，可進入 AVEVA</td>
+</tr>
+<tr>
+<td>Team</td>
+<td>擁有資料庫；使用者可屬於多個 Team</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>屬於<strong>一個</strong> Team；名稱格式 <code>teamName/databaseName</code></td>
+</tr>
+</tbody>
+</table>
+<p>規則：</p>
+<ul>
+<li>使用者必須是 DB 擁有 Team 的成員，才有該 DB 的<strong>寫入</strong>權。</li>
+<li>只讀使用者不一定要加入 Team。</li>
+<li>一個 Team 可以只有一個使用者，甚至沒有使用者；沒有使用者時，只有 FREE 使用者能寫入該 Team 的 DB。</li>
+<li>進一步的限制可用 DAC（43.9）。</li>
+</ul>
+<h3 id="4372-free-general">43.7.2 FREE 與 GENERAL</h3>
+<table>
+<thead>
+<tr>
+<th>使用者類型</th>
+<th>可進入模組</th>
+<th>可更新的 DB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FREE</td>
+<td>所有模組，包括 ADMIN、LEXICON</td>
+<td>任何 DB</td>
+</tr>
+<tr>
+<td>GENERAL</td>
+<td>不能進入受限模組（通常是 ADMIN、LEXICON）</td>
+<td>只能更新自己所屬 Teams 的 DB</td>
+</tr>
+</tbody>
+</table>
+<p>FREE 不是「比較厲害的一般使用者」，而是<strong>特權帳號</strong>。實務上：</p>
+<ul>
+<li><code>SYSTEM</code> 是 FREE。</li>
+<li>少數系統管理員帳號可以是 FREE，但要列管。</li>
+<li>設計人員、外包、實習生一律 GENERAL。</li>
+<li>定期清查 FREE 帳號，離職或轉調立即降權。</li>
+</ul>
+<h3 id="4373">43.7.3 帳號生命週期</h3>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>動作</th>
+<th>紀錄</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>申請</td>
+<td>主管核准，註明專案、Team、角色、期限</td>
+<td>申請單</td>
+</tr>
+<tr>
+<td>建立</td>
+<td>ADMIN 建 User，加入最少必要的 Team</td>
+<td>建立日期與操作人</td>
+</tr>
+<tr>
+<td>變更</td>
+<td>調部門時調整 Team，不要直接給 FREE</td>
+<td>變更單</td>
+</tr>
+<tr>
+<td>停用</td>
+<td>離職或長期不用時停用／刪除，並 Expunge 其殘留</td>
+<td>停用日期</td>
+</tr>
+<tr>
+<td>審查</td>
+<td>每季或每半年列出 FREE 帳號與 Team 成員</td>
+<td>審查報告</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 外包與短期協力人員最容易留下萬年帳號。請在帳號欄位或公司資產管理系統記錄「到期日」，到期自動停用。</p>
+</blockquote>
+<h3 id="4374-nt">43.7.4 NT 驗證</h3>
+<p>ADMIN 可以切換 <strong>NT Authentication</strong>，讓使用者用 Windows 網域帳號登入，而不是 AVEVA 自己的密碼。〔待核對：實際對應方式與版本支援。〕</p>
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>離職停用網域帳號即失效</td>
+<td>網域與 AVEVA 帳號對應要維護</td>
+</tr>
+<tr>
+<td>不需另外記密碼</td>
+<td>服務帳號與跨網域情境較複雜</td>
+</tr>
+<tr>
+<td>符合公司密碼政策</td>
+<td>切換時可能鎖住所有人</td>
+</tr>
+</tbody>
+</table>
+<p>切換前一定要在測試專案驗證，並保留一個可用的 FREE 緊急帳號。</p>
+<h2 id="438-mdbdb-extract">43.8 MDB、DB 模式與 Extract</h2>
+<h3 id="4381-mdb">43.8.1 MDB 是「這次連線的資料庫組合」</h3>
+<p>MDB 決定使用者看得到哪些 DB。AUGA 的建議：</p>
+<ul>
+<li>MODEL 使用者的 MDB 必須包含 CATALOGUE 與他要寫入的 MODEL DB。</li>
+<li>同一個物理區域內的其他 MODEL DB 也應放入，以確保碰撞檢查（clash checking）準確。</li>
+<li>有連線關係的其他 MODEL DB 也要放入。</li>
+<li><strong>DB 在 MDB 中的順序很重要</strong>：新建頂層元素時，系統會寫到該類型的第一個 DB。</li>
+</ul>
+<p>三種常見規劃：</p>
+<table>
+<thead>
+<tr>
+<th>規劃</th>
+<th>做法</th>
+<th>適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一人一個 MDB</td>
+<td>可寫 DB 放在該類型第一位</td>
+<td>大型專案、DB 與人多</td>
+</tr>
+<tr>
+<td>一個 MDB 多人共用</td>
+<td>管理員先建好 Site／Department 等頂層元素</td>
+<td>中小型專案、多寫入 DB</td>
+</tr>
+<tr>
+<td>特殊用途 MDB</td>
+<td>只含管路資料，供 MTO 產生</td>
+<td>批次報表、介面整合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4382-update-multiwrite">43.8.2 UPDATE 與 MULTIWRITE</h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>允許</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UPDATE</td>
+<td>1 個寫入者 + n 個讀取者</td>
+<td>傳統單寫入，衝突少但協作差</td>
+</tr>
+<tr>
+<td>MULTIWRITE</td>
+<td>m 個寫入者 + n 個讀取者</td>
+<td>以元素認領（Claim）協調</td>
+</tr>
+</tbody>
+</table>
+<p>可以多寫入的類型：MODEL、CATALOGUE、PADD（DRAFT）、ISOD。<strong>SYSTEM 永遠是多寫入。</strong></p>
+<p>轉換規則：</p>
+<ul>
+<li>UPDATE → MULTIWRITE：隨時可以。</li>
+<li>MULTIWRITE → UPDATE：<strong>只有在沒有任何 Extract 從它產生時</strong>才可以。</li>
+</ul>
+<h3 id="4383-controlled">43.8.3 CONTROLLED：外部系統控制寫入</h3>
+<p>CONTROLLED 的 DB 由外部系統（透過 <code>EDMSlink</code> 程式）控制認領。使用者必須 Claim 元素才能修改；Claim 以元素名稱為基礎，第一次更新時才發生，直到明確釋放。</p>
+<table>
+<thead>
+<tr>
+<th>適合</th>
+<th>不適合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需要與 PDM／EDM 連動的正式區域</td>
+<td>快速迭代的設計前期</td>
+</tr>
+<tr>
+<td>有正式簽核流程的圖面或目錄</td>
+<td>沒有 EDMSlink 整合的環境</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4384-extract-db">43.8.4 Extract：從主 DB 衍生工作區</h3>
+<p>Extract 讓使用者從 master DB 認領元素，完成後 Issue 回 master。適合：</p>
+<ul>
+<li>外包或跨部門工作，不想直接開放 master 寫入。</li>
+<li>需要隔離實驗性設計。</li>
+<li>多地點分工。</li>
+</ul>
+<p>管理員要注意：</p>
+<ul>
+<li>Extract 會增加資料庫檔案與編號複雜度。</li>
+<li>DICE 檢查外部參照時，若專案有很多同編號的 Extract，要用 Preferred MDB 指定優先檢查的 MDB。</li>
+<li>MULTIWRITE 轉 UPDATE 前，必須先處理完 Extract。</li>
+</ul>
+<h3 id="4385">43.8.5 幽靈使用者與殘留認領</h3>
+<p>當使用者不正常結束（當機、斷網、強制關機），可能留下：</p>
+<ul>
+<li><strong>幽靈使用者（phantom user）</strong>：COMMS 中仍顯示在線。</li>
+<li><strong>殘留認領（claim list）</strong>：元素仍被標記為某人所有，別人無法修改。</li>
+</ul>
+<p>處理方式在 <code>Project &gt; Expunge</code>：</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All Users</td>
+<td>清除所有幽靈使用者</td>
+</tr>
+<tr>
+<td>User Process</td>
+<td>選擇要清除的程序（不能清除自己）</td>
+</tr>
+<tr>
+<td>Claimlist</td>
+<td>選擇 DB，釋放殘留認領</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> Expunge 前先確認那個人真的不在線上。把正在跑批次匯出的程序清掉，會讓它寫入失敗甚至留下半完成資料。</p>
+</blockquote>
+<h2 id="439-dac-team">43.9 DAC：比 Team 更細的權限</h2>
+<p>Team 的權限粒度是「整個 DB 可讀或可寫」。如果需求是「這個 Team 只能改某個區域」或「只能改某些屬性」，就需要 <strong>Data Access Control（DAC）</strong>。</p>
+<p>DAC 由三個概念組成：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role</td>
+<td>一組權限的集合（能做什麼）</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>作用範圍（對哪些元素）</td>
+</tr>
+<tr>
+<td>ACR（Access Control Right）</td>
+<td>Role + Scope 的組合，指派給使用者或 Team</td>
+</tr>
+</tbody>
+</table>
+<p>使用時機：</p>
+<ul>
+<li>同一 DB 內不同區域由不同組負責。</li>
+<li>需要限制某些屬性只能由特定角色修改。</li>
+<li>需要比 Team 更精確的稽核與隔離。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>DAC 是<strong>額外</strong>限制，不會取代 Team 的 DB 寫入權。</li>
+<li>開啟 DAC 前要先建好規則，否則可能所有人都不能寫。</li>
+<li>DAC 規則會影響工具：原本可寫的元素，可能因為 Scope 不在範圍內而失敗。</li>
+</ul>
+<blockquote>
+<p><strong>開發人員須知：</strong> 寫入型工具上線前，請在<strong>開啟 DAC 的測試環境</strong>跑一次。很多工具在管理員帳號測試都正常，一般使用者卻因為 Scope 不符而失敗。</p>
+</blockquote>
+<h2 id="4310-sessionstampmerge-backtrack">43.10 Session、Stamp、Merge 與 Backtrack</h2>
+<h3 id="43101-session">43.10.1 Session 是什麼</h3>
+<p>每次 <code>SAVEWORK</code> 或切換模組，系統會為每個被修改的 DB 建立一個新的 Session。Session 會記錄使用者與日期，GUI 模組可加註解。</p>
+<p>編號規則（AUGA）：</p>
+<pre><code class="language-text">Session 1 = 資料庫建立
+Session 2 = World 建立
+Session 3 = 第一個使用者 Session
+Session 0 = 目前尚未 Savework 的狀態
+</code></pre>
+<h3 id="43102">43.10.2 資料是附加的</h3>
+<p><code>SAVEWORK</code> 會把變更<strong>附加到資料庫檔案尾端</strong>，不是原地覆寫，所以可以回溯，但檔案會持續長大；<code>Merge Changes</code> 可合併 Session 回收空間，<code>Backtrack</code> 則會讓之後的 Session 消失。Savework／Getwork 的行為與指令見<a href="ch45_database_management_zh-TW.reading.html">第 45 章 45.4.1 節</a>。</p>
+<h3 id="43103-stamp">43.10.3 Stamp</h3>
+<p>Stamp 用來標記重要時間點（例如「開工」「送審」「交船」）。被 Stamp 的 Session 在 Merge 時會被視為永久保留，Merge 的保留規則與 Extract 上的注意事項詳見<a href="ch45_database_management_zh-TW.reading.html">第 45 章 45.4.3 節</a>。</p>
+<p>建議在這些時點建立 Stamp：</p>
+<ul>
+<li>設計凍結。</li>
+<li>送船級協會審查。</li>
+<li>主要版本發布。</li>
+<li>專案移交。</li>
+</ul>
+<h3 id="43104-backtrack">43.10.4 Backtrack 不是備份</h3>
+<p>Backtrack 很方便，但它：</p>
+<ul>
+<li>只作用在<strong>單一資料庫</strong>。</li>
+<li>會<strong>刪除後續 Session</strong>。</li>
+<li>無法處理「整台伺服器損毀」或「檔案被誤刪」。</li>
+</ul>
+<p>AUGA 也提醒：Backtrack 前最好先複製一份資料庫。真正的資料保護仍然要靠備份（43.11）。若只想回復單一元素或階層，可先評估不刪資料的 <code>REVERT</code>，比較見<a href="ch45_database_management_zh-TW.reading.html">第 45 章 45.4.4 節</a>。</p>
+<h2 id="4311">43.11 備份與還原</h2>
+<h3 id="43111">43.11.1 備份範圍</h3>
+<p>只備份 <code>ABC000</code> 是不夠的。完整的備份範圍：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>內容</th>
+<th>為什麼要備份</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專案資料庫</td>
+<td><code>ABC000</code> 下所有 DB 檔（SYSTEM、COMMS、MISC、MODEL、CATALOGUE、PADD、ISOD、PROPERTIES、DICTIONARY）</td>
+<td>設計資料本體</td>
+</tr>
+<tr>
+<td>專案設定</td>
+<td><code>ABCDFLTS</code>、<code>ABCMAC</code>、<code>ABCPIC</code>、<code>ABCISO</code></td>
+<td>沒有它們，圖面與預設行為會不同</td>
+</tr>
+<tr>
+<td>啟動環境</td>
+<td><code>evars.bat</code>、公司啟動批次檔、捷徑參數</td>
+<td>還原時最容易漏</td>
+</tr>
+<tr>
+<td>客製化</td>
+<td>PMLLIB、Add-in、表單、字型、圖框、目錄匯入檔</td>
+<td>工具與公司標準</td>
+</tr>
+<tr>
+<td>授權與設定</td>
+<td>授權檔或伺服器設定、<code>Cache Service</code> 設定</td>
+<td>換機時需要</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>專案結構圖、MDB 清單、Team 清單、帳號清單</td>
+<td>沒有文件，還原只能靠猜</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="備份與還原順序：凍結寫入、DICE 檢查、備份、驗證、還原與演練" src="images/diagrams/ch20_backup_restore.svg" /></p>
+<p><em>圖 43-2　備份不是「複製檔案」一個動作，而是一個有順序的流程。（本課程自繪）</em></p>
+<h3 id="43112">43.11.2 備份前：先讓資料庫靜止</h3>
+<p>檔案式資料庫最怕「複製到一半還有程序在寫」。備份前：</p>
+<ol>
+<li>通知使用者登出，或選擇低峰時段。</li>
+<li>確認沒有批次程式、匯出工具、背景 Add-in 在寫入。</li>
+<li>用 <code>Project &gt; Lock</code> 鎖定專案資料庫（若版本支援）。</li>
+<li>執行 DICE，確認沒有 FATAL 錯誤。</li>
+<li>再開始檔案複製或儲存快照。</li>
+</ol>
+<p>AUGA 對 DICE 的建議很明確：<strong>每天備份前跑一次，至少每週一次</strong>，這樣才能在損毀早期就用備份替換。</p>
+<h3 id="43113">43.11.3 三種備份方式</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>做法</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冷備份</td>
+<td>所有人登出，複製整個專案目錄</td>
+<td>一致、可驗證</td>
+<td>需要停機窗口</td>
+</tr>
+<tr>
+<td>儲存快照</td>
+<td>用 VSS／儲存設備快照，瞬間凍結</td>
+<td>幾乎不停機</td>
+<td>快照不是異地備份</td>
+</tr>
+<tr>
+<td>第三方備份軟體</td>
+<td>檔案伺服器層級備份</td>
+<td>集中、可排程</td>
+<td>需設定正確的檔案排除與鎖定</td>
+</tr>
+</tbody>
+</table>
+<p>不建議：</p>
+<ul>
+<li>只複製 <code>ABC000</code>，漏掉 <code>ABCDFLTS</code>、<code>ABCMAC</code>。</li>
+<li>在資料庫使用中直接複製。</li>
+<li>把備份放在同一個磁碟或同一個機房。</li>
+<li>用 <code>robocopy /MIR</code> 同步正式與備份目錄（會把誤刪同步過去）。</li>
+</ul>
+<h3 id="43114-3-2-1">43.11.4 備份策略：3-2-1 與保留期</h3>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 份</td>
+<td>正式、近端備份、離線／異地備份</td>
+</tr>
+<tr>
+<td>2 種媒體</td>
+<td>例如磁碟陣列 + 磁帶或物件儲存</td>
+</tr>
+<tr>
+<td>1 份異地</td>
+<td>另一個機房或雲端封存</td>
+</tr>
+<tr>
+<td>保留期</td>
+<td>每日 × 14、每週 × 8、每月 × 12、每年 × 專案年限（依公司政策）</td>
+</tr>
+<tr>
+<td>不可變</td>
+<td>備份完成後設唯讀或物件鎖定，防勒索軟體</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43115">43.11.5 還原順序</h3>
+<p>還原不是「把檔案倒回去」就好。建議順序：</p>
+<ol>
+<li><strong>準備乾淨環境。</strong> 相同的 AVEVA 版本、相同路徑或已更新的環境變數。</li>
+<li><strong>還原專案目錄。</strong> <code>ABC000</code> 與所有 Area。</li>
+<li><strong>還原設定目錄。</strong> <code>ABCDFLTS</code>、<code>ABCMAC</code>、<code>ABCPIC</code>、<code>ABCISO</code>。</li>
+<li><strong>還原啟動環境。</strong> <code>evars.bat</code> 與公司批次檔。</li>
+<li><strong>還原客製化。</strong> PMLLIB、Add-in、字型、圖框。</li>
+<li><strong>檢查檔名與環境變數。</strong> 專案代碼、Area 編號、大小寫。</li>
+<li><strong>跑 DICE。</strong> 先檢查 SYSTEM，再檢查全部 DB。</li>
+<li><strong>登入測試。</strong> 用測試帳號進 ADMIN 與 MODEL，開一個已知元素。</li>
+<li><strong>通知使用者。</strong> 說明還原到哪個時間點、哪些資料可能遺失。</li>
+</ol>
+<h3 id="43116">43.11.6 還原演練</h3>
+<p>備份沒有演練，等於沒有備份。每半年至少做一次：</p>
+<table>
+<thead>
+<tr>
+<th>演練項目</th>
+<th>通過條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>從備份還原到測試機</td>
+<td>可登入、可開圖、可查元素</td>
+</tr>
+<tr>
+<td>DICE 全部通過</td>
+<td>無 FATAL</td>
+</tr>
+<tr>
+<td>抽樣比對</td>
+<td>隨機 10 個元素的屬性與備份前一致</td>
+</tr>
+<tr>
+<td>還原時間</td>
+<td>符合 RTO（例如 4 小時內）</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>記錄實際步驟、遇到的問題、修正</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> 請把「還原步驟」寫成一頁紙，放在備份旁邊。真正出事時，沒有人有心情翻 50 頁手冊。</p>
+</blockquote>
+<h3 id="43117-rpo-rto">43.11.7 RPO 與 RTO</h3>
+<table>
+<thead>
+<tr>
+<th>指標</th>
+<th>意義</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPO（復原點目標）</td>
+<td>最多可以接受損失多少時間的資料</td>
+<td>每日備份 → RPO 24 小時</td>
+</tr>
+<tr>
+<td>RTO（復原時間目標）</td>
+<td>多久要恢復可用</td>
+<td>4 小時</td>
+</tr>
+</tbody>
+</table>
+<p>如果 RPO 要求小於一天，就需要更頻繁的快照或即時複寫；但要注意 AVEVA DB 的檔案鎖定與一致性，不能直接對使用中的檔案做非一致性複寫。</p>
+<h2 id="4312">43.12 檔案、磁碟與環境變數管理</h2>
+<h3 id="43121">43.12.1 磁碟配置原則</h3>
+<table>
+<thead>
+<tr>
+<th>原則</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系統與資料分開</td>
+<td>作業系統、AVEVA 程式、專案資料不要同一顆碟</td>
+</tr>
+<tr>
+<td>日誌與備份分開</td>
+<td>備份不要與正式資料同一儲存</td>
+</tr>
+<tr>
+<td>保留成長空間</td>
+<td>DB 只會因 Session 附加而變大；至少留 30% 以上</td>
+</tr>
+<tr>
+<td>不要壓縮</td>
+<td>NTFS 壓縮、OneDrive 按需下載會造成檔案行為異常</td>
+</tr>
+<tr>
+<td>不要用網路磁碟的家用同步</td>
+<td>OneDrive／Dropbox 會鎖檔與回寫，極不適合</td>
+</tr>
+<tr>
+<td>路徑短</td>
+<td>避免超過 Windows 路徑長度限制；12.1 另有路徑不可含空白資料夾的限制，見<a href="ch47_release_upgrade_zh-TW.reading.html">第 47 章 47.3.2 節</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="43122">43.12.2 網路與防毒</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB 版本</td>
+<td>使用伺服器支援的穩定版本，關閉不安全的 SMBv1</td>
+</tr>
+<tr>
+<td>延遲</td>
+<td>設計工作站到檔案伺服器的延遲要低且穩定</td>
+</tr>
+<tr>
+<td>防毒</td>
+<td>對專案目錄與 AVEVA 程式目錄設排除；即時掃描會鎖檔</td>
+</tr>
+<tr>
+<td>備份軟體</td>
+<td>排除暫存檔與 Cache，但<strong>不可排除 DB 檔</strong></td>
+</tr>
+<tr>
+<td>時間同步</td>
+<td>所有機器對時，否則 Session 時間與稽核會錯亂</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43123-cache-service">43.12.3 Cache Service</h3>
+<p>Database Cache Service 會把專案資料快取到本機磁碟，改善「專案在網路上、重複讀取多」的效能；專案已在本機磁碟則不適用。必要條件是 MSMQ（啟用需要本機管理員權限），管理工具是 Cache Manager。啟用位置、適用模組與版本細節見<a href="ch47_release_upgrade_zh-TW.reading.html">第 47 章 47.3.2 節</a>。快取是「加速」，不是「備份」；清除快取不會影響正式資料。</p>
+<p>〔待核對〕Cache Service 的安裝與版本支援，請依公司的 <em>Database Cache Service Installation Guide</em>。</p>
+<h3 id="43124">43.12.4 環境變數清單要版本化</h3>
+<p><code>evars.bat</code> 應該放進版控（或至少備份），並記錄：</p>
+<ul>
+<li>每個變數的用途。</li>
+<li>哪些機器需要哪些變數。</li>
+<li>修改日期與修改人。</li>
+<li>與正式環境的差異。</li>
+</ul>
+<blockquote>
+<p><strong>開發人員須知：</strong> 工具如果需要額外環境變數（例如匯出路徑、樣板路徑），請用公司前綴（例如 <code>ABC_EXPORT_DIR</code>），不要佔用 AVEVA 的命名空間。</p>
+</blockquote>
+<h2 id="4313">43.13 監控、授權與容量</h2>
+<h3 id="43131">43.13.1 每日／每週檢查</h3>
+<table>
+<thead>
+<tr>
+<th>頻率</th>
+<th>檢查</th>
+<th>工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每日</td>
+<td>磁碟剩餘空間、備份成功與否、DICE 結果</td>
+<td>監控系統、備份報表、DICE</td>
+</tr>
+<tr>
+<td>每日</td>
+<td>幽靈使用者與殘留認領</td>
+<td>ADMIN <code>Expunge</code> 表單</td>
+</tr>
+<tr>
+<td>每週</td>
+<td>DB 大小與成長趨勢、Session 數量</td>
+<td>檔案大小、ADMIN</td>
+</tr>
+<tr>
+<td>每月</td>
+<td>授權使用率、FREE 帳號清單</td>
+<td>授權伺服器、ADMIN</td>
+</tr>
+<tr>
+<td>每季</td>
+<td>帳號權限審查、還原演練</td>
+<td>申請單、測試機</td>
+</tr>
+<tr>
+<td>每年</td>
+<td>版本升級評估、容量規劃</td>
+<td>AVEVA 支援矩陣</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43132">43.13.2 容量規劃</h3>
+<table>
+<thead>
+<tr>
+<th>指標</th>
+<th>觀察</th>
+<th>行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DB 檔成長</td>
+<td>每週增加百分比</td>
+<td>排程 Merge Sessions、清理不需要的 Extract</td>
+</tr>
+<tr>
+<td>Session 數量</td>
+<td>單一 DB 的 Session 數</td>
+<td>依政策 Merge，但保留 Stamp</td>
+</tr>
+<tr>
+<td>磁碟</td>
+<td>剩餘百分比</td>
+<td>擴充、搬 Area、清理暫存</td>
+</tr>
+<tr>
+<td>網路</td>
+<td>尖峰吞吐與延遲</td>
+<td>調整 Area 配置、啟用 Cache</td>
+</tr>
+<tr>
+<td>授權</td>
+<td>同時上線人數與拒絕次數</td>
+<td>調整授權或使用時段</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43133">43.13.3 授權</h3>
+<p>AVEVA 的授權依產品與合約有多種型式（本機、網路浮動、訂閱等）〔待核對〕。系統管理員要確認：</p>
+<ul>
+<li>授權伺服器可被所有工作站連線。</li>
+<li>防火牆與埠號已開放。</li>
+<li>授權到期日與續約窗口。</li>
+<li>離線／借用授權的歸還。</li>
+<li>授權不足時的錯誤訊息與處理流程。</li>
+</ul>
+<blockquote>
+<p><strong>專業提醒：</strong> 授權到期通常不會「慢慢變慢」，而是某天早上所有人一起進不去。請設定到期前 90／30／7 天的提醒。</p>
+</blockquote>
+<h2 id="4314-dice">43.14 DICE：資料庫完整性檢查</h2>
+<h3 id="43141-dice">43.14.1 DICE 檢查什麼</h3>
+<p>DICE（Database Integrity Checker）檢查資料庫的<strong>內部結構</strong>：</p>
+<ul>
+<li>資料階層是否完整（list 是否包含應有的成員）。</li>
+<li>元素名稱是否正確儲存且可存取。</li>
+<li>對其他資料庫的參照是否有效（DB 是否還存在、型別是否正確、位置是否在範圍內）。</li>
+<li>可產生統計資訊（DB 大小、元素數量）。</li>
+</ul>
+<p>它<strong>不檢查</strong>屬性內容是否工程正確；那要用 MODEL／DRAFT 的 Data Consistency 選項。</p>
+<h3 id="43142">43.14.2 常見損毀原因</h3>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>網路錯誤</td>
+<td>資料遺失或未到達</td>
+</tr>
+<tr>
+<td>複製錯誤</td>
+<td>複製到一半，DB 被截斷</td>
+</tr>
+<tr>
+<td>磁碟或配額不足</td>
+<td>更新時專案區滿了</td>
+</tr>
+<tr>
+<td>刪除被參照的 DB</td>
+<td>其他 DB 仍指向它</td>
+</tr>
+<tr>
+<td>Reconfigure 後未更新參照</td>
+<td>參照位置失效</td>
+</tr>
+<tr>
+<td>資料庫管理軟體未偵測的錯誤</td>
+<td>少見但存在</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43143">43.14.3 執行與選項</h3>
+<p><code>Utilities &gt; Integrity Checker</code> 開啟 DICE 表單。可選：</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selection</td>
+<td>勾選要檢查的 DB</td>
+</tr>
+<tr>
+<td>All</td>
+<td>專案中所有 DB（可能很久）</td>
+</tr>
+<tr>
+<td>System／MISC／COMMS</td>
+<td>只檢查管理資料庫</td>
+</tr>
+<tr>
+<td>Statistics</td>
+<td>產生統計摘要</td>
+</tr>
+<tr>
+<td>External References</td>
+<td>CHECK／NOCHECK／REJECT</td>
+</tr>
+<tr>
+<td>Patch</td>
+<td>嘗試自動修正部分結構錯誤</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43144-patch">43.14.4 Patch 的界線</h3>
+<p>Patch 可以修的例子：</p>
+<ul>
+<li>子 Extract 記錄在 SYSTEM 但不在 DB header。</li>
+<li>DB header 有子 Extract 但 SYSTEM 沒有。</li>
+<li>Claim 記錄不一致。</li>
+<li>目錄 DB 的 LIMBOSPEC 成員過多。</li>
+</ul>
+<p>Patch <strong>不能</strong>修：</p>
+<ul>
+<li>Extract 階層操作造成的問題（要用 EXTRACT FLUSH／DROP／ISSUE）。</li>
+<li>部分需要 Reconfigure 的結構問題。</li>
+<li>Patch 失敗（例如沒有寫入權）時。</li>
+</ul>
+<p>AUGA 也提醒：可 Patch 的清單永遠不完整，有些問題 Patch 與 Reconfigure 都修不好，這時要聯絡 AVEVA 支援。</p>
+<h3 id="43145-dice">43.14.5 DICE 排程建議</h3>
+<table>
+<thead>
+<tr>
+<th>時機</th>
+<th>範圍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每日備份前</td>
+<td>全部 DB（或至少 SYSTEM + 最近修改的 DB）</td>
+</tr>
+<tr>
+<td>每週</td>
+<td>全部 DB + Statistics</td>
+</tr>
+<tr>
+<td>升級前後</td>
+<td>全部 DB</td>
+</tr>
+<tr>
+<td>還原後</td>
+<td>全部 DB</td>
+</tr>
+<tr>
+<td>異常當機後</td>
+<td>受影響的 DB 與其參照 DB</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>專業提醒：</strong> DICE 的輸出要保存。只跑不存，出了問題還是無法證明「當時檢查過、結果正常」。</p>
+</blockquote>
+<h2 id="4315">43.15 升級與災難復原</h2>
+<h3 id="43151">43.15.1 升級不是「換程式」</h3>
+<p>AVEVA 的資料庫升級由一連串 <strong>Part Upgrade</strong> 組成。AUGA 的幾個重點：</p>
+<ul>
+<li>個別資料模型變更稱為 Part Upgrade。</li>
+<li>新軟體通常可以讀取未升級的 DB，但可能無法寫入，且新功能不完整。</li>
+<li>未升級的 Foreign DB（例如共用的公司目錄）可以繼續留在專案中。</li>
+<li>升級框架提供<strong>一個</strong>升級動作，採 all-or-nothing：任何一部分失敗，專案必須保持原狀。</li>
+<li>升級後<strong>不能 Backtrack 到升級前的 Session</strong>。</li>
+</ul>
+<p>12.1 的 Part Upgrade 清單、版本比對與 Optional Upgrade 見<a href="ch47_release_upgrade_zh-TW.reading.html">第 47 章 47.4 節</a>。</p>
+<h3 id="43152">43.15.2 升級檢查表</h3>
+<p>以下為通用的維運層檢查點；官方 16 步順序（含多地點鎖定、Working Extract、Unicode Reconfigure）詳見<a href="ch47_release_upgrade_zh-TW.reading.html">第 47 章 47.4.4 節</a>，版本風險排序見 <a href="ch47_release_upgrade_zh-TW.reading.html">47.9 節</a>。</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>工作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>升級前</td>
+<td>完整備份、DICE、記錄版本、確認授權、通知使用者</td>
+</tr>
+<tr>
+<td>測試</td>
+<td>在複製的專案上升級，跑登入、開圖、查詢、批次工具、DICE</td>
+</tr>
+<tr>
+<td>正式</td>
+<td>停機、鎖定專案、升級、驗證、開放</td>
+</tr>
+<tr>
+<td>升級後</td>
+<td>再跑 DICE、檢查工具、更新文件、保留回復計畫</td>
+</tr>
+<tr>
+<td>回復</td>
+<td>若失敗，還原備份與舊版程式；不要嘗試部分回復</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43153">43.15.3 災難類型與對策</h3>
+<table>
+<thead>
+<tr>
+<th>災難</th>
+<th>影響</th>
+<th>對策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單一 DB 損毀</td>
+<td>部分區域無法讀寫</td>
+<td>用備份替換該 DB，跑 DICE</td>
+</tr>
+<tr>
+<td>專案目錄誤刪</td>
+<td>整個專案消失</td>
+<td>從備份還原；確認 Area 與設定</td>
+</tr>
+<tr>
+<td>檔案伺服器損毀</td>
+<td>全部專案停止</td>
+<td>切換備援伺服器、還原 NAS／SAN 快照</td>
+</tr>
+<tr>
+<td>勒索軟體</td>
+<td>檔案被加密</td>
+<td>離線備份、唯讀備份、隔離網路</td>
+</tr>
+<tr>
+<td>機房事故</td>
+<td>長時間停機</td>
+<td>異地備份、異地重建</td>
+</tr>
+<tr>
+<td>人員流失</td>
+<td>沒人知道怎麼還原</td>
+<td>文件化、交接、演練</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43154">43.15.4 回復計畫的最小內容</h3>
+<ol>
+<li>誰有權決定啟動災難復原。</li>
+<li>聯絡清單（AVEVA 支援、IT、部門主管）。</li>
+<li>備份位置與存取方式。</li>
+<li>還原步驟與預估時間。</li>
+<li>暫時替代方案（例如唯讀查詢、紙本圖）。</li>
+<li>事後檢討與改善項目。</li>
+</ol>
+<h2 id="4316">43.16 常見錯誤</h2>
+<table>
+<thead>
+<tr>
+<th>錯誤</th>
+<th>症狀</th>
+<th>原因</th>
+<th>對策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接複製專案目錄</td>
+<td>新專案不能開或資料錯亂</td>
+<td>專案名稱存在 DB 內</td>
+<td>用 <code>Project &gt; Replicate</code></td>
+</tr>
+<tr>
+<td>只備份 <code>ABC000</code></td>
+<td>還原後圖框、字型、巨集不見</td>
+<td>漏備份 DFLTS／MAC／PIC／ISO</td>
+<td>依 43.11.1 清單備份</td>
+</tr>
+<tr>
+<td>使用中備份</td>
+<td>DB 損毀或 DICE FATAL</td>
+<td>檔案邊寫邊複製</td>
+<td>停機、鎖定或快照</td>
+</tr>
+<tr>
+<td>把快照當異地備份</td>
+<td>機房事故全毀</td>
+<td>快照與正式同儲存</td>
+<td>3-2-1 原則</td>
+</tr>
+<tr>
+<td>用 <code>robocopy /MIR</code> 同步</td>
+<td>誤刪被同步到備份</td>
+<td>鏡像會刪目的地</td>
+<td>備份用增量與版本化</td>
+</tr>
+<tr>
+<td>專案放 OneDrive</td>
+<td>檔案鎖定、同步衝突</td>
+<td>雲端同步不支援檔案式 DB</td>
+<td>放檔案伺服器或本機</td>
+</tr>
+<tr>
+<td>防毒即時掃描專案目錄</td>
+<td>效能差、隨機鎖檔</td>
+<td>掃描會開檔</td>
+<td>設排除</td>
+</tr>
+<tr>
+<td>Area 變數只設在管理員電腦</td>
+<td>部分人登入失敗</td>
+<td>其他機器沒有變數</td>
+<td>用群組原則或登入腳本</td>
+</tr>
+<tr>
+<td>MULTIWRITE 直接轉 UPDATE</td>
+<td>轉換失敗</td>
+<td>仍有 Extract</td>
+<td>先處理 Extract</td>
+</tr>
+<tr>
+<td>把 Backtrack 當備份</td>
+<td>伺服器壞了救不回</td>
+<td>Backtrack 只作用單一 DB</td>
+<td>建立真正備份</td>
+</tr>
+<tr>
+<td>升級前沒備份</td>
+<td>升級失敗無法回復</td>
+<td>省略檢查表</td>
+<td>強制備份與測試</td>
+</tr>
+<tr>
+<td>FREE 帳號過多</td>
+<td>權限過大、無法追責</td>
+<td>圖方便</td>
+<td>最小權限、定期審查</td>
+</tr>
+<tr>
+<td>離職帳號未停用</td>
+<td>前員工可登入</td>
+<td>沒有生命週期流程</td>
+<td>到期日與季審查</td>
+</tr>
+<tr>
+<td>幽靈使用者佔用</td>
+<td>元素被鎖、別人不能改</td>
+<td>異常結束</td>
+<td><code>Project &gt; Expunge</code></td>
+</tr>
+<tr>
+<td>DICE 從不跑</td>
+<td>損毀晚期才發現</td>
+<td>沒有排程</td>
+<td>每日備份前、至少每週</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4317">43.17 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>畫出專案地圖。</strong> 用 <code>LIST</code> 或 ADMIN 查出你們專案的 DB 清單、型別、擁有 Team、MDB 成員與順序，畫成一張圖。</li>
+<li><strong>檔案命名練習。</strong> 依 43.4.2 的規則，說明 <code>abc0123_0002</code> 代表什麼；再查你們專案中最大的三個 DB 檔。</li>
+<li><strong>建立測試專案。</strong> 用 <code>Project &gt; Replicate</code> 複製一個訓練專案，重設密碼，確認可登入。</li>
+<li><strong>帳號審查。</strong> 列出所有 FREE 使用者與其所屬 Team，標註哪些是必要的。</li>
+<li><strong>MDB 順序實驗。</strong> 在測試專案建立兩個同型別 DB，觀察新建頂層元素會放在哪一個。</li>
+<li><strong>DICE 實作。</strong> 對測試專案跑一次 DICE（含 Statistics），保存輸出並解釋每一個警告。</li>
+<li><strong>備份還原。</strong> 備份測試專案，故意刪除一個 DB，依 43.11.5 的順序還原，並記錄時間。</li>
+<li><strong>Session 觀察。</strong> 做三次 Savework，觀察 Session 編號與檔案大小；再 Merge，比較差異。</li>
+<li><strong>災難腳本。</strong> 寫一頁「檔案伺服器損毀時，前 60 分鐘要做什麼」。</li>
+</ol>
+<h2 id="4318">43.18 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明 AVEVA 系統管理員的五個責任圈，以及哪些事不該自己處理。</li>
+<li>[ ] 我能解釋為什麼 AVEVA 的模型資料不是存在 SQL Server，並列出真正要備份的範圍。</li>
+<li>[ ] 我能說明專案目錄、DB 檔名 <code>xxxnnnn_mmmm</code> 與 Area 環境變數的關係。</li>
+<li>[ ] 我能依序建立專案：目錄、環境變數、產品腳本、SYSTEM 登入、Teams／Users／DBs／MDBs。</li>
+<li>[ ] 我能說明為什麼不能用複製目錄的方式複製專案，以及 Replicate 後要重設密碼。</li>
+<li>[ ] 我能區分 FREE／GENERAL 與 UPDATE／MULTIWRITE／CONTROLLED。</li>
+<li>[ ] 我能說明 Extract 的用途，以及 MULTIWRITE 轉 UPDATE 的限制。</li>
+<li>[ ] 我能處理幽靈使用者與殘留認領。</li>
+<li>[ ] 我能說明 DAC 的 Role／Scope／ACR，並知道它與 Team 的差異。</li>
+<li>[ ] 我能解釋 Session 編號、Merge 與 Backtrack，並知道 Backtrack 不是備份。</li>
+<li>[ ] 我能規劃含專案、設定、客製化與文件的備份，並執行還原演練。</li>
+<li>[ ] 我能跑 DICE、讀懂警告，並知道 Patch 的界線。</li>
+<li>[ ] 我能說明升級的 all-or-nothing 特性與升級後不能 Backtrack 的限制。</li>
+<li>[ ] 我能列出至少六個常見的系統管理錯誤與對策。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA 官方文件：<em>Administrator User Guide</em>（E3D 1.1）— <a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.02.html">資料庫型別</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.03.html">專案結構</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.04.html">管理資料庫</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.08.html">資料庫儲存與檔名</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.09.html">Teams 與 Users</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.10.html">Database Access</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.11.html">MDB</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.12.html">資料庫更新</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.14.html">CONTROLLED</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.15.html">Session</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG4.04.18.html">Cache Service</a>。</li>
+<li>AVEVA 官方文件：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG6.06.1.html">Setting Up a New Project</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG6.06.2.html">Setting the Environment Variables</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.12.html">Replicating a Project</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.13.html">Deleting Phantom Users</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.15.html">Merging Sessions</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.16.html">Backtracking Sessions</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.18.html">Distributed Databases</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG14.14.19.html">Global Databases</a>。</li>
+<li>AVEVA 官方文件：<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG17.17.01.html">Data Integrity Checking</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG17.17.04.html">Using DICE</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG17.17.06.html">Checking External References</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG17.17.07.html">Patch Option</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG19.19.1.html">Database Upgrade</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/1.1/AUGA/AUG19.19.2.html">Upgrade Framework</a>。</li>
+<li>本課程延伸：<a href="ch02_architecture_zh-TW.reading.html">第 2 章 產品架構與啟動環境</a>、<a href="ch03_project_database_zh-TW.reading.html">第 3 章 專案、資料庫、MDB 與權限</a>、<a href="ch31_dev_environment_zh-TW.reading.html">第 31 章 開發環境</a>、<a href="ch40_debug_deploy_zh-TW.reading.html">第 40 章 除錯、測試、部署與版本管理</a>、<a href="ch42_loading_computer_zh-TW.reading.html">第 42 章 載重電腦整合</a>、<a href="shipbuilding_fundamentals.html">造船領域知識</a>。</li>
+<li>一般 IT 維運實務：3-2-1 備份原則、RPO／RTO、變更管理與還原演練，屬業界通用做法，本章依 AVEVA 檔案式資料庫特性調整，未引用特定標準條文。</li>
+</ul>
+<blockquote>
+<p><strong>授權與界線：</strong> 本章文字、表格與兩張圖解為本課程自製，可在公司內部教學使用；不重製官方手冊的圖表或長段文字。所有安裝需求、授權型式、備份排程與數值均為示意或一般實務，實際應用請以公司安裝版本、AVEVA 支援文件與 IT 政策為準。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch42_loading_computer_zh-TW.reading.html"><small>← 上一篇</small>第 42 章　載重電腦整合：從 AVEVA 取得重量重心與水艙資料</a><a class="next" href="ch44_monitor_runtime_zh-TW.reading.html"><small>下一篇 →</small>第 44 章　Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>

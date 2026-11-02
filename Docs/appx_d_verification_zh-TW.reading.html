@@ -1,0 +1,998 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>附錄 D　〔待核對〕項目總表 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#d8f36a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer;margin-left:16px}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark}html[data-theme=dark] body{background:#0f1512;color:#d9e5de}html[data-theme=dark] header{background:#0b1210}html[data-theme=dark] aside{background:#141d19;border-color:#2b3a33}html[data-theme=dark] aside a{color:#93a89e}html[data-theme=dark] aside a:hover{color:#79c9ab}html[data-theme=dark] article{background:#161f1a;border-color:#2b3a33;box-shadow:0 12px 40px #00000066}html[data-theme=dark] h2{border-bottom-color:#2b3a33}html[data-theme=dark] a{color:#6cc0a4}html[data-theme=dark] blockquote{background:#1b2620;color:#bccfc5;border-left-color:#43836a}html[data-theme=dark] code{background:#23332c;color:#a5d6bd}html[data-theme=dark] pre{background:#0c1412}html[data-theme=dark] th{background:#1d2a24}html[data-theme=dark] th,html[data-theme=dark] td{border-color:#2c3b34}html[data-theme=dark] hr{border-top-color:#2c3b34}html[data-theme=dark] .stage{background:#20302a;color:#79c9ab}html[data-theme=dark] nav.pager a{border-color:#2c3b34;color:#c6d6cd}html[data-theme=dark] nav.pager a:hover{border-color:#6cc0a4}html[data-theme=dark] footer{color:#7d9188}html[data-theme=dark] article img[src$=".svg"]{filter:invert(.92) hue-rotate(180deg) saturate(.85)}html[data-theme=dark] article img:not([src$=".svg"]){filter:brightness(.82) saturate(.92)}
+</style><script>(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();</script></head><body><header><a href="../index.html">← 返回學習中心</a><button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#d">附錄 D 〔待核對〕項目總表</a><ul>
+<li><a href="#_1">各章概況</a></li>
+<li><a href="#1-marine-getting-started-gui">第 1 章 Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）</a></li>
+<li><a href="#6-product-information-model">第 6 章 船體概念與基礎：Product Information Model、模型物件、拓撲與命名</a></li>
+<li><a href="#7-data-model-reference-manual">第 7 章 資料模型參考導讀：Data Model Reference Manual</a></li>
+<li><a href="#8-initial-design">第 8 章 初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力</a></li>
+<li><a href="#10-assembly-planning-hull-structural-design">第 10 章 裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</a></li>
+<li><a href="#11-surface-managerblock-division">第 11 章 曲面管理與分區：Surface Manager、Block Division 與多視圖專案</a></li>
+<li><a href="#12-space-management-finite-element-model">第 12 章 空間管理與有限元素模型：Space Management 與 Finite Element Model</a></li>
+<li><a href="#13">第 13 章 船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</a></li>
+<li><a href="#14">第 14 章 船體詳細設計（二）：曲面板架建模、選用功能與雜項工具</a></li>
+<li><a href="#16">第 16 章 船體詳細設計（三）：製造資訊與鐵舾裝生產特徵</a></li>
+<li><a href="#18-hvac-designer-equipment">第 18 章 通風與設備設計：HVAC Designer 與 Equipment</a></li>
+<li><a href="#20-isodraft">第 20 章 管路等角圖：Isodraft</a></li>
+<li><a href="#21-structuresframe">第 21 章 結構設計（Structures）：Frame、型鋼、板、接頭與平台樓梯</a></li>
+<li><a href="#22-cable-design-multi-discipline-supports">第 22 章 電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</a></li>
+<li><a href="#23-room-design-schematics">第 23 章 艙室設計與原理圖：Room Design 與 Schematics</a></li>
+<li><a href="#24-clash-managerdata-checkerdesign-model-editor-reporting">第 24 章 設計共通功能：Clash Manager、Data Checker、Design Model Editor 與 Reporting</a></li>
+<li><a href="#26-catalogs-and-specifications-design-templates">第 26 章 目錄與等級深入：Catalogs and Specifications 與 Design Templates</a></li>
+<li><a href="#28-draft-draft-administratorautodraftdrawing-production-plot">第 28 章 Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT</a></li>
+<li><a href="#29-marine-drafting-design-draft">第 29 章 Marine Drafting 與 Design Draft：船體與舾裝的圖面製作</a></li>
+<li><a href="#30-design-reusearea-based-adpweld-planning-factory-automation">第 30 章 其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation</a></li>
+<li><a href="#37-interfaces-legacy-applications">第 37 章 外部整合與舊版開發工具：Interfaces 與 Legacy Applications</a></li>
+<li><a href="#39-software-customizationnet-customizationdata-access-routines-marine-customization">第 39 章 客製化官方手冊導讀：Software Customization、.NET Customization、Data Access Routines 與 Marine Customization</a></li>
+<li><a href="#44-monitor-marine-monitor-referenceprogram-environmentruntime">第 44 章 Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</a></li>
+<li><a href="#45-database-managementsql-direct-status-control">第 45 章 資料庫管理深入：Database Management、SQL Direct 與 Status Control</a></li>
+<li><a href="#46-hull-dabacon-global">第 46 章 船體資料庫與分散式專案：Hull Dabacon 與 Global</a></li>
+<li><a href="#47-121-release-bulletin">第 47 章 12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">附錄 · 52 / 53</span><h1 id="d">附錄 D　〔待核對〕項目總表</h1>
+<p>各章章末原本都有〔待核對〕彙整。為了讓章節只保留教學內容，這些彙整集中在這個附錄，依章號排列；章內仍保留逐處的〔待核對〕標記，並在章末指向本附錄。<strong>〔待核對〕表示該處來自官方文件但文件本身不完整、前後矛盾，或需要在公司實際安裝的版本上驗證，使用前請先核對。</strong></p>
+<h2 id="_1">各章概況</h2>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>內文〔待核對〕標記數</th>
+<th>彙整</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 章</td>
+<td>5</td>
+<td><a href="#ch01">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 2 章</td>
+<td>5</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 3 章</td>
+<td>8</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 4 章</td>
+<td>11</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 5 章</td>
+<td>5</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 6 章</td>
+<td>5</td>
+<td><a href="#ch06">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 7 章</td>
+<td>14</td>
+<td><a href="#ch07">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 8 章</td>
+<td>12</td>
+<td><a href="#ch08">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 9 章</td>
+<td>3</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 10 章</td>
+<td>11</td>
+<td><a href="#ch10">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 11 章</td>
+<td>17</td>
+<td><a href="#ch11">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 12 章</td>
+<td>15</td>
+<td><a href="#ch12">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 13 章</td>
+<td>7</td>
+<td><a href="#ch13">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 14 章</td>
+<td>5</td>
+<td><a href="#ch14">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 15 章</td>
+<td>6</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 16 章</td>
+<td>7</td>
+<td><a href="#ch16">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 17 章</td>
+<td>5</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 18 章</td>
+<td>11</td>
+<td><a href="#ch18">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 19 章</td>
+<td>24</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 20 章</td>
+<td>11</td>
+<td><a href="#ch20">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 21 章</td>
+<td>17</td>
+<td><a href="#ch21">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 22 章</td>
+<td>17</td>
+<td><a href="#ch22">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 23 章</td>
+<td>8</td>
+<td><a href="#ch23">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 24 章</td>
+<td>11</td>
+<td><a href="#ch24">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 25 章</td>
+<td>4</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 26 章</td>
+<td>5</td>
+<td><a href="#ch26">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 27 章</td>
+<td>6</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 28 章</td>
+<td>12</td>
+<td><a href="#ch28">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 29 章</td>
+<td>5</td>
+<td><a href="#ch29">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 30 章</td>
+<td>14</td>
+<td><a href="#ch30">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 31 章</td>
+<td>9</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 32 章</td>
+<td>3</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 33 章</td>
+<td>9</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 34 章</td>
+<td>6</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 35 章</td>
+<td>11</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 36 章</td>
+<td>19</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 37 章</td>
+<td>6</td>
+<td><a href="#ch37">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 38 章</td>
+<td>12</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 39 章</td>
+<td>9</td>
+<td><a href="#ch39">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 40 章</td>
+<td>7</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 41 章</td>
+<td>2</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 42 章</td>
+<td>6</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 43 章</td>
+<td>7</td>
+<td>（章內標記為主）</td>
+</tr>
+<tr>
+<td>第 44 章</td>
+<td>6</td>
+<td><a href="#ch44">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 45 章</td>
+<td>3</td>
+<td><a href="#ch45">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 46 章</td>
+<td>9</td>
+<td><a href="#ch46">見本附錄</a></td>
+</tr>
+<tr>
+<td>第 47 章</td>
+<td>3</td>
+<td><a href="#ch47">見本附錄</a></td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch01"></a></p>
+<h2 id="1-marine-getting-started-gui">第 1 章　Marine 入門基礎：Getting Started 官方導覽（功能、資料、屬性、GUI 與基本操作）</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>開始功能表路徑與模組名稱</td>
+<td>官方為 PDMSMarine 12.1，各公司安裝名稱可能不同</td>
+</tr>
+<tr>
+<td>密碼「不超過 6 字元」；佈局儲存位置</td>
+<td>官方舊文件說法與舊路徑，12.1 實際值未實測</td>
+</tr>
+<tr>
+<td>繁體中文搭配 Windows 區域與字型</td>
+<td>官方只說明支援遠東語言群，未實測</td>
+</tr>
+<tr>
+<td>Action Button 名稱</td>
+<td>官方以圖示呈現，文字抽取不完整</td>
+</tr>
+<tr>
+<td><code>HREF</code>、<code>TREF</code>、<code>CREF</code> 連接語意</td>
+<td>官方只提及 Reference List 由其後代推得</td>
+</tr>
+<tr>
+<td>PDMS 與 Marine 介面名稱對應；產品授權</td>
+<td>官方沿用舊名；授權依合約</td>
+</tr>
+<tr>
+<td>Search 結果表格寫入的條件</td>
+<td>官方只列 Edit 模式，未說明權限與認領</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch06"></a></p>
+<h2 id="6-product-information-model">第 6 章　船體概念與基礎：Product Information Model、模型物件、拓撲與命名</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>項目</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>MANU 命名表序號 2 加強材範例 <code>-S2S</code> 疑為筆誤</td>
+<td>6.8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>y 軸方向（"against portside"）在 12.1 的正負號</td>
+<td>6.10</td>
+</tr>
+<tr>
+<td>3</td>
+<td>中途改變專案層級環境變數（對稱、型材參考點）的後果</td>
+<td>6.11</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TXHSTL-M 範例 <code>HoleGroup</code> 未關閉；TXHCM 範例 <code>Z="FR50"</code> 疑為筆誤</td>
+<td>6.13</td>
+</tr>
+<tr>
+<td>5</td>
+<td>12.1 實際 XML schema 與官方文字（M3SP4）是否一致；各 XML 的匯入匯出入口</td>
+<td>6.13、6.16</td>
+</tr>
+<tr>
+<td>6</td>
+<td>中途改用 Project Material 的後果</td>
+<td>6.14</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Production database（Oracle）細節；.NET PML name sequence 介面</td>
+<td>6.16</td>
+</tr>
+<tr>
+<td>8</td>
+<td>與 E3D 元素 <code>HPANEL</code>／<code>CPANEL</code> 的對映細節；CAT 全稱兩處不一致</td>
+<td>6.15、6.16</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch07"></a></p>
+<h2 id="7-data-model-reference-manual">第 7 章　資料模型參考導讀：Data Model Reference Manual</h2>
+<ol>
+<li><code>Name</code> 型長度：簡介頁 51 字元，總表 <code>NAME</code> 為 <code>string(500)</code>。</li>
+<li><code>Word</code> 型長度：簡介頁 4 字元；ch3 引用的版本說 4 或 6 字元；<code>TYPE</code> 說截為 4 或 6。</li>
+<li><code>TYPE</code> 回傳的型別代碼與條目標題代碼的對應（如 <code>EQUIPMENT</code> 對 <code>EQUI</code>）。</li>
+<li><code>LASTMOD</code> 在 12.1 是否存在（總表未見）。</li>
+<li>命令列對 qualifier 型偽屬性（<code>ELEMOD</code>、<code>MODATT</code> 等）的語法。</li>
+<li>PML 中 integer、logical、word、ori、陣列型的對應型別。</li>
+<li>UDA 在 PML 的 <code>:</code> 寫法（見第 33 章）。</li>
+<li>條目中「Global tab」缺漏處的實際擁有者／成員。</li>
+<li>命令列 <code>Q</code> 輸出的實際格式。</li>
+<li>.NET 取值與資料模型的關係，本次未取材。</li>
+</ol>
+<p><a id="ch08"></a></p>
+<h2 id="8-initial-design">第 8 章　初始設計（Initial Design）：型線、曲面、靜水力、艙室與水動力</h2>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>跨版本 <code>tidexp</code> 匯入</td>
+<td>匯出端與船廠端 Initial Design 版本不同時的支援範圍</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Britfair 完整欄位格式</td>
+<td>官方 Users Guide 只描述行為與關聯檔，完整欄位需查原文件或實測</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DML（Hull Form）、Lines／Surface Datastore、<code>tidexp</code>、<code>CALC</code> 內部格式</td>
+<td>官方未公開，視為黑盒子</td>
+</tr>
+<tr>
+<td>4</td>
+<td>FCT、GDS、LoadMate Fluidtnk 檔格式</td>
+<td>本章只知道類型與用途</td>
+</tr>
+<tr>
+<td>5</td>
+<td>HCL 檔欄位格式</td>
+<td>只知道內容項目</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Hydro 的 <code>.wgt</code>、<code>.ls</code>、<code>.voy</code>、<code>.dat</code>、<code>.bin</code>、<code>.rao</code> 格式</td>
+<td>只有 <code>.rat</code> 在本章讀到完整欄位</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Calc 輸出與載重電腦的對應</td>
+<td>是否能直接作為載重電腦輸入，依廠商格式而定（對照<a href="ch42_loading_computer_zh-TW.reading.html">第 42 章</a>）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Calc XML 報表輸出的結構</td>
+<td>官方標示尚未 100% 完成</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Geometry XML 缺值時 Calc 的預設行為</td>
+<td>用你們版本實測</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Surface、Calc、Hydro 是否支援非互動（batch）執行</td>
+<td>本章讀到的頁面未提及</td>
+</tr>
+<tr>
+<td>11</td>
+<td>法規準則檔的具體數值與版本</td>
+<td>以官方頁面與法規本文為準，並確認你們適用的版本</td>
+</tr>
+<tr>
+<td>12</td>
+<td>各模組全部指令清單與全部對話框欄位</td>
+<td>本章只深讀總覽與代表性頁面</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch10"></a></p>
+<h2 id="10-assembly-planning-hull-structural-design">第 10 章　裝配規劃與船體結構初步設計：Assembly Planning 與 Hull Structural Design</h2>
+<p><code>ASMBLD</code> 等擬似屬性的查詢語法；<code>AADD</code>、<code>AREMOVE</code> 完整語法；<code>.uic</code> 撰寫語法（官方指向 .NET Customization）；批次巨集是否明文寫入密碼；<code>AssemblySelection</code> 範例的變數可見性；Quick Panel 的 Vitesse API；XML schema（TXHBD、TXHSTL、TXSUR）與各驗船機構的對應；Log Viewer <code>applications.xml</code> 自訂作業語法；組立樹與 Weld Planning 的欄位交換。</p>
+<p><a id="ch11"></a></p>
+<h2 id="11-surface-managerblock-division">第 11 章　曲面管理與分區：Surface Manager、Block Division 與多視圖專案</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scene Template 路徑</td>
+<td>官方只列 Windows XP／Vista／7；新版 Windows 的實際路徑</td>
+</tr>
+<tr>
+<td>Save Camera 快速鍵</td>
+<td>官方表格寫作 <code>Cltr+S</code>，本章依合理推測改為 Ctrl+S</td>
+</tr>
+<tr>
+<td>取樣點檔格式</td>
+<td>只有官方一個範例；編碼、換行、相鄰重複點的原因未說明</td>
+</tr>
+<tr>
+<td><code>sj708</code> 取得與使用</td>
+<td>官方稱不含標準安裝，需洽本地支援；在 AVEVA Marine 12.1 的可用性待確認</td>
+</tr>
+<tr>
+<td>Surface Manager 自動化介面</td>
+<td>文件未提及腳本、命令列或 API</td>
+</tr>
+<tr>
+<td>blines、<code>.tbw</code>、<code>SceneTemplates.dat</code> 內部格式</td>
+<td>文件未提供</td>
+</tr>
+<tr>
+<td>Job Setup 預設值單位</td>
+<td>畫面為 50／100，單位文件未明說</td>
+</tr>
+<tr>
+<td>Stored panels 與 Stored planes</td>
+<td>Cutters 兩處用詞不同，以實機為準</td>
+</tr>
+<tr>
+<td><code>SBH_CONCODES</code> 檔案格式、<code>PAN_SPLIT_ECUT_*</code> 所在設定檔</td>
+<td>官方此頁未說明</td>
+</tr>
+<tr>
+<td>Block Division 批次執行</td>
+<td>官方指向 <em>Batch Utilities</em>，本章未取材</td>
+</tr>
+<tr>
+<td>Block Division 的 Logs 是否可匯出</td>
+<td>文件未提及</td>
+</tr>
+<tr>
+<td>Multi-View 轉換工具</td>
+<td>官方指向 <em>Create/Remove Design Blocks and Panels</em>，本章未取材</td>
+</tr>
+<tr>
+<td>Design／Production 在資料庫的屬性與型別</td>
+<td>文件未提供</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch12"></a></p>
+<h2 id="12-space-management-finite-element-model">第 12 章　空間管理與有限元素模型：Space Management 與 Finite Element Model</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>項目</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>FE 模型功能所在選單的確切位置</td>
+<td>官方頁面只提到 Analysis &gt; Create FE Model 與 Structural Design</td>
+</tr>
+<tr>
+<td>2</td>
+<td>塗裝區 Face Code 的設定來源與格式</td>
+<td>官方只指向 Surface Treatment Selection Tables</td>
+</tr>
+<tr>
+<td>3</td>
+<td>分佈式屬性（Distributed Attributes）與 bound attribute 的設定位置</td>
+<td>官方只說明須先設定</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Space XML Input 的 XML 結構</td>
+<td>官方未給</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Calculation Geometry 輸出的 XML 結構與 calc 模組版本</td>
+<td>官方未給</td>
+</tr>
+<tr>
+<td>6</td>
+<td>空間與設備、管路位置的比對功能</td>
+<td>官方未涵蓋</td>
+</tr>
+<tr>
+<td>7</td>
+<td>水艙特性表（測深、容積、自由液面）是否由本模組產生</td>
+<td>官方只說輸出幾何給水靜力模組</td>
+</tr>
+<tr>
+<td>8</td>
+<td>空間資料庫元素的完整型別階層與 <code>SPM*</code> 屬性可否由 .NET 直接讀取</td>
+<td>官方只列屬性名</td>
+</tr>
+<tr>
+<td>9</td>
+<td>FE 輸出中是否攜帶載重與邊界條件</td>
+<td>官方只說輸出節點、元素、屬性與材料</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Hull Steel XML（含 FE 部分）的元素名稱與 schema</td>
+<td>官方只說內容概要</td>
+</tr>
+<tr>
+<td>11</td>
+<td>材料 XML 的單位</td>
+<td>官方範例未註明單位</td>
+</tr>
+<tr>
+<td>12</td>
+<td>理想化與輸出是否有命令列或 PML 介面</td>
+<td>官方只描述圖形介面</td>
+</tr>
+<tr>
+<td>13</td>
+<td>空間範圍與 FE 範圍是否可自動連動</td>
+<td>官方未說明</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch13"></a></p>
+<h2 id="13">第 13 章　船體詳細設計（一）：設定與標準、初始化工具、平面板架建模</h2>
+<ol>
+<li>各 hook 的 Python 版本、執行環境與載入路徑（<code>PYTHONPATH</code> 以外）。</li>
+<li><code>_TbhookCustHole</code>、<code>_TbhookCustNotch</code>、<code>_TBhookCustBracket</code> 的完整介面（官方指向另一份 Vitesse 文件，本章未讀）。</li>
+<li>以程式產生 scheme 並批次生成的實際啟動方式與錯誤回報格式；<code>inithull</code> 能否無人值守執行。</li>
+<li>Planar 功能與 Scheme 陳述式的 PML 屬性對照。</li>
+<li>官方文件為 TBH 時代手冊，12.1 實際選單位置（如 View &gt; Addins）與預設檔名稱需核對。</li>
+</ol>
+<p><a id="ch14"></a></p>
+<h2 id="14">第 14 章　船體詳細設計（二）：曲面板架建模、選用功能與雜項工具</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML 輸入語言元素</td>
+<td>僅知可涵蓋所有曲面模型物件；詳細語法在 <em>Hull Model Concept</em>，未讀</td>
+</tr>
+<tr>
+<td>DB 元素型別與屬性</td>
+<td>Seam、Shell Plate、Shell Stiffener、Curved Panel 等在資料庫中的型別與屬性名文件未寫</td>
+</tr>
+<tr>
+<td>PML／Vitesse 介面</td>
+<td>三個子樹皆無 PML 範例；曲面船體能否由 PML 或 Vitesse 存取待實測</td>
+</tr>
+<tr>
+<td>選用功能授權</td>
+<td>FRP、Stiffener Nesting、GPP 等的授權名稱與啟用方式待向管理員確認</td>
+</tr>
+<tr>
+<td>環境變數名稱</td>
+<td>文件沿用 <code>SB_</code>／<code>SBH_</code> 前綴，12.1 實機是否同名、由何處設定待確認</td>
+</tr>
+<tr>
+<td>Operators Instructions</td>
+<td>子頁多與 User Guide 重複，只抽讀少數頁，是否有額外前置條件待核對</td>
+</tr>
+<tr>
+<td>Customizing dialogs in Hull</td>
+<td>標準孔與缺口的選單客製細節未讀</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch16"></a></p>
+<h2 id="16">第 16 章　船體詳細設計（三）：製造資訊與鐵舾裝生產特徵</h2>
+<ol>
+<li><code>ppanparts.ip</code>、<code>cpanparts.ip</code> 的完整關鍵字清單與預設值（本章僅列部分）。</li>
+<li>自動套料 Plug-In 的 C++ 例程簽章（官方 <em>Interface routines</em> 子頁未展開）。</li>
+<li><code>KcsSketchDimensioning</code> 模組中 <code>DimensionSet</code> 的完整方法與欄位。</li>
+<li>以 PML、.NET 或 Vitesse 從外部呼叫 Job Launcher 並指定 <code>SB_INPUT1</code> 的做法。</li>
+<li>以程式查詢 <code>SB_PLDB</code>、<code>SBH_PROFDB</code> 等製造資料庫的 API。</li>
+<li>機器人介面輸出與第 30 章 Weld Planning 資料如何銜接。</li>
+<li>各 <code>.ip</code>、限制檔的關鍵字在不同 12.1 SP 的差異。</li>
+<li>鐵舾裝 <code>FITT</code>／<code>FIXING</code> 在 Design 或 PML 中的設值語法。</li>
+<li>官方頁面標題的拼寫問題（如 <code>KscSketchDimensioning</code>、Plate Jigs 清單錨點）是否影響實際類別名稱，需實測。</li>
+</ol>
+<p><a id="ch18"></a></p>
+<h2 id="18-hvac-designer-equipment">第 18 章　通風與設備設計：HVAC Designer 與 Equipment</h2>
+<ul>
+<li>程式化讀取 HVAC 元件尺寸、<code>BRAN</code> 成員、設備 P-point 與管嘴位置的 PML 語法；<code>HSLIST</code> 與官方圖 <code>HLIST</code> 寫法差異。</li>
+<li><code>SUBE</code>（子設備）元素型別名稱（官方只稱 Sub-Equipment，第 17 章亦標〔待核對〕）。</li>
+<li>Equipment Association 的 PML／.NET API 簽章（官方僅指向 <em>.Net customization User Guide</em>、<em>Data Model Reference Manual</em>，本章未讀）。</li>
+<li><code>IF</code> 表達式內 <code>LDPR</code>、<code>TMPL</code> 等關鍵字的完整語法。</li>
+<li>HVAC Menu Map 部分 Available Type 與視窗標題疑似錯置，以實際介面為準；<code>!!hvacSketch</code> 範例中方法名不一致（<code>openLog</code>／<code>openLogFile</code>、<code>!!processhvacSketches</code>／<code>.apply()</code>）。</li>
+<li>型錄屬性清單中「<code>BANG</code>＝<code>DESP[10]</code>」似為官方筆誤（參數表為 <code>DESP[63]</code>，且 <code>AOFF</code> 為 <code>DESP[10]</code>）。</li>
+</ul>
+<p><a id="ch20"></a></p>
+<h2 id="20-isodraft">第 20 章　管路等角圖：Isodraft</h2>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>項目</th>
+<th>待確認內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>模組名稱與入口</td>
+<td>文件沿用 PDMS 名稱；Marine 12.1 實際的模組切換、選單名稱（Isometrics &gt; Standard 等）需在訓練專案確認</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ATEXT 與中文</td>
+<td>官方限定字元集不含中文；中文標題欄、字型（<code>TTFONT</code>）與 DXF/PDF 輸出的實測</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>COFORMAT SHIP</code></td>
+<td>船舶肋位座標格式的實際可用性與設定</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>FILE</code> 預設模式</td>
+<td>單檔或多檔的預設值；3275 的單位</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>CHARHEIGHT</code>／<code>CHARSIZE</code></td>
+<td>兩個寫法哪個在 12.1 有效</td>
+</tr>
+<tr>
+<td>6</td>
+<td>選項檔文字語法</td>
+<td>直接編輯選項檔的語法細節</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PML／.NET 呼叫</td>
+<td>如何從 PML 呼叫 Isodraft 指令、取回 <code>QUERY</code> 結果；有無 .NET 物件</td>
+</tr>
+<tr>
+<td>8</td>
+<td>傳輸檔格式</td>
+<td>官方未公開格式</td>
+</tr>
+<tr>
+<td>9</td>
+<td>COMPIPE</td>
+<td>是否仍用於你們流程</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>PREPROCESS</code>／<code>POSTPROCESS</code></td>
+<td>兩頁敘述重複，實際差異與執行時機</td>
+</tr>
+<tr>
+<td>11</td>
+<td>螺栓長度計算與 Reference Dimension</td>
+<td>本章未細讀，需補讀</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Symbol Keys 附錄與 ATEXT 編號</td>
+<td>各 SKEY 與 P-point 圖、ATEXT 完整編號表未讀</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch21"></a></p>
+<h2 id="21-structuresframe">第 21 章　結構設計（Structures）：Frame、型鋼、板、接頭與平台樓梯</h2>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>項目</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>STRU 之下可直接掛哪些元素（FRMW、板、ASL 組立）的確切階層</td>
+<td>文件僅以文字與圖片說明，離線頁面未取得圖內容</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>長度、重量等專用屬性與 POSS／POSE 的座標基準（WRT）</td>
+<td>文件未給屬性語法</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>材料在 Design 元素中對應的屬性</td>
+<td>文件只描述 GUI 的 Modify &gt; Material</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>如何由 SCTN 取得 Catalogue 參數化尺寸值</td>
+<td>文件未提供查詢方式</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>Primary Node 的元素型別名稱（PNOD）</td>
+<td>本章依文件描述推論</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>判斷 JOISTART／JOIEND、CREF 空值（Nulref）的 PML 寫法</td>
+<td>文件只提屬性名稱</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>批次切換 Dominant／Subordinate 的 PML 指令</td>
+<td>文件只提供 GUI 選單</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>PAVE 頂點座標、板面積的 PML 取得方式</td>
+<td>文件未提供</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>Include Structure 的具體語意；Panel 三種連接模式的參數細節；Standard Bracing Configurations 的選項</td>
+<td>本章僅列名稱，未逐頁核對</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>ASL 組立與 Standard 關聯屬性名稱；以型別篩選 ASL 元素的語法</td>
+<td>管理者指南有概念說明，屬性層級未逐頁核對</td>
+</tr>
+<tr>
+<td>A11</td>
+<td>各選單路徑與視窗名稱</td>
+<td>以 12.1 文件為準，實際安裝若客製化可能不同</td>
+</tr>
+</tbody>
+</table>
+<p><a id="ch22"></a></p>
+<h2 id="22-cable-design-multi-discipline-supports">第 22 章　電纜設計與多專業支撐：Cable Design 與 Multi-Discipline Supports</h2>
+<ol>
+<li>AVEVA Instrumentation and Electrical 與 Compare/Update 的整合細節。</li>
+<li>Data Checker Utility 對 Cableways、Trays、Penetrations 的檢查內容。</li>
+<li>橋架材料表、電纜清單與出圖範本是否有預設版本，及其與第 25 章材料機制的關係。</li>
+<li>電纜通道、佈線狀態、填充率對應的 PML 屬性名稱與取值方式；<code>EXTGEO</code> 內容。</li>
+<li>批次佈線與批次健康檢查是否可由 PML 或指令列呼叫。</li>
+<li>Import Cables 檔案的欄位規格。</li>
+<li>MDS 完整 UDA 清單、Lighting Support 與 HVAC Special 專頁細節。</li>
+<li>MDS 的客製（樣板管理、ADP）細節，本章僅確認入口。</li>
+</ol>
+<p><strong>取材限制：</strong> 以 <em>Cable Design</em> 全部約 66 頁讀完（部分深層子頁僅讀重點）；Multi-Discipline Supports（約 385 頁）以使用者手冊為主，管理員、客製與自動出圖手冊只讀總覽與重點表單，未逐頁細讀。</p>
+<p><a id="ch23"></a></p>
+<h2 id="23-room-design-schematics">第 23 章　艙室設計與原理圖：Room Design 與 Schematics</h2>
+<ol>
+<li>Room Design 工具列六組功能的完整名稱與順序（文件只列出其中部分頁面）。</li>
+<li><code>STRWLL</code> 與 <code>STRWEL</code> 哪一個是實際型別名。</li>
+<li>Room 的面積、淨高、Function、Occupancy 等屬性在 PML 中的實際屬性名。</li>
+<li><code>RPATH</code> 的屬性、API 與在 <code>CTWALL</code> 中的使用方式（文件指向 <em>Software Customization</em>）。</li>
+<li>Room Design 是否有 PML 物件、事件或 Add-in 擴充點。</li>
+<li>Room Design 專屬報表範本與 MTO 輸出方式。</li>
+<li>Integrator 在無圖形模式下可用的功能範圍（文件僅提到 <code>openReport()</code> 不可用於 non-graphics）。</li>
+<li>Schematic Model Manager 與 AVEVA Diagrams 在 Marine 12.1 實際授權與安裝情況（文件僅在相容性頁面提及）。</li>
+<li>Tags 模組與 Integrator 在本公司專案的使用範圍（本章只概述，未逐頁讀取 Tags 內容）。</li>
+</ol>
+<p><a id="ch24"></a></p>
+<h2 id="24-clash-managerdata-checkerdesign-model-editor-reporting">第 24 章　設計共通功能：Clash Manager、Data Checker、Design Model Editor 與 Reporting</h2>
+<ol>
+<li>Hole Management 在 Global 專案的 extract 與 claim 細節（以官方 Global 文件為準）。</li>
+<li><code>OBST = 0</code> 的語意。</li>
+<li>Data Checker 函式簽章 <code>CHKDEFINITION</code> 與 <code>CHECKDEFINITION</code> 拼法不一致。</li>
+<li>檢查函式是否允許寫入資料庫（本章建議唯讀）。</li>
+<li><code>PMLREPORT()</code> 的方法、參數與回傳值。</li>
+<li>Model Editor 的 PML undoable 物件定義方式。</li>
+<li><code>excelio</code> 在 Design 模組是否可用。</li>
+<li>Clash Manager 資料庫結構與可程式化存取方式。</li>
+<li><code>PDMSUI</code>、<code>PDMSDFLTS</code> 等舊路徑變數在 12.1 實際安裝是否相同。</li>
+<li>Clash Manager 的 Model Management Wizard 與獨立版建立流程未讀。</li>
+</ol>
+<p><a id="ch26"></a></p>
+<h2 id="26-catalogs-and-specifications-design-templates">第 26 章　目錄與等級深入：Catalogs and Specifications 與 Design Templates</h2>
+<ol>
+<li>以 PML 判斷 <code>SPCO</code> 的 <code>CATREF</code> 或 <code>TMPREF</code> 是否為 <code>Nulref</code>（命令列顯示 <code>=0/0</code>）的寫法。</li>
+<li>以 PML 遍歷 <code>TPWL &gt; TMAR &gt; TMPL</code>、讀取 <code>DDAT</code>、<code>VVALUE</code> 的寫法。</li>
+<li>以 PML 觸發 <code>CHECK</code> 並擷取訊息；結構目錄是否有等效檢查（文件稱目前不支援）。</li>
+<li>PARAGON／SPECON 指令在公司 Marine 12.1 安裝版本的實際可用性（文件沿用 PDMS 說明）。</li>
+<li><code>TMPREF</code> 與 <code>TMPR</code> 縮寫並用，實際屬性名以公司版本查詢為準。</li>
+<li>吊架與支架慣例（保留 Datakey 等）是否與公司吊架目錄版本一致。</li>
+<li>船體專用標準目錄（型材、肘板、端部處理）未出現在所讀頁面，是否適用同一套慣例。</li>
+<li>設計樣板在船舶專案中的實際用途（官方範例為工廠設備與結構）。</li>
+<li>Part World／Selection Table 的 PML 存取方式與公司啟用狀況。</li>
+<li>譯名以台灣慣用語整理，術語對照以公司內部詞彙表為準。</li>
+</ol>
+<p><a id="ch28"></a></p>
+<h2 id="28-draft-draft-administratorautodraftdrawing-production-plot">第 28 章　Draft 圖面管理與出圖流程：Draft Administrator、AutoDRAFT、Drawing Production 與 PLOT</h2>
+<ol>
+<li>Draft 管理團隊的實際名稱：文件同時出現 Draft Admin 與 <code>DRAFTADMIN</code>。</li>
+<li>公司 Marine 12.1 版本是否仍使用本章所述選單與預設值檔；官方原文為 PDMS 時代手冊，未逐項驗證。</li>
+<li>AutoDRAFT 支援的 AutoCAD 版本（文件寫 2007、2008、2010）與公司實際版本是否相符。</li>
+<li>DXF 傳輸檔英制單位手動註解的實際格式（官方原文排成 <code>999 P</code> 與 <code>DMS_UNITS INCH</code> 兩行）。</li>
+<li>Hangers and Supports ADP 的 Backing Sheet 完整欄位定義（本章僅讀到前半）。</li>
+<li>以 PML 建立與更新 <code>DRWG</code>／<code>SHEE</code>／<code>VIEW</code>、讀取 Draft 屬性的語法；四份文件均未提供。</li>
+<li><code>Create Batch Macro</code> 產生的巨集內容，以及如何在背景或排程執行。</li>
+<li>PLOT 的退出碼數值；以及從 Draft 命令列產生繪圖檔的完整選項（只看到 <code>PLOT SHEE DXF filename [CUTMARKS OFF]</code>）。</li>
+<li><code>$M/</code> 載入巨集的完整語法（文件僅提及）。</li>
+<li><a href="ch27_drawings_zh-TW.reading.html">第 27 章</a>依據 E3D DRAW 文件撰寫，選單名稱可能與本章 12.1 官方文件不同，以本章與公司實機為準。</li>
+</ol>
+<p><a id="ch29"></a></p>
+<h2 id="29-marine-drafting-design-draft">第 29 章　Marine Drafting 與 Design Draft：船體與舾裝的圖面製作</h2>
+<ol>
+<li>第 27 章 27.2 表把 Marine Drafting 圖面存放標為「船體圖面 Databank〔待核對〕」；本章依官方文件確認為 <strong>PADD 資料庫加 <code>.SDB</code> 檔</strong>，第 27 章該列建議修正。</li>
+<li>Config Note hook 五個方法的資料形態、回傳型別，以及 Vitesse 腳本可呼叫的 Marine Drafting API（與第 36 章 <code>kcs_draft</code> 的關係）未讀到。</li>
+<li>選單文件有複製貼上錯誤：<code>Modules &gt; Hull Design</code> 頁寫「click Modules, then Monitor」、<code>Outfitting</code> 頁寫「switch to the Draft module」；實際行為以現場系統為準。</li>
+<li>Design Draft 的 PML 指令（<code>UPDATE DESIGN</code>、<code>AUTOSCALE</code> 等）能否用於 Marine Drafting 圖面，文件僅在 ADP 與 Change Highlighting 提到相容；視為不可用。</li>
+<li><code>Geometry Mode</code> 各種點／線／弧定義等選單子功能只讀到標題；「圖面版本 8」「元素上限 1,073,741,824」「錯誤 301」等數字照文件原文，未實測。</li>
+</ol>
+<p><a id="ch30"></a></p>
+<h2 id="30-design-reusearea-based-adpweld-planning-factory-automation">第 30 章　其他設計模組速覽：Design Reuse、Area Based ADP、Weld Planning 與 Factory Automation</h2>
+<ol>
+<li>各模組在你們公司版本中是否已授權、安裝與啟用（Design Reuse、ABA、Robot Interface 2、Panel Line Control）。</li>
+<li>Design Reuse 的 General Settings File 與 Item Settings File 的實際路徑與欄位（文件僅提及檔名類別）。</li>
+<li>Design Reuse 的 PML 改名函式簽名與範例函式的完整程式碼（本章取自概述，未見完整原始碼）。</li>
+<li>ABA 的 Limitations 三小節（名稱長度、Rule 運算式、Task 與 Symbol Template）詳細內容；Auto-Number 的 Format PML 運算式寫法。</li>
+<li>ABA 區域的建立畫面、Template View 與 Keyplan Layers 的細節（本章僅整理 Library 與 Task 層級）。</li>
+<li><code>weld Position.def</code> 官方原文含空白的檔名是否為筆誤。</li>
+<li>Weld Planning 的 Vitesse 介面、Part Name Control 規則與 Execution Units 自動焊接定義（見 Hull Setup and Customization）。</li>
+<li>焊接相關是否有 PML／.NET 物件可直接讀取 <code>MWLDJT</code>、<code>MWELD</code>；報表 csv 加入 UDA 後的欄位順序是否穩定。</li>
+<li>TRI/2 中 <code>assembly</code>、<code>plate</code>、<code>stiffener</code> 等船體實體的完整欄位，及與 Weld Report 欄位的對照。</li>
+<li>Factory Automation 各選項（Profile／Plate Cutting Interface、GSD、Shrinkage 等）的控制參數與預設檔名稱，須參閱 Hull 的 Manufacturing 與 Setup 章節。</li>
+<li>Panel Line Control 是否仍被支援，以及非 ESSI／NCE510 後處理器的取得方式。</li>
+</ol>
+<p><a id="ch37"></a></p>
+<h2 id="37-interfaces-legacy-applications">第 37 章　外部整合與舊版開發工具：Interfaces 與 Legacy Applications</h2>
+<ol>
+<li>各整合概念的 PML Function／DB View 回傳欄位與格式：文件只列名稱，須在公司版本取預設函式實測。</li>
+<li>Vitesse 執行階段 Python 版本：Installation 頁寫 2.4.2，第 36 章為 2.6，須實測。</li>
+<li>虛擬屬性（ERM 即時資料）的 PML 屬性名稱與是否可用於 <code>COLLECTION</code> 篩選。</li>
+<li>客製托板與缺口掛鉤（文件另有專章）、Actual Material Usage 發佈、Hull Material Control 中的 Assembly Planning 整合：本章僅概述，未逐頁讀。</li>
+<li><code>NETmarAPI.chm</code> 與 Vitesse 的 <code>vitesse_access.xls</code> 內容：為附件，本章未讀。</li>
+<li>各 <code>Datext_*.xls</code>／<code>DatExt_*.xls</code> 的 keywords 清單：為附件，未讀。</li>
+<li>ERM 端版本與授權、AVEVA Integration Service 安裝與 s14001／s14002 等畫面的完整設定：屬 ERM 文件範圍。</li>
+<li>Pipe Stress、ImPLANT、ExPLANT、NET Gateway 的操作細節：僅讀了簡介頁。</li>
+</ol>
+<p><a id="ch39"></a></p>
+<h2 id="39-software-customizationnet-customizationdata-access-routines-marine-customization">第 39 章　客製化官方手冊導讀：Software Customization、.NET Customization、Data Access Routines 與 Marine Customization</h2>
+<ol>
+<li>12.1 安裝目錄是否實際附有 DARs（<code>d3lib.dll</code>、<code>dars</code> 目錄），及 Intel Fortran／Microsoft C++ 版本要求是否適用。</li>
+<li>12.1 為 Unicode，DARs 的 FECs（<code>&amp;~</code>）多位元組規則是否仍適用。</li>
+<li><code>marAPI.dll</code> 各類別的方法簽章（官方索引只列名稱）。</li>
+<li>官方範例以 Visual Studio 2005 為基準，12.1 實際支援的 Visual Studio 與 .NET 版本。</li>
+<li><code>IAddinTty</code> 範例用 <code>Aveva.Core.Database</code>、其他用 <code>Aveva.Pdms.Database</code>，是否同一組件；導覽範例的 <code>-&gt;</code> 寫法推測為文件瑕疵。</li>
+<li><code>OKCLA</code>／<code>OKCLH</code> 「棄用」註記日期異常（寫到 2026 年）。</li>
+<li>「資料庫屬性唯讀」（[1133342]）與「可透過 <code>DBREF</code> 指派屬性」（[1133329]）措辭差異，需實測。</li>
+<li><code>ResourceManager</code> 的 <code>zh-TW</code> 語系資源載入細節。</li>
+<li>Grid 範例的 <code>appdesmain.pmlfrm</code> 是 Design 的做法，Marine 模組的對應表單。</li>
+<li><code>SHIPX</code> 的查詢語法、<code>HRSO</code> 所在資料庫與 claim 需求。</li>
+<li>Marine 12.1 安裝是否附 <code>pmlencrypt.exe</code>（第 40 章已列同一問題）。</li>
+</ol>
+<p><a id="ch44"></a></p>
+<h2 id="44-monitor-marine-monitor-referenceprogram-environmentruntime">第 44 章　Monitor 與 Marine 執行環境：Monitor Reference、Program Environment、Runtime 與命令列工具</h2>
+<ol>
+<li>Catalogue DB 在 MDB 中的排序對單位設定的實際影響（44.3.5）。</li>
+<li>選單項目與命令的對應（44.4.1）。</li>
+<li>Monitor 啟動巨集（<code>Imacro</code>）的修改方式（44.8）。</li>
+<li>PML 內取得 <code>LIST</code>／<code>QUERY</code> 輸出的 API 與可用範圍（44.8）。</li>
+<li>PML 錯誤處理在批次中的寫法（見 <em>Software Customization Guide</em>，本章未讀）（44.6.3、44.8）。</li>
+<li><code>ACTIONS OFF</code> 命令的說明（44.9）。</li>
+<li>Monitor 訊息是否還有未列出的編號（44.9）。</li>
+<li><code>PASSWORD</code> 密碼長度與字元規則（44.14）。</li>
+<li><code>MESSAGE ID</code> 的識別碼格式（44.14）。</li>
+<li><code>tbstartjob.exe</code> 與 <code>marjobstarter.exe</code> 的關係（44.11.3）。</li>
+<li><code>SBD_DEF1</code> 的說明差異；<code>SBB_</code> 前綴變數的用途；Oracle 相關變數是否啟用（44.12.1）。</li>
+<li><code>marenvutil</code> 的 <code>Unset</code> 與 <code>Remove</code> 差異（44.12.2）。</li>
+<li>批次模式的啟動方式（見 <em>Marine Software Installation Guide</em>，本章未讀）（44.6.1）。</li>
+</ol>
+<p><a id="ch45"></a></p>
+<h2 id="45-database-managementsql-direct-status-control">第 45 章　資料庫管理深入：Database Management、SQL Direct 與 Status Control</h2>
+<ol>
+<li>SQL Direct 12.0 在 Marine 12.1 現行安裝中是否仍附工具與相容的 Windows／64 位元／SQL Server 版本。</li>
+<li>以 .NET 連線 PDMSProv OLE DB Provider 的連線字串寫法（官方僅示範 ADO／VB6／Office）。</li>
+<li>SQL Direct 於多使用者／伺服器端部署的可行性（官方明言為單一使用者工具）。</li>
+<li>Status Control DAC 範例中 <code>STVLSK</code> 與 Pseudo Attribute <code>STVLST</code> 是否為筆誤。</li>
+<li>C# 範例的完整型別簽章與事件參數（官方以 Object Browser 截圖呈現）。</li>
+<li>Distributed Attributes 的設定步驟與新語法（本章僅讀概念頁）。</li>
+<li>Marine 12.1 是否支援「Copying Data between Projects」（官方頁僅說不適用 Plant）。</li>
+<li><code>MERGE CHANGES</code>、<code>BACKTRACK</code>、<code>REVERT &lt;database&gt;</code> 於 Admin 的完整語法（本章只取自概念頁範例，見 Administrator 手冊）。</li>
+</ol>
+<p><a id="ch46"></a></p>
+<h2 id="46-hull-dabacon-global">第 46 章　船體資料庫與分散式專案：Hull Dabacon 與 Global</h2>
+<ol>
+<li>船體資料專屬的 Global 配置與分發步驟（官方僅指向 AVEVA Marine Support）。</li>
+<li>Copy Assistant 的實際操作步驟與功能（官方簡介頁無細節）。</li>
+<li>Global Server 的硬體與作業系統需求在 12.1 的現行版本（文件寫 Windows XP/2003 時代規格）。</li>
+<li>多地點 NSEQ 序號區間的建議數值。</li>
+<li>Hull 側別、對稱屬性的實際屬性名稱（官方指向附錄，本章未讀附錄）。</li>
+<li><code>mpfind</code>、<code>mffind</code> 回傳型別與 PML 使用方式。</li>
+<li>Extract 與 MANU、MDB 的 Marine 專屬設定細節。</li>
+<li>〈Example Macro for Collecting and Deleting Old Commands〉內容。</li>
+<li>Hull 專屬 PML 物件／方法；本章僅列官方明文者。</li>
+</ol>
+<p><a id="ch47"></a></p>
+<h2 id="47-121-release-bulletin">第 47 章　12.1 版本說明與升級：Release Bulletin、設定需求與功能變更</h2>
+<ol>
+<li><strong>環境需求矛盾</strong>：SP5 作業環境表寫 .NET Framework 4.6.1，另一頁寫需要 .NET 3.5；IE 7/8、Office 2007/2010、Windows XP 等敘述疑為舊版遺留，實際以 AVEVA 支援網站與《Minimum System Requirements Marine》為準。</li>
+<li><strong>Windows Server 與虛擬化／Citrix</strong>：ALS「利於 Citrix 支援」的實際條件，以及不再支援 thin client 後的部署方式。</li>
+<li><strong>About this Bulletin</strong> 同時出現「自 12.1.SP4 以來的變更」與「自 12.0 以來的變更」兩種描述，推測為多版本文字並存。</li>
+<li><strong>ASL</strong>：SP4 一頁說已移除並由 Vantage Marine 11.6 的 primitive 型能力取代；「Future Considerations」一頁說將改稱 SLH，兩頁的先後與現況待核對。</li>
+<li><strong>Optional Upgrade 12010401</strong> 官方稱僅含項目 93792「一般資料庫變更」，內容細節未說明。</li>
+<li><strong>MANU 資料模型升級</strong>的 ManuConfig 具體步驟，在《12.0 to 12.1 Upgrade》手冊，不在本文件。</li>
+<li><strong>Windows 專案路徑空白</strong>問題在 SP5 之後是否已解決。</li>
+<li><strong>「Known Issues」的 SP5 General Issues</strong> 只指向外部發行文件，未提供清單。</li>
+</ol><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="appx_c_reading_list_zh-TW.reading.html"><small>← 上一篇</small>附錄 C　參考文獻導讀與繁中摘要</a><a class="next" href="appx_e_coverage_zh-TW.reading.html"><small>下一篇 →</small>附錄 E　取材覆蓋總表</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer><script>(function(){var k='aveva-theme';function cur(){var t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}cur();document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀ 浅色':'🌙 深色';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem(k,n);document.documentElement.dataset.theme=n;lbl();});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!localStorage.getItem(k))document.documentElement.dataset.theme=e.matches?'dark':'light';});});})();</script></body></html>
