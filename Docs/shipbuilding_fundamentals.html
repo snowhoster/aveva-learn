@@ -88,11 +88,19 @@ tbody tr:nth-child(even){background:#fafcfd}
 .tag-cell{white-space:nowrap;font-weight:700;color:var(--navy)}
 @media(max-width:920px){.layout{display:block;padding:16px}.side{position:static;max-height:none;margin-bottom:14px;overflow:visible}.side .nav{display:flex;flex-wrap:wrap;gap:4px}.side .nav a{border:1px solid var(--line);border-left-width:1px;padding:5px 10px;background:#fff;font-size:12px}.progress-card{display:none}.hero{padding:26px 22px}}
 @media print{.topbar,.side,.foot-links{display:none}.layout{display:block;max-width:none}.unit{break-inside:avoid;box-shadow:none}}
-</style></head>
+.theme-toggle{border:1px solid #ffffff55;background:transparent;color:#ffd79a;border-radius:20px;padding:6px 14px;font:700 12px/1 "Segoe UI","Microsoft JhengHei",sans-serif;cursor:pointer}.theme-toggle:hover{background:#ffffff14}
+html[data-theme=dark]{color-scheme:dark;--ink:#d3dfe8;--muted:#8ea1b2;--paper:#0e141a;--card:#151d26;--line:#2a3947;--navy:#8fb8d4;--steel:#6fa8c8;--soft:#1b2836;--shadow:0 14px 40px #00000066}html[data-theme=dark] .topbar{background:#0a1420}html[data-theme=dark] .hero{background:linear-gradient(135deg,#0d2338,#16354e 55%,#25526c)}html[data-theme=dark] .unit h4{color:#a9c9de}html[data-theme=dark] code{background:#1e2a36;color:#9cc3dd}html[data-theme=dark] .nav a{color:#90a4b5}html[data-theme=dark] .nav a:hover{background:#1b2836;color:#cfe3f0}html[data-theme=dark] .nav a.active{background:#1e2c3c;color:#cfe3f0}html[data-theme=dark] .bar{background:#2a3947}html[data-theme=dark] .unit-no{color:#0e141a}html[data-theme=dark] .fig{background:#131b23}html[data-theme=dark] th{background:#1c2836;color:#a9c9de}html[data-theme=dark] tbody tr:nth-child(even){background:#171f28}html[data-theme=dark] .aveva{border-color:#5d4a22;background:#231d10}html[data-theme=dark] .aveva strong{color:#e0a95e}html[data-theme=dark] .myth{border-left-color:#a35b45;background:#221511}html[data-theme=dark] .myth b{color:#e08e74}html[data-theme=dark] .note{border-left-color:#4a7d99;background:#131f2a}html[data-theme=dark] .track .st{background:#151d26}html[data-theme=dark] .track .st b{color:#a9c9de}html[data-theme=dark] .track .st:after{border-color:#45596b}html[data-theme=dark] .qa{background:#151d26}html[data-theme=dark] .qa summary{color:#a9c9de}html[data-theme=dark] .qa div{color:#a5b6c4}html[data-theme=dark] .unit svg{filter:invert(.92) hue-rotate(180deg) saturate(.85)}
+html[data-theme=dark] .fig{color-scheme:dark}
+html[data-theme=dark] .foot-links a{background:#151d26;color:#90a8bb}html[data-theme=dark] .check input:checked + label{color:#62758a}html[data-theme=dark] .tag-cell{color:#a9c9de}
+</style>
+<script>
+(function(){var k='aveva-theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;})();
+document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;function lbl(){b.textContent=document.documentElement.dataset.theme==='dark'?'\u2600 \u6d45\u8272':'\ud83c\udf19 \u6df1\u8272';}lbl();b.addEventListener('click',function(){var n=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('aveva-theme',n);document.documentElement.dataset.theme=n;lbl();});});
+</script></head>
 <body>
 <header class="topbar">
   <div class="brand"><span class="mark">船</span><a href="../index.html" style="color:#fff;text-decoration:none">AVEVA 學習中心　← 返回首頁</a></div>
-  <div class="topmeta">SHIPBUILDING FUNDAMENTALS　·　LEARNING PATH 02</div>
+  <div class="topmeta">SHIPBUILDING FUNDAMENTALS　·　LEARNING PATH 02　<button class="theme-toggle" type="button" aria-label="切換深淺色">🌙 深色</button></div>
 </header>
 
 <div class="layout">

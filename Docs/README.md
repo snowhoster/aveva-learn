@@ -64,6 +64,7 @@
 - 新增章節時，在 `build_reading_pages.py` 的 `books` 清單加入，並同步更新本檔、`ch00` 知識地圖與 `../index.html`。
 - 每章結構：學習目標 → 概念 → 畫面與圖解 → 範例 → 開發人員須知 → 練習 → 自我檢核 → 資料來源。
 - 標示〔待核對〕的項目，在公司版本確認後請改寫為確定內容並移除標記。
+- 全站支援淺色／深色（夜間）模式：偏好存在 `localStorage` 的 `aveva-theme`，未設定時跟隨系統 `prefers-color-scheme`。修改閱讀頁主題樣式請改 `build_reading_pages.py` 的 `html[data-theme=dark]` 規則；四個手寫頁面（`index.html`、`shipbuilding_fundamentals.html`、`aveva_pml_learning_guide.html`、`marine_3d_lab.html`）則在各自 `<style>` 內維護。
 
 ## 版權與適用範圍
 
