@@ -808,3 +808,4 @@ NEW EQUI $!newName            -- 命令看到的是：NEW EQUI /T-EQUI-001
 - 開源範例 aveva-marine-dev-skill（MIT 授權，`mycollect.pmlfrm` 的 `handle (1000,0)` 與 `do ... index` 寫法）：<https://github.com/912141548/aveva-marine-dev-skill>
 - 互動練習：[PML 互動練習頁](aveva_pml_learning_guide.html)
 - 相關章節：[第 10 章　開發環境](ch10_dev_environment_zh-TW.reading.html)、[第 12 章　PML 資料庫操作](ch12_pml_database_zh-TW.reading.html)、[第 13 章　PML2 表單、選單與 Add-in](ch13_pml_forms_addins_zh-TW.reading.html)、[第 17 章　除錯、測試、部署與版本管理](ch17_debug_deploy_zh-TW.reading.html)
+- 官方對應章節：PML 3.1 的語法、陣列、錯誤處理與檔案處理，見[附錄 C.3.1](appx_c_reading_list_zh-TW.reading.html)；內建物件與方法的字典見[附錄 C.3.7](appx_c_reading_list_zh-TW.reading.html)，PML 自動化的專利案例見[附錄 C.4.9](appx_c_reading_list_zh-TW.reading.html)。

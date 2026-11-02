@@ -59,7 +59,7 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第一部分　系統與資料模型 · 5 / 21</span><h1 id="4">第 4 章　座標、方向與幾何</h1>
+</aside><article><span class="stage">第一部分　系統與資料模型 · 5 / 22</span><h1 id="4">第 4 章　座標、方向與幾何</h1>
 <blockquote>
 <p>本章說明 AVEVA Marine 如何表示「在哪裡」與「朝哪個方向」。舾裝承襲 PDMS，用東、北、上（E／N／U）描述位置；船體承襲 Tribon，用 X／Y／Z 與肋位、縱向位置描述位置。兩者在同一個專案中共存，開發人員必須能互相換算，並理解「位置預設是相對於擁有者」這個最容易出錯的規則。</p>
 <p>內容依據 AVEVA Hull and Outfitting 12.1 線上文件（船舶座標系與 FR／LP 定位）、AVEVA E3D 2.1 Software Customisation Reference Manual（位置表示式、WRT、PLANE 物件）、Database Management Reference Manual，以及開放取用論文中的實際 PML 程式自主撰寫。不同版本的語法細節可能不同，標示 <strong>〔待核對〕</strong> 者請在公司訓練專案中驗證。</p>
@@ -706,6 +706,7 @@ Q POS WRT &lt;它所屬的 ZONE 名稱&gt;
 <li>AVEVA E3D 2.1 SCRM：PLANE Object：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.59.html">https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.59.html</a></li>
 <li>AVEVA E3D 2.1 DBRM：Attributes（Position、Direction、Orientation 型別）：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html</a></li>
 <li>AVEVA E3D 2.1 DBRM：Relative Positions, Directions, Orientations：<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html">https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html</a></li>
+<li>AVEVA E3D 3.1 DBRM：Relative Positions, Directions, Orientations（較新版）：<a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.14.html">https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.14.html</a>；SCRM：WRT：<a href="https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM6.5.18.html">https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM6.5.18.html</a>。繁中導讀見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.3.6／C.3.7</a></li>
 <li>Kim, Park &amp; Yang (2020), Journal of Advanced Marine Engineering and Technology 44(3)，CC BY-NC 開放取用（圖 4-6 來源）：<a href="https://doi.org/10.5916/jamet.2020.44.3.196">https://doi.org/10.5916/jamet.2020.44.3.196</a></li>
 <li>k-awata/pml-json（開源，POSITION 物件的 east、north、up 成員用例）：<a href="https://github.com/k-awata/pml-json">https://github.com/k-awata/pml-json</a></li>
 <li>AVEVA Hull and Outfitting Datasheet（圖 4-2、4-3、4-5 來源）：<a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf</a></li>

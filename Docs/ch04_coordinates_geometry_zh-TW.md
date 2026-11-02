@@ -415,6 +415,7 @@ Q POS WRT <它所屬的 ZONE 名稱>
 - AVEVA E3D 2.1 SCRM：PLANE Object：<https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.59.html>
 - AVEVA E3D 2.1 DBRM：Attributes（Position、Direction、Orientation 型別）：<https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.01.html>
 - AVEVA E3D 2.1 DBRM：Relative Positions, Directions, Orientations：<https://help.aveva.com/AVEVA_Everything3D/2.1/DBRM/DBRM3.04.14.html>
+- AVEVA E3D 3.1 DBRM：Relative Positions, Directions, Orientations（較新版）：<https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.14.html>；SCRM：WRT：<https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM6.5.18.html>。繁中導讀見[附錄 C.3.6／C.3.7](appx_c_reading_list_zh-TW.reading.html)
 - Kim, Park & Yang (2020), Journal of Advanced Marine Engineering and Technology 44(3)，CC BY-NC 開放取用（圖 4-6 來源）：<https://doi.org/10.5916/jamet.2020.44.3.196>
 - k-awata/pml-json（開源，POSITION 物件的 east、north、up 成員用例）：<https://github.com/k-awata/pml-json>
 - AVEVA Hull and Outfitting Datasheet（圖 4-2、4-3、4-5 來源）：<https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf>

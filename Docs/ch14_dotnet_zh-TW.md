@@ -704,3 +704,4 @@ PML.NET 組件不需要登記在 Addins.xml，只要放在 `import` 找得到的
 - 範例原始碼：[aveva-marine-dev-skill](https://github.com/912141548/aveva-marine-dev-skill)（MIT，Copyright © 2026 erbi112211-boop），本地副本 [`examples/starter-kit-mybrowser/`](examples/starter-kit-mybrowser/)，授權見 [`examples/LICENSE-aveva-marine-dev-skill.txt`](examples/LICENSE-aveva-marine-dev-skill.txt)。
 - 同一開源專案的參考卷冊（自評可信度等級，標示 TODO-UNVERIFIED 者本章已標〔待核對〕）：《AVEVA-Marine-NET開發技能》《AVEVA-Marine-NET-API用法Cookbook》《AVEVA-Marine-uic定制與部署調試手冊》，以及 `references/dotnet-api/` 下的 PDMS 12.1 .NET API 文件（併入自 PDMS-12.1-Net-skill，MIT）。
 - eryar，[AVEVA .NET Quick Start Guide](https://developer.aliyun.com/article/235787)（2012，入門架構說明）。
+- 官方對應章節：.NET Customisation 3.1 的 Add-in 介面、資料庫 API 與 PML.NET，見[附錄 C.3.2](appx_c_reading_list_zh-TW.reading.html)；C# 掛載、讀取分段與 MarJobLauncher 的實作紀錄見[附錄 C.6.5](appx_c_reading_list_zh-TW.reading.html)。

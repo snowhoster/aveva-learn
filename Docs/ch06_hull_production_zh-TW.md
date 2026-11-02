@@ -359,3 +359,4 @@ for panel, modified in sorted(model.items()):
 - AVEVA 自動套料新聞稿：[Cambridge Network](https://www.cambridgenetwork.co.uk/news/new-aveva-automated-plate-nesting-optimises-material-use-ship-and-offshore-construction)
 - AVEVA E3D 2.1 Data Model Reference：[Planar Panel Stiffener Element (HSTIFF)](https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM5.09.419.html)（`IsChgd`、`Modsta` 屬性）
 - 官方訓練手冊 TM-2106（Production Information）：僅參考公開摘要，完整內容請向公司或 AVEVA 取得授權版本
+- 延伸主題：船體區塊吊裝的整合設計系統（Li 等 2024）與 Scheme 重用（Son 等 2014），見[附錄 C.4.5、C.4.1](appx_c_reading_list_zh-TW.reading.html)；把 AM 匯出的船體 XML 轉成 FEM 模型見[附錄 C.4.7](appx_c_reading_list_zh-TW.reading.html)，產品資料品質檢查見[附錄 C.5.3](appx_c_reading_list_zh-TW.reading.html)。

@@ -51,7 +51,7 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第三部分　二次開發技術 · 17 / 21</span><h1 id="16">第 16 章　報表、檔案與外部系統整合</h1>
+</aside><article><span class="stage">第三部分　二次開發技術 · 17 / 22</span><h1 id="16">第 16 章　報表、檔案與外部系統整合</h1>
 <blockquote>
 <p>本章處理「資料離開 AVEVA」與「資料進入 AVEVA」兩個方向：用 PML 的 <code>FILE</code> 物件讀寫文字檔、處理中文編碼、輸出 CSV 與 Excel、讀取外部標準資料來驅動建模，以及與 ERP／PDM 交換資料時的架構選擇和排程批次。</p>
 <p><strong>資料可信度：</strong> <code>FILE</code> 物件的開檔模式、讀寫方法與錯誤碼，取自 AVEVA 官方 <em>PML Customisation User Guide</em> 與 <em>Software Customisation Reference Manual</em>（help.aveva.com 上的 <strong>E3D 2.1</strong> 版本，PML 語法與 Marine 12.1 相同系譜）。編碼規則中的環境變數（<code>CADC_LANG</code>、<code>CADC_LANG_NEW</code>）來自開源知識庫 aveva-marine-dev-skill 對 PDMS 12.1 使用手冊的摘錄，標為〔待核對〕。整合架構與排程是一般系統整合的工程實務，本章依 AVEVA 的限制調整；凡涉及 AVEVA 批次啟動參數的部分都標為〔待核對〕。程式碼除了來自 <code>examples/</code> 的部分外，都標示「示意」。</p>
@@ -867,4 +867,5 @@ endlocal
 <li>範例：<a href="examples/starter-kit-mycollect/"><code>examples/starter-kit-mycollect/</code></a>（MIT，同上）。</li>
 <li>案例：eryar，<a href="https://blog.csdn.net/eryar/article/details/4457072">AVEVA MARINE 中用 PML 寫管支架程序（二）</a>（資料檔驅動建模）。</li>
 <li>CSV 格式：<a href="https://www.rfc-editor.org/rfc/rfc4180">RFC 4180</a>。</li>
+<li>延伸主題：AVEVA Marine 與 SmartMarine3D 的管模型與結構資料轉換（C.4.2、C.4.4），見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.4.2、C.4.4</a>；跨 CAD 交換的 STEP AP242 見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.4.10</a>，資料品質門檻見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.5.3</a>。</li>
 </ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch15_hull_vitesse_zh-TW.reading.html"><small>← 上一篇</small>第 15 章　船體開發：Vitesse Python 與資料抽取</a><a class="next" href="ch17_debug_deploy_zh-TW.reading.html"><small>下一篇 →</small>第 17 章　除錯、測試、部署與版本管理</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

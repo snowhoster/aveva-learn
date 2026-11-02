@@ -360,3 +360,4 @@ q PARA of $!scom                 -- 以命令列查詢顯示參數陣列
 - AVEVA E3D 2.1 Data Model Reference：[Selector Element (SELEC)](https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM3.04.086.html)、[Specification Component Element (SPCOMPONENT)](https://help.aveva.com/AVEVA_Everything3D/2.1/DMRM/DMRM3.04.095.html)
 - AVEVA Hull and Outfitting 12.1 線上文件：[Specification Component Element](https://docs.aveva.com/bundle/hull-and-outfitting/page/1135769.html)、[Catalogue Manager 與 Marine 整合](https://docs.aveva.com/bundle/hull-and-outfitting/page/1226804.html)、[Republish Spec to Design](https://docs.aveva.com/bundle/hull-and-outfitting/page/1230122.html)（需以瀏覽器開啟）
 - AVEVA E3D Design 線上文件：[CATREF 說明](https://docs.aveva.com/bundle/e3d-design/page/889985.html)（需以瀏覽器開啟）
+- 官方對應章節：E3D 3.1 Catalogues and Specifications 的階層、Structure 與 Profile 定義，見[附錄 C.3.4](appx_c_reading_list_zh-TW.reading.html)。

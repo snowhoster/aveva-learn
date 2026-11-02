@@ -2,7 +2,7 @@
 
 [← 學習中心首頁](../index.html)
 
-給開發人員的完整課程：先建立系統與資料模型的概念，再理解船舶設計業務，最後進入二次開發技術。共 18 章與 2 個附錄。每份閱讀頁底部都有「上一篇／下一篇」導覽。
+給開發人員的完整課程：先建立系統與資料模型的概念，再理解船舶設計業務，最後進入二次開發技術。共 18 章與 3 個附錄。每份閱讀頁底部都有「上一篇／下一篇」導覽。
 
 從 [第 0 章　課程總覽與知識地圖](ch00_knowledge_map_zh-TW.reading.html) 開始，裡面有各章知識點清單、12 週進度與能力等級。
 
@@ -35,10 +35,11 @@
 | **附錄** | | |
 | A | [專業資源與官方訓練地圖](appx_a_resources_zh-TW.reading.html) | [md](appx_a_resources_zh-TW.md) |
 | B | [術語表與指令速查](appx_b_glossary_zh-TW.reading.html) | [md](appx_b_glossary_zh-TW.md) |
+| C | [參考文獻導讀與繁中摘要](appx_c_reading_list_zh-TW.reading.html) | [md](appx_c_reading_list_zh-TW.md) |
 
 ## 練習工具
 
-- [PML 互動課程](aveva_pml_learning_guide.html)：程式範例、小測驗與學習進度，搭配第 11–13 章。
+- [PML 互動課程](aveva_pml_learning_guide.html)：8 個學習階段、逐行執行動畫、範例庫、官方主題地圖與小測驗，搭配第 11–13 章。
 - [Marine 3D 學習實驗室](marine_3d_lab.html)：切換船體、設備與管線，搭配第 3–7 章。
 
 ## 資料夾說明

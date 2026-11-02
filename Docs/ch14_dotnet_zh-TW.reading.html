@@ -45,7 +45,7 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">第三部分　二次開發技術 · 15 / 21</span><h1 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h1>
+</aside><article><span class="stage">第三部分　二次開發技術 · 15 / 22</span><h1 id="14-net-pmlnet-caf-add-in">第 14 章　.NET 開發：PML.NET 與 CAF Add-in</h1>
 <blockquote>
 <p>本章說明什麼時候該從 PML 換成 C#，以及兩條 .NET 路線的寫法與部署：<strong>CAF Add-in</strong>（在模組內掛一個外掛，擁有自己的視窗、命令與工具列）與 <strong>PML.NET</strong>（把 C# 類別包成 PML 可以 <code>object</code> 出來的物件）。核心範例是 <code>examples/starter-kit-mybrowser/</code>，本章逐行解說。</p>
 <p><strong>資料可信度：</strong> PML.NET 的規則、型別對應、<code>CAF_ADDINS_PATH</code> 與 <code>CAF_UIC_PATH</code> 的行為，取自 AVEVA 官方 <em>.NET Customisation User Guide</em>（help.aveva.com 上的 <strong>AVEVA E3D 2.1</strong> 版本）。AVEVA Marine 12.1 與 E3D 2.1 同屬 PDMS 技術系譜，架構相同，但命名空間與組件版本不同（例如 E3D 2.1 文件寫 <code>Aveva.Core.*</code>，Marine 12.1 的官方範例寫 <code>Aveva.Pdms.*</code>、<code>Aveva.PDMS.PMLNet</code>）。MyBrowser 範例來自 MIT 授權的開源專案 aveva-marine-dev-skill，針對 Marine 12.1 SP4 撰寫，<strong>本課程未在實機上執行</strong>。版本相依的細節標為〔待核對〕，請以公司安裝目錄下的 <code>Samples\</code> 與說明檔核對。</p>
@@ -1297,4 +1297,5 @@ rem 之後呼叫原本的 marine.bat 與模組參數
 <li>範例原始碼：<a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT，Copyright © 2026 erbi112211-boop），本地副本 <a href="examples/starter-kit-mybrowser/"><code>examples/starter-kit-mybrowser/</code></a>，授權見 <a href="examples/LICENSE-aveva-marine-dev-skill.txt"><code>examples/LICENSE-aveva-marine-dev-skill.txt</code></a>。</li>
 <li>同一開源專案的參考卷冊（自評可信度等級，標示 TODO-UNVERIFIED 者本章已標〔待核對〕）：《AVEVA-Marine-NET開發技能》《AVEVA-Marine-NET-API用法Cookbook》《AVEVA-Marine-uic定制與部署調試手冊》，以及 <code>references/dotnet-api/</code> 下的 PDMS 12.1 .NET API 文件（併入自 PDMS-12.1-Net-skill，MIT）。</li>
 <li>eryar，<a href="https://developer.aliyun.com/article/235787">AVEVA .NET Quick Start Guide</a>（2012，入門架構說明）。</li>
+<li>官方對應章節：.NET Customisation 3.1 的 Add-in 介面、資料庫 API 與 PML.NET，見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.3.2</a>；C# 掛載、讀取分段與 MarJobLauncher 的實作紀錄見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C.6.5</a>。</li>
 </ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch13_pml_forms_addins_zh-TW.reading.html"><small>← 上一篇</small>第 13 章　PML2 表單、選單與 Add-in</a><a class="next" href="ch15_hull_vitesse_zh-TW.reading.html"><small>下一篇 →</small>第 15 章　船體開發：Vitesse Python 與資料抽取</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

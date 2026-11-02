@@ -435,3 +435,4 @@ Q NAME OF SPRE
 - Kim, Park & Yang (2020), Journal of Advanced Marine Engineering and Technology 44(3)，CC BY-NC 開放取用：<https://doi.org/10.5916/jamet.2020.44.3.196>
 - 開源範例 aveva-marine-dev-skill（MyCollect 範例中的 `flnn`、`COLLECTION` 用法，MIT 授權）：<https://github.com/912141548/aveva-marine-dev-skill>
 - AVEVA Hull and Outfitting Datasheet（圖 3-2 來源）：<https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf>
+- 官方對應章節：E3D 3.1 Data Model 的 HULL、HPANEL、HPLATE 等元素頁與屬性清單，見[附錄 C.3.3](appx_c_reading_list_zh-TW.reading.html)；屬性的型別、查詢與偽屬性見[附錄 C.3.6](appx_c_reading_list_zh-TW.reading.html)。

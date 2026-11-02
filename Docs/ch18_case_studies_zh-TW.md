@@ -510,3 +510,4 @@ copy /y "%KIT%addins-des\MYCOLLECT" "%PDMSUI%DES\DFLTS\ADDINS\MYCOLLECT"
 - 王星宇等（2024）：[NAPSTIC 索引](https://search.napstic.cn/literature/periodical/010zcjs202401018)
 - 《海洋工程裝備與技術》2018, 5(1): 74–76：[上海交大期刊網](https://www.qk.sjtu.edu.cn/oeet/CN/Y2018/V5/I1/74)
 - 大韓造船學會特別論文集（2013）：[KoreaScience](https://koreascience.kr/article/CFKO201323436147171.pub)
+- 延伸主題：外板開孔自動化（C.4.3）與船舶鐵舾設計的 AM 二次開發（C.6.2），見[附錄 C.4.3、C.6.2](appx_c_reading_list_zh-TW.reading.html)；十二萬個管支架的資料驅動案例見[附錄 C.4.8](appx_c_reading_list_zh-TW.reading.html)。

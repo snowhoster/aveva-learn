@@ -758,6 +758,7 @@ Kim, Park & Yang（2020）在 AVEVA Marine 上開發了外板開孔自動產生�
 - AVEVA E3D 2.1 Software Customisation Reference Manual：COLLECTION Object：<https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.24.html>
 - 同上：EXPRESSION Object：<https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.36.html>
 - 同上：STRING Object（`.position()`、`.dbref()`、`.replace()`）：<https://help.aveva.com/AVEVA_Everything3D/2.1/SCRM/SCRM3.3.76.html>
+- AVEVA E3D 3.1 DBRM：Query Attributes（`Q ATT`、`ATTLIS`、`ATTOUT`）：<https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.09.html>；Pseudo Attributes：<https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM1.02.17.html>；SCRM：FILE Object：<https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM3.3.37.html>。繁中導讀見[附錄 C.3.6／C.3.7](appx_c_reading_list_zh-TW.reading.html)
 - AVEVA E3D 2.1 Common Functionality：Claimlists（認領模式、範圍、savework 前不能 unclaim）：<https://help.aveva.com/AVEVA_Everything3D/2.1/DCFUG/DCFUG03.04.5.html>
 - AVEVA E3D Design 文件：CLAIM／UNCLAIM（`CLAIM /ZoneA HIERARCHY`、`UNCLAIM ALL`，需 JavaScript）：<https://docs.aveva.com/bundle/e3d-design/page/911923.html>
 - Kim, C.-S., Park, D.-W., & Yang, Y.-J. (2020). Development of an automatic shell plate hole generation system using AVEVA Marine. *Journal of Advanced Marine Engineering and Technology*, 44(3), 196–202. CC BY-NC 3.0. <https://doi.org/10.5916/jamet.2020.44.3.196>

@@ -6,11 +6,12 @@
 <li><a href="#a1">A.1 資源分級原則</a></li>
 <li><a href="#a2-a">A.2 A 級：官方資源</a><ul>
 <li><a href="#a21-marine-121">A.2.1 Marine 12.1 線上文件</a></li>
-<li><a href="#a22-e3d">A.2.2 E3D 靜態說明頁（可直接開啟，版本不同）</a></li>
-<li><a href="#a23">A.2.3 產品內附文件（公司安裝目錄）</a></li>
-<li><a href="#a24">A.2.4 官方訓練</a></li>
-<li><a href="#a25-aveva">A.2.5 官方訓練手冊編號（請向公司或 AVEVA 申請授權版本）</a></li>
-<li><a href="#a26">A.2.6 官方產品資料</a></li>
+<li><a href="#a22-e3d-31-2026-11">A.2.2 E3D 3.1 手冊入口（靜態頁，2026-11 增補）</a></li>
+<li><a href="#a23-e3d-21">A.2.3 E3D 2.1 精選靜態頁（既有連結，版本較舊）</a></li>
+<li><a href="#a24">A.2.4 產品內附文件（公司安裝目錄）</a></li>
+<li><a href="#a25">A.2.5 官方訓練</a></li>
+<li><a href="#a26-aveva">A.2.6 官方訓練手冊編號（請向公司或 AVEVA 申請授權版本）</a></li>
+<li><a href="#a27">A.2.7 官方產品資料</a></li>
 </ul>
 </li>
 <li><a href="#a3-b">A.3 B 級：學術論文</a></li>
@@ -29,10 +30,11 @@
 </li>
 </ul>
 </div>
-</aside><article><span class="stage">附錄 · 20 / 21</span><h1 id="a">附錄 A　專業資源與官方訓練地圖</h1>
+</aside><article><span class="stage">附錄 · 20 / 22</span><h1 id="a">附錄 A　專業資源與官方訓練地圖</h1>
 <blockquote>
 <p>本附錄整理學習 AVEVA Marine 與二次開發可用的外部資源，依<strong>可信度與合法性</strong>分級，並對應到本課程的章節。本課程是自主撰寫的導讀；要達到專業水準，最終仍需要官方文件、官方訓練與公司內部標準。</p>
-<p><strong>資料可信度：</strong> 連結於 2026-10-28 調查確認。<code>docs.aveva.com</code> 需要在瀏覽器中啟用 JavaScript 才能閱讀；<code>help.aveva.com</code> 上的 E3D 靜態頁面可以直接開啟，但版本是 E3D 1.1 或 2.1，與 Marine 12.1 屬同一技術系譜，細節可能不同。訓練手冊編號來自公開搜尋摘要，標為〔待核對〕者請向 AVEVA 或授權代理商確認。</p>
+<p><strong>資料可信度：</strong> 連結於 2026-10-28 調查確認；2026-11-02 兩度增補 E3D 3.1 手冊、論文、專利、標準與社群資源。<code>docs.aveva.com</code> 需要在瀏覽器中啟用 JavaScript 才能閱讀；<code>help.aveva.com</code> 上的 E3D 靜態頁面可以直接開啟，但版本有 1.1、2.1 與 3.1 三代，與 Marine 12.1 屬同一技術系譜，細節可能不同。訓練手冊編號來自公開搜尋摘要，標為〔待核對〕者請向 AVEVA 或授權代理商確認。ISO 官方頁對自動抓取回 403，瀏覽器可正常開啟；本課程只連摘要頁，不轉載條文。</p>
+<p><strong>想讀重點而不是只看清單？</strong> 本附錄只告訴你「哪裡有資料」；每份資料的繁中摘要、閱讀順序與可借鏡的做法，整理在<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C　參考文獻導讀與繁中摘要</a>。</p>
 </blockquote>
 <h2 id="a1">A.1 資源分級原則</h2>
 <table>
@@ -108,8 +110,66 @@
 </tbody>
 </table>
 <p>12.1 文件的主題包括：Hull Detailed Design、Hull Structural Design、Marine Drafting、Outfitting Draft、Outfitting Module、Outfitting Design Applications、Assembly Planning、Weld Planning、Design Reuse。</p>
-<h3 id="a22-e3d">A.2.2 E3D 靜態說明頁（可直接開啟，版本不同）</h3>
-<p>這些頁面是 E3D 的官方說明，PML 語法、資料模型與 .NET 架構與 Marine 12.1 同源，適合查觀念與語法；名稱空間、組件版本與 Marine 專屬功能請以公司安裝版本為準。</p>
+<h3 id="a22-e3d-31-2026-11">A.2.2 E3D 3.1 手冊入口（靜態頁，2026-11 增補）</h3>
+<p><code>help.aveva.com</code> 的 E3D 3.1 手冊是靜態頁，可直接開啟、加書籤與全文搜尋，是目前<strong>最完整的免費官方語法與架構參考</strong>。它與 Marine 12.1 同源，但 API、名稱空間與部分功能有版本差異；語法看 3.1、Marine 專屬功能看 12.1，衝突時以公司安裝版本為準。</p>
+<table>
+<thead>
+<tr>
+<th>手冊</th>
+<th>入口</th>
+<th>內容</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PML Customisation</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG_FP.html">PMLCG_FP</a></td>
+<td>PML／PML2 語言、物件、陣列、錯誤、檔案、表單、選單、Add-in</td>
+<td>第 11–13、16、17 章</td>
+</tr>
+<tr>
+<td>.NET Customisation</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/NCUG/NCUG_FP.html">NCUG_FP</a></td>
+<td>CAF Add-in、ServiceManager、資料庫 API、PML.NET、Grid 控制項</td>
+<td>第 13、14 章</td>
+</tr>
+<tr>
+<td>Data Model</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DMRM/DMRM_FP.html">DMRM_FP</a></td>
+<td>元素型別與屬性字典（<code>HPANEL</code>、<code>HSTIFF</code>、<code>CHOLE</code> 等）</td>
+<td>第 3、5、7 章</td>
+</tr>
+<tr>
+<td>Catalogues and Specifications</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/CSUG/CSUG_FP.html">CSUG_FP</a></td>
+<td>目錄、等級、選擇條件與參數化元件</td>
+<td>第 8 章</td>
+</tr>
+<tr>
+<td>ISODRAFT</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/ISOUG/ISOUG_FP.html">ISOUG_FP</a></td>
+<td>ISO 圖類型、出圖指令、標註與材料表</td>
+<td>第 9 章</td>
+</tr>
+<tr>
+<td>Database Management Reference</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM_FP.html">DBRM_FP</a></td>
+<td>屬性型別、查詢屬性、偽屬性、相對定位與方向</td>
+<td>第 3、4、12、16 章</td>
+</tr>
+<tr>
+<td>Software Customisation Reference</td>
+<td><a href="https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM_FP.html">SCRM_FP</a></td>
+<td>PML 物件與指令字典：FILE、WRT、Gadget、資料庫物件的方法與參數</td>
+<td>第 11、12、13、16 章</td>
+</tr>
+</tbody>
+</table>
+<p><strong>精選主題頁：</strong> PML 物件模型 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG3.03.01.html">3.03.01</a>、陣列 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG7.07.01.html">7.07.01</a>、錯誤處理 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG11.11.1.html">11.11.1</a>、表單入門 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG14.14.1.html">14.14.1</a>、PML Add-in <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/PMLPUG/PMLCG24.27.01.html">24.27.01</a>；.NET 的 <code>IAddin</code> <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/NCUG/NCUG2.03.02.html">2.03.02</a>、環境變數 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/NCUG/NCUG3.04.3.html">3.04.3</a>、PML.NET <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/NCUG/NCUG5.07.3.html">5.07.3</a>；資料模型的 <code>HPANEL</code> <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DMRM/DMRM5.09.406.html">5.09.406</a>、<code>HSTIFF</code> <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DMRM/DMRM5.09.419.html">5.09.419</a>。</p>
+<p><strong>資料庫與程式設計字典：</strong> 屬性 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.01.html">DBRM3.04.01</a>、查詢屬性 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.09.html">DBRM3.04.09</a>、偽屬性 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM1.02.17.html">DBRM1.02.17</a>、相對定位 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DBRM/DBRM3.04.14.html">DBRM3.04.14</a>；<code>FILE</code> 物件 <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM3.3.37.html">SCRM3.3.37</a>、<code>WRT</code> <a href="https://help.aveva.com/AVEVA_Everything3D/3.1/SCRM/SCRM6.5.18.html">SCRM6.5.18</a>。</p>
+<h3 id="a23-e3d-21">A.2.3 E3D 2.1 精選靜態頁（既有連結，版本較舊）</h3>
+<p>這些頁面是 E3D 2.1 的官方說明，PML 語法、資料模型與 .NET 架構與 Marine 12.1 同源，適合對照本課程既有章節；名稱空間、組件版本與 Marine 專屬功能請以公司安裝版本為準。</p>
 <table>
 <thead>
 <tr>
@@ -170,7 +230,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="a23">A.2.3 產品內附文件（公司安裝目錄）</h3>
+<h3 id="a24">A.2.4 產品內附文件（公司安裝目錄）</h3>
 <p>Marine 12.1 的安裝目錄 <code>Documentation\</code> 附有大量說明檔與範例，是<strong>版本最吻合</strong>的官方資料。以下清單整理自開源知識庫對 12.1 SP4 安裝目錄的調查〔待核對：公司安裝是否完整〕：</p>
 <table>
 <thead>
@@ -226,7 +286,7 @@
 <blockquote>
 <p><strong>開發人員須知：</strong> 遇到 API 問題時，查找順序建議是：產品內附文件與官方範例 → help.aveva.com 的 E3D 頁面（注意版本差異）→ 開源知識庫 → 網路文章。越往後越需要在實機驗證。</p>
 </blockquote>
-<h3 id="a24">A.2.4 官方訓練</h3>
+<h3 id="a25">A.2.5 官方訓練</h3>
 <table>
 <thead>
 <tr>
@@ -253,7 +313,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="a25-aveva">A.2.5 官方訓練手冊編號（請向公司或 AVEVA 申請授權版本）</h3>
+<h3 id="a26-aveva">A.2.6 官方訓練手冊編號（請向公司或 AVEVA 申請授權版本）</h3>
 <p>依公開搜尋結果整理，請 IT 或訓練負責人確認公司是否已取得：</p>
 <table>
 <thead>
@@ -303,12 +363,12 @@
 </table>
 <p>〔待核對〕TM-14xx 屬 AVEVA Plant（PDMS）系列，內容與 Marine 舾裝端相通；舾裝、圖面與系統管理也有對應的 TM 手冊，編號請向 AVEVA 確認。</p>
 <p><strong>聯絡窗口：</strong> AVEVA Training and Product Support，或公司的 AVEVA 授權代理商。</p>
-<h3 id="a26">A.2.6 官方產品資料</h3>
+<h3 id="a27">A.2.7 官方產品資料</h3>
 <ul>
 <li><a href="https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf">AVEVA Hull and Outfitting Datasheet</a>（本課程 <code>images/aveva/</code> 截圖來源）</li>
 <li><a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_HullDetailedDesign_11-18.pdf">AVEVA Hull Detailed Design Brochure</a></li>
 <li><a href="https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf">AVEVA Outfitting Brochure</a></li>
-<li><a href="https://www.aveva.com/en/products/hull-design">AVEVA Hull and Outfitting 產品頁</a></li>
+<li><a href="https://www.aveva.com/en/products/hull-and-outfitting/">AVEVA Hull and Outfitting 產品頁</a></li>
 </ul>
 <h2 id="a3-b">A.3 B 級：學術論文</h2>
 <table>
@@ -328,10 +388,46 @@
 <td>第 7、15、17、18 章</td>
 </tr>
 <tr>
+<td>Son, Kang &amp; Kim (2014), Trans. Soc. CAD/CAM Engineers</td>
+<td>分析 AVEVA Marine 的 Scheme 檔，開發船體區塊複製與重用程式</td>
+<td><a href="https://doi.org/10.7315/cadcam.2014.041">DOI</a></td>
+<td>第 5、6 章</td>
+</tr>
+<tr>
+<td>Cheon 等 (2013), Trans. Soc. CAD/CAM Engineers</td>
+<td>AVEVA Marine 管模型轉到 SmartMarine3D 的對應方法</td>
+<td><a href="https://doi.org/10.7315/cadcam.2013.329">DOI</a></td>
+<td>第 7、16 章</td>
+</tr>
+<tr>
+<td>Han 等 (2021), Ships and Offshore Structures</td>
+<td>AVEVA Marine 與 Intergraph Smart 3D 的船體結構資料轉換</td>
+<td><a href="https://doi.org/10.1080/17445302.2021.1998852">DOI</a></td>
+<td>第 5、16 章</td>
+</tr>
+<tr>
+<td>Li 等 (2024), IJNAOE 16</td>
+<td>從 AM 模型抽取資料，建立船體區塊吊裝整合設計系統（CC BY-NC-ND）</td>
+<td><a href="https://doi.org/10.1016/j.ijnaoe.2024.100593">DOI</a></td>
+<td>第 6、16 章</td>
+</tr>
+<tr>
+<td>Kunkera 等 (2022), Applied Sciences 12(24)</td>
+<td>造船專案導入數位孿生的資料整合與組織課題（CC BY）</td>
+<td><a href="https://doi.org/10.3390/app122412721">DOI</a></td>
+<td>第 1、16 章</td>
+</tr>
+<tr>
 <td>大韓造船學會特別論文集 (2013)</td>
 <td>以 AVEVA Marine 自動套用鋼料餘量的建模系統</td>
 <td><a href="https://koreascience.kr/article/CFKO201323436147171.pub">KoreaScience</a></td>
 <td>第 6 章</td>
+</tr>
+<tr>
+<td>《造船技術》(2022) 第 1 期</td>
+<td>以 PML 快速建立艙室曲面絕緣與型材絕緣</td>
+<td><a href="https://www.cnki.com.cn/Article/CJFDTotal-ZCJS202201005.htm">CNKI 書目</a></td>
+<td>第 7 章</td>
 </tr>
 <tr>
 <td>賀幫永、張乖平 (2024)，《廣東造船》</td>
@@ -351,9 +447,89 @@
 <td><a href="https://www.qk.sjtu.edu.cn/oeet/CN/Y2018/V5/I1/74">上海交大期刊網</a></td>
 <td>第 12、18 章</td>
 </tr>
+<tr>
+<td>Li 等 (2024), Chinese Journal of Ship Research 19(5)</td>
+<td>解析 AM 匯出的船體 XML，簡化特徵後快速建立 FEM 模型</td>
+<td><a href="https://doi.org/10.19693/j.issn.1673-3185.03660">DOI</a></td>
+<td>第 6、16、18 章</td>
+</tr>
+<tr>
+<td>Yang 等 (2022), AVEVA World Conference</td>
+<td>K-SUPPORT：資料驅動的管支架選型、建模、出圖與 BOM 自動化</td>
+<td><a href="https://cdn.osisoft.com/osi/presentations/2022-AVEVA-San-Francisco/UC22NA-03EE10-KEPCO-Yang-Data-centric-piping-support.pdf">簡報 PDF</a></td>
+<td>第 7、9、16、18 章</td>
+</tr>
+</tbody>
+</table>
+<p><strong>專利與產業標準（不是同儕審查文獻，引用時請註明性質）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>文獻</th>
+<th>主題</th>
+<th>取得方式</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CN104537150A（2015-04-22 公開）</td>
+<td>在 PDMS 中以 PML 統計管支架型材與管卡材料</td>
+<td><a href="https://patents.google.com/patent/CN104537150A/zh">Google Patents</a></td>
+<td>第 7、9、16 章</td>
+</tr>
+<tr>
+<td>CN122133263A（2026-06-02 公開）</td>
+<td>以自然語言、向量資料庫與 PML 生成建模語句（中遠海運重工揚州）</td>
+<td><a href="https://patents.google.com/patent/CN122133263A/zh">Google Patents</a></td>
+<td>第 11、13 章</td>
+</tr>
+<tr>
+<td>ISO 10303-242:2022（STEP AP242）</td>
+<td>跨 CAD 交換 3D 模型、組立與 PMI 的國際標準</td>
+<td><a href="https://www.iso.org/standard/84667.html">ISO 摘要頁</a>（條文需付費）</td>
+<td>第 16 章</td>
+</tr>
 </tbody>
 </table>
 <p>更多論文可在中國知網、萬方以 <code>AVEVA Marine</code>、<code>PDMS 船舶</code>、<code>船体生产设计</code> 等關鍵字搜尋；韓國論文可在 KoreaScience 以 <code>AVEVA Marine</code> 搜尋。</p>
+<p><strong>學位論文：</strong></p>
+<table>
+<thead>
+<tr>
+<th>論文</th>
+<th>主題</th>
+<th>取得方式</th>
+<th>對應章節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LUT University（作者與年份〔待核對〕）</td>
+<td>船體結構特徵在 CAD 之間的資料轉移</td>
+<td><a href="https://lutpub.lut.fi/bitstream/10024/164883/1/3D%20-%20MODEL%20DATA%20TRANSFER%20OF%20SHIP%20HULL%20STRUCTURE%20FEATURES%20BETWEEN%20CAD%20PROGRAMS.pdf">PDF</a></td>
+<td>第 5、6、16 章</td>
+</tr>
+<tr>
+<td>逯濤 (2019)，大連理工大學碩士論文</td>
+<td>AVEVA Marine 船體生產設計軟體的二次開發（簡體中文，全文待讀）</td>
+<td>CNKI 收錄，需機構帳號</td>
+<td>第 5、6、15、16 章</td>
+</tr>
+<tr>
+<td>Hmeshah (2016)，University of Rostock 博士論文</td>
+<td>造船產品資料模型的品質管理；附錄含 AVEVA Marine XML 範例</td>
+<td><a href="https://rosdok.uni-rostock.de/file/rosdok_disshab_0000001750/rosdok_derivate_0000037174/Dissertation_Hmeshah_2017.pdf">PDF（開放取用）</a></td>
+<td>第 6、16、17 章</td>
+</tr>
+<tr>
+<td>Lee Eunse (2019)，木浦大學碩士論文</td>
+<td>以 3D 設計資訊計算管支架塗裝量（韓文，全文待讀）</td>
+<td><a href="https://dcollection.mokpo.ac.kr/srch/srchDetail/000000022239">dCollection 書目</a></td>
+<td>第 7、9、16 章</td>
+</tr>
+</tbody>
+</table>
 <h2 id="a4-c">A.4 C 級：社群資源</h2>
 <h3 id="a41">A.4.1 開發</h3>
 <table>
@@ -368,15 +544,33 @@
 <tbody>
 <tr>
 <td><a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a></td>
-<td>MIT 授權的 Marine 12.1 SP4 二次開發知識庫：PML、17 卷命令參考、.NET API、marAPI、Vitesse、範本與檢查工具。本課程三個範例的來源</td>
+<td>Marine 12.1 SP4 二次開發知識庫：PML、17 卷命令參考、.NET API、marAPI、Vitesse、範本與檢查工具。本課程三個範例的來源</td>
 <td>第 10 至 18 章</td>
-<td>自評可信度等級，<code>TODO-UNVERIFIED</code> 須實機確認；腳本需經公司審查才能執行</td>
+<td>此連結是 fork；上游為 <a href="https://github.com/erbi112211-boop/aveva-marine-dev-skill">erbi112211-boop/aveva-marine-dev-skill</a>。<code>TODO-UNVERIFIED</code> 須實機確認；腳本需經公司審查才能執行</td>
 </tr>
 <tr>
 <td><a href="https://github.com/garychemis/PDMS-12.1-Net-skill">PDMS-12.1-Net-skill</a></td>
-<td>PDMS 12.1 .NET Public Interface 的 API 文件整理（已併入上一項，MIT）</td>
+<td>PDMS 12.1 .NET Public Interface 的 API 文件整理（已併入上一項）</td>
 <td>第 14 章</td>
 <td>API 文件源自 PDMS 12.0 時代，與 E3D 有差異</td>
+</tr>
+<tr>
+<td><a href="https://community.aveva.com/aveva-engineering/pdms-e3d-forum/">AVEVA Community：PDMS／E3D 討論區</a></td>
+<td>官方社群論壇，含 Isodraft、PML、模組操作與錯誤排除的實際問答</td>
+<td>全課程</td>
+<td>回答品質不一；版本與環境要自行核對，勿直接貼公司資料</td>
+</tr>
+<tr>
+<td><a href="https://community.aveva.com/aveva-engineering/pdms-e3d-forum/f/macros-tools/">AVEVA Community：Macros &amp; Tools 版</a></td>
+<td>巨集與工具專版：<code>PML REHASH</code>、表單版面、工具列客製、跨版本失效等問題</td>
+<td>第 11、13、17 章</td>
+<td>搜尋時貼錯誤訊息原文，找到答案仍要在訓練專案重現</td>
+</tr>
+<tr>
+<td><a href="https://www.cnblogs.com/NanShengBlogs/p/11107956.html">南勝 NanSheng：C# 二次開發系列</a></td>
+<td>四篇實作紀錄：入門與 DLL 掛載、讀取分段、批次抽板架、呼叫 MarJobLauncher</td>
+<td>第 3、5、9、14、17 章</td>
+<td>個人實作紀錄，無版本矩陣；照做前先備份載入設定</td>
 </tr>
 <tr>
 <td><a href="https://developer.aliyun.com/article/235787">eryar：AVEVA .NET Quick Start Guide</a></td>
@@ -429,6 +623,11 @@
 <td>中文使用者討論區</td>
 <td>全部</td>
 </tr>
+<tr>
+<td><a href="https://www.youtube.com/playlist?list=PLjChkog_p_LGhfPnFczX64gLhZsX6rxwx">YouTube：AVEVA E3D – PML 播放清單</a></td>
+<td>短示範：mesh 建 primitive、TDS PML 清單、PMLCMD 與介面客製</td>
+<td>第 11、13、16 章</td>
+</tr>
 </tbody>
 </table>
 <h3 id="a43">A.4.3 產業動態</h3>
@@ -462,43 +661,43 @@
 <td>3</td>
 <td>資料階層與屬性</td>
 <td><code>Dictionary.chm</code>、Data Model Reference</td>
-<td>開源知識庫的元素屬性表</td>
+<td>DBRM 屬性／查詢屬性／偽屬性（A.2.2）、開源知識庫的元素屬性表</td>
 </tr>
 <tr>
 <td>4</td>
 <td>座標與幾何</td>
 <td>12.1 文件（Hull Basic Features and Concepts）</td>
-<td></td>
+<td>DBRM 相對定位、SCRM 的 <code>WRT</code>（A.2.2）</td>
 </tr>
 <tr>
 <td>5</td>
 <td>船體建模</td>
 <td>TM-2101／2102／2103、Planar Hull 面板概念</td>
-<td>龍船學院、Bilibili 影片</td>
+<td>龍船學院影片、Son 等 (2014) Scheme 重用、逯濤 (2019)</td>
 </tr>
 <tr>
 <td>6</td>
 <td>船體生產資訊</td>
 <td>TM-2106、Hull Detailed Design 版本說明</td>
-<td>2013 韓國論文、2024《廣東造船》</td>
+<td>Li 等 (2024) 吊裝系統、Li 等 (2024) XML→FEM、Hmeshah (2016)、2013 韓國論文、2024《廣東造船》</td>
 </tr>
 <tr>
 <td>7</td>
 <td>舾裝設計</td>
 <td>12.1 文件（Outfitting 主題）</td>
-<td>Datasheet、JAMET 論文</td>
+<td>Datasheet、JAMET 論文、艙室絕緣論文、K-SUPPORT、CN104537150A、Lee (2019)</td>
 </tr>
 <tr>
 <td>8</td>
 <td>目錄與等級</td>
-<td>Catalogues and Specifications User Guide</td>
+<td>Catalogues and Specifications User Guide（3.1 入口見 A.2.2）</td>
 <td>王星宇等 2024</td>
 </tr>
 <tr>
 <td>9</td>
 <td>圖面與報表</td>
 <td>12.1 文件（Marine Drafting、Outfitting Draft）</td>
-<td></td>
+<td>ISODRAFT 3.1 手冊（A.2.2）、K-SUPPORT 出圖段、南勝 MarJobLauncher</td>
 </tr>
 <tr>
 <td>10</td>
@@ -510,52 +709,55 @@
 <td>11</td>
 <td>PML 語言</td>
 <td><code>PMLPUG.chm</code>、TM-1401</td>
-<td><a href="aveva_pml_learning_guide.html">PML 互動課程</a></td>
+<td><a href="aveva_pml_learning_guide.html">PML 互動課程</a>、SCRM 物件字典、CN122133263A、YouTube PML 清單</td>
 </tr>
 <tr>
 <td>12</td>
 <td>PML 資料庫操作</td>
 <td><code>PMLPUG.chm</code>、TM-1403</td>
-<td>開源知識庫屬性操作卷</td>
+<td>DBRM 查詢屬性與偽屬性、開源知識庫屬性操作卷</td>
 </tr>
 <tr>
 <td>13</td>
 <td>表單與 Add-in</td>
 <td>TM-1402、PMLGridExample</td>
-<td>MyCollect 範例</td>
+<td>MyCollect 範例、SCRM、AVEVA Community Macros &amp; Tools</td>
 </tr>
 <tr>
 <td>14</td>
 <td>.NET</td>
-<td>.NET Customisation User Guide、安裝目錄 <code>Samples\</code></td>
-<td>MyBrowser 範例、eryar 入門</td>
+<td>.NET Customisation 3.1（A.2.2）、安裝目錄 <code>Samples\</code></td>
+<td>MyBrowser 範例、南勝 C# 系列、eryar 入門</td>
 </tr>
 <tr>
 <td>15</td>
 <td>Vitesse</td>
 <td><code>Vitesse.chm</code>、<code>Data_Extraction.chm</code>、<code>Vitesse\Examples\</code></td>
-<td>Vitesse 報表範例</td>
+<td>Vitesse 報表範例、JAMET 論文</td>
 </tr>
 <tr>
 <td>16</td>
 <td>報表與整合</td>
-<td>PML Customisation User Guide 檔案章節</td>
-<td>pml-json、pmlsqlite</td>
+<td>PML Customisation 檔案章節（A.2.2）</td>
+<td>Cheon 等 (2013)、Han 等 (2021)、ISO 10303-242、Hmeshah (2016)、pml-json、pmlsqlite</td>
 </tr>
 <tr>
 <td>17</td>
 <td>除錯與部署</td>
-<td>PML Publisher、<code>PMLPUG.chm</code> 診斷章節</td>
-<td>PmlUnit</td>
+<td>PML Publisher、PML 3.1 追蹤章節（A.2.2）</td>
+<td>PmlUnit、AVEVA Community Macros &amp; Tools、Hmeshah (2016) 的檢查框架</td>
 </tr>
 <tr>
 <td>18</td>
 <td>案例</td>
 <td>JAMET 論文</td>
-<td>中文期刊論文</td>
+<td>K-SUPPORT、中文期刊論文、2025 鐵舾二次開發文章</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>延伸閱讀：</strong> 上表的資料「怎麼讀、先讀哪一段、能帶走什麼」，見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C</a>。C.7 另有一份依章節排列的閱讀路線。</p>
+</blockquote>
 <h2 id="a6">A.6 建議的專業進修路線</h2>
 <p>對應第 0 章的能力等級：</p>
 <table>
@@ -646,7 +848,12 @@
 </table>
 <h2 id="_1">資料來源</h2>
 <ul>
-<li>本附錄所列連結，均於 2026-10-28 調查確認。官方文件見 A.2，論文見 A.3，社群資源見 A.4。</li>
-<li>產品內附文件清單：開源知識庫 <a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（MIT）之《AVEVA-Marine-NET開發技能》《AVEVA-Marine-PML開發技能》《Marine-Vitesse-Python軌道速查》。</li>
+<li>本附錄所列連結，於 2026-10-28 調查確認；E3D 3.1 手冊、論文、專利、標準與社群資源於 2026-11-02 兩度增補。官方文件見 A.2，論文見 A.3，社群資源見 A.4。</li>
+<li>E3D 3.1 手冊目錄與主題頁：<code>help.aveva.com/AVEVA_Everything3D/3.1/</code> 的 PMLPUG、NCUG、DMRM、CSUG、ISOUG、DBRM、SCRM 靜態頁（共 7 本入口、40 個主題頁）。</li>
+<li>論文書目與 DOI：Crossref API 查詢結果（2026-11-02）；K-SUPPORT 簡報取自 AVEVA World 2022 公開議程。</li>
+<li>專利：Google Patents（CN104537150A、CN122133263A）；標準：ISO 官方摘要頁（條文需付費，未轉載）。</li>
+<li>產品內附文件清單：開源知識庫 <a href="https://github.com/912141548/aveva-marine-dev-skill">aveva-marine-dev-skill</a>（上游 <a href="https://github.com/erbi112211-boop/aveva-marine-dev-skill">erbi112211-boop</a>）之《AVEVA-Marine-NET開發技能》《AVEVA-Marine-PML開發技能》《Marine-Vitesse-Python軌道速查》。</li>
 <li>訓練手冊編號：AVEVA 公開課程與搜尋結果摘要；TM-14xx 系列參考本課程 PML 互動課程頁的整理。</li>
+<li>無法自動取得的資源：<code>docs.aveva.com</code> 的 Marine 12.1 需 JavaScript；ISO 官方頁對自動抓取回 403；ResearchGate、CNKI 全文需帳號。</li>
+<li>每份資料的繁中摘要與查核狀態，見<a href="appx_c_reading_list_zh-TW.reading.html">附錄 C</a>。</li>
 </ul><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch18_case_studies_zh-TW.reading.html"><small>← 上一篇</small>第 18 章　實戰案例與完整範例</a><a class="next" href="appx_b_glossary_zh-TW.reading.html"><small>下一篇 →</small>附錄 B　術語表與指令速查</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

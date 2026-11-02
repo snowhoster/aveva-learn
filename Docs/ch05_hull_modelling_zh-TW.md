@@ -474,3 +474,4 @@ thk = get_real("HULL.PANEL('%s').PLA(1).THICKNESS" % 'DECK01')
 - 官方訓練課程：[AVEVA Marine 12.1.5 Hull Detailed Design – Planar Hull Modelling（Learning Academy）](https://learningacademy.aveva.com/courses/aveva-marine-1215-hull-detailed-design-planar-hull-modelling-instructor-led-training)；訓練手冊 TM-2101、TM-2102、TM-2103 僅參考公開摘要中的定義
 - 曲面開孔演算法：Kim, Park & Yang (2020), [Journal of Advanced Marine Engineering and Technology 44(3)](https://doi.org/10.5916/jamet.2020.44.3.196)，CC BY-NC 3.0
 - Vitesse 抽取範例：本課程 `Docs\examples\vitesse-hull-report`（開源範例，授權見 `Docs\examples\LICENSE-aveva-marine-dev-skill.txt`）
+- 延伸主題：用 Scheme 重用船體區塊模型（Son 等 2014）與 AVEVA Marine／Smart 3D 結構資料轉換（Han 等 2021），見[附錄 C.4.1、C.4.4](appx_c_reading_list_zh-TW.reading.html)；以 AM 做船體生產設計二次開發的中文碩士論文見[附錄 C.5.2](appx_c_reading_list_zh-TW.reading.html)。

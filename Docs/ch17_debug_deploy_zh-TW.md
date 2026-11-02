@@ -508,3 +508,4 @@ AVEVA 升級 Service Pack 時，官方檔案會被替換。依賴官方行為的
 - 論文圖片：Kim, C.-S., Park, D.-W., & Yang, Y.-J. (2020). Development of an automatic shell plate hole generation system using AVEVA Marine. *Journal of Advanced Marine Engineering and Technology*, 44(3), 196–202. [https://doi.org/10.5916/jamet.2020.44.3.196](https://doi.org/10.5916/jamet.2020.44.3.196)（CC BY-NC 3.0）
 - PML 單元測試框架：[PoByBolek/PmlUnit（GitHub）](https://github.com/PoByBolek/PmlUnit)
 - 版本號規則參考：[Semantic Versioning 2.0.0](https://semver.org/)
+- 官方對應章節：PML 3.1 的追蹤（PML Tracing）與錯誤處理，以及 .NET 的例外與日誌，見[附錄 C.3.1、C.3.2](appx_c_reading_list_zh-TW.reading.html)；以「檢查項目→規則→報告」設計測試見[附錄 C.5.3](appx_c_reading_list_zh-TW.reading.html)。

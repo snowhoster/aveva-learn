@@ -353,3 +353,4 @@ $p $!msg
 - AVEVA Hull and Outfitting 12.1 線上文件：[Hull and Outfitting](https://docs.aveva.com/bundle/hull-and-outfitting/page/1224159.html)、[Navigating the AVEVA Marine Documentation](https://docs.aveva.com/bundle/hull-and-outfitting/page/1225292.html)、[Drawing 元素（Hull and Outfitting 版，頁面 1136379）](https://docs.aveva.com/bundle/hull-and-outfitting/page/1136379.html)（需以瀏覽器開啟）
 - AVEVA 官方產品資料（本章截圖來源）：[AVEVA Hull and Outfitting Datasheet](https://www.aveva.com/content/dam/aveva/documents/perspectives/datasheets/Datasheet_HullandOutfitting.pdf.coredownload.inline.pdf)、[Brochure AVEVA Outfitting](https://www.aveva.com/content/dam/aveva/documents/brochures/Brochure_AVEVA_Outfitting.pdf)
 - Vitesse 圖面模組範例：本課程 `Docs\examples\vitesse-hull-report`（開源範例，授權見 `Docs\examples\LICENSE-aveva-marine-dev-skill.txt`）
+- 官方對應章節：ISODRAFT 3.1 的 ISO 類型、細化指令與材料表，見[附錄 C.3.5](appx_c_reading_list_zh-TW.reading.html)；管支架 2D 圖與 BOM 的批次出圖案例見[附錄 C.4.8](appx_c_reading_list_zh-TW.reading.html)。

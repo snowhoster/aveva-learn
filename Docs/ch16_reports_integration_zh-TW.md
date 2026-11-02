@@ -537,3 +537,4 @@ endlocal
 - 範例：[`examples/starter-kit-mycollect/`](examples/starter-kit-mycollect/)（MIT，同上）。
 - 案例：eryar，[AVEVA MARINE 中用 PML 寫管支架程序（二）](https://blog.csdn.net/eryar/article/details/4457072)（資料檔驅動建模）。
 - CSV 格式：[RFC 4180](https://www.rfc-editor.org/rfc/rfc4180)。
+- 延伸主題：AVEVA Marine 與 SmartMarine3D 的管模型與結構資料轉換（C.4.2、C.4.4），見[附錄 C.4.2、C.4.4](appx_c_reading_list_zh-TW.reading.html)；跨 CAD 交換的 STEP AP242 見[附錄 C.4.10](appx_c_reading_list_zh-TW.reading.html)，資料品質門檻見[附錄 C.5.3](appx_c_reading_list_zh-TW.reading.html)。

@@ -398,3 +398,4 @@ STRU            結構（一組鐵舾件）
 - AVEVA Pipe Supports – Marine 發佈消息：[Cambridge Network](https://www.cambridgenetwork.co.uk/news/aveva-releases-aveva-pipe-supports-marine)
 - 貫穿孔案例：Kim, Park & Yang (2020), [Journal of Advanced Marine Engineering and Technology 44(3)](https://doi.org/10.5916/jamet.2020.44.3.196)，CC BY-NC 3.0
 - 管支架案例：eryar，〈AVEVA MARINE 中用 PML 寫管支架程序（二）〉，[CSDN 部落格](https://blog.csdn.net/eryar/article/details/4457072)
+- 延伸主題：艙室絕緣快速建模（C.6.1）與 AVEVA Marine 管模型轉出（C.4.2），見[附錄 C.6.1、C.4.2](appx_c_reading_list_zh-TW.reading.html)；管支架自動化與塗裝量見[附錄 C.4.8、C.5.4](appx_c_reading_list_zh-TW.reading.html)。
