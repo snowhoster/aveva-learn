@@ -354,7 +354,7 @@ tbody tr:nth-child(even){background:#fafcfd}
     <line x1="90" y1="170" x2="90" y2="42" stroke="#2f6f8f" stroke-width="2" marker-end="url(#ar2)"/>
     <text x="78" y="34" fill="#123a5c" font-size="12">Z　上</text>
     <line x1="90" y1="170" x2="205" y2="225" stroke="#2f6f8f" stroke-width="2" marker-end="url(#ar2)"/>
-    <text x="210" y="234" fill="#123a5c" font-size="12">Y　右舷</text>
+    <text x="210" y="234" fill="#123a5c" font-size="12">Y　橫向</text>
     <circle cx="90" cy="170" r="3.5" fill="#123a5c"/>
     <text x="66" y="188" fill="#65788a" font-size="10">原點</text>
 
@@ -366,7 +366,7 @@ tbody tr:nth-child(even){background:#fafcfd}
     <text x="358" y="90" fill="#9a6212" font-size="10">FR 242</text>
     <text x="236" y="212" fill="#65788a" font-size="10">肋距（frame spacing）</text>
   </svg>
-  <div class="figcap">圖 3-1　船體座標與肋位。不同船廠可能採「艉部為原點、向艏遞增」或「以艏垂線起算」，使用前務必確認專案約定。（本課程自繪）</div>
+  <div class="figcap">圖 3-1　船體座標與肋位。不同船廠可能採「艉部為原點、向艏遞增」或「以艏垂線起算」，Y 的正向也可能是左舷或右舷；使用前務必確認專案約定。（本課程自繪）</div>
   </div>
 
   <h3>3.3 排水量與浮心</h3>
@@ -387,7 +387,7 @@ tbody tr:nth-child(even){background:#fafcfd}
   <div class="aveva"><strong>與 AVEVA 的對應</strong>
     <ul>
       <li>AVEVA 提供<strong>幾何</strong>：曲面、板架、艙櫃邊界、開口；這些是性能計算的輸入。</li>
-      <li><strong>穩度與阻力計算要在外部工具做</strong>（NAPA、GHS、Maxsurf、Shipflow 等）。AVEVA 可以輸出重量重心、艙櫃容積表，但不做 GM 或 GZ 曲線。</li>
+      <li><strong>穩度與阻力計算要在外部工具做</strong>（NAPA、GHS、Maxsurf、Shipflow 等）。AVEVA 可以輸出重量重心、艙櫃容積表，但不做 GM 或 GZ 曲線。重量與水艙資料怎麼交給載重電腦，見<a href="ch19_loading_computer_zh-TW.reading.html">第 19 章</a>。</li>
       <li>如果你要寫「自動算艙容」的工具，記得先確認用的是<strong>模線容積</strong>還是含構件扣除的<strong>淨容積</strong>，兩者差幾個百分點，對穩度影響很大。</li>
       <li>船體座標與肋位在 AVEVA 中是定位基礎（第 4 章）；寫查詢時不要假設原點固定在艉垂線。</li>
     </ul>
@@ -891,7 +891,7 @@ tbody tr:nth-child(even){background:#fafcfd}
   <tr><td>目錄與等級</td><td>Paragon（<code>CATA</code>／<code>SECT</code>／<code>CATE</code>）、Specon（<code>SPEC</code>／<code>SELE</code>／<code>SPCO</code>）</td><td>元件不是自由輸入，受等級約束</td></tr>
   <tr><td>圖面與 ISO</td><td>Marine Drafting、Outfitting Draft、Isodraft</td><td>圖面跟著模型版本，不跟著現場進度</td></tr>
   <tr><td>報表與材料表</td><td>報表功能、PML、.NET</td><td>先確認單位、單雙面、淨尺寸或含增量</td></tr>
-  <tr><td>穩度、阻力、噸位</td><td>外部工具（NAPA、GHS、Maxsurf 等）</td><td>AVEVA 提供幾何與重量資料，不做這些計算</td></tr>
+  <tr><td>穩度、阻力、噸位</td><td>外部工具（NAPA、GHS、Maxsurf 等）</td><td>AVEVA 提供幾何與重量資料，不做這些計算；載重電腦的整合見<a href="ch19_loading_computer_zh-TW.reading.html">第 19 章</a></td></tr>
   </tbody>
   </table>
   </div>

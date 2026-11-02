@@ -2,7 +2,7 @@
 
 [← 學習中心首頁](../index.html)
 
-給開發人員的完整課程：先建立系統與資料模型的概念，再理解船舶設計業務，最後進入二次開發技術。共 18 章與 3 個附錄，另有兩門獨立課程（PML 互動課程、造船領域知識）。每份閱讀頁底部都有「上一篇／下一篇」導覽。
+給開發人員的完整課程：先建立系統與資料模型的概念，再理解船舶設計業務，最後進入二次開發技術。共 19 章與 3 個附錄，另有兩門獨立課程（PML 互動課程、造船領域知識）。每份閱讀頁底部都有「上一篇／下一篇」導覽。
 
 從 [第 0 章　課程總覽與知識地圖](ch00_knowledge_map_zh-TW.reading.html) 開始，裡面有各章知識點清單、12 週進度與能力等級。
 
@@ -32,6 +32,7 @@
 | 16 | [報表、檔案與外部系統整合](ch16_reports_integration_zh-TW.reading.html) | [md](ch16_reports_integration_zh-TW.md) |
 | 17 | [除錯、測試、部署與版本管理](ch17_debug_deploy_zh-TW.reading.html) | [md](ch17_debug_deploy_zh-TW.md) |
 | 18 | [實戰案例與完整範例](ch18_case_studies_zh-TW.reading.html) | [md](ch18_case_studies_zh-TW.md) |
+| 19 | [載重電腦整合：重量重心與水艙資料](ch19_loading_computer_zh-TW.reading.html) | [md](ch19_loading_computer_zh-TW.md) |
 | **附錄** | | |
 | A | [專業資源與官方訓練地圖](appx_a_resources_zh-TW.reading.html) | [md](appx_a_resources_zh-TW.md) |
 | B | [術語表與指令速查](appx_b_glossary_zh-TW.reading.html) | [md](appx_b_glossary_zh-TW.md) |

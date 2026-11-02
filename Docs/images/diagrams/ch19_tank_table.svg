@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-label="水艙特性表：測深、空距、容積、重心與自由液面力矩">
+  <title>水艙特性表與測深／空距</title>
+  <defs>
+    <marker id="a19c" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L7,4 L0,8 z" fill="#2f6f8f"/>
+    </marker>
+  </defs>
+  <text x="26" y="28" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="16" font-weight="700">一個水艙不是一個數字，而是一張隨液位變化的表</text>
+
+  <!-- tank profile -->
+  <g transform="translate(30,70)">
+    <path d="M20 20 L250 20 L250 250 L20 250 Z" fill="#e8f2f8" stroke="#2f6f8f" stroke-width="2"/>
+    <path d="M20 250 L250 250 L232 285 L38 285 Z" fill="#d3e6f1" stroke="#2f6f8f" stroke-width="1.6"/>
+    <path d="M20 168 Q135 158 250 168 L250 250 L20 250 Z" fill="#9fc9df" opacity=".75"/>
+    <line x1="20" y1="168" x2="250" y2="168" stroke="#2f6f8f" stroke-width="1.4" stroke-dasharray="5 4"/>
+    <line x1="12" y1="20" x2="12" y2="285" stroke="#b8791d" stroke-width="1.4" marker-start="url(#a19c)" marker-end="url(#a19c)"/>
+    <text x="0" y="150" fill="#8a6a3a" font-size="11" transform="rotate(-90 0 150)">液位高度</text>
+
+    <line x1="270" y1="20" x2="270" y2="168" stroke="#2f6f8f" stroke-width="1.4" marker-start="url(#a19c)" marker-end="url(#a19c)"/>
+    <text x="280" y="98" fill="#2f6f8f" font-size="11">空距 U</text>
+    <line x1="270" y1="168" x2="270" y2="285" stroke="#b8791d" stroke-width="1.4" marker-start="url(#a19c)" marker-end="url(#a19c)"/>
+    <text x="280" y="232" fill="#8a6a3a" font-size="11">測深 S</text>
+
+    <text x="135" y="312" fill="#65788a" font-size="10.5" text-anchor="middle">S + U = 艙深（依測深管位置定義）</text>
+    <text x="135" y="330" fill="#65788a" font-size="10.5" text-anchor="middle">圖為示意，實際艙形與測深管位置依專案</text>
+  </g>
+
+  <!-- table -->
+  <g transform="translate(390,64)" font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <rect x="0" y="0" width="480" height="300" rx="8" fill="#fff" stroke="#dbe3e9"/>
+    <rect x="0" y="0" width="480" height="36" rx="8" fill="#edf3f7"/>
+    <text x="14" y="23" fill="#123a5c" font-size="12" font-weight="700">水艙特性表（節錄）</text>
+    <text x="466" y="23" fill="#65788a" font-size="10.5" text-anchor="end">BALLAST No.3 P</text>
+
+    <g font-size="10.5" fill="#123a5c" font-weight="700">
+      <text x="14" y="58">測深 S (m)</text>
+      <text x="86" y="58">容積 V (m³)</text>
+      <text x="168" y="58">LCG (m)</text>
+      <text x="232" y="58">TCG (m)</text>
+      <text x="296" y="58">VCG (m)</text>
+      <text x="360" y="58">FSM (t·m)</text>
+      <text x="430" y="58">備註</text>
+    </g>
+    <line x1="0" y1="66" x2="480" y2="66" stroke="#dbe3e9"/>
+    <g font-size="10.5" fill="#3f5566">
+      <text x="14" y="88">0.00</text><text x="86" y="88">0</text><text x="168" y="88">—</text><text x="232" y="88">—</text><text x="296" y="88">—</text><text x="360" y="88">0</text><text x="430" y="88">空艙</text>
+      <text x="14" y="112">0.50</text><text x="86" y="112">18.4</text><text x="168" y="112">61.20</text><text x="232" y="112">-4.80</text><text x="296" y="112">1.02</text><text x="360" y="112">31</text><text x="430" y="112">半艙</text>
+      <text x="14" y="136">1.00</text><text x="86" y="136">37.1</text><text x="168" y="136">61.18</text><text x="232" y="136">-4.79</text><text x="296" y="136">1.04</text><text x="360" y="136">58</text><text x="430" y="136">液面自由</text>
+      <text x="14" y="160">1.50</text><text x="86" y="160">56.0</text><text x="168" y="160">61.15</text><text x="232" y="160">-4.78</text><text x="296" y="160">1.07</text><text x="360" y="160">74</text><text x="430" y="160">液面自由</text>
+      <text x="14" y="184">2.00</text><text x="86" y="184">75.2</text><text x="168" y="184">61.12</text><text x="232" y="184">-4.77</text><text x="296" y="184">1.10</text><text x="360" y="184">63</text><text x="430" y="184">接近滿艙</text>
+      <text x="14" y="208">2.40</text><text x="86" y="208">90.3</text><text x="168" y="208">61.10</text><text x="232" y="208">-4.76</text><text x="296" y="208">1.13</text><text x="360" y="208">0</text><text x="430" y="208">滿艙（無自由液面）</text>
+    </g>
+    <line x1="0" y1="220" x2="480" y2="220" stroke="#dbe3e9"/>
+    <text x="14" y="240" fill="#65788a" font-size="10">容積＝淨容積（已扣結構）；LCG／TCG／VCG 為液體重心。</text>
+    <text x="14" y="257" fill="#65788a" font-size="10">FSM＝自由液面力矩；滿艙與空艙原則上為 0。</text>
+    <text x="14" y="274" fill="#8a6a3a" font-size="10">數值僅為示意，不可用於實際船舶。</text>
+    <text x="14" y="291" fill="#65788a" font-size="10">左右艙（P／S）必須各自一張表，不能只放一邊。</text>
+  </g>
+
+  <text x="30" y="400" fill="#65788a" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="11">載重電腦用測深或空距查表，再依液體密度換算重量；橫傾與俯仰會改變液面形狀，因此還需要姿態修正或三維直接計算。</text>
+</svg>

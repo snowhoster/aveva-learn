@@ -29,6 +29,7 @@ books = [
     ('ch16_reports_integration_zh-TW.md', '第 16 章　報表、檔案與外部系統整合', PART3),
     ('ch17_debug_deploy_zh-TW.md', '第 17 章　除錯、測試、部署與版本管理', PART3),
     ('ch18_case_studies_zh-TW.md', '第 18 章　實戰案例與完整範例', PART3),
+    ('ch19_loading_computer_zh-TW.md', '第 19 章　載重電腦整合：從 AVEVA 取得重量重心與水艙資料', PART3),
     ('appx_a_resources_zh-TW.md', '附錄 A　專業資源與官方訓練地圖', APPX),
     ('appx_b_glossary_zh-TW.md', '附錄 B　術語表與指令速查', APPX),
     ('appx_c_reading_list_zh-TW.md', '附錄 C　參考文獻導讀與繁中摘要', APPX),

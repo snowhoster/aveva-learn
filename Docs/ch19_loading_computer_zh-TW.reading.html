@@ -1,0 +1,1334 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第 19 章　載重電腦整合：從 AVEVA 取得重量重心與水艙資料 | AVEVA 學習工作室</title><style>
+:root{color-scheme:light;--ink:#193531;--muted:#60736d;--green:#116b58;--line:#dce6df;--paper:#f4f6f0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 "Segoe UI","Microsoft JhengHei",sans-serif}header{background:#143b35;color:#fff;padding:20px max(24px,calc((100vw - 1300px)/2));}header a{color:#d8f36a;text-decoration:none;font-weight:700;font-size:13px}.wrap{max-width:1300px;margin:auto;padding:34px 24px 70px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:30px}aside{position:sticky;top:25px;align-self:start;max-height:90vh;overflow:auto;padding:18px;border:1px solid var(--line);background:#fff;border-radius:14px}aside strong{font-size:12px;letter-spacing:.1em;color:var(--green)}aside ul{list-style:none;padding-left:14px;margin:8px 0}aside>div>ul{padding-left:0}aside a{font-size:13px;line-height:1.5;text-decoration:none;color:#526963;display:block;padding:4px 0}aside a:hover{color:var(--green)}article{min-width:0;background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,60px);box-shadow:0 12px 40px #163b2d0b}h1,h2,h3,h4{line-height:1.35;scroll-margin-top:25px}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.035em;margin:0 0 24px}h2{font-size:25px;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:19px;margin:30px 0 10px}h4{font-size:16px}p,li{overflow-wrap:anywhere}article img{display:block;max-width:100%;height:auto;margin:20px auto;border:1px solid var(--line);border-radius:14px}li{margin:5px 0}a{color:var(--green)}blockquote{margin:24px 0;padding:5px 20px;border-left:4px solid #7fbca3;background:#f0f7f1;color:#49635a;border-radius:0 10px 10px 0}pre{overflow:auto;background:#122a26;color:#dcece2;border-radius:12px;padding:20px;font:13px/1.7 Consolas,monospace}code{background:#eaf2ec;color:#215c4d;padding:2px 5px;border-radius:4px;font-size:.9em}pre code{padding:0;background:none;color:inherit}table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;min-width:100px}th{background:#edf4ee}hr{border:0;border-top:1px solid var(--line);margin:35px 0}.stage{display:inline-block;margin-bottom:12px;background:#e9f2e9;color:var(--green);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}nav.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid var(--line)}nav.pager a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:14px}nav.pager a small{display:block;color:var(--muted);font-size:12px}nav.pager .next{grid-column:2;text-align:right}footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}@media(max-width:800px){.wrap{display:block;padding:16px}aside{position:static;max-height:220px;margin-bottom:16px}article{padding:24px 20px}h2{font-size:22px}}
+</style></head><body><header><a href="../index.html">← 返回學習中心</a></header><div class="wrap"><aside><strong>目錄 CONTENTS</strong><div class="toc">
+<ul>
+<li><a href="#19-aveva">第 19 章 載重電腦整合：從 AVEVA 取得重量重心與水艙資料</a><ul>
+<li><a href="#191">19.1 學習目標</a></li>
+<li><a href="#192">19.2 載重電腦在做什麼，不做什麼</a></li>
+<li><a href="#193">19.3 載重電腦需要的四類資料</a><ul>
+<li><a href="#1931">19.3.1 空船重量不是一個數字</a></li>
+</ul>
+</li>
+<li><a href="#194">19.4 重量與重心：從元素到可對帳的分組</a><ul>
+<li><a href="#1941-aveva-wcog">19.4.1 AVEVA 的 WCoG 表與重量控制</a></li>
+<li><a href="#1942">19.4.2 淨重、毛重與常見屬性</a></li>
+<li><a href="#1943">19.4.3 分組與聚合：三個容易重複計算的地方</a></li>
+<li><a href="#1944-pml">19.4.4 用 PML 收集重量與重心（示意）</a></li>
+</ul>
+</li>
+<li><a href="#195">19.5 水艙：從幾何到特性表</a><ul>
+<li><a href="#1951">19.5.1 水艙在模型裡可能是兩種東西</a></li>
+<li><a href="#1952">19.5.2 一張水艙表要有哪些欄位</a></li>
+<li><a href="#1953">19.5.3 測深、空距與姿態修正</a></li>
+<li><a href="#1954">19.5.4 自由液面：不是「有液體就有」</a></li>
+<li><a href="#1955">19.5.5 淨容積、滲透率與可裝載容積</a></li>
+<li><a href="#1956">19.5.6 艙表從哪裡來</a></li>
+</ul>
+</li>
+<li><a href="#196">19.6 座標、單位與符號：最便宜也最貴的錯誤</a><ul>
+<li><a href="#1961">19.6.1 一個實際的換算例</a></li>
+<li><a href="#1962">19.6.2 單位與密度的三個陷阱</a></li>
+</ul>
+</li>
+<li><a href="#197">19.7 交換格式：一份兩邊都信得過的資料契約</a><ul>
+<li><a href="#1971">19.7.1 必要的中介資料</a></li>
+<li><a href="#1972-json">19.7.2 JSON 範例（節錄）</a></li>
+<li><a href="#1973-csv">19.7.3 CSV 的拆分方式</a></li>
+<li><a href="#1974-id">19.7.4 穩定 ID 與變更</a></li>
+<li><a href="#1975">19.7.5 檔案層級的保護</a></li>
+</ul>
+</li>
+<li><a href="#198">19.8 對帳與測試：怎麼知道匯出是對的</a><ul>
+<li><a href="#1981">19.8.1 三層對帳</a></li>
+<li><a href="#1982">19.8.2 水艙抽查</a></li>
+<li><a href="#1983">19.8.3 測試案例</a></li>
+<li><a href="#1984-python">19.8.4 自動化檢查（Python 範例）</a></li>
+<li><a href="#1985">19.8.5 簽核與凍結</a></li>
+</ul>
+</li>
+<li><a href="#199">19.9 變更管理：模型改了怎麼辦</a></li>
+<li><a href="#1910">19.10 法規與船級：載重電腦不是普通報表</a></li>
+<li><a href="#1911">19.11 完整範例：散貨船壓載與燃油匯出</a><ul>
+<li><a href="#19111">19.11.1 情境</a></li>
+<li><a href="#19112">19.11.2 步驟</a></li>
+<li><a href="#19113">19.11.3 重量分組對帳表（示意）</a></li>
+<li><a href="#19114">19.11.4 艙表抽查（矩形艙驗算）</a></li>
+<li><a href="#19115">19.11.5 匯入後的檢查</a></li>
+</ul>
+</li>
+<li><a href="#1912">19.12 常見錯誤</a></li>
+<li><a href="#1913">19.13 開發人員須知</a></li>
+<li><a href="#1914">19.14 練習（只能在訓練專案）</a></li>
+<li><a href="#1915">19.15 自我檢核</a></li>
+<li><a href="#_1">資料來源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><span class="stage">第三部分　二次開發技術 · 20 / 23</span><h1 id="19-aveva">第 19 章　載重電腦整合：從 AVEVA 取得重量重心與水艙資料</h1>
+<blockquote>
+<p>這一章談一個很實際、也很容易被低估的題目：<strong>外部載重電腦（loading computer／loading instrument）要怎麼從 AVEVA 取得它需要的重量、重心與水艙資料</strong>。</p>
+<p>很多團隊以為這件事就是「寫一個匯出按鈕」。真正會出問題的地方，通常不是按鈕，而是兩邊對「一噸」「一個艙」「一個方向」的定義不一樣。本章會把資料流、資料契約、對帳方法與法規邊界拆開來看，讓匯出的數字能被船廠、船東與船級協會接受。</p>
+<p>如果你們的載重電腦是自行開發的，本章可以當成介面規格與驗收清單；如果是外購軟體，則用來檢查匯出檔是否符合它的輸入格式與版本要求。</p>
+<p><strong>資料可信度：</strong> AVEVA 的 Weight and Centre of Gravity（WCoG）表、<code>NWEI</code>／<code>GWEI</code>／<code>NCOF</code>／<code>GCOF</code> 等屬性的名稱，取自 AVEVA 官方文件與 PDMS/E3D 語法資料；水艙元素的實際型別與屬性名稱，依版本與公司模板而異，文中標為〔待核對〕。法規部分引用 SOLAS XII/11、2008 IS Code、IACS UR L5 與 CSR 的公開資訊；條文編號與適用範圍仍請以現行版本為準。程式碼除特別註明外均為<strong>示意</strong>，未在公司環境驗證。</p>
+</blockquote>
+<h2 id="191">19.1 學習目標</h2>
+<p>讀完本章，你應該能夠：</p>
+<ol>
+<li>說明載重電腦與 AVEVA 的分工，以及為什麼兩者之間需要一份「凍結的快照」。</li>
+<li>列出載重電腦需要的四類資料：空船重量重心、死重量項目、水艙特性表、船體靜水性能與艙區定義。</li>
+<li>從 AVEVA 的 WCoG 表與元素屬性取得重量、重心，並設計可對帳的分組。</li>
+<li>說明水艙表為什麼不是一個容積數字，並列出測深、容積、重心與自由液面力矩的欄位。</li>
+<li>訂出座標、單位、符號與版本的交換規則，寫出一份兩邊都能驗證的資料契約。</li>
+<li>建立三層對帳、水艙抽查與回歸測試，處理模型變更後的重新匯出。</li>
+<li>知道載重儀的船級認可、年度測試與軟體變更控制的重點。</li>
+</ol>
+<h2 id="192">19.2 載重電腦在做什麼，不做什麼</h2>
+<p>載重電腦是<strong>營運階段</strong>的工具。它接收一組裝載狀態（貨物、壓載、燃油、淡水、備品、船員），算出：</p>
+<ul>
+<li>艏、艉與平均吃水，以及俯仰差（trim）與橫傾（list）。</li>
+<li>初穩度 GM、大角度穩度 GZ 曲線，以及完整穩度準則的通過與否。</li>
+<li>縱向強度：剪力（SF）與彎矩（BM）對容許曲線的比值。</li>
+<li>受損穩度（若船級與船型要求）。</li>
+<li>裝載手冊指定的限制：艙櫃裝載上限、甲板載重、吃水與乾舷。</li>
+</ul>
+<p>AVEVA 則是<strong>設計階段</strong>的模型：它管幾何、拓撲、屬性、目錄與重量資料，不做營運狀態的穩度判定。兩者的關係可以用一句話總結：</p>
+<blockquote>
+<p><strong>AVEVA 回答「這艘船有什麼、有多重、在哪裡」；載重電腦回答「這樣裝，安不安全」。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>AVEVA Marine</th>
+<th>載重電腦</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要使用者</td>
+<td>設計公司、船廠</td>
+<td>船東、船長、大副、岸上營運</td>
+</tr>
+<tr>
+<td>資料時間點</td>
+<td>設計模型，會持續變更</td>
+<td>某一個凍結版本的快照</td>
+</tr>
+<tr>
+<td>核心資料</td>
+<td>元素、屬性、幾何、目錄、重量</td>
+<td>裝載狀態、艙櫃表、穩度與強度</td>
+</tr>
+<tr>
+<td>計算責任</td>
+<td>重量與重心、材料表、幾何</td>
+<td>GM／GZ、俯仰、SF／BM、法規判定</td>
+</tr>
+<tr>
+<td>變更流程</td>
+<td>設計變更、版本控制</td>
+<td>船級認可、測試、船上驗證</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="載重電腦資料流：AVEVA 模型經抽取器、交換快照與驗證，最後進入載重電腦" src="images/diagrams/ch19_data_flow.svg" /></p>
+<p><em>圖 19-1　從設計模型到營運計算的資料流。真正需要設計的是中間的交換快照，而不是最後的匯入按鈕。（本課程自繪）</em></p>
+<blockquote>
+<p><strong>開發人員須知：</strong> 不要把載重電腦當成「另一個 AVEVA 報表」。它是一個<strong>受船級協會認可的計算系統</strong>，輸入資料的錯誤會被放大成航行決策。你的匯出工具可以很簡單，但它的資料契約、版本與對帳紀錄必須很嚴謹。</p>
+</blockquote>
+<h2 id="193">19.3 載重電腦需要的四類資料</h2>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>內容</th>
+<th>通常從哪裡來</th>
+<th>更新頻率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空船重量與重心</td>
+<td>鋼材、舾裝、設備、管路、電纜、絕緣、塗裝、裕度</td>
+<td>AVEVA WCoG／重量控制、材料表</td>
+<td>設計里程碑</td>
+</tr>
+<tr>
+<td>死重量項目</td>
+<td>貨物、壓載、燃油、柴油、淡水、滑油、備品、船員、常數</td>
+<td>裝載狀態、艙櫃表、營運資料</td>
+<td>每一航次</td>
+</tr>
+<tr>
+<td>水艙特性表</td>
+<td>測深／空距對應的容積、LCG／TCG／VCG、自由液面力矩</td>
+<td>艙櫃幾何、艙容計算、船級認可表</td>
+<td>新船、改艙、塢修</td>
+</tr>
+<tr>
+<td>靜水性能與艙區</td>
+<td>排水量、LCB、LCF、KB、BM、MCT、斷面面積、受損艙區與滲透率</td>
+<td>船體幾何、船舶原理計算、船級認可資料</td>
+<td>新船、改艙</td>
+</tr>
+</tbody>
+</table>
+<p>這四類資料裡，AVEVA 最直接提供的是<strong>第一類與第二類的一部分</strong>；第三類需要艙櫃幾何與艙容計算；第四類通常由船舶原理軟體或船廠的正式計算書提供。把這條界線畫清楚，才不會寫出「用模型直接算 GM」這種工具。</p>
+<h3 id="1931">19.3.1 空船重量不是一個數字</h3>
+<p>空船重量（lightship）要拆成可追溯的分組，才能和載重電腦、船級計算書對帳。常見分組：</p>
+<table>
+<thead>
+<tr>
+<th>分組</th>
+<th>內容</th>
+<th>常見來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船體鋼材</td>
+<td>外板、甲板、艙壁、內底、骨材、肘板</td>
+<td>Hull 模型與零件資料</td>
+</tr>
+<tr>
+<td>鐵舾裝</td>
+<td>平台、梯子、欄杆、基座、艙口蓋結構</td>
+<td>Outfitting 結構元素</td>
+</tr>
+<tr>
+<td>設備</td>
+<td>主機、發電機、泵、鍋爐、甲板機械</td>
+<td>設備元素與目錄重量</td>
+</tr>
+<tr>
+<td>管路與閥件</td>
+<td>管、閥、法蘭、支架、保溫</td>
+<td>管路模型與等級</td>
+</tr>
+<tr>
+<td>電纜與電氣</td>
+<td>電纜、托盤、配電盤、燈具</td>
+<td>電氣模型或電纜表</td>
+</tr>
+<tr>
+<td>絕緣與塗裝</td>
+<td>艙室絕緣、管路保溫、塗裝</td>
+<td>規範與表面積</td>
+</tr>
+<tr>
+<td>裕度</td>
+<td>設計裕度、未建模項目、未來改裝</td>
+<td>公司政策與專案設定</td>
+</tr>
+</tbody>
+</table>
+<p>如果只匯出一個總數，日後模型改了一片板、換了一台泵，沒有人知道總數為什麼變。<strong>分組是對帳的單位，也是變更影響分析的單位。</strong></p>
+<h2 id="194">19.4 重量與重心：從元素到可對帳的分組</h2>
+<h3 id="1941-aveva-wcog">19.4.1 AVEVA 的 WCoG 表與重量控制</h3>
+<p>AVEVA Marine 提供 Weight and Centre of Gravity（WCoG）相關功能，可以依階層或選取範圍產生重量與重心。對載重電腦整合而言，它是最好的<strong>起點</strong>，因為：</p>
+<ul>
+<li>它已經處理了元素階層與聚合，不必自己從每個板件重算。</li>
+<li>它可以輸出分組小計，適合與載重電腦的重量分組對照。</li>
+<li>它的結果可以和模型的材料表、零件資料交叉檢查。</li>
+</ul>
+<p>但 WCoG 表不是「絕對真理」。它的品質取決於：</p>
+<ol>
+<li>材料密度與板厚是否正確。</li>
+<li>目錄元件是否有重量；沒有 <code>CMPREF</code> 或規格參照的設備，重量可能為零或帶預設值（<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章</a>）。</li>
+<li>保溫、塗裝、焊材、裕度是否被包含。</li>
+<li>生產零件與設計模型是否為同一版本（<a href="ch06_hull_production_zh-TW.reading.html">第 6 章</a>）。</li>
+</ol>
+<h3 id="1942">19.4.2 淨重、毛重與常見屬性</h3>
+<p>在 PDMS／E3D 系譜中，常見的重量與重心查詢屬性包括：</p>
+<table>
+<thead>
+<tr>
+<th>屬性</th>
+<th>意義</th>
+<th>使用注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NWEI</code></td>
+<td>淨重（nett weight）</td>
+<td>通常不含保溫、塗裝等附加重量</td>
+</tr>
+<tr>
+<td><code>GWEI</code></td>
+<td>毛重（gross weight）</td>
+<td>可能含保溫、附件或內容物，依元素類型而定</td>
+</tr>
+<tr>
+<td><code>NCOF</code></td>
+<td>淨重心（net centre of gravity）</td>
+<td>位置，通常相對於專案座標</td>
+</tr>
+<tr>
+<td><code>GCOF</code></td>
+<td>毛重心（gross centre of gravity）</td>
+<td>與 <code>GCOF</code> 搭配 <code>GWEI</code> 使用</td>
+</tr>
+<tr>
+<td><code>NVOL</code>／<code>GVOL</code></td>
+<td>淨容積／毛容積</td>
+<td>常用於管路、設備或艙櫃</td>
+</tr>
+<tr>
+<td><code>DNST</code></td>
+<td>密度</td>
+<td>確認單位是 kg/m³ 還是 t/m³</td>
+</tr>
+<tr>
+<td><code>MASS</code></td>
+<td>質量</td>
+<td>部分元素或版本提供，語意需確認</td>
+</tr>
+</tbody>
+</table>
+<p>這些是<strong>查詢屬性（pseudo attributes）</strong>，由系統依幾何、材料與目錄即時計算，不一定能像一般屬性一樣直接寫入或批次過濾。使用前先在命令列確認：</p>
+<pre><code class="language-text">Q NWEI
+Q GWEI
+Q NCOF
+Q GCOF
+Q NVOL
+Q DNST
+Q ATT
+</code></pre>
+<p>〔待核對〕不同元素型別支援的屬性不同；有些元素只有 <code>NWEI</code>，有些只有目錄重量。PML 中能否用 <code>!!CE.NWEI</code> 直接取值，還是要用 <code>GetAttribute()</code> 或資料抽取 API，依版本而異。<strong>先做一個元素的實驗，再寫批次工具。</strong></p>
+<h3 id="1943">19.4.3 分組與聚合：三個容易重複計算的地方</h3>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>錯誤做法</th>
+<th>結果</th>
+<th>正確做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>父組合與子零件</td>
+<td>父組合有聚合重量，又加子零件</td>
+<td>重量重複</td>
+<td>只取葉節點，或只取父層小計</td>
+</tr>
+<tr>
+<td>板與加強材</td>
+<td>板已含加強材重量，又加 <code>HSTIFF</code></td>
+<td>鋼材偏重</td>
+<td>確認板的重量定義，通常分開取</td>
+</tr>
+<tr>
+<td>設備與基座</td>
+<td>設備重量含基座，又加 <code>STRU</code> 基座</td>
+<td>重複</td>
+<td>以目錄與結構的責任邊界為準</td>
+</tr>
+</tbody>
+</table>
+<p>還有一種相反的問題：<strong>漏算</strong>。常見漏算項目包括焊材、塗裝、管路保溫、電纜托盤、臨時加強、未建模的雜項與設計裕度。這些不一定要塞進模型，但必須在分組表裡有明確的「包含／排除」欄位。</p>
+<h3 id="1944-pml">19.4.4 用 PML 收集重量與重心（示意）</h3>
+<pre><code class="language-pml">-- 示意：先確認屬性可用，再批次收集；查詢字串與屬性名依公司資料結構調整〔待核對〕
+!rows = ARRAY()
+!elems = !!ce.world.query('OWNER EQ /SITE-01')   -- 僅為示意，實際查詢依專案
+do !e values !elems
+  !id  = !e.NAME
+  !typ = !e.TYPE
+  !w   = !e.NWEI
+  !c   = !e.NCOF
+  !row = OBJECT ARRAY()
+  !row[1] = !id
+  !row[2] = !typ
+  !row[3] = !w.string()
+  !row[4] = !c.east.string()
+  !row[5] = !c.north.string()
+  !row[6] = !c.up.string()
+  !rows.append(!row)
+enddo
+</code></pre>
+<p>這段程式碼有三個刻意留白的地方，因為它們依公司環境而異：</p>
+<ol>
+<li><code>query()</code> 的查詢字串：要用哪個 OWNER、TYPE 或集合，取決於你們的資料階層。</li>
+<li><code>!e.NWEI</code>：查詢屬性是否可直接存取〔待核對〕。</li>
+<li>座標軸的名稱：<code>east</code>／<code>north</code>／<code>up</code> 是 PDMS 常見寫法，但船體專案可能用 <code>X</code>／<code>Y</code>／<code>Z</code> 或 <code>LP</code>／<code>FR</code>。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 批次工具不要邊查邊寫檔。先用集合收集、在記憶體組成陣列，再一次寫出；同時記錄「讀了幾個元素、跳過幾個、為什麼跳過」。沒有跳過紀錄的匯出工具，等於沒有辦法對帳。</p>
+</blockquote>
+<h2 id="195">19.5 水艙：從幾何到特性表</h2>
+<h3 id="1951">19.5.1 水艙在模型裡可能是兩種東西</h3>
+<p>「水艙」在 AVEVA 裡不是單一固定型別。依版本與公司模板，它可能表現為：</p>
+<ul>
+<li><strong>Hull 的艙區（compartment）</strong>：由艙壁、外板、甲板等邊界圍出的空間，常用於艙容、受損穩度與艙區檢查。</li>
+<li><strong>Outfitting 的艙櫃元素（tank）</strong>：帶有艙櫃屬性、管嘴、測深管與相關設備的舾裝物件。</li>
+<li><strong>兩者都有，且需要對應</strong>：幾何邊界在 Hull，設備與管嘴在 Outfitting。</li>
+</ul>
+<p>〔待核對〕實際的元素型別名稱（例如 <code>TANK</code>、<code>COMP</code> 或公司自訂型別）、容積屬性與測深管屬性，請用 <code>Q TYPE</code>、<code>Q ATT</code> 與 SCRM 查證。<strong>不要從別艘船的型別名稱直接複製。</strong></p>
+<p>水艙資料最基本的識別欄位：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+<th>為什麼重要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>艙櫃 ID</td>
+<td>穩定不變的識別碼</td>
+<td>名稱會改，ID 不能改</td>
+</tr>
+<tr>
+<td>名稱</td>
+<td>圖面與口語使用的名稱</td>
+<td>要能和裝載手冊對照</td>
+</tr>
+<tr>
+<td>類型</td>
+<td>壓載、貨油、燃油、柴油、淡水、滑油、污水</td>
+<td>決定密度、法規與顏色</td>
+</tr>
+<tr>
+<td>側別</td>
+<td>P（左）、S（右）、C（中）</td>
+<td>左右艙不能合併成一張表</td>
+</tr>
+<tr>
+<td>密度</td>
+<td>設計密度與營運密度</td>
+<td>重量換算的基準</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>100% 容積，註明淨容積或毛容積</td>
+<td>與艙表最後一點一致</td>
+</tr>
+<tr>
+<td>測深管</td>
+<td>位置、高度、是否可用空距</td>
+<td>船上實測的介面</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1952">19.5.2 一張水艙表要有哪些欄位</h3>
+<p><img alt="水艙特性表：左側為測深與空距，右側為容積、LCG、TCG、VCG 與自由液面力矩" src="images/diagrams/ch19_tank_table.svg" /></p>
+<p><em>圖 19-2　水艙特性表的欄位與測深／空距的關係。數值僅為示意，不可用於實際船舶。（本課程自繪）</em></p>
+<p>一張可用的艙表，每個液位點至少要有：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>單位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>測深（sounding）</td>
+<td>m</td>
+<td>從測深管參考點量到液面的高度</td>
+</tr>
+<tr>
+<td>空距（ullage）</td>
+<td>m</td>
+<td>從艙頂或測深管頂量到液面的距離</td>
+</tr>
+<tr>
+<td>容積</td>
+<td>m³</td>
+<td>該液位下的液體體積，註明淨容積</td>
+</tr>
+<tr>
+<td>LCG</td>
+<td>m</td>
+<td>液體重心縱向位置，註明原點</td>
+</tr>
+<tr>
+<td>TCG</td>
+<td>m</td>
+<td>液體重心橫向位置，註明正負</td>
+</tr>
+<tr>
+<td>VCG</td>
+<td>m</td>
+<td>液體重心垂向位置，從基線量</td>
+</tr>
+<tr>
+<td>FSM</td>
+<td>t·m</td>
+<td>自由液面力矩，滿艙與空艙通常為 0</td>
+</tr>
+<tr>
+<td>備註</td>
+<td>—</td>
+<td>滿艙、空艙、不可用區間、結構限制</td>
+</tr>
+</tbody>
+</table>
+<p>「只有一個 100% 容積」的資料，對載重電腦幾乎沒有用。船在中間液位時，重心與自由液面才是穩度的主要變數。</p>
+<h3 id="1953">19.5.3 測深、空距與姿態修正</h3>
+<p>測深與空距的關係是：</p>
+<pre><code class="language-text">測深 S + 空距 U = 測深管參考高度（依測深管位置定義）
+</code></pre>
+<p>但船不是永遠平浮。艙表通常是在<strong>平浮（even keel）</strong> 或特定俯仰下計算的；實際裝載時有俯仰與橫傾，液面會改變形狀，容積與重心也跟著變。處理方式有兩種：</p>
+<ol>
+<li><strong>艙表加修正</strong>：載重電腦依俯仰與橫傾，對艙表做內插與修正。</li>
+<li><strong>三維直接計算</strong>：載重電腦直接依艙櫃幾何與液面平面計算容積與重心，不依賴預先產生的表。</li>
+</ol>
+<p>第二種方法對不規則艙形更準，但需要高品質的艙櫃幾何與計算引擎。無論哪一種，<strong>艙表與幾何必須来自同一個版本</strong>，否則修正量會對不上。</p>
+<h3 id="1954">19.5.4 自由液面：不是「有液體就有」</h3>
+<p>自由液面力矩（free surface moment，FSM）來自艙內液體在橫傾時的自由流動。對一個自由液面，近似式是：</p>
+<pre><code class="language-text">FSM = ρ × I
+</code></pre>
+<p>其中 <code>ρ</code> 是液體密度，<code>I</code> 是自由液面對傾斜軸的面積慣性矩。自由液面修正對 GM 的影響是：</p>
+<pre><code class="language-text">FSC = ΣFSM / Δ
+GM_effective = GM_solid − FSC
+</code></pre>
+<p>有三個常見誤解：</p>
+<ul>
+<li><strong>滿艙也有自由液面？</strong> 原則上沒有；滿艙時液面被艙頂限制，不再自由流動，FSM 應為 0（或依規範的極小值）。</li>
+<li><strong>空艙也有自由液面？</strong> 沒有液體，FSM 為 0。</li>
+<li><strong>FSM 是常數？</strong> 對矩形艙，在未滿艙前 FSM 近似常數；對有斜邊、艙頂結構或測深管的不規則艙，FSM 會隨液位變化。<strong>不要用一個最大值套用到所有液位。</strong></li>
+</ul>
+<h3 id="1955">19.5.5 淨容積、滲透率與可裝載容積</h3>
+<p>同一個艙區，至少有三種「容積」：</p>
+<table>
+<thead>
+<tr>
+<th>容積</th>
+<th>定義</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>毛容積（gross）</td>
+<td>艙區邊界圍出的完整體積</td>
+<td>初步佈置、幾何檢查</td>
+</tr>
+<tr>
+<td>淨容積（net）</td>
+<td>扣除艙內結構、管路、加熱盤管等佔據體積</td>
+<td>艙表、裝載計算</td>
+</tr>
+<tr>
+<td>可裝載容積</td>
+<td>依規範與營運限制（填充上限、膨脹餘裕）可裝的體積</td>
+<td>營運與法規</td>
+</tr>
+</tbody>
+</table>
+<p>受損穩度還會用到<strong>滲透率（permeability）</strong>：艙區受損後，海水能進入的體積比例。它不是艙櫃容積，而是艙區分類與規範的輸入。把「艙櫃表」與「受損艙區表」混在一起，是另一個常見的資料模型錯誤。</p>
+<h3 id="1956">19.5.6 艙表從哪裡來</h3>
+<p>對新船，艙表通常由船舶原理軟體或船廠的艙容計算程式產生，再經船級協會認可。AVEVA 可以提供：</p>
+<ul>
+<li>艙區邊界與幾何。</li>
+<li>結構佔據體積的扣除依據。</li>
+<li>艙櫃名稱、側別、類型與管嘴位置。</li>
+</ul>
+<p>但它不一定直接產生「船級認可的艙表」。比較穩妥的流程是：</p>
+<ol>
+<li>在 AVEVA 定義艙區與艙櫃，確認邊界與名稱。</li>
+<li>匯出艙區幾何或斷面到艙容計算工具。</li>
+<li>產生測深／空距對應的容積、LCG／TCG／VCG 與 FSM。</li>
+<li>由船級協會或認可單位審查。</li>
+<li>把審查後的艙表放進載重電腦，並保留版本與來源。</li>
+</ol>
+<blockquote>
+<p><strong>開發人員須知：</strong> 如果你們的載重電腦使用「三維直接計算」，AVEVA 的艙區幾何就是關鍵輸入；如果是「查表」，艙表才是關鍵輸入。兩者的資料契約不同，不要用同一份匯出檔交差。</p>
+</blockquote>
+<h2 id="196">19.6 座標、單位與符號：最便宜也最貴的錯誤</h2>
+<p>重量與重心資料只要方向或原點錯一個，整艘船的俯仰與穩度就會跟著錯。匯出前，先用一個<strong>已知點</strong>驗證兩邊的座標定義。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>常見約定</th>
+<th>必須確認</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X 原點</td>
+<td>艉垂線（AP）、FR0、船舯或艏垂線（FP）</td>
+<td>圖上與載重電腦用哪一個</td>
+</tr>
+<tr>
+<td>X 正向</td>
+<td>向艏為正（常見）</td>
+<td>是否有專案用向艉為正</td>
+</tr>
+<tr>
+<td>Y 原點</td>
+<td>中線（CL）</td>
+<td>左右舷哪一邊為正</td>
+</tr>
+<tr>
+<td>Y 正向</td>
+<td>左舷或右舷都可能</td>
+<td>用一個已知左／右舷構件驗證</td>
+</tr>
+<tr>
+<td>Z 原點</td>
+<td>基線（BL）</td>
+<td>是否從龍骨頂、基線或甲板量</td>
+</tr>
+<tr>
+<td>Z 正向</td>
+<td>向上為正（常見）</td>
+<td>是否有專案用向下為正</td>
+</tr>
+<tr>
+<td>俯仰正負</td>
+<td>艏吃水大於艉吃水為正（常見）</td>
+<td>載重電腦的定義可能相反</td>
+</tr>
+<tr>
+<td>橫傾正負</td>
+<td>右傾或左傾為正</td>
+<td>與 Y 正向一起確認</td>
+</tr>
+<tr>
+<td>單位</td>
+<td>t、kg、m、mm</td>
+<td>密度是 t/m³ 還是 kg/m³</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1961">19.6.1 一個實際的換算例</h3>
+<p>假設某專案的肋距是 0.8 m，X 原點在 AP，向艏為正；某構件在 FR 120、左舷 3.5 m、基線上方 7.2 m。若載重電腦的 X 原點在 FP，且 LBP 為 180 m，則：</p>
+<pre><code class="language-text">X_AP = 120 × 0.8 = 96.0 m
+X_FP = LBP − X_AP = 180 − 96.0 = 84.0 m
+Y = +3.5 m（若左舷為正）
+Z = 7.2 m
+</code></pre>
+<p>如果沒有先確認原點，這個構件會從「艏部」跑到「艉部」，而且總重量不變，對帳時只看總數是抓不出來的。<strong>對帳要對分組與重心，不是只對總重。</strong></p>
+<h3 id="1962">19.6.2 單位與密度的三個陷阱</h3>
+<ol>
+<li><strong>kg 與 t</strong>：AVEVA 的屬性可能是 kg，載重電腦要 t；差 1000 倍。</li>
+<li><strong>密度與比重</strong>：海水密度約 1.025 t/m³，淡水約 1.000 t/m³；不要把「1.025」當成無單位比重到處乘。</li>
+<li><strong>mm 與 m</strong>：板厚常用 mm，座標常用 m；計算體積時要統一。</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 在交換檔的 metadata 裡明寫單位與座標定義，比在程式裡「大家都知道」可靠。介面欄位名稱建議帶單位後綴，例如 <code>mass_t</code>、<code>lcg_m</code>、<code>fsm_tm</code>。</p>
+</blockquote>
+<h2 id="197">19.7 交換格式：一份兩邊都信得過的資料契約</h2>
+<h3 id="1971">19.7.1 必要的中介資料</h3>
+<p>一份可追溯的匯出檔，除了數字，還要帶這些「關於資料的資料」：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>範例</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schema</code></td>
+<td><code>aveva-loading-export/1.0</code></td>
+<td>格式版本，讓下游知道怎麼解析</td>
+</tr>
+<tr>
+<td><code>exportId</code></td>
+<td><code>S1234-20261102-001</code></td>
+<td>唯一識別這次匯出</td>
+</tr>
+<tr>
+<td><code>project</code>／<code>vessel</code></td>
+<td><code>S1234</code>／<code>HULL 123</code></td>
+<td>對應專案與船</td>
+</tr>
+<tr>
+<td><code>model.version</code></td>
+<td><code>2026-11-02T08:00Z</code> 或公司版本號</td>
+<td>這份快照對應哪一版模型</td>
+</tr>
+<tr>
+<td><code>extractor</code></td>
+<td>名稱與版本</td>
+<td>出問題時知道是哪支程式</td>
+</tr>
+<tr>
+<td><code>units</code></td>
+<td><code>t</code>、<code>m</code>、<code>t/m3</code>、<code>t*m</code></td>
+<td>避免單位誤解</td>
+</tr>
+<tr>
+<td><code>axes</code></td>
+<td>原點與正負</td>
+<td>避免方向誤解</td>
+</tr>
+<tr>
+<td><code>counts</code></td>
+<td>重量筆數、艙數、艙表點數</td>
+<td>快速檢查是否漏資料</td>
+</tr>
+<tr>
+<td><code>hash</code></td>
+<td>SHA-256</td>
+<td>檔案完整性與封存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1972-json">19.7.2 JSON 範例（節錄）</h3>
+<pre><code class="language-json">{
+  &quot;schema&quot;: &quot;aveva-loading-export/1.0&quot;,
+  &quot;exportId&quot;: &quot;S1234-20261102-001&quot;,
+  &quot;project&quot;: &quot;S1234&quot;,
+  &quot;vessel&quot;: &quot;HULL 123&quot;,
+  &quot;model&quot;: {
+    &quot;mdb&quot;: &quot;S1234_MDB&quot;,
+    &quot;version&quot;: &quot;2026-11-02T08:00Z&quot;,
+    &quot;frozenBy&quot;: &quot;design-office&quot;
+  },
+  &quot;extractor&quot;: {
+    &quot;name&quot;: &quot;wcg-export&quot;,
+    &quot;version&quot;: &quot;1.2.0&quot;,
+    &quot;runAt&quot;: &quot;2026-11-02T08:05Z&quot;
+  },
+  &quot;units&quot;: {
+    &quot;mass&quot;: &quot;t&quot;,
+    &quot;length&quot;: &quot;m&quot;,
+    &quot;density&quot;: &quot;t/m3&quot;,
+    &quot;fsm&quot;: &quot;t*m&quot;
+  },
+  &quot;axes&quot;: {
+    &quot;x&quot;: { &quot;origin&quot;: &quot;AP&quot;, &quot;positive&quot;: &quot;forward&quot; },
+    &quot;y&quot;: { &quot;origin&quot;: &quot;CL&quot;, &quot;positive&quot;: &quot;port&quot; },
+    &quot;z&quot;: { &quot;origin&quot;: &quot;BL&quot;, &quot;positive&quot;: &quot;up&quot; }
+  },
+  &quot;lightship&quot;: {
+    &quot;mass_t&quot;: 12500.0,
+    &quot;lcg_m&quot;: 78.40,
+    &quot;tcg_m&quot;: 0.02,
+    &quot;vcg_m&quot;: 9.10
+  },
+  &quot;weightGroups&quot;: [
+    { &quot;code&quot;: &quot;HULL-STEEL&quot;, &quot;mass_t&quot;: 8420.0, &quot;lcg_m&quot;: 79.10, &quot;vcg_m&quot;: 8.40 },
+    { &quot;code&quot;: &quot;OUTFIT&quot;, &quot;mass_t&quot;: 2180.0, &quot;lcg_m&quot;: 76.20, &quot;vcg_m&quot;: 10.80 }
+  ],
+  &quot;tanks&quot;: [
+    {
+      &quot;id&quot;: &quot;TANK-BW3P&quot;,
+      &quot;name&quot;: &quot;No.3 Ballast Port&quot;,
+      &quot;type&quot;: &quot;ballast&quot;,
+      &quot;side&quot;: &quot;P&quot;,
+      &quot;density_t_m3&quot;: 1.025,
+      &quot;capacity_m3&quot;: 1250.0,
+      &quot;points&quot;: [
+        { &quot;sounding_m&quot;: 0.0, &quot;ullage_m&quot;: 8.4, &quot;volume_m3&quot;: 0.0, &quot;lcg_m&quot;: 61.2, &quot;tcg_m&quot;: 4.8, &quot;vcg_m&quot;: 0.0, &quot;fsm_tm&quot;: 0.0 },
+        { &quot;sounding_m&quot;: 4.2, &quot;ullage_m&quot;: 4.2, &quot;volume_m3&quot;: 625.0, &quot;lcg_m&quot;: 61.2, &quot;tcg_m&quot;: 4.8, &quot;vcg_m&quot;: 2.1, &quot;fsm_tm&quot;: 310.0 },
+        { &quot;sounding_m&quot;: 8.4, &quot;ullage_m&quot;: 0.0, &quot;volume_m3&quot;: 1250.0, &quot;lcg_m&quot;: 61.2, &quot;tcg_m&quot;: 4.8, &quot;vcg_m&quot;: 4.2, &quot;fsm_tm&quot;: 0.0 }
+      ]
+    }
+  ],
+  &quot;counts&quot;: {
+    &quot;weightGroups&quot;: 7,
+    &quot;tanks&quot;: 14,
+    &quot;tankPoints&quot;: 310
+  }
+}
+</code></pre>
+<p>這個範例故意只放三個液位點，實際艙表通常更密。<strong>不要用三個點去內插一個形狀複雜的艙</strong>；點距要依艙形變化與精度要求決定。</p>
+<h3 id="1973-csv">19.7.3 CSV 的拆分方式</h3>
+<p>如果下游只吃 CSV，建議拆成三個檔，而不是一個大寬表：</p>
+<table>
+<thead>
+<tr>
+<th>檔案</th>
+<th>內容</th>
+<th>主鍵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>weights.csv</code></td>
+<td>分組與元素重量</td>
+<td><code>group_code</code> + <code>element_id</code></td>
+</tr>
+<tr>
+<td><code>tanks.csv</code></td>
+<td>艙櫃主檔</td>
+<td><code>tank_id</code></td>
+</tr>
+<tr>
+<td><code>tank_points.csv</code></td>
+<td>艙表液位點</td>
+<td><code>tank_id</code> + <code>sounding_m</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>weights.csv</code> 範例：</p>
+<pre><code class="language-csv">group_code,element_id,name,type,mass_t,lcg_m,tcg_m,vcg_m,include,note
+HULL-STEEL,PL-001,Shell plate S-12,HPLATE,1.234,82.10,0.00,6.40,1,
+HULL-STEEL,ST-001,Longitudinal L-05,HSTIFF,0.312,80.55,-2.10,7.05,1,
+OUTFIT,STR-010,Platform P-12,STRU,0.845,74.20,3.40,12.30,1,
+OUTFIT,EQP-003,Main engine,EQUI,185.000,42.00,0.00,5.20,1,catalogue weight
+</code></pre>
+<p><code>tank_points.csv</code> 範例：</p>
+<pre><code class="language-csv">tank_id,sounding_m,ullage_m,volume_m3,lcg_m,tcg_m,vcg_m,fsm_tm
+TANK-BW3P,0.0,8.4,0.0,61.2,4.8,0.0,0.0
+TANK-BW3P,4.2,4.2,625.0,61.2,4.8,2.1,310.0
+TANK-BW3P,8.4,0.0,1250.0,61.2,4.8,4.2,0.0
+</code></pre>
+<h3 id="1974-id">19.7.4 穩定 ID 與變更</h3>
+<ul>
+<li><strong>ID 不要用名稱。</strong> 艙名會因船東要求、語言或習慣改變；ID 應該在模型建立時產生，之後不變。</li>
+<li><strong>不要重複使用 ID。</strong> 刪除的艙如果 ID 被新艙重用，下游會把舊資料套到新艙。</li>
+<li><strong>刪除要明確。</strong> 匯出檔要能表達「這個 ID 已不存在」，而不是默默消失。用 <code>status: active/deleted</code> 或獨立的 delta 檔。</li>
+<li><strong>名稱可以改，但要留別名。</strong> 例如 <code>aliases: ["No.3 WBT P", "3P WBT"]</code>，方便與裝載手冊對照。</li>
+</ul>
+<h3 id="1975">19.7.5 檔案層級的保護</h3>
+<table>
+<thead>
+<tr>
+<th>措施</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>編碼</td>
+<td>UTF-8，不加 BOM（或依下游要求）</td>
+</tr>
+<tr>
+<td>原子寫入</td>
+<td>先寫 <code>.tmp</code>，完成後改名，避免下游讀到半檔</td>
+</tr>
+<tr>
+<td>完整性</td>
+<td>檔案附 SHA-256，匯入端比對</td>
+</tr>
+<tr>
+<td>權限</td>
+<td>匯出目錄唯讀給下游，只有匯出帳號可寫</td>
+</tr>
+<tr>
+<td>保存</td>
+<td>依公司與船級要求保留歷史快照，不要只留最新版</td>
+</tr>
+<tr>
+<td>日誌</td>
+<td>每次匯出記錄筆數、耗時、跳過元素、錯誤清單</td>
+</tr>
+</tbody>
+</table>
+<h2 id="198">19.8 對帳與測試：怎麼知道匯出是對的</h2>
+<h3 id="1981">19.8.1 三層對帳</h3>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>比對對象</th>
+<th>通過條件（範例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一層</td>
+<td>元素明細加總 vs 分組小計</td>
+<td>差額 &lt; 0.1% 或 0.5 t</td>
+</tr>
+<tr>
+<td>第二層</td>
+<td>分組小計 vs AVEVA WCoG 報表</td>
+<td>每個分組都在容許差內</td>
+</tr>
+<tr>
+<td>第三層</td>
+<td>匯入載重電腦後的總重與重心 vs 匯出檔</td>
+<td>完全一致（或僅差顯示精度）</td>
+</tr>
+</tbody>
+</table>
+<p>第一層抓「程式漏加」，第二層抓「分組定義不同」，第三層抓「匯入程式解析錯誤」。三層都要有紀錄，不能只看最後的總數。</p>
+<h3 id="1982">19.8.2 水艙抽查</h3>
+<p>至少抽查 3 個艙，每個艙比 4 個液位：</p>
+<ul>
+<li>空艙（0%）。</li>
+<li>25% 或 50%（液面自由）。</li>
+<li>75%（接近滿艙）。</li>
+<li>100%（滿艙）。</li>
+</ul>
+<p>比對項目：容積、LCG、TCG、VCG、FSM。數值來源可以是艙表、船舶原理軟體或手算的簡化幾何。<strong>抽查不是形式，是確認「查表邏輯」與「內插方向」都對。</strong></p>
+<h3 id="1983">19.8.3 測試案例</h3>
+<table>
+<thead>
+<tr>
+<th>案例</th>
+<th>目的</th>
+<th>預期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空船</td>
+<td>只有空船重量</td>
+<td>排水量等於空船重，吃水合理</td>
+</tr>
+<tr>
+<td>滿載</td>
+<td>貨物、壓載、油水都滿</td>
+<td>吃水不超過載重線，GM 與 SF／BM 合格</td>
+</tr>
+<tr>
+<td>半艙</td>
+<td>多個艙半滿</td>
+<td>FSM 正確計入，GM 下降</td>
+</tr>
+<tr>
+<td>橫傾</td>
+<td>單側壓載</td>
+<td>橫傾角與 TCG 符號正確</td>
+</tr>
+<tr>
+<td>俯仰</td>
+<td>艏艉艙不均</td>
+<td>艏艉吃水與 trim 符號正確</td>
+</tr>
+<tr>
+<td>受損</td>
+<td>一個艙區進水</td>
+<td>滲透率、自由液面與穩度曲線正確</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1984-python">19.8.4 自動化檢查（Python 範例）</h3>
+<pre><code class="language-python">import json
+import sys
+from collections import defaultdict
+
+with open(sys.argv[1], encoding=&quot;utf-8&quot;) as f:
+    data = json.load(f)
+
+tol = 0.001  # 0.1%，依公司規定調整
+
+# 1. 分組加總與空船總重對帳
+total = sum(g[&quot;mass_t&quot;] for g in data[&quot;weightGroups&quot;])
+assert abs(total - data[&quot;lightship&quot;][&quot;mass_t&quot;]) &lt;= tol * total, &quot;weight total mismatch&quot;
+
+# 2. 艙表單調性與邊界檢查
+for tank in data[&quot;tanks&quot;]:
+    pts = tank[&quot;points&quot;]
+    assert pts, f&quot;{tank['id']}: empty table&quot;
+    prev = -1.0
+    for p in pts:
+        assert p[&quot;volume_m3&quot;] &gt;= prev, f&quot;{tank['id']}: volume not monotonic&quot;
+        prev = p[&quot;volume_m3&quot;]
+    assert abs(pts[0][&quot;volume_m3&quot;]) &lt; 1e-9, f&quot;{tank['id']}: first point not empty&quot;
+    assert pts[0][&quot;fsm_tm&quot;] == 0, f&quot;{tank['id']}: empty tank has FSM&quot;
+    assert pts[-1][&quot;fsm_tm&quot;] == 0, f&quot;{tank['id']}: full tank has FSM&quot;
+    assert abs(pts[-1][&quot;volume_m3&quot;] - tank[&quot;capacity_m3&quot;]) &lt;= tol * tank[&quot;capacity_m3&quot;], \
+        f&quot;{tank['id']}: capacity mismatch&quot;
+
+# 3. 筆數檢查
+assert len(data[&quot;weightGroups&quot;]) == data[&quot;counts&quot;][&quot;weightGroups&quot;], &quot;group count mismatch&quot;
+assert len(data[&quot;tanks&quot;]) == data[&quot;counts&quot;][&quot;tanks&quot;], &quot;tank count mismatch&quot;
+assert sum(len(t[&quot;points&quot;]) for t in data[&quot;tanks&quot;]) == data[&quot;counts&quot;][&quot;tankPoints&quot;], &quot;point count mismatch&quot;
+
+print(&quot;OK:&quot;, data[&quot;exportId&quot;])
+</code></pre>
+<p>這段程式碼只檢查「內部一致性」，不檢查「物理正確性」。物理正確性要靠艙表抽查、與正式計算書比對，以及船級認可。</p>
+<h3 id="1985">19.8.5 簽核與凍結</h3>
+<p>匯出完成後，至少要留下：</p>
+<ul>
+<li>匯出檔與雜湊值。</li>
+<li>模型版本與 MDB。</li>
+<li>匯出工具版本。</li>
+<li>對帳報表與差異說明。</li>
+<li>簽核人與日期。</li>
+</ul>
+<p>這份紀錄就是日後「為什麼船上的數字和設計室不一樣」的答案來源。</p>
+<h2 id="199">19.9 變更管理：模型改了怎麼辦</h2>
+<p>載重電腦的輸入不是「匯出一次就結束」。模型會改，艙表會改，載重電腦的軟體也會改。建議把變更分成三級：</p>
+<table>
+<thead>
+<tr>
+<th>級別</th>
+<th>例子</th>
+<th>處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>輕微</td>
+<td>單一設備重量微調、非結構艙櫃修改</td>
+<td>更新快照，重跑對帳，記錄差異</td>
+</tr>
+<tr>
+<td>中度</td>
+<td>艙櫃邊界改變、壓載艙重新劃分、主要設備更換</td>
+<td>重算艙表，重新送認可，完整回歸測試</td>
+</tr>
+<tr>
+<td>重大</td>
+<td>船體加長、艙區重新配置、穩度曲線改變</td>
+<td>重新建立載重電腦模型，重新認可</td>
+</tr>
+</tbody>
+</table>
+<p>不論哪一級，都要回答三個問題：</p>
+<ol>
+<li>這次變更影響哪些重量分組與艙櫃？</li>
+<li>影響的量是否超過容許差？</li>
+<li>是否需要重新送船級協會？</li>
+</ol>
+<blockquote>
+<p><strong>專業提醒：</strong> 不要用「最新版模型」直接覆蓋船上正在用的版本。先產生候選快照，完成對帳與測試，再依變更流程發布。船上需要的是「可追溯的穩定版本」，不是「最新的版本」。</p>
+</blockquote>
+<h2 id="1910">19.10 法規與船級：載重電腦不是普通報表</h2>
+<p>載重電腦／穩度儀的資料與軟體，通常受下列規範約束：</p>
+<ul>
+<li><strong>SOLAS XII/11</strong>：適用範圍內的散貨船應裝設載重儀（loading instrument），並能在船上驗證 SF／BM 在容許範圍內。</li>
+<li><strong>2008 IS Code（完整穩度）</strong>：完整穩度準則與穩度儀的測試要求。</li>
+<li><strong>IACS UR L5</strong>：船上穩度計算電腦的統一要求，涵蓋輸入、計算、測試與文件。</li>
+<li><strong>IACS CSR</strong>：散貨船與油輪的縱向強度要求，載重儀的 SF／BM 容許曲線通常由此而來。</li>
+<li><strong>船級協會的個別規範</strong>：型式認可、軟體變更、年度測試與船上驗證。</li>
+</ul>
+<p>幾個實務重點：</p>
+<ol>
+<li><strong>載重儀是受認可的系統。</strong> 不是「公司自己寫的 Excel」；軟體、船舶模型與測試條件都要能被審查。</li>
+<li><strong>年度測試不是可選項。</strong> 船長通常需要在年度檢驗時，用至少一個經認可的測試裝載條件驗證準確性；實際要求依船級與船型〔待核對〕。</li>
+<li><strong>軟體變更要控制。</strong> 改匯出程式、改艙表、改計算模型，都可能影響結果；要有版本、測試與核准紀錄。</li>
+<li><strong>AVEVA 不是認可單位。</strong> AVEVA 提供設計資料；載重儀的認可與船上驗證，是船級協會與船東的責任。</li>
+</ol>
+<blockquote>
+<p><strong>開發人員須知：</strong> 如果你的匯出工具會影響載重儀的輸入，它就不只是「內部小工具」。從第一天就要有版本、測試與簽核；否則日後很難通過船級審查。</p>
+</blockquote>
+<h2 id="1911">19.11 完整範例：散貨船壓載與燃油匯出</h2>
+<h3 id="19111">19.11.1 情境</h3>
+<ul>
+<li>5 個貨艙，雙層底壓載艙左右各 4 對（共 8 艙）。</li>
+<li>燃油艙 2 個、柴油艙 2 個、淡水艙 2 個。</li>
+<li>空船重量 12,500 t，LCG 78.40 m（AP 起算），VCG 9.10 m，TCG 0.02 m。</li>
+<li>載重電腦使用 JSON 匯入，X 原點 AP、向艏為正；Y 左舷為正；Z 基線向上。</li>
+</ul>
+<h3 id="19112">19.11.2 步驟</h3>
+<ol>
+<li><strong>定義範圍。</strong> 只匯出空船分組與 14 個艙；貨物、船員、備品由營運端輸入。</li>
+<li><strong>確認屬性。</strong> 對三種代表元素（板、設備、艙）執行 <code>Q NWEI</code>、<code>Q NCOF</code>、<code>Q NVOL</code>，記錄可用性。</li>
+<li><strong>建立分組對照。</strong> 把 AVEVA 的階層對到載重電腦的 7 個重量分組。</li>
+<li><strong>抽重量。</strong> 依分組收集元素，輸出 <code>weights.csv</code>；父層與子層只能取一邊。</li>
+<li><strong>抽艙櫃。</strong> 取得艙名、側別、類型、密度、容量與測深管；確認左右艙分開。</li>
+<li><strong>產生艙表。</strong> 從艙容計算工具取得液位點；每個艙至少覆盖空、半、滿與形狀變化處。</li>
+<li><strong>對帳與測試。</strong> 跑三層對帳、抽查 3 個艙、執行 6 個測試案例，簽核後發布。</li>
+</ol>
+<h3 id="19113">19.11.3 重量分組對帳表（示意）</h3>
+<table>
+<thead>
+<tr>
+<th>分組</th>
+<th style="text-align: right;">重量（t）</th>
+<th style="text-align: right;">LCG（m）</th>
+<th style="text-align: right;">VCG（m）</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>船體鋼材</td>
+<td style="text-align: right;">8,420.0</td>
+<td style="text-align: right;">79.10</td>
+<td style="text-align: right;">8.40</td>
+<td>含板與骨材</td>
+</tr>
+<tr>
+<td>鐵舾裝</td>
+<td style="text-align: right;">2,180.0</td>
+<td style="text-align: right;">76.20</td>
+<td style="text-align: right;">10.80</td>
+<td>平台、梯子、基座</td>
+</tr>
+<tr>
+<td>設備</td>
+<td style="text-align: right;">1,120.0</td>
+<td style="text-align: right;">70.50</td>
+<td style="text-align: right;">9.60</td>
+<td>目錄重量</td>
+</tr>
+<tr>
+<td>管路與閥件</td>
+<td style="text-align: right;">380.0</td>
+<td style="text-align: right;">74.80</td>
+<td style="text-align: right;">8.90</td>
+<td>含支架</td>
+</tr>
+<tr>
+<td>電纜與電氣</td>
+<td style="text-align: right;">95.0</td>
+<td style="text-align: right;">72.30</td>
+<td style="text-align: right;">11.20</td>
+<td>電纜表</td>
+</tr>
+<tr>
+<td>絕緣與塗裝</td>
+<td style="text-align: right;">180.0</td>
+<td style="text-align: right;">75.60</td>
+<td style="text-align: right;">9.40</td>
+<td>依表面積估算</td>
+</tr>
+<tr>
+<td>裕度</td>
+<td style="text-align: right;">125.0</td>
+<td style="text-align: right;">78.00</td>
+<td style="text-align: right;">9.00</td>
+<td>公司政策</td>
+</tr>
+<tr>
+<td><strong>合計</strong></td>
+<td style="text-align: right;"><strong>12,500.0</strong></td>
+<td style="text-align: right;"><strong>78.40</strong></td>
+<td style="text-align: right;"><strong>9.10</strong></td>
+<td>與 WCoG 表比對</td>
+</tr>
+</tbody>
+</table>
+<p>合計的 LCG／VCG 不是各分組的算術平均，而是<strong>重量加權</strong>：</p>
+<pre><code class="language-text">LCG_total = Σ(mass_i × LCG_i) / Σmass_i
+VCG_total = Σ(mass_i × VCG_i) / Σmass_i
+TCG_total = Σ(mass_i × TCG_i) / Σmass_i
+</code></pre>
+<h3 id="19114">19.11.4 艙表抽查（矩形艙驗算）</h3>
+<p>用一個 10 m × 8 m × 6 m 的矩形艙做 sanity check（僅用於驗證程式，不是實際艙）：</p>
+<ul>
+<li>容積：<code>V = 10 × 8 × h</code></li>
+<li>LCG：5.0 m（固定）</li>
+<li>TCG：0.0 m</li>
+<li>VCG：<code>h / 2</code></li>
+<li>自由液面慣性矩：<code>I = L × B³ / 12 = 10 × 512 / 12 = 426.67 m⁴</code></li>
+<li>FSM：<code>ρ × I = 1.025 × 426.67 = 437.33 t·m</code>（未滿艙時近似常數）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">測深 h（m）</th>
+<th style="text-align: right;">容積（m³）</th>
+<th style="text-align: right;">VCG（m）</th>
+<th style="text-align: right;">FSM（t·m）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">80.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">437.3</td>
+</tr>
+<tr>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">240.0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">437.3</td>
+</tr>
+<tr>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">400.0</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">437.3</td>
+</tr>
+<tr>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">480.0</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>如果程式在滿艙時仍算出 437.3 t·m，就是沒有處理「滿艙無自由液面」；如果半艙的 FSM 是 0，就是漏算自由液面。這兩個錯誤都會讓 GM 偏樂觀。</p>
+<h3 id="19115">19.11.5 匯入後的檢查</h3>
+<table>
+<thead>
+<tr>
+<th>檢查</th>
+<th>方法</th>
+<th>通過條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>總重</td>
+<td>載重電腦匯入報表 vs JSON</td>
+<td>差 &lt; 0.01 t</td>
+</tr>
+<tr>
+<td>LCG／VCG／TCG</td>
+<td>匯入報表 vs JSON</td>
+<td>差 &lt; 0.001 m</td>
+</tr>
+<tr>
+<td>艙數</td>
+<td>匯入清單 vs <code>counts.tanks</code></td>
+<td>完全相同</td>
+</tr>
+<tr>
+<td>艙表點數</td>
+<td>匯入清單 vs <code>counts.tankPoints</code></td>
+<td>完全相同</td>
+</tr>
+<tr>
+<td>空艙／滿艙 FSM</td>
+<td>抽查</td>
+<td>都為 0</td>
+</tr>
+<tr>
+<td>抽艙容積</td>
+<td>25／50／75／100%</td>
+<td>與認可艙表一致</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1912">19.12 常見錯誤</h2>
+<table>
+<thead>
+<tr>
+<th>錯誤</th>
+<th>症狀</th>
+<th>原因</th>
+<th>對策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>父層與子層重複計算</td>
+<td>總重偏高</td>
+<td>同時取聚合與明細</td>
+<td>只取葉節點或只取父層小計</td>
+</tr>
+<tr>
+<td>淨重與毛重混用</td>
+<td>重量差幾個百分點</td>
+<td>不確定 <code>NWEI</code>／<code>GWEI</code> 的定義</td>
+<td>用已知元件比對，固定使用一種</td>
+</tr>
+<tr>
+<td>kg 當成 t</td>
+<td>總重差 1000 倍</td>
+<td>單位未統一</td>
+<td>metadata 寫單位，欄位加後綴</td>
+</tr>
+<tr>
+<td>X 原點用錯</td>
+<td>重心前後偏移</td>
+<td>AP／FP／FR0 混用</td>
+<td>用已知點驗證，記錄原點</td>
+</tr>
+<tr>
+<td>Y 正負用錯</td>
+<td>左右艙互換</td>
+<td>左舷／右舷正向不同</td>
+<td>用已知左／右舷構件驗證</td>
+</tr>
+<tr>
+<td>只有 100% 容積</td>
+<td>中間液位不準</td>
+<td>沒有艙表</td>
+<td>產生完整液位點</td>
+</tr>
+<tr>
+<td>滿艙仍有 FSM</td>
+<td>GM 偏保守或偏樂觀</td>
+<td>沒有處理滿艙</td>
+<td>滿艙 FSM 設 0</td>
+</tr>
+<tr>
+<td>半艙 FSM 為 0</td>
+<td>GM 偏樂觀</td>
+<td>漏算自由液面</td>
+<td>每個液位點都算 FSM</td>
+</tr>
+<tr>
+<td>艙表未做俯仰修正</td>
+<td>艏艉吃水不準</td>
+<td>平浮艙表直接用</td>
+<td>用修正或三維計算</td>
+</tr>
+<tr>
+<td>毛容積當淨容積</td>
+<td>艙容偏大</td>
+<td>未扣結構</td>
+<td>使用淨容積並註明</td>
+</tr>
+<tr>
+<td>艙名當 ID</td>
+<td>改名後對不上</td>
+<td>名稱不穩定</td>
+<td>使用不可變 ID</td>
+</tr>
+<tr>
+<td>刪除艙仍留在檔內</td>
+<td>幽靈艙櫃</td>
+<td>沒有刪除標記</td>
+<td>使用 <code>status</code> 或 delta</td>
+</tr>
+<tr>
+<td>貨物重心當艙重心</td>
+<td>貨物穩度錯</td>
+<td>把液體艙表套到固體貨</td>
+<td>固體貨另建模型</td>
+</tr>
+<tr>
+<td>裕度重複</td>
+<td>總重偏高</td>
+<td>分組已含裕度又加一次</td>
+<td>裕度只放一層</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1913">19.13 開發人員須知</h2>
+<ol>
+<li><strong>先定義契約，再寫程式。</strong> 欄位、單位、座標、ID、版本與錯誤處理，先寫成一頁規格，再開始匯出。</li>
+<li><strong>只讀，不寫回。</strong> 匯出工具不應該修改 AVEVA 模型；需要修正資料時，走設計變更流程。</li>
+<li><strong>分組是為了對帳。</strong> 沒有分組的總重，無法定位差異。</li>
+<li><strong>缺值不是 0。</strong> 重量或重心缺失時，輸出 <code>null</code> 並記錄原因，不要默默補 0。</li>
+<li><strong>排序要穩定。</strong> 每次匯出的元素順序要一致，否則 diff 會充滿雜訊。</li>
+<li><strong>可重跑。</strong> 同一版模型、同一版工具，應該產生相同內容（雜湊可不同，因時間戳）。</li>
+<li><strong>記錄跳過的元素。</strong> 「為什麼這台泵沒出現」要有答案。</li>
+<li><strong>設定外部化。</strong> 分組對照、艙型分類、單位轉換、輸出路徑，都放在設定檔。</li>
+<li><strong>用已知船驗證。</strong> 找一艘有正式計算書的船，逐項比對，不要只用新建的小模型。</li>
+<li><strong>把法規當需求。</strong> 船級認可、年度測試、軟體變更控制，從一開始就納入設計。</li>
+</ol>
+<h2 id="1914">19.14 練習（只能在訓練專案）</h2>
+<ol>
+<li><strong>屬性探索。</strong> 選一個板、一台設備、一個艙，分別執行 <code>Q NWEI</code>、<code>Q GWEI</code>、<code>Q NCOF</code>、<code>Q GCOF</code>、<code>Q NVOL</code>，記錄哪些有值、單位是什麼。</li>
+<li><strong>分組對照。</strong> 為你們公司的載重電腦重量分組，建立一張 AVEVA 階層對照表，標明「包含」與「排除」。</li>
+<li><strong>匯出重量。</strong> 用 PML 或 .NET 匯出一個分組的明細 CSV，加上 metadata 與筆數；再用 Excel 樞紐分析驗證小計。</li>
+<li><strong>艙表驗算。</strong> 用 19.11.4 的矩形艙，寫一個小程式產生 11 個液位點，檢查容積單調、空艙與滿艙 FSM 為 0。</li>
+<li><strong>對帳程式。</strong> 用 19.8.4 的 Python 範例，對你們的匯出檔跑一次，故意改壞一個數字，確認它會失敗。</li>
+<li><strong>測試案例。</strong> 依 19.8.3 設計六個裝載案例，寫出每個案例的預期吃水、trim、GM 與 SF／BM 檢查點。</li>
+</ol>
+<h2 id="1915">19.15 自我檢核</h2>
+<ul>
+<li>[ ] 我能說明載重電腦與 AVEVA 的分工，以及為什麼需要凍結快照。</li>
+<li>[ ] 我能列出載重電腦的四類輸入資料，並指出 AVEVA 直接提供哪些。</li>
+<li>[ ] 我能區分 <code>NWEI</code>／<code>GWEI</code> 與 <code>NCOF</code>／<code>GCOF</code>，並知道使用前要驗證。</li>
+<li>[ ] 我能設計可對帳的重量分組，並說出三種重複計算的情境。</li>
+<li>[ ] 我能列出水艙表的必要欄位，並解釋測深與空距的關係。</li>
+<li>[ ] 我能說明自由液面力矩的公式、滿艙與空艙為什麼是 0。</li>
+<li>[ ] 我能分辨毛容積、淨容積、可裝載容積與滲透率。</li>
+<li>[ ] 我能用已知點驗證 X／Y／Z 的原點與正負。</li>
+<li>[ ] 我能寫出一份含版本、單位、座標與雜湊的資料契約。</li>
+<li>[ ] 我能執行三層對帳、水艙抽查與六個測試案例。</li>
+<li>[ ] 我知道載重儀的船級認可、年度測試與軟體變更控制的重要性。</li>
+</ul>
+<h2 id="_1">資料來源</h2>
+<ul>
+<li>AVEVA 官方文件：<a href="https://docs.aveva.com/bundle/hull-and-outfitting/page/1139789.html">Weight and Centre of Gravity (CofG) form</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/3.1/DMRM/DMRM_FP.html">Data Model Reference Manual（E3D 3.1）</a>、<a href="https://help.aveva.com/AVEVA_Everything3D/2.1/PMLPUG/PMLCG12.12.1.html">PML Customisation User Guide（檔案與屬性章節）</a>。重量與重心屬性名稱另參考 PDMS/E3D 語法資料中的 <code>NWEI</code>、<code>GWEI</code>、<code>NCOF</code>、<code>GCOF</code>、<code>NVOL</code>、<code>DNST</code> 查詢說明。</li>
+<li>IACS：<a href="https://iacs.org.uk/resolutions/unified-requirements">Unified Requirement L5 — Onboard Computers for Stability Calculations</a>；<a href="https://iacs.org.uk/resolutions/common-structural-rules">Common Structural Rules</a>。</li>
+<li>IMO：<a href="https://wwwcdn.imo.org/localresources/en/KnowledgeCentre/IndexofIMOResolutions/MSCResolutions/MSC.267(85).pdf">International Code on Intact Stability, 2008（MSC.267(85)）</a>；<a href="https://www.imo.org/en/About/Conventions/Pages/International-Convention-for-the-Safety-of-Life-at-Sea-(SOLAS),-1974.aspx">SOLAS</a>。SOLAS XII/11 的載重儀要求與適用範圍，請查現行 consolidated edition。</li>
+<li>船舶原理與穩度：SNAME，《Principles of Naval Architecture》；IMO 穩度相關課程教材。艙表、自由液面與俯仰修正的通用概念，本章只做工程導讀，未引用特定頁次或數值。</li>
+<li>載重電腦實務：<a href="https://www.napa.fi/software-and-services/ship-operations/napa-loading-computer/">NAPA Loading Computer</a>、<a href="https://autoship.com/">ASC Marine Loading Computer</a>、<a href="https://metacad.io/en/knowledge/loading-computer-intro/">MetaCAD：Loading Computer 入門</a>（僅供概念參考，非本章數據來源）。</li>
+<li>本課程延伸：<a href="ch05_hull_modelling_zh-TW.reading.html">第 5 章 船體建模</a>、<a href="ch06_hull_production_zh-TW.reading.html">第 6 章 生產資訊</a>、<a href="ch07_outfitting_zh-TW.reading.html">第 7 章 舾裝設計</a>、<a href="ch08_catalogue_spec_zh-TW.reading.html">第 8 章 目錄與等級</a>、<a href="ch09_drawings_zh-TW.reading.html">第 9 章 圖面與報表</a>、<a href="ch16_reports_integration_zh-TW.reading.html">第 16 章 報表與整合</a>、<a href="ch17_debug_deploy_zh-TW.reading.html">第 17 章 除錯與部署</a>。</li>
+</ul>
+<blockquote>
+<p><strong>授權與界線：</strong> 本章文字、表格與兩張圖解為本課程自製，可在公司內部教學使用；不重製官方手冊的圖表或長段文字。所有艙表數值、重量與法規要求均為示意，實際應用請以公司安裝版本、船級認可文件與現行法規為準。</p>
+</blockquote><nav class="pager" aria-label="上一篇與下一篇"><a class="prev" href="ch18_case_studies_zh-TW.reading.html"><small>← 上一篇</small>第 18 章　實戰案例與完整範例</a><a class="next" href="appx_a_resources_zh-TW.reading.html"><small>下一篇 →</small>附錄 A　專業資源與官方訓練地圖</a></nav></article></div><footer>AVEVA 學習工作室 · 本地離線教材</footer></body></html>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" role="img" aria-label="載重電腦資料流：從 AVEVA 模型經抽取、驗證到載重電腦">
+  <title>載重電腦資料流</title>
+  <defs>
+    <marker id="a19" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 z" fill="#2f6f8f"/>
+    </marker>
+    <marker id="a19b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 z" fill="#b8791d"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="30" fill="#123a5c" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="17" font-weight="700">設計模型 → 交換快照 → 營運計算</text>
+  <text x="30" y="51" fill="#65788a" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="12">AVEVA 負責幾何與重量資料；載重電腦負責穩度、俯仰與縱向強度計算。</text>
+
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif">
+    <rect x="28" y="80" width="170" height="168" rx="12" fill="#e8f2f8" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="113" y="106" fill="#123a5c" font-size="13" font-weight="700" text-anchor="middle">AVEVA Marine</text>
+    <text x="44" y="132" fill="#3f5566" font-size="11.5">Hull 船體結構</text>
+    <text x="44" y="152" fill="#3f5566" font-size="11.5">Outfitting 舾裝</text>
+    <text x="44" y="172" fill="#3f5566" font-size="11.5">Weight &amp; COG 表</text>
+    <text x="44" y="192" fill="#3f5566" font-size="11.5">Tank／Compartment</text>
+    <text x="44" y="222" fill="#8a6a3a" font-size="10.5">版本凍結的唯讀來源</text>
+
+    <rect x="238" y="80" width="170" height="168" rx="12" fill="#fff" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="323" y="106" fill="#123a5c" font-size="13" font-weight="700" text-anchor="middle">抽取器</text>
+    <text x="254" y="132" fill="#3f5566" font-size="11.5">PML／Vitesse</text>
+    <text x="254" y="152" fill="#3f5566" font-size="11.5">.NET Add-in</text>
+    <text x="254" y="172" fill="#3f5566" font-size="11.5">查屬性、算分組</text>
+    <text x="254" y="192" fill="#3f5566" font-size="11.5">產生穩定 ID</text>
+    <text x="254" y="222" fill="#8a6a3a" font-size="10.5">唯讀，不寫回模型</text>
+
+    <rect x="448" y="80" width="170" height="168" rx="12" fill="#fff8ee" stroke="#b8791d" stroke-width="1.6"/>
+    <text x="533" y="106" fill="#7a5310" font-size="13" font-weight="700" text-anchor="middle">交換快照</text>
+    <text x="464" y="132" fill="#5c4a2e" font-size="11.5">JSON 或 CSV</text>
+    <text x="464" y="152" fill="#5c4a2e" font-size="11.5">schema 版本</text>
+    <text x="464" y="172" fill="#5c4a2e" font-size="11.5">單位與座標定義</text>
+    <text x="464" y="192" fill="#5c4a2e" font-size="11.5">筆數與雜湊值</text>
+    <text x="464" y="222" fill="#8a6a3a" font-size="10.5">可封存、可重送</text>
+
+    <rect x="658" y="80" width="254" height="168" rx="12" fill="#eef5f9" stroke="#2f6f8f" stroke-width="1.6"/>
+    <text x="785" y="106" fill="#123a5c" font-size="13" font-weight="700" text-anchor="middle">載重電腦</text>
+    <text x="674" y="132" fill="#3f5566" font-size="11.5">空船重量與重心</text>
+    <text x="674" y="152" fill="#3f5566" font-size="11.5">死重量與艙櫃裝載</text>
+    <text x="674" y="172" fill="#3f5566" font-size="11.5">浮力、GM／GZ、俯仰</text>
+    <text x="674" y="192" fill="#3f5566" font-size="11.5">縱向強度 SF／BM</text>
+    <text x="674" y="222" fill="#8a6a3a" font-size="10.5">船級認可的計算引擎</text>
+  </g>
+
+  <g stroke="#2f6f8f" stroke-width="1.8" fill="none">
+    <line x1="198" y1="164" x2="232" y2="164" marker-end="url(#a19)"/>
+    <line x1="408" y1="164" x2="442" y2="164" marker-end="url(#a19)"/>
+  </g>
+  <line x1="618" y1="164" x2="652" y2="164" stroke="#b8791d" stroke-width="1.8" fill="none" marker-end="url(#a19b)"/>
+
+  <g font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="10.5" fill="#65788a">
+    <text x="205" y="156" text-anchor="middle">查詢</text>
+    <text x="415" y="156" text-anchor="middle">序列化</text>
+    <text x="625" y="156" text-anchor="middle">匯入</text>
+  </g>
+
+  <rect x="28" y="274" width="884" height="58" rx="10" fill="#f4f7f9" stroke="#dbe3e9"/>
+  <text x="42" y="296" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="11.5" fill="#3f5566">三個不可省略的關卡：<tspan font-weight="700">① 版本</tspan>（這份快照對應哪一版模型）、<tspan font-weight="700">② 對帳</tspan>（分組總和是否等於總表）、<tspan font-weight="700">③ 測試</tspan>（空艙、滿艙、半艙、橫傾與俯仰）。</text>
+  <text x="42" y="317" font-family="Segoe UI, Microsoft JhengHei, sans-serif" font-size="11.5" fill="#8a6a3a">任何一關沒有紀錄，出了問題就無法證明「當初匯出的就是這一版」。</text>
+</svg>

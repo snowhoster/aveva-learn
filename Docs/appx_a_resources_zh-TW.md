@@ -201,6 +201,7 @@ Marine 12.1 的安裝目錄 `Documentation\` 附有大量說明檔與範例，�
 | 16 | 報表與整合 | PML Customisation 檔案章節（A.2.2） | Cheon 等 (2013)、Han 等 (2021)、ISO 10303-242、Hmeshah (2016)、pml-json、pmlsqlite |
 | 17 | 除錯與部署 | PML Publisher、PML 3.1 追蹤章節（A.2.2） | PmlUnit、AVEVA Community Macros & Tools、Hmeshah (2016) 的檢查框架 |
 | 18 | 案例 | JAMET 論文 | K-SUPPORT、中文期刊論文、2025 鐵舾二次開發文章 |
+| 19 | 載重電腦整合 | AVEVA WCoG、`NWEI`／`NCOF` 屬性、PML 匯出 | IACS UR L5、2008 IS Code、SOLAS XII/11、CSR、NAPA／ASC 文件 |
 | 領域 | 造船背景知識 | [造船領域知識（獨立課程）](shipbuilding_fundamentals.html) | IMO 公約、IACS 規範、SNAME 教科書；本課程第 3–9 章 |
 
 > **延伸閱讀：** 上表的資料「怎麼讀、先讀哪一段、能帶走什麼」，見[附錄 C](appx_c_reading_list_zh-TW.reading.html)。C.7 另有一份依章節排列的閱讀路線。
